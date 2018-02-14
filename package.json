@@ -4,7 +4,7 @@
   "author": "nOS",
   "version": "0.1.0",
   "private": true,
-  "main": "main.js",
+  "main": "public/electron.js",
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -19,8 +19,9 @@
     "eject": "react-scripts eject",
     "start-react": "cross-env BROWSER=none react-scripts start",
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "pack": "yarn run build && electron-builder --dir",
+    "dist": "yarn run build && electron-builder",
+    "clean": "rm -rf build && rm -rf dist",
     "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {

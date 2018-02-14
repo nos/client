@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 const Home = () => (
   <p className="App-intro">
@@ -11,6 +11,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+      <Redirect to="/" />
     </Switch>
   );
 }
