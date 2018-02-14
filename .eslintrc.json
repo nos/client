@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  },
+  "globals": {
+  },
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }],
+    "function-paren-newline": ["error", "consistent"],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }]
+  }
+}
