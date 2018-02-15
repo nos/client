@@ -1,10 +1,22 @@
 /* eslint-disable */
 const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-
+const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
+
+const { app, BrowserWindow } = electron;
+
+function installExtensions() {
+  const {
+    default: installer,
+    REACT_DEVELOPER_TOOLS,
+    REDUX_DEVTOOLS
+  } = require('electron-devtools-installer');
+
+  const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
+
+  return Promise.all(extensions.map((extension) => installer(extension)));
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,7 +37,13 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  if (isDev) {
+    installExtensions().then(createWindow);
+  } else {
+    createWindow();
+  }
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {

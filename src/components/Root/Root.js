@@ -1,13 +1,12 @@
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import App from '../App';
 import Routes from '../Routes';
-import reducers from '../../reducers';
+import configureStore from '../../store/configureStore';
 
-const store = createStore(reducers);
+const store = configureStore();
 
 export default function Root() {
   return (
