@@ -8,6 +8,7 @@
   "globals": {
   },
   "rules": {
+    "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }],
     "function-paren-newline": ["error", "consistent"],

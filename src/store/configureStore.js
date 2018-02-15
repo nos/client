@@ -1,0 +1,29 @@
+/* eslint-disable import/no-extraneous-dependencies, global-require */
+import { createStore, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import { identity } from 'lodash';
+
+import reducers from '../reducers';
+
+export default function configureStore(history) {
+  const initialState = {};
+
+  const middleware = [
+    routerMiddleware(history)
+  ];
+
+  const composeWithDevTools = process.env.NODE_ENV === 'production'
+    ? identity
+    : require('redux-devtools-extension').composeWithDevTools;
+
+  const enhancers = composeWithDevTools(applyMiddleware(...middleware));
+  const store = createStore(reducers, initialState, enhancers);
+
+  if (module.hot) {
+    module.hot.accept('../reducers', () => {
+      store.replaceReducer(require('../reducers').default);
+    });
+  }
+
+  return store;
+}
