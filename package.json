@@ -21,7 +21,7 @@
   "scripts": {
     "start": "concurrently 'yarn run start-react' 'wait-on http://localhost:3000/ && yarn run start-electron' --kill-others --success first",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill",
     "eject": "react-scripts eject",
     "start-react": "cross-env BROWSER=none react-scripts start",
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
@@ -41,6 +41,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
+    "raf": "^3.4.0",
     "redux-devtools-extension": "^2.13.2",
     "wait-on": "^2.1.0"
   },
