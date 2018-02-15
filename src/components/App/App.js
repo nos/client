@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { node } from 'prop-types';
 
 import logo from './logo.svg';
-import './App.css';
+import styles from './App.module.scss';
 
 export default function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to React</h1>
+    <div className={styles.app}>
+      <header className={styles.header}>
+        <img src={logo} className={styles.logo} alt="logo" />
+        <h1 className={styles.title}>Welcome to React</h1>
         <NavLink exact to="/">Home</NavLink>
       </header>
       <div>
