@@ -1,21 +1,23 @@
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+import createHistory from 'history/createHashHistory';
 
 import App from '../App';
 import Routes from '../Routes';
 import configureStore from '../../store/configureStore';
 
-const store = configureStore();
+const history = createHistory();
+const store = configureStore(history);
 
 export default function Root() {
   return (
-    <HashRouter>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
         <App>
           <Routes />
         </App>
-      </Provider>
-    </HashRouter>
+      </ConnectedRouter>
+    </Provider>
   );
 }
