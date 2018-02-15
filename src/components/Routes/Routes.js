@@ -1,11 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-const Home = () => (
-  <p className="App-intro">
-    To get started, edit <code>src/App.js</code> and save to reload.
-  </p>
-);
+import Home from '../Home';
 
 export default function Routes() {
   return (
