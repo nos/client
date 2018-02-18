@@ -13,6 +13,46 @@
     "comma-dangle": ["error", "never"],
     "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }],
     "function-paren-newline": ["error", "consistent"],
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/sort-comp": ["error", {
+      "order": [
+        "static-methods",
+        "type-annotations",
+        "lifecycle",
+        "renderers",
+        "handlers",
+        "everything-else"
+      ],
+      "groups": {
+        "lifecycle": [
+          "displayName",
+          "propTypes",
+          "contextTypes",
+          "childContextTypes",
+          "mixins",
+          "statics",
+          "defaultProps",
+          "constructor",
+          "getDefaultProps",
+          "getInitialState",
+          "state",
+          "getChildContext",
+          "componentWillMount",
+          "componentDidMount",
+          "componentWillReceiveProps",
+          "shouldComponentUpdate",
+          "componentWillUpdate",
+          "componentDidUpdate",
+          "componentWillUnmount"
+        ],
+        "renderers": [
+          "render",
+          "/^render.+$/"
+        ],
+        "handlers": [
+          "/^handle.+$/"
+        ]
+      }
+    }]
   }
 }
