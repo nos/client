@@ -29,12 +29,8 @@ export default class DAppExample extends React.Component {
   }
 
   getPreloadPath = () => {
-    if (process.platform === 'darwin' && process.env.NODE_ENV !== 'production') {
-      // On MacOS, the preloadRenderer.js file is not included in the `.asar` file when running
-      // in development.  To work around this, just point to the `public` development version.
-      return `file:${path.join(__dirname, '../../../../../../../../public/preloadRenderer.js')}`;
-    } else {
-      return `file:${path.join(__dirname, 'preloadRenderer.js')}`;
-    }
+    console.log('process.env', process.env);
+    const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
+    return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
   }
 }

@@ -1,4 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const path = require('path');
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const postCssFlexBugsFixes = require('postcss-flexbugs-fixes');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -69,7 +71,22 @@ function injectTarget(config, _env) {
   });
 }
 
+function injectPublicPath(config, env) {
+  if (env === 'production') {
+    return config;
+  }
+
+  return merge({}, config, {
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env.PUBLIC_PATH': JSON.stringify(path.join(__dirname, 'public'))
+      })
+    ]
+  });
+}
+
 module.exports = compose(
   injectTarget,
-  injectSassLoader
+  injectSassLoader,
+  injectPublicPath
 );
