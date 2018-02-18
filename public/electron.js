@@ -4,7 +4,22 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, ipcMain: ipc } = electron;
+
+// Manage login state on the main app.
+let wif = null;
+
+ipc.on('login', (event, { wif: newWif }) => {
+  wif = newWif;
+});
+
+ipc.on('logout', (event) => {
+  wif = null;
+});
+
+ipc.on('get-wif', (event, arg) => {
+  event.returnValue = wif;
+});
 
 function installExtensions() {
   const {
