@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { node } from 'prop-types';
 
 import logo from './logo.svg';
-import styles from './App.module.scss';
+import styles from './App.scss';
 
 export default function App(props) {
   return (
@@ -11,8 +11,14 @@ export default function App(props) {
       <header className={styles.header}>
         <img src={logo} className={styles.logo} alt="logo" />
         <h1 className={styles.title}>Welcome to React</h1>
-        <NavLink exact to="/">Home</NavLink>
       </header>
+      <div>
+        <NavLink exact to="/">Home</NavLink>
+        {' | '}
+        <NavLink exact to="/login">Login</NavLink>
+        {' | '}
+        <NavLink exact to="/dapp">DApp Example</NavLink>
+      </div>
       <div>
         {props.children}
       </div>
