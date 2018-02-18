@@ -12,6 +12,7 @@
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-else-return": ["off"],
     "function-paren-newline": ["error", "consistent"],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/sort-comp": ["error", {
