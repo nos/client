@@ -19,7 +19,7 @@
     "redux": "^3.7.2"
   },
   "scripts": {
-    "start": "concurrently 'yarn run start-react' 'wait-on http://localhost:3000/ && yarn run start-electron' --kill-others --success first",
+    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "start-react": "cross-env BROWSER=none react-app-rewired start",
