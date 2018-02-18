@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { node } from 'prop-types';
 
 import logo from './logo.svg';
-import styles from './App.module.scss';
+import styles from './App.scss';
 
 export default function App(props) {
   return (
