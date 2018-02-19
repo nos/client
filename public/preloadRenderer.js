@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 const { ipcRenderer: ipc } = require('electron');
 
 const { alert } = window;

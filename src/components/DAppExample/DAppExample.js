@@ -29,7 +29,6 @@ export default class DAppExample extends React.Component {
   }
 
   getPreloadPath = () => {
-    console.log('process.env', process.env);
     const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
     return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
   }

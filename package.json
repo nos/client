@@ -36,6 +36,8 @@
     "electron": "^1.8.2",
     "electron-builder": "^19.56.0",
     "electron-devtools-installer": "^2.2.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
@@ -45,10 +47,12 @@
     "node-sass": "^4.7.2",
     "postcss-flexbugs-fixes": "^3.3.0",
     "react-app-rewired": "^1.4.1",
+    "react-router-test-context": "^0.1.0",
     "react-scripts": "^1.1.1",
     "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6",
-    "wait-on": "^2.1.0"
+    "wait-on": "^2.1.0",
+    "webpack": "^3.11.0"
   },
   "build": {
     "appId": "com.nos.electron",
