@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 
 import styles from './Login.scss';
-
-const { func } = PropTypes;
 
 export default class Login extends React.Component {
   static propTypes = {
@@ -19,7 +17,7 @@ export default class Login extends React.Component {
       <div className={styles.login}>
         <label htmlFor="wif">
           WIF:
-          <input id="wif" type="text" value={this.state.wif} onChange={this.handleChange} />
+          <input id="wif" type="password" value={this.state.wif} onChange={this.handleChange} />
         </label>
         <button type="button" onClick={this.handleLogin}>Login</button>
       </div>

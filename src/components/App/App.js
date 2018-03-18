@@ -1,7 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { node } from 'prop-types';
+import { bool, node } from 'prop-types';
 
+import Navigation from './Navigation';
 import logo from './logo.svg';
 import styles from './App.scss';
 
@@ -12,13 +12,7 @@ export default function App(props) {
         <img src={logo} className={styles.logo} alt="logo" />
         <h1 className={styles.title}>Welcome to React</h1>
       </header>
-      <div>
-        <NavLink exact to="/">Home</NavLink>
-        {' | '}
-        <NavLink exact to="/login">Login</NavLink>
-        {' | '}
-        <NavLink exact to="/dapp">DApp Example</NavLink>
-      </div>
+      <Navigation authenticated={props.authenticated} />
       <div>
         {props.children}
       </div>
@@ -26,10 +20,14 @@ export default function App(props) {
   );
 }
 
+App.displayName = 'App';
+
 App.propTypes = {
-  children: node
+  children: node,
+  authenticated: bool
 };
 
 App.defaultProps = {
-  children: null
+  children: null,
+  authenticated: false
 };

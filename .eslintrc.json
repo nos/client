@@ -17,7 +17,7 @@
     "no-else-return": ["off"],
     "function-paren-newline": ["error", "consistent"],
     "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": ["**/*.test.js", "config-overrides.js", "setupTests.js"]
+      "devDependencies": ["**/*.test.js", "config-overrides.js", "setupTests.js", "testHelpers.js"]
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/sort-comp": ["error", {
