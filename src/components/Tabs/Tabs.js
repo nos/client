@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { string, func, objectOf } from 'prop-types';
 import { map } from 'lodash';
 
@@ -6,18 +7,23 @@ import styles from './Tabs.scss';
 
 export default class Tabs extends React.Component {
   static propTypes = {
+    className: string,
     tabs: objectOf(string).isRequired,
     selectedTab: string.isRequired,
     renderTab: func.isRequired,
     onSelect: func.isRequired
   };
 
+  static defaultProps = {
+    className: null
+  };
+
   render() {
     return (
-      <div className={styles.tabs}>
-        <div className={styles.header}>
+      <div className={classNames(styles.tabs, this.props.className)}>
+        <ul className={styles.header}>
           {map(this.props.tabs, this.renderHeader)}
-        </div>
+        </ul>
 
         {this.renderSelectedTab()}
       </div>
@@ -26,25 +32,22 @@ export default class Tabs extends React.Component {
 
   renderHeader = (label, id) => {
     return (
-      <div
-        key={`tab-${id}`}
-        className={styles.tab}
-        onClick={this.handleClick(id)}
-        onKeyPress={this.handleKeyPress(id)}
-        tabIndex="0"
-        role="button"
-      >
-        {label}
-      </div>
+      <li key={`tab-${id}`} className={styles.tab}>
+        <span
+          className={classNames(styles.label, { [styles.selected]: id === this.props.selectedTab })}
+          onClick={this.handleClick(id)}
+          onKeyPress={this.handleKeyPress(id)}
+          tabIndex="0"
+          role="button"
+        >
+          {label}
+        </span>
+      </li>
     );
   }
 
   renderSelectedTab = () => {
-    return (
-      <div className={styles.header}>
-        {this.props.renderTab(this.props.selectedTab)}
-      </div>
-    );
+    return this.props.renderTab(this.props.selectedTab);
   }
 
   handleClick = (id) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { func } from 'prop-types';
 
+import Panel from '../Panel';
 import Tabs from '../Tabs';
 import styles from './Login.scss';
 
@@ -26,7 +27,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className={styles.login}>
+      <Panel className={styles.login} renderHeader={this.renderHeader}>
         <Tabs
           tabs={TABS}
           selectedTab={this.state.tab}
@@ -34,8 +35,12 @@ export default class Login extends React.Component {
           onSelect={this.handleSelectTab}
         />
         <button type="button" onClick={this.handleLogin}>Login</button>
-      </div>
+      </Panel>
     );
+  }
+
+  renderHeader = () => {
+    return 'Login';
   }
 
   renderTab = (id) => {

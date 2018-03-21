@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: #334152;
+  line-height: 1.2;
+  font-size: 16px;
+  font-weight: 500;
+
+  &::after {
+    content: "";
+    background-color: #047bf8;
+    width: 18px;
+    height: 6px;
+    border-radius: 2px;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0px;
+  }
+}

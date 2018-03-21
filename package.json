@@ -6,6 +6,7 @@
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
+    "classnames": "^2.2.5",
     "electron-is-dev": "^0.3.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
