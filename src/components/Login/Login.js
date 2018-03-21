@@ -3,6 +3,7 @@ import { func } from 'prop-types';
 
 import Panel from '../Panel';
 import Tabs from '../Tabs';
+import Input from '../Forms/Input';
 import styles from './Login.scss';
 
 const TAB_WIF = 'wif';
@@ -57,10 +58,11 @@ export default class Login extends React.Component {
   renderWif = () => {
     return (
       <label htmlFor="wif">
-        WIF:
-        <input
+        <Input
           id="wif"
           type="password"
+          label="WIF"
+          placeholder="Enter WIF"
           value={this.state.wif}
           onChange={this.handleChange('wif')}
         />
@@ -72,19 +74,21 @@ export default class Login extends React.Component {
     return (
       <div>
         <label htmlFor="encryptedWIF">
-          Encrypted WIF:
-          <input
+          <Input
             id="encryptedWIF"
             type="password"
+            label="Encrypted WIF"
+            placeholder="Enter encrypted WIF"
             value={this.state.encryptedWIF}
             onChange={this.handleChange('encryptedWIF')}
           />
         </label>
         <label htmlFor="passphrase">
-          Passphrase:
-          <input
+          <Input
             id="passphrase"
             type="password"
+            label="Passphrase"
+            placeholder="Enter passphrase"
             value={this.state.passphrase}
             onChange={this.handleChange('passphrase')}
           />
