@@ -1,7 +1,8 @@
 import React from 'react';
-import { bool, node } from 'prop-types';
+import { bool } from 'prop-types';
 
 import Navigation from './Navigation';
+import Routes from './Routes';
 import styles from './App.scss';
 
 export default function App(props) {
@@ -9,7 +10,7 @@ export default function App(props) {
     <div className={styles.app}>
       <Navigation authenticated={props.authenticated} />
       <div className={styles.content}>
-        {props.children}
+        <Routes />
       </div>
     </div>
   );
@@ -18,11 +19,9 @@ export default function App(props) {
 App.displayName = 'App';
 
 App.propTypes = {
-  children: node,
   authenticated: bool
 };
 
 App.defaultProps = {
-  children: null,
   authenticated: false
 };
