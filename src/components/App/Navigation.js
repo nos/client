@@ -28,9 +28,11 @@ export default class Navigation extends React.Component {
     if (this.props.authenticated) {
       return (
         <div className={styles.group}>
-          <NavLink exact to="/logout">Logout</NavLink>
+          <NavLink exact to="/">Home</NavLink>
           {' | '}
           <NavLink exact to="/dapp">DApp Example</NavLink>
+          {' | '}
+          <NavLink exact to="/logout">Logout</NavLink>
         </div>
       );
     }
@@ -40,8 +42,6 @@ export default class Navigation extends React.Component {
     if (!this.props.authenticated) {
       return (
         <div className={styles.group}>
-          <NavLink exact to="/">Home</NavLink>
-          {' | '}
           <NavLink exact to="/login">Login</NavLink>
         </div>
       );

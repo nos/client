@@ -10,8 +10,8 @@ import DAppExample from '../DAppExample';
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
+      <PrivateRoute exact path="/" component={Home} />
       <PrivateRoute exact path="/logout" component={Logout} />
       <PrivateRoute exact path="/dapp" component={DAppExample} />
       <Redirect to="/" />
