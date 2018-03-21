@@ -4,6 +4,7 @@ import { func } from 'prop-types';
 import Panel from '../Panel';
 import Tabs from '../Tabs';
 import Input from '../Forms/Input';
+import Button from '../Forms/Button';
 import styles from './Login.scss';
 
 const TAB_WIF = 'wif';
@@ -35,7 +36,7 @@ export default class Login extends React.Component {
           renderTab={this.renderTab}
           onSelect={this.handleSelectTab}
         />
-        <button type="button" onClick={this.handleLogin}>Login</button>
+        <Button type="button" onClick={this.handleLogin}>Login</Button>
       </Panel>
     );
   }

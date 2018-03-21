@@ -1,0 +1,32 @@
+.button {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #047bf8;
+  border-color: #047bf8;
+  vertical-align: middle;
+  line-height: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: color 0.15s ease-in-out,
+              background-color 0.15s ease-in-out,
+              border-color 0.15s ease-in-out,
+              box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(#047bf8, 0.5)
+  }
+
+  &:active,
+  &:hover {
+    background-color: #0368d2;
+    border-color: #0362c6;
+  }
+}
