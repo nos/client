@@ -1,14 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies, global-require */
 import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
+import { saga } from 'spunky';
 import { identity } from 'lodash';
 
 import reducers from '../reducers';
 
 export default function configureStore(history) {
   const initialState = {};
+  const sagaMiddleware = createSagaMiddleware();
 
   const middleware = [
+    sagaMiddleware,
     routerMiddleware(history)
   ];
 
@@ -24,6 +28,8 @@ export default function configureStore(history) {
       store.replaceReducer(require('../reducers').default);
     });
   }
+
+  sagaMiddleware.run(saga);
 
   return store;
 }

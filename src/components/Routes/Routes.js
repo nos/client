@@ -1,8 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import PrivateRoute from '../PrivateRoute';
 import Home from '../Home';
 import Login from '../Login';
+import Logout from '../Logout';
 import DAppExample from '../DAppExample';
 
 export default function Routes() {
@@ -10,7 +12,8 @@ export default function Routes() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/dapp" component={DAppExample} />
+      <PrivateRoute exact path="/logout" component={Logout} />
+      <PrivateRoute exact path="/dapp" component={DAppExample} />
       <Redirect to="/" />
     </Switch>
   );

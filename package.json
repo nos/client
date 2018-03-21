@@ -6,9 +6,11 @@
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
+    "classnames": "^2.2.5",
     "electron-is-dev": "^0.3.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
+    "neon-js": "git+https://github.com/cityofzion/neon-js.git#3.4.4",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -16,7 +18,9 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "next",
     "recompose": "^0.26.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
+    "spunky": "^1.0.1"
   },
   "scripts": {
     "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",
@@ -50,6 +54,7 @@
     "react-router-test-context": "^0.1.0",
     "react-scripts": "^1.1.1",
     "redux-devtools-extension": "^2.13.2",
+    "redux-mock-store": "^1.5.1",
     "sass-loader": "^6.0.6",
     "wait-on": "^2.1.0",
     "webpack": "^3.11.0"

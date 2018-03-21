@@ -1,13 +1,13 @@
-import { withProps } from 'recompose';
+import { compose } from 'recompose';
+import { withActions } from 'spunky';
 
 import Login from './Login';
-import electron from '../../lib/electron';
+import authActions from '../../actions/authActions';
 
-const { ipcRenderer: ipc } = electron;
+const mapAuthActionsToProps = ({ call }) => ({
+  onLogin: ({ wif, passphrase, encryptedWIF }) => call({ wif, passphrase, encryptedWIF })
+});
 
-export default withProps({
-  onLogin: (wif) => {
-    ipc.send('login', { wif });
-    alert(`Logged in as ${wif}.`); // eslint-disable-line no-alert
-  }
-})(Login);
+export default compose(
+  withActions(authActions, mapAuthActionsToProps)
+)(Login);
