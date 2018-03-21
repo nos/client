@@ -1,24 +1,157 @@
+@mixin headerStyle {
+  box-sizing: border-box;
+  height: calc(32px + 1rem);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: $primary-border-style;
+}
+
 .app {
-  text-align: center;
+  background-color: $content-bg-color;
+  height: 100vh;
+  display: flex;
+}
 
-  .logo {
-    animation: logo-spin infinite 20s linear;
-    height: 80px;
+.menu {
+  border-right: $primary-border-style;
+  max-width: 240px;
+
+  header {
+    @include headerStyle;
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    h1 {
+      margin-left: 0.5rem;
+      font-size: 1rem;
+      font-weight: 400;
+
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.navigation {
+  ul:not(:first-child) {
+    border-top: $primary-border-style;
   }
 
-  .header {
-    background-color: #222;
-    height: 150px;
-    padding: 20px;
-    color: white;
+  li {
+    font-size: 0.8rem;
+    margin: 1rem;
+    color: transparentize($primary-text-color, 0.5);
+
+    a {
+      text-decoration: none;
+
+      &:link,
+      &:visited {
+        color: $primary-text-color;
+      }
+
+      &:focus,
+      &:hover {
+        color: lighten($primary-text-color, 20%);
+        outline: none;
+      }
+
+      &:active {
+        color: darken($primary-text-color, 20%);
+      }
+
+      span {
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding: 0.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.addressBar {
+  @include headerStyle;
+  display: flex;
+
+  input {
+    font-family: $primary-font-stack;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    flex: 1;
+
+    &:focus {
+      outline: none;
+    }
   }
 
-  .title {
-    font-size: 1.5em;
+  button {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    margin: 0.5rem;
+    color: $primary-text-color;
+
+    &:focus,
+    &:hover {
+      color: lighten($primary-text-color, 20%);
+      outline: none;
+    }
+
+    &:active {
+      color: darken($primary-text-color, 20%);
+    }
+  }
+}
+
+.breadCrumbs {
+  padding: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+
+  ul {
+    display: flex;
+    margin: 0;
   }
 
-  @keyframes logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  li:not(:first-child)::before {
+    content: '/';
+    margin: 0 0.4rem;
+    opacity: 0.5;
   }
+
+  border-bottom: $primary-border-style;
+}
+
+.footer {
+  background-color: darken($content-bg-color, 5%);
+  opacity: 0.5;
+  padding: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  border-top: $primary-border-style;
 }
