@@ -11,8 +11,8 @@ const TAB_WIF = 'wif';
 const TAB_PASSPHRASE = 'passphrase';
 
 const TABS = {
-  [TAB_WIF]: 'WIF',
-  [TAB_PASSPHRASE]: 'Passphrase'
+  [TAB_PASSPHRASE]: 'Passphrase',
+  [TAB_WIF]: 'WIF'
 };
 
 export default class Login extends React.Component {
@@ -21,7 +21,7 @@ export default class Login extends React.Component {
   };
 
   state = {
-    tab: TAB_WIF,
+    tab: TAB_PASSPHRASE,
     wif: '',
     passphrase: '',
     encryptedWIF: ''
