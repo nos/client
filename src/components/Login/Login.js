@@ -36,7 +36,6 @@ export default class Login extends React.Component {
           renderTab={this.renderTab}
           onSelect={this.handleSelectTab}
         />
-        <Button type="button" onClick={this.handleLogin}>Login</Button>
       </Panel>
     );
   }
@@ -67,6 +66,7 @@ export default class Login extends React.Component {
           value={this.state.wif}
           onChange={this.handleChange('wif')}
         />
+        {this.renderActions()}
       </label>
     );
   }
@@ -94,6 +94,15 @@ export default class Login extends React.Component {
             onChange={this.handleChange('passphrase')}
           />
         </label>
+        {this.renderActions()}
+      </div>
+    );
+  }
+
+  renderActions = () => {
+    return (
+      <div className={styles.actions}>
+        <Button type="button" onClick={this.handleLogin}>Login</Button>
       </div>
     );
   }
