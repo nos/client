@@ -5,7 +5,7 @@ import Login from './Login';
 import authActions from '../../actions/authActions';
 
 const mapAuthActionsToProps = ({ call }) => ({
-  onLogin: (wif) => call({ wif })
+  onLogin: ({ wif, passphrase, encryptedWIF }) => call({ wif, passphrase, encryptedWIF })
 });
 
 export default compose(
