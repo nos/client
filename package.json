@@ -31,7 +31,8 @@
     "pack": "yarn run build && electron-builder --dir",
     "dist": "yarn run build && electron-builder",
     "clean": "rm -rf build && rm -rf dist",
-    "postinstall": "electron-builder install-app-deps"
+    "clean-neon-js": "rm -rf node_modules/neon-js/src",
+    "postinstall": "yarn run clean-neon-js && electron-builder install-app-deps"
   },
   "devDependencies": {
     "autoprefixer": "^8.0.0",
