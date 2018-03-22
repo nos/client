@@ -3,6 +3,7 @@ import { compose, withState } from 'recompose';
 import {
   withCall,
   withData,
+  withError,
   withActions,
   withProgressComponents,
   alreadyLoadedStrategy,
@@ -13,6 +14,7 @@ import Login from './Login';
 import Loading from '../Loading';
 import authActions from '../../actions/authActions';
 import previousAuthActions, { writePreviousAuthActions } from '../../actions/previousAuthActions';
+import ledgerActions from '../../actions/ledgerActions';
 import withLogin from '../../hocs/withLogin';
 import withLogout from '../../hocs/withLogout';
 
@@ -22,12 +24,27 @@ const { LOADING } = progressValues;
 
 const mapPreviousAuthDataToProps = ({ encryptedWIF }) => ({ encryptedWIF });
 
-const mapAuthActionsToProps = ({ call }) => ({
-  onLogin: ({ wif, passphrase, encryptedWIF }) => call({ wif, passphrase, encryptedWIF })
+const mapAuthActionsToProps = (actions) => ({
+  login: ({ wif, passphrase, encryptedWIF, publicKey }) => {
+    return actions.call({ wif, passphrase, encryptedWIF, publicKey });
+  }
 });
 
-const mapPreviousAuthActionsToProps = ({ call }) => ({
-  setLastLogin: (data) => call(data)
+const mapPreviousAuthActionsToProps = (actions) => ({
+  setLastLogin: (data) => actions.call(data)
+});
+
+const mapLedgerActionsToProps = (actions) => ({
+  poll: () => actions.call()
+});
+
+const mapLedgerDataToProps = (data) => {
+  const { deviceInfo, publicKey } = data || {};
+  return { deviceInfo, publicKey };
+};
+
+const mapLedgerErrorToProps = (error) => ({
+  deviceError: error
 });
 
 export default compose(
@@ -40,6 +57,9 @@ export default compose(
   withData(previousAuthActions, mapPreviousAuthDataToProps),
   withActions(authActions, mapAuthActionsToProps),
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
+  withActions(ledgerActions, mapLedgerActionsToProps),
+  withData(ledgerActions, mapLedgerDataToProps),
+  withError(ledgerActions, mapLedgerErrorToProps),
 
   // input values and handlers
   withState('wif', 'setWIF', ''),
