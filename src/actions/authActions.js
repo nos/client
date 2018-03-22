@@ -4,24 +4,9 @@ import { createActions } from 'spunky';
 
 // import { ledgerNanoSCreateSignatureAsync } from '../ledger/ledgerNanoS';
 
-type LoginProps = {
-  wif?: string,
-  passphrase?: string,
-  encryptedWIF?: string,
-  publicKey: string,
-  signingFunction: Function
-};
-
-type AccountType = ?{
-  address: string,
-  wif?: string,
-  publicKey?: string,
-  signingFunction?: Function
-};
-
 export const ID = 'auth';
 
-const MIN_PASSPHRASE_LEN = 4
+const MIN_PASSPHRASE_LEN = 4;
 
 const wifAuthenticate = (wif) => {
   if (!wallet.isWIF(wif) && !wallet.isPrivateKey(wif)) {
@@ -55,7 +40,7 @@ const ledgerAuthenticate = (publicKey) => {
   return { publicKey, address: account.address, signingFunction: null /* ledgerNanoSCreateSignatureAsync */ };
 };
 
-export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }: LoginProps): AccountType => (state: Object) => {
+export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => () => {
   if (wif) {
     return wifAuthenticate(wif);
   } else if (passphrase || encryptedWIF) {
