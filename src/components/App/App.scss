@@ -14,6 +14,9 @@
 }
 
 .menu {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   border-right: $primary-border-style;
   max-width: 240px;
 
@@ -21,8 +24,8 @@
     @include headerStyle;
 
     img {
-      height: 32px;
-      width: 32px;
+      height: 36px;
+      width: 36px;
     }
 
     a {
@@ -47,6 +50,7 @@
 }
 
 .navigation {
+
   ul:not(:first-child) {
     border-top: $primary-border-style;
   }
@@ -61,12 +65,12 @@
 
       &:link,
       &:visited {
-        color: $primary-text-color;
+        color: lighten($primary-text-color, 10%);
       }
 
       &:focus,
       &:hover {
-        color: lighten($primary-text-color, 20%);
+        color: darken($primary-text-color, 10%);
         outline: none;
       }
 
@@ -75,7 +79,7 @@
       }
 
       span {
-        padding-left: 0.5rem;
+        padding-left: 0.2rem;
       }
     }
   }

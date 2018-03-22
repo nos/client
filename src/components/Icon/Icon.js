@@ -24,10 +24,11 @@ fontawesome.library.add(
 );
 
 const ICONS = {
-  browser: 'cubes',
+  browser: 'globe',
   dapp: 'cube',
+  wallet: ['far', 'money-bill-alt'],
   exchange: ['far', 'handshake'],
-  favorite: ['fas', 'bookmark'],
+  favorite: ['far', 'bookmark'],
   login: 'key',
   settings: 'cog',
   unfavorite: ['far', 'bookmark']
