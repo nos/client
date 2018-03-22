@@ -8,6 +8,8 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "electron-is-dev": "^0.3.0",
+    "electron-json-storage": "^4.0.2",
+    "es6-promisify": "^6.0.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
     "neon-js": "git+https://github.com/cityofzion/neon-js.git#3.4.4",
@@ -20,6 +22,7 @@
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
+    "redux-thunk": "^2.2.0",
     "spunky": "^1.0.1"
   },
   "scripts": {

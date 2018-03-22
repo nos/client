@@ -1,5 +1,6 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { string, func } from 'prop-types';
+import { noop } from 'lodash';
 
 import Panel from '../Panel';
 import Tabs from '../Tabs';
@@ -17,14 +18,26 @@ const TABS = {
 
 export default class Login extends React.Component {
   static propTypes = {
+    wif: string,
+    encryptedWIF: string,
+    passphrase: string,
+    setWIF: func,
+    setEncryptedWIF: func,
+    setPassphrase: func,
     onLogin: func.isRequired
   };
 
-  state = {
-    tab: TAB_PASSPHRASE,
+  static defaultProps = {
     wif: '',
+    encryptedWIF: '',
     passphrase: '',
-    encryptedWIF: ''
+    setWIF: noop,
+    setEncryptedWIF: noop,
+    setPassphrase: noop
+  };
+
+  state = {
+    tab: TAB_PASSPHRASE
   };
 
   render() {
@@ -63,8 +76,8 @@ export default class Login extends React.Component {
           type="password"
           label="WIF"
           placeholder="Enter WIF"
-          value={this.state.wif}
-          onChange={this.handleChange('wif')}
+          value={this.props.wif}
+          onChange={(event) => this.props.setWIF(event.target.value)}
         />
         {this.renderActions()}
       </label>
@@ -80,8 +93,8 @@ export default class Login extends React.Component {
             type="password"
             label="Encrypted WIF"
             placeholder="Enter encrypted WIF"
-            value={this.state.encryptedWIF}
-            onChange={this.handleChange('encryptedWIF')}
+            value={this.props.encryptedWIF}
+            onChange={(event) => this.props.setEncryptedWIF(event.target.value)}
           />
         </label>
         <label htmlFor="passphrase">
@@ -90,8 +103,8 @@ export default class Login extends React.Component {
             type="password"
             label="Passphrase"
             placeholder="Enter passphrase"
-            value={this.state.passphrase}
-            onChange={this.handleChange('passphrase')}
+            value={this.props.passphrase}
+            onChange={(event) => this.props.setPassphrase(event.target.value)}
           />
         </label>
         {this.renderActions()}
@@ -107,18 +120,12 @@ export default class Login extends React.Component {
     );
   }
 
-  handleChange = (key) => {
-    return (event) => {
-      this.setState({ [key]: event.target.value });
-    };
-  }
-
   handleSelectTab = (id) => {
     this.setState({ tab: id });
   }
 
   handleLogin = () => {
-    const { wif, passphrase, encryptedWIF } = this.state;
+    const { wif, passphrase, encryptedWIF } = this.props;
 
     switch (this.state.tab) {
       case TAB_WIF:
