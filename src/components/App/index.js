@@ -1,10 +1,10 @@
+import electron from 'electron';
 import { compose, mapProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { withProgress, progressValues } from 'spunky';
 import { omit } from 'lodash';
 
 import App from './App';
-import electron from '../../lib/electron';
 import authActions from '../../actions/authActions';
 import withLogin from '../../hocs/withLogin';
 import withLogout from '../../hocs/withLogout';

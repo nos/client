@@ -6,9 +6,6 @@
     "node": true,
     "jasmine": true
   },
-  "globals": {
-    "nodeRequire": true
-  },
   "rules": {
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],

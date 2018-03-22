@@ -62,7 +62,7 @@ function injectSassLoader(config, env) {
 
 function injectTarget(config, _env) {
   return merge({}, config, {
-    target: 'node',
+    target: 'electron-renderer',
     node: {
       __dirname: false,
       __filename: false
