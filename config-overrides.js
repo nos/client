@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const postCssFlexBugsFixes = require('postcss-flexbugs-fixes');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { compose } = require('react-app-rewired');
-const { merge } = require('lodash');
 
 function injectSassLoader(config, env) {
   const isDev = env === 'development';
@@ -61,8 +61,8 @@ function injectSassLoader(config, env) {
 }
 
 function injectTarget(config, _env) {
-  return merge({}, config, {
-    target: 'node',
+  return merge(config, {
+    target: 'electron-renderer',
     node: {
       __dirname: false,
       __filename: false
@@ -75,7 +75,7 @@ function injectPublicPath(config, env) {
     return config;
   }
 
-  return merge({}, config, {
+  return merge(config, {
     plugins: [
       new webpack.DefinePlugin({
         'process.env.PUBLIC_PATH': JSON.stringify(path.join(__dirname, 'public'))

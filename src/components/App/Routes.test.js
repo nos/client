@@ -26,12 +26,14 @@ const mountPath = (pathname, state = {}) => {
   return mount(provideState(<Routes />, state), { context, childContextTypes });
 };
 
-describe('<Routes />', () => {
-  it('renders root route', () => {
-    const wrapper = mountPath('/');
-    expect(wrapper.find(Home).exists()).toBe(true);
+function itBehavesLikeAuthenticatedRoute(pathname) {
+  it('redirects when unauthenticated', () => {
+    const wrapper = mountPath(pathname);
+    expect(wrapper.find(Redirect).prop('to')).toEqual('/login');
   });
+}
 
+describe('<Routes />', () => {
   it('renders login route', () => {
     const wrapper = mountPath('/login');
     expect(wrapper.find(Login).exists()).toBe(true);
@@ -42,27 +44,30 @@ describe('<Routes />', () => {
     expect(wrapper.find(Redirect).prop('to')).toEqual('/');
   });
 
+  describe('root route', () => {
+    itBehavesLikeAuthenticatedRoute('/');
+
+    it('renders when authenticated', () => {
+      const wrapper = mountPath('/', { spunky: { auth: authenticatedState } });
+      expect(wrapper.find(Home).exists()).toBe(true);
+    });
+  });
+
   describe('logout route', () => {
+    itBehavesLikeAuthenticatedRoute('/logout');
+
     it('does not redirect when authenticated', () => {
       const wrapper = mountPath('/logout', { spunky: { auth: authenticatedState } });
       expect(wrapper.find(Logout).exists()).toBe(true);
     });
-
-    it('redirects when unauthenticated', () => {
-      const wrapper = mountPath('/logout');
-      expect(wrapper.find(Redirect).prop('to')).toBe('/login');
-    });
   });
 
   describe('example dapp route', () => {
+    itBehavesLikeAuthenticatedRoute('/dapp');
+
     it('renders when authenticated', () => {
       const wrapper = mountPath('/dapp', { spunky: { auth: authenticatedState } });
       expect(wrapper.find(DAppExample).exists()).toBe(true);
-    });
-
-    it('redirects when unauthenticated', () => {
-      const wrapper = mountPath('/dapp');
-      expect(wrapper.find(Redirect).prop('to')).toBe('/login');
     });
   });
 });

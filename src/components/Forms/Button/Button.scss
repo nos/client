@@ -12,7 +12,6 @@
   font-size: 0.9rem;
   font-weight: 400;
   white-space: nowrap;
-  cursor: pointer;
   outline: none;
   user-select: none;
   transition: color 0.15s ease-in-out,
@@ -24,9 +23,17 @@
     box-shadow: 0 0 0 0.2rem rgba(#047bf8, 0.5)
   }
 
-  &:active,
-  &:hover {
-    background-color: #0368d2;
-    border-color: #0362c6;
+  &:not([disabled]) {
+    cursor: pointer;
+
+    &:active,
+    &:hover {
+      background-color: #0368d2;
+      border-color: #0362c6;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.65;
   }
 }

@@ -1,4 +1,3 @@
-// @flow
 import { progressValues } from 'spunky';
 
 import withAuthChange from './withAuthChange';
