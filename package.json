@@ -33,8 +33,8 @@
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
     "pack": "yarn run build && electron-builder --dir",
     "dist": "yarn run build && electron-builder",
-    "clean": "rm -rf build && rm -rf dist",
-    "clean-neon-js": "rm -rf node_modules/neon-js/src",
+    "clean": "rimraf build dist",
+    "clean-neon-js": "rimraf node_modules/neon-js/src",
     "postinstall": "yarn run clean-neon-js && electron-builder install-app-deps"
   },
   "devDependencies": {
@@ -59,6 +59,7 @@
     "react-scripts": "^1.1.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.5.1",
+    "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
     "wait-on": "^2.1.0",
     "webpack": "^3.11.0",
