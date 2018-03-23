@@ -61,7 +61,8 @@
     "redux-mock-store": "^1.5.1",
     "sass-loader": "^6.0.6",
     "wait-on": "^2.1.0",
-    "webpack": "^3.11.0"
+    "webpack": "^3.11.0",
+    "webpack-merge": "^4.1.2"
   },
   "build": {
     "appId": "com.nos.electron",
