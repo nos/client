@@ -1,5 +1,7 @@
+/* eslint-disable consistent-return */
+
 import React from 'react';
-import { string, func } from 'prop-types';
+import { string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 
 import Panel from '../Panel';
@@ -10,11 +12,20 @@ import styles from './Login.scss';
 
 const TAB_WIF = 'wif';
 const TAB_PASSPHRASE = 'passphrase';
+const TAB_LEDGER = 'ledger';
 
 const TABS = {
   [TAB_PASSPHRASE]: 'Passphrase',
-  [TAB_WIF]: 'WIF'
+  [TAB_WIF]: 'WIF',
+  [TAB_LEDGER]: 'Ledger'
 };
+
+const POLL_FREQUENCY = 1000;
+
+const deviceInfoShape = shape({
+  manufacturer: string.isRequired,
+  product: string.isRequired
+});
 
 export default class Login extends React.Component {
   static propTypes = {
@@ -24,7 +35,11 @@ export default class Login extends React.Component {
     setWIF: func,
     setEncryptedWIF: func,
     setPassphrase: func,
-    onLogin: func.isRequired
+    login: func.isRequired,
+    poll: func.isRequired,
+    publicKey: string,
+    deviceInfo: deviceInfoShape,
+    deviceError: string
   };
 
   static defaultProps = {
@@ -39,6 +54,16 @@ export default class Login extends React.Component {
   state = {
     tab: TAB_PASSPHRASE
   };
+
+  componentDidMount() {
+    this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
+  }
+
+  componentWillUnmount() {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
+  }
 
   render() {
     return (
@@ -63,6 +88,8 @@ export default class Login extends React.Component {
         return this.renderWif();
       case TAB_PASSPHRASE:
         return this.renderPassphrase();
+      case TAB_LEDGER:
+        return this.renderLedger();
       default:
         throw new Error('Invalid tab.');
     }
@@ -112,10 +139,49 @@ export default class Login extends React.Component {
     );
   }
 
-  renderActions = () => {
+  renderLedger = () => {
+    return (
+      <div>
+        {this.renderDeviceStatus()}
+        {this.renderDeviceInfo()}
+        {this.renderDeviceError()}
+        {this.renderActions(!this.props.deviceInfo)}
+      </div>
+    );
+  }
+
+  renderDeviceInfo = () => {
+    const { deviceInfo } = this.props;
+
+    if (deviceInfo) {
+      return <p>Found USB {deviceInfo.manufacturer} {deviceInfo.product}</p>;
+    } else {
+      return <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
+    }
+  }
+
+  renderDeviceStatus = () => {
+    const { publicKey } = this.props;
+
+    if (publicKey) {
+      return <p>Connected to Ledger.</p>;
+    }
+  }
+
+  renderDeviceError = () => {
+    const { deviceError } = this.props;
+
+    if (deviceError) {
+      return <p>{deviceError}</p>;
+    }
+  }
+
+  renderActions = (disabled = false) => {
+    const onClick = disabled ? null : this.handleLogin;
+
     return (
       <div className={styles.actions}>
-        <Button type="button" onClick={this.handleLogin}>Login</Button>
+        <Button type="button" disabled={disabled} onClick={onClick}>Login</Button>
       </div>
     );
   }
@@ -125,13 +191,15 @@ export default class Login extends React.Component {
   }
 
   handleLogin = () => {
-    const { wif, passphrase, encryptedWIF } = this.props;
+    const { wif, passphrase, encryptedWIF, publicKey } = this.props;
 
     switch (this.state.tab) {
       case TAB_WIF:
-        return this.props.onLogin({ wif });
+        return this.props.login({ wif });
       case TAB_PASSPHRASE:
-        return this.props.onLogin({ passphrase, encryptedWIF });
+        return this.props.login({ passphrase, encryptedWIF });
+      case TAB_LEDGER:
+        return this.props.login({ publicKey });
       default:
         throw new Error('Invalid login method.');
     }
