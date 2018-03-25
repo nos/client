@@ -7,18 +7,25 @@
   <body>
     <h1>DApp Example</h1>
     <p>
-      Click the button to fetch the user's NEO balance.
+      Click the buttons below to show info related to the currently authenticated NEO address.
     </p>
     <p>
+      <button type="button" onClick="javascript:getAddress()">Get Address</button>
       <button type="button" onClick="javascript:getBalance()">Get NEO Balance</button>
     </p>
     <script type="text/javascript">
       const api = window.NOS.V1;
 
+      function getAddress() {
+        api.getAddress()
+          .then((address) => alert(`Address: ${address}`))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
       function getBalance() {
         api.getBalance()
-          .then((balance) => console.log(balance))
-          .catch((err) => console.log(Object.keys(err).join(', ')));
+          .then((balance) => alert(`Balance: ${balance} NEO`))
+          .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>
   </body>

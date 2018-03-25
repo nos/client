@@ -1,9 +1,15 @@
 import React from 'react';
 import path from 'path';
+import { object } from 'prop-types';
 
+import createIPCHandler from '../../util/createIPCHandler';
 import styles from './DAppExample.scss';
 
 export default class DAppExample extends React.Component {
+  static contextTypes = {
+    store: object.isRequired
+  };
+
   componentDidMount() {
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
@@ -32,15 +38,15 @@ export default class DAppExample extends React.Component {
     console.log('[DApp]', event.message); // eslint-disable-line no-console
   }
 
-  handleIPCMessage = (event) => {
+  handleIPCMessage = async (event) => {
     const { channel } = event;
     const id = event.args[0];
-    // const args = event.args.slice(1);
+    const args = event.args.slice(1);
 
     try {
-      // const result = handleMessage(handler, args);
-      // this.webview.send(`${channel}-success-${id}`, result);
-      this.webview.send(`${channel}-success-${id}`, '3.59460235');
+      const handle = createIPCHandler(channel);
+      const result = await handle(this.context.store, ...args);
+      this.webview.send(`${channel}-success-${id}`, result);
     } catch (err) {
       this.webview.send(`${channel}-failure-${id}`, err.message);
     }
