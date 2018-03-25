@@ -11,7 +11,7 @@ function createDelegate(channel) {
   return (...args) => new Promise((resolve, reject) => {
     try {
       ipcRenderer.once(successChannel, (event, ...successArgs) => resolve(...successArgs));
-      ipcRenderer.once(failureChannel, (message) => reject(new Error(message)));
+      ipcRenderer.once(failureChannel, (event, message) => reject(new Error(message)));
       ipcRenderer.sendToHost(channel, id, ...args);
     } catch (err) {
       reject(err);
