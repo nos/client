@@ -5,8 +5,17 @@ import styles from './DAppExample.scss';
 
 export default class DAppExample extends React.Component {
   componentDidMount() {
-    this.webview.addEventListener('console-message', (e) => {
-      console.log('[DApp]', e.message); // eslint-disable-line no-console
+    this.webview.addEventListener('console-message', (event) => {
+      console.log('[DApp]', event.message); // eslint-disable-line no-console
+    });
+
+    this.webview.addEventListener('ipc-message', (event) => {
+      try {
+        console.log('[DApp IPC]', event.channel, event.args, event); // eslint-disable-line no-console
+        this.webview.send(`${event.channel}-success`, '3.59460235');
+      } catch (err) {
+        this.webview.send(`${event.channel}-failure`, err.message);
+      }
     });
   }
 

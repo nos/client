@@ -5,19 +5,20 @@
   </head>
 
   <body>
-    <h1>Yo, I'm a DApp</h1>
+    <h1>DApp Example</h1>
     <p>
-      Click the button to show the user their WIF (if logged in).
+      Click the button to fetch the user's NEO balance.
     </p>
     <p>
-      Don't worry! The dApp has no insight into what the user sees when the WIF is alerted.
-    </p>
-    <p>
-      <button type="button" onClick="javascript:showWIF()">Show WIF</button>
+      <button type="button" onClick="javascript:getBalance()">Get NEO Balance</button>
     </p>
     <script type="text/javascript">
-      function showWIF() {
-        window.NOS.alertWIF();
+      const api = window.NOS.V1;
+
+      function getBalance() {
+        api.getBalance()
+          .then((balance) => console.log(balance))
+          .catch((err) => console.log(Object.keys(err).join(', ')));
       }
     </script>
   </body>
