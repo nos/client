@@ -41,6 +41,9 @@ function createWindow() {
     width: 800,
     height: 600
   });
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
   mainWindow.loadURL(process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, '../build/index.html'),
     protocol: 'file:',
