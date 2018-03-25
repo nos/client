@@ -1,4 +1,3 @@
-/* eslint-disable */
 const electron = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -13,12 +12,12 @@ ipc.on('login', (event, { wif: newWif }) => {
   wif = newWif;
 });
 
-ipc.on('logout', (event) => {
+ipc.on('logout', (_event) => {
   wif = null;
 });
 
-ipc.on('get-wif', (event, arg) => {
-  event.returnValue = wif;
+ipc.on('get-wif', (event, _arg) => {
+  event.returnValue = wif; // eslint-disable-line no-param-reassign
 });
 
 function installExtensions() {
@@ -26,7 +25,7 @@ function installExtensions() {
     default: installer,
     REACT_DEVELOPER_TOOLS,
     REDUX_DEVTOOLS
-  } = require('electron-devtools-installer');
+  } = require('electron-devtools-installer'); // eslint-disable-line global-require
 
   const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
 
@@ -47,7 +46,7 @@ function createWindow() {
     protocol: 'file:',
     slashes: true
   }));
-  mainWindow.on('closed', function() {
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
@@ -64,7 +63,7 @@ app.on('ready', () => {
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -72,7 +71,7 @@ app.on('window-all-closed', function() {
   }
 });
 
-app.on('activate', function() {
+app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
