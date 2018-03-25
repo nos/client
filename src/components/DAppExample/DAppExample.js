@@ -5,18 +5,13 @@ import styles from './DAppExample.scss';
 
 export default class DAppExample extends React.Component {
   componentDidMount() {
-    this.webview.addEventListener('console-message', (event) => {
-      console.log('[DApp]', event.message); // eslint-disable-line no-console
-    });
+    this.webview.addEventListener('console-message', this.handleConsoleMessage);
+    this.webview.addEventListener('ipc-message', this.handleIPCMessage);
+  }
 
-    this.webview.addEventListener('ipc-message', (event) => {
-      try {
-        console.log('[DApp IPC]', event.channel, event.args, event); // eslint-disable-line no-console
-        this.webview.send(`${event.channel}-success`, '3.59460235');
-      } catch (err) {
-        this.webview.send(`${event.channel}-failure`, err.message);
-      }
-    });
+  componentWillUnmount() {
+    this.webview.removeEventListener('console-message', this.handleConsoleMessage);
+    this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
   }
 
   render() {
@@ -31,6 +26,24 @@ export default class DAppExample extends React.Component {
         />
       </div>
     );
+  }
+
+  handleConsoleMessage = (event) => {
+    console.log('[DApp]', event.message); // eslint-disable-line no-console
+  }
+
+  handleIPCMessage = (event) => {
+    const { channel } = event;
+    const id = event.args[0];
+    // const args = event.args.slice(1);
+
+    try {
+      // const result = handleMessage(handler, args);
+      // this.webview.send(`${channel}-success-${id}`, result);
+      this.webview.send(`${channel}-success-${id}`, '3.59460235');
+    } catch (err) {
+      this.webview.send(`${channel}-failure-${id}`, err.message);
+    }
   }
 
   registerRef = (el) => {
