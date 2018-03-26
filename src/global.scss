@@ -12,6 +12,10 @@ $primary-border-style: thin solid rgba(0, 0, 0, 0.05);
 
 // Global Styles
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
