@@ -38,8 +38,6 @@ function injectSassLoader(config, env) {
     {
       loader: 'sass-loader',
       options: {
-        data: '@import "global";',
-        includePaths: [path.resolve(__dirname, './src')],
         sourceMap: isDev
       }
     }
@@ -47,17 +45,16 @@ function injectSassLoader(config, env) {
 
   // We have to inject before the last rule, which is the "file-loader" defined by react-scripts.
   const oneOfRules = newConfig.module.rules.find((rule) => rule.oneOf).oneOf;
-  const fileLoaderIndex = oneOfRules.findIndex(
-    (rule) => typeof rule.loader === 'string' && rule.loader.match('/file-loader/')
-  );
+  const fileLoaderIndex = oneOfRules.findIndex((rule) => (
+    typeof rule.loader === 'string' && rule.loader.match('/file-loader/')
+  ));
 
   oneOfRules.splice(fileLoaderIndex, 0, {
     test: /\.s[ac]ss$/,
     exclude: /node_modules/,
-    use:
-      env === 'production'
-        ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: loaders })
-        : ['style-loader', ...loaders]
+    use: env === 'production'
+      ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: loaders })
+      : ['style-loader', ...loaders]
   });
 
   return newConfig;
@@ -95,4 +92,9 @@ function injectHID(config, _env) {
   });
 }
 
-module.exports = compose(injectTarget, injectSassLoader, injectPublicPath, injectHID);
+module.exports = compose(
+  injectTarget,
+  injectSassLoader,
+  injectPublicPath,
+  injectHID
+);
