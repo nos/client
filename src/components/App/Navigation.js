@@ -3,6 +3,7 @@
 import React from 'react';
 import { bool } from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import Icon from '../Icon';
 
 import styles from './Navigation.scss';
 
@@ -17,34 +18,66 @@ export default class Navigation extends React.Component {
 
   render() {
     return (
-      <div className={styles.navigation}>
-        {this.renderAuthenticated()}
-        {this.renderUnauthenticated()}
-      </div>
+      <nav className={styles.navigation}>
+        <ul>
+          {this.renderAuthenticated()}
+          {this.renderUnauthenticated()}
+        </ul>
+      </nav>
     );
   }
 
   renderAuthenticated = () => {
     if (this.props.authenticated) {
       return (
-        <div className={styles.group}>
-          <NavLink exact to="/">Home</NavLink>
-          {' | '}
-          <NavLink exact to="/dapp">DApp Example</NavLink>
-          {' | '}
-          <NavLink exact to="/logout">Logout</NavLink>
-        </div>
+        <ul className={styles.group}>
+          <li>
+            <NavLink to="/browser">
+              <Icon name="browser" />
+              <span>Browser</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/favorites">
+              <Icon name="favorite" />
+              <span>Favorites</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/exchange">
+              <Icon name="exchange" />
+              <span>Exchange</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/dapp">
+              <Icon name="dapp" />
+              <span>dApp Example</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/logout">
+              <Icon name="logout" />
+              <span>Logout</span>
+            </NavLink>
+          </li>
+        </ul>
       );
     }
-  }
+  };
 
   renderUnauthenticated = () => {
     if (!this.props.authenticated) {
       return (
         <div className={styles.group}>
-          <NavLink exact to="/login">Login</NavLink>
+          <li>
+            <NavLink exact to="/login">
+              <Icon name="login" />
+              <span>Login</span>
+            </NavLink>
+          </li>
         </div>
       );
     }
-  }
+  };
 }
