@@ -1,13 +1,23 @@
 import React from 'react';
 import path from 'path';
+import { object } from 'prop-types';
 
+import createIPCHandler from '../../util/createIPCHandler';
 import styles from './DAppExample.scss';
 
 export default class DAppExample extends React.Component {
+  static contextTypes = {
+    store: object.isRequired
+  };
+
   componentDidMount() {
-    this.webview.addEventListener('console-message', (e) => {
-      console.log('[DApp]', e.message); // eslint-disable-line no-console
-    });
+    this.webview.addEventListener('console-message', this.handleConsoleMessage);
+    this.webview.addEventListener('ipc-message', this.handleIPCMessage);
+  }
+
+  componentWillUnmount() {
+    this.webview.removeEventListener('console-message', this.handleConsoleMessage);
+    this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
   }
 
   render() {
@@ -22,6 +32,24 @@ export default class DAppExample extends React.Component {
         />
       </div>
     );
+  }
+
+  handleConsoleMessage = (event) => {
+    console.log('[DApp]', event.message); // eslint-disable-line no-console
+  }
+
+  handleIPCMessage = async (event) => {
+    const { channel } = event;
+    const id = event.args[0];
+    const args = event.args.slice(1);
+
+    try {
+      const handle = createIPCHandler(channel);
+      const result = await handle(this.context.store, ...args);
+      this.webview.send(`${channel}-success-${id}`, result);
+    } catch (err) {
+      this.webview.send(`${channel}-failure-${id}`, err.message);
+    }
   }
 
   registerRef = (el) => {

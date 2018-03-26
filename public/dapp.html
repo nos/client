@@ -5,19 +5,27 @@
   </head>
 
   <body>
-    <h1>Yo, I'm a DApp</h1>
+    <h1>DApp Example</h1>
     <p>
-      Click the button to show the user their WIF (if logged in).
+      Click the buttons below to show info related to the currently authenticated NEO address.
     </p>
     <p>
-      Don't worry! The dApp has no insight into what the user sees when the WIF is alerted.
-    </p>
-    <p>
-      <button type="button" onClick="javascript:showWIF()">Show WIF</button>
+      <button type="button" onClick="javascript:getAddress()">Get Address</button>
+      <button type="button" onClick="javascript:getBalance()">Get NEO Balance</button>
     </p>
     <script type="text/javascript">
-      function showWIF() {
-        window.NOS.alertWIF();
+      const api = window.NOS.V1;
+
+      function getAddress() {
+        api.getAddress()
+          .then((address) => alert(`Address: ${address}`))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function getBalance() {
+        api.getBalance()
+          .then((balance) => alert(`Balance: ${balance} NEO`))
+          .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>
   </body>

@@ -1,32 +1,16 @@
-/* eslint-disable */
 const electron = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
-const { app, BrowserWindow, ipcMain: ipc } = electron;
-
-// Manage login state on the main app.
-let wif = null;
-
-ipc.on('login', (event, { wif: newWif }) => {
-  wif = newWif;
-});
-
-ipc.on('logout', (event) => {
-  wif = null;
-});
-
-ipc.on('get-wif', (event, arg) => {
-  event.returnValue = wif;
-});
+const { app, BrowserWindow } = electron;
 
 function installExtensions() {
   const {
     default: installer,
     REACT_DEVELOPER_TOOLS,
     REDUX_DEVTOOLS
-  } = require('electron-devtools-installer');
+  } = require('electron-devtools-installer'); // eslint-disable-line global-require
 
   const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
 
@@ -42,12 +26,15 @@ function createWindow() {
     width: 800,
     height: 600
   });
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
   mainWindow.loadURL(process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, '../build/index.html'),
     protocol: 'file:',
     slashes: true
   }));
-  mainWindow.on('closed', function() {
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
@@ -64,7 +51,7 @@ app.on('ready', () => {
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -72,7 +59,7 @@ app.on('window-all-closed', function() {
   }
 });
 
-app.on('activate', function() {
+app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {

@@ -15,7 +15,13 @@
     "function-paren-newline": ["error", "consistent"],
     "object-curly-newline": ["error", { "consistent": true }],
     "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": ["**/*.test.js", "config-overrides.js", "setupTests.js", "testHelpers.js"]
+      "devDependencies": [
+        "**/*.test.js",
+        "config-overrides.js",
+        "setupTests.js",
+        "testHelpers.js",
+        "**/public/electron.js"
+      ]
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/sort-comp": ["error", {

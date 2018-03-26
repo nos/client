@@ -1,4 +1,3 @@
-import electron from 'electron';
 import { compose, withState } from 'recompose';
 import {
   withCall,
@@ -17,8 +16,6 @@ import previousAuthActions, { writePreviousAuthActions } from '../../actions/pre
 import ledgerActions from '../../actions/ledgerActions';
 import withLogin from '../../hocs/withLogin';
 import withLogout from '../../hocs/withLogout';
-
-const { ipcRenderer: ipc } = electron;
 
 const { LOADING } = progressValues;
 
@@ -65,10 +62,6 @@ export default compose(
   withState('wif', 'setWIF', ''),
   withState('encryptedWIF', 'setEncryptedWIF', (props) => props.encryptedWIF || ''),
   withState('passphrase', 'setPassphrase', ''),
-
-  // IPC messaging to maintain authentication state in app.
-  withLogin(({ wif }) => ipc.send('login', { wif })),
-  withLogout(() => ipc.send('logout')),
 
   // store encryptedWIF so we can quickly login again next time the app launches
   withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.encryptedWIF })),
