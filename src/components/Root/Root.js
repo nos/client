@@ -4,7 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createHashHistory';
 
 import App from '../App';
-import Routes from '../Routes';
 import configureStore from '../../store/configureStore';
 
 const history = createHistory();
@@ -14,9 +13,7 @@ export default function Root() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App>
-          <Routes />
-        </App>
+        <App />
       </ConnectedRouter>
     </Provider>
   );

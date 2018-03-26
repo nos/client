@@ -1,0 +1,34 @@
+.navigation {
+  ul:not(:first-child) {
+    border-top: $primary-border-style;
+  }
+
+  li {
+    font-size: 0.8rem;
+    margin: 1rem;
+    color: transparentize($primary-text-color, 0.5);
+
+    a {
+      text-decoration: none;
+
+      &:link,
+      &:visited {
+        color: $primary-text-color;
+      }
+
+      &:focus,
+      &:hover {
+        color: lighten($primary-text-color, 20%);
+        outline: none;
+      }
+
+      &:active {
+        color: darken($primary-text-color, 20%);
+      }
+
+      span {
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}

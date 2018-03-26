@@ -6,9 +6,6 @@
     "node": true,
     "jasmine": true
   },
-  "globals": {
-    "nodeRequire": true
-  },
   "rules": {
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
@@ -16,8 +13,9 @@
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-else-return": ["off"],
     "function-paren-newline": ["error", "consistent"],
+    "object-curly-newline": ["error", { "consistent": true }],
     "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": ["**/*.test.js", "config-overrides.js", "setupTests.js"]
+      "devDependencies": ["**/*.test.js", "config-overrides.js", "setupTests.js", "testHelpers.js"]
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/sort-comp": ["error", {

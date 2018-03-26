@@ -1,9 +1,13 @@
 import React from 'react';
+
 import { NavLink } from 'react-router-dom';
-import { node } from 'prop-types';
+import { bool } from 'prop-types';
+import Navigation from './Navigation';
+import Routes from './Routes';
 import Icon from '../Icon';
-import styles from './App.scss';
 import logo from '../../images/logo.svg';
+
+import styles from './App.scss';
 
 export default function App(props) {
   return (
@@ -19,42 +23,7 @@ export default function App(props) {
             </NavLink>
           </h1>
         </header>
-        <nav className={styles.navigation}>
-          <ul>
-            <li>
-              <NavLink to="/browser">
-                <Icon name="browser" />
-                <span>Browser</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/favorites">
-                <Icon name="favorite" />
-                <span>Favorites</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/exchange">
-                <Icon name="exchange" />
-                <span>Exchange</span>
-              </NavLink>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <NavLink exact to="/login">
-                <Icon name="login" />
-                <span>Login</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/dapp">
-                <Icon name="dapp" />
-                <span>dApp Example</span>
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+        <Navigation authenticated={props.authenticated} />
       </div>
       <main className={styles.main}>
         <div className={styles.addressBar}>
@@ -73,7 +42,9 @@ export default function App(props) {
             <li>Example dApp</li>
           </ul>
         </div>
-        <div className={styles.content}>{props.children}</div>
+        <div className={styles.content}>
+          <Routes />
+        </div>
         <footer className={styles.footer}>
           <div className={styles.status}>
             This is some status text, maybe it only appears if there&rsquo;s something to show?
@@ -84,10 +55,12 @@ export default function App(props) {
   );
 }
 
+App.displayName = 'App';
+
 App.propTypes = {
-  children: node
+  authenticated: bool
 };
 
 App.defaultProps = {
-  children: null
+  authenticated: false
 };
