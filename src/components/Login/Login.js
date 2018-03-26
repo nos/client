@@ -48,7 +48,10 @@ export default class Login extends React.Component {
     passphrase: '',
     setWIF: noop,
     setEncryptedWIF: noop,
-    setPassphrase: noop
+    setPassphrase: noop,
+    publicKey: null,
+    deviceInfo: null,
+    deviceError: null
   };
 
   state = {
