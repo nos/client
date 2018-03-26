@@ -14,6 +14,9 @@
 }
 
 .menu {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   border-right: $primary-border-style;
   max-width: 240px;
 
@@ -21,8 +24,8 @@
     @include headerStyle;
 
     img {
-      height: 32px;
-      width: 32px;
+      height: 36px;
+      width: 36px;
     }
 
     a {
@@ -91,25 +94,6 @@
       color: darken($primary-text-color, 20%);
     }
   }
-}
-
-.breadCrumbs {
-  padding: 0.5rem;
-  text-transform: uppercase;
-  font-size: 0.6rem;
-
-  ul {
-    display: flex;
-    margin: 0;
-  }
-
-  li:not(:first-child)::before {
-    content: '/';
-    margin: 0 0.4rem;
-    opacity: 0.5;
-  }
-
-  border-bottom: $primary-border-style;
 }
 
 .footer {
