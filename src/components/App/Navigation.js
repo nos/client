@@ -32,19 +32,19 @@ export default class Navigation extends React.Component {
       return (
         <ul className={styles.group}>
           <li>
-            <NavLink to="/browser">
+            <NavLink exact to="/browser">
               <Icon name="browser" />
               <span>Browser</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/favorites">
+            <NavLink exact to="/favorites">
               <Icon name="favorite" />
               <span>Favorites</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/exchange">
+            <NavLink exact to="/exchange">
               <Icon name="exchange" />
               <span>Exchange</span>
             </NavLink>

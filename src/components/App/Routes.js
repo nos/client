@@ -5,6 +5,9 @@ import PrivateRoute from '../PrivateRoute';
 import Home from '../Home';
 import Login from '../Login';
 import Logout from '../Logout';
+import Browser from '../Browser';
+import Exchange from '../Exchange';
+import Favorites from '../Favorites';
 import DAppExample from '../DAppExample';
 
 export default function Routes() {
@@ -12,8 +15,11 @@ export default function Routes() {
     <Switch>
       <Route exact path="/login" component={Login} />
       <PrivateRoute exact path="/" component={Home} />
-      <PrivateRoute exact path="/logout" component={Logout} />
       <PrivateRoute exact path="/dapp" component={DAppExample} />
+      <PrivateRoute exact path="/browser" component={Browser} />
+      <PrivateRoute exact path="/exchange" component={Exchange} />
+      <PrivateRoute exact path="/favorites" component={Favorites} />
+      <PrivateRoute exact path="/logout" component={Logout} />
       <Redirect to="/" />
     </Switch>
   );
