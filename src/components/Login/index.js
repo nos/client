@@ -19,7 +19,9 @@ import withLogout from '../../hocs/withLogout';
 
 const { LOADING } = progressValues;
 
-const mapPreviousAuthDataToProps = ({ encryptedWIF }) => ({ encryptedWIF });
+const mapPreviousAuthDataToProps = (data) => ({
+  encryptedWIF: data && data.encryptedWIF
+});
 
 const mapAuthActionsToProps = (actions) => ({
   login: ({ wif, passphrase, encryptedWIF, publicKey }) => {
