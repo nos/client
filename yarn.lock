@@ -7362,9 +7362,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-spunky@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/spunky/-/spunky-1.0.1.tgz#0189d22d15e4d0b9e8631ebfdcef07dd016fffee"
+spunky@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/spunky/-/spunky-1.1.0.tgz#f1c69c7e50b2f65c7b603bc7b71d5f7abb1b666e"
   dependencies:
     lodash "^4.17.5"
     react-redux "^5.0.6"
