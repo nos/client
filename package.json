@@ -28,11 +28,10 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
-    "spunky": "^1.0.1"
+    "spunky": "^1.1.0"
   },
   "scripts": {
-    "start":
-      "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",
+    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "start-react": "cross-env BROWSER=none react-app-rewired start",
@@ -41,8 +40,7 @@
     "dist": "yarn run build && electron-builder",
     "clean": "rimraf build dist",
     "clean-neon-js": "rimraf node_modules/neon-js/src",
-    "postinstall":
-      "electron-builder install-app-deps && electron-rebuild --force && yarn run clean-neon-js"
+    "postinstall": "electron-builder install-app-deps && electron-rebuild --force && yarn run clean-neon-js"
   },
   "devDependencies": {
     "autoprefixer": "^8.0.0",
