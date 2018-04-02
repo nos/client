@@ -1,4 +1,3 @@
-// @flow
 import { wallet } from 'neon-js';
 import { createActions } from 'spunky';
 
