@@ -1,9 +1,11 @@
 import getAddress from './handlers/getAddress';
 import getBalance from './handlers/getBalance';
+import testInvoke from './handlers/testInvoke';
 
 const HANDLERS = {
   getAddress,
-  getBalance
+  getBalance,
+  testInvoke
 };
 
 export default function createIPCHandler(channel) {

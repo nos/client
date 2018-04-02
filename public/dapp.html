@@ -12,6 +12,7 @@
     <p>
       <button type="button" onClick="javascript:getAddress()">Get Address</button>
       <button type="button" onClick="javascript:getBalance()">Get NEO Balance</button>
+      <button type="button" onClick="javascript:testInvoke()">Execute test invoke</button>
     </p>
     <script type="text/javascript">
       const api = window.NOS.V1;
@@ -25,6 +26,12 @@
       function getBalance() {
         api.getBalance()
           .then((balance) => alert(`Balance: ${balance} NEO`))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function testInvoke() {
+        api.testInvoke()
+          .then((response) => alert(`Test invoke response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>
