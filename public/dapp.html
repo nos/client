@@ -9,32 +9,34 @@
     <p>
       Click the buttons below to show info related to the currently authenticated NEO address.
     </p>
-    <p>
-      <h2>getAddress</h2>
-      <div>
-        <button type="button" onClick="javascript:getAddress()">Get Address</button>
-      </div>
 
-      <h2>getBalance</h2>
-      <div>
-        <button type="button" onClick="javascript:getBalance(NEO)">Get NEO Balance</button>
-        <button type="button" onClick="javascript:getBalance(GAS)">Get GAS Balance</button>
-        <button type="button" onClick="javascript:getBalance(RPX)">Get RPX Balance</button>
-        <button type="button" onClick="javascript:getBalance('fake')">Get Balance Error</button>
-      </div>
+    <h2>getAddress</h2>
+    <div>
+      <button type="button" onClick="javascript:getAddress()">Get Address</button>
+    </div>
 
-      <h2>sampleConfirm</h2>
-      <div>
-        <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
-      </div>
-    </p>
-    <p>
-      Click the buttons below to access functions that don't require permissions.
-    </p>
-    <p>
-      <button type="button" onClick="javascript:getAddress()">Testinvoke</button>
+    <h2>getBalance</h2>
+    <div>
+      <button type="button" onClick="javascript:getBalance(NEO)">Get NEO Balance</button>
+      <button type="button" onClick="javascript:getBalance(GAS)">Get GAS Balance</button>
+      <button type="button" onClick="javascript:getBalance(RPX)">Get RPX Balance</button>
+      <button type="button" onClick="javascript:getBalance('fake')">Get Balance Error</button>
+    </div>
+
+    <h2>sampleConfirm</h2>
+    <div>
+      <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
+    </div>
+
+    <h2>testInvoke</h2>
+    <div>
+      <button type="button" onClick="javascript:testInvoke()">Execute test invoke</button>
+    </div>
+
+    <h2>getStorage</h2>
+    <div>
       <button type="button" onClick="javascript:getBalance()">Get From Storage</button>
-    </p>
+    </div>
     <script type="text/javascript">
       const api = window.NOS.V1;
 
@@ -58,6 +60,12 @@
         api.sampleConfirm()
           .then(() => alert('Confirmed!'))
           .catch(() => alert('Denied.'));
+      }
+
+      function testInvoke() {
+        api.testInvoke()
+          .then((response) => alert(`Test invoke response: ${response} `))
+          .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>
   </body>
