@@ -8,7 +8,7 @@ const mapInvokeActionsToProps = (actions) => ({
   testInvoke: (data) => {
     console.log('ACTIONS', actions);
     console.log('data', data);
-    actions.call
+    actions.call(data)
   }
 });
 
