@@ -1,50 +1,29 @@
-import Neon, { api } from 'neon-js';
-const sb = Neon.create.scriptBuilder;
-
+import Neon, { api } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
-export const ID = 'testInvoke';
 
-/**
- * Create an invoke out of your params
- * @param {string} scriptHash Contract address
- * @param {string} operation Operation string
- * @param {array} args Argument array
- */
-export const createInvoke = (scriptHash, operation, args) => {
-  return { scriptHash, operation, args };
-};
+export const ID = 'testinvoke';
 
-/**
- * Execute a test invocation
- * @param {string} host Host endpoint
- * @param {object} invoke Invoke data
- */
-export const testInvoke = async (host, invoke) => {
-  /*
-  // Get local RPC
-  const client = await api.neonDB.getRPCEndpoint(host);
+export const testInvoke = async (net, invoke) => {
+  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
-  // Create SC script
-  const vmScript = sb().emitAppCall(
-    invoke.scriptHash,
-    invoke.operation,
-    invoke.args,
-    false
-  );
+  try {
+    // Create script
+    const script = Neon.create.script(invoke);
 
-  // Execute
-  return rpc.Query.invokeScript(client, {
-    method: "sendrawtransaction",
-    params: [tx.serializeTransaction(signedTx)],
-    id: 1
-  });
-  */
+    const response = await Neon.rpc.Query.invokeScript(script).execute(endpoint);
+    console.log(response.result);
 
-  return 'test';
+    return {
+      response: 'test'
+    };
+  } catch (e) {
+    // Error during execution
+    return {};
+  }
 };
 
 
-export default createActions(ID, ({ host, invoke }) => () => {
-  return testInvoke(host, invoke)
+export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
+  return testInvoke(net, { scriptHash, operation, args });
 });
