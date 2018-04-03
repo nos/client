@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 
 import React from 'react';
-import { func } from 'prop-types';
+import { func, string, shape } from 'prop-types';
 import Icon from '../Icon';
 
 import styles from './AddressBar.scss';
@@ -9,6 +9,12 @@ import styles from './AddressBar.scss';
 const RETURN_KEY = 13;
 
 class AddressBar extends React.Component {
+  componentDidUpdate(prevProps, _prevState) {
+    if (this.props.target !== prevProps.target) {
+      this.props.history.push('/dapp');
+    }
+  }
+
   render() {
     return (
       <div className={styles.addressBar}>
@@ -39,8 +45,16 @@ class AddressBar extends React.Component {
   searchInput = React.createRef();
 }
 
+AddressBar.defaultProps = {
+  target: 'https://google.com'
+};
+
 AddressBar.propTypes = {
-  doQuery: func.isRequired
+  doQuery: func.isRequired,
+  target: string,
+  history: shape({
+    push: func
+  }).isRequired
 };
 
 export default AddressBar;
