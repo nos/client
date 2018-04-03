@@ -1,13 +1,11 @@
-/* eslint-disable jsx-a11y/no-autofocus */
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { bool } from 'prop-types';
 
 // import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
+import AddressBar from '../AddressBar';
 import Routes from './Routes';
-import Icon from '../Icon';
 import logo from '../../images/logo.svg';
 
 import styles from './App.scss';
@@ -24,15 +22,7 @@ export default function App(props) {
         <Navigation authenticated={props.authenticated} />
       </div>
       <main className={styles.main}>
-        <div className={styles.addressBar}>
-          <input type="text" placeholder="Search or enter address" autoFocus />
-          <button>
-            <Icon name="unfavorite" />
-          </button>
-          <button>
-            <Icon name="settings" />
-          </button>
-        </div>
+        <AddressBar />
         {/* <Breadcrumbs /> */}
         <div className={styles.content}>
           <Routes />
