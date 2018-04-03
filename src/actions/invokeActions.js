@@ -1,9 +1,10 @@
 import Neon, { api } from 'neon-js';
-const sb = Neon.create.scriptBuilder;
-
 import { createActions } from 'spunky';
 
-export const ID = 'testInvoke';
+const sb = Neon.create.scriptBuilder;
+
+
+export const ID = 'invoke';
 
 /**
  * Create an invoke out of your params
@@ -41,7 +42,7 @@ export const testInvoke = async (host, invoke) => {
   });
   */
 
-  return 'test';
+  return Math.random();
 };
 
 
