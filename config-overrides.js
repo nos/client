@@ -38,7 +38,7 @@ function injectSassLoader(config, env) {
     {
       loader: 'sass-loader',
       options: {
-        data: '@import "global";',
+        data: '@import "stylesheets/variables"; @import "stylesheets/mixins";',
         includePaths: [path.resolve(__dirname, './src')],
         sourceMap: isDev
       }
