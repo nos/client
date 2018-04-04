@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { bool, node } from 'prop-types';
 
-import Breadcrumbs from '../Breadcrumbs';
-import Navigation from '../Navigation';
-import AddressBar from '../AddressBar';
-import logo from '../../../images/logo.svg';
+import Breadcrumbs from './Breadcrumbs';
+import Navigation from './Navigation';
+import AddressBar from './AddressBar';
+import logo from '../../images/logo.svg';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {

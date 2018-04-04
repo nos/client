@@ -3,7 +3,11 @@ import { string } from 'prop-types';
 import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-import { faBookmark as faBookmarkReg, faHandshake } from '@fortawesome/fontawesome-free-regular';
+import {
+  faBookmark as faBookmarkReg,
+  faHandshake,
+  faCopy
+} from '@fortawesome/fontawesome-free-regular';
 
 import {
   faBookmark,
@@ -20,7 +24,8 @@ fontawesome.library.add(
   faCubes,
   faHandshake,
   faKey,
-  faQuestionCircle
+  faQuestionCircle,
+  faCopy
 );
 
 const ICONS = {
@@ -31,7 +36,8 @@ const ICONS = {
   favorite: ['far', 'bookmark'],
   login: 'key',
   settings: 'cog',
-  unfavorite: ['far', 'bookmark']
+  unfavorite: ['far', 'bookmark'],
+  copy: 'copy'
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,
