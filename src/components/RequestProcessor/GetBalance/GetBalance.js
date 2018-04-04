@@ -34,7 +34,7 @@ export default class GetBalance extends React.Component {
   getBalance = (scriptHash) => {
     const token = this.props.balances[scriptHash];
     return token ? token.balance : '0';
-  }
+  };
 
   getScriptHash = () => {
     return this.props.args[0];
