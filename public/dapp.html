@@ -33,7 +33,7 @@
     </p>
     <p>
       <button type="button" onClick="javascript:testInvoke()">Execute test invoke</button>
-      <button type="button" onClick="javascript:getBalance()">Get From Storage</button>
+      <button type="button" onClick="javascript:getBalance(params)">Get From Storage</button>
     </p>
     <script type="text/javascript">
       const api = window.NOS.V1;
@@ -41,6 +41,8 @@
       const NEO = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
       const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
       const RPX = 'ecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9';
+
+      const params = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "posts.latest" };
 
       function getAddress() {
         api.getAddress()
@@ -63,6 +65,12 @@
       function testInvoke() {
         api.testInvoke('firstX')
           .then((response) => alert(`Test invoke response: ${response} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function getStorage(params) {
+        api.getStorage(params)
+          .then((response) => alert(`Get storage response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>
