@@ -5,13 +5,15 @@ import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
 import SampleConfirm from './SampleConfirm';
 import TestInvoke from './Invoke';
+import GetStorage from './GetStorage';
 import requestShape from '../../shapes/requestShape';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,
   getBalance: GetBalance,
   sampleConfirm: SampleConfirm,
-  testInvoke: TestInvoke
+  testInvoke: TestInvoke,
+  getStorage: GetStorage
 };
 
 export default class RequestProcessor extends React.Component {
