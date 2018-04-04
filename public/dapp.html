@@ -63,7 +63,11 @@
       }
 
       function testInvoke() {
-        api.testInvoke('firstX')
+        const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
+        const operation = 'operationUUID934u03930259';
+        const arg1 = 'argsUUID94856039468304';
+
+        api.testInvoke(scriptHash, operation, arg1)
           .then((response) => alert(`Test invoke response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
