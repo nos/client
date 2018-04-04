@@ -4,7 +4,7 @@ import { createActions } from 'spunky';
 export const ID = 'testinvoke';
 
 export const testInvoke = async (net, invoke) => {
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, {net});
+  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   try {
     // Create script
@@ -23,6 +23,6 @@ export const testInvoke = async (net, invoke) => {
 };
 
 
-export default createActions(ID, ({net, scriptHash, operation, args}) => async () => {
-  return testInvoke(net, {scriptHash, operation, args});
+export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
+  return testInvoke(net, { scriptHash, operation, args });
 });
