@@ -3,12 +3,18 @@ import { createActions } from 'spunky';
 
 export const ID = 'testinvoke';
 
-export const testInvoke = async (net, invoke) => {
+export const testInvoke = async (net, { scriptHash, operation, args }) => {
+
+  console.log(net);
+  console.log(scriptHash);
+  console.log(operation);
+  console.log(args);
+
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   try {
     // Create script
-    const script = Neon.create.script(invoke);
+    const script = Neon.create.script(scriptHash); // TODO scriptHash --> invoke
 
     const response = await Neon.rpc.Query.invokeScript(script).execute(endpoint);
     console.log(response.result);
@@ -23,6 +29,6 @@ export const testInvoke = async (net, invoke) => {
 };
 
 
-export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
-  return testInvoke(net, { scriptHash, operation, args });
+export default createActions(ID, ({ net, scriptHash, operation }) => async () => {
+  return testInvoke(net, { scriptHash, operation });
 });

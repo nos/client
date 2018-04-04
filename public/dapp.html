@@ -63,7 +63,7 @@
       }
 
       function testInvoke() {
-        api.testInvoke()
+        api.testInvoke('firstX')
           .then((response) => alert(`Test invoke response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
