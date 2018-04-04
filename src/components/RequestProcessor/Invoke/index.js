@@ -11,11 +11,10 @@ const mapInvokeActionsToProps = (actions) => ({
   }
 });
 
-const mapInvokeDataToProps = ({ invoke }) => ({ invoke });
+const mapInvokeDataToProps = (response) => ({ response });
 
 
 export default compose(
-  // withActions(invokeActions, mapInvokeActionsToProps),
-  withCall(invokeActions, ({ invoke }) => ({ invoke, net: 'TestNet' })),
-  // withData(invokeActions, mapInvokeDataToProps)
+  withCall(invokeActions, ({ scriptHash, operation, args }) => ({ net: 'TestNet', scriptHash, operation, args })),
+  withData(invokeActions, mapInvokeDataToProps),
 )(TestInvoke);
