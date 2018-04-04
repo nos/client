@@ -4,11 +4,11 @@ const { uniqueId } = require('lodash');
 const { ipcRenderer } = electron;
 
 function createDelegate(channel) {
-  const id = uniqueId();
-  const successChannel = `${channel}-success-${id}`;
-  const failureChannel = `${channel}-failure-${id}`;
-
   return (...args) => new Promise((resolve, reject) => {
+    const id = uniqueId();
+    const successChannel = `${channel}-success-${id}`;
+    const failureChannel = `${channel}-failure-${id}`;
+
     try {
       ipcRenderer.once(successChannel, (event, ...successArgs) => resolve(...successArgs));
       ipcRenderer.once(failureChannel, (event, message) => reject(new Error(message)));
