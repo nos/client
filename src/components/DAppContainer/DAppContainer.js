@@ -1,17 +1,27 @@
 import React from 'react';
 import path from 'path';
-import { object, string } from 'prop-types';
+import { object, string, func, arrayOf } from 'prop-types';
+import { map } from 'lodash';
 
-import createIPCHandler from '../../util/createIPCHandler';
+import GetAddress from './handlers/GetAddress';
+import GetBalance from './handlers/GetBalance';
 import styles from './DAppContainer.scss';
 
-export default class DAppContainer extends React.Component {
-  static contextTypes = {
-    store: object.isRequired
-  };
+const COMPONENT_MAP = {
+  getAddress: GetAddress,
+  getBalance: GetBalance
+};
 
+const mapComponent = (type) => {
+  return COMPONENT_MAP[type];
+};
+
+export default class DAppContainer extends React.Component {
   static propTypes = {
-    src: string.isRequired
+    src: string.isRequired,
+    requests: arrayOf(object).isRequired,
+    enqueue: func.isRequired,
+    dequeue: func.isRequired
   };
 
   componentDidMount() {
@@ -33,8 +43,25 @@ export default class DAppContainer extends React.Component {
           preload={this.getPreloadPath()}
           style={{ height: '100%' }}
         />
+
+        {this.renderProcessingRequests()}
       </div>
     );
+  }
+
+  renderProcessingRequests = () => {
+    return map(this.props.requests, (request) => {
+      const Component = mapComponent(request.channel);
+
+      return (
+        <Component
+          {...request}
+          key={`request-${request.id}`}
+          onResolve={this.handleResolve(request)}
+          onReject={this.handleReject(request)}
+        />
+      );
+    });
   }
 
   handleConsoleMessage = (event) => {
@@ -46,14 +73,18 @@ export default class DAppContainer extends React.Component {
     const id = event.args[0];
     const args = event.args.slice(1);
 
-    try {
-      const handle = createIPCHandler(channel);
-      const result = await handle(this.context.store, ...args);
-      this.webview.send(`${channel}-success-${id}`, result);
-    } catch (err) {
-      this.webview.send(`${channel}-failure-${id}`, err.message);
-    }
+    this.props.enqueue({ channel, id, args });
   };
+
+  handleResolve = ({ channel, id }) => (result) => {
+    this.webview.send(`${channel}-success-${id}`, result);
+    this.props.dequeue(id);
+  }
+
+  handleReject = ({ channel, id }) => (message) => {
+    this.webview.send(`${channel}-failure-${id}`, message);
+    this.props.dequeue(id);
+  }
 
   registerRef = (el) => {
     this.webview = el;
