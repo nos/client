@@ -1,25 +1,13 @@
 import React from 'react';
 import path from 'path';
-import { object, string, func, arrayOf } from 'prop-types';
-import { map } from 'lodash';
+import { string, func } from 'prop-types';
 
-import GetAddress from './handlers/GetAddress';
-import GetBalance from './handlers/GetBalance';
+import RequestProcessor from '../RequestProcessor';
 import styles from './DAppContainer.scss';
-
-const COMPONENT_MAP = {
-  getAddress: GetAddress,
-  getBalance: GetBalance
-};
-
-const mapComponent = (type) => {
-  return COMPONENT_MAP[type];
-};
 
 export default class DAppContainer extends React.Component {
   static propTypes = {
     src: string.isRequired,
-    requests: arrayOf(object).isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired
   };
@@ -44,24 +32,12 @@ export default class DAppContainer extends React.Component {
           style={{ height: '100%' }}
         />
 
-        {this.renderProcessingRequests()}
+        <RequestProcessor
+          onResolve={this.handleResolve}
+          onReject={this.handleReject}
+        />
       </div>
     );
-  }
-
-  renderProcessingRequests = () => {
-    return map(this.props.requests, (request) => {
-      const Component = mapComponent(request.channel);
-
-      return (
-        <Component
-          {...request}
-          key={`request-${request.id}`}
-          onResolve={this.handleResolve(request)}
-          onReject={this.handleReject(request)}
-        />
-      );
-    });
   }
 
   handleConsoleMessage = (event) => {
@@ -76,12 +52,14 @@ export default class DAppContainer extends React.Component {
     this.props.enqueue({ channel, id, args });
   };
 
-  handleResolve = ({ channel, id }) => (result) => {
+  handleResolve = (request, result) => {
+    const { channel, id } = request;
     this.webview.send(`${channel}-success-${id}`, result);
     this.props.dequeue(id);
   }
 
-  handleReject = ({ channel, id }) => (message) => {
+  handleReject = (request, message) => {
+    const { channel, id } = request;
     this.webview.send(`${channel}-failure-${id}`, message);
     this.props.dequeue(id);
   }
