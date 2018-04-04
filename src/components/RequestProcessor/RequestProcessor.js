@@ -3,11 +3,13 @@ import { func } from 'prop-types';
 
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
+import SampleConfirm from './SampleConfirm';
 import requestShape from '../../shapes/requestShape';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,
-  getBalance: GetBalance
+  getBalance: GetBalance,
+  sampleConfirm: SampleConfirm
 };
 
 export default class RequestProcessor extends React.Component {

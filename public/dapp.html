@@ -22,6 +22,11 @@
         <button type="button" onClick="javascript:getBalance(RPX)">Get RPX Balance</button>
         <button type="button" onClick="javascript:getBalance('fake')">Get Balance Error</button>
       </div>
+
+      <h2>sampleConfirm</h2>
+      <div>
+        <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
+      </div>
     </p>
     <script type="text/javascript">
       const api = window.NOS.V1;
@@ -40,6 +45,12 @@
         api.getBalance(scriptHash)
           .then((balance) => alert(`Balance: ${balance}`))
           .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function sampleConfirm() {
+        api.sampleConfirm()
+          .then(() => alert('Confirmed!'))
+          .catch(() => alert('Denied.'));
       }
     </script>
   </body>
