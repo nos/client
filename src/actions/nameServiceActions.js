@@ -10,13 +10,12 @@ const URL = 'http://localhost:30333';
 const client = Neon.create.rpcClient(URL);
 
 const isLocal = (query) => {
-  const [domain] = query.split(':');
-  return /^(localhost|127.0.0.1|0.0.0.0)$/.test(domain);
+  return /^(localhost|127.0.0.1|0.0.0.0|::1)/.test(query);
 };
 
 const lookup = async (query) => {
   if (isLocal(query)) {
-    return Promise.resolve({ query, target: `http://${query}` });
+    return { query, target: `http://${query}` };
   } else {
     const storageKey = Neon.u.str2hexstring(`${query}.target`);
     const response = await client.getStorage(NS_SCRIPT_HASH, storageKey);
