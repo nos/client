@@ -1,5 +1,5 @@
-import Neon, {api} from '@cityofzion/neon-js';
-import {createActions} from 'spunky';
+import Neon, { api } from '@cityofzion/neon-js';
+import { createActions } from 'spunky';
 
 export const ID = 'testinvoke';
 
