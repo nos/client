@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import Root from './components/Root';
 import registerServiceWorker from './registerServiceWorker';
 
+import './stylesheets/global.scss';
+
 function render(Component) {
   ReactDOM.render(<Component />, document.getElementById('root'));
 }

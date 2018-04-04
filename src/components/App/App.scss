@@ -1,12 +1,3 @@
-@mixin headerStyle {
-  box-sizing: border-box;
-  height: calc(32px + 1rem);
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  border-bottom: $primary-border-style;
-}
-
 .app {
   background-color: $content-bg-color;
   height: 100vh;
@@ -57,43 +48,9 @@
 
 .content {
   padding: 0.5rem;
+  box-sizing: border-box;
   overflow-y: auto;
   flex: 1;
-}
-
-.addressBar {
-  @include headerStyle;
-  display: flex;
-
-  input {
-    font-family: $primary-font-stack;
-    border: none;
-    background-color: transparent;
-    font-size: 1rem;
-    flex: 1;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  button {
-    font-size: 1rem;
-    border: none;
-    background-color: transparent;
-    margin: 0.5rem;
-    color: $primary-text-color;
-
-    &:focus,
-    &:hover {
-      color: lighten($primary-text-color, 20%);
-      outline: none;
-    }
-
-    &:active {
-      color: darken($primary-text-color, 20%);
-    }
-  }
 }
 
 .footer {

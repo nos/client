@@ -5253,6 +5253,24 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+"neon-js@git+https://github.com/cityofzion/neon-js.git#3.5.0":
+  version "3.5.0"
+  resolved "git+https://github.com/cityofzion/neon-js.git#b2798b657cd2c470a3f22d24ea6eb89247503d71"
+  dependencies:
+    axios "^0.18.0"
+    bignumber.js "5.0.0"
+    bs58 "^4.0.1"
+    bs58check "^2.1.1"
+    crypto-js "^3.1.9-1"
+    elliptic "^6.4.0"
+    js-scrypt "^0.2.0"
+    loglevel "^1.6.1"
+    loglevel-plugin-prefix "^0.8.3"
+    scrypt-js "^2.0.3"
+    secure-random "^1.1.1"
+    semver "^5.5.0"
+    wif "^2.0.6"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
@@ -6428,8 +6446,8 @@ react-dev-utils@^5.0.0:
     text-table "0.2.0"
 
 react-dom@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6548,8 +6566,8 @@ react-test-renderer@^16.0.0-0:
     prop-types "^15.6.0"
 
 react@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -7362,9 +7380,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-spunky@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/spunky/-/spunky-1.0.1.tgz#0189d22d15e4d0b9e8631ebfdcef07dd016fffee"
+spunky@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/spunky/-/spunky-1.1.0.tgz#f1c69c7e50b2f65c7b603bc7b71d5f7abb1b666e"
   dependencies:
     lodash "^4.17.5"
     react-redux "^5.0.6"
@@ -8195,9 +8213,13 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.19"
 
-whatwg-fetch@2.0.3, whatwg-fetch@>=0.10.0:
+whatwg-fetch@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
+
+whatwg-fetch@>=0.10.0:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
 whatwg-url@^4.3.0:
   version "4.8.0"

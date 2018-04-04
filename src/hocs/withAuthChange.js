@@ -1,26 +1,21 @@
-// @flow
 import React from 'react';
 import { omit } from 'lodash';
 import { compose } from 'recompose';
-import { withData, withProgress, type Progress } from 'spunky';
+import { withData, withProgress } from 'spunky';
 
 import authActions from '../actions/authActions';
-
-type Props = {
-  [key: string]: any
-};
 
 const DATA_PROP = '__authData__';
 const PROGRESS_PROP = '__authProgress__';
 
-export default function withAuthChange(progress: Progress, callback: Function) {
+export default function withAuthChange(progress, callback) {
   const mapDataToProps = (data) => ({
     [DATA_PROP]: data
   });
 
-  return (Component: Class<React.Component<*>>) => {
-    class WrappedComponent extends React.Component<Props> {
-      componentWillReceiveProps(nextProps: Props) {
+  return (Component) => {
+    class WrappedComponent extends React.Component {
+      componentWillReceiveProps(nextProps) {
         if (this.props[PROGRESS_PROP] !== progress && nextProps[PROGRESS_PROP] === progress) {
           callback(nextProps[DATA_PROP], omit(nextProps, DATA_PROP, PROGRESS_PROP));
         }

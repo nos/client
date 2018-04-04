@@ -10,8 +10,23 @@
       Click the buttons below to show info related to the currently authenticated NEO address.
     </p>
     <p>
-      <button type="button" onClick="javascript:getAddress()">Get Address</button>
-      <button type="button" onClick="javascript:getBalance()">Get NEO Balance</button>
+      <h2>getAddress</h2>
+      <div>
+        <button type="button" onClick="javascript:getAddress()">Get Address</button>
+      </div>
+
+      <h2>getBalance</h2>
+      <div>
+        <button type="button" onClick="javascript:getBalance(NEO)">Get NEO Balance</button>
+        <button type="button" onClick="javascript:getBalance(GAS)">Get GAS Balance</button>
+        <button type="button" onClick="javascript:getBalance(RPX)">Get RPX Balance</button>
+        <button type="button" onClick="javascript:getBalance('fake')">Get Balance Error</button>
+      </div>
+
+      <h2>sampleConfirm</h2>
+      <div>
+        <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
+      </div>
     </p>
     <p>
       Click the buttons below to access functions that don't require permissions.
@@ -23,16 +38,26 @@
     <script type="text/javascript">
       const api = window.NOS.V1;
 
+      const NEO = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
+      const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
+      const RPX = 'ecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9';
+
       function getAddress() {
         api.getAddress()
           .then((address) => alert(`Address: ${address}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
-      function getBalance() {
-        api.getBalance()
-          .then((balance) => alert(`Balance: ${balance} NEO`))
+      function getBalance(scriptHash) {
+        api.getBalance(scriptHash)
+          .then((balance) => alert(`Balance: ${balance}`))
           .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function sampleConfirm() {
+        api.sampleConfirm()
+          .then(() => alert('Confirmed!'))
+          .catch(() => alert('Denied.'));
       }
 
       function testInvoke() {

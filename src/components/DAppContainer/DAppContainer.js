@@ -1,13 +1,15 @@
 import React from 'react';
 import path from 'path';
-import { object } from 'prop-types';
+import { string, func } from 'prop-types';
 
-import createIPCHandler from '../../util/createIPCHandler';
-import styles from './DAppExample.scss';
+import RequestProcessor from '../RequestProcessor';
+import styles from './DAppContainer.scss';
 
-export default class DAppExample extends React.Component {
-  static contextTypes = {
-    store: object.isRequired
+export default class DAppContainer extends React.Component {
+  static propTypes = {
+    src: string.isRequired,
+    enqueue: func.isRequired,
+    dequeue: func.isRequired
   };
 
   componentDidMount() {
@@ -22,13 +24,17 @@ export default class DAppExample extends React.Component {
 
   render() {
     return (
-      <div className={styles.dappExample}>
-        <h1>DApp Example</h1>
+      <div className={styles.dAppContainer}>
         <webview
           ref={this.registerRef}
-          src="dapp.html"
+          src={this.props.src}
           preload={this.getPreloadPath()}
-          style={{ background: '#fcc', height: '200px' }}
+          style={{ height: '100%' }}
+        />
+
+        <RequestProcessor
+          onResolve={this.handleResolve}
+          onReject={this.handleReject}
         />
       </div>
     );
@@ -36,28 +42,34 @@ export default class DAppExample extends React.Component {
 
   handleConsoleMessage = (event) => {
     console.log('[DApp]', event.message); // eslint-disable-line no-console
-  }
+  };
 
   handleIPCMessage = async (event) => {
     const { channel } = event;
     const id = event.args[0];
     const args = event.args.slice(1);
 
-    try {
-      const handle = createIPCHandler(channel);
-      const result = await handle(this.context.store, ...args);
-      this.webview.send(`${channel}-success-${id}`, result);
-    } catch (err) {
-      this.webview.send(`${channel}-failure-${id}`, err.message);
-    }
+    this.props.enqueue({ channel, id, args });
+  };
+
+  handleResolve = (request, result) => {
+    const { channel, id } = request;
+    this.webview.send(`${channel}-success-${id}`, result);
+    this.props.dequeue(id);
+  }
+
+  handleReject = (request, message) => {
+    const { channel, id } = request;
+    this.webview.send(`${channel}-failure-${id}`, message);
+    this.props.dequeue(id);
   }
 
   registerRef = (el) => {
     this.webview = el;
-  }
+  };
 
   getPreloadPath = () => {
     const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
     return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
-  }
+  };
 }
