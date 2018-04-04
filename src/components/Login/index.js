@@ -15,7 +15,6 @@ import authActions from '../../actions/authActions';
 import previousAuthActions, { writePreviousAuthActions } from '../../actions/previousAuthActions';
 import ledgerActions from '../../actions/ledgerActions';
 import withLogin from '../../hocs/withLogin';
-import withLogout from '../../hocs/withLogout';
 
 const { LOADING } = progressValues;
 
@@ -68,7 +67,6 @@ export default compose(
   // store encryptedWIF so we can quickly login again next time the app launches
   withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.encryptedWIF })),
 
-  // redirect on login/logout
-  withLogin((data, { history }) => history.push('/')),
-  withLogout((data, { history }) => history.push('/login')),
+  // redirect on login
+  withLogin((data, { history }) => history.push('/'))
 )(Login);
