@@ -108,7 +108,7 @@
 
 "@cityofzion/neon-js@^3.5.0":
   version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@cityofzion/neon-js/-/neon-js-3.5.0.tgz#4dcc85b8a8bbee22c47c0e82192c692f4efead35"
+  resolved "git+https://github.com/cityofzion/neon-js.git#b2798b657cd2c470a3f22d24ea6eb89247503d71"
   dependencies:
     axios "^0.18.0"
     bignumber.js "5.0.0"
