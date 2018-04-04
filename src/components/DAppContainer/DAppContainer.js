@@ -1,13 +1,17 @@
 import React from 'react';
 import path from 'path';
-import { object } from 'prop-types';
+import { object, string } from 'prop-types';
 
 import createIPCHandler from '../../util/createIPCHandler';
-import styles from './DAppExample.scss';
+import styles from './DAppContainer.scss';
 
-export default class DAppExample extends React.Component {
+export default class DAppContainer extends React.Component {
   static contextTypes = {
     store: object.isRequired
+  };
+
+  static propTypes = {
+    src: string.isRequired
   };
 
   componentDidMount() {
@@ -22,13 +26,12 @@ export default class DAppExample extends React.Component {
 
   render() {
     return (
-      <div className={styles.dappExample}>
-        <h1>DApp Example</h1>
+      <div className={styles.dAppContainer}>
         <webview
           ref={this.registerRef}
-          src="dapp.html"
+          src={this.props.src}
           preload={this.getPreloadPath()}
-          style={{ background: '#fcc', height: '200px' }}
+          style={{ height: '100%' }}
         />
       </div>
     );
@@ -36,7 +39,7 @@ export default class DAppExample extends React.Component {
 
   handleConsoleMessage = (event) => {
     console.log('[DApp]', event.message); // eslint-disable-line no-console
-  }
+  };
 
   handleIPCMessage = async (event) => {
     const { channel } = event;
@@ -50,14 +53,14 @@ export default class DAppExample extends React.Component {
     } catch (err) {
       this.webview.send(`${channel}-failure-${id}`, err.message);
     }
-  }
+  };
 
   registerRef = (el) => {
     this.webview = el;
-  }
+  };
 
   getPreloadPath = () => {
     const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
     return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
-  }
+  };
 }

@@ -9,7 +9,7 @@ import Routes from './Routes';
 import Home from '../Home';
 import Login from '../Login';
 import Logout from '../Logout';
-import DAppExample from '../DAppExample';
+import DAppContainer from '../DAppContainer';
 import { provideState } from '../../testHelpers';
 
 const { LOADED } = progressValues;
@@ -62,12 +62,12 @@ describe('<Routes />', () => {
     });
   });
 
-  describe('example dapp route', () => {
+  describe('dapp route', () => {
     itBehavesLikeAuthenticatedRoute('/dapp');
 
     it('renders when authenticated', () => {
       const wrapper = mountPath('/dapp', { spunky: { auth: authenticatedState } });
-      expect(wrapper.find(DAppExample).exists()).toBe(true);
+      expect(wrapper.find(DAppContainer).exists()).toBe(true);
     });
   });
 });

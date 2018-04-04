@@ -1,0 +1,8 @@
+@mixin headerStyle {
+  box-sizing: border-box;
+  height: calc(32px + 1rem);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: $primary-border-style;
+}
