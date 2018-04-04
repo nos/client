@@ -1,10 +1,10 @@
 import { withActions } from 'spunky';
 
 import Logout from './Logout';
-import authActions from '../../actions/authActions';
+import accountActions from '../../actions/accountActions';
 
 const mapActionsToProps = ({ reset }) => ({
   logout: reset
 });
 
-export default withActions(authActions, mapActionsToProps)(Logout);
+export default withActions(accountActions, mapActionsToProps)(Logout);
