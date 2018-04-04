@@ -33,7 +33,7 @@
     </p>
     <p>
       <button type="button" onClick="javascript:testInvoke()">Execute test invoke</button>
-      <button type="button" onClick="javascript:getStorage(params)">Get From Storage</button>
+      <button type="button" onClick="javascript:getStorage()">Get From Storage</button>
     </p>
     <script type="text/javascript">
       const api = window.NOS.V1;
@@ -72,7 +72,8 @@
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
-      function getStorage(params) {
+      function getStorage() {
+        console.log(params);
         api.getStorage(params)
           .then((response) => alert(`Get storage response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));

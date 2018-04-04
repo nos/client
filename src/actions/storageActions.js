@@ -1,9 +1,16 @@
 import Neon, { api } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
-export const ID = 'storage';
+export const ID = 'getStorage';
 
-export const getStorage = async (net, { scriptHash, key }) => {
+export const getStorage = async (net, { scriptHash, key, kek, top }) => {
+
+  console.log('gejoigh', net);
+  console.log('gejoigh', scriptHash);
+  console.log('gejoigh', key);
+  console.log('gejoigh', kek);
+  console.log('gejoigh', top);
+
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   try {
@@ -19,6 +26,6 @@ export const getStorage = async (net, { scriptHash, key }) => {
   }
 };
 
-export default createActions(ID, ({ net, scriptHash, key }) => async () => {
-  return getStorage(net, { scriptHash, key });
+export default createActions(ID, ({ net, scriptHash, key, ...args }) => async () => {
+  return getStorage(net, { scriptHash, key, args });
 });

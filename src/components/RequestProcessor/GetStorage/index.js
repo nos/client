@@ -8,7 +8,7 @@ import withNullLoader from '../../../hocs/dapps/withNullLoader';
 const mapStorageDataToProps = (response) => ({ response });
 
 export default compose(
-  withCall(storageActions, (params) => ({ net: 'TestNet', ...params })),
+  withCall(storageActions, ({params}) => ({ net: 'TestNet', ...params })),
   withNullLoader(storageActions),
   withData(storageActions, mapStorageDataToProps)
 )(GetStorage);
