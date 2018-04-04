@@ -1,9 +1,9 @@
 import { withActions, withCall, withData } from 'spunky';
-import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import { compose } from 'recompose';
 
 import TestInvoke from './TestInvoke';
 import invokeActions from '../../../actions/invokeActions';
+import withNullLoader from '../../../hocs/dapps/withNullLoader';
 
 const mapInvokeActionsToProps = (actions) => ({
   testInvoke: (data) => {
