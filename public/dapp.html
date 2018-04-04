@@ -35,7 +35,7 @@
 
     <h2>getStorage</h2>
     <div>
-      <button type="button" onClick="javascript:getStorage(params)">Get From Storage</button>
+      <button type="button" onClick="javascript:getStorage()">Get From Storage</button>
     </div>
 
     <script type="text/javascript">
@@ -75,7 +75,8 @@
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
-      function getStorage(params) {
+      function getStorage() {
+        console.log(params);
         api.getStorage(params)
           .then((response) => alert(`Get storage response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
