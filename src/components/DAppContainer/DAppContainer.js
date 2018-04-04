@@ -1,17 +1,15 @@
 import React from 'react';
 import path from 'path';
-import { object, string } from 'prop-types';
+import { string, func } from 'prop-types';
 
-import createIPCHandler from '../../util/createIPCHandler';
+import RequestProcessor from '../RequestProcessor';
 import styles from './DAppContainer.scss';
 
 export default class DAppContainer extends React.Component {
-  static contextTypes = {
-    store: object.isRequired
-  };
-
   static propTypes = {
-    src: string.isRequired
+    src: string.isRequired,
+    enqueue: func.isRequired,
+    dequeue: func.isRequired
   };
 
   componentDidMount() {
@@ -33,6 +31,11 @@ export default class DAppContainer extends React.Component {
           preload={this.getPreloadPath()}
           style={{ height: '100%' }}
         />
+
+        <RequestProcessor
+          onResolve={this.handleResolve}
+          onReject={this.handleReject}
+        />
       </div>
     );
   }
@@ -46,14 +49,20 @@ export default class DAppContainer extends React.Component {
     const id = event.args[0];
     const args = event.args.slice(1);
 
-    try {
-      const handle = createIPCHandler(channel);
-      const result = await handle(this.context.store, ...args);
-      this.webview.send(`${channel}-success-${id}`, result);
-    } catch (err) {
-      this.webview.send(`${channel}-failure-${id}`, err.message);
-    }
+    this.props.enqueue({ channel, id, args });
   };
+
+  handleResolve = (request, result) => {
+    const { channel, id } = request;
+    this.webview.send(`${channel}-success-${id}`, result);
+    this.props.dequeue(id);
+  }
+
+  handleReject = (request, message) => {
+    const { channel, id } = request;
+    this.webview.send(`${channel}-failure-${id}`, message);
+    this.props.dequeue(id);
+  }
 
   registerRef = (el) => {
     this.webview = el;
