@@ -61,7 +61,7 @@ export default compose(
   withError(ledgerActions, mapLedgerErrorToProps),
 
   // input values and handlers
-  withState('wif', 'setWIF', ''),
+  withState('wif', 'setWIF', 'KzLpJomrbKGeokwj4b2j5942YFmK8rYcMwvR9bW1qXernZAZwbAd'),
   withState('encryptedWIF', 'setEncryptedWIF', (props) => props.encryptedWIF || ''),
   withState('passphrase', 'setPassphrase', ''),
 
