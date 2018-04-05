@@ -1,14 +1,17 @@
 import { withCall, withData } from 'spunky';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 
 import GetStorage from './GetStorage';
 import storageActions from '../../../actions/storageActions';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapStorageDataToProps = (response) => ({ response });
 
 export default compose(
-  withCall(storageActions, ({params}) => ({ net: 'TestNet', ...params })),
+  withProps(({ args }) => ({ scriptHash: args[0], storageKey: args[1] })),
+  withCall(storageActions, ({ scriptHash, storageKey }) => ({ net: 'TestNet', scriptHash, key: storageKey })),
   withNullLoader(storageActions),
+  withRejectMessage(storageActions, (props) => (`Retrieving storage failed for key "${props.key}" on "${props.scriptHash}"`)),
   withData(storageActions, mapStorageDataToProps)
 )(GetStorage);

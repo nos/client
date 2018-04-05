@@ -1,4 +1,5 @@
 import Neon, { api, u } from '@cityofzion/neon-js';
+
 import { createActions } from 'spunky';
 
 export const ID = 'testinvoke';
@@ -9,6 +10,7 @@ export const testInvoke = async (net, { scriptHash, operation, args }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   const myArg = s2h(args[0]);
+
 
   const invoke = {
     scriptHash,
@@ -30,7 +32,6 @@ export const testInvoke = async (net, { scriptHash, operation, args }) => {
     console.log('error', e);
   }
 };
-
 
 export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
   return testInvoke(net, { scriptHash, operation, args });

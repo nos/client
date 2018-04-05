@@ -9,7 +9,7 @@
     <p>
       Click the buttons below to show info related to the currently authenticated NEO address.
     </p>
-    <p>
+    <div>
       <h2>getAddress</h2>
       <div>
         <button type="button" onClick="javascript:getAddress()">Get Address</button>
@@ -27,7 +27,7 @@
       <div>
         <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
       </div>
-    </p>
+    </div>
     <p>
       Click the buttons below to access functions that don't require permissions.
     </p>
@@ -42,42 +42,40 @@
       const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
       const RPX = 'ecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9';
 
-      const params = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "posts.latest" };
-
       function getAddress() {
         api.getAddress()
           .then((address) => alert(`Address: ${address}`))
           .catch((err) => alert(`Error: ${err.message}`));
-      }
+      };
 
       function getBalance(scriptHash) {
         api.getBalance(scriptHash)
           .then((balance) => alert(`Balance: ${balance}`))
           .catch((err) => alert(`Error: ${err.message}`));
-      }
+      };
 
       function sampleConfirm() {
         api.sampleConfirm()
           .then(() => alert('Confirmed!'))
           .catch(() => alert('Denied.'));
-      }
+      };
 
       function testInvoke() {
         const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
-        const operation = 'operationUUID934u03930259';
-        const arg1 = 'argsUUID94856039468304';
+        const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
+        const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
 
         api.testInvoke(scriptHash, operation, arg1)
           .then((response) => alert(`Test invoke response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
-      }
+      };
 
       function getStorage() {
-        console.log(params);
-        api.getStorage(params)
+        const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "posts.latest" };
+        api.getStorage(gSData.scriptHash, gSData.key)
           .then((response) => alert(`Get storage response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
-      }
+      };
     </script>
   </body>
 </html>

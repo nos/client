@@ -11,6 +11,7 @@ export default class GetBalance extends React.Component {
   componentDidMount() {
     console.log('mounted', this.props);
     const response = this.getResponse();
+    console.log('response', response);
     this.props.onResolve(response.result);
   }
 
