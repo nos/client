@@ -11,9 +11,11 @@ export default function Button(props) {
 }
 
 Button.propTypes = {
-  className: string
+  className: string,
+  type: string
 };
 
 Button.defaultProps = {
-  className: null
+  className: null,
+  type: 'button'
 };
