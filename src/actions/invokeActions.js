@@ -1,16 +1,15 @@
-import Neon, {api} from '@cityofzion/neon-js';
-import {createActions} from 'spunky';
+import Neon, { api } from 'neon-js';
+import { createActions } from 'spunky';
 
 export const ID = 'testinvoke';
 
-export const testInvoke = async (net, {scriptHash, operation, args}) => {
-
+export const testInvoke = async (net, { scriptHash, operation, args }) => {
   console.log(net);
   console.log(scriptHash);
   console.log(operation);
   console.log(args);
 
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, {net});
+  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   // Create script
   const script = Neon.create.script(scriptHash); // TODO scriptHash --> invoke
@@ -23,7 +22,6 @@ export const testInvoke = async (net, {scriptHash, operation, args}) => {
   };
 };
 
-
-export default createActions(ID, ({net, scriptHash, operation, args}) => async () => {
-  return testInvoke(net, {scriptHash, operation, args});
+export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
+  return testInvoke(net, { scriptHash, operation, args });
 });
