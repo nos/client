@@ -46,19 +46,19 @@
         api.getAddress()
           .then((address) => alert(`Address: ${address}`))
           .catch((err) => alert(`Error: ${err.message}`));
-      };
+      }
 
       function getBalance(scriptHash) {
         api.getBalance(scriptHash)
           .then((balance) => alert(`Balance: ${balance}`))
           .catch((err) => alert(`Error: ${err.message}`));
-      };
+      }
 
       function sampleConfirm() {
         api.sampleConfirm()
           .then(() => alert('Confirmed!'))
           .catch(() => alert('Denied.'));
-      };
+      }
 
       function testInvoke() {
         const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
@@ -68,14 +68,14 @@
         api.testInvoke(scriptHash, operation, arg1)
           .then((response) => alert(`Test invoke response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
-      };
+      }
 
       function getStorage() {
         const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
         api.getStorage(gSData.scriptHash, gSData.key)
           .then((response) => alert(`Get storage response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
-      };
+      }
     </script>
   </body>
 </html>

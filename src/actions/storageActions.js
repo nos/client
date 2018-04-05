@@ -3,7 +3,7 @@ import { createActions } from 'spunky';
 
 export const ID = 'getStorage';
 
-export const getStorage = async (net, { scriptHash, key }) => {
+const getStorage = async (net, { scriptHash, key }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   const response = await rpc.Query
