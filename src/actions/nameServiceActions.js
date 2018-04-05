@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import Neon from '@cityofzion/neon-js';
+import Neon from 'neon-js';
 
 export const ID = 'nameService';
 

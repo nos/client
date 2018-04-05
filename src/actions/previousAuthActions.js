@@ -1,4 +1,4 @@
-import { wallet } from '@cityofzion/neon-js';
+import { wallet } from 'neon-js';
 import { createActions } from 'spunky';
 import { getStorage, setStorage } from '../lib/storage';
 

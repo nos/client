@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import { api } from '@cityofzion/neon-js';
+import { api } from 'neon-js';
 import { extend } from 'lodash';
 
 import { NEO, GAS } from '../values/assets';

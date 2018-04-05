@@ -4,7 +4,6 @@ import invokeShape from '../../../shapes/invokeShape';
 
 export default class TestInvoke extends React.Component {
   static propTypes = {
-    balances: arrayOf(invokeShape).isRequired,
     args: arrayOf(any).isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired
