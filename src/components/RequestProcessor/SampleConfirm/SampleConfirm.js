@@ -1,24 +1,27 @@
 import React from 'react';
-import { func, any, arrayOf } from 'prop-types';
+import { func } from 'prop-types';
+
+import Confirm from '../../Confirm';
 
 export default class SampleConfirm extends React.Component {
   static propTypes = {
-    args: arrayOf(any).isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired
   };
 
-  componentDidMount() {
-    console.log('API called with args:', this.props.args); // eslint-disable-line no-console
-
-    if (window.confirm('Would you like to perform this action?')) { // eslint-disable-line no-alert
-      this.props.onResolve();
-    } else {
-      this.props.onReject('Cancelled by user');
-    }
+  render() {
+    return (
+      <Confirm title="DApp Request" onConfirm={this.handleConfirm} onCancel={this.handleCancel}>
+        Would you like to perform this action?
+      </Confirm>
+    );
   }
 
-  render() {
-    return null;
+  handleConfirm = () => {
+    this.props.onResolve();
+  }
+
+  handleCancel = () => {
+    this.props.onReject('Cancelled by user.');
   }
 }
