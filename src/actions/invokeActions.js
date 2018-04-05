@@ -1,4 +1,4 @@
-import Neon, { api, u } from '@cityofzion/neon-js';
+import Neon, { api, rpc, u } from '@cityofzion/neon-js';
 
 import { createActions } from 'spunky';
 
@@ -22,13 +22,13 @@ export const testInvoke = async (net, { scriptHash, operation, args }) => {
     // Create script
     const script = Neon.create.script(invoke);
 
-    const response = await Neon.rpc.Query.invokeScript(script).execute(endpoint);
+    const response = await rpc.Query.invokeScript(script).execute(endpoint);
     console.log(response.result);
 
     return {
       response: 'test'
     };
-  } catch(e) {
+  } catch (e) {
     console.log('error', e);
   }
 };
