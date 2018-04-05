@@ -10,7 +10,6 @@ export default class TestInvoke extends React.Component {
   };
 
   componentDidMount() {
-    // TODO process invoke result
     this.props.onResolve(this.props.response.result.script);
   }
 
