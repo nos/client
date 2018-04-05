@@ -4,6 +4,7 @@ import React from 'react';
 import { string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 
+import LoginFormWIF from './LoginFormWIF';
 import Panel from '../Panel';
 import Tabs from '../Tabs';
 import Input from '../Forms/Input';
@@ -29,10 +30,8 @@ const deviceInfoShape = shape({
 
 export default class Login extends React.Component {
   static propTypes = {
-    wif: string,
     encryptedWIF: string,
     passphrase: string,
-    setWIF: func,
     setEncryptedWIF: func,
     setPassphrase: func,
     login: func.isRequired,
@@ -43,10 +42,8 @@ export default class Login extends React.Component {
   };
 
   static defaultProps = {
-    wif: '',
     encryptedWIF: '',
     passphrase: '',
-    setWIF: noop,
     setEncryptedWIF: noop,
     setPassphrase: noop,
     publicKey: null,
@@ -99,19 +96,7 @@ export default class Login extends React.Component {
   }
 
   renderWif = () => {
-    return (
-      <label htmlFor="wif">
-        <Input
-          id="wif"
-          type="password"
-          label="WIF"
-          placeholder="Enter WIF"
-          value={this.props.wif}
-          onChange={(event) => this.props.setWIF(event.target.value)}
-        />
-        {this.renderActions()}
-      </label>
-    );
+    return <LoginFormWIF onLogin={this.props.login} />;
   }
 
   renderPassphrase = () => {
@@ -194,11 +179,9 @@ export default class Login extends React.Component {
   }
 
   handleLogin = () => {
-    const { wif, passphrase, encryptedWIF, publicKey } = this.props;
+    const { passphrase, encryptedWIF, publicKey } = this.props;
 
     switch (this.state.tab) {
-      case TAB_WIF:
-        return this.props.login({ wif });
       case TAB_PASSPHRASE:
         return this.props.login({ passphrase, encryptedWIF });
       case TAB_LEDGER:
