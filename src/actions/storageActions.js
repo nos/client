@@ -6,11 +6,11 @@ export const ID = 'getStorage';
 export const getStorage = async (net, { scriptHash, key }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
-  const r = await rpc.Query
+  const response = await rpc.Query
     .getStorage(scriptHash, u.str2hexstring(key))
     .execute(endpoint);
 
-  return { response: r.result };
+  return response;
 };
 
 export default createActions(ID, ({ net, scriptHash, key }) => async () => {
