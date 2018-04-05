@@ -10,16 +10,7 @@ export const getStorage = async (net, { scriptHash, key }) => {
     .getStorage(scriptHash, u.str2hexstring(key))
     .execute(endpoint);
 
-  // const r = await rpc.queryRPC(endpoint, {
-  //   method: 'getstorage',
-  //   params: [scriptHash, key]
-  // });
-  console.log('resposne: ', r);
-
-  const response = 'test';
-  console.log(response);
-
-  return { response };
+  return { response: r.result };
 };
 
 export default createActions(ID, ({ net, scriptHash, key }) => async () => {
