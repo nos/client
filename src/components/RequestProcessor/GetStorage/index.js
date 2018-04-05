@@ -12,6 +12,6 @@ export default compose(
   withProps(({ args }) => ({ scriptHash: args[0], storageKey: args[1] })),
   withCall(storageActions, ({ scriptHash, storageKey }) => ({ net: 'TestNet', scriptHash, key: storageKey })),
   withNullLoader(storageActions),
-  withRejectMessage(storageActions, (props) => (`Retrieving storage failed for key "${props.key}" on "${props.scriptHash}"`)),
+  withRejectMessage(storageActions, (props) => (`Retrieving storage failed for key "${props.storageKey}" on "${props.scriptHash}"`)),
   withData(storageActions, mapStorageDataToProps)
 )(GetStorage);
