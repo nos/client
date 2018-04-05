@@ -1,4 +1,4 @@
-import Neon, { api, rpc } from '@cityofzion/neon-js';
+import { api, rpc, u } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
 export const ID = 'getStorage';
@@ -6,14 +6,15 @@ export const ID = 'getStorage';
 export const getStorage = async (net, { scriptHash, key }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
-  const r = await rpc.Query.getStorage(scriptHash, key).execute(endpoint);
-  console.log(r);
+  const r = await rpc.Query
+    .getStorage(scriptHash, u.str2hexstring(key))
+    .execute(endpoint);
 
   // const r = await rpc.queryRPC(endpoint, {
   //   method: 'getstorage',
   //   params: [scriptHash, key]
   // });
-  // console.log('resposne: ', r);
+  console.log('resposne: ', r);
 
   const response = 'test';
   console.log(response);
