@@ -5,11 +5,6 @@ export const ID = 'testinvoke';
 const s2h = u.str2hexstring;
 
 export const testInvoke = async (net, { scriptHash, operation, args }) => {
-  console.log(net);
-  console.log(scriptHash);
-  console.log(operation);
-  console.log(args);
-
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   const myArg = s2h(args[0]);
@@ -20,19 +15,14 @@ export const testInvoke = async (net, { scriptHash, operation, args }) => {
     args: myArg
   };
 
-  try {
-    // Create script
-    const script = Neon.create.script(invoke);
+  // Create script
+  const script = Neon.create.script(invoke);
 
-    const response = await rpc.Query.invokeScript(script).execute(endpoint);
-    console.log(response.result);
+  const response = await rpc.Query.invokeScript(script).execute(endpoint);
 
-    return {
-      response: 'test'
-    };
-  } catch (e) {
-    console.log('error', e);
-  }
+  return {
+    response
+  };
 };
 
 export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
