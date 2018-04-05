@@ -20,9 +20,7 @@ export const testInvoke = async (net, { scriptHash, operation, args }) => {
 
   const response = await rpc.Query.invokeScript(script).execute(endpoint);
 
-  return {
-    response
-  };
+  return response;
 };
 
 export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
