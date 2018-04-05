@@ -4,7 +4,7 @@ import { createActions } from 'spunky';
 export const ID = 'testinvoke';
 const s2h = u.str2hexstring;
 
-export const testInvoke = async (net, { scriptHash, operation, args }) => {
+const testInvoke = async (net, { scriptHash, operation, args }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
   const myArg = s2h(args[0]);
