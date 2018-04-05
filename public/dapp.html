@@ -71,7 +71,7 @@
       };
 
       function getStorage() {
-        const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "posts.latest" };
+        const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
         api.getStorage(gSData.scriptHash, gSData.key)
           .then((response) => alert(`Get storage response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
