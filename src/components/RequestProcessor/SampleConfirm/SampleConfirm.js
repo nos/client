@@ -1,10 +1,11 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { string, func } from 'prop-types';
 
 import Confirm from '../../Confirm';
 
 export default class SampleConfirm extends React.Component {
   static propTypes = {
+    src: string.isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired
   };
@@ -12,7 +13,7 @@ export default class SampleConfirm extends React.Component {
   render() {
     return (
       <Confirm title="DApp Request" onConfirm={this.handleConfirm} onCancel={this.handleCancel}>
-        Would you like to perform this action?
+        Would you like to permit <strong>{this.props.src}</strong> to perform this action?
       </Confirm>
     );
   }
