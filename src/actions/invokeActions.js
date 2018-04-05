@@ -1,7 +1,8 @@
-import Neon, { api } from 'neon-js';
+import Neon, { api } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
 export const ID = 'testinvoke';
+const s2h = u.str2hexstring;
 
 export const testInvoke = async (net, { scriptHash, operation, args }) => {
   console.log(net);
@@ -11,15 +12,27 @@ export const testInvoke = async (net, { scriptHash, operation, args }) => {
 
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
-  // Create script
-  const script = Neon.create.script(scriptHash); // TODO scriptHash --> invoke
+  const myArg = s2h(args[0]);
 
-  const response = await Neon.rpc.Query.invokeScript(script).execute(endpoint);
-  console.log(response.result);
-
-  return {
-    response: 'test'
+  const invoke = {
+    scriptHash,
+    operation,
+    args: myArg
   };
+
+  try {
+    // Create script
+    const script = Neon.create.script(invoke);
+
+    const response = await Neon.rpc.Query.invokeScript(script).execute(endpoint);
+    console.log(response.result);
+
+    return {
+      response: 'test'
+    };
+  } catch(e) {
+    console.log('error', e);
+  }
 };
 
 export default createActions(ID, ({ net, scriptHash, operation, args }) => async () => {
