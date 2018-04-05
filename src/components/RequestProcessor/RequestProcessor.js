@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { string, func } from 'prop-types';
 
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
@@ -14,6 +14,7 @@ const COMPONENT_MAP = {
 
 export default class RequestProcessor extends React.Component {
   static propTypes = {
+    src: string.isRequired,
     request: requestShape,
     onResolve: func.isRequired,
     onReject: func.isRequired
@@ -32,12 +33,13 @@ export default class RequestProcessor extends React.Component {
   }
 
   renderRequest = () => {
-    const { request } = this.props;
+    const { src, request } = this.props;
     const Component = this.getComponent(request.channel);
 
     return (
       <Component
         {...request}
+        src={src}
         key={`request-${request.id}`}
         onResolve={this.handleResolve}
         onReject={this.handleReject}

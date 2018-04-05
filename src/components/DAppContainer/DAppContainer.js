@@ -33,6 +33,7 @@ export default class DAppContainer extends React.Component {
         />
 
         <RequestProcessor
+          src={this.props.src}
           onResolve={this.handleResolve}
           onReject={this.handleReject}
         />
