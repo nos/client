@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './Breadcrumbs.scss';
 
 export default function Breadcrumbs() {
