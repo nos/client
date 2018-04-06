@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { string, func, shape } from 'prop-types';
-import { noop } from 'lodash';
 
+import LoginFormPassphrase from './LoginFormPassphrase';
 import LoginFormWIF from './LoginFormWIF';
 import Panel from '../Panel';
 import Tabs from '../Tabs';
-import Input from '../Forms/Input';
 import Button from '../Forms/Button';
 import styles from './Login.scss';
 
@@ -30,10 +29,6 @@ const deviceInfoShape = shape({
 
 export default class Login extends React.Component {
   static propTypes = {
-    encryptedWIF: string,
-    passphrase: string,
-    setEncryptedWIF: func,
-    setPassphrase: func,
     login: func.isRequired,
     poll: func.isRequired,
     publicKey: string,
@@ -42,10 +37,6 @@ export default class Login extends React.Component {
   };
 
   static defaultProps = {
-    encryptedWIF: '',
-    passphrase: '',
-    setEncryptedWIF: noop,
-    setPassphrase: noop,
     publicKey: null,
     deviceInfo: null,
     deviceError: null
@@ -100,31 +91,7 @@ export default class Login extends React.Component {
   }
 
   renderPassphrase = () => {
-    return (
-      <div>
-        <label htmlFor="encryptedWIF">
-          <Input
-            id="encryptedWIF"
-            type="password"
-            label="Encrypted WIF"
-            placeholder="Enter encrypted WIF"
-            value={this.props.encryptedWIF}
-            onChange={(event) => this.props.setEncryptedWIF(event.target.value)}
-          />
-        </label>
-        <label htmlFor="passphrase">
-          <Input
-            id="passphrase"
-            type="password"
-            label="Passphrase"
-            placeholder="Enter passphrase"
-            value={this.props.passphrase}
-            onChange={(event) => this.props.setPassphrase(event.target.value)}
-          />
-        </label>
-        {this.renderActions()}
-      </div>
-    );
+    return <LoginFormPassphrase onLogin={this.props.login} />;
   }
 
   renderLedger = () => {
@@ -179,11 +146,9 @@ export default class Login extends React.Component {
   }
 
   handleLogin = () => {
-    const { passphrase, encryptedWIF, publicKey } = this.props;
+    const { publicKey } = this.props;
 
     switch (this.state.tab) {
-      case TAB_PASSPHRASE:
-        return this.props.login({ passphrase, encryptedWIF });
       case TAB_LEDGER:
         return this.props.login({ publicKey });
       default:
