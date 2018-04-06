@@ -3,8 +3,8 @@
 import React from 'react';
 import { bool } from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import Icon from '../Icon';
 
+import Icon from '../../Icon';
 import styles from './Navigation.scss';
 
 export default class Navigation extends React.Component {

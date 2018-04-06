@@ -1,9 +1,9 @@
 import React from 'react';
 import { string, objectOf } from 'prop-types';
 
-import Panel from '../Panel';
-import balanceShape from '../../shapes/balanceShape';
-import { NEO, GAS } from '../../values/assets';
+import Panel from '../../Panel';
+import balanceShape from '../../../shapes/balanceShape';
+import { NEO, GAS } from '../../../values/assets';
 import styles from './WalletPanel.scss';
 
 const balancesShape = objectOf(balanceShape);

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import PrivateRoute from '../PrivateRoute';
-import Home from '../Home';
-import Login from '../Login';
-import Logout from '../Logout';
-import Browser from '../Browser';
-import Exchange from '../Exchange';
-import Favorites from '../Favorites';
-import DAppContainer from '../DAppContainer';
+import PrivateRoute from '../../PrivateRoute';
+import Home from '../../Home';
+import Login from '../../Login';
+import Logout from '../../Logout';
+import Browser from '../../Browser';
+import Exchange from '../../Exchange';
+import Favorites from '../../Favorites';
+import DAppContainer from '../../DAppContainer';
 
 export default function Routes() {
   return (
