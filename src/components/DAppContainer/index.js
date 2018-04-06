@@ -4,11 +4,12 @@ import { withData } from 'spunky';
 
 import DAppContainer from './DAppContainer';
 import nameServiceActions from '../../actions/nameServiceActions';
-import { enqueue, dequeue } from '../../actions/requestsActions';
+import { enqueue, dequeue, empty } from '../../actions/requestsActions';
 
 const mapDispatchToProps = (dispatch) => ({
   enqueue: (request) => dispatch(enqueue(request)),
-  dequeue: (id) => dispatch(dequeue(id))
+  dequeue: (id) => dispatch(dequeue(id)),
+  empty: () => dispatch(empty())
 });
 
 const mapNameServiceDataToProps = (data) => ({

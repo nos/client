@@ -1,6 +1,6 @@
 import { findIndex } from 'lodash';
 
-import { ENQUEUE_REQUEST, DEQUEUE_REQUEST } from '../actions/requestsActions';
+import { ENQUEUE_REQUEST, DEQUEUE_REQUEST, EMPTY_REQUESTS } from '../actions/requestsActions';
 
 const initialState = [];
 
@@ -27,6 +27,8 @@ export default function requestsReducer(state = initialState, action) {
       return enqueue(state, action.request);
     case DEQUEUE_REQUEST:
       return dequeue(state, action.id);
+    case EMPTY_REQUESTS:
+      return initialState;
     default:
       return state;
   }

@@ -9,7 +9,8 @@ export default class DAppContainer extends React.Component {
   static propTypes = {
     src: string.isRequired,
     enqueue: func.isRequired,
-    dequeue: func.isRequired
+    dequeue: func.isRequired,
+    empty: func.isRequired
   };
 
   componentDidMount() {
@@ -20,6 +21,9 @@ export default class DAppContainer extends React.Component {
   componentWillUnmount() {
     this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
+
+    // remove any pending requests from the queue
+    this.props.empty();
   }
 
   render() {
