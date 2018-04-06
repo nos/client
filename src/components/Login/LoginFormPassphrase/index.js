@@ -1,7 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import {
-  withCall,
   withData,
   withActions,
   withProgressComponents,
@@ -12,6 +11,7 @@ import {
 import LoginFormPassphrase from './LoginFormPassphrase';
 import Loading from '../../Loading';
 import previousAuthActions, { writePreviousAuthActions } from '../../../actions/previousAuthActions';
+import withInitialCall from '../../../hocs/withInitialCall';
 import withLogin from '../../../hocs/withLogin';
 
 const { LOADING } = progressValues;
@@ -25,7 +25,7 @@ const mapPreviousAuthDataToProps = (data) => ({
 });
 
 export default compose(
-  withCall(previousAuthActions),
+  withInitialCall(previousAuthActions),
   withProgressComponents(previousAuthActions, {
     [LOADING]: Loading
   }, {
