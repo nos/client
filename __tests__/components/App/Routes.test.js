@@ -5,11 +5,11 @@ import { object } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { progressValues } from 'spunky';
 
-import Routes from './Routes';
-import Home from '../Home';
-import Login from '../Login';
-import Logout from '../Logout';
-import DAppContainer from '../DAppContainer';
+import Routes from '../../../src/components/App/Routes';
+import Home from '../../../src/components/Home';
+import Login from '../../../src/components/Login';
+import Logout from '../../../src/components/Logout';
+import DAppContainer from '../../../src/components/DAppContainer';
 import { provideState } from '../../testHelpers';
 
 const { LOADED } = progressValues;
