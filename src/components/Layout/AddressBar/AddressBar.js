@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { func, string, shape } from 'prop-types';
-import Icon from '../Icon';
 
+import Icon from '../../Icon';
 import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
