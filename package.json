@@ -13,7 +13,7 @@
     "@ledgerhq/hw-transport-node-hid": "^4.7.0",
     "classnames": "^2.2.5",
     "electron-is-dev": "^0.3.0",
-    "electron-json-storage": "^4.0.2",
+    "electron-json-storage": "github:nos/electron-json-storage#remove-es6-features",
     "es6-promisify": "^6.0.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
@@ -37,7 +37,7 @@
     "start-react": "cross-env BROWSER=none react-app-rewired start",
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
     "pack": "yarn run build && electron-builder --dir",
-    "dist": "yarn run build && electron-builder",
+    "dist": "yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "clean": "rimraf build dist",
     "clean-neon-js": "rimraf node_modules/neon-js/src",
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force && yarn run clean-neon-js"
