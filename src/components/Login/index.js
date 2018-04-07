@@ -1,7 +1,9 @@
+import { compose } from 'recompose';
 import { withActions } from 'spunky';
 
 import Login from './Login';
 import authActions from '../../actions/authActions';
+import withAuthError from '../../hocs/withAuthError';
 
 const mapAuthActionsToProps = (actions) => ({
   login: ({ wif, passphrase, encryptedWIF, publicKey }) => {
@@ -9,4 +11,7 @@ const mapAuthActionsToProps = (actions) => ({
   }
 });
 
-export default withActions(authActions, mapAuthActionsToProps)(Login);
+export default compose(
+  withActions(authActions, mapAuthActionsToProps),
+  withAuthError
+)(Login);

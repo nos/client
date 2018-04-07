@@ -6,6 +6,7 @@ import LoginFormWIF from './LoginFormWIF';
 import LoginFormLedger from './LoginFormLedger';
 import Panel from '../Panel';
 import Tabs from '../Tabs';
+import logo from '../../images/logo.svg';
 import styles from './Login.scss';
 
 const TAB_WIF = 'wif';
@@ -29,19 +30,18 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <Panel className={styles.login} renderHeader={this.renderHeader}>
-        <Tabs
-          tabs={TABS}
-          selectedTab={this.state.tab}
-          renderTab={this.renderTab}
-          onSelect={this.handleSelectTab}
-        />
-      </Panel>
+      <div className={styles.login}>
+        <Panel className={styles.panel}>
+          <img className={styles.logo} src={logo} alt="nOS" />
+          <Tabs
+            tabs={TABS}
+            selectedTab={this.state.tab}
+            renderTab={this.renderTab}
+            onSelect={this.handleSelectTab}
+          />
+        </Panel>
+      </div>
     );
-  }
-
-  renderHeader = () => {
-    return 'Login';
   }
 
   renderTab = (id) => {

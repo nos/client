@@ -1,18 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { bool } from 'prop-types';
+import { bool, node } from 'prop-types';
 
-// import Breadcrumbs from './Breadcrumbs';
-import Navigation from './Navigation';
+import Breadcrumbs from '../Breadcrumbs';
+import Navigation from '../Navigation';
 import AddressBar from '../AddressBar';
-import Routes from './Routes';
-import logo from '../../images/logo.svg';
+import logo from '../../../images/logo.svg';
+import styles from './AuthenticatedLayout.scss';
 
-import styles from './App.scss';
-
-export default function App(props) {
+export default function AuthenticatedLayout(props) {
   return (
-    <div className={styles.app}>
+    <div className={styles.authenticatedLayout}>
       <div className={styles.menu}>
         <header>
           <NavLink exact to="/">
@@ -23,9 +21,9 @@ export default function App(props) {
       </div>
       <main className={styles.main}>
         <AddressBar />
-        {/* <Breadcrumbs /> */}
+        <Breadcrumbs />
         <div className={styles.content}>
-          <Routes />
+          {props.children}
         </div>
         <footer className={styles.footer}>
           <div className={styles.status}>
@@ -37,12 +35,14 @@ export default function App(props) {
   );
 }
 
-App.displayName = 'App';
+AuthenticatedLayout.displayName = 'AuthenticatedLayout';
 
-App.propTypes = {
+AuthenticatedLayout.propTypes = {
+  children: node,
   authenticated: bool
 };
 
-App.defaultProps = {
+AuthenticatedLayout.defaultProps = {
+  children: null,
   authenticated: false
 };

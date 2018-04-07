@@ -1,4 +1,29 @@
 .login {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  background-image: url(../../images/auth-background.png),
+                    linear-gradient(to bottom right, #d7bbea, #65a8f1);
+  background-size: contain;
+  background-repeat: repeat;
+  background-position: 0 0;
+  overflow: auto;
+
+  .panel {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .logo {
+    display: block;
+    margin: 40px auto 0;
+    width: 200px;
+  }
+
   .tabs {
     margin-left: -32px;
     margin-right: -32px;
