@@ -7,6 +7,7 @@
     "jasmine": true
   },
   "rules": {
+    "linebreak-style": ["off"],
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],

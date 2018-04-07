@@ -15,12 +15,12 @@ const COMPONENT_MAP = {
   getAddress: GetAddress,
   getBalance: GetBalance,
   getStorage: GetStorage,
-  
+
   testInvoke: TestInvoke,
 
   // Actions - Confirmation required
   sampleConfirm: SampleConfirm,
-  invoke: Invoke,
+  invoke: Invoke
 };
 
 export default class RequestProcessor extends React.Component {
