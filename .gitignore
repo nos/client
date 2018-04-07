@@ -9,6 +9,7 @@
 # production
 /build
 /dist
+/nos-*.tgz
 
 # misc
 .DS_Store
