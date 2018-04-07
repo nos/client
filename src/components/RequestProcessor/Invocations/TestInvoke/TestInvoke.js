@@ -3,6 +3,7 @@ import { func, any, arrayOf } from 'prop-types';
 
 export default class TestInvoke extends React.Component {
   static propTypes = {
+    account: Object.isRequired,
     response: Object.isRequired,
     args: arrayOf(any).isRequired,
     onResolve: func.isRequired,
@@ -10,6 +11,7 @@ export default class TestInvoke extends React.Component {
   };
 
   componentDidMount() {
+    console.log('this.props', this.props);
     this.props.onResolve(this.props.response.result.script);
   }
 

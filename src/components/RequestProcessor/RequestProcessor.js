@@ -4,16 +4,23 @@ import { string, func } from 'prop-types';
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
 import SampleConfirm from './SampleConfirm';
-import TestInvoke from './TestInvoke';
+import TestInvoke from './Invocations/TestInvoke';
+import Invoke from './Invocations/Invoke';
 import GetStorage from './GetStorage';
+
 import requestShape from '../../shapes/requestShape';
 
 const COMPONENT_MAP = {
+  // Actions - No confirmation required
   getAddress: GetAddress,
   getBalance: GetBalance,
-  sampleConfirm: SampleConfirm,
+  getStorage: GetStorage,
+  
   testInvoke: TestInvoke,
-  getStorage: GetStorage
+
+  // Actions - Confirmation required
+  sampleConfirm: SampleConfirm,
+  invoke: Invoke,
 };
 
 export default class RequestProcessor extends React.Component {
