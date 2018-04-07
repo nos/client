@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, any, arrayOf, objectOf } from 'prop-types';
+import { func, any, objectOf } from 'prop-types';
 
 export default class GetStorage extends React.Component {
   static propTypes = {
@@ -10,7 +10,11 @@ export default class GetStorage extends React.Component {
 
   componentDidMount() {
     const { result } = this.props.response;
-    this.props.onResolve(result);
+    if (result) {
+      this.props.onResolve(result);
+    } else {
+      this.props.onReject('An error occurred');
+    }
   }
 
   render() {

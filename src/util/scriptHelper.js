@@ -1,9 +1,9 @@
-import Neon, { u } from "@cityofzion/neon-js/src/index";
+import Neon, { u } from '@cityofzion/neon-js/src/index';
 
 const s2h = u.str2hexstring;
 
 const createScript = (scriptHash, operation, args) => {
-  const myArgs = args.map(myArg => s2h(myArg));
+  const myArgs = args.map((myArg) => s2h(myArg));
 
   const invoke = {
     scriptHash,
@@ -15,4 +15,4 @@ const createScript = (scriptHash, operation, args) => {
   return Neon.create.script(invoke);
 };
 
-export { createScript };
+export default createScript;

@@ -38,7 +38,7 @@
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
     "pack": "yarn run build && electron-builder --dir",
     "dist": "yarn run build && electron-builder",
-    "lint": "eslint --env browser,node,server --ext .jsx,.js --color -f table .",
+    "lint": "eslint --env browser,node,server --ext .jsx,.js --color . --fix",
     "clean": "rimraf build dist",
     "clean-neon-js": "rimraf node_modules/neon-js/src",
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force && yarn run clean-neon-js"
