@@ -27,6 +27,7 @@ const V1 = {
   getBalance: createDelegate('getBalance'),
   sampleConfirm: createDelegate('sampleConfirm'),
   testInvoke: createDelegate('testInvoke'),
+  invoke: createDelegate('invoke'),
   getStorage: createDelegate('getStorage')
 };
 
