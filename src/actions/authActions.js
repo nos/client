@@ -35,8 +35,9 @@ const nep2Authenticate = (passphrase, encryptedWIF) => {
 const ledgerAuthenticate = (publicKey) => {
   const publicKeyEncoded = wallet.getPublicKeyEncoded(publicKey);
   const account = new wallet.Account(publicKeyEncoded);
+  const signingFunction = null; // ledgerNanoSCreateSignatureAsync
 
-  return { publicKey, address: account.address, signingFunction: null /* ledgerNanoSCreateSignatureAsync */ };
+  return { publicKey, address: account.address, signingFunction };
 };
 
 export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => () => {
