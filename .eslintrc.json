@@ -16,11 +16,10 @@
     "object-curly-newline": ["error", { "consistent": true }],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": [
-        "**/*.test.js",
-        "config-overrides.js",
-        "setupTests.js",
-        "testHelpers.js",
-        "**/public/electron.js"
+        "**/__mocks__/**/*.js",
+        "**/__tests__/**/*.js",
+        "**/public/electron.js",
+        "config-overrides.js"
       ]
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
