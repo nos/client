@@ -25,7 +25,9 @@ function createDelegate(channel) {
 const V1 = {
   getAddress: createDelegate('getAddress'),
   getBalance: createDelegate('getBalance'),
-  sampleConfirm: createDelegate('sampleConfirm')
+  sampleConfirm: createDelegate('sampleConfirm'),
+  testInvoke: createDelegate('testInvoke'),
+  getStorage: createDelegate('getStorage')
 };
 
 process.once('loaded', () => {

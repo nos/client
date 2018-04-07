@@ -1,6 +1,6 @@
 import React from 'react';
 import { func, any, arrayOf } from 'prop-types';
-import { wallet } from 'neon-js';
+import { wallet } from '@cityofzion/neon-js';
 
 import { NEO, GAS } from '../../../values/assets';
 import balanceShape from '../../../shapes/balanceShape';
@@ -34,7 +34,7 @@ export default class GetBalance extends React.Component {
   getBalance = (scriptHash) => {
     const token = this.props.balances[scriptHash];
     return token ? token.balance : '0';
-  }
+  };
 
   getScriptHash = () => {
     return this.props.args[0];

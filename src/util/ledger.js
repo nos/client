@@ -1,5 +1,5 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
-import { tx, wallet, u } from 'neon-js';
+import { tx, wallet, u } from '@cityofzion/neon-js';
 
 const VALID_STATUS = 0x9000;
 const MSG_TOO_BIG = 0x6D08;

@@ -9,7 +9,7 @@
     <p>
       Click the buttons below to show info related to the currently authenticated NEO address.
     </p>
-    <p>
+    <div>
       <h2>getAddress</h2>
       <div>
         <button type="button" onClick="javascript:getAddress()">Get Address</button>
@@ -27,6 +27,13 @@
       <div>
         <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
       </div>
+    </div>
+    <p>
+      Click the buttons below to access functions that don't require permissions.
+    </p>
+    <p>
+      <button type="button" onClick="javascript:testInvoke()">Execute test invoke</button>
+      <button type="button" onClick="javascript:getStorage()">Get From Storage</button>
     </p>
     <script type="text/javascript">
       const api = window.NOS.V1;
@@ -51,6 +58,23 @@
         api.sampleConfirm()
           .then(() => alert('Confirmed!'))
           .catch(() => alert('Denied.'));
+      }
+
+      function testInvoke() {
+        const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
+        const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
+        const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
+
+        api.testInvoke(scriptHash, operation, arg1)
+          .then((response) => alert(`Test invoke response: ${response} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function getStorage() {
+        const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
+        api.getStorage(gSData.scriptHash, gSData.key)
+          .then((response) => alert(`Get storage response: ${response} `))
+          .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>
   </body>
