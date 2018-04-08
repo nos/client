@@ -1,4 +1,4 @@
-import Neon, { u } from '@cityofzion/neon-js/src/index';
+import Neon, { u } from '@cityofzion/neon-js';
 
 const s2h = u.str2hexstring;
 
