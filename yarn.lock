@@ -2557,9 +2557,9 @@ electron-is-dev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
 
-"electron-json-storage@github:nos/electron-json-storage#remove-es6-features":
-  version "4.0.2"
-  resolved "https://codeload.github.com/nos/electron-json-storage/tar.gz/077c790a8861876247979853c66d69392a9f1be1"
+electron-json-storage@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/electron-json-storage/-/electron-json-storage-4.0.3.tgz#3979d96353fcb0e4761d05391fa38563794a770a"
   dependencies:
     async "^2.0.0"
     lodash "^4.0.1"
