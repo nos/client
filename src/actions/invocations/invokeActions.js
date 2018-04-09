@@ -20,7 +20,7 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
-  const { result, txid } = await api.doInvoke({
+  const { response: { result, txid } } = await api.doInvoke({
     net,
     address,
     script: createScript(scriptHash, operation, args),
