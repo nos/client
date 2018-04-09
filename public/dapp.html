@@ -74,7 +74,7 @@
 
       function invoke() {
         api.invoke(scriptHash, operation, arg1)
-          .then((response) => alert(`Invoke response: ${response} `))
+          .then((txid) => alert(`Invoke txid: ${txid} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
