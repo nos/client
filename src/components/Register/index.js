@@ -1,9 +1,12 @@
-import { compose } from 'recompose';
-import { withData, withActions } from 'spunky';
+import { compose, withProps } from 'recompose';
+import { withData, withActions, withProgress, progressValues } from 'spunky';
 
 import Register from './Register';
 import createAccountActions from '../../actions/createAccountActions';
 import withImmediateReset from '../../hocs/withImmediateReset';
+import pureStrategy from '../../hocs/strategies/pureStrategy';
+
+const { LOADING } = progressValues;
 
 const mapAccountActionsToProps = (actions) => ({
   reset: () => actions.reset(),
@@ -17,5 +20,7 @@ const mapAccountDataToProps = (account) => ({ account });
 export default compose(
   withImmediateReset(createAccountActions),
   withActions(createAccountActions, mapAccountActionsToProps),
-  withData(createAccountActions, mapAccountDataToProps)
+  withProgress(createAccountActions, { strategy: pureStrategy }),
+  withProps((props) => ({ loading: props.progress === LOADING })),
+  withData(createAccountActions, mapAccountDataToProps),
 )(Register);

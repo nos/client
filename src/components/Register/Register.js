@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import RegisterForm from './RegisterForm';
 import AccountDetails from './AccountDetails';
@@ -17,11 +17,13 @@ const TABS = {
 
 export default class Register extends React.Component {
   static propTypes = {
+    loading: bool,
     account: accountShape,
     register: func.isRequired
   };
 
   static defaultProps = {
+    loading: false,
     account: null
   };
 
@@ -53,10 +55,12 @@ export default class Register extends React.Component {
   }
 
   renderCreateTab = () => {
-    if (this.props.account) {
-      return <AccountDetails account={this.props.account} />;
+    const { loading, account, register } = this.props;
+
+    if (account) {
+      return <AccountDetails account={account} />;
     } else {
-      return <RegisterForm onRegister={this.props.register} />;
+      return <RegisterForm disabled={loading} onRegister={register} />;
     }
   }
 
