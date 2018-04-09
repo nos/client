@@ -26,7 +26,7 @@ class AddressBar extends React.Component {
           autoFocus
         />
         <button>
-          <Icon name="unfavorite" />
+          <Icon name="notifications" />
         </button>
         <button>
           <Icon name="settings" />

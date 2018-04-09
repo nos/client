@@ -4,9 +4,10 @@ import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import {
+  faBell,
+  faCopy,
   faBookmark as faBookmarkReg,
-  faHandshake,
-  faCopy
+  faHandshake
 } from '@fortawesome/fontawesome-free-regular';
 
 import {
@@ -18,6 +19,7 @@ import {
 } from '@fortawesome/fontawesome-free-solid';
 
 fontawesome.library.add(
+  faBell,
   faBookmark,
   faBookmarkReg,
   faCog,
@@ -35,6 +37,7 @@ const ICONS = {
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],
   login: 'key',
+  notifications: ['far', 'bell'],
   settings: 'cog',
   unfavorite: ['far', 'bookmark'],
   copy: 'copy'

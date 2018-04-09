@@ -4,6 +4,7 @@
   display: flex;
 
   .menu {
+    -webkit-app-region: drag;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -16,6 +17,8 @@
       img {
         height: 36px;
         width: 36px;
+        margin: 0.5rem 0;
+        display: block;
       }
 
       a {

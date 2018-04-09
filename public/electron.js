@@ -23,17 +23,21 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    frame: false,
     width: 1250,
     height: 700
   });
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
-  mainWindow.loadURL(process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '../build/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  mainWindow.loadURL(
+    process.env.ELECTRON_START_URL ||
+      url.format({
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+  );
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
