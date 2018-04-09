@@ -7,7 +7,7 @@ import createScript from '../../util/scriptHelper';
 
 export const ID = 'invoke';
 
-const doInvoke = async (net, { account, balances, scriptHash, operation, args }) => {
+const doInvoke = async ({ net, account, balances, scriptHash, operation, args }) => {
   const gasCost = 0;
 
   // Prepare balances
@@ -49,5 +49,5 @@ const doInvoke = async (net, { account, balances, scriptHash, operation, args })
 
 export default createActions(ID, ({ net, account, balances, scriptHash, operation, args }) =>
   () => {
-    return doInvoke(net, { account, balances, scriptHash, operation, args });
+    return doInvoke({ net, account, balances, scriptHash, operation, args });
   });

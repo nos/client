@@ -61,13 +61,13 @@ export default class DAppContainer extends React.Component {
     const { channel, id } = request;
     this.webview.send(`${channel}-success-${id}`, result);
     this.props.dequeue(id);
-  };
+  }
 
   handleReject = (request, message) => {
     const { channel, id } = request;
     this.webview.send(`${channel}-failure-${id}`, message);
     this.props.dequeue(id);
-  };
+  }
 
   registerRef = (el) => {
     this.webview = el;

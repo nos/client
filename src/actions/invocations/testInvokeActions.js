@@ -5,7 +5,7 @@ import createScript from '../../util/scriptHelper';
 
 export const ID = 'testinvoke';
 
-const testInvoke = async (net, { scriptHash, operation, args }) => {
+const testInvoke = async ({ net, scriptHash, operation, args }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
   const myScript = createScript(scriptHash, operation, args);
   const result = await rpc.Query.invokeScript(myScript).execute(endpoint);
@@ -13,5 +13,5 @@ const testInvoke = async (net, { scriptHash, operation, args }) => {
 };
 
 export default createActions(ID, ({ net, scriptHash, operation, args }) => () => {
-  return testInvoke(net, { scriptHash, operation, args });
+  return testInvoke({ net, scriptHash, operation, args });
 });
