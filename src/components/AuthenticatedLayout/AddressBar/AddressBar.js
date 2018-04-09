@@ -14,6 +14,8 @@ class AddressBar extends React.Component {
     isMaximized: false
   };
 
+  searchInput = React.createRef();
+
   componentDidMount() {
     this.updateIsMax();
     window.addEventListener('resize', this.updateIsMax);
@@ -97,8 +99,6 @@ class AddressBar extends React.Component {
       this.setState({ isMaximized: win.isMaximized() });
     }
   };
-
-  searchInput = React.createRef();
 }
 
 AddressBar.defaultProps = {
