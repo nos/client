@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import Neon, { wallet } from '@cityofzion/neon-js';
+import { api, wallet } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
 import generateDAppActionId from './generateDAppActionId';
@@ -21,7 +21,7 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
-  const { response: { result, txid } } = await Neon.doInvoke({
+  const { response: { result, txid } } = await api.doInvoke({
     net,
     address,
     script: createScript(scriptHash, operation, args),
