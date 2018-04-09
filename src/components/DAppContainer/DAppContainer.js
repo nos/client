@@ -5,6 +5,11 @@ import { string, func } from 'prop-types';
 import RequestProcessor from '../RequestProcessor';
 import styles from './DAppContainer.scss';
 
+const uniqueId = (() => {
+  let id = 0;
+  return () => id += 1; // eslint-disable-line no-return-assign
+})();
+
 export default class DAppContainer extends React.Component {
   static propTypes = {
     src: string.isRequired,
@@ -12,6 +17,8 @@ export default class DAppContainer extends React.Component {
     dequeue: func.isRequired,
     empty: func.isRequired
   };
+
+  sessionId = uniqueId();
 
   componentDidMount() {
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
@@ -37,6 +44,7 @@ export default class DAppContainer extends React.Component {
         />
 
         <RequestProcessor
+          sessionId={this.sessionId}
           src={this.props.src}
           onResolve={this.handleResolve}
           onReject={this.handleReject}

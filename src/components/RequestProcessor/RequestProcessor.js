@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { string, number, func } from 'prop-types';
 
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
@@ -13,14 +13,10 @@ import GetStorage from './GetStorage';
 import requestShape from '../../shapes/requestShape';
 
 const COMPONENT_MAP = {
-  // Actions - No confirmation required
   getAddress: GetAddress,
   getBalance: GetBalance,
   getStorage: GetStorage,
-
   testInvoke: TestInvoke,
-
-  // Actions - Confirmation required
   sampleConfirm: SampleConfirm,
   send: Send,
   claimGas: ClaimGas,
@@ -29,6 +25,7 @@ const COMPONENT_MAP = {
 
 export default class RequestProcessor extends React.Component {
   static propTypes = {
+    sessionId: number.isRequired,
     src: string.isRequired,
     request: requestShape,
     onResolve: func.isRequired,
@@ -71,6 +68,7 @@ export default class RequestProcessor extends React.Component {
   }
 
   getComponent = (type) => {
-    return COMPONENT_MAP[type];
+    const makeComponent = COMPONENT_MAP[type];
+    return makeComponent(this.props.sessionId);
   }
 }

@@ -47,6 +47,7 @@
           "getDefaultProps",
           "getInitialState",
           "state",
+          "instance-variables",
           "getChildContext",
           "componentWillMount",
           "componentDidMount",

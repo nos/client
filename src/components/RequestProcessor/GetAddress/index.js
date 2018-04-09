@@ -5,4 +5,6 @@ import authActions from '../../../actions/authActions';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
 
-export default withData(authActions, mapAuthDataToProps)(GetAddress);
+export default function makeGetAddress() {
+  return withData(authActions, mapAuthDataToProps)(GetAddress);
+}
