@@ -1,4 +1,4 @@
-import { wallet } from 'neon-js';
+import { wallet } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
 // import { ledgerNanoSCreateSignatureAsync } from '../ledger/ledgerNanoS';

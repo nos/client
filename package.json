@@ -6,6 +6,7 @@
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
+    "@cityofzion/neon-js": "^3.5.0",
     "@fortawesome/fontawesome": "^1.1.4",
     "@fortawesome/fontawesome-free-regular": "^5.0.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.8",
@@ -17,7 +18,6 @@
     "es6-promisify": "^6.0.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
-    "neon-js": "git+https://github.com/cityofzion/neon-js.git#3.5.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -38,8 +38,9 @@
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
     "pack": "yarn run build && electron-builder --dir",
     "dist": "yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
+    "lint": "eslint --env browser,node,server --ext .jsx,.js --color . --fix",
     "clean": "rimraf build dist",
-    "clean-neon-js": "rimraf node_modules/neon-js/src",
+    "clean-neon-js": "rimraf node_modules/@cityofzion/neon-js/src",
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force && yarn run clean-neon-js"
   },
   "devDependencies": {
