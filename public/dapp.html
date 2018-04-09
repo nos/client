@@ -80,7 +80,7 @@
 
       function testInvoke() {
         api.testInvoke(scriptHash, operation, arg1)
-          .then((response) => alert(`Test invoke response: ${response} `))
+          .then((script) => alert(`Test invoke script: ${script} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 

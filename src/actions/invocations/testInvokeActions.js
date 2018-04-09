@@ -1,5 +1,6 @@
-import { wallet, api, rpc } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
+import { wallet, api, rpc } from '@cityofzion/neon-js';
+import { isArray } from 'lodash';
 
 import createScript from '../../util/scriptHelper';
 
@@ -14,9 +15,13 @@ const testInvoke = async ({ net, scriptHash, operation, args }) => {
     throw new Error(`Invalid operation: "${operation}"`);
   }
 
+  if (!isArray(args)) {
+    throw new Error(`Invalid arguments: "${args}"`);
+  }
+
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
-  const myScript = createScript(scriptHash, operation, args);
-  const { result } = await rpc.Query.invokeScript(myScript).execute(endpoint);
+  const script = createScript(scriptHash, operation, args);
+  const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 
   return result.script;
 };
