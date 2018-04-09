@@ -4,8 +4,8 @@ import { string, func } from 'prop-types';
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
 import SampleConfirm from './SampleConfirm';
-import TestInvoke from './Invocations/TestInvoke';
-import Invoke from './Invocations/Invoke';
+import Invoke from './Invoke';
+import TestInvoke from './TestInvoke';
 import GetStorage from './GetStorage';
 
 import requestShape from '../../shapes/requestShape';

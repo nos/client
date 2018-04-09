@@ -1,4 +1,5 @@
 import Neon, { rpc, tx, wallet } from '@cityofzion/neon-js';
+import { isArray } from 'lodash';
 
 import { createActions } from 'spunky';
 
@@ -8,7 +9,17 @@ import createScript from '../../util/scriptHelper';
 export const ID = 'invoke';
 
 const doInvoke = async ({ net, account, balances, scriptHash, operation, args }) => {
-  const gasCost = 0;
+  if (!wallet.isScriptHash(scriptHash)) {
+    throw new Error(`Invalid script hash: "${scriptHash}"`);
+  }
+
+  if (typeof operation !== 'string') {
+    throw new Error(`Invalid operation: "${operation}"`);
+  }
+
+  if (!isArray(args)) {
+    throw new Error(`Invalid arguments: "${args}"`);
+  }
 
   // Prepare balances
   const invokeBalance = new wallet.Balance({ net, address: account.address });
@@ -28,6 +39,7 @@ const doInvoke = async ({ net, account, balances, scriptHash, operation, args })
   const myScript = createScript(scriptHash, operation, args);
 
   // Create TX
+  const gasCost = 0;
   const unsignedTx = tx.Transaction.createInvocationTx(
     invokeBalance,
     intents,

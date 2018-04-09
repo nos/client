@@ -6,7 +6,7 @@ import storageActions from '../../../actions/storageActions';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
-const mapStorageDataToProps = (response) => ({ response });
+const mapStorageDataToProps = (data) => ({ data });
 
 export default compose(
   withProps(({ args }) => ({ scriptHash: args[0], storageKey: args[1] })),

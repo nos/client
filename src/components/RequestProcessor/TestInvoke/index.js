@@ -2,11 +2,11 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import TestInvoke from './TestInvoke';
-import testInvokeActions from '../../../../actions/invocations/testInvokeActions';
-import withNullLoader from '../../../../hocs/dapps/withNullLoader';
-import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
+import testInvokeActions from '../../../actions/invocations/testInvokeActions';
+import withNullLoader from '../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
-const mapInvokeDataToProps = (response) => ({ response });
+const mapInvokeDataToProps = (script) => ({ script });
 
 export default compose(
   // Map the props

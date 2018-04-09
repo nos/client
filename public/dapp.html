@@ -35,7 +35,7 @@
 
     <h2>invoke</h2>
     <div>
-      <button type="button" onClick="javascript:realInvoke()">Real invocation (Confirmation)</button>
+      <button type="button" onClick="javascript:invoke()">Real invocation (Confirmation)</button>
     </div>
 
     <h2>getStorage</h2>
@@ -72,9 +72,9 @@
           .catch(() => alert('Denied.'));
       }
 
-      function realInvoke() {
+      function invoke() {
         api.invoke(scriptHash, operation, arg1)
-          .then((response) => alert(`Test invoke response: ${response} `))
+          .then((response) => alert(`Invoke response: ${response} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
@@ -87,7 +87,7 @@
       function getStorage() {
         const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
         api.getStorage(gSData.scriptHash, gSData.key)
-          .then((response) => alert(`Get storage response: ${response} `))
+          .then((data) => alert(`Get storage data: ${data} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>

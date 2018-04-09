@@ -2,12 +2,12 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Invoke from './Invoke';
-import authActions from '../../../../actions/authActions';
-import invokeActions from '../../../../actions/invocations/invokeActions';
-import withPrompt from '../../../../hocs/dapps/withPrompt';
-import withNullLoader from '../../../../hocs/dapps/withNullLoader';
-import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
-import balancesActions from '../../../../actions/balancesActions';
+import authActions from '../../../actions/authActions';
+import invokeActions from '../../../actions/invocations/invokeActions';
+import withPrompt from '../../../hocs/dapps/withPrompt';
+import withNullLoader from '../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
+import balancesActions from '../../../actions/balancesActions';
 
 const mapAuthDataToProps = (account) => ({ account });
 const mapInvokeDataToProps = (response) => ({ response });
