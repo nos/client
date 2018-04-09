@@ -39,10 +39,14 @@
     </div>
 
 
-    <h2>Send assets/ Claims</h2>
+    <h2>send</h2>
     <div>
       <button type="button" onClick="javascript:send()">Send 1 GAS</button>
-      <button type="button" onClick="javascript:claimGas()">Claim Gas</button>
+    </div>
+
+    <h2>claimGas</h2>
+    <div>
+      <button type="button" onClick="javascript:claimGas()">Claim GAS</button>
     </div>
 
 
@@ -91,18 +95,25 @@
       function send() {
         const asset = GAS;
         const amount = 1;
+<<<<<<< HEAD
         const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
 
+=======
+        const receiver = 'AHTU1e6Q15rF8HShE1KdW4S5ZJ3Ah8HJPu';
+>>>>>>> feat(dappex): added functionality to send assets (unfinished)
         api.send(asset, amount, receiver)
           .then((data) => alert(`${amount} ${asset} sent: ${data} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
+<<<<<<< HEAD
 
       function claimGas() {
         api.claimGas()
           .then((data) => alert(`Gas claimed ${data}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
+=======
+>>>>>>> feat(dappex): added functionality to send assets (unfinished)
     </script>
   </body>
 </html>
