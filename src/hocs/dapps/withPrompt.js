@@ -9,27 +9,26 @@ export default function withPrompt(actions, message) {
         onReject: func.isRequired
       };
 
-      constructor(props) {
-        super(props);
-        this.state = { Component: null };
-      }
+      state = {
+        confirmed: false
+      };
 
       componentDidMount() {
         this.prompt();
       }
 
       render() {
-        if (!this.state.Component) {
+        if (!this.state.confirmed) {
           return null;
         }
 
-        return <this.state.Component {...this.props} />;
+        return <Component {...this.props} />;
       }
 
       prompt = () => {
         // eslint-disable-next-line
         if (window.confirm(isFunction(message) ? message(this.props) : message)) {
-          this.setState({ Component });
+          this.setState({ confirmed: true });
         } else {
           this.props.onReject('Cancelled by user');
         }

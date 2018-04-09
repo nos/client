@@ -56,15 +56,15 @@ export default class RequestProcessor extends React.Component {
         onReject={this.handleReject}
       />
     );
-  };
+  }
 
   handleResolve = (result) => {
     this.props.onResolve(this.props.request, result);
-  };
+  }
 
   handleReject = (message) => {
     this.props.onReject(this.props.request, message);
-  };
+  }
 
   getComponent = (type) => {
     return COMPONENT_MAP[type];
