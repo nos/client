@@ -3,7 +3,7 @@ import { createActions } from 'spunky';
 
 import createScript from '../../util/scriptHelper';
 
-export const ID = 'testinvoke';
+export const ID = 'testInvoke';
 
 const testInvoke = async ({ net, scriptHash, operation, args }) => {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
