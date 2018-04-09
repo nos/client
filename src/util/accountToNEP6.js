@@ -1,4 +1,4 @@
-import { wallet } from 'neon-js';
+import { wallet } from '@cityofzion/neon-js';
 
 export default function accountToNEP6({ address, key, label = address, isDefault = true }) {
   const newAccount = new wallet.Account({ address, key, label, isDefault });

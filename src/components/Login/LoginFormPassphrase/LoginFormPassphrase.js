@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { string, func } from 'prop-types';
+import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Input from '../../Forms/Input';
@@ -9,6 +9,7 @@ import styles from './LoginFormPassphrase.scss';
 
 export default class LoginFormWIF extends React.Component {
   static propTypes = {
+    disabled: bool,
     passphrase: string,
     encryptedWIF: string,
     setPassphrase: func,
@@ -17,6 +18,7 @@ export default class LoginFormWIF extends React.Component {
   };
 
   static defaultProps = {
+    disabled: false,
     passphrase: '',
     encryptedWIF: '',
     setPassphrase: noop,
@@ -25,6 +27,8 @@ export default class LoginFormWIF extends React.Component {
   };
 
   render() {
+    const { passphrase, encryptedWIF, disabled } = this.props;
+
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
         <Input
@@ -32,7 +36,8 @@ export default class LoginFormWIF extends React.Component {
           type="password"
           label="Encrypted WIF"
           placeholder="Enter encrypted WIF"
-          value={this.props.encryptedWIF}
+          value={encryptedWIF}
+          disabled={disabled}
           onChange={this.handleChangeEncryptedWIF}
         />
         <Input
@@ -40,12 +45,13 @@ export default class LoginFormWIF extends React.Component {
           type="password"
           label="Passphrase"
           placeholder="Enter passphrase"
-          value={this.props.passphrase}
+          value={passphrase}
+          disabled={disabled}
           onChange={this.handleChangePassphrase}
         />
 
         <div className={styles.actions}>
-          <Button type="submit">Login</Button>
+          <Button type="submit" disabled={disabled}>Login</Button>
           <span className={styles.register}>
             New to NEO?{' '}
             <Link to="/register">Create an account</Link>

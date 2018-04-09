@@ -17,7 +17,7 @@ const wifAuthenticate = (wif) => {
   return { wif: account.WIF, address: account.address };
 };
 
-const nep2Authenticate = (passphrase, encryptedWIF) => {
+const nep2Authenticate = async (passphrase, encryptedWIF) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
@@ -26,7 +26,7 @@ const nep2Authenticate = (passphrase, encryptedWIF) => {
     throw new Error('That is not a valid encrypted key.');
   }
 
-  const wif = wallet.decrypt(encryptedWIF, passphrase);
+  const wif = await wallet.decryptAsync(encryptedWIF, passphrase);
   const account = new wallet.Account(wif);
 
   return { wif: account.WIF, address: account.address };
@@ -40,7 +40,7 @@ const ledgerAuthenticate = (publicKey) => {
   return { publicKey, address: account.address, signingFunction };
 };
 
-export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => () => {
+export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
   if (wif) {
     return wifAuthenticate(wif);
   } else if (passphrase || encryptedWIF) {

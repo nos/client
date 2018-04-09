@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Input from '../../Forms/Input';
@@ -8,18 +8,22 @@ import styles from './LoginFormWIF.scss';
 
 export default class LoginFormWIF extends React.Component {
   static propTypes = {
+    disabled: bool,
     wif: string,
     setWIF: func,
     onLogin: func
   };
 
   static defaultProps = {
+    disabled: false,
     wif: '',
     setWIF: noop,
     onLogin: noop
   };
 
   render() {
+    const { wif, disabled } = this.props;
+
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
         <Input
@@ -27,12 +31,13 @@ export default class LoginFormWIF extends React.Component {
           type="password"
           label="WIF"
           placeholder="Enter WIF"
-          value={this.props.wif}
+          value={wif}
+          disabled={disabled}
           onChange={this.handleChange}
         />
 
         <div className={styles.actions}>
-          <Button type="submit">Login</Button>
+          <Button type="submit" disabled={disabled}>Login</Button>
         </div>
       </form>
     );

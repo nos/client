@@ -1,9 +1,12 @@
-import { compose } from 'recompose';
-import { withActions } from 'spunky';
+import { compose, withProps } from 'recompose';
+import { withActions, withProgress, progressValues } from 'spunky';
 
 import Login from './Login';
 import authActions from '../../actions/authActions';
 import withAuthError from '../../hocs/withAuthError';
+import pureStrategy from '../../hocs/strategies/pureStrategy';
+
+const { LOADING } = progressValues;
 
 const mapAuthActionsToProps = (actions) => ({
   login: ({ wif, passphrase, encryptedWIF, publicKey }) => {
@@ -13,5 +16,7 @@ const mapAuthActionsToProps = (actions) => ({
 
 export default compose(
   withActions(authActions, mapAuthActionsToProps),
+  withProgress(authActions, { strategy: pureStrategy }),
+  withProps((props) => ({ loading: props.progress === LOADING })),
   withAuthError
 )(Login);
