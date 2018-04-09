@@ -43,6 +43,13 @@
       <button type="button" onClick="javascript:getStorage()">Get From Storage</button>
     </div>
 
+
+    <h2>Send assets</h2>
+    <div>
+      <button type="button" onClick="javascript:send()">Send 1 GAS</button>
+    </div>
+
+
     <script type="text/javascript">
       const api = window.NOS.V1;
 
@@ -88,6 +95,15 @@
         const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
         api.getStorage(gSData.scriptHash, gSData.key)
           .then((data) => alert(`Get storage data: ${data} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function send() {
+        const asset = GAS;
+        const amount = 1;
+        const receiver = 'AHTU1e6Q15rF8HShE1KdW4S5ZJ3Ah8HJPu';
+        api.send(asset, amount, receiver)
+          .then((data) => alert(`${amount} ${asset} sent: ${data} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>

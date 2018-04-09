@@ -28,7 +28,8 @@ const V1 = {
   sampleConfirm: createDelegate('sampleConfirm'),
   testInvoke: createDelegate('testInvoke'),
   invoke: createDelegate('invoke'),
-  getStorage: createDelegate('getStorage')
+  getStorage: createDelegate('getStorage'),
+  send: createDelegate('send')
 };
 
 process.once('loaded', () => {
