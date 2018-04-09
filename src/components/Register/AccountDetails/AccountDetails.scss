@@ -1,0 +1,52 @@
+.accountDetails {
+  .save {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+
+    .label {
+      flex: 1 1 auto;
+    }
+
+    .button {
+      flex: 0 0 auto;
+      margin: 0 0 16px 16px;
+    }
+  }
+
+  dl {
+    margin: 0;
+
+    dt {
+      margin: 0 0 4px;
+      color: #334152;
+      line-height: 1.2;
+      font-size: 14.4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    dd {
+      margin: 0 0 16px;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .copy {
+    margin-left: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+
+  .actions {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(#000, 0.1);
+  }
+}

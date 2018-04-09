@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { string, func } from 'prop-types';
 import { noop } from 'lodash';
 
@@ -26,29 +27,29 @@ export default class LoginFormWIF extends React.Component {
   render() {
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <label htmlFor="encryptedWIF">
-          <Input
-            id="encryptedWIF"
-            type="password"
-            label="Encrypted WIF"
-            placeholder="Enter encrypted WIF"
-            value={this.props.encryptedWIF}
-            onChange={this.handleChangeEncryptedWIF}
-          />
-        </label>
-        <label htmlFor="passphrase">
-          <Input
-            id="passphrase"
-            type="password"
-            label="Passphrase"
-            placeholder="Enter passphrase"
-            value={this.props.passphrase}
-            onChange={this.handleChangePassphrase}
-          />
-        </label>
+        <Input
+          id="encryptedWIF"
+          type="password"
+          label="Encrypted WIF"
+          placeholder="Enter encrypted WIF"
+          value={this.props.encryptedWIF}
+          onChange={this.handleChangeEncryptedWIF}
+        />
+        <Input
+          id="passphrase"
+          type="password"
+          label="Passphrase"
+          placeholder="Enter passphrase"
+          value={this.props.passphrase}
+          onChange={this.handleChangePassphrase}
+        />
 
         <div className={styles.actions}>
           <Button type="submit">Login</Button>
+          <span className={styles.register}>
+            New to NEO?{' '}
+            <Link to="/register">Create an account</Link>
+          </span>
         </div>
       </form>
     );

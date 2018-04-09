@@ -8,7 +8,7 @@ import Button from '../Forms/Button';
 import defaultImage from '../../images/modal-request-icon.png';
 import styles from './Confirm.scss';
 
-export default class SampleConfirm extends React.Component {
+export default class Confirm extends React.Component {
   static propTypes = {
     children: node,
     title: string.isRequired,

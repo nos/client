@@ -22,16 +22,14 @@ export default class LoginFormWIF extends React.Component {
   render() {
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <label htmlFor="wif">
-          <Input
-            id="wif"
-            type="password"
-            label="WIF"
-            placeholder="Enter WIF"
-            value={this.props.wif}
-            onChange={this.handleChange}
-          />
-        </label>
+        <Input
+          id="wif"
+          type="password"
+          label="WIF"
+          placeholder="Enter WIF"
+          value={this.props.wif}
+          onChange={this.handleChange}
+        />
 
         <div className={styles.actions}>
           <Button type="submit">Login</Button>

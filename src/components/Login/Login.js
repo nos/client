@@ -30,17 +30,15 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className={styles.login}>
-        <Panel className={styles.panel}>
-          <img className={styles.logo} src={logo} alt="nOS" />
-          <Tabs
-            tabs={TABS}
-            selectedTab={this.state.tab}
-            renderTab={this.renderTab}
-            onSelect={this.handleSelectTab}
-          />
-        </Panel>
-      </div>
+      <Panel className={styles.login}>
+        <img className={styles.logo} src={logo} alt="nOS" />
+        <Tabs
+          tabs={TABS}
+          selectedTab={this.state.tab}
+          renderTab={this.renderTab}
+          onSelect={this.handleSelectTab}
+        />
+      </Panel>
     );
   }
 
