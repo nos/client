@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import LoginFormPassphrase from './LoginFormPassphrase';
 import LoginFormWIF from './LoginFormWIF';
@@ -21,7 +21,12 @@ const TABS = {
 
 export default class Login extends React.Component {
   static propTypes = {
+    loading: bool,
     login: func.isRequired
+  };
+
+  static defaultProps = {
+    loading: false
   };
 
   state = {
@@ -43,13 +48,15 @@ export default class Login extends React.Component {
   }
 
   renderTab = (id) => {
+    const { loading, login } = this.props;
+
     switch (id) {
       case TAB_WIF:
-        return <LoginFormWIF onLogin={this.props.login} />;
+        return <LoginFormWIF disabled={loading} onLogin={login} />;
       case TAB_PASSPHRASE:
-        return <LoginFormPassphrase onLogin={this.props.login} />;
+        return <LoginFormPassphrase disabled={loading} onLogin={login} />;
       case TAB_LEDGER:
-        return <LoginFormLedger onLogin={this.props.login} />;
+        return <LoginFormLedger disabled={loading} onLogin={login} />;
       default:
         throw new Error('Invalid tab.');
     }

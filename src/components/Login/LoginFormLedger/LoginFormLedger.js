@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, shape } from 'prop-types';
+import { bool, string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 
 import Button from '../../Forms/Button';
@@ -14,6 +14,7 @@ const deviceInfoShape = shape({
 
 export default class LoginFormLedger extends React.Component {
   static propTypes = {
+    disabled: bool,
     poll: func.isRequired,
     publicKey: string,
     deviceInfo: deviceInfoShape,
@@ -22,6 +23,7 @@ export default class LoginFormLedger extends React.Component {
   };
 
   static defaultProps = {
+    disabled: false,
     publicKey: null,
     deviceInfo: null,
     deviceError: null,
@@ -53,7 +55,7 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderActions = () => {
-    const disabled = !this.props.deviceInfo;
+    const disabled = this.props.disabled || !this.props.deviceInfo;
     const onClick = disabled ? null : this.handleLogin;
 
     return (
