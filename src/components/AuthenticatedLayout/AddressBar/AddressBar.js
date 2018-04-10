@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { func, string, shape } from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { remote } from 'electron';
 
 import Icon from '../../Icon';

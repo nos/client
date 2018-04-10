@@ -28,12 +28,13 @@
     border-left: $primary-border-style;
   }
 
-  button {
+  button,
+  a {
     font-size: 1rem;
     border: none;
     padding: 0;
     background-color: transparent;
-    margin: 0.5rem;
+    margin: 0.25rem;
     color: $primary-text-color;
 
     &:focus,
