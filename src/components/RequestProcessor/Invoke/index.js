@@ -3,7 +3,6 @@ import { compose, withProps } from 'recompose';
 
 import Invoke from './Invoke';
 import authActions from '../../../actions/authActions';
-import makeInvokeActions from '../../../actions/dapps/makeInvokeActions';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
@@ -11,9 +10,7 @@ import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });
 
-export default function makeInvokeComponent(sessionId) {
-  const invokeActions = makeInvokeActions(sessionId);
-
+export default function makeInvokeComponent(invokeActions) {
   return compose(
     // Map the props
     withProps(({ args }) => ({

@@ -19,8 +19,8 @@ const getStorage = async ({ net, scriptHash, key }) => {
   return result;
 };
 
-export default function makeStorageActions(sessionId) {
-  const id = generateDAppActionId(sessionId, ID);
+export default function makeStorageActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
   return createActions(id, ({ net, scriptHash, key }) => async () => {
     return getStorage({ net, scriptHash, key });

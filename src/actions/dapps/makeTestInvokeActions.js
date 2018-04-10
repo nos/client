@@ -27,8 +27,8 @@ const testInvoke = async ({ net, scriptHash, operation, args }) => {
   return result.script;
 };
 
-export default function makeTestInvokeActions(sessionId) {
-  const id = generateDAppActionId(sessionId, ID);
+export default function makeTestInvokeActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
   return createActions(id, ({ net, scriptHash, operation, args }) => () => {
     return testInvoke({ net, scriptHash, operation, args });

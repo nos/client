@@ -2,15 +2,12 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import TestInvoke from './TestInvoke';
-import makeTestInvokeActions from '../../../actions/dapps/makeTestInvokeActions';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapInvokeDataToProps = (script) => ({ script });
 
-export default function makeStorageComponent(sessionId) {
-  const testInvokeActions = makeTestInvokeActions(sessionId);
-
+export default function makeStorageComponent(testInvokeActions) {
   return compose(
     // Map the props
     withProps(({ args }) => ({

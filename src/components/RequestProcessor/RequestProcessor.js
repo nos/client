@@ -1,27 +1,8 @@
 import React from 'react';
 import { string, func, arrayOf } from 'prop-types';
 
-import GetAddress from './GetAddress';
-import GetBalance from './GetBalance';
-import SampleConfirm from './SampleConfirm';
-import Invoke from './Invoke';
-import Send from './Send';
-import ClaimGas from './ClaimGas';
-import TestInvoke from './TestInvoke';
-import GetStorage from './GetStorage';
-
+import { getComponent, getActions } from './mappings';
 import requestShape from '../../shapes/requestShape';
-
-const COMPONENT_MAP = {
-  getAddress: GetAddress,
-  getBalance: GetBalance,
-  getStorage: GetStorage,
-  testInvoke: TestInvoke,
-  sampleConfirm: SampleConfirm,
-  send: Send,
-  claimGas: ClaimGas,
-  invoke: Invoke
-};
 
 export default class RequestProcessor extends React.Component {
   static propTypes = {
@@ -63,7 +44,13 @@ export default class RequestProcessor extends React.Component {
   }
 
   getComponent = (request) => {
-    const makeComponent = COMPONENT_MAP[request.channel];
-    return makeComponent(this.props.sessionId);
+    const { channel } = request;
+    const { sessionId } = this.props;
+
+    const makeComponent = getComponent(channel);
+    const makeActions = getActions(channel);
+    const actions = makeActions(sessionId, request.id);
+
+    return makeComponent(actions);
   }
 }

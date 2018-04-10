@@ -41,8 +41,8 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
   return txid;
 };
 
-export default function makeInvokeActions(sessionId) {
-  const id = generateDAppActionId(sessionId, ID);
+export default function makeInvokeActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
   return createActions(id, ({ net, address, wif, scriptHash, operation, args }) => () => {
     return doInvoke({ net, address, wif, scriptHash, operation, args });

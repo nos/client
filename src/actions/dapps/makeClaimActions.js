@@ -1,6 +1,8 @@
 import { createActions } from 'spunky';
 import { api } from '@cityofzion/neon-js';
 
+import generateDAppActionId from './generateDAppActionId';
+
 export const ID = 'claim';
 
 const claimGas = async ({ net, address, wif }) => {
@@ -21,6 +23,10 @@ const claimGas = async ({ net, address, wif }) => {
   return txid;
 };
 
-export default createActions(ID, ({ net, address, wif }) => () => {
-  return claimGas({ net, address, wif });
-});
+export default function makeClaimActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
+
+  return createActions(id, ({ net, address, wif }) => () => {
+    return claimGas({ net, address, wif });
+  });
+}

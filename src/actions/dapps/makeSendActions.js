@@ -1,7 +1,8 @@
 import { createActions } from 'spunky';
 import Neon, { api, wallet } from '@cityofzion/neon-js';
 
-import { GAS, NEO } from '../values/assets';
+import generateDAppActionId from './generateDAppActionId';
+import { GAS, NEO } from '../../values/assets';
 
 export const ID = 'send';
 
@@ -38,6 +39,10 @@ const send = async ({ net, asset, amount, receiver, address, wif }) => {
   return txid;
 };
 
-export default createActions(ID, ({ net, asset, amount, receiver, address, wif }) => () => {
-  return send({ net, asset, amount, receiver, address, wif });
-});
+export default function makeSendActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
+
+  return createActions(id, ({ net, asset, amount, receiver, address, wif }) => () => {
+    return send({ net, asset, amount, receiver, address, wif });
+  });
+}
