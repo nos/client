@@ -21,7 +21,7 @@ export default compose(
   })),
 
   // Prompt user
-  withPrompt(invokeActions, ({ operation, scriptHash }) => (
+  withPrompt(({ operation, scriptHash }) => (
     `Would you like to perform operation '${operation}' on contract with address '${scriptHash}'`
   )),
 

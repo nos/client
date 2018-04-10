@@ -21,7 +21,7 @@ export default compose(
   })),
 
   // Prompt user
-  withPrompt(sendActions, ({ amount, asset, receiver }) => (
+  withPrompt(({ amount, asset, receiver }) => (
     `Would you like to send ${amount} ${asset} to ${receiver}`
   )),
 
