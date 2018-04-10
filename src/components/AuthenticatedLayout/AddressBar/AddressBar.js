@@ -47,9 +47,9 @@ class AddressBar extends React.Component {
           <button>
             <Icon name="notifications" />
           </button>
-          <button>
+          <NavLink to="/settings">
             <Icon name="settings" />
-          </button>
+          </NavLink>
           {showWindowIcons && [
             <button onClick={this.handleMinimizeWindow} key="min">
               <Icon name="windowMin" />
