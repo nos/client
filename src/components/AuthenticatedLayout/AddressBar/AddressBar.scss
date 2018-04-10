@@ -14,12 +14,11 @@
     }
   }
 
-  button,
-  a {
+  button {
     font-size: 1rem;
     border: none;
     background-color: transparent;
-    margin: 0.25rem;
+    margin: 0.5rem;
     color: $primary-text-color;
 
     &:focus,

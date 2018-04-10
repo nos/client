@@ -9,7 +9,6 @@ import Logout from '../../Logout';
 import Browser from '../../Browser';
 import Exchange from '../../Exchange';
 import Favorites from '../../Favorites';
-import Settings from '../../Settings';
 import DAppContainer from '../../DAppContainer';
 import LoginLayout from '../../LoginLayout';
 import AuthenticatedLayout from '../../AuthenticatedLayout';
@@ -28,7 +27,6 @@ export default function Routes() {
       <PrivateRoute exact path="/browser" component={withAuthLayout(Browser)} />
       <PrivateRoute exact path="/exchange" component={withAuthLayout(Exchange)} />
       <PrivateRoute exact path="/favorites" component={withAuthLayout(Favorites)} />
-      <PrivateRoute exact path="/settings" component={withAuthLayout(Settings)} />
       <PrivateRoute exact path="/logout" component={withAuthLayout(Logout)} />
       <Redirect to="/" />
     </Switch>
