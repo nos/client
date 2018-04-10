@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import Neon, { api, wallet } from '@cityofzion/neon-js';
+import Neon, { api, wallet, settings, tx } from '@cityofzion/neon-js';
 
 import { GAS, NEO } from '../values/assets';
 
@@ -34,6 +34,7 @@ const send = async ({ net, asset, amount, receiver, address, wif }) => {
     intents
   };
 
+  settings.defaultCalculationStrategy = tx.calculationStrategy.smallestFirst;
   const { response: { result, txid } } = await Neon.sendAsset(config);
 
   if (!result) {
