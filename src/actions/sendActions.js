@@ -30,13 +30,17 @@ const send = async ({ net, asset, amount, receiver, address, wif }) => {
   const config = {
     net,
     address,
-    privateKey: wif,
+    privateKey: new wallet.Account(wif).privateKey,
     intents
   };
 
-  const { response } = await Neon.sendAsset(config);
+  const { response: { result, txid } } = await Neon.sendAsset(config);
 
-  return response;
+  if (!result) {
+    throw new Error('Invocation failed.');
+  }
+
+  return txid;
 };
 
 export default createActions(ID, ({ net, asset, amount, receiver, address, wif }) => () => {

@@ -94,26 +94,19 @@
 
       function send() {
         const asset = GAS;
-        const amount = 1;
-<<<<<<< HEAD
-        const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
-
-=======
+        const amount = "1";
         const receiver = 'AHTU1e6Q15rF8HShE1KdW4S5ZJ3Ah8HJPu';
->>>>>>> feat(dappex): added functionality to send assets (unfinished)
+
         api.send(asset, amount, receiver)
           .then((data) => alert(`${amount} ${asset} sent: ${data} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
-<<<<<<< HEAD
 
       function claimGas() {
         api.claimGas()
           .then((data) => alert(`Gas claimed ${data}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
-=======
->>>>>>> feat(dappex): added functionality to send assets (unfinished)
     </script>
   </body>
 </html>
