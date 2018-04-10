@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, number, func } from 'prop-types';
+import { string, func, arrayOf } from 'prop-types';
 
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
@@ -25,50 +25,45 @@ const COMPONENT_MAP = {
 
 export default class RequestProcessor extends React.Component {
   static propTypes = {
-    sessionId: number.isRequired,
+    sessionId: string.isRequired,
     src: string.isRequired,
-    request: requestShape,
+    requests: arrayOf(requestShape).isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired
   };
 
-  static defaultProps = {
-    request: null
-  };
-
   render() {
-    if (!this.props.request) {
-      return null;
-    }
-
-    return this.renderRequest();
+    return this.props.requests.map(this.renderRequest);
   }
 
-  renderRequest = () => {
-    const { src, request } = this.props;
-    const Component = this.getComponent(request.channel);
+  renderRequest = (request) => {
+    const Component = this.getComponent(request);
 
     return (
       <Component
         {...request}
-        src={src}
         key={`request-${request.id}`}
-        onResolve={this.handleResolve}
-        onReject={this.handleReject}
+        src={this.props.src}
+        onResolve={this.handleResolve(request)}
+        onReject={this.handleReject(request)}
       />
     );
   }
 
-  handleResolve = (result) => {
-    this.props.onResolve(this.props.request, result);
+  handleResolve = (request) => {
+    return (result) => {
+      this.props.onResolve(request, result);
+    };
   }
 
-  handleReject = (message) => {
-    this.props.onReject(this.props.request, message);
+  handleReject = (request) => {
+    return (message) => {
+      this.props.onReject(request, message);
+    };
   }
 
-  getComponent = (type) => {
-    const makeComponent = COMPONENT_MAP[type];
+  getComponent = (request) => {
+    const makeComponent = COMPONENT_MAP[request.channel];
     return makeComponent(this.props.sessionId);
   }
 }
