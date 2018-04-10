@@ -3,7 +3,7 @@ import path from 'path';
 
 import { string, func } from 'prop-types';
 
-import RequestProcessor from '../RequestProcessor';
+import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
 
 export default class DAppContainer extends React.Component {
@@ -38,7 +38,7 @@ export default class DAppContainer extends React.Component {
           style={{ height: '100%' }}
         />
 
-        <RequestProcessor
+        <RequestsProcessor
           sessionId={this.props.sessionId}
           src={this.props.src}
           onResolve={this.handleResolve}

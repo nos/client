@@ -1,5 +1,6 @@
 import React from 'react';
-import { string, func, arrayOf } from 'prop-types';
+import { string, func } from 'prop-types';
+import { isEqual } from 'lodash';
 
 import { getComponent, getActions } from './mappings';
 import requestShape from '../../shapes/requestShape';
@@ -8,22 +9,30 @@ export default class RequestProcessor extends React.Component {
   static propTypes = {
     sessionId: string.isRequired,
     src: string.isRequired,
-    requests: arrayOf(requestShape).isRequired,
+    request: requestShape.isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired
   };
 
-  render() {
-    return this.props.requests.map(this.renderRequest);
+  componentWillMount = () => {
+    this.Component = this.getComponent(this.props);
   }
 
-  renderRequest = (request) => {
-    const Component = this.getComponent(request);
+  componentWillReceiveProps = (nextProps) => {
+    if (this.props.sessionId !== nextProps.sessionId
+      || this.props.src !== nextProps.src
+      || !isEqual(this.props.request, nextProps.request)
+    ) {
+      this.Component = this.getComponent(nextProps);
+    }
+  }
+
+  render() {
+    const { request } = this.props;
 
     return (
-      <Component
+      <this.Component
         {...request}
-        key={`request-${request.id}`}
         src={this.props.src}
         onResolve={this.handleResolve(request)}
         onReject={this.handleReject(request)}
@@ -43,12 +52,9 @@ export default class RequestProcessor extends React.Component {
     };
   }
 
-  getComponent = (request) => {
-    const { channel } = request;
-    const { sessionId } = this.props;
-
-    const makeComponent = getComponent(channel);
-    const makeActions = getActions(channel);
+  getComponent = ({ sessionId, request }) => {
+    const makeComponent = getComponent(request.channel);
+    const makeActions = getActions(request.channel);
     const actions = makeActions(sessionId, request.id);
 
     return makeComponent(actions);
