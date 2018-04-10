@@ -29,7 +29,8 @@ const V1 = {
   testInvoke: createDelegate('testInvoke'),
   invoke: createDelegate('invoke'),
   getStorage: createDelegate('getStorage'),
-  send: createDelegate('send')
+  send: createDelegate('send'),
+  claimGas: createDelegate('claimGas')
 };
 
 process.once('loaded', () => {

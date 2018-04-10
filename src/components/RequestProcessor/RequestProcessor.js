@@ -6,6 +6,7 @@ import GetBalance from './GetBalance';
 import SampleConfirm from './SampleConfirm';
 import Invoke from './Invoke';
 import Send from './Send';
+import ClaimGas from './ClaimGas';
 import TestInvoke from './TestInvoke';
 import GetStorage from './GetStorage';
 
@@ -22,6 +23,7 @@ const COMPONENT_MAP = {
   // Actions - Confirmation required
   sampleConfirm: SampleConfirm,
   send: Send,
+  claimGas: ClaimGas,
   invoke: Invoke
 };
 
