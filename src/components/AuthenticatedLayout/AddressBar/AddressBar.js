@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { func, string, shape } from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import Icon from '../../Icon';
 import styles from './AddressBar.scss';
@@ -29,7 +30,9 @@ class AddressBar extends React.Component {
           <Icon name="notifications" />
         </button>
         <button>
-          <Icon name="settings" />
+          <NavLink to="/settings">
+            <Icon name="settings" />
+          </NavLink>
         </button>
       </div>
     );
