@@ -2,6 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Send from './Send';
+import { getCurrentNetwork } from '../../../actions/settings/currentNetworkActions';
 import withClean from '../../../hocs/dapps/withClean';
 import authActions from '../../../actions/authActions';
 import withPrompt from '../../../hocs/dapps/withPrompt';
@@ -11,6 +12,7 @@ import { NEO, GAS } from '../../../values/assets';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
+const mapSettingsDataToProps = ({ currentNetwork }) => ({ net: currentNetwork });
 
 const getAssetName = (assetId) => {
   switch (`${assetId}`.toLowerCase()) {
@@ -28,12 +30,11 @@ export default function makeSendComponent(sendActions) {
     // Clean redux store when done
     withClean(sendActions),
 
-    // Map the props
+    // Rename arguments given by the user
     withProps(({ args }) => ({
       asset: args[0],
       amount: args[1],
-      receiver: args[2],
-      net: 'TestNet'
+      receiver: args[2]
     })),
 
     // Prompt user
@@ -41,10 +42,11 @@ export default function makeSendComponent(sendActions) {
       `Would you like to send ${amount} ${getAssetName(asset)} to ${receiver}?`
     )),
 
-    // Getting account data
+    // Get the current network & account data
+    withData(getCurrentNetwork, mapSettingsDataToProps),
     withData(authActions, mapAuthDataToProps),
 
-    // Do invoke if user accepts
+    // Send assets & wait for success or failure
     withCall(sendActions, ({ net, amount, asset, receiver, address, wif }) => ({
       net,
       amount,

@@ -2,6 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Invoke from './Invoke';
+import { getCurrentNetwork } from '../../../actions/settings/currentNetworkActions';
 import authActions from '../../../actions/authActions';
 import withClean from '../../../hocs/dapps/withClean';
 import withPrompt from '../../../hocs/dapps/withPrompt';
@@ -10,18 +11,18 @@ import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });
+const mapSettingsDataToProps = ({ currentNetwork }) => ({ net: currentNetwork });
 
 export default function makeInvokeComponent(invokeActions) {
   return compose(
     // Clean redux store when done
     withClean(invokeActions),
 
-    // Map the props
+    // Rename arguments given by the user
     withProps(({ args }) => ({
       scriptHash: args[0],
       operation: args[1],
-      args: args.slice(2),
-      net: 'TestNet'
+      args: args.slice(2)
     })),
 
     // Prompt user
@@ -29,10 +30,11 @@ export default function makeInvokeComponent(invokeActions) {
       `Would you like to perform operation "${operation}" on contract with address "${scriptHash}"?`
     )),
 
-    // Getting account data
+    // Get the current network and account data
+    withData(getCurrentNetwork, mapSettingsDataToProps),
     withData(authActions, mapAuthDataToProps),
 
-    // Do invoke if user accepts
+    // Run the invoke & wait for success or failure
     withCall(invokeActions, ({ net, address, wif, scriptHash, operation, args }) => ({
       net,
       address,
