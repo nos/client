@@ -43,6 +43,14 @@
       <button type="button" onClick="javascript:getStorage()">Get From Storage</button>
     </div>
 
+
+    <h2>Send assets/ Claims</h2>
+    <div>
+      <button type="button" onClick="javascript:send()">Send 1 GAS</button>
+      <button type="button" onClick="javascript:claimGas()">Claim Gas</button>
+    </div>
+
+
     <script type="text/javascript">
       const api = window.NOS.V1;
 
@@ -88,6 +96,22 @@
         const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
         api.getStorage(gSData.scriptHash, gSData.key)
           .then((data) => alert(`Get storage data: ${data} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function send() {
+        const asset = GAS;
+        const amount = 1;
+        const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
+
+        api.send(asset, amount, receiver)
+          .then((data) => alert(`${amount} ${asset} sent: ${data} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function claimGas() {
+        api.claimGas()
+          .then((data) => alert(`Gas claimed ${data}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
     </script>

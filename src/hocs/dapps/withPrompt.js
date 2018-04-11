@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import { isFunction } from 'lodash';
 
-export default function withPrompt(actions, message) {
+export default function withPrompt(message) {
   return (Component) => {
     return class PromptComponent extends React.Component {
       static propTypes = {
