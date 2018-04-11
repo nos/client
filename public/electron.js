@@ -21,12 +21,24 @@ function installExtensions() {
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
+const isMac = process.platform === 'darwin';
+
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    frame: false,
-    width: 1250,
-    height: 700
-  });
+  mainWindow = new BrowserWindow(
+    Object.assign(
+      {
+        width: 1250,
+        height: 700
+      },
+      isMac
+        ? {
+          titleBarStyle: 'hidden'
+        }
+        : {
+          frame: false
+        }
+    )
+  );
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
@@ -58,7 +70,7 @@ app.on('ready', () => {
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (isMac) {
     app.quit();
   }
 });

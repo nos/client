@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { bool, node } from 'prop-types';
-
+import cx from 'classnames';
 import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
 import AddressBar from './AddressBar';
@@ -10,7 +10,7 @@ import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {
   return (
-    <div className={styles.authenticatedLayout}>
+    <div className={cx(styles.authenticatedLayout, process.platform)}>
       <div className={styles.menu}>
         <header>
           <NavLink exact to="/">
@@ -22,9 +22,7 @@ export default function AuthenticatedLayout(props) {
       <main className={styles.main}>
         <AddressBar />
         <Breadcrumbs />
-        <div className={styles.content}>
-          {props.children}
-        </div>
+        <div className={styles.content}>{props.children}</div>
         <footer className={styles.footer}>
           <div className={styles.status}>
             This is some status text, maybe it only appears if there&rsquo;s something to show?

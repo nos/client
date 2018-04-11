@@ -7,7 +7,11 @@ import {
   faBell,
   faCopy,
   faBookmark as faBookmarkReg,
-  faHandshake
+  faHandshake,
+  faWindowClose,
+  faWindowMaximize,
+  faWindowMinimize,
+  faWindowRestore
 } from '@fortawesome/fontawesome-free-regular';
 
 import {
@@ -23,24 +27,32 @@ fontawesome.library.add(
   faBookmark,
   faBookmarkReg,
   faCog,
+  faCopy,
   faCubes,
   faHandshake,
   faKey,
   faQuestionCircle,
-  faCopy
+  faWindowClose,
+  faWindowMaximize,
+  faWindowMinimize,
+  faWindowRestore
 );
 
 const ICONS = {
   browser: 'globe',
+  copy: 'copy',
   dapp: 'cube',
-  wallet: ['far', 'money-bill-alt'],
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],
   login: 'key',
   notifications: ['far', 'bell'],
   settings: 'cog',
   unfavorite: ['far', 'bookmark'],
-  copy: 'copy'
+  wallet: ['far', 'money-bill-alt'],
+  windowClose: ['far', 'window-close'],
+  windowMax: ['far', 'window-maximize'],
+  windowMin: ['far', 'window-minimize'],
+  windowRestore: ['far', 'window-restore']
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,
