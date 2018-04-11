@@ -250,12 +250,6 @@ This is an example of a service layer in your frontend application which impleme
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
-      function sampleConfirm() {
-        api.sampleConfirm()
-          .then(() => alert('Confirmed!'))
-          .catch(() => alert('Denied.'));
-      }
-
       function invoke() {
         api.invoke(scriptHash, operation, arg1)
           .then((txid) => alert(`Invoke txid: ${txid} `))
