@@ -9,8 +9,6 @@ import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
 
-window.bw = remote.BrowserWindow;
-
 class AddressBar extends React.Component {
   state = {
     isMaximized: false
@@ -73,10 +71,12 @@ class AddressBar extends React.Component {
   };
 
   handleMinimizeWindow = () => {
+    if (!remote) return;
     remote.BrowserWindow.getFocusedWindow().minimize();
   };
 
   handleResizeWindow = () => {
+    if (!remote) return;
     const win = remote.BrowserWindow.getFocusedWindow();
     if (win.isMaximized()) {
       win.unmaximize();
@@ -86,10 +86,12 @@ class AddressBar extends React.Component {
   };
 
   handleCloseWindow = () => {
+    if (!remote) return;
     remote.BrowserWindow.getFocusedWindow().close();
   };
 
   updateIsMax = () => {
+    if (!remote) return;
     const win = remote.BrowserWindow.getFocusedWindow();
     if (win) {
       this.setState({ isMaximized: win.isMaximized() });
