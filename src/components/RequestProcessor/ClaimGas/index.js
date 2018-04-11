@@ -13,12 +13,10 @@ const mapSendDataToProps = (txid) => ({ txid });
 
 export default compose(
   // Map the props
-  withProps(() => ({
-    net: 'TestNet'
-  })),
+  withProps({ net: 'TestNet' }),
 
   // Prompt user
-  withPrompt(() => ('Would you like to claim GAS?')),
+  withPrompt('Would you like to claim GAS?'),
 
   // Getting account data
   withData(authActions, mapAuthDataToProps),
@@ -30,6 +28,6 @@ export default compose(
     wif
   })),
   withNullLoader(claimActions),
-  withRejectMessage(claimActions, () => ('Could not claim GAS.')),
+  withRejectMessage(claimActions, 'Could not claim GAS.'),
   withData(claimActions, mapSendDataToProps)
 )(ClaimGas);

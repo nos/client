@@ -1,7 +1,7 @@
 import { createActions } from 'spunky';
 import { api } from '@cityofzion/neon-js';
 
-export const ID = 'claimGas';
+export const ID = 'claim';
 
 const claimGas = async ({ net, address, wif }) => {
   const config = {
