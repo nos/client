@@ -6,38 +6,51 @@
 
   .media {
     flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 300px;
     padding: 40px 0px;
-    text-align: center;
   }
 
   .content {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    color: rgba(69, 76, 96, 0.49);
+    padding: 60px 70px;
     font-weight: 300;
     background-image: url(../../images/modal-gradient-vertical.png);
     background-size: auto 100%;
     background-position: center left;
     background-repeat: no-repeat;
 
-    h4 {
+    .title {
+      flex: 0 0 auto;
       margin: 0 0 1.5rem;
       color: #047bf8;
       line-height: 1.2;
+      text-align: center;
       font-size: 1.5rem;
       font-weight: 500;
     }
 
-    p {
-      margin-bottom: 10px;
+    .body {
+      flex: 1 1 auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      p {
+        margin-bottom: 10px;
+      }
     }
 
     .actions {
+      flex: 0 0 auto;
       margin: 1.5rem 0 0;
+      text-align: center;
 
       .action {
         margin-right: 10px;
