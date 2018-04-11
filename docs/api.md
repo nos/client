@@ -1,0 +1,298 @@
+# nOS API Documentation
+
+## Features
+* getAddress: Ability to get the address of the currently signed in user.
+* getBalance: Ability to get the balance of the currently signed in user.
+* claimGas: Ability to claim GAS of the currently signed in user.
+* testInvoke: Execute a test invoke on a certain deployed Smart Contract.
+* invoke: Execute an actual invoke on a certain deployed Smart Contract.
+* getStorage: Ability to get a storage value of a certain deployed Smart Contract
+* send: Send a specified amount of assets (NEO or GAS) to a certain user.
+
+
+## Requirements
+
+* TODO - sum requirements
+
+
+# nOS API References
+* [Getting started](#getting-started)
+* [nOS](#nOS)
+  * [getAddress](#getAddress)
+  * [getBalance](#getBalance)
+  * [claimGas](#claimGas)
+  * [testInvoke](#testInvoke)
+  * [invoke](#invoke)
+  * [getStorage](#getStorage)
+  * [send](#send)
+* [Full implementation example](#full-implementation-example)
+
+
+## Getting started
+
+TODO - steps to get started
+
+## nOS
+
+TODO - intro
+
+## getAddress
+
+###### Parameters
+None
+
+###### Returns
+`Address` - The address of the currently signed in user.
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+function getAddress() {
+    api.getAddress()
+        .then((address) => alert(`Address: ${address}`))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+
+## getBalance
+
+###### Parameters
+1. `String` - The ScriptHash of a certain asset (NEO, GAS, RPX, ...)
+
+###### Returns
+`Integer` - The amount of a certain asset of the currently signed in user.
+
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+const NEO = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
+
+function getBalance() {
+    api.getBalance(NEO)
+        .then((balance) => alert(`Balance: ${balance}`))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+
+## claimGas
+
+###### Parameters
+None
+
+###### Returns
+`txid` - Returns the transactionId of the claim transaction
+
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+function claimGas() {
+    api.claimGas()
+        .then((data) => alert(`Gas claimed ${data}`))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+
+
+
+
+## testInvoke
+
+###### Parameters
+1. `String` - The ScriptHash of the Smart Contract you want to invoke.
+2. `String` - The Operation of the Smart Contract you want to invoke.
+3.. `String` - The Args of the Smart Contract you want to invoke.
+
+
+###### Returns
+`result` - Returns the result of the test invoke
+
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
+const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
+const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
+// const arg2 = '...' if you want to add more args, just append it to the function
+
+function testInvoke() {
+    api.testInvoke(scriptHash, operation, arg1)
+        .then((script) => alert(`Test invoke script: ${script} `))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+## invoke
+
+###### Parameters
+1. `String` - The ScriptHash of the Smart Contract you want to invoke.
+2. `String` - The Operation of the Smart Contract you want to invoke.
+3.. `String` - The Args of the Smart Contract you want to invoke.
+
+
+###### Returns
+`string` - Returns the transactino id of the invoke
+
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
+const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
+const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
+// const arg2 = '...' if you want to add more args, just append it to the function
+
+function invoke() {
+    api.invoke(scriptHash, operation, arg1)
+        .then((txid) => alert(`Invoke txid: ${txid} `))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+## getStorage
+
+###### Parameters
+1. `string` - The ScriptHash of a certain deployed Smart Contract
+1. `string` - The ScriptHash of a certain deployed Smart Contract
+
+###### Returns
+`result` - Returns the result
+
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+const gsData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
+
+function getStorage() {
+    api.getStorage(gsData.scriptHash, gsData.key)
+        .then((data) => alert(`Get storage data: ${data} `))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+## send
+
+###### Parameters
+1. `string` - The ScriptHash of a certain asset (NEO, GAS, RPX, ...)
+1. `string` - The amount of a certain asset (NEO, GAS, RPX, ...)
+1. `string` - The receiver the asset(s).
+
+###### Returns
+`txid` - Returns the transactionId of the claim transaction
+
+
+###### Example
+```javascript
+const api = window.NOS.V1;
+
+const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
+const amount = 1;
+const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
+
+function send() {
+    api.send(GAS, amount, receiver)
+        .then((data) => alert(`${amount} ${asset} sent: ${data} `))
+        .catch((err) => alert(`Error: ${err.message}`));
+}
+```
+
+
+
+
+# Full implementation example
+
+This is an example of a service layer in your frontend application which implements all functionalities of nOS.
+
+```javascript
+      const api = window.NOS.V1;
+
+      const NEO = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
+      const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
+      const RPX = 'ecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9';
+
+      const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
+      const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
+      const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
+
+      function getAddress() {
+        api.getAddress()
+          .then((address) => alert(`Address: ${address}`))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function getBalance(scriptHash) {
+        api.getBalance(scriptHash)
+          .then((balance) => alert(`Balance: ${balance}`))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function sampleConfirm() {
+        api.sampleConfirm()
+          .then(() => alert('Confirmed!'))
+          .catch(() => alert('Denied.'));
+      }
+
+      function invoke() {
+        api.invoke(scriptHash, operation, arg1)
+          .then((txid) => alert(`Invoke txid: ${txid} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function testInvoke() {
+        api.testInvoke(scriptHash, operation, arg1)
+          .then((script) => alert(`Test invoke script: ${script} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function getStorage() {
+        const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
+        api.getStorage(gSData.scriptHash, gSData.key)
+          .then((data) => alert(`Get storage data: ${data} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function send() {
+        const asset = GAS;
+        const amount = 1;
+        const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
+        api.send(asset, amount, receiver)
+          .then((data) => alert(`${amount} ${asset} sent: ${data} `))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+      function claimGas() {
+        api.claimGas()
+          .then((data) => alert(`Gas claimed ${data}`))
+          .catch((err) => alert(`Error: ${err.message}`));
+      }
+
+```
+
+
+---
+###### Important note
+    - The API may change frequently, be sure to check back regularly!
