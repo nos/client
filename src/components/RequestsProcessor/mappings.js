@@ -1,6 +1,5 @@
 import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
-import SampleConfirm from './SampleConfirm';
 import Invoke from './Invoke';
 import TestInvoke from './TestInvoke';
 import GetStorage from './GetStorage';
@@ -17,7 +16,6 @@ const COMPONENT_MAP = {
   getBalance: GetBalance,
   getStorage: GetStorage,
   testInvoke: TestInvoke,
-  sampleConfirm: SampleConfirm,
   invoke: Invoke,
   send: Send,
   claimGas: ClaimGas

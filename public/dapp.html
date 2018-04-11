@@ -23,11 +23,6 @@
       <button type="button" onClick="javascript:getBalance('fake')">Get Balance Error</button>
     </div>
 
-    <h2>sampleConfirm</h2>
-    <div>
-      <button type="button" onClick="javascript:sampleConfirm()">Sample Confirmation</button>
-    </div>
-
     <h2>testInvoke</h2>
     <div>
       <button type="button" onClick="javascript:testInvoke()">Execute test invoke</button>
@@ -72,12 +67,6 @@
         api.getBalance(scriptHash)
           .then((balance) => alert(`Balance: ${balance}`))
           .catch((err) => alert(`Error: ${err.message}`));
-      }
-
-      function sampleConfirm() {
-        api.sampleConfirm()
-          .then(() => alert('Confirmed!'))
-          .catch(() => alert('Denied.'));
       }
 
       function invoke() {
