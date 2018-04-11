@@ -2,6 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Send from './Send';
+import withClean from '../../../hocs/dapps/withClean';
 import authActions from '../../../actions/authActions';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
@@ -12,6 +13,9 @@ const mapSendDataToProps = (txid) => ({ txid });
 
 export default function makeSendComponent(sendActions) {
   return compose(
+    // Clean redux store when done
+    withClean(sendActions),
+
     // Map the props
     withProps(({ args }) => ({
       asset: args[0],

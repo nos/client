@@ -2,6 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import authActions from '../../../actions/authActions';
+import withClean from '../../../hocs/dapps/withClean';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
@@ -12,6 +13,9 @@ const mapSendDataToProps = (txid) => ({ txid });
 
 export default function makeClaimComponent(claimActions) {
   return compose(
+    // Clean redux store when done
+    withClean(claimActions),
+
     // Map the props
     withProps({ net: 'TestNet' }),
 

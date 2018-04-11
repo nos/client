@@ -3,6 +3,7 @@ import { compose, withProps } from 'recompose';
 
 import Invoke from './Invoke';
 import authActions from '../../../actions/authActions';
+import withClean from '../../../hocs/dapps/withClean';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
@@ -12,6 +13,9 @@ const mapInvokeDataToProps = (txid) => ({ txid });
 
 export default function makeInvokeComponent(invokeActions) {
   return compose(
+    // Clean redux store when done
+    withClean(invokeActions),
+
     // Map the props
     withProps(({ args }) => ({
       scriptHash: args[0],

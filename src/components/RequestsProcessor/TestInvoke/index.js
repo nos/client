@@ -2,6 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import TestInvoke from './TestInvoke';
+import withClean from '../../../hocs/dapps/withClean';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
@@ -9,6 +10,9 @@ const mapInvokeDataToProps = (script) => ({ script });
 
 export default function makeStorageComponent(testInvokeActions) {
   return compose(
+    // Clean redux store when done
+    withClean(testInvokeActions),
+
     // Map the props
     withProps(({ args }) => ({
       net: 'TestNet',
