@@ -10,6 +10,7 @@ import styles from './Confirm.scss';
 
 export default class Confirm extends React.Component {
   static propTypes = {
+    className: string,
     children: node,
     title: string.isRequired,
     image: string,
@@ -20,6 +21,7 @@ export default class Confirm extends React.Component {
   };
 
   static defaultProps = {
+    className: null,
     children: null,
     image: defaultImage,
     confirmLabel: 'OK',
@@ -33,16 +35,27 @@ export default class Confirm extends React.Component {
   }
 
   render() {
-    const { image, title, confirmLabel, cancelLabel, onConfirm, onCancel, children } = this.props;
+    const {
+      className,
+      image,
+      title,
+      confirmLabel,
+      cancelLabel,
+      onConfirm,
+      onCancel,
+      children
+    } = this.props;
 
     return (
-      <Modal className={styles.confirm}>
+      <Modal className={classNames(styles.confirm, className)}>
         <div className={styles.media}>
           <img src={image} width="200" alt="Icon" />
         </div>
         <div className={styles.content}>
-          <h4>{title}</h4>
-          <div>
+          <div className={styles.title}>
+            {title}
+          </div>
+          <div className={styles.body}>
             {children}
           </div>
           <div className={styles.actions}>

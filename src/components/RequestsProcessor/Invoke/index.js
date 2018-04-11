@@ -26,7 +26,7 @@ export default function makeInvokeComponent(invokeActions) {
 
     // Prompt user
     withPrompt(({ operation, scriptHash }) => (
-      `Would you like to perform operation '${operation}' on contract with address '${scriptHash}'`
+      `Would you like to perform operation "${operation}" on contract with address "${scriptHash}"?`
     )),
 
     // Getting account data

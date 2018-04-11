@@ -7,9 +7,21 @@ import authActions from '../../../actions/authActions';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
+import { NEO, GAS } from '../../../values/assets';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
+
+const getAssetName = (assetId) => {
+  switch (`${assetId}`.toLowerCase()) {
+    case NEO:
+      return 'NEO';
+    case GAS:
+      return 'GAS';
+    default:
+      return assetId;
+  }
+};
 
 export default function makeSendComponent(sendActions) {
   return compose(
@@ -26,7 +38,7 @@ export default function makeSendComponent(sendActions) {
 
     // Prompt user
     withPrompt(({ amount, asset, receiver }) => (
-      `Would you like to send ${amount} ${asset} to ${receiver}`
+      `Would you like to send ${amount} ${getAssetName(asset)} to ${receiver}?`
     )),
 
     // Getting account data
