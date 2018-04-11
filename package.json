@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",
-    "build": "react-app-rewired build",
+    "build": "export SKIP_PREFLIGHT_CHECK=true && react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom --testMatch \"**/__tests__/**/*.test.{js,jsx,mjs}\" --setupTestFrameworkScriptFile \"./__tests__/setupTests.js\"",
     "start-react": "cross-env BROWSER=none react-app-rewired start",
     "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
@@ -65,7 +65,7 @@
     "postcss-flexbugs-fixes": "^3.3.0",
     "react-app-rewired": "^1.4.1",
     "react-router-test-context": "^0.1.0",
-    "react-scripts": "^1.1.1",
+    "react-scripts": "^2.0.0-next.b2fd8db8",
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.5.1",
     "rimraf": "^2.6.2",
@@ -83,5 +83,18 @@
       "buildResources": "public"
     }
   },
-  "homepage": "./"
+  "homepage": "./",
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">1%",
+      "last 4 versions",
+      "Firefox ESR",
+      "not ie < 11"
+    ]
+  }
 }
