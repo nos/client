@@ -5,14 +5,9 @@ import { GAS, NEO } from '../values/assets';
 
 export const ID = 'send';
 
-// const sendNEP5 = async ({ net, asset, amount, receiver, address, wif }) => {
-//
-// };
-
 const send = async ({ net, asset, amount, receiver, address, wif }) => {
   if (![GAS, NEO].includes(asset)) {
-    throw new Error('Currently only NEO or GAS is supported');
-    // sendNEP5(net, asset, amount, receiver, address, wif);
+    throw new Error(`Invalid asset: ${asset}`);
   }
 
   // TODO check if user has enough balance
