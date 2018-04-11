@@ -5,6 +5,7 @@ import Root from './components/Root';
 import registerServiceWorker from './registerServiceWorker';
 
 import './stylesheets/global.scss';
+import './util/initializeNetworks';
 
 function render(Component) {
   ReactDOM.render(<Component />, document.getElementById('root'));

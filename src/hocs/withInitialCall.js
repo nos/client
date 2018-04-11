@@ -27,12 +27,12 @@ const withInitialCall = (
       this.Component = this.createComponent(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-      const progress = this.props[propName];
-      const nextProgress = nextProps[propName];
+    componentDidUpdate(prevProps) {
+      const progress = prevProps[propName];
+      const nextProgress = this.props[propName];
 
       if (progress !== nextProgress && (progress === INITIAL || nextProgress === INITIAL)) {
-        this.Component = this.createComponent(nextProps);
+        this.Component = this.createComponent(this.props);
       }
     }
 
@@ -46,7 +46,7 @@ const withInitialCall = (
       } else {
         return Component;
       }
-    }
+    };
   }
 
   return withProgress(actions, { propName, strategy, ...options })(ConditionalCallComponent);
