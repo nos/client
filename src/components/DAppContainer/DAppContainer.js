@@ -1,12 +1,14 @@
 import React from 'react';
 import path from 'path';
+
 import { string, func } from 'prop-types';
 
-import RequestProcessor from '../RequestProcessor';
+import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
 
 export default class DAppContainer extends React.Component {
   static propTypes = {
+    sessionId: string.isRequired,
     src: string.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
@@ -23,7 +25,7 @@ export default class DAppContainer extends React.Component {
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
 
     // remove any pending requests from the queue
-    this.props.empty();
+    this.props.empty(this.props.sessionId);
   }
 
   render() {
@@ -36,7 +38,8 @@ export default class DAppContainer extends React.Component {
           style={{ height: '100%' }}
         />
 
-        <RequestProcessor
+        <RequestsProcessor
+          sessionId={this.props.sessionId}
           src={this.props.src}
           onResolve={this.handleResolve}
           onReject={this.handleReject}
@@ -54,19 +57,19 @@ export default class DAppContainer extends React.Component {
     const id = event.args[0];
     const args = event.args.slice(1);
 
-    this.props.enqueue({ channel, id, args });
+    this.props.enqueue(this.props.sessionId, { channel, id, args });
   };
 
   handleResolve = (request, result) => {
     const { channel, id } = request;
     this.webview.send(`${channel}-success-${id}`, result);
-    this.props.dequeue(id);
+    this.props.dequeue(this.props.sessionId, id);
   }
 
   handleReject = (request, message) => {
     const { channel, id } = request;
     this.webview.send(`${channel}-failure-${id}`, message);
-    this.props.dequeue(id);
+    this.props.dequeue(this.props.sessionId, id);
   }
 
   registerRef = (el) => {

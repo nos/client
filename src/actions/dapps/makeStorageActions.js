@@ -1,6 +1,8 @@
 import { wallet, api, rpc, u } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
+import generateDAppActionId from './generateDAppActionId';
+
 export const ID = 'storage';
 
 const getStorage = async ({ net, scriptHash, key }) => {
@@ -17,6 +19,10 @@ const getStorage = async ({ net, scriptHash, key }) => {
   return result;
 };
 
-export default createActions(ID, ({ net, scriptHash, key }) => async () => {
-  return getStorage({ net, scriptHash, key });
-});
+export default function makeStorageActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
+
+  return createActions(id, ({ net, scriptHash, key }) => async () => {
+    return getStorage({ net, scriptHash, key });
+  });
+}

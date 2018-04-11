@@ -2,6 +2,7 @@ import { createActions } from 'spunky';
 import Neon, { wallet } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
+import generateDAppActionId from './generateDAppActionId';
 import createScript from '../../util/scriptHelper';
 import { GAS } from '../../values/assets';
 
@@ -40,6 +41,10 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
   return txid;
 };
 
-export default createActions(ID, ({ net, address, wif, scriptHash, operation, args }) => () => {
-  return doInvoke({ net, address, wif, scriptHash, operation, args });
-});
+export default function makeInvokeActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
+
+  return createActions(id, ({ net, address, wif, scriptHash, operation, args }) => () => {
+    return doInvoke({ net, address, wif, scriptHash, operation, args });
+  });
+}

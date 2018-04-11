@@ -11,10 +11,12 @@ const mapAuthDataToProps = ({ address }) => ({ address });
 
 const mapBalancesDataToProps = (balances) => ({ balances });
 
-export default compose(
-  withData(authActions, mapAuthDataToProps),
-  withCall(balancesActions, ({ address }) => ({ address, net: 'TestNet' })),
-  withNullLoader(balancesActions),
-  withRejectMessage(balancesActions, 'Your account balance could not be retrieved.'),
-  withData(balancesActions, mapBalancesDataToProps)
-)(GetBalance);
+export default function makeGetBalance() {
+  return compose(
+    withData(authActions, mapAuthDataToProps),
+    withCall(balancesActions, ({ address }) => ({ address, net: 'TestNet' })),
+    withNullLoader(balancesActions),
+    withRejectMessage(balancesActions, 'Your account balance could not be retrieved.'),
+    withData(balancesActions, mapBalancesDataToProps)
+  )(GetBalance);
+}
