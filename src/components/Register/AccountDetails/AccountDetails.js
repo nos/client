@@ -90,7 +90,7 @@ export default class AccountDetails extends React.Component {
   }
 
   handleCopy = () => {
-    this.props.alert({ children: 'Copied to clipboard' });
+    this.props.alert('Copied to clipboard');
   }
 
   handleSave = () => {
