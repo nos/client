@@ -5,7 +5,7 @@ import { object } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { progressValues } from 'spunky';
 
-import Routes from '../../../src/components/Root/Routes';
+import Routes from '../../../src/components/App/Routes';
 import Home from '../../../src/components/Home';
 import Login from '../../../src/components/Login';
 import Logout from '../../../src/components/Logout';
