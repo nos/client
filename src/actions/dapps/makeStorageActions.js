@@ -5,7 +5,7 @@ import generateDAppActionId from './generateDAppActionId';
 
 export const ID = 'storage';
 
-const getStorage = async ({ net, scriptHash, key }) => {
+const getStorage = async ({ net, scriptHash, key, encode = true }) => {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -15,14 +15,15 @@ const getStorage = async ({ net, scriptHash, key }) => {
   }
 
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
-  const { result } = await rpc.Query.getStorage(scriptHash, u.str2hexstring(key)).execute(endpoint);
+  const { result } =
+    await rpc.Query.getStorage(scriptHash, encode ? u.str2hexstring(key) : key).execute(endpoint);
   return result;
 };
 
 export default function makeStorageActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({ net, scriptHash, key }) => async () => {
-    return getStorage({ net, scriptHash, key });
+  return createActions(id, ({ net, scriptHash, key, encode }) => async () => {
+    return getStorage({ net, scriptHash, key, encode });
   });
 }
