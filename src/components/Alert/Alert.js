@@ -12,7 +12,7 @@ export default class Alert extends React.Component {
   static propTypes = {
     className: string,
     children: node,
-    title: string.isRequired,
+    title: string,
     image: string,
     confirmLabel: string,
     onConfirm: func
@@ -21,6 +21,7 @@ export default class Alert extends React.Component {
   static defaultProps = {
     className: null,
     children: null,
+    title: null,
     image: defaultImage,
     confirmLabel: 'OK',
     onConfirm: noop
@@ -31,7 +32,7 @@ export default class Alert extends React.Component {
   }
 
   render() {
-    const { className, image, title, confirmLabel, onConfirm, children } = this.props;
+    const { className, image, confirmLabel, onConfirm, children } = this.props;
 
     return (
       <Modal className={classNames(styles.alert, className)}>
@@ -39,9 +40,7 @@ export default class Alert extends React.Component {
           <img src={image} width="200" alt="Icon" />
         </div>
         <div className={styles.content}>
-          <div className={styles.title}>
-            {title}
-          </div>
+          {this.renderTitle()}
           <div className={styles.body}>
             {children}
           </div>
@@ -52,6 +51,20 @@ export default class Alert extends React.Component {
           </div>
         </div>
       </Modal>
+    );
+  }
+
+  renderTitle = () => {
+    const { title } = this.props;
+
+    if (!title) {
+      return null;
+    }
+
+    return (
+      <div className={styles.title}>
+        {title}
+      </div>
     );
   }
 
