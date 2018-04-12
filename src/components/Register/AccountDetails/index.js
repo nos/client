@@ -1,5 +1,9 @@
-import { withState } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import AccountDetails from './AccountDetails';
+import withAlert from '../../../hocs/withAlert';
 
-export default withState('label', 'setLabel', ({ account }) => account.address)(AccountDetails);
+export default compose(
+  withAlert(),
+  withState('label', 'setLabel', ({ account }) => account.address)
+)(AccountDetails);
