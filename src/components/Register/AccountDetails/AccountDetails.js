@@ -19,12 +19,14 @@ const writeFile = promisify(fs.writeFile);
 export default class AccountDetails extends React.Component {
   static propTypes = {
     label: string,
-    setLabel: func
+    setLabel: func,
+    alert: func
   };
 
   static defaultProps = {
     label: '',
-    setLabel: noop
+    setLabel: noop,
+    alert: noop
   };
 
   render() {
@@ -51,7 +53,7 @@ export default class AccountDetails extends React.Component {
     return [
       <dt key={`${label}-label`}>
         {label}
-        <CopyToClipboard text={value} onCopy={() => window.alert('Copied to clipboard')}>
+        <CopyToClipboard text={value} onCopy={this.handleCopy}>
           <Icon className={styles.copy} name="copy" />
         </CopyToClipboard>
       </dt>,
@@ -87,6 +89,10 @@ export default class AccountDetails extends React.Component {
     this.props.setLabel(event.target.value);
   }
 
+  handleCopy = () => {
+    this.props.alert({ children: 'Copied to clipboard' });
+  }
+
   handleSave = () => {
     const filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
       title: 'Save NEP6 Wallet',
@@ -105,7 +111,7 @@ export default class AccountDetails extends React.Component {
     try {
       await writeFile(filename, data);
     } catch (err) {
-      window.alert(`Error saving file: ${err.message}`); // eslint-disable-line no-alert
+      this.props.alert({ children: `Error saving file: ${err.message}` });
     }
   }
 }
