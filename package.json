@@ -23,6 +23,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
+    "react-router-breadcrumbs-hoc": "^2.1.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "next",
     "recompose": "^0.26.0",
