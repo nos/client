@@ -11,7 +11,10 @@ const mapStorageDataToProps = (data) => ({ data });
 export default function makeStorageComponent(storageActions) {
   return compose(
     withClean(storageActions),
-    withProps(({ args }) => ({ scriptHash: args[0], storageKey: args[1], encode: args[2] })),
+    withProps(({ args }) => {
+      const options = args[2] || {};
+      return { scriptHash: args[0], storageKey: args[1], encode: !!options.encode };
+    }),
     withCall(storageActions, ({ scriptHash, storageKey, encode }) => ({ net: 'TestNet', scriptHash, key: storageKey, encode })),
     withNullLoader(storageActions),
     withRejectMessage(storageActions, (props) => (`Retrieving storage failed for key "${props.storageKey}" on "${props.scriptHash}"`)),
