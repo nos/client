@@ -2,9 +2,9 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Send from './Send';
-import currentNetworkActions from '../../../actions/settings/currentNetworkActions';
 import withClean from '../../../hocs/dapps/withClean';
 import authActions from '../../../actions/authActions';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
@@ -12,7 +12,6 @@ import { NEO, GAS } from '../../../values/assets';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
-const mapSettingsDataToProps = (net) => ({ net });
 
 const getAssetName = (assetId) => {
   switch (`${assetId}`.toLowerCase()) {
@@ -43,7 +42,7 @@ export default function makeSendComponent(sendActions) {
     )),
 
     // Get the current network & account data
-    withData(currentNetworkActions, mapSettingsDataToProps),
+    withNetworkData(),
     withData(authActions, mapAuthDataToProps),
 
     // Send assets & wait for success or failure

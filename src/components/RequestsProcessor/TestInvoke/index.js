@@ -2,13 +2,12 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import TestInvoke from './TestInvoke';
-import currentNetworkActions from '../../../actions/settings/currentNetworkActions';
 import withClean from '../../../hocs/dapps/withClean';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapInvokeDataToProps = (script) => ({ script });
-const mapSettingsDataToProps = (net) => ({ net });
 
 export default function makeStorageComponent(testInvokeActions) {
   return compose(
@@ -23,7 +22,7 @@ export default function makeStorageComponent(testInvokeActions) {
     })),
 
     // Get the current network
-    withData(currentNetworkActions, mapSettingsDataToProps),
+    withNetworkData(),
 
     // Run the test invoke & wait for success or failure
     withCall(testInvokeActions, ({ net, scriptHash, operation, args }) => ({
