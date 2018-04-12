@@ -4,8 +4,10 @@
   }
 
   li {
-    font-size: 0.8rem;
-    margin: 1rem;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    text-align: center;
+
     color: transparentize($primary-text-color, 0.5);
 
     a {

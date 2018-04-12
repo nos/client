@@ -1,12 +1,18 @@
 .addressBar {
   @include headerStyle;
+  -webkit-app-region: drag;
   display: flex;
+
+  * {
+    -webkit-app-region: no-drag;
+  }
 
   input {
     font-family: $primary-font-stack;
     border: none;
     background-color: transparent;
     font-size: 1rem;
+    margin: 1rem;
     flex: 1;
 
     &:focus {
@@ -14,9 +20,18 @@
     }
   }
 
+  .buttonBar {
+    align-self: stretch;
+    padding: 0 0.5rem;
+    display: flex;
+    justify-content: center;
+    border-left: $primary-border-style;
+  }
+
   button {
     font-size: 1rem;
     border: none;
+    padding: 0;
     background-color: transparent;
     margin: 0.5rem;
     color: $primary-text-color;

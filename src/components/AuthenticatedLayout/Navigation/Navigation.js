@@ -34,31 +34,26 @@ export default class Navigation extends React.Component {
           <li>
             <NavLink exact to="/browser">
               <Icon name="browser" />
-              <span>Browser</span>
             </NavLink>
           </li>
           <li>
             <NavLink exact to="/favorites">
               <Icon name="favorite" />
-              <span>Favorites</span>
             </NavLink>
           </li>
           <li>
             <NavLink exact to="/exchange">
               <Icon name="exchange" />
-              <span>Exchange</span>
             </NavLink>
           </li>
           <li>
             <NavLink exact to="/dapp">
               <Icon name="dapp" />
-              <span>dApp Example</span>
             </NavLink>
           </li>
           <li>
             <NavLink exact to="/logout">
               <Icon name="logout" />
-              <span>Logout</span>
             </NavLink>
           </li>
         </ul>
