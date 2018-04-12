@@ -1,0 +1,64 @@
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 900px;
+
+  .media {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    padding: 40px 0px;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding: 60px 70px;
+    font-weight: 300;
+    background-image: url(../../images/modal-gradient-vertical.png);
+    background-size: auto 100%;
+    background-position: center left;
+    background-repeat: no-repeat;
+
+    .title {
+      flex: 0 0 auto;
+      margin: 0 0 1.5rem;
+      color: #047bf8;
+      line-height: 1.2;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    .body {
+      flex: 1 1 auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      p {
+        margin-bottom: 10px;
+      }
+    }
+
+    .actions {
+      flex: 0 0 auto;
+      margin: 1.5rem 0 0;
+      text-align: center;
+
+      .action {
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
