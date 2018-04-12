@@ -12,7 +12,7 @@ export default class Confirm extends React.Component {
   static propTypes = {
     className: string,
     children: node,
-    title: string.isRequired,
+    title: string,
     image: string,
     confirmLabel: string,
     cancelLabel: string,
@@ -23,6 +23,7 @@ export default class Confirm extends React.Component {
   static defaultProps = {
     className: null,
     children: null,
+    title: null,
     image: defaultImage,
     confirmLabel: 'OK',
     cancelLabel: 'Cancel',
@@ -38,7 +39,6 @@ export default class Confirm extends React.Component {
     const {
       className,
       image,
-      title,
       confirmLabel,
       cancelLabel,
       onConfirm,
@@ -52,9 +52,7 @@ export default class Confirm extends React.Component {
           <img src={image} width="200" alt="Icon" />
         </div>
         <div className={styles.content}>
-          <div className={styles.title}>
-            {title}
-          </div>
+          {this.renderTitle()}
           <div className={styles.body}>
             {children}
           </div>
@@ -68,6 +66,20 @@ export default class Confirm extends React.Component {
           </div>
         </div>
       </Modal>
+    );
+  }
+
+  renderTitle = () => {
+    const { title } = this.props;
+
+    if (!title) {
+      return null;
+    }
+
+    return (
+      <div className={styles.title}>
+        {title}
+      </div>
     );
   }
 

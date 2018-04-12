@@ -2,13 +2,14 @@ import React from 'react';
 import { string, func } from 'prop-types';
 import { isFunction } from 'lodash';
 
-import Confirm from '../../../components/Confirm';
+import withConfirm from '../../withConfirm';
 import styles from './styles.scss';
 
 export default function withPrompt(message) {
   return (Component) => {
-    return class PromptComponent extends React.Component {
+    class PromptComponent extends React.Component {
       static propTypes = {
+        confirm: func.isRequired,
         src: string.isRequired,
         onReject: func.isRequired
       };
@@ -17,26 +18,25 @@ export default function withPrompt(message) {
         confirmed: false
       };
 
+      componentDidMount() {
+        this.props.confirm((
+          <div className={styles.prompt}>
+            <p>{isFunction(message) ? message(this.props) : message}</p>
+            <p className={styles.source}>Triggered by <strong>{this.props.src}</strong>.</p>
+          </div>
+        ), {
+          title: 'Account Action Permission Request',
+          onConfirm: this.handleConfirm,
+          onCancel: this.handleCancel
+        });
+      }
+
       render() {
         if (!this.state.confirmed) {
-          return this.renderConfirm();
+          return null;
         }
 
         return <Component {...this.props} />;
-      }
-
-      renderConfirm = () => {
-        return (
-          <Confirm
-            className={styles.prompt}
-            title="Account Action Permission Request"
-            onConfirm={this.handleConfirm}
-            onCancel={this.handleCancel}
-          >
-            <p>{isFunction(message) ? message(this.props) : message}</p>
-            <p className={styles.source}>Triggered by <strong>{this.props.src}</strong>.</p>
-          </Confirm>
-        );
       }
 
       handleConfirm = () => {
@@ -46,6 +46,8 @@ export default function withPrompt(message) {
       handleCancel = () => {
         this.props.onReject('Cancelled by user.');
       }
-    };
+    }
+
+    return withConfirm()(PromptComponent);
   };
 }
