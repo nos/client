@@ -1,7 +1,15 @@
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { bindActionCreators } from 'redux';
 import { progressValues } from 'spunky';
 
 import withAuthChange from './withAuthChange';
 
 const { FAILED } = progressValues;
 
-export default withAuthChange(FAILED, () => alert('Authentication failed.')); // eslint-disable-line no-alert
+const mapDispatchToProps = (dispatch) => bindActionCreators({ alert }, dispatch);
+
+export default compose(
+  connect(null, mapDispatchToProps),
+  withAuthChange(FAILED, ({ alert }) => alert('Authentication failed.'))
+);
