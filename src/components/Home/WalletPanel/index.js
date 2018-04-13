@@ -18,6 +18,8 @@ export default compose(
   withData(authActions, mapAuthDataToProps),
   withNetworkData(),
   withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
+
+  // Wait for balances data to load
   withProgressComponents(balancesActions, {
     [LOADING]: Loading
   }),
