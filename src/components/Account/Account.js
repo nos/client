@@ -1,11 +1,11 @@
 import React from 'react';
 
 import AccountPanel from './AccountPanel';
-import styles from './Home.scss';
+import styles from './Account.scss';
 
-export default function Home() {
+export default function Account() {
   return (
-    <div className={styles.home}>
+    <div className={styles.account}>
       <AccountPanel />
     </div>
   );

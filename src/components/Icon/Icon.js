@@ -9,6 +9,7 @@ import {
   faCheckCircle,
   faCopy,
   faHandshake,
+  faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
@@ -34,6 +35,7 @@ fontawesome.library.add(
   faHandshake,
   faKey,
   faQuestionCircle,
+  faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
@@ -41,6 +43,7 @@ fontawesome.library.add(
 );
 
 const ICONS = {
+  account: 'user',
   browser: 'globe',
   check: 'check-circle',
   copy: 'copy',
