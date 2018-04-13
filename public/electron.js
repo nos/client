@@ -3,7 +3,9 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
-const { app, BrowserWindow } = electron;
+const { app, protocol, BrowserWindow } = electron;
+
+protocol.registerStandardSchemes(['nos']);
 
 function installExtensions() {
   const {
