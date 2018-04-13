@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { func, string, shape } from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import { remote } from 'electron';
 
-import Icon from '../../Icon';
+import ButtonBar from '../ButtonBar';
 import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
@@ -27,27 +25,13 @@ export default class AddressBar extends React.Component {
 
   searchInput = React.createRef();
 
-  state = {
-    isMaximized: false
-  };
-
-  componentDidMount() {
-    this.updateIsMax();
-    window.addEventListener('resize', this.updateIsMax);
-  }
-
   componentDidUpdate(prevProps, _prevState) {
     if (this.props.query !== prevProps.query) {
       this.searchInput.current.value = this.props.query;
     }
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateIsMax);
-  }
-
   render() {
-    const showWindowIcons = process.platform !== 'darwin';
     return (
       <div className={styles.addressBar}>
         <input
@@ -57,25 +41,7 @@ export default class AddressBar extends React.Component {
           ref={this.searchInput}
           defaultValue={this.props.query}
         />
-        <div className={styles.buttonBar}>
-          <button>
-            <Icon name="notifications" />
-          </button>
-          <NavLink to="/settings">
-            <Icon name="settings" />
-          </NavLink>
-          {showWindowIcons && [
-            <button onClick={this.handleMinimizeWindow} key="min">
-              <Icon name="windowMin" />
-            </button>,
-            <button onClick={this.handleResizeWindow} key="max">
-              <Icon name={this.state.isMaximized ? 'windowRestore' : 'windowMax'} />
-            </button>,
-            <button onClick={this.handleCloseWindow} key="close">
-              <Icon name="windowClose" />
-            </button>
-          ]}
-        </div>
+        <ButtonBar />
       </div>
     );
   }
@@ -90,31 +56,6 @@ export default class AddressBar extends React.Component {
         doQuery(value);
       }
       this.props.history.push('/browser');
-    }
-  };
-
-  handleMinimizeWindow = () => {
-    remote.BrowserWindow.getFocusedWindow().minimize();
-  };
-
-  handleResizeWindow = () => {
-    const win = remote.BrowserWindow.getFocusedWindow();
-
-    if (win.isMaximized()) {
-      win.unmaximize();
-    } else {
-      win.maximize();
-    }
-  };
-
-  handleCloseWindow = () => {
-    remote.BrowserWindow.getFocusedWindow().close();
-  };
-
-  updateIsMax = () => {
-    const win = remote.BrowserWindow.getFocusedWindow();
-    if (win) {
-      this.setState({ isMaximized: win.isMaximized() });
     }
   };
 }
