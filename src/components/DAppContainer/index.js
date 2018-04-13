@@ -11,7 +11,7 @@ import { enqueue, dequeue, empty } from '../../actions/requestsActions';
 const mapDispatchToProps = (dispatch) => bindActionCreators({ enqueue, dequeue, empty }, dispatch);
 
 const mapNameServiceDataToProps = (data) => ({
-  src: (data && data.target) || 'dapp.html'
+  src: (data && data.target) || 'welcome.html'
 });
 
 export default compose(

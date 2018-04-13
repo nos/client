@@ -1,6 +1,6 @@
 import React from 'react';
 import path from 'path';
-
+import { shell } from 'electron';
 import { string, func } from 'prop-types';
 
 import RequestsProcessor from '../RequestsProcessor';
@@ -18,11 +18,13 @@ export default class DAppContainer extends React.Component {
   componentDidMount() {
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
+    this.webview.addEventListener('new-window', this.handleNewWindow);
   }
 
   componentWillUnmount() {
     this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
+    this.webview.removeEventListener('new-window', this.handleNewWindow);
 
     // remove any pending requests from the queue
     this.props.empty(this.props.sessionId);
@@ -59,6 +61,11 @@ export default class DAppContainer extends React.Component {
 
     this.props.enqueue(this.props.sessionId, { channel, id, args });
   };
+
+  handleNewWindow = (event) => {
+    event.preventDefault();
+    shell.openExternal(event.url);
+  }
 
   handleResolve = (request, result) => {
     const { channel, id } = request;
