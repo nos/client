@@ -1,23 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { bool, string, node } from 'prop-types';
-import cx from 'classnames';
+import { string, node } from 'prop-types';
+import classNames from 'classnames';
+
 import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
 import AddressBar from './AddressBar';
+import Tooltip from '../Tooltip';
 import logo from '../../images/logo.svg';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {
   return (
-    <div className={cx(styles.authenticatedLayout, process.platform)}>
+    <div className={classNames(styles.authenticatedLayout, process.platform)}>
       <div className={styles.menu}>
         <header>
           <NavLink exact to="/">
-            <img src={logo} alt="nOS Logo" width="36" height="36" />
+            <Tooltip id="home" overlay="Home">
+              <img src={logo} alt="nOS Logo" width="36" height="36" aria-describedby="home" />
+            </Tooltip>
           </NavLink>
         </header>
-        <Navigation authenticated={props.authenticated} />
+        <Navigation />
       </div>
       <main className={styles.main}>
         <AddressBar />
@@ -37,11 +41,9 @@ AuthenticatedLayout.displayName = 'AuthenticatedLayout';
 
 AuthenticatedLayout.propTypes = {
   children: node,
-  authenticated: bool,
   currentNetwork: string.isRequired
 };
 
 AuthenticatedLayout.defaultProps = {
-  children: null,
-  authenticated: false
+  children: null
 };
