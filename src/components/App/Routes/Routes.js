@@ -24,8 +24,8 @@ export default function Routes() {
       <Route exact path="/register" component={withLoginLayout(Register)} />
       <PrivateRoute exact path="/" component={withAuthLayout(Home)} />
       <PrivateRoute exact path="/browser" component={withAuthLayout(Browser)} />
-      <PrivateRoute exact path="/exchange" component={withAuthLayout(Exchange)} />
       <PrivateRoute exact path="/favorites" component={withAuthLayout(Favorites)} />
+      <PrivateRoute exact path="/exchange" component={withAuthLayout(Exchange)} />
       <PrivateRoute exact path="/settings" component={withAuthLayout(Settings)} />
       <PrivateRoute exact path="/logout" component={withAuthLayout(Logout)} />
       <Redirect to="/" />
