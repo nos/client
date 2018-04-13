@@ -34,13 +34,6 @@ export default class Navigation extends React.Component {
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="/dapp">
-              <Tooltip id="dapp" overlay="Example dApp">
-                <Icon name="dapp" aria-describedby="dapp" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
             <NavLink exact to="/logout">
               <Tooltip id="logout" overlay="Logout">
                 <Icon name="logout" aria-describedby="logout" />

@@ -9,7 +9,7 @@ import Routes from '../../../src/components/App/Routes';
 import Home from '../../../src/components/Home';
 import Login from '../../../src/components/Login';
 import Logout from '../../../src/components/Logout';
-import DAppContainer from '../../../src/components/DAppContainer';
+import Browser from '../../../src/components/Browser';
 import { provideState } from '../../testHelpers';
 
 const { LOADED } = progressValues;
@@ -62,12 +62,12 @@ describe('<Routes />', () => {
     });
   });
 
-  describe('dapp route', () => {
-    itBehavesLikeAuthenticatedRoute('/dapp');
+  describe('browser route', () => {
+    itBehavesLikeAuthenticatedRoute('/browser');
 
     it('renders when authenticated', () => {
-      const wrapper = mountPath('/dapp', { spunky: { auth: authenticatedState } });
-      expect(wrapper.find(DAppContainer).exists()).toBe(true);
+      const wrapper = mountPath('/browser', { spunky: { auth: authenticatedState } });
+      expect(wrapper.find(Browser).exists()).toBe(true);
     });
   });
 });
