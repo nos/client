@@ -27,12 +27,12 @@ const withInitialCall = (
       this.Component = this.createComponent(this.props);
     }
 
-    componentDidUpdate(prevProps) {
-      const progress = prevProps[propName];
-      const nextProgress = this.props[propName];
+    componentWillReceiveProps(nextProps) {
+      const progress = this.props[propName];
+      const nextProgress = nextProps[propName];
 
       if (progress !== nextProgress && (progress === INITIAL || nextProgress === INITIAL)) {
-        this.Component = this.createComponent(this.props);
+        this.Component = this.createComponent(nextProps);
       }
     }
 

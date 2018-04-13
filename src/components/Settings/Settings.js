@@ -11,9 +11,6 @@ export default class Settings extends React.Component {
 
   selectNetworkRef = React.createRef();
 
-  // TODO: Refactor this to `getDerivedStateFromProps` when possible. Currently some other
-  // dependency is still usin `componentWillReceiveProps` (which is deprecated) and
-  // preventing use of it now.
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentNetwork !== this.state.selectedNetwork) {
       this.setState({ selectedNetwork: nextProps.currentNetwork });
@@ -29,7 +26,6 @@ export default class Settings extends React.Component {
           <label htmlFor="network">
             Current Network
             <p>
-              {/* TODO: Map through available networks, including custom networks */}
               <select
                 name="network"
                 id="network"
@@ -39,6 +35,7 @@ export default class Settings extends React.Component {
               >
                 <option value="MainNet">MainNet</option>
                 <option value="TestNet">TestNet</option>
+                <option value="CozNet">CozNet</option>
                 <option value="nOSLocal">nOS Local</option>
               </select>
             </p>

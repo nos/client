@@ -15,9 +15,9 @@ export default function withAuthChange(progress, callback) {
 
   return (Component) => {
     class WrappedComponent extends React.Component {
-      componentDidUpdate(prevProps) {
-        if (prevProps[PROGRESS_PROP] !== progress && this.props[PROGRESS_PROP] === progress) {
-          callback(this.props[DATA_PROP], omit(this.props, DATA_PROP, PROGRESS_PROP));
+      componentWillReceiveProps(nextProps) {
+        if (this.props[PROGRESS_PROP] !== progress && nextProps[PROGRESS_PROP] === progress) {
+          callback(nextProps[DATA_PROP], omit(nextProps, DATA_PROP, PROGRESS_PROP));
         }
       }
 
