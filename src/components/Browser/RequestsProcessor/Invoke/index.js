@@ -2,12 +2,12 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Invoke from './Invoke';
-import authActions from '../../../actions/authActions';
-import withClean from '../../../hocs/dapps/withClean';
-import withNetworkData from '../../../hocs/withNetworkData';
-import withPrompt from '../../../hocs/dapps/withPrompt';
-import withNullLoader from '../../../hocs/dapps/withNullLoader';
-import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
+import authActions from '../../../../actions/authActions';
+import withClean from '../../../../hocs/dapps/withClean';
+import withNetworkData from '../../../../hocs/withNetworkData';
+import withPrompt from '../../../../hocs/dapps/withPrompt';
+import withNullLoader from '../../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });

@@ -9,6 +9,7 @@ import {
   faCheckCircle,
   faCopy,
   faHandshake,
+  faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
@@ -20,7 +21,8 @@ import {
   faCog,
   faCubes,
   faKey,
-  faQuestionCircle
+  faQuestionCircle,
+  faSignOutAlt
 } from '@fortawesome/fontawesome-free-solid';
 
 fontawesome.library.add(
@@ -34,6 +36,8 @@ fontawesome.library.add(
   faHandshake,
   faKey,
   faQuestionCircle,
+  faSignOutAlt,
+  faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
@@ -41,6 +45,7 @@ fontawesome.library.add(
 );
 
 const ICONS = {
+  account: 'user',
   browser: 'globe',
   check: 'check-circle',
   copy: 'copy',
@@ -48,6 +53,7 @@ const ICONS = {
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],
   login: 'key',
+  logout: 'sign-out-alt',
   notifications: ['far', 'bell'],
   settings: 'cog',
   unfavorite: ['far', 'bookmark'],

@@ -1,6 +1,6 @@
 import React from 'react';
 import path from 'path';
-
+import { shell } from 'electron';
 import { string, func } from 'prop-types';
 
 import RequestsProcessor from '../RequestsProcessor';
@@ -10,6 +10,7 @@ export default class DAppContainer extends React.Component {
   static propTypes = {
     sessionId: string.isRequired,
     src: string.isRequired,
+    query: func.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired
@@ -18,11 +19,15 @@ export default class DAppContainer extends React.Component {
   componentDidMount() {
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
+    this.webview.addEventListener('new-window', this.handleNewWindow);
+    this.webview.addEventListener('will-navigate', this.handleWillNavigate);
   }
 
   componentWillUnmount() {
     this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
+    this.webview.removeEventListener('new-window', this.handleNewWindow);
+    this.webview.removeEventListener('will-navigate', this.handleWillNavigate);
 
     // remove any pending requests from the queue
     this.props.empty(this.props.sessionId);
@@ -59,6 +64,21 @@ export default class DAppContainer extends React.Component {
 
     this.props.enqueue(this.props.sessionId, { channel, id, args });
   };
+
+  handleNewWindow = (event) => {
+    event.preventDefault();
+    shell.openExternal(event.url);
+  }
+
+  handleWillNavigate = (event) => {
+    const url = new URL(event.url);
+    const { protocol, host } = url;
+
+    if (protocol === 'nos:') {
+      event.preventDefault();
+      this.props.query(host);
+    }
+  }
 
   handleResolve = (request, result) => {
     const { channel, id } = request;

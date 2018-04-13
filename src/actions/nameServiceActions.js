@@ -9,12 +9,18 @@ const URL = 'http://localhost:30333';
 
 const client = Neon.create.rpcClient(URL);
 
+const isNOS = (query) => {
+  return query === 'nos.neo';
+};
+
 const isLocal = (query) => {
   return /^(localhost|127.0.0.1|0.0.0.0|::1)/.test(query);
 };
 
 const lookup = async (query) => {
-  if (isLocal(query)) {
+  if (isNOS(query)) {
+    return { query, target: 'welcome.html' };
+  } if (isLocal(query)) {
     return { query, target: `http://${query}` };
   } else {
     const storageKey = Neon.u.str2hexstring(`${query}.target`);

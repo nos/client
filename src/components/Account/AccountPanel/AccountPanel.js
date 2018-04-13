@@ -4,11 +4,11 @@ import { string, objectOf } from 'prop-types';
 import Panel from '../../Panel';
 import balanceShape from '../../../shapes/balanceShape';
 import { NEO, GAS } from '../../../values/assets';
-import styles from './WalletPanel.scss';
+import styles from './AccountPanel.scss';
 
 const balancesShape = objectOf(balanceShape);
 
-export default class WalletPanel extends React.Component {
+export default class AccountPanel extends React.Component {
   static propTypes = {
     address: string.isRequired,
     balances: balancesShape.isRequired
@@ -16,7 +16,7 @@ export default class WalletPanel extends React.Component {
 
   render() {
     return (
-      <Panel className={styles.walletPanel} renderHeader={this.renderHeader}>
+      <Panel className={styles.accountPanel}>
         <div className={styles.content}>
           Address: {this.props.address}<br />
           NEO: {this.getBalance(NEO)}<br />
@@ -24,10 +24,6 @@ export default class WalletPanel extends React.Component {
         </div>
       </Panel>
     );
-  }
-
-  renderHeader = () => {
-    return 'Wallet';
   }
 
   getBalance = (assetIdOrScriptHash) => {

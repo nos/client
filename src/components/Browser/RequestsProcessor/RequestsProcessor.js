@@ -3,7 +3,7 @@ import { string, func, arrayOf } from 'prop-types';
 import { omit } from 'lodash';
 
 import RequestProcessor from './RequestProcessor';
-import requestShape from '../../shapes/requestShape';
+import requestShape from '../../../shapes/requestShape';
 
 export default class RequestsProcessor extends React.Component {
   static propTypes = {

@@ -1,12 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { string, node } from 'prop-types';
 import classNames from 'classnames';
 
 import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
 import AddressBar from './AddressBar';
-import Tooltip from '../Tooltip';
 import logo from '../../images/logo.svg';
 import styles from './AuthenticatedLayout.scss';
 
@@ -15,11 +13,7 @@ export default function AuthenticatedLayout(props) {
     <div className={classNames(styles.authenticatedLayout, process.platform)}>
       <div className={styles.menu}>
         <header>
-          <NavLink exact to="/">
-            <Tooltip id="home" overlay="Home">
-              <img src={logo} alt="nOS Logo" width="36" height="36" aria-describedby="home" />
-            </Tooltip>
-          </NavLink>
+          <img src={logo} alt="nOS Logo" width="36" height="36" />
         </header>
         <Navigation />
       </div>

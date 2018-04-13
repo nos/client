@@ -2,13 +2,13 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Send from './Send';
-import withClean from '../../../hocs/dapps/withClean';
-import authActions from '../../../actions/authActions';
-import withNetworkData from '../../../hocs/withNetworkData';
-import withPrompt from '../../../hocs/dapps/withPrompt';
-import withNullLoader from '../../../hocs/dapps/withNullLoader';
-import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
-import { NEO, GAS } from '../../../values/assets';
+import withClean from '../../../../hocs/dapps/withClean';
+import authActions from '../../../../actions/authActions';
+import withNetworkData from '../../../../hocs/withNetworkData';
+import withPrompt from '../../../../hocs/dapps/withPrompt';
+import withNullLoader from '../../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
+import { NEO, GAS } from '../../../../values/assets';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });

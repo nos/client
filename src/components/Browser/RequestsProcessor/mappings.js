@@ -5,11 +5,11 @@ import TestInvoke from './TestInvoke';
 import GetStorage from './GetStorage';
 import Send from './Send';
 import ClaimGas from './ClaimGas';
-import makeInvokeActions from '../../actions/dapps/makeInvokeActions';
-import makeTestInvokeActions from '../../actions/dapps/makeTestInvokeActions';
-import makeStorageActions from '../../actions/dapps/makeStorageActions';
-import makeSendActions from '../../actions/dapps/makeSendActions';
-import makeClaimActions from '../../actions/dapps/makeClaimActions';
+import makeInvokeActions from '../../../actions/dapps/makeInvokeActions';
+import makeTestInvokeActions from '../../../actions/dapps/makeTestInvokeActions';
+import makeStorageActions from '../../../actions/dapps/makeStorageActions';
+import makeSendActions from '../../../actions/dapps/makeSendActions';
+import makeClaimActions from '../../../actions/dapps/makeClaimActions';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,

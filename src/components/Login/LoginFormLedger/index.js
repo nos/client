@@ -26,5 +26,5 @@ export default compose(
 
   // redirect on login
   withRouter,
-  withLogin((state, { history }) => history.push('/'))
+  withLogin((state, { history }) => history.push('/browser'))
 )(LoginFormLedger);

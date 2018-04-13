@@ -6,10 +6,10 @@ import { Redirect } from 'react-router-dom';
 import { progressValues } from 'spunky';
 
 import Routes from '../../../src/components/App/Routes';
-import Home from '../../../src/components/Home';
+import Account from '../../../src/components/Account';
 import Login from '../../../src/components/Login';
 import Logout from '../../../src/components/Logout';
-import DAppContainer from '../../../src/components/DAppContainer';
+import Browser from '../../../src/components/Browser';
 import { provideState } from '../../testHelpers';
 
 const { LOADED } = progressValues;
@@ -39,17 +39,17 @@ describe('<Routes />', () => {
     expect(wrapper.find(Login).exists()).toBe(true);
   });
 
-  it('redirects to root on invalid route', () => {
+  it('redirects to browser on invalid route', () => {
     const wrapper = mountPath('/index.html');
-    expect(wrapper.find(Redirect).prop('to')).toEqual('/');
+    expect(wrapper.find(Redirect).prop('to')).toEqual('/browser');
   });
 
-  describe('root route', () => {
-    itBehavesLikeAuthenticatedRoute('/');
+  describe('account route', () => {
+    itBehavesLikeAuthenticatedRoute('/account');
 
     it('renders when authenticated', () => {
-      const wrapper = mountPath('/', { spunky: { auth: authenticatedState } });
-      expect(wrapper.find(Home).exists()).toBe(true);
+      const wrapper = mountPath('/account', { spunky: { auth: authenticatedState } });
+      expect(wrapper.find(Account).exists()).toBe(true);
     });
   });
 
@@ -62,12 +62,12 @@ describe('<Routes />', () => {
     });
   });
 
-  describe('dapp route', () => {
-    itBehavesLikeAuthenticatedRoute('/dapp');
+  describe('browser route', () => {
+    itBehavesLikeAuthenticatedRoute('/browser');
 
     it('renders when authenticated', () => {
-      const wrapper = mountPath('/dapp', { spunky: { auth: authenticatedState } });
-      expect(wrapper.find(DAppContainer).exists()).toBe(true);
+      const wrapper = mountPath('/browser', { spunky: { auth: authenticatedState } });
+      expect(wrapper.find(Browser).exists()).toBe(true);
     });
   });
 });
