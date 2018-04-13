@@ -2,7 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import Invoke from './Invoke';
-import { getCurrentNetwork } from '../../../actions/settings/currentNetworkActions';
+import currentNetworkActions from '../../../actions/settings/currentNetworkActions';
 import authActions from '../../../actions/authActions';
 import withClean from '../../../hocs/dapps/withClean';
 import withPrompt from '../../../hocs/dapps/withPrompt';
@@ -11,7 +11,7 @@ import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });
-const mapSettingsDataToProps = ({ currentNetwork }) => ({ net: currentNetwork });
+const mapSettingsDataToProps = (net) => ({ net });
 
 export default function makeInvokeComponent(invokeActions) {
   return compose(
@@ -31,7 +31,7 @@ export default function makeInvokeComponent(invokeActions) {
     )),
 
     // Get the current network and account data
-    withData(getCurrentNetwork, mapSettingsDataToProps),
+    withData(currentNetworkActions, mapSettingsDataToProps),
     withData(authActions, mapAuthDataToProps),
 
     // Run the invoke & wait for success or failure

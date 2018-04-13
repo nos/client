@@ -9,6 +9,8 @@ export default class Settings extends React.Component {
     this.state = { selectedNetwork: props.currentNetwork };
   }
 
+  selectNetworkRef = React.createRef();
+
   // TODO: Refactor this to `getDerivedStateFromProps` when possible. Currently some other
   // dependency is still usin `componentWillReceiveProps` (which is deprecated) and
   // preventing use of it now.
@@ -49,14 +51,12 @@ export default class Settings extends React.Component {
 
   handleSubmitCurrentNetwork = (event) => {
     event.preventDefault();
-    this.props.setCurrentNetwork({ currentNetwork: this.state.selectedNetwork });
+    this.props.setCurrentNetwork(this.state.selectedNetwork);
   };
 
   handleChangeSelectedNetwork = () => {
     this.setState({ selectedNetwork: this.selectNetworkRef.current.value });
   };
-
-  selectNetworkRef = React.createRef();
 }
 
 Settings.propTypes = {

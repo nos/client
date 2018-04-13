@@ -2,7 +2,7 @@ import { withCall, withData } from 'spunky';
 import { compose } from 'recompose';
 
 import ClaimGas from './ClaimGas';
-import { getCurrentNetwork } from '../../../actions/settings/currentNetworkActions';
+import currentNetworkActions from '../../../actions/settings/currentNetworkActions';
 import authActions from '../../../actions/authActions';
 import withClean from '../../../hocs/dapps/withClean';
 import withPrompt from '../../../hocs/dapps/withPrompt';
@@ -11,7 +11,7 @@ import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
-const mapSettingsDataToProps = ({ currentNetwork }) => ({ net: currentNetwork });
+const mapSettingsDataToProps = (net) => ({ net });
 
 export default function makeClaimComponent(claimActions) {
   return compose(
@@ -19,7 +19,7 @@ export default function makeClaimComponent(claimActions) {
     withClean(claimActions),
 
     // Get the current network
-    withData(getCurrentNetwork, mapSettingsDataToProps),
+    withData(currentNetworkActions, mapSettingsDataToProps),
 
     // Prompt user
     withPrompt('Would you like to claim GAS?'),

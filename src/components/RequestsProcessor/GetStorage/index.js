@@ -2,13 +2,13 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import GetStorage from './GetStorage';
-import { getCurrentNetwork } from '../../../actions/settings/currentNetworkActions';
+import currentNetworkActions from '../../../actions/settings/currentNetworkActions';
 import withClean from '../../../hocs/dapps/withClean';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
 const mapStorageDataToProps = (data) => ({ data });
-const mapSettingsDataToProps = ({ currentNetwork }) => ({ net: currentNetwork });
+const mapSettingsDataToProps = (net) => ({ net });
 
 export default function makeStorageComponent(storageActions) {
   return compose(
@@ -19,7 +19,7 @@ export default function makeStorageComponent(storageActions) {
     withProps(({ args }) => ({ scriptHash: args[0], storageKey: args[1] })),
 
     // Get the current network
-    withData(getCurrentNetwork, mapSettingsDataToProps),
+    withData(currentNetworkActions, mapSettingsDataToProps),
 
     // Get the storage data & wait for success or failure
     withCall(storageActions, ({ net, scriptHash, storageKey }) => ({

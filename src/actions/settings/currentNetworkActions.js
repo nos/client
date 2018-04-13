@@ -3,12 +3,13 @@ import { getStorage, setStorage } from '../../lib/storage';
 
 export const ID = 'currentNetwork';
 
-export const setCurrentNetwork = createActions(ID, ({ currentNetwork }) => async () => {
+export const setCurrentNetwork = createActions(ID, (currentNetwork) => async () => {
   const data = { currentNetwork };
-  await setStorage(ID, data);
-  return data;
+  await setStorage(ID, currentNetwork);
+  return data.currentNetwork;
 });
 
-export const getCurrentNetwork = createActions(ID, () => async () => {
-  return (await getStorage(ID)) || { currentNetwork: 'TestNet' };
+export default createActions(ID, () => async () => {
+  const data = await getStorage(ID);
+  return (data && data.currentNetwork) || 'TestNet';
 });
