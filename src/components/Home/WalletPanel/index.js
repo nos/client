@@ -6,6 +6,7 @@ import Loading from '../../Loading';
 import authActions from '../../../actions/authActions';
 import balancesActions from '../../../actions/balancesActions';
 import withInitialCall from '../../../hocs/withInitialCall';
+import withNetworkData from '../../../hocs/withNetworkData';
 
 const { LOADING } = progressValues;
 
@@ -15,7 +16,8 @@ const mapBalancesDataToProps = (balances) => ({ balances });
 
 export default compose(
   withData(authActions, mapAuthDataToProps),
-  withInitialCall(balancesActions, ({ address }) => ({ address, net: 'TestNet' })),
+  withNetworkData(),
+  withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
   withProgressComponents(balancesActions, {
     [LOADING]: Loading
   }),
