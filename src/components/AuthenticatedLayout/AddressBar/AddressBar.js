@@ -10,7 +10,21 @@ import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
 
-class AddressBar extends React.Component {
+const historyShape = shape({
+  push: func.isRequired
+});
+
+export default class AddressBar extends React.Component {
+  static propTypes = {
+    doQuery: func.isRequired,
+    query: string,
+    history: historyShape.isRequired
+  };
+
+  static defaultProps = {
+    query: null
+  };
+
   searchInput = React.createRef();
 
   state = {
@@ -23,8 +37,8 @@ class AddressBar extends React.Component {
   }
 
   componentDidUpdate(prevProps, _prevState) {
-    if (this.props.target !== prevProps.target) {
-      this.props.history.push('/dapp');
+    if (this.props.query !== prevProps.query) {
+      this.searchInput.current.value = this.props.query;
     }
   }
 
@@ -41,7 +55,7 @@ class AddressBar extends React.Component {
           placeholder="Search or enter address"
           onKeyUp={this.handleKeyUp}
           ref={this.searchInput}
-          autoFocus
+          defaultValue={this.props.query}
         />
         <div className={styles.buttonBar}>
           <button>
@@ -67,9 +81,15 @@ class AddressBar extends React.Component {
   }
 
   handleKeyUp = (event) => {
-    const { doQuery } = this.props;
-    if (event.which === RETURN_KEY && doQuery) {
-      doQuery(this.searchInput.current.value);
+    const { query, doQuery } = this.props;
+
+    if (event.which === RETURN_KEY) {
+      const { value } = event.target;
+
+      if (value !== query) {
+        doQuery(value);
+      }
+      this.props.history.push('/browser');
     }
   };
 
@@ -98,17 +118,3 @@ class AddressBar extends React.Component {
     }
   };
 }
-
-AddressBar.defaultProps = {
-  target: 'https://google.com'
-};
-
-AddressBar.propTypes = {
-  doQuery: func.isRequired,
-  target: string,
-  history: shape({
-    push: func
-  }).isRequired
-};
-
-export default AddressBar;
