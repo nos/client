@@ -21,7 +21,8 @@ import {
   faCog,
   faCubes,
   faKey,
-  faQuestionCircle
+  faQuestionCircle,
+  faSignOutAlt
 } from '@fortawesome/fontawesome-free-solid';
 
 fontawesome.library.add(
@@ -35,6 +36,7 @@ fontawesome.library.add(
   faHandshake,
   faKey,
   faQuestionCircle,
+  faSignOutAlt,
   faUser,
   faWindowClose,
   faWindowMaximize,
@@ -51,6 +53,7 @@ const ICONS = {
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],
   login: 'key',
+  logout: 'sign-out-alt',
   notifications: ['far', 'bell'],
   settings: 'cog',
   unfavorite: ['far', 'bookmark'],
