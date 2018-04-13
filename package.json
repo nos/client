@@ -81,7 +81,7 @@
   "build": {
     "appId": "com.nos.electron",
     "win": {
-      "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+      "icon": "src/images/logo-64x64.ico"
     },
     "directories": {
       "buildResources": "public"
