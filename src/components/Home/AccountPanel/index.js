@@ -1,7 +1,7 @@
 import { compose } from 'recompose';
 import { withData, withProgressComponents, progressValues } from 'spunky';
 
-import Home from './WalletPanel';
+import AccountPanel from './AccountPanel';
 import Loading from '../../Loading';
 import Failed from '../../Failed';
 import authActions from '../../../actions/authActions';
@@ -26,4 +26,4 @@ export default compose(
     [FAILED]: Failed
   }),
   withData(balancesActions, mapBalancesDataToProps)
-)(Home);
+)(AccountPanel);
