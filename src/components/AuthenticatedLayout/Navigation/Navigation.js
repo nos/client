@@ -1,78 +1,58 @@
 /* eslint-disable consistent-return */
 
 import React from 'react';
-import { bool } from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import Icon from '../../Icon';
+import Tooltip from '../../Tooltip';
 import styles from './Navigation.scss';
 
 export default class Navigation extends React.Component {
-  static propTypes = {
-    authenticated: bool
-  };
-
-  static defaultProps = {
-    authenticated: false
-  };
-
   render() {
     return (
       <nav className={styles.navigation}>
-        <ul>
-          {this.renderAuthenticated()}
-          {this.renderUnauthenticated()}
+        <ul className={styles.group}>
+          <li>
+            <NavLink exact to="/browser">
+              <Tooltip id="browser" overlay="Browser">
+                <Icon name="browser" aria-describedby="browser" />
+              </Tooltip>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/favorites">
+              <Tooltip id="favorites" overlay="Favorites">
+                <Icon name="favorite" aria-describedby="favorites" />
+              </Tooltip>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink id="exchange" exact to="/exchange" className={styles.disabled} onClick={this.handleDisabled}>
+              <Tooltip id="favorites" overlay="Exchange (coming soon!)">
+                <Icon name="exchange" aria-describedby="exchange" />
+              </Tooltip>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/dapp">
+              <Tooltip id="dapp" overlay="Example dApp">
+                <Icon name="dapp" aria-describedby="dapp" />
+              </Tooltip>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/logout">
+              <Tooltip id="logout" overlay="Logout">
+                <Icon name="logout" aria-describedby="logout" />
+              </Tooltip>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     );
   }
 
-  renderAuthenticated = () => {
-    if (this.props.authenticated) {
-      return (
-        <ul className={styles.group}>
-          <li>
-            <NavLink exact to="/browser">
-              <Icon name="browser" />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/favorites">
-              <Icon name="favorite" />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/exchange">
-              <Icon name="exchange" />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/dapp">
-              <Icon name="dapp" />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/logout">
-              <Icon name="logout" />
-            </NavLink>
-          </li>
-        </ul>
-      );
-    }
-  };
-
-  renderUnauthenticated = () => {
-    if (!this.props.authenticated) {
-      return (
-        <div className={styles.group}>
-          <li>
-            <NavLink exact to="/login">
-              <Icon name="login" />
-              <span>Login</span>
-            </NavLink>
-          </li>
-        </div>
-      );
-    }
-  };
+  handleDisabled = (event) => {
+    event.preventDefault();
+  }
 }
