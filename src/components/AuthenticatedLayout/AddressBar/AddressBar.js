@@ -11,11 +11,11 @@ import styles from './AddressBar.scss';
 const RETURN_KEY = 13;
 
 class AddressBar extends React.Component {
+  searchInput = React.createRef();
+
   state = {
     isMaximized: false
   };
-
-  searchInput = React.createRef();
 
   componentDidMount() {
     this.updateIsMax();

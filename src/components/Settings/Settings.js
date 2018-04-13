@@ -4,12 +4,9 @@ import Button from '../Forms/Button';
 import styles from './Settings.scss';
 
 export default class Settings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { selectedNetwork: props.currentNetwork };
-  }
-
   selectNetworkRef = React.createRef();
+
+  state = { selectedNetwork: this.props.currentNetwork };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentNetwork !== this.state.selectedNetwork) {
