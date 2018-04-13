@@ -1,13 +1,15 @@
 import React from 'react';
-import { omit } from 'lodash';
 import { compose } from 'recompose';
 import { withData, withError, withProgress } from 'spunky';
+import { omit, castArray } from 'lodash';
 
 const DATA_PROP = '__authData__';
 const ERROR_PROP = '__authError__';
 const PROGRESS_PROP = '__authProgress__';
 
 export default function withProgressChange(actions, progress, callback) {
+  const progresses = castArray(progress);
+
   const mapDataToProps = (data) => ({
     [DATA_PROP]: data
   });
@@ -19,7 +21,8 @@ export default function withProgressChange(actions, progress, callback) {
   return (Component) => {
     class WrappedComponent extends React.Component {
       componentWillReceiveProps(nextProps) {
-        if (this.props[PROGRESS_PROP] !== progress && nextProps[PROGRESS_PROP] === progress) {
+        if (!progresses.includes(this.props[PROGRESS_PROP])
+            && progresses.includes(nextProps[PROGRESS_PROP])) {
           callback(this.getCallbackState(nextProps), this.getCallbackProps(nextProps));
         }
       }

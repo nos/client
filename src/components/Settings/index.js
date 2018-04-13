@@ -1,19 +1,16 @@
 import { compose } from 'recompose';
-import { withActions, withData, progressValues } from 'spunky';
+import { withActions, progressValues } from 'spunky';
 
 import Settings from './Settings';
-import authActions from '../../actions/authActions';
 import balancesActions from '../../actions/balancesActions';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/settings/currentNetworkActions';
 import withNetworkData from '../../hocs/withNetworkData';
 import withProgressChange from '../../hocs/withProgressChange';
 
-const { LOADED } = progressValues;
+const { LOADED, FAILED } = progressValues;
 
-const mapAuthDataToProps = ({ address }) => ({ address });
-
-const mapBalancesActionsToProps = (actions, { currentNetwork, address }) => ({
-  fetchBalances: () => actions.call({ net: currentNetwork, address })
+const mapBalancesActionsToProps = (actions) => ({
+  resetAccountData: actions.reset
 });
 
 const mapCurrentNetworkActionsToProps = (actions) => ({
@@ -26,7 +23,8 @@ export default compose(
   withNetworkData('currentNetwork'),
 
   // Load balance data whenever the network is assigned or changed
-  withData(authActions, mapAuthDataToProps),
   withActions(balancesActions, mapBalancesActionsToProps),
-  withProgressChange(currentNetworkActions, LOADED, (state, { fetchBalances }) => fetchBalances())
+  withProgressChange(currentNetworkActions, [LOADED, FAILED], (state, { resetAccountData }) => {
+    resetAccountData();
+  })
 )(Settings);
