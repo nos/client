@@ -3,6 +3,7 @@ import { compose, withProps } from 'recompose';
 
 import TestInvoke from './TestInvoke';
 import withClean from '../../../hocs/dapps/withClean';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
 
@@ -13,15 +14,17 @@ export default function makeStorageComponent(testInvokeActions) {
     // Clean redux store when done
     withClean(testInvokeActions),
 
-    // Map the props
+    // Rename arguments given by the user
     withProps(({ args }) => ({
-      net: 'TestNet',
       scriptHash: args[0],
       operation: args[1],
       args: args.slice(2)
     })),
 
-    // Invoke actions
+    // Get the current network
+    withNetworkData(),
+
+    // Run the test invoke & wait for success or failure
     withCall(testInvokeActions, ({ net, scriptHash, operation, args }) => ({
       net,
       scriptHash,

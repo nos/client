@@ -23,11 +23,14 @@ function createDelegate(channel) {
 }
 
 const V1 = {
+  // No persmissions required
   getAddress: createDelegate('getAddress'),
   getBalance: createDelegate('getBalance'),
-  testInvoke: createDelegate('testInvoke'),
-  invoke: createDelegate('invoke'),
   getStorage: createDelegate('getStorage'),
+  testInvoke: createDelegate('testInvoke'),
+
+  // Permissions required
+  invoke: createDelegate('invoke'),
   send: createDelegate('send'),
   claimGas: createDelegate('claimGas')
 };

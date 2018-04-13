@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { func, string, shape } from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { remote } from 'electron';
 
 import Icon from '../../Icon';
@@ -13,6 +14,8 @@ class AddressBar extends React.Component {
   state = {
     isMaximized: false
   };
+
+  searchInput = React.createRef();
 
   componentDidMount() {
     this.updateIsMax();
@@ -44,9 +47,9 @@ class AddressBar extends React.Component {
           <button>
             <Icon name="notifications" />
           </button>
-          <button>
+          <NavLink to="/settings">
             <Icon name="settings" />
-          </button>
+          </NavLink>
           {showWindowIcons && [
             <button onClick={this.handleMinimizeWindow} key="min">
               <Icon name="windowMin" />
@@ -97,8 +100,6 @@ class AddressBar extends React.Component {
       this.setState({ isMaximized: win.isMaximized() });
     }
   };
-
-  searchInput = React.createRef();
 }
 
 AddressBar.defaultProps = {

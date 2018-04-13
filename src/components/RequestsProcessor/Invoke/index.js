@@ -4,6 +4,7 @@ import { compose, withProps } from 'recompose';
 import Invoke from './Invoke';
 import authActions from '../../../actions/authActions';
 import withClean from '../../../hocs/dapps/withClean';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
@@ -16,12 +17,11 @@ export default function makeInvokeComponent(invokeActions) {
     // Clean redux store when done
     withClean(invokeActions),
 
-    // Map the props
+    // Rename arguments given by the user
     withProps(({ args }) => ({
       scriptHash: args[0],
       operation: args[1],
-      args: args.slice(2),
-      net: 'TestNet'
+      args: args.slice(2)
     })),
 
     // Prompt user
@@ -29,10 +29,11 @@ export default function makeInvokeComponent(invokeActions) {
       `Would you like to perform operation "${operation}" on contract with address "${scriptHash}"?`
     )),
 
-    // Getting account data
+    // Get the current network and account data
+    withNetworkData(),
     withData(authActions, mapAuthDataToProps),
 
-    // Do invoke if user accepts
+    // Run the invoke & wait for success or failure
     withCall(invokeActions, ({ net, address, wif, scriptHash, operation, args }) => ({
       net,
       address,

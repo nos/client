@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { bool, node } from 'prop-types';
+import { bool, string, node } from 'prop-types';
 import cx from 'classnames';
 import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
@@ -25,7 +25,7 @@ export default function AuthenticatedLayout(props) {
         <div className={styles.content}>{props.children}</div>
         <footer className={styles.footer}>
           <div className={styles.status}>
-            This is some status text, maybe it only appears if there&rsquo;s something to show?
+            Network: {props.currentNetwork}
           </div>
         </footer>
       </main>
@@ -37,7 +37,8 @@ AuthenticatedLayout.displayName = 'AuthenticatedLayout';
 
 AuthenticatedLayout.propTypes = {
   children: node,
-  authenticated: bool
+  authenticated: bool,
+  currentNetwork: string.isRequired
 };
 
 AuthenticatedLayout.defaultProps = {

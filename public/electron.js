@@ -24,24 +24,16 @@ let mainWindow;
 const isMac = process.platform === 'darwin';
 
 function createWindow() {
+  const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
+
   mainWindow = new BrowserWindow(
-    Object.assign(
-      {
-        width: 1250,
-        height: 700
-      },
-      isMac
-        ? {
-          titleBarStyle: 'hidden'
-        }
-        : {
-          frame: false
-        }
-    )
+    Object.assign({ width: 1250, height: 700 }, framelessConfig)
   );
+
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
+
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
       url.format({
@@ -50,6 +42,7 @@ function createWindow() {
         slashes: true
       })
   );
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });

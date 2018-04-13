@@ -1,12 +1,13 @@
 import { withCall, withData } from 'spunky';
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 
+import ClaimGas from './ClaimGas';
 import authActions from '../../../actions/authActions';
 import withClean from '../../../hocs/dapps/withClean';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
-import ClaimGas from './ClaimGas';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
@@ -16,8 +17,8 @@ export default function makeClaimComponent(claimActions) {
     // Clean redux store when done
     withClean(claimActions),
 
-    // Map the props
-    withProps({ net: 'TestNet' }),
+    // Get the current network
+    withNetworkData(),
 
     // Prompt user
     withPrompt('Would you like to claim GAS?'),

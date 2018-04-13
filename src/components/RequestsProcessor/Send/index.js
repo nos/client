@@ -4,6 +4,7 @@ import { compose, withProps } from 'recompose';
 import Send from './Send';
 import withClean from '../../../hocs/dapps/withClean';
 import authActions from '../../../actions/authActions';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withPrompt from '../../../hocs/dapps/withPrompt';
 import withNullLoader from '../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
@@ -28,12 +29,11 @@ export default function makeSendComponent(sendActions) {
     // Clean redux store when done
     withClean(sendActions),
 
-    // Map the props
+    // Rename arguments given by the user
     withProps(({ args }) => ({
       asset: args[0],
       amount: args[1],
-      receiver: args[2],
-      net: 'TestNet'
+      receiver: args[2]
     })),
 
     // Prompt user
@@ -41,10 +41,11 @@ export default function makeSendComponent(sendActions) {
       `Would you like to send ${amount} ${getAssetName(asset)} to ${receiver}?`
     )),
 
-    // Getting account data
+    // Get the current network & account data
+    withNetworkData(),
     withData(authActions, mapAuthDataToProps),
 
-    // Do invoke if user accepts
+    // Send assets & wait for success or failure
     withCall(sendActions, ({ net, amount, asset, receiver, address, wif }) => ({
       net,
       amount,
