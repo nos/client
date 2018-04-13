@@ -5,8 +5,9 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import {
   faBell,
-  faCopy,
   faBookmark as faBookmarkReg,
+  faCheckCircle,
+  faCopy,
   faHandshake,
   faWindowClose,
   faWindowMaximize,
@@ -27,6 +28,7 @@ fontawesome.library.add(
   faBookmark,
   faBookmarkReg,
   faCog,
+  faCheckCircle,
   faCopy,
   faCubes,
   faHandshake,
@@ -40,6 +42,7 @@ fontawesome.library.add(
 
 const ICONS = {
   browser: 'globe',
+  check: 'check-circle',
   copy: 'copy',
   dapp: 'cube',
   exchange: ['far', 'handshake'],
