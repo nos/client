@@ -36,6 +36,7 @@
   "scripts": {
     "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",
     "build": "react-app-rewired build",
+    "build-osx": "electron-packager ./src --version 1.8.2 --platform darwin --icon ./src/images/logo.icns --out ./dist-osx --overwrite",
     "pretest": "yarn run lint",
     "test": "react-app-rewired test --env=jsdom --testMatch \"**/__tests__/**/*.test.{js,jsx,mjs}\" --setupTestFrameworkScriptFile \"./__tests__/setupTests.js\"",
     "start-react": "cross-env BROWSER=none react-app-rewired start",
@@ -55,6 +56,7 @@
     "electron": "^1.8.2",
     "electron-builder": "^19.56.0",
     "electron-devtools-installer": "^2.2.3",
+    "electron-packager": "^12.0.1",
     "electron-rebuild": "^1.7.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
