@@ -8,5 +8,5 @@ const { FAILED } = progressValues;
 
 export default compose(
   withAlert(),
-  withAuthChange(FAILED, (data, { alert }) => alert('Authentication failed.'))
+  withAuthChange(FAILED, ({ error }, { alert }) => alert(`Authentication failed: ${error}`))
 );
