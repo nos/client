@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DAppContainer from '../DAppContainer';
+import DAppContainer from './DAppContainer';
 import styles from './Browser.scss';
 
 export default function Browser(_props) {

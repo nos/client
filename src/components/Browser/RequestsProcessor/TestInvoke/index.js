@@ -2,10 +2,10 @@ import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
 import TestInvoke from './TestInvoke';
-import withClean from '../../../hocs/dapps/withClean';
-import withNetworkData from '../../../hocs/withNetworkData';
-import withNullLoader from '../../../hocs/dapps/withNullLoader';
-import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
+import withClean from '../../../../hocs/dapps/withClean';
+import withNetworkData from '../../../../hocs/withNetworkData';
+import withNullLoader from '../../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
 
 const mapInvokeDataToProps = (script) => ({ script });
 

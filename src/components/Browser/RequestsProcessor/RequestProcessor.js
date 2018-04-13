@@ -3,7 +3,7 @@ import { string, func } from 'prop-types';
 import { isEqual } from 'lodash';
 
 import { getComponent, getActions } from './mappings';
-import requestShape from '../../shapes/requestShape';
+import requestShape from '../../../shapes/requestShape';
 
 export default class RequestProcessor extends React.Component {
   static propTypes = {

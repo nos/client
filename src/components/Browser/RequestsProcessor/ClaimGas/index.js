@@ -2,12 +2,12 @@ import { withCall, withData } from 'spunky';
 import { compose } from 'recompose';
 
 import ClaimGas from './ClaimGas';
-import authActions from '../../../actions/authActions';
-import withClean from '../../../hocs/dapps/withClean';
-import withNetworkData from '../../../hocs/withNetworkData';
-import withPrompt from '../../../hocs/dapps/withPrompt';
-import withNullLoader from '../../../hocs/dapps/withNullLoader';
-import withRejectMessage from '../../../hocs/dapps/withRejectMessage';
+import authActions from '../../../../actions/authActions';
+import withClean from '../../../../hocs/dapps/withClean';
+import withNetworkData from '../../../../hocs/withNetworkData';
+import withPrompt from '../../../../hocs/dapps/withPrompt';
+import withNullLoader from '../../../../hocs/dapps/withNullLoader';
+import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
