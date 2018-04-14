@@ -11,6 +11,7 @@
   * [`send`](#send)
 * [Full implementation example](#full-implementation-example)
 * [Future](#future)
+  * [Block height](#block-height)
   * [Events](#events)
   * [`nos:` protocol](#nos-protocol)
 
