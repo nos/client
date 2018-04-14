@@ -20,15 +20,15 @@ export default class Navigation extends React.Component {
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="/favorites">
-              <Tooltip id="favorites" overlay="Favorites">
+            <NavLink exact to="/favorites" className={styles.disabled} onClick={this.handleDisabled}>
+              <Tooltip id="favorites" overlay="Favorites (coming soon!)">
                 <Icon name="favorite" aria-describedby="favorites" />
               </Tooltip>
             </NavLink>
           </li>
           <li>
-            <NavLink id="exchange" exact to="/exchange" className={styles.disabled} onClick={this.handleDisabled}>
-              <Tooltip id="favorites" overlay="Exchange (coming soon!)">
+            <NavLink exact to="/exchange" className={styles.disabled} onClick={this.handleDisabled}>
+              <Tooltip id="exchange" overlay="Exchange (coming soon!)">
                 <Icon name="exchange" aria-describedby="exchange" />
               </Tooltip>
             </NavLink>
