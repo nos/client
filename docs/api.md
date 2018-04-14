@@ -150,6 +150,10 @@ It does not require the user to grant permission.
 ### Parameters
 1. `string` - The script hash of a deployed Smart Contract.
 1. `string` - The key to retrieve from the Smart Contract.
+1. `object` - An optional options object
+
+### Options
+1. **encode**: `bool` - Whether or not the input should be encoded (string to reverse hex). Defaults to true.
 
 ### Returns
 `any` - The stored value or `null` if the key did not contain a value.
@@ -160,8 +164,9 @@ const nos = window.NOS.V1;
 
 const scriptHash = '85e9cc1f18fcebf9eb8211a128807e38d094542a';
 const key = 'post.latest';
+const options = { options: false }
 
-nos.getStorage(scriptHash, key)
+nos.getStorage(scriptHash, key, options)
     .then((data) => alert(`Get storage data: ${data} `))
     .catch((err) => alert(`Error: ${err.message}`));
 ```
