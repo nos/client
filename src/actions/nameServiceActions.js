@@ -1,6 +1,7 @@
 import { createActions } from 'spunky';
 import Neon from '@cityofzion/neon-js';
-import { trim } from 'lodash';
+
+import parseQuery from '../util/parseQuery';
 
 export const ID = 'nameService';
 
@@ -18,12 +19,8 @@ const isLocal = (host) => {
   return /^(localhost|127.0.0.1|0.0.0.0|::1)/.test(host);
 };
 
-const parse = (query) => {
-  return new URL(query.includes('://') ? query : `nos://${query}`);
-};
-
 const lookup = async (query) => {
-  const { host, pathname } = parse(trim(query));
+  const { host, pathname } = parseQuery(query);
   const formattedQuery = `${host}${pathname}`.replace(/\/$/, '');
 
   if (isNOS(host)) {
