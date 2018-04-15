@@ -3,6 +3,8 @@ import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import Breadcrumbs from './Breadcrumbs';
 import BrowserBreadcrumb from './BrowserBreadcrumb';
 
-export default withBreadcrumbs([
+const routes = [
   { path: '/browser/:query+', breadcrumb: BrowserBreadcrumb }
-])(Breadcrumbs);
+];
+
+export default withBreadcrumbs(routes, { excludePaths: ['/'] })(Breadcrumbs);
