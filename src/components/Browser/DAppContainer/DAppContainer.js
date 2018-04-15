@@ -10,7 +10,8 @@ export default class DAppContainer extends React.Component {
   static propTypes = {
     sessionId: string.isRequired,
     src: string.isRequired,
-    query: func.isRequired,
+    query: string.isRequired,
+    doQuery: func.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired
@@ -45,7 +46,7 @@ export default class DAppContainer extends React.Component {
 
         <RequestsProcessor
           sessionId={this.props.sessionId}
-          src={this.props.src}
+          src={this.props.query}
           onResolve={this.handleResolve}
           onReject={this.handleReject}
         />
@@ -76,7 +77,7 @@ export default class DAppContainer extends React.Component {
 
     if (protocol === 'nos:') {
       event.preventDefault();
-      this.props.query(host);
+      this.props.doQuery(host);
     }
   }
 
