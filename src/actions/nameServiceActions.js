@@ -1,36 +1,43 @@
 import { createActions } from 'spunky';
 import Neon from '@cityofzion/neon-js';
+import { trim } from 'lodash';
 
 export const ID = 'nameService';
 
 // TODO: Configurable network settings and script hash
 const NS_SCRIPT_HASH = '0xe60a3fa8149a853eb4dff4f6ed93c931646a9e22';
-const URL = 'http://localhost:30333';
+const RPC_URL = 'http://localhost:30333';
 
-const client = Neon.create.rpcClient(URL);
+const client = Neon.create.rpcClient(RPC_URL);
 
-const isNOS = (query) => {
-  return query === 'nos.neo';
+const isNOS = (host) => {
+  return host === 'nos.neo';
 };
 
-const isLocal = (query) => {
-  return /^(localhost|127.0.0.1|0.0.0.0|::1)/.test(query);
+const isLocal = (host) => {
+  return /^(localhost|127.0.0.1|0.0.0.0|::1)/.test(host);
+};
+
+const parse = (query) => {
+  return new URL(query.includes('://') ? query : `nos://${query}`);
 };
 
 const lookup = async (query) => {
-  if (isNOS(query)) {
-    return { query, target: 'welcome.html' };
-  } if (isLocal(query)) {
-    return { query, target: `http://${query}` };
+  const { host, pathname } = parse(trim(query));
+  const formattedQuery = `${host}${pathname}`.replace(/\/$/, '');
+
+  if (isNOS(host)) {
+    return { query: formattedQuery, target: 'welcome.html' };
+  } if (isLocal(host)) {
+    return { query: formattedQuery, target: `http://${formattedQuery}` };
   } else {
-    const storageKey = Neon.u.str2hexstring(`${query}.target`);
+    const storageKey = Neon.u.str2hexstring(`${host}.target`);
     const response = await client.getStorage(NS_SCRIPT_HASH, storageKey);
-    if (response) {
-      const target = Neon.u.hexstring2str(response);
-      return { query, target };
+    if (!response) {
+      throw new Error('Not found.');
     }
-    // TODO: Show an error in the status if target not found??
-    return { query, target: null };
+    const target = Neon.u.hexstring2str(response);
+    return { query: formattedQuery, target: `${target}${pathname}` };
   }
 };
 
