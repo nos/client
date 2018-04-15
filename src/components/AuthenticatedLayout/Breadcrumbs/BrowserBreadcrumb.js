@@ -1,10 +1,10 @@
 import React from 'react';
 
 import matchShape from '../../../shapes/matchShape';
-import parseQuery from '../../../util/parseQuery';
+import formatQuery from '../../../util/formatQuery';
 
 export default function BrowserBreadcrumb({ match }) {
-  const { hostname } = parseQuery(decodeURIComponent(match.params.query));
+  const { hostname } = formatQuery(decodeURIComponent(match.params.query));
   return <span>{hostname}</span>;
 }
 

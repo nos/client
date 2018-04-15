@@ -9,7 +9,6 @@ import styles from './DAppContainer.scss';
 export default class DAppContainer extends React.Component {
   static propTypes = {
     sessionId: string.isRequired,
-    src: string.isRequired,
     query: string.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
@@ -36,7 +35,7 @@ export default class DAppContainer extends React.Component {
       <div className={styles.dAppContainer}>
         <webview
           ref={this.registerRef}
-          src={this.props.src}
+          src={this.props.query}
           preload={this.getPreloadPath()}
           style={{ height: '100%' }}
         />

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { func, string } from 'prop-types';
+import { noop } from 'lodash';
 
 import ButtonBar from '../ButtonBar';
 import styles from './AddressBar.scss';
@@ -10,21 +11,15 @@ const RETURN_KEY = 13;
 
 export default class AddressBar extends React.Component {
   static propTypes = {
-    doQuery: func.isRequired,
-    query: string
+    query: string,
+    setQuery: func,
+    doQuery: func.isRequired
   };
 
   static defaultProps = {
-    query: null
+    query: null,
+    setQuery: noop
   };
-
-  searchInput = React.createRef();
-
-  componentDidUpdate(prevProps, _prevState) {
-    if (this.props.query !== prevProps.query) {
-      this.searchInput.current.value = this.props.query;
-    }
-  }
 
   render() {
     return (
@@ -33,12 +28,16 @@ export default class AddressBar extends React.Component {
           type="text"
           placeholder="Search or enter address"
           onKeyUp={this.handleKeyUp}
-          ref={this.searchInput}
-          defaultValue={this.props.query}
+          value={this.props.query}
+          onChange={this.handleChange}
         />
         <ButtonBar />
       </div>
     );
+  }
+
+  handleChange = (event) => {
+    this.props.setQuery(event.target.value);
   }
 
   handleKeyUp = (event) => {

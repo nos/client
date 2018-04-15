@@ -26,5 +26,5 @@ export default compose(
 
   // redirect on login
   withRouter,
-  withLogin((state, { history }) => history.push('/browser/nos.neo'))
+  withLogin((state, { history }) => history.push('/browser'))
 )(LoginFormLedger);
