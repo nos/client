@@ -12,10 +12,12 @@
 The app can be cloned from GitHub and run using the
 [development steps](#development) below.
 
-## nOS Developer Documentation
+## nOS Client Developer Documentation
 
-Detailed documentation for developing against nOS can be found
-[here](https://github.com/nos/client/blob/master/docs/index.md).
+- [API Documentation](./docs/api.md)
+- [Create your own dApp](./docs/create-your-own-dapp.md)
+- [Setup nos-local](./docs/nos-local.md)
+
 
 ## Development
 
