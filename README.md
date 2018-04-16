@@ -4,7 +4,7 @@
 
 <h1 align="center">nOS</h1>
 <p align="center">
-  <strong>nOS</strong> is a NEO-Powered virtual operating system that allows for the development and discovery of, and interaction with Decentralized Applications.
+  <strong>nOS</strong> is a NEO-powered virtual operating system that allows for Decentralized Application development, hosting, discovery, and interaction.
 </p>
 
 ## Getting Started
