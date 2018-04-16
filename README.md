@@ -4,12 +4,12 @@
 
 <h1 align="center">nOS</h1>
 <p align="center">
-  <strong>nOS</strong> provides an browser-style interface for running NEO dApps.
+  <strong>nOS</strong> is a NEO-Powered virtual operating system that allows for the development and discovery of, and interaction with Decentralized Applications.
 </p>
 
 ## Getting Started
 
-nOS has not been published yet.  For now, the app can be cloned from GitHub and run using the
+The app can be cloned from GitHub and run using the
 [development steps](#development) below.
 
 ## nOS Developer Documentation
