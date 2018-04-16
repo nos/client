@@ -79,9 +79,9 @@
     "webpack-merge": "^4.1.2"
   },
   "build": {
-    "appId": "com.nos.electron",
+    "appId": "io.nos",
     "win": {
-      "icon": "src/images/logo-64x64.ico"
+      "icon": "./build/icon.ico"
     },
     "directories": {
       "buildResources": "public"
