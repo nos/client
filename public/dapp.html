@@ -51,7 +51,7 @@
 
 
     <script type="text/javascript">
-      const nos = window.NOS.V1;
+      const api = window.NOS.V1;
 
       const NEO = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
       const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
@@ -62,32 +62,32 @@
       const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
 
       function getAddress() {
-        nos.getAddress()
+        api.getAddress()
           .then((address) => alert(`Address: ${address}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
       function getBalance(scriptHash) {
-        nos.getBalance(scriptHash)
+        api.getBalance(scriptHash)
           .then((balance) => alert(`Balance: ${balance}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
       function invoke() {
-        nos.invoke(scriptHash, operation, arg1)
+        api.invoke(scriptHash, operation, arg1)
           .then((txid) => alert(`Invoke txid: ${txid} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
       function testInvoke() {
-        nos.testInvoke(scriptHash, operation, arg1)
+        api.testInvoke(scriptHash, operation, arg1)
           .then((script) => alert(`Test invoke script: ${script} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
       function getStorage() {
         const gSData = { scriptHash: "85e9cc1f18fcebf9eb8211a128807e38d094542a", key: "post.latest" };
-        nos.getStorage(gSData.scriptHash, gSData.key)
+        api.getStorage(gSData.scriptHash, gSData.key)
           .then((data) => alert(`Get storage data: ${data} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
@@ -97,13 +97,13 @@
         const amount = "1";
         const receiver = 'AHTU1e6Q15rF8HShE1KdW4S5ZJ3Ah8HJPu';
 
-        nos.send(asset, amount, receiver)
+        api.send(asset, amount, receiver)
           .then((data) => alert(`${amount} ${asset} sent: ${data} `))
           .catch((err) => alert(`Error: ${err.message}`));
       }
 
       function claimGas() {
-        nos.claimGas()
+        api.claimGas()
           .then((data) => alert(`Gas claimed ${data}`))
           .catch((err) => alert(`Error: ${err.message}`));
       }
