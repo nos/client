@@ -2,12 +2,15 @@ import React from 'react';
 import { func, string } from 'prop-types';
 
 import styles from './Settings.scss';
+import Saved from '../Saved/Saved';
 
 export default class Settings extends React.Component {
   static propTypes = {
     currentNetwork: string.isRequired,
     setCurrentNetwork: func.isRequired
   };
+
+  state = { saved: false };
 
   render() {
     return (
@@ -16,6 +19,7 @@ export default class Settings extends React.Component {
         <h2>Network Configuration</h2>
         <label htmlFor="network">
           Current Network
+          <br />
           <select
             name="network"
             id="network"
@@ -28,11 +32,16 @@ export default class Settings extends React.Component {
             <option value="nOSLocal">nOS Local</option>
           </select>
         </label>
+        {this.state.saved && <Saved /> }
       </div>
     );
   }
 
   handleChangeSelectedNetwork = (event) => {
+    this.setState({ saved: true });
     this.props.setCurrentNetwork(event.target.value);
+    setTimeout(() => {
+      this.setState({ saved: false });
+    }, 1250);
   };
 }
