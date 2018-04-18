@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { remote } from 'electron';
 
 import Icon from '../../Icon';
