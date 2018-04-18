@@ -25,7 +25,7 @@ export default class RequestProcessor extends React.Component {
     ) {
       this.Component = this.getComponent(nextProps);
     }
-  }
+  };
 
   render() {
     const { request } = this.props;
@@ -44,13 +44,13 @@ export default class RequestProcessor extends React.Component {
     return (result) => {
       this.props.onResolve(request, result);
     };
-  }
+  };
 
   handleReject = (request) => {
     return (message) => {
       this.props.onReject(request, message);
     };
-  }
+  };
 
   getComponent = ({ sessionId, request }) => {
     const makeComponent = getComponent(request.channel);
