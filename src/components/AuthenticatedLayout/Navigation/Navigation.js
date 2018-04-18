@@ -41,6 +41,13 @@ export default class Navigation extends React.Component {
             </NavLink>
           </li>
           <li>
+            <NavLink exact to="/settings">
+              <Tooltip id="settings" overlay="Settings">
+                <Icon name="settings" aria-describedby="settings" />
+              </Tooltip>
+            </NavLink>
+          </li>
+          <li>
             <NavLink exact to="/logout">
               <Tooltip id="logout" overlay="Logout">
                 <Icon name="logout" aria-describedby="logout" />
