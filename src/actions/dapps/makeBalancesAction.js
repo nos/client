@@ -1,10 +1,14 @@
 import { createActions } from 'spunky';
 
 import getBalances from '../../util/getBalances';
+import generateDAppActionId from './generateDAppActionId';
 
-export const ID = 'balances_api';
+export const ID = 'balances';
 
-export default createActions(ID, ({ net, address, tokens = [], addedAddress } = {}) =>
-  async () => {
-    return getBalances({ net, address, tokens, addedAddress });
+export default function makeBalancesActions(sessionId, requestId) {
+  const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
+
+  return createActions(id, ({ net, address, tokens = [] } = {}) => async () => {
+    return getBalances({ net, address, tokens });
   });
+}

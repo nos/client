@@ -3,16 +3,19 @@ import { withCall, withData } from 'spunky';
 
 import GetBalance from './GetBalance';
 import authActions from '../../../../actions/authActions';
-import balancesActions from '../../../../actions/dapps/makeBalancesAction';
 import withNetworkData from '../../../../hocs/withNetworkData';
 import withNullLoader from '../../../../hocs/dapps/withNullLoader';
 import withRejectMessage from '../../../../hocs/dapps/withRejectMessage';
+import withClean from '../../../../hocs/dapps/withClean';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
 const mapBalancesDataToProps = (balances) => ({ balances });
 
-export default function makeGetBalance() {
+export default function makeGetBalance(balancesActions) {
   return compose(
+    // Clean redux store when done
+    withClean(balancesActions),
+
     // Get the current network & account address
     withNetworkData(),
 
