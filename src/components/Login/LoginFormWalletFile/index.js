@@ -1,13 +1,15 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 
-import LoginFormJsonFile from './LoginFormJsonFile';
+import LoginFormWalletFile from './LoginFormWalletFile';
 import withLogin from '../../../hocs/withLogin';
+import withAlert from '../../../hocs/withAlert';
 
 export default compose(
-  withState('wif', 'setWIF', ''),
+  withAlert(),
+  withState('wif'),
 
   // redirect on login
   withRouter,
   withLogin((state, { history }) => history.push('/browser'))
-)(LoginFormJsonFile);
+)(LoginFormWalletFile);
