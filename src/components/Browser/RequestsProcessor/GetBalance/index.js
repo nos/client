@@ -24,12 +24,12 @@ export default function makeGetBalance(balancesActions) {
 
     // Get the 2nd optional parameter (default = address)
     withProps(({ args, address }) => ({
-      address: args.length >= 2 ? args[1] : address
+      scriptHash: args[0],
+      address: args[1] || address
     })),
 
     // Get the balance & wait for success or failure
-    withCall(balancesActions, ({ net, address }) =>
-      ({ net, address })),
+    withCall(balancesActions, ({ net, address }) => ({ net, address })),
     withNullLoader(balancesActions),
     withRejectMessage(balancesActions, 'Your account balance could not be retrieved.'),
     withData(balancesActions, mapBalancesDataToProps)
