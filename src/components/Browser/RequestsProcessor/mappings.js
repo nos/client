@@ -10,6 +10,7 @@ import makeTestInvokeActions from '../../../actions/dapps/makeTestInvokeActions'
 import makeStorageActions from '../../../actions/dapps/makeStorageActions';
 import makeSendActions from '../../../actions/dapps/makeSendActions';
 import makeClaimActions from '../../../actions/dapps/makeClaimActions';
+import makeBalancesActions from '../../../actions/dapps/makeBalancesAction';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,
@@ -23,6 +24,7 @@ const COMPONENT_MAP = {
 
 const ACTIONS_MAP = {
   getStorage: makeStorageActions,
+  getBalance: makeBalancesActions,
   testInvoke: makeTestInvokeActions,
   invoke: makeInvokeActions,
   send: makeSendActions,
