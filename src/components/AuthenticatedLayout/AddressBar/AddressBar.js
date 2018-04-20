@@ -1,25 +1,35 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 
 import React from 'react';
-import { func, string } from 'prop-types';
-import { noop } from 'lodash';
+import { func, string, shape } from 'prop-types';
 
 import ButtonBar from '../ButtonBar';
 import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
 
+const historyShape = shape({
+  push: func.isRequired
+});
+
 export default class AddressBar extends React.Component {
   static propTypes = {
+    doQuery: func.isRequired,
     query: string,
-    setQuery: func,
-    doQuery: func.isRequired
+    history: historyShape.isRequired
   };
 
   static defaultProps = {
-    query: null,
-    setQuery: noop
+    query: null
   };
+
+  searchInput = React.createRef();
+
+  componentDidUpdate(prevProps, _prevState) {
+    if (this.props.query !== prevProps.query) {
+      this.searchInput.current.value = this.props.query;
+    }
+  }
 
   render() {
     return (
@@ -28,23 +38,24 @@ export default class AddressBar extends React.Component {
           type="text"
           placeholder="Search or enter address"
           onKeyUp={this.handleKeyUp}
-          value={this.props.query}
-          onChange={this.handleChange}
+          ref={this.searchInput}
+          defaultValue={this.props.query}
         />
         <ButtonBar />
       </div>
     );
   }
 
-  handleChange = (event) => {
-    this.props.setQuery(event.target.value);
-  }
-
   handleKeyUp = (event) => {
-    const { doQuery } = this.props;
+    const { query, doQuery } = this.props;
 
     if (event.which === RETURN_KEY) {
-      doQuery(event.target.value);
+      const { value } = event.target;
+
+      if (value !== query) {
+        doQuery(value);
+      }
+      this.props.history.push('/browser');
     }
   };
 }
