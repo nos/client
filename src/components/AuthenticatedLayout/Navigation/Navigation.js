@@ -13,7 +13,7 @@ export default class Navigation extends React.Component {
       <nav className={styles.navigation}>
         <ul className={styles.group}>
           <li>
-            <NavLink to="/browser">
+            <NavLink exact to="/browser">
               <Tooltip id="browser" overlay="Browser">
                 <Icon name="browser" aria-describedby="browser" />
               </Tooltip>

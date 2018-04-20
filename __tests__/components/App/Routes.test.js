@@ -63,10 +63,10 @@ describe('<Routes />', () => {
   });
 
   describe('browser route', () => {
-    itBehavesLikeAuthenticatedRoute('/browser/nos.neo');
+    itBehavesLikeAuthenticatedRoute('/browser');
 
     it('renders when authenticated', () => {
-      const wrapper = mountPath('/browser/nos.neo', { spunky: { auth: authenticatedState } });
+      const wrapper = mountPath('/browser', { spunky: { auth: authenticatedState } });
       expect(wrapper.find(Browser).exists()).toBe(true);
     });
   });
