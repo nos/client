@@ -3,7 +3,9 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
-const { app, BrowserWindow } = electron;
+const { app, protocol, BrowserWindow } = electron;
+
+protocol.registerStandardSchemes(['nos']);
 
 function installExtensions() {
   const {
@@ -21,19 +23,28 @@ function installExtensions() {
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
+const isMac = process.platform === 'darwin';
+
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 1250,
-    height: 700
-  });
+  const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
+
+  mainWindow = new BrowserWindow(
+    Object.assign({ width: 1250, height: 700 }, framelessConfig)
+  );
+
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
-  mainWindow.loadURL(process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '../build/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+
+  mainWindow.loadURL(
+    process.env.ELECTRON_START_URL ||
+      url.format({
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+  );
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -54,7 +65,7 @@ app.on('ready', () => {
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (isMac) {
     app.quit();
   }
 });

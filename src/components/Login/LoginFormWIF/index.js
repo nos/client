@@ -9,5 +9,5 @@ export default compose(
 
   // redirect on login
   withRouter,
-  withLogin((data, { history }) => history.push('/'))
+  withLogin((state, { history }) => history.push('/browser'))
 )(LoginFormWIF);

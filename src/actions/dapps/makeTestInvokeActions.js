@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import { wallet, api, rpc } from '@cityofzion/neon-js';
+import { api, rpc, wallet } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
 import generateDAppActionId from './generateDAppActionId';

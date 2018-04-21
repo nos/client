@@ -1,0 +1,30 @@
+.buttonBar {
+  align-self: stretch;
+  padding: 0 0.5rem;
+  display: flex;
+  justify-content: center;
+  border-left: $primary-border-style;
+
+  button,
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    margin: 0.5rem;
+    color: $primary-text-color;
+
+    &:focus,
+    &:hover {
+      color: lighten($primary-text-color, 20%);
+      outline: none;
+    }
+
+    &:active {
+      color: darken($primary-text-color, 20%);
+    }
+  }
+}

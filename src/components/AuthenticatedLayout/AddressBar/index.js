@@ -10,6 +10,7 @@ const mapNameServiceActionsToProps = (actions) => ({
 });
 
 const mapNameServiceDataToProps = (data) => ({
+  query: data && data.query,
   target: data && data.target
 });
 

@@ -29,6 +29,7 @@
       "order": [
         "static-methods",
         "type-annotations",
+        "instance-variables",
         "lifecycle",
         "renderers",
         "handlers",
@@ -47,7 +48,6 @@
           "getDefaultProps",
           "getInitialState",
           "state",
-          "instance-variables",
           "getChildContext",
           "componentWillMount",
           "componentDidMount",

@@ -1,34 +1,22 @@
 .addressBar {
   @include headerStyle;
+  -webkit-app-region: drag;
   display: flex;
+
+  * {
+    -webkit-app-region: no-drag;
+  }
 
   input {
     font-family: $primary-font-stack;
     border: none;
     background-color: transparent;
     font-size: 1rem;
+    margin: 1rem;
     flex: 1;
 
     &:focus {
       outline: none;
-    }
-  }
-
-  button {
-    font-size: 1rem;
-    border: none;
-    background-color: transparent;
-    margin: 0.5rem;
-    color: $primary-text-color;
-
-    &:focus,
-    &:hover {
-      color: lighten($primary-text-color, 20%);
-      outline: none;
-    }
-
-    &:active {
-      color: darken($primary-text-color, 20%);
     }
   }
 }

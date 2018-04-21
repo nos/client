@@ -11,5 +11,5 @@ const mapActionsToProps = ({ reset }) => ({
 
 export default compose(
   withActions(accountActions, mapActionsToProps),
-  withLogout((data, { history }) => history.push('/login'))
+  withLogout((state, { history }) => history.push('/login'))
 )(Logout);

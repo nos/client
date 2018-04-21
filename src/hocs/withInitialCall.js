@@ -46,7 +46,7 @@ const withInitialCall = (
       } else {
         return Component;
       }
-    }
+    };
   }
 
   return withProgress(actions, { propName, strategy, ...options })(ConditionalCallComponent);
