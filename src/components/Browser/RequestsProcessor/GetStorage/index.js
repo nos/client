@@ -15,16 +15,24 @@ export default function makeStorageComponent(storageActions) {
     withClean(storageActions),
 
     // Rename arguments given by the user
-    withProps(({ args }) => ({ scriptHash: args[0], storageKey: args[1] })),
+    withProps(({ args }) => {
+      const options = args[2] || {};
+      return {
+        scriptHash: args[0],
+        storageKey: args[1],
+        encode: !!options.encode
+      };
+    }),
 
     // Get the current network
     withNetworkData(),
 
     // Get the storage data & wait for success or failure
-    withCall(storageActions, ({ net, scriptHash, storageKey }) => ({
+    withCall(storageActions, ({ net, scriptHash, storageKey, encode }) => ({
       net,
       scriptHash,
-      key: storageKey
+      key: storageKey,
+      encode
     })),
     withNullLoader(storageActions),
     withRejectMessage(storageActions, (props) => (
