@@ -29,7 +29,7 @@ function createWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700 }, framelessConfig)
+    Object.assign({ width: 1250, height: 700, icon: path.join(__dirname, '../build/icon.png') }, framelessConfig)
   );
 
   if (isDev) {

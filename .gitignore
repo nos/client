@@ -10,6 +10,9 @@
 /build
 /dist
 /nos-*.tgz
+!/build/icon.icns
+!/build/icon.png
+!/build/icon.ico
 
 # misc
 .DS_Store
