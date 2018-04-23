@@ -7,7 +7,8 @@ import withAlert from '../../../hocs/withAlert';
 
 export default compose(
   withAlert(),
-  withState('wif'),
+  withState('wif', 'setWIF'),
+  withState('accounts', 'setAccounts'),
 
   // redirect on login
   withRouter,
