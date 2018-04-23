@@ -13,13 +13,13 @@ import styles from './Login.scss';
 const TAB_WIF = 'wif';
 const TAB_PASSPHRASE = 'passphrase';
 const TAB_LEDGER = 'ledger';
-const TAB_WALLET_FILE = 'wallet_file';
+const TAB_FILE = 'file';
 
 const TABS = {
   [TAB_PASSPHRASE]: 'Passphrase',
   [TAB_WIF]: 'WIF',
   [TAB_LEDGER]: 'Ledger',
-  [TAB_WALLET_FILE]: 'Wallet File'
+  [TAB_FILE]: 'Wallet File'
 };
 
 export default class Login extends React.Component {
@@ -60,7 +60,7 @@ export default class Login extends React.Component {
         return <LoginFormPassphrase disabled={loading} onLogin={login} />;
       case TAB_LEDGER:
         return <LoginFormLedger disabled={loading} onLogin={login} />;
-      case TAB_WALLET_FILE:
+      case TAB_FILE:
         return <LoginFormWalletFile disabled={loading} onLogin={login} />;
       default:
         throw new Error('Invalid tab.');
