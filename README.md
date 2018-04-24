@@ -46,12 +46,12 @@ We welcome contributions to the code base. If you are interested in becoming a c
 - [Code contribution guidelines](/.github/CONTRIBUTING.md#Code-Contribution)
 
 
-There is a [specific channel called develop](https://discord.nos.io/) on Discord do discuss development.
+There is a [specific channel called develop](https://discord.nos.io/) on Discord to discuss development.
 
 
 # Contribute by building a dApp on nOS
 
-**Check out the documentation of the dapp-starter-kit [dApp-starter-kut](./docs/create-your-own-dapp.md) to get going quickly.**
+**Check out the documentation of the dapp-starter-kit [dApp-starter-kit](./docs/create-your-own-dapp.md) to get going quickly.**
 
 Resources: 
 
