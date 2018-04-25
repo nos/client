@@ -6,7 +6,7 @@ Therefor a big thank you for being here! We really appreciate you taking the tim
 
 # How to contribute
 ## Reporting Bugs
-Well-written bug reports with consistently reproducible steps are invaluable to the development of NEO•ONE. Bugs are tracked as GitHub issues. Before creating an issue, please perform a search to see if the problem has already been reported. After you've determined a bug does not already exist, create an issue and fill in the template.
+Well-written bug reports with consistently reproducible steps are invaluable to the development of nOS. Bugs are tracked as GitHub issues. Before creating an issue, please perform a search to see if the problem has already been reported. After you've determined a bug does not already exist, create an issue and fill in the template.
 
 ## Suggesting Enhancements
 Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Please provide as much detail and context as possible.
