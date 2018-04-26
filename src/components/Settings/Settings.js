@@ -80,6 +80,13 @@ export default class Settings extends React.Component {
     );
   }
 
+  saveNetwork = (network) => {
+    this.setState({ saved: true });
+    this.props.setCurrentNetwork(network);
+    setTimeout(() => {
+      this.setState({ saved: false });
+    }, 1250);
+  }
 
   handleChangeSelectedNetwork = (event) => {
     // Hardcoded default networks
@@ -88,7 +95,7 @@ export default class Settings extends React.Component {
       case 'TestNet':
       case 'CozNet':
       case 'nOSLocal':
-        return this.saveNetwork({ name: event.target.value, neoscan: event.target.value});
+        return this.saveNetwork({ name: event.target.value, neoscan: event.target.value });
       default:
         break;
     }
@@ -97,16 +104,8 @@ export default class Settings extends React.Component {
     const network = this.props.allNetworks.find((element) => {
       return element.neoscan === event.target.value;
     });
-    this.saveNetwork(network)
+    return this.saveNetwork(network);
   };
-
-  saveNetwork = (network) => {
-    this.setState({ saved: true });
-    this.props.setCurrentNetwork(network);
-    setTimeout(() => {
-      this.setState({ saved: false });
-    }, 1250);
-  }
 
   handleChangeNetworkName = (event) => {
     this.props.setNetworkName(event.target.value);
