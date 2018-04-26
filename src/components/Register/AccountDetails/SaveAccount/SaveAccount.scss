@@ -1,14 +1,19 @@
 .saveAccount {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: nowrap;
-
   .label {
     flex: 1 1 auto;
   }
+}
 
+.saveButtons {
   .button {
-    flex: 0 0 auto;
-    margin: 0 0 16px 16px;
+    width: 49%;
+    margin: 0 0 16px 0px;
+  }
+
+  #buttonNew {
+    float: left;
+  }
+  #buttonAdd {
+    float: right;
   }
 }
