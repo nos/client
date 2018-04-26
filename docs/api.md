@@ -51,14 +51,15 @@ nos.getAddress()
 ```
 
 ## `getBalance`
-The `getBalance` function provides the balance of the currently authenticated account for a
+The `getBalance` function provides the balance of a certain address for a
 specified asset or NEP5 token.  It does not require the user to grant permission.
 
 ### Parameters
 1. `string` - The asset ID or NEP5 token script hash.
+2. `string` (Optional) - The address of the user you'd like to receive the balance for. This defaults to the currently logged on user if the parameter is not passed.
 
 ### Returns
-`string` - The balance of the requested asset owned by the currently authenticated account.  A
+`string` - The balance of the requested asset owned by a certain address.  A
 string is returned instead of a number to prevent floating point rounding issues.
 
 ### Example
@@ -66,10 +67,17 @@ string is returned instead of a number to prevent floating point rounding issues
 const nos = window.NOS.V1;
 
 const NEO = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
+const addressToCheck = 'AZPkgTJixxkSFPyBZrcVpLj9nsHsPDUVkF';
 
+// Example without the optional parameter
 nos.getBalance(NEO)
   .then((balance) => alert(`Balance: ${balance}`))
   .catch((err) => alert(`Error: ${err.message}`));
+
+// Example with the optional parameter
+nos.getBalance(NEO, addressToCheck)
+  .then((balance) => alert(`Balance: ${balance}`))
+  .catch((err) => alert(`Error: ${err.message}`));  
 ```
 
 ## `claimGas`
@@ -216,7 +224,11 @@ nos.getAddress()
   .then((address) => alert(`Address: ${address}`))
   .catch((err) => alert(`Error: ${err.message}`));
 
-nos.getBalance(scriptHash)
+nos.getBalance(NEO)
+  .then((balance) => alert(`Balance: ${balance}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+
+nos.getBalance(NEO, 'AZPkgTJixxkSFPyBZrcVpLj9nsHsPDUVkF')
   .then((balance) => alert(`Balance: ${balance}`))
   .catch((err) => alert(`Error: ${err.message}`));
 

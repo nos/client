@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { remote } from 'electron';
 
 import Icon from '../../Icon';
@@ -25,9 +24,6 @@ export default class ButtonBar extends React.Component {
         <button>
           <Icon name="notifications" />
         </button>
-        <NavLink to="/settings">
-          <Icon name="settings" />
-        </NavLink>
         {this.renderWindowIcons()}
       </div>
     );

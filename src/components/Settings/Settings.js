@@ -5,6 +5,7 @@ import { noop } from 'redux-saga/utils';
 import styles from './Settings.scss';
 import Input from '../Forms/Input';
 import Button from '../Forms/Button';
+import Saved from '../Saved/Saved';
 
 export default class Settings extends React.Component {
   static propTypes = {
@@ -21,6 +22,7 @@ export default class Settings extends React.Component {
     confirm: func.isRequired
   };
 
+  state = { saved: false };
 
   render() {
     return (
@@ -29,6 +31,7 @@ export default class Settings extends React.Component {
         <h2>Network Configuration</h2>
         <label htmlFor="network">
           Current Network
+          <br />
           <select
             name="network"
             id="network"
@@ -58,6 +61,7 @@ export default class Settings extends React.Component {
           Custom Neoscan Url: {this.props.currentNetwork}
         </div>
         {this.renderButtons()}
+        {this.state.saved && <Saved /> }
       </div>
     );
   }
@@ -78,22 +82,31 @@ export default class Settings extends React.Component {
 
 
   handleChangeSelectedNetwork = (event) => {
+    // Hardcoded default networks
     switch (event.target.value) {
       case 'MainNet':
       case 'TestNet':
       case 'CozNet':
       case 'nOSLocal':
-        return this.props.setCurrentNetwork({
-          name: event.target.value, neoscan: event.target.value
-        });
+        return this.saveNetwork({ name: event.target.value, neoscan: event.target.value});
       default:
         break;
     }
+
+    // Custom networks
     const network = this.props.allNetworks.find((element) => {
       return element.neoscan === event.target.value;
     });
-    return this.props.setCurrentNetwork(network);
+    this.saveNetwork(network)
   };
+
+  saveNetwork = (network) => {
+    this.setState({ saved: true });
+    this.props.setCurrentNetwork(network);
+    setTimeout(() => {
+      this.setState({ saved: false });
+    }, 1250);
+  }
 
   handleChangeNetworkName = (event) => {
     this.props.setNetworkName(event.target.value);
