@@ -54,11 +54,11 @@ export default class Settings extends React.Component {
     return (
       <div>
         <Button onClick={this.handleAddNewNetwork}>
-          {'Add custom networks'}
+          {'Add custom network configuration'}
         </Button>
         <div className={styles.divider}></div>
         <Button onClick={this.handleClearNetwork}>
-          {'Clear custom networks'}
+          {'Clear custom network configurations'}
         </Button>
       </div>
     );
@@ -96,6 +96,7 @@ export default class Settings extends React.Component {
   handleClearNetwork = (event) => {
     this.props.clearNetworks();
     this.props.setCurrentNetwork({name: 'TestNet', neoscan: 'TestNet'});
+    this.props.alert(`All custom network configurations cleared`);
   }
 
   handleAddNewNetwork = () => {
@@ -117,7 +118,7 @@ export default class Settings extends React.Component {
         />
       </div>
     ), {
-      title: 'New network',
+      title: 'New network configuration',
       onConfirm: this.handleConfirmAddNetwork,
       onCancel: noop
     });

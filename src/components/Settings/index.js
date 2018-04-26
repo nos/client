@@ -10,6 +10,7 @@ import withProgressChange from '../../hocs/withProgressChange';
 import { set_current_network } from '../../actions/settings/currentNetworkActions';
 import { withNetworkActions } from '../../hocs/withNetwork';
 import withConfirm from '../../hocs/withConfirm';
+import withAlert from '../../hocs/withAlert';
 
 const mapStateToProps = (state) => ({
   network: state.currentNetwork
@@ -57,6 +58,7 @@ compose(
 
   //Alerts and dialogs
   withConfirm(),
+  withAlert(),
 
   //State
   withState('networkName', 'setNetworkName', ''),
