@@ -6,6 +6,7 @@ export const ID = 'currentNetwork';
 export const NETWORKS_ID = 'networks';
 
 export const setCurrentNetwork = createActions(ID, (currentNetwork) => async () => {
+  console.log('setCurrentNetwork' + currentNetwork);
   await setStorage(ID, currentNetwork);
   return currentNetwork;
 });
@@ -20,6 +21,12 @@ export const addNetwork = createActions(NETWORKS_ID, (network) => async () => {
   const newNetworks = [...networks, network];
   await setStorage(NETWORKS_ID, newNetworks);
   return newNetworks;
+});
+
+
+export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
+  await setStorage(NETWORKS_ID, []);
+  return [];
 });
 
 export default createActions(ID, () => async () => {
@@ -41,6 +48,7 @@ export const getAllNetworks = createActions(NETWORKS_ID, () => async () => {
   }
   return networks;
 });
+
 
 
 //Reducers

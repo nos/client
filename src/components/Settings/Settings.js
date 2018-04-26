@@ -3,6 +3,8 @@ import { func, string } from 'prop-types';
 
 import styles from './Settings.scss';
 import Input from '../Forms/Input';
+import Button from '../Forms/Button';
+import { noop } from 'redux-saga/utils';
 
 export default class Settings extends React.Component {
   static propTypes = {
@@ -24,7 +26,7 @@ export default class Settings extends React.Component {
           <select
             name="network"
             id="network"
-            value={this.props.network.currentNetwork.neoscan}
+            value={this.props.currentNetwork}
             onChange={this.handleChangeSelectedNetwork}
           >
             <option value="MainNet">MainNet</option>
@@ -38,7 +40,6 @@ export default class Settings extends React.Component {
             {allNetworks.map(network => {
               return <option key={network.name} value={network.neoscan}>{network.name}</option>
             })}
-            <option value="NewNetwork">Add custom network</option>
           </select>
         </label>
 
@@ -54,52 +55,30 @@ export default class Settings extends React.Component {
   newNetworkForm = () => {
     return (
       <div>
-        <input type="text" name="name" />
-        <button onClick={this.save}>
-          <h1>Save</h1>
-        </button>
+
+        <Button onClick={this.handleAddNewNetwork}>
+          {'Add custom networks'}
+        </Button>
+        <Button onClick={this.props.clearNetworks}>
+          {'Clear custom networks'}
+        </Button>
       </div>
     );
   }
 
 
   handleChangeSelectedNetwork = (event) => {
-    if(event.target.value == "NewNetwork") {
-      this.props.confirm((
-        <div>
-          <Input
-            id="networkName"
-            type="text"
-            label="Network name"
-            placeholder="Network name"
-            // value={this.props.networkName}
-            onChange={this.handleChangeNetworkName}
-          />
-          <Input
-            id="networkURL"
-            type="password"
-            label="Network URL"
-            placeholder="Network URL"
-            // value={this.props.networkUrl}
-            onChange={this.handleChangeNetworkUrl}
-          />
-        </div>
-      ), {
-        title: 'New network',
-        onConfirm: this.handleConfirmAddNetwork,
-        onCancel: this.handleCancel
-      });
-    } else {
-      console.log(event.target.value);
-      const network = this.props.network.networks.find( element => {
-        return element.neoscan === event.target.value;
-      });
-      this.props.setCurrentNetwork(network);
-
-      // this.props.setNetworks([network, network]);
-      console.log(network);
-      this.props.set_current_network(network);
+    switch(event.target.value ) {
+      case 'MainNet':
+      case 'TestNet':
+      case 'CozNet':
+      case 'nOSLocal':
+      return this.props.setCurrentNetwork({name: network, neoscan: event.target.value});
     }
+    const network = this.props.allNetworks.find( element => {
+      return element.neoscan === event.target.value;
+    });
+    this.props.setCurrentNetwork(network);
   };
 
   handleChangeNetworkName = (event) => {
@@ -111,8 +90,33 @@ export default class Settings extends React.Component {
   }
 
   handleConfirmAddNetwork = (event) => {
-    this.props.addNetwork({name: this.props.networkName, neoscan: this.props.networkUrl});
-    // this.props.networkName;
-    // this.props.networkUrl
+    const newNetwork = {name: this.props.networkName, neoscan: this.props.networkUrl};
+    this.props.addNetwork(newNetwork);
+    this.props.setCurrentNetwork(newNetwork);
+  }
+
+  handleAddNewNetwork = () => {
+    this.props.confirm((
+      <div>
+        <Input
+          id="networkName"
+          type="text"
+          label="Network name"
+          placeholder="Network name"
+          onChange={this.handleChangeNetworkName}
+        />
+        <Input
+          id="networkURL"
+          type="password"
+          label="Network URL"
+          placeholder="Network URL"
+          onChange={this.handleChangeNetworkUrl}
+        />
+      </div>
+    ), {
+      title: 'New network',
+      onConfirm: this.handleConfirmAddNetwork,
+      onCancel: noop
+    });
   }
 }

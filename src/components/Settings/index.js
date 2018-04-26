@@ -4,7 +4,7 @@ import { withActions, progressValues } from 'spunky';
 
 import Settings from './Settings';
 import balancesActions from '../../actions/balancesActions';
-import currentNetworkActions, { setCurrentNetwork, setNetworks, addNetwork } from '../../actions/settings/currentNetworkActions';
+import currentNetworkActions, { setCurrentNetwork, setNetworks, addNetwork, clearNetworks } from '../../actions/settings/currentNetworkActions';
 import withNetworkData, { withAllNetworkData } from '../../hocs/withNetworkData';
 import withProgressChange from '../../hocs/withProgressChange';
 import { set_current_network } from '../../actions/settings/currentNetworkActions';
@@ -33,6 +33,10 @@ const mapAddNetworksActionsToProps = (actions) => ({
   addNetwork: actions.call
 });
 
+const mapClearNetworksActionsToProps = (actions) => ({
+  clearNetworks: actions.call
+});
+
 export default
 compose(
   connect(mapStateToProps),
@@ -41,6 +45,7 @@ compose(
   withActions(setCurrentNetwork, mapCurrentNetworkActionsToProps),
   withActions(setNetworks, mapNetworksActionsToProps),
   withActions(addNetwork, mapAddNetworksActionsToProps),
+  withActions(clearNetworks, mapClearNetworksActionsToProps),
   withAllNetworkData(),
   withNetworkData('currentNetwork'),
 
