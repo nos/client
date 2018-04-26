@@ -14,8 +14,6 @@ export default class Settings extends React.Component {
 
 
   render() {
-    console.log(this.props.allNetworks);
-    const allNetworks = this.props.allNetworks || [];
     return (
       <div className={styles.settings}>
         <h1>Settings</h1>
@@ -34,7 +32,7 @@ export default class Settings extends React.Component {
             <option value="nOSLocal">nOS Local</option>
 
             {
-              allNetworks.map(network => {
+              this.props.allNetworks.map(network => {
                 return <option key={network.name} value={network.neoscan}>{network.name}</option>
               })
             }
