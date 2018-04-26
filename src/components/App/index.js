@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import App from './App';
 import Loading from '../Loading';
-import currentNetworkActions from '../../actions/settings/currentNetworkActions';
+import currentNetworkActions, { getAllNetworks } from '../../actions/settings/currentNetworkActions';
 import withInitialCall from '../../hocs/withInitialCall';
 
 const { LOADING } = progressValues;
@@ -12,6 +12,7 @@ const { LOADING } = progressValues;
 export default compose(
   withRouter,
   withInitialCall(currentNetworkActions),
+  withInitialCall(getAllNetworks),
   withProgressComponents(currentNetworkActions, {
     [LOADING]: Loading
   }, {
