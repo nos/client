@@ -39,7 +39,7 @@ compose(
   withActions(addNetwork, mapAddNetworksActionsToProps),
   withActions(clearNetworks, mapClearNetworksActionsToProps),
 
-  //Get network settings data
+  // Get network settings data
   withAllNetworkData(),
   withNetworkData('currentNetwork'),
 
@@ -49,11 +49,11 @@ compose(
     resetAccountData();
   }),
 
-  //Alerts and dialogs
+  // Alerts and dialogs
   withConfirm(),
   withAlert(),
 
-  //State for modal
+  // State for modal
   withState('networkName', 'setNetworkName', ''),
   withState('networkUrl', 'setNetworkUrl', ''),
 )(Settings);

@@ -4,7 +4,7 @@ import { getStorage, setStorage } from '../../lib/storage';
 export const ID = 'currentNetwork';
 export const NETWORKS_ID = 'networks';
 
-//Setters
+// Setters
 export const setCurrentNetwork = createActions(ID, (currentNetwork) => async () => {
   await setStorage(ID, currentNetwork);
   return currentNetwork;
@@ -28,11 +28,11 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
   return [];
 });
 
-//Getters
+// Getters
 export default createActions(ID, () => async () => {
   const currentNetwork = await getStorage(ID);
-  if (typeof currentNetwork.neoscan  !== 'string') {
-    return { name: 'TestNet', neoscan: 'TestNet'};
+  if (typeof currentNetwork.neoscan !== 'string') {
+    return { name: 'TestNet', neoscan: 'TestNet' };
   }
   return currentNetwork;
 });
