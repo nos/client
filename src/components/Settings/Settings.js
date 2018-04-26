@@ -33,9 +33,6 @@ export default class Settings extends React.Component {
             <option value="TestNet">TestNet</option>
             <option value="CozNet">CozNet</option>
             <option value="nOSLocal">nOS Local</option>
-            {/* {this.props.network.networks.map(network => {
-              return <option key={network.name} value={network.neoscan}>{network.name}</option>
-            })} */}
 
             {allNetworks.map(network => {
               return <option key={network.name} value={network.neoscan}>{network.name}</option>
@@ -46,16 +43,15 @@ export default class Settings extends React.Component {
         <h1>{this.props.network.name}</h1>
         <h2>{this.props.network.neoscan}</h2>
 
-        {this.newNetworkForm()}
+        {this.renderButtons()}
 
       </div>
     );
   }
 
-  newNetworkForm = () => {
+  renderButtons = () => {
     return (
       <div>
-
         <Button onClick={this.handleAddNewNetwork}>
           {'Add custom networks'}
         </Button>
