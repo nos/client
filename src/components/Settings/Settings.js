@@ -68,7 +68,9 @@ export default class Settings extends React.Component {
       case 'TestNet':
       case 'CozNet':
       case 'nOSLocal':
-      return this.props.setCurrentNetwork({name: network, neoscan: event.target.value});
+        return this.props.setCurrentNetwork({name: event.target.value, neoscan: event.target.value});
+      default:
+        break;
     }
     const network = this.props.allNetworks.find( element => {
       return element.neoscan === event.target.value;

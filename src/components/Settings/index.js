@@ -1,5 +1,4 @@
 import { compose, withState } from 'recompose';
-import { connect } from 'react-redux';
 import { withActions, progressValues } from 'spunky';
 
 import Settings from './Settings';
