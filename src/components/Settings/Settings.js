@@ -42,7 +42,14 @@ export default class Settings extends React.Component {
 
             {
               this.props.allNetworks.map((network) => {
-                return <option key={network.neoscan} value={network.neoscan}>{network.name}</option>;
+                return (
+                  <option
+                    key={network.neoscan}
+                    value={network.neoscan}
+                  >
+                    {network.name}
+                  </option>
+                );
               })
             }
           </select>
@@ -101,7 +108,7 @@ export default class Settings extends React.Component {
       return element.neoscan === this.props.networkUrl;
     });
 
-    if(network) {
+    if (network) {
       this.props.alert('Error: A network configuration with that Url already exist');
       return;
     }
