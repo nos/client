@@ -80,56 +80,6 @@ export default class Settings extends React.Component {
     );
   }
 
-  saveNetwork = (network) => {
-    this.setState({ saved: true });
-    this.props.setCurrentNetwork(network);
-    setTimeout(() => {
-      this.setState({ saved: false });
-    }, 1250);
-  }
-
-  handleChangeSelectedNetwork = (event) => {
-    // Hardcoded default networks
-    switch (event.target.value) {
-      case 'MainNet':
-      case 'TestNet':
-      case 'CozNet':
-      case 'nOSLocal':
-        return this.saveNetwork({ name: event.target.value, neoscan: event.target.value });
-      default:
-        break;
-    }
-
-    // Custom networks
-    const network = this.props.allNetworks.find((element) => {
-      return element.neoscan === event.target.value;
-    });
-    return this.saveNetwork(network);
-  };
-
-  handleChangeNetworkName = (event) => {
-    this.props.setNetworkName(event.target.value);
-  }
-
-  handleChangeNetworkUrl = (event) => {
-    this.props.setNetworkUrl(event.target.value);
-  }
-
-  handleConfirmAddNetwork = () => {
-    const network = this.props.allNetworks.find((element) => {
-      return element.neoscan === this.props.networkUrl;
-    });
-
-    if (network) {
-      this.props.alert('Error: A network configuration with that Url already exist');
-      return;
-    }
-
-    const newNetwork = { name: this.props.networkName, neoscan: this.props.networkUrl };
-    this.props.addNetwork(newNetwork);
-    this.props.setCurrentNetwork(newNetwork);
-  }
-
   handleClearNetwork = () => {
     this.props.clearNetworks();
     this.props.setCurrentNetwork({ name: 'TestNet', neoscan: 'TestNet' });
@@ -159,5 +109,55 @@ export default class Settings extends React.Component {
       onConfirm: this.handleConfirmAddNetwork,
       onCancel: noop
     });
+  }
+
+  handleConfirmAddNetwork = () => {
+    const network = this.props.allNetworks.find((element) => {
+      return element.neoscan === this.props.networkUrl;
+    });
+
+    if (network) {
+      this.props.alert('Error: A network configuration with that Url already exist');
+      return;
+    }
+
+    const newNetwork = { name: this.props.networkName, neoscan: this.props.networkUrl };
+    this.props.addNetwork(newNetwork);
+    this.props.setCurrentNetwork(newNetwork);
+  }
+
+  handleChangeNetworkName = (event) => {
+    this.props.setNetworkName(event.target.value);
+  }
+
+  handleChangeNetworkUrl = (event) => {
+    this.props.setNetworkUrl(event.target.value);
+  }
+
+  handleChangeSelectedNetwork = (event) => {
+    // Hardcoded default networks
+    switch (event.target.value) {
+      case 'MainNet':
+      case 'TestNet':
+      case 'CozNet':
+      case 'nOSLocal':
+        return this.saveNetwork({ name: event.target.value, neoscan: event.target.value });
+      default:
+        break;
+    }
+
+    // Custom networks
+    const network = this.props.allNetworks.find((element) => {
+      return element.neoscan === event.target.value;
+    });
+    return this.saveNetwork(network);
+  };
+
+  saveNetwork = (network) => {
+    this.setState({ saved: true });
+    this.props.setCurrentNetwork(network);
+    setTimeout(() => {
+      this.setState({ saved: false });
+    }, 1250);
   }
 }
