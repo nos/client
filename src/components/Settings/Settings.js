@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, string } from 'prop-types';
+import { func, string, object, arrayOf } from 'prop-types';
 
 import { noop } from 'redux-saga/utils';
 import styles from './Settings.scss';
@@ -9,8 +9,16 @@ import Button from '../Forms/Button';
 export default class Settings extends React.Component {
   static propTypes = {
     currentNetwork: string.isRequired,
-    setCurrentNetwork: func.isRequired
-    // allNetworks: array.isRequired
+    setCurrentNetwork: func.isRequired,
+    allNetworks: arrayOf(object).isRequired,
+    setNetworkName: func.isRequired,
+    setNetworkUrl: func.isRequired,
+    networkName: string.isRequired,
+    networkUrl: string.isRequired,
+    addNetwork: func.isRequired,
+    clearNetworks: func.isRequired,
+    alert: func.isRequired,
+    confirm: func.isRequired
   };
 
 
@@ -34,7 +42,7 @@ export default class Settings extends React.Component {
 
             {
               this.props.allNetworks.map((network) => {
-                return <option key={network.name} value={network.neoscan}>{network.name}</option>;
+                return <option key={network.neoscan} value={network.neoscan}>{network.name}</option>;
               })
             }
           </select>
@@ -89,6 +97,15 @@ export default class Settings extends React.Component {
   }
 
   handleConfirmAddNetwork = () => {
+    const network = this.props.allNetworks.find((element) => {
+      return element.neoscan === this.props.networkUrl;
+    });
+
+    if(network) {
+      this.props.alert('Error: A network configuration with that Url already exist');
+      return;
+    }
+
     const newNetwork = { name: this.props.networkName, neoscan: this.props.networkUrl };
     this.props.addNetwork(newNetwork);
     this.props.setCurrentNetwork(newNetwork);
