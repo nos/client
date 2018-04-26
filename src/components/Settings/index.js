@@ -7,14 +7,8 @@ import balancesActions from '../../actions/balancesActions';
 import currentNetworkActions, { setCurrentNetwork, setNetworks, addNetwork, clearNetworks } from '../../actions/settings/currentNetworkActions';
 import withNetworkData, { withAllNetworkData } from '../../hocs/withNetworkData';
 import withProgressChange from '../../hocs/withProgressChange';
-import { set_current_network } from '../../actions/settings/currentNetworkActions';
-import { withNetworkActions } from '../../hocs/withNetwork';
 import withConfirm from '../../hocs/withConfirm';
 import withAlert from '../../hocs/withAlert';
-
-const mapStateToProps = (state) => ({
-  network: state.currentNetwork
-});
 
 const { LOADED, FAILED } = progressValues;
 
@@ -40,13 +34,13 @@ const mapClearNetworksActionsToProps = (actions) => ({
 
 export default
 compose(
-  connect(mapStateToProps),
-  withNetworkActions(),
   // Pass in props and actions around displaying/changing network
   withActions(setCurrentNetwork, mapCurrentNetworkActionsToProps),
   withActions(setNetworks, mapNetworksActionsToProps),
   withActions(addNetwork, mapAddNetworksActionsToProps),
   withActions(clearNetworks, mapClearNetworksActionsToProps),
+
+  //Get network settings data
   withAllNetworkData(),
   withNetworkData('currentNetwork'),
 
@@ -60,7 +54,7 @@ compose(
   withConfirm(),
   withAlert(),
 
-  //State
+  //State for modal
   withState('networkName', 'setNetworkName', ''),
   withState('networkUrl', 'setNetworkUrl', ''),
 )(Settings);
