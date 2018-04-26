@@ -8,6 +8,6 @@ export default function withNetworkData(propName = 'net') {
 }
 
 export function withAllNetworkData(propName = 'net') {
-  const mapSettingsDataToProps = (networks) => ({ allNetworks: networks });
+  const mapSettingsDataToProps = (allNetworks) => ({ allNetworks });
   return withData(getAllNetworks, mapSettingsDataToProps);
 }
