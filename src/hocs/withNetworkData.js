@@ -4,7 +4,7 @@ import currentNetworkActions, { getAllNetworks } from '../actions/settings/curre
 
 export default function withNetworkData(propName = 'net') {
   const mapSettingsDataToProps = (currentNetwork) => ({
-    name: currentNetwork.name, [propName]: currentNetwork.neoscan
+    [propName]: currentNetwork.neoscan
   });
   return withData(currentNetworkActions, mapSettingsDataToProps);
 }
