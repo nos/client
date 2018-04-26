@@ -57,6 +57,8 @@ compose(
 
   //Alerts and dialogs
   withConfirm(),
+
+  //State
   withState('networkName', 'setNetworkName', ''),
-  withState('networkUrl', 'setNetworkUrl', '')
+  withState('networkUrl', 'setNetworkUrl', ''),
 )(Settings);

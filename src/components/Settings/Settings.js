@@ -34,17 +34,18 @@ export default class Settings extends React.Component {
             <option value="CozNet">CozNet</option>
             <option value="nOSLocal">nOS Local</option>
 
-            {allNetworks.map(network => {
-              return <option key={network.name} value={network.neoscan}>{network.name}</option>
-            })}
+            {
+              allNetworks.map(network => {
+                return <option key={network.name} value={network.neoscan}>{network.name}</option>
+              })
+            }
           </select>
         </label>
-
-        <h1>{this.props.network.name}</h1>
-        <h2>{this.props.network.neoscan}</h2>
-
+        <div className={styles.buttonContainer}>
+          <label className={styles.label}>{'Custom Neoscan Url: '}</label>
+          <label className={styles.label}>{this.props.currentNetwork}</label>
+        </div>
         {this.renderButtons()}
-
       </div>
     );
   }
@@ -55,7 +56,8 @@ export default class Settings extends React.Component {
         <Button onClick={this.handleAddNewNetwork}>
           {'Add custom networks'}
         </Button>
-        <Button onClick={this.props.clearNetworks}>
+        <div className={styles.divider}></div>
+        <Button onClick={this.handleClearNetwork}>
           {'Clear custom networks'}
         </Button>
       </div>
@@ -64,7 +66,7 @@ export default class Settings extends React.Component {
 
 
   handleChangeSelectedNetwork = (event) => {
-    switch(event.target.value ) {
+    switch(event.target.value) {
       case 'MainNet':
       case 'TestNet':
       case 'CozNet':
@@ -91,6 +93,11 @@ export default class Settings extends React.Component {
     this.props.setCurrentNetwork(newNetwork);
   }
 
+  handleClearNetwork = (event) => {
+    this.props.clearNetworks();
+    this.props.setCurrentNetwork({name: 'TestNet', neoscan: 'TestNet'});
+  }
+
   handleAddNewNetwork = () => {
     this.props.confirm((
       <div>
@@ -103,7 +110,7 @@ export default class Settings extends React.Component {
         />
         <Input
           id="networkURL"
-          type="password"
+          type="text"
           label="Network URL"
           placeholder="Network URL"
           onChange={this.handleChangeNetworkUrl}
