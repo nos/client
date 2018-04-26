@@ -14,9 +14,7 @@ export default class Settings extends React.Component {
 
 
   render() {
-    console.log(this.props);
     const allNetworks = this.props.allNetworks || [];
-    console.log(allNetworks);
     return (
       <div className={styles.settings}>
         <h1>Settings</h1>

@@ -6,7 +6,6 @@ export const ID = 'currentNetwork';
 export const NETWORKS_ID = 'networks';
 
 export const setCurrentNetwork = createActions(ID, (currentNetwork) => async () => {
-  console.log('setCurrentNetwork' + currentNetwork);
   await setStorage(ID, currentNetwork);
   return currentNetwork;
 });
@@ -30,7 +29,6 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
 });
 
 export default createActions(ID, () => async () => {
-  console.log('currentNetwork call');
   const currentNetwork = await getStorage(ID);
   if (typeof currentNetwork.neoscan  !== 'string') {
     return { name: 'TestNet', neoscan: 'TestNet'};
@@ -39,10 +37,7 @@ export default createActions(ID, () => async () => {
 });
 
 export const getAllNetworks = createActions(NETWORKS_ID, () => async () => {
-  console.log('getAllNetworks call');
   const networks = await getStorage(NETWORKS_ID);
-  console.log('networks');
-  console.log(networks);
   if (networks === null) {
     return [];
   }
