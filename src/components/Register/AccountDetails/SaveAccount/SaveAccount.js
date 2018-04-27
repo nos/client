@@ -9,7 +9,6 @@ import { wallet } from '@cityofzion/neon-js';
 import Input from '../../../Forms/Input';
 import Button from '../../../Forms/Button';
 import accountShape from '../../../../shapes/accountShape';
-import accountToNEP6 from '../../../../util/accountToNEP6';
 import styles from './SaveAccount.scss';
 
 const writeFile = promisify(fs.writeFile);
@@ -40,7 +39,6 @@ export default class SaveAccount extends React.Component {
         />
         <div className={styles.saveButtons}>
           <Button
-            id={styles.buttonNew}
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleSaveNewWallet}
@@ -48,7 +46,6 @@ export default class SaveAccount extends React.Component {
             Save as new NP6 Wallet
           </Button>
           <Button
-            id={styles.buttonAdd}
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleAddToWallet}
@@ -65,7 +62,7 @@ export default class SaveAccount extends React.Component {
   }
 
 
-  handleAddToWallet = () => {
+  handleAddToWallet = async () => {
     const { account, label } = this.props;
 
     const filenames = remote.dialog.showOpenDialog({
@@ -74,28 +71,38 @@ export default class SaveAccount extends React.Component {
       filters: [{ name: 'NEP6 Wallet File', extensions: ['json'] }]
     });
 
-    if (filenames) {
-      const walletLoaded = this.loadWallet(filenames[0]);
-
-      if (walletLoaded != null) {
-        const newAccount = new wallet.Account({ ...account, label });
-        walletLoaded.addAccount(newAccount);
-        this.save(filenames[0], walletLoaded);
-      }
+    if (!filenames) {
+      return;
     }
+
+    const walletLoaded = this.loadWallet(filenames[0]);
+
+    if (walletLoaded == null) {
+      return;
+    }
+
+    const newAccount = new wallet.Account({ ...account, label });
+    walletLoaded.addAccount(newAccount);
+    await this.save(filenames[0], walletLoaded);
   }
 
 
-  handleSaveNewWallet = () => {
+  handleSaveNewWallet = async () => {
+    const { label, account } = this.props;
+
     const filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
       title: 'Save as new NEP6 Wallet',
       message: 'Save as new NEP6 Wallet',
       filters: [{ name: 'NEP6 Wallet File', extensions: ['json'] }]
     });
 
-    if (filename) {
-      this.save(filename);
+    if (!filename) {
+      return;
     }
+
+    const newAccount = new wallet.Account({ ...account, label });
+    const newWallet = new wallet.Wallet({ accounts: [newAccount] });
+    await this.save(filename, newWallet);
   }
 
 
@@ -112,15 +119,10 @@ export default class SaveAccount extends React.Component {
   }
 
 
-  save = async (filename, walletLoaded = null) => {
-    const { label, account } = this.props;
+  save = async (filename, walletToSave) => {
     let data = null;
 
-    if (walletLoaded == null) {
-      data = JSON.stringify(accountToNEP6({ ...account, label }));
-    } else {
-      data = JSON.stringify(walletLoaded.export());
-    }
+    data = JSON.stringify(walletToSave.export());
 
     if (isEmpty(data)) {
       throw new Error('Error saving file.');

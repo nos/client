@@ -5,15 +5,21 @@
 }
 
 .saveButtons {
-  .button {
-    width: 49%;
-    margin: 0 0 16px 0px;
-  }
+  display: flex;
+  align-items: center;
+  align-content: stretch;
+  flex-wrap: nowrap;
+  padding-bottom: 16px;
 
-  #buttonNew {
-    float: left;
-  }
-  #buttonAdd {
-    float: right;
+  .button {
+  flex: 1;
+
+    &:first-child {
+      margin-right: 8px;
+    }
+
+    &:last-child {
+      margin-left: 8px;
+    }
   }
 }
