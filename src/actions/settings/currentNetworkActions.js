@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import { getStorage, setStorage } from '../../lib/storage';
+import { getStorage, setStorage, } from '../../lib/storage';
 
 export const ID = 'currentNetwork';
 export const NETWORKS_ID = 'networks';
@@ -31,7 +31,7 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
 // Getters
 export default createActions(ID, () => async () => {
   const currentNetwork = await getStorage(ID);
-  if (typeof currentNetwork.neoscan !== 'string') {
+  if (!currentNetwork.neoscan) {
     return { name: 'TestNet', neoscan: 'TestNet' };
   }
   return currentNetwork;
@@ -39,7 +39,7 @@ export default createActions(ID, () => async () => {
 
 export const getAllNetworks = createActions(NETWORKS_ID, () => async () => {
   const networks = await getStorage(NETWORKS_ID);
-  if (networks === null) {
+  if (!Array.isArray(networks)) {
     return [];
   }
   return networks;
