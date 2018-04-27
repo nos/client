@@ -100,7 +100,7 @@ export default class SaveAccount extends React.Component {
       return;
     }
 
-    const newAccount = new wallet.Account({ ...account, label });
+    const newAccount = new wallet.Account({ ...account, label, isDefault: true });
     const newWallet = new wallet.Wallet({ accounts: [newAccount] });
     await this.save(filename, newWallet);
   }
