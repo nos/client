@@ -82,7 +82,7 @@ export default class Settings extends React.Component {
 
   handleClearNetwork = () => {
     this.props.clearNetworks();
-    this.props.setCurrentNetwork({ name: 'TestNet', neoscan: 'TestNet' });
+    this.props.setCurrentNetwork('TestNet');
     this.props.alert('All custom network configurations cleared');
   }
 
@@ -123,7 +123,7 @@ export default class Settings extends React.Component {
 
     const newNetwork = { name: this.props.networkName, neoscan: this.props.networkUrl };
     this.props.addNetwork(newNetwork);
-    this.props.setCurrentNetwork(newNetwork);
+    this.props.setCurrentNetwork(this.props.networkUrl);
   }
 
   handleChangeNetworkName = (event) => {
@@ -141,7 +141,7 @@ export default class Settings extends React.Component {
       case 'TestNet':
       case 'CozNet':
       case 'nOSLocal':
-        return this.saveNetwork({ name: event.target.value, neoscan: event.target.value });
+        return this.saveNetwork(event.target.value);
       default:
         break;
     }
@@ -150,7 +150,7 @@ export default class Settings extends React.Component {
     const network = this.props.allNetworks.find((element) => {
       return element.neoscan === event.target.value;
     });
-    return this.saveNetwork(network);
+    return this.saveNetwork(network.neoscan);
   };
 
   saveNetwork = (network) => {

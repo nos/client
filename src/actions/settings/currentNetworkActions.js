@@ -31,8 +31,8 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
 // Getters
 export default createActions(ID, () => async () => {
   const currentNetwork = await getStorage(ID);
-  if (!currentNetwork || !currentNetwork.neoscan) {
-    return { name: 'TestNet', neoscan: 'TestNet' };
+  if (typeof currentNetwork !== 'string') {
+    return 'TestNet';
   }
   return currentNetwork;
 });
