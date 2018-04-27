@@ -22,7 +22,9 @@ import {
   faCubes,
   faKey,
   faQuestionCircle,
-  faSignOutAlt
+  faSignOutAlt,
+  faSync,
+  faPlusSquare
 } from '@fortawesome/fontawesome-free-solid';
 
 fontawesome.library.add(
@@ -41,7 +43,9 @@ fontawesome.library.add(
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
-  faWindowRestore
+  faWindowRestore,
+  faSync,
+  faPlusSquare
 );
 
 const ICONS = {
@@ -61,7 +65,9 @@ const ICONS = {
   windowClose: ['far', 'window-close'],
   windowMax: ['far', 'window-maximize'],
   windowMin: ['far', 'window-minimize'],
-  windowRestore: ['far', 'window-restore']
+  windowRestore: ['far', 'window-restore'],
+  transfer: ['fas', 'sync'],
+  add: ['far', 'plus-square']
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,

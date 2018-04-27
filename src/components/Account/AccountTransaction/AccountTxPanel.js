@@ -6,6 +6,7 @@ import Panel from '../../Panel';
 import styles from './AccountTxPanel.scss';
 import Button from '../../Forms/Button/Button';
 import Input from '../../Forms/Input/Input';
+import Icon from '../../Icon/Icon';
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
@@ -29,7 +30,7 @@ export default class AccountTxPanel extends React.Component {
 
     return (
       <Panel className={styles.accountPanel} renderHeader={null}>
-        <div className={styles.content}>
+        <form className={styles.content}>
           <h2>Transfer Funds</h2>
           <Input
             className={styles.inputs}
@@ -52,8 +53,15 @@ export default class AccountTxPanel extends React.Component {
             onChange={this.handleChangeRecipient}
           />
           <hr />
-          <Button className={styles.buttons} type="submit" onClick={this.handleTransfer}>Transfer</Button>
-        </div>
+          <Button className={styles.buttons} type="submit" onClick={this.handleTransfer}>
+            <Icon className={styles.Icons} name="transfer" aria-describedby="transfer" />
+            Transfer
+          </Button>
+          <Button className={[styles.buttons, styles.buttonSecondary]} type="submit" onClick={this.handleTransfer}>
+            <Icon className={styles.Icons} name="add" aria-describedby="add" />
+            Add Account
+          </Button>
+        </form>
       </Panel>
     );
   }

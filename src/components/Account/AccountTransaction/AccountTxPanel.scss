@@ -2,9 +2,27 @@
   .content {
     padding: 0 24px 32px;
   }
-  .inputs {}
+  .inputs {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
   .buttons {
     float: right;
-    margin: 12px 0 24px 24px;
+    margin: 12px 0 24px 12px;
+  }
+
+  .buttonSecondary {
+    background-color: #e5e6eb;
+    border-color: #e5e6eb;
+    color: black;
+    &:hover {
+      background-color: #cfd1da;
+      border-color: #cbcdd6;
+    }
+  }
+
+  .Icons {
+    margin-right: 7px;
   }
 }
