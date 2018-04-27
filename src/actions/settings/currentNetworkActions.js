@@ -31,16 +31,16 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
 // Getters
 export default createActions(ID, () => async () => {
   const currentNetwork = await getStorage(ID);
-  if (!currentNetwork.neoscan) {
+  if (!currentNetwork || !currentNetwork.neoscan) {
     return { name: 'TestNet', neoscan: 'TestNet' };
   }
   return currentNetwork;
 });
 
 export const getAllNetworks = createActions(NETWORKS_ID, () => async () => {
-  const networks = await getStorage(NETWORKS_ID);
-  if (!Array.isArray(networks)) {
+  const allNetworks = await getStorage(NETWORKS_ID);
+  if (!allNetworks || !Array.isArray(allNetworks)) {
     return [];
   }
-  return networks;
+  return allNetworks;
 });
