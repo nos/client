@@ -1,8 +1,8 @@
 # Contributing
 
-Welcome to the nOS community! We're always looking for more contributors and are happy to have you. 
+Welcome to the nOS community! We're always looking for more contributors and are happy to have you.
 
-Therefor a big thank you for being here! We really appreciate you taking the time for reading our guidelines! 
+Therefor a big thank you for being here! We really appreciate you taking the time for reading our guidelines!
 
 # How to contribute
 ## Reporting Bugs
@@ -30,7 +30,7 @@ Feature requests are welcome. But take a moment to find out whether your idea fi
 
 ### Work on a branch based of `develop`
 * `master` and `develop` are protected and require a PR with approved reviews for changes
-* Use Conventional Commits' types for branches and camelCase the topic: `feat/ui`, `fix/login`, `chore/refactorHomePage`
+* Use Conventional Commits' types for branches and camelCase the topic: `feat/ui`, `chore/login`, `chore/refactorHomePage`
 
 During development:
 - Ensure code is formatted through `yarn lint` (or `npm run lint`).
@@ -46,7 +46,7 @@ There is no need to squash your work as we will do that when the maintainer merg
   ```
   type(scope):desc
   ```
-  **Type** can be `fix`, `feat`, `docs`, `test` or `refactor`.
+  **Type** can be `chore`, `feat`, or `docs`.
 
   **Scope** is the package folder that you are focusing on, `api`, `hocs`, `account`, etc.
 
