@@ -1,21 +1,18 @@
-import { compose } from 'recompose';
+import { compose, withState, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import { withActions, withData } from 'spunky';
+import { withData } from 'spunky';
 
 import AddressBar from './AddressBar';
-import nameServiceActions from '../../../actions/nameServiceActions';
+import queryActions from '../../../actions/queryActions';
 
-const mapNameServiceActionsToProps = (actions) => ({
-  doQuery: (params) => actions.call(params)
-});
-
-const mapNameServiceDataToProps = (data) => ({
-  query: data && data.query,
-  target: data && data.target
-});
+const mapQueryDataToProps = (query) => ({ query });
 
 export default compose(
-  withActions(nameServiceActions, mapNameServiceActionsToProps),
-  withData(nameServiceActions, mapNameServiceDataToProps),
-  withRouter
+  withRouter,
+  withData(queryActions, mapQueryDataToProps),
+  withProps((props) => ({
+    key: props.query,
+    doQuery: (query) => props.history.push(`/browser/${encodeURIComponent(query)}`)
+  })),
+  withState('query', 'setQuery', ({ query }) => query || '')
 )(AddressBar);

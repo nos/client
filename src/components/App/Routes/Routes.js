@@ -22,7 +22,8 @@ export default function Routes() {
     <Switch>
       <Route exact path="/login" component={withLoginLayout(Login)} />
       <Route exact path="/register" component={withLoginLayout(Register)} />
-      <PrivateRoute exact path="/browser" component={withAuthLayout(Browser)} />
+      <Route exact path="/browser" render={() => <Redirect to="/browser/nos.neo" />} />
+      <PrivateRoute exact path="/browser/:query+" component={withAuthLayout(Browser)} />
       <PrivateRoute exact path="/favorites" component={withAuthLayout(Favorites)} />
       <PrivateRoute exact path="/exchange" component={withAuthLayout(Exchange)} />
       <PrivateRoute exact path="/account" component={withAuthLayout(Account)} />
