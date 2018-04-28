@@ -1,14 +1,25 @@
 .saveAccount {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: nowrap;
-
   .label {
     flex: 1 1 auto;
   }
+}
+
+.saveButtons {
+  display: flex;
+  align-items: center;
+  align-content: stretch;
+  flex-wrap: nowrap;
+  padding-bottom: 16px;
 
   .button {
-    flex: 0 0 auto;
-    margin: 0 0 16px 16px;
+  flex: 1;
+
+    &:first-child {
+      margin-right: 8px;
+    }
+
+    &:last-child {
+      margin-left: 8px;
+    }
   }
 }
