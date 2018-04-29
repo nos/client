@@ -13,6 +13,10 @@ import styles from './SaveAccount.scss';
 
 const writeFile = promisify(fs.writeFile);
 
+const FILE_FILTERS = [
+  { name: 'NEP6 Wallet File', extensions: ['json'] }
+];
+
 export default class SaveAccount extends React.Component {
   static propTypes = {
     account: accountShape.isRequired,
@@ -43,14 +47,14 @@ export default class SaveAccount extends React.Component {
             disabled={isEmpty(this.props.label)}
             onClick={this.handleSaveNewWallet}
           >
-            Save as new NP6 Wallet
+            Save as new NEP6 Wallet
           </Button>
           <Button
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleAddToWallet}
           >
-            Add account to NP6 Wallet
+            Add account to NEP6 Wallet
           </Button>
         </div>
       </div>
@@ -61,14 +65,13 @@ export default class SaveAccount extends React.Component {
     this.props.setLabel(event.target.value);
   }
 
-
   handleAddToWallet = async () => {
     const { account, label } = this.props;
 
     const filenames = remote.dialog.showOpenDialog({
       title: 'Add account to a NEP6 Wallet',
       message: 'Add account to a NEP6 Wallet',
-      filters: [{ name: 'NEP6 Wallet File', extensions: ['json'] }]
+      filters: FILE_FILTERS
     });
 
     if (!filenames) {
@@ -77,7 +80,7 @@ export default class SaveAccount extends React.Component {
 
     const walletLoaded = this.loadWallet(filenames[0]);
 
-    if (walletLoaded == null) {
+    if (!walletLoaded) {
       return;
     }
 
@@ -86,14 +89,13 @@ export default class SaveAccount extends React.Component {
     await this.save(filenames[0], walletLoaded);
   }
 
-
   handleSaveNewWallet = async () => {
     const { label, account } = this.props;
 
     const filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
       title: 'Save as new NEP6 Wallet',
       message: 'Save as new NEP6 Wallet',
-      filters: [{ name: 'NEP6 Wallet File', extensions: ['json'] }]
+      filters: FILE_FILTERS
     });
 
     if (!filename) {
@@ -105,24 +107,20 @@ export default class SaveAccount extends React.Component {
     await this.save(filename, newWallet);
   }
 
-
   loadWallet = (filename) => {
     const { alert } = this.props;
 
     try {
-      const walletLoaded = wallet.Wallet.readFile(filename);
-      return walletLoaded;
+      return wallet.Wallet.readFile(filename);
     } catch (err) {
       alert(`Error loading wallet file: ${err.message}`);
       return null;
     }
   }
 
-
   save = async (filename, walletToSave) => {
-    let data = null;
-
-    data = JSON.stringify(walletToSave.export());
+    const { alert } = this.props;
+    const data = JSON.stringify(walletToSave.export());
 
     if (isEmpty(data)) {
       throw new Error('Error saving file.');
@@ -130,9 +128,9 @@ export default class SaveAccount extends React.Component {
 
     try {
       await writeFile(filename, data);
-      this.props.alert('File saved successfully.');
+      alert('Wallet file saved.');
     } catch (err) {
-      this.props.alert(`Error saving file: ${err.message}`);
+      alert(`Error saving wallet file: ${err.message}`);
     }
   }
 }
