@@ -117,7 +117,7 @@ export default class Settings extends React.Component {
     });
 
     if (network) {
-      this.props.alert('Error: A network configuration with that URL already exist.');
+      this.props.alert('Error: A network configuration with that name already exist.');
       return;
     }
 
