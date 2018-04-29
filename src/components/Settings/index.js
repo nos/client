@@ -3,8 +3,10 @@ import { withActions, progressValues } from 'spunky';
 
 import Settings from './Settings';
 import balancesActions from '../../actions/balancesActions';
-import currentNetworkActions, { setCurrentNetwork, setNetworks, addNetwork, clearNetworks } from '../../actions/settings/currentNetworkActions';
-import withNetworkData, { withAllNetworkData } from '../../hocs/withNetworkData';
+import currentNetworkActions, { setCurrentNetwork } from '../../actions/settings/currentNetworkActions';
+import { setNetworks, addNetwork, clearNetworks } from '../../actions/settings/networksActions';
+import withNetworkData from '../../hocs/withNetworkData';
+import withAllNetworkData from '../../hocs/withAllNetworkData';
 import withProgressChange from '../../hocs/withProgressChange';
 import withConfirm from '../../hocs/withConfirm';
 import withAlert from '../../hocs/withAlert';

@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import App from './App';
 import Loading from '../Loading';
-import currentNetworkActions, { getAllNetworks } from '../../actions/settings/currentNetworkActions';
+import currentNetworkActions from '../../actions/settings/currentNetworkActions';
+import getAllNetworks from '../../actions/settings/networksActions';
 import withInitialCall from '../../hocs/withInitialCall';
 
 const { LOADING } = progressValues;
