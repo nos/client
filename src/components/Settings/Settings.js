@@ -47,8 +47,8 @@ export default class Settings extends React.Component {
               this.props.allNetworks.map((network) => {
                 return (
                   <option
-                    key={network.neoscan}
-                    value={network.neoscan}
+                    key={network.name}
+                    value={network.neoscan} // TODO: Change this to use name
                   >
                     {network.name}
                   </option>
@@ -123,7 +123,7 @@ export default class Settings extends React.Component {
 
   handleConfirmAddNetwork = () => {
     const network = this.props.allNetworks.find((element) => {
-      return element.neoscan === this.props.networkUrl;
+      return element.name === this.props.networkName;
     });
 
     if (network) {
