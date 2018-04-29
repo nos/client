@@ -83,7 +83,7 @@ export default class Settings extends React.Component {
   handleClearNetwork = () => {
     this.props.clearNetworks();
     this.props.setCurrentNetwork('TestNet');
-    this.props.alert('All custom network configurations cleared');
+    this.props.alert('All custom network configurations cleared.');
   }
 
   handleAddNewNetwork = () => {
