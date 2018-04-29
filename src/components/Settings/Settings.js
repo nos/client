@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string, object, arrayOf } from 'prop-types';
-
 import { noop } from 'redux-saga/utils';
+
 import styles from './Settings.scss';
 import Input from '../Forms/Input';
 import Button from '../Forms/Button';
@@ -57,8 +57,8 @@ export default class Settings extends React.Component {
             }
           </select>
         </label>
-        <div className={styles.buttonContainer}>
-          Custom Neoscan Url: {this.props.currentNetwork}
+        <div className={styles.networkDetails}>
+          Custom Neoscan URL: {this.props.currentNetwork}
         </div>
         {this.renderButtons()}
         {this.state.saved && <Saved /> }
@@ -70,11 +70,11 @@ export default class Settings extends React.Component {
     return (
       <div>
         <Button onClick={this.handleAddNewNetwork}>
-          {'Add custom network configuration'}
+          Add custom network configuration
         </Button>
         <div className={styles.divider} />
         <Button onClick={this.handleClearNetwork}>
-          {'Clear custom network configurations'}
+          Clear custom network configurations
         </Button>
       </div>
     );
@@ -117,7 +117,7 @@ export default class Settings extends React.Component {
     });
 
     if (network) {
-      this.props.alert('Error: A network configuration with that Url already exist');
+      this.props.alert('Error: A network configuration with that URL already exist.');
       return;
     }
 
