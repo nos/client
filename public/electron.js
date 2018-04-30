@@ -22,6 +22,7 @@ function installExtensions() {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let splashWindow;
 
 const isMac = process.platform === 'darwin';
 
@@ -29,12 +30,24 @@ function createWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700 }, framelessConfig)
+    Object.assign({ width: 1250, height: 700, show: false }, framelessConfig)
+  );
+
+  splashWindow = new BrowserWindow(
+    { width: 1250, height: 700, show: true }
   );
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
+
+  splashWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, '../build/splash.html'),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
@@ -45,6 +58,12 @@ function createWindow() {
       })
   );
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+    splashWindow.destroy();
+  });
+
+  // if main window is ready to show, then destroy the splash window and show up the main window
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
