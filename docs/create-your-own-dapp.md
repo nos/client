@@ -27,7 +27,7 @@ user's account.
 ## Developing with nOS API
 
 Assuming you run your webapp at `http://localhost:8080`, simply type `localhost:8080` into the nOS
-address bar (which you built/compiled in the pre-requisites step) at the top of tha application, then press <kbd>Enter</kbd>.  Refer to the
+address bar (which you built/compiled in the pre-requisites step earlier) at the top of tha application, then press <kbd>Enter</kbd>.  Refer to the
 [API documentation](./api.md) for a complete list of functionality.
 
 In the near future, an `nos-mock` library will be introduced for developing locally without needing
