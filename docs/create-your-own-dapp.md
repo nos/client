@@ -1,5 +1,21 @@
 # Creating Your First nOS dApp
 
+### Pre-requisites:
+
+First of all you'll need to build nOS browser locally, follow these instructions here:
+
+```
+// Install dependencies and launch the nOS client
+// This is used to start developing on the nOS client
+yarn install && yarn start
+
+// or if you want to create a temporary binary
+
+// Distribution command
+// After running `yarn dist` you can navigate to `dist` directory and execute the `nOS` binary in a terminal.
+yarn install && yarn dist
+```
+
 Creating a dApp can be done by building a simple single-page web application.  To get started
 quickly, clone or fork the [nOS dApp Starter Kit](https://github.com/nos/dapp-starter-kit), and
 follow the documentation there.
@@ -11,7 +27,7 @@ user's account.
 ## Developing with nOS API
 
 Assuming you run your webapp at `http://localhost:8080`, simply type `localhost:8080` into the nOS
-address bar at the top of tha application, then press <kbd>Enter</kbd>.  Refer to the
+address bar (which you built/compiled in the pre-requisites step) at the top of tha application, then press <kbd>Enter</kbd>.  Refer to the
 [API documentation](./api.md) for a complete list of functionality.
 
 In the near future, an `nos-mock` library will be introduced for developing locally without needing
