@@ -1,11 +1,13 @@
 import React from 'react';
 import { func, string, object, arrayOf } from 'prop-types';
-import { noop } from 'redux-saga/utils';
+import { settings } from '@cityofzion/neon-js';
+import { noop, map } from 'lodash';
 
 import styles from './Settings.scss';
 import Input from '../Forms/Input';
 import Button from '../Forms/Button';
 import Saved from '../Saved/Saved';
+import { PREDEFINED_NETWORKS } from '../../values/networks';
 
 export default class Settings extends React.Component {
   static propTypes = {
@@ -38,31 +40,20 @@ export default class Settings extends React.Component {
             value={this.props.currentNetwork}
             onChange={this.handleChangeSelectedNetwork}
           >
-            <option value="MainNet">MainNet</option>
-            <option value="TestNet">TestNet</option>
-            <option value="CozNet">CozNet</option>
-            <option value="nOSLocal">nOS Local</option>
-
-            {
-              this.props.allNetworks.map((network) => {
-                return (
-                  <option
-                    key={network.name}
-                    value={network.neoscan} // TODO: Change this to use name
-                  >
-                    {network.name}
-                  </option>
-                );
-              })
-            }
+            {map(settings.networks, this.renderNetworkOption)}
           </select>
         </label>
-        <div className={styles.networkDetails}>
-          Custom Neoscan URL: {this.props.currentNetwork}
-        </div>
         {this.renderButtons()}
         {this.state.saved && <Saved /> }
       </div>
+    );
+  }
+
+  renderNetworkOption = (network, key) => {
+    return (
+      <option key={key} value={network.extra.neoscan}>
+        {network.name}
+      </option>
     );
   }
 
@@ -73,26 +64,20 @@ export default class Settings extends React.Component {
           Add custom network configuration
         </Button>
         <div className={styles.divider} />
-        <Button onClick={this.handleClearNetwork}>
+        <Button onClick={this.handleClearNetworks}>
           Clear custom network configurations
         </Button>
       </div>
     );
   }
 
-  handleClearNetwork = () => {
-    this.props.clearNetworks();
-    switch (this.props.currentNetwork) {
-      case 'MainNet':
-      case 'TestNet':
-      case 'CozNet':
-      case 'nOSLocal':
-        break;
-      default:
-        // User is on their custom network, switch to TestNet on clearing of
-        // all user generated custom networks
-        this.props.setCurrentNetwork('TestNet');
+  handleClearNetworks = () => {
+    // If user is on a custom network, switch to TestNet
+    if (PREDEFINED_NETWORKS.includes(this.props.currentNetwork)) {
+      this.saveNetwork('TestNet');
     }
+
+    this.props.clearNetworks();
     this.props.alert('All custom network configurations cleared.');
   }
 
@@ -131,7 +116,13 @@ export default class Settings extends React.Component {
       return;
     }
 
-    const newNetwork = { name: this.props.networkName, neoscan: this.props.networkUrl };
+    const newNetwork = {
+      name: this.props.networkName,
+      extra: {
+        neoscan: this.props.networkUrl
+      }
+    };
+
     this.props.addNetwork(newNetwork);
     this.props.setCurrentNetwork(this.props.networkUrl);
   }
@@ -145,22 +136,7 @@ export default class Settings extends React.Component {
   }
 
   handleChangeSelectedNetwork = (event) => {
-    // Hardcoded default networks
-    switch (event.target.value) {
-      case 'MainNet':
-      case 'TestNet':
-      case 'CozNet':
-      case 'nOSLocal':
-        return this.saveNetwork(event.target.value);
-      default:
-        break;
-    }
-
-    // Custom networks
-    const network = this.props.allNetworks.find((element) => {
-      return element.neoscan === event.target.value;
-    });
-    return this.saveNetwork(network.neoscan);
+    return this.saveNetwork(event.target.value);
   };
 
   saveNetwork = (network) => {
