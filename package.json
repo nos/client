@@ -33,7 +33,8 @@
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "spunky": "^1.2.1",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "what-input": "^5.0.5"
   },
   "scripts": {
     "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:3000/ && yarn run start-electron\" --kill-others --success first",

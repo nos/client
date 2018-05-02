@@ -33,3 +33,7 @@ a {
   text-decoration: underline;
   color: #4b72fa;
 }
+
+[data-whatintent="mouse"] :focus {
+  outline-width: 0;
+}

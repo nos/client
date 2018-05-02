@@ -26,9 +26,9 @@
     }
 
     &:focus {
-      outline: 0;
       color: #495057;
       border-color: #047bf8;
+      outline-width: 0;
     }
   }
 }
