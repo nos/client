@@ -1,8 +1,7 @@
 import React from 'react';
 import { map, noop } from 'lodash';
-import { func, number, string } from 'prop-types';
+import { func, string } from 'prop-types';
 import { BigNumber } from 'bignumber.js';
-
 
 import Panel from '../../Panel';
 import styles from './AccountTxPanel.scss';
@@ -17,7 +16,7 @@ export default class AccountTxPanel extends React.Component {
     confirm: func.isRequired,
     step: string.isRequired,
     asset: string.isRequired,
-    amount: number,
+    amount: string,
     address: string,
     wif: string,
     net: string,
@@ -51,19 +50,20 @@ export default class AccountTxPanel extends React.Component {
           <h2>Transfer Funds</h2>
           <div className={styles.inputWrapper}>
             <Input
-              className={styles.inputs}
+              className={styles.smallInputChild}
               id="amount"
               type="number"
               label="Select Amount"
-              placeholder={0}
-              min={0}
+              placeholder="0"
+              min="0"
               step={step}
               value={amount}
               disabled={false}
               onChange={this.handleChangeAmount}
             />
             <Select
-              className={styles.inputSelect}
+              id="asset"
+              className={styles.selectChild}
               defaultValue={asset}
               onChange={this.handleSelect}
             >
@@ -72,7 +72,7 @@ export default class AccountTxPanel extends React.Component {
               ))}
             </Select>
             <Input
-              className={styles.inputs}
+              className={styles.inputChild}
               id="recipient"
               type="text"
               label="Transfer to"

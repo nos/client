@@ -1,8 +1,4 @@
 .accountPanel {
-  .prompt {
-    max-height: 400px;
-  }
-
   .content {
     padding: 0 24px 32px;
   }
@@ -10,55 +6,25 @@
   .inputWrapper {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
   }
 
-  .inputs {
-    flex-grow: 1;
+  .smallInputChild{
+    width: 22vh;
+
+    border-radius: 4px 0 0 4px !important;
+    border-right: 10px !important;
   }
 
-  .buttonWrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .buttons {
-    margin: 12px 0 24px 12px;
-  }
-
-  .buttonSecondary {
-    background-color: #e5e6eb;
-    border-color: #e5e6eb;
-    color: black;
-    &:hover {
-      background-color: #cfd1da;
-      border-color: #cbcdd6;
-    }
-  }
-  .Icons {
-    margin-right: 7px;
-  }
-
-  .inputSelect {
-    display: block;
-    padding: 6px 12px;
+  .selectChild {
+    margin-right: 10px;
+    align-self: flex-end;
+    height: 36.5px;
     border: 2px solid #dde2ec;
-    border-radius: 4px !important;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #eaeaea;
-    background-clip: padding-box;
-    font-size: 14.4px;
-    font-weight: 300;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    width: 100px;
-    margin: 25px 10px 16px 0;
-    height: 37px;
-
-    border-bottom-left-radius: 0 !important;
-    border-top-left-radius: 0 !important;;
+    border-radius: 0 4px 4px 0 !important;
+    border-left: 10px !important;
 
     &::placeholder {
       color: #999;
@@ -69,5 +35,19 @@
       color: #495057;
       border-color: #047bf8;
     }
+  }
+
+  .smallInputChild:focus > .selectChild {
+    background-color: red !important;
+  }
+
+  .inputChild {
+    flex-grow: 2;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+
   }
 }

@@ -22,7 +22,7 @@ const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
 export default compose(
 
-  withState('amount', 'setAmount', 0),
+  withState('amount', 'setAmount', '0'),
   withState('receiver', 'setReceiver', ''),
   withState('asset', 'setAsset', NEO),
   withState('step', 'setStep', '1'),
