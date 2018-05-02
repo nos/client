@@ -1,4 +1,8 @@
 .accountPanel {
+  .prompt {
+    max-height: 400px;
+  }
+
   .content {
     padding: 0 24px 32px;
   }
@@ -11,7 +15,6 @@
 
   .inputs {
     flex-grow: 1;
-    //margin-right: 10px;
   }
 
   .buttonWrapper {

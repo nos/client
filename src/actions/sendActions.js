@@ -1,16 +1,16 @@
 import { createActions } from 'spunky';
 import Neon, { api, wallet } from '@cityofzion/neon-js';
 
-import { GAS, NEO } from '../values/assets';
+import { NEO, assetsAsArray } from '../values/assets';
 
 export const ID = 'send';
 
+// TODO check if user has enough balance - invocation fails (catch rpc error)
 const send = async ({ net, asset, amount, receiver, address, wif }) => {
-  if (![GAS, NEO].includes(asset)) {
+  if (!assetsAsArray.includes(asset)) {
     throw new Error(`Invalid asset: ${asset}`);
   }
 
-  // TODO check if user has enough balance
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
   }

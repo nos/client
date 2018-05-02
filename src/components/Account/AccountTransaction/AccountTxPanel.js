@@ -1,7 +1,8 @@
 import React from 'react';
 import { map, noop } from 'lodash';
-import classNames from 'classnames';
 import { func, number, string } from 'prop-types';
+import { BigNumber } from 'bignumber.js';
+
 
 import Panel from '../../Panel';
 import styles from './AccountTxPanel.scss';
@@ -9,23 +10,23 @@ import Button from '../../Forms/Button/Button';
 import Input from '../../Forms/Input/Input';
 import Icon from '../../Icon/Icon';
 import Select from '../../Forms/Select/Select';
-import { assetsForSelect, NEO, GAS } from '../../../values/assets';
+import { assetsForSelect, NEO, GAS, assetsByHash } from '../../../values/assets';
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
+    confirm: func.isRequired,
     step: string.isRequired,
     asset: string.isRequired,
     amount: number,
     address: string,
     wif: string,
     net: string,
-    progress: string,
     receiver: string,
     setAmount: func,
     setReceiver: func,
-    doTransfer: func,
     setStep: func,
-    setAsset: func
+    setAsset: func,
+    doTransfer: func
   };
 
   static defaultProps = {
@@ -34,19 +35,12 @@ export default class AccountTxPanel extends React.Component {
     net: '',
     address: '',
     wif: '',
-    progress: '',
     setAmount: noop,
     setReceiver: noop,
     setAsset: noop,
     setStep: noop,
     doTransfer: noop
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.progress === 'FAILED') {
-      alert('Failed..'); // eslint-disable-line
-    }
-  }
 
   render() {
     const { amount, receiver, asset, step } = this.props;
@@ -61,14 +55,18 @@ export default class AccountTxPanel extends React.Component {
               id="amount"
               type="number"
               label="Select Amount"
-              placeholder="0"
-              min="0"
+              placeholder={0}
+              min={0}
               step={step}
               value={amount}
               disabled={false}
               onChange={this.handleChangeAmount}
             />
-            <Select className={styles.inputSelect} value={asset} onChange={this.handleSelect}>
+            <Select
+              className={styles.inputSelect}
+              defaultValue={asset}
+              onChange={this.handleSelect}
+            >
               {map(assetsForSelect, (item, index) => (
                 <option value={item.value} key={`asset${index}`}>{item.label}</option>
               ))}
@@ -86,15 +84,16 @@ export default class AccountTxPanel extends React.Component {
           </div>
           <hr />
           <div className={styles.buttonWrapper}>
-            <Button
-              className={classNames(styles.buttons, styles.buttonSecondary)}
-              type="submit"
-              onClick={this.handleTransfer}
-            >
-              <Icon className={styles.Icons} name="add" aria-describedby="add" />
-              Add Account
-            </Button>
-            <Button className={styles.buttons} type="submit" onClick={this.handleTransfer}>
+            {/* Future feature - ability to save/add accounts to your address book */}
+            {/* <Button */}
+            {/* className={classNames(styles.buttons, styles.buttonSecondary)} */}
+            {/* type="submit" */}
+            {/* onClick={this.showTransferConfirm} */}
+            {/* > */}
+            {/* <Icon className={styles.Icons} name="add" aria-describedby="add"/> */}
+            {/* Add Account */}
+            {/* </Button> */}
+            <Button className={styles.buttons} type="submit" onClick={this.showTransferConfirm}>
               <Icon className={styles.Icons} name="transfer" aria-describedby="transfer" />
               Transfer
             </Button>
@@ -104,16 +103,12 @@ export default class AccountTxPanel extends React.Component {
     );
   }
 
-  handleTransfer = () => {
+  handleTransferConfirm = () => {
     const { doTransfer } = this.props;
     const { net, asset, amount, receiver, address, wif } = this.props;
 
-    try {
-      doTransfer(net, asset, amount, receiver, address, wif);
-      return null;
-    } catch (e) {
-      return null;
-    }
+    // TODO error handling
+    doTransfer({ net, asset, amount, receiver, address, wif });
   };
 
   handleSelect = (event) => {
@@ -131,13 +126,32 @@ export default class AccountTxPanel extends React.Component {
 
   handleChangeAmount = (event) => {
     const { value } = event.target;
+
+    // Else new BigNumber() fails
+    if (!/^[+-]?([0-9]*[.])?[0-9]+$/.test(value)) return;
+
+    const bnValue = new BigNumber(value);
+
     const finalValue = this.props.asset === NEO ?
-      Number(value).toFixed(0) :
-      Number(value).toFixed(8);
+      bnValue.toFixed(0) :
+      bnValue.toFixed(8);
     this.props.setAmount(finalValue);
   };
 
   handleChangeReceiver = (event) => {
     this.props.setReceiver(event.target.value);
+  };
+
+  showTransferConfirm = () => {
+    const { confirm, amount, receiver, asset } = this.props;
+    confirm((
+      <div className={styles.prompt}>
+        <p>Would you like to transfer {amount} {assetsByHash[asset]} to {receiver}</p>
+      </div>
+    ), {
+      title: 'Confirm fund transfer',
+      onConfirm: this.handleTransferConfirm,
+      onCancel: noop
+    });
   };
 }

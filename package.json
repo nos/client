@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.8",
     "@fortawesome/react-fontawesome": "^0.0.17",
     "@ledgerhq/hw-transport-node-hid": "^4.7.0",
+    "bignumber.js": "^7.0.1",
     "classnames": "^2.2.5",
     "electron-is-dev": "^0.3.0",
     "electron-json-storage": "4.0.3",

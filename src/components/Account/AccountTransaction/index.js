@@ -7,6 +7,8 @@ import withNetworkData from '../../../hocs/withNetworkData';
 import sendActions from '../../../actions/sendActions';
 import { NEO } from '../../../values/assets';
 import pureStrategy from '../../../hocs/strategies/pureStrategy';
+import withConfirm from '../../../hocs/withConfirm';
+import withAlert from '../../../hocs/withAlert';
 
 const { LOADING } = progressValues;
 
@@ -20,11 +22,10 @@ const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
 export default compose(
 
-  withState('amount', 'setAmount', ''),
+  withState('amount', 'setAmount', 0),
   withState('receiver', 'setReceiver', ''),
   withState('asset', 'setAsset', NEO),
   withState('step', 'setStep', '1'),
-  withState('show', 'toggleShow', false),
 
   withData(authActions, mapAuthDataToProps),
   withNetworkData(),
@@ -32,4 +33,8 @@ export default compose(
 
   withProgress(sendActions, { strategy: pureStrategy }),
   withProps((props) => ({ loading: props.progress === LOADING })),
+
+  withConfirm(),
+  withAlert()
+
 )(AccountTxPanel);
