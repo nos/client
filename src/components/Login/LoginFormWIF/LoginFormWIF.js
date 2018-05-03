@@ -37,7 +37,7 @@ export default class LoginFormWIF extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled}>Login</Button>
+          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
         </div>
       </form>
     );
@@ -52,5 +52,9 @@ export default class LoginFormWIF extends React.Component {
 
     event.preventDefault();
     onLogin({ wif });
+  }
+
+  isValid = () => {
+    return this.props.wif !== '';
   }
 }
