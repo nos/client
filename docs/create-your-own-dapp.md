@@ -2,9 +2,16 @@
 
 ### Pre-requisites:
 
-First of all you'll need to build nOS browser locally, follow these instructions here:
+First of all you'll need nOS browser locally. This is required to open your dApp.
+You can follow the instructions here:
 
 ```
+// Clone the nOS repo
+git clone https://github.com/nos/client.git nos-client
+
+// Navigate to the cloned repository
+cd nos-client
+
 // Install dependencies and launch the nOS client
 // This is used to start developing on the nOS client
 yarn install && yarn start
