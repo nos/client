@@ -77,6 +77,6 @@ export default class RegisterForm extends React.Component {
   }
 
   isValid = () => {
-    return this.props.passphrase !== '' && this.props.passphrase === this.props.passphraseConfirmation;
+    return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
   }
 }
