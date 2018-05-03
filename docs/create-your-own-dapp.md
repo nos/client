@@ -21,11 +21,6 @@ $ yarn install && yarn start
 // Distribution command
 // After running `yarn dist` you can navigate to `dist` directory and execute the `nOS` binary in a terminal.
 $ yarn install && yarn dist
-
-// Now add nos api-functions to it
-
-$ npm i --save @nosplatform/api-functions
-$ yarn add @nosplatform/api-functions
 ```
 
 Creating a dApp can be done by building a simple single-page web application.  To get started
@@ -35,6 +30,16 @@ follow the documentation there.
 Within your dApp, you can integrate with the nOS API.  nOS injects some predefined functions into
 your application, allowing you to interact with the NEO blockchain and the currently authenticated
 user's account.
+
+## Note:
+In case you decide *NOT* to use the `dapp-starter-kit` for developing your dApp, don't forget to add nos api-function package to your `package.json`.
+
+```sh
+$ npm i --save @nosplatform/api-functions
+$ yarn add @nosplatform/api-functions
+```
+
+
 
 ## Developing with nOS API
 
