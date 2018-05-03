@@ -14,7 +14,7 @@
     width: 22vh;
 
     border-radius: 4px 0 0 4px !important;
-    border-right: 10px !important;
+    //border-right: 10px !important;
   }
 
   .selectChild {
@@ -24,7 +24,7 @@
     border: 2px solid #dde2ec;
 
     border-radius: 0 4px 4px 0 !important;
-    border-left: 10px !important;
+    //border-left: 10px !important;
 
     &::placeholder {
       color: #999;
@@ -37,10 +37,6 @@
     }
   }
 
-  .smallInputChild:focus > .selectChild {
-    background-color: red !important;
-  }
-
   .inputChild {
     flex-grow: 2;
   }
@@ -49,5 +45,11 @@
     display: flex;
     justify-content: flex-end;
 
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
