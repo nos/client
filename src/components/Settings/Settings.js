@@ -74,7 +74,7 @@ export default class Settings extends React.Component {
   handleClearNetworks = () => {
     // If user is on a custom network, switch to TestNet
     if (!PREDEFINED_NETWORKS.includes(this.props.currentNetwork)) {
-      this.saveNetwork('TestNet');
+      this.props.setCurrentNetwork('TestNet');
     }
 
     this.props.clearNetworks();
