@@ -51,7 +51,7 @@ export default class Settings extends React.Component {
 
   renderNetworkOption = (network, key) => {
     return (
-      <option key={key} value={network.extra.neoscan}>
+      <option key={key} value={network.name}>
         {network.name}
       </option>
     );
