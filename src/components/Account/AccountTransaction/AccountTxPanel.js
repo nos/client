@@ -41,6 +41,10 @@ export default class AccountTxPanel extends React.Component {
     doTransfer: noop
   };
 
+  state = {
+    formattedAmount: 0
+  };
+
   render() {
     const { amount, receiver, asset, step } = this.props;
 
@@ -93,7 +97,7 @@ export default class AccountTxPanel extends React.Component {
             {/* <Icon className={styles.Icons} name="add" aria-describedby="add"/> */}
             {/* Add Account */}
             {/* </Button> */}
-            <Button className={styles.buttons} type="submit" onClick={this.showTransferConfirm}>
+            <Button className={styles.Buttons} type="submit" onClick={this.showTransferConfirm}>
               <Icon className={styles.Icons} name="transfer" aria-describedby="transfer" />
               Transfer
             </Button>
@@ -104,49 +108,54 @@ export default class AccountTxPanel extends React.Component {
   }
 
   handleTransferConfirm = () => {
-    const { doTransfer } = this.props;
-    const { net, asset, amount, receiver, address, wif } = this.props;
+    const { formattedAmount } = this.state;
+    const { doTransfer, setAmount, setReceiver } = this.props;
+    const { net, asset, receiver, address, wif } = this.props;
 
     // TODO error handling
-    doTransfer({ net, asset, amount, receiver, address, wif });
+    doTransfer({ net, asset, amount: formattedAmount, receiver, address, wif });
+    setAmount('0');
+    setReceiver('');
+    // TODO portal with success/failure status
   };
 
   handleSelect = (event) => {
     const { value } = event.target;
+    const { setStep, setAsset } = this.props;
 
     if (value === NEO) {
-      this.props.setStep('1');
+      setStep('1');
     }
     if (value === GAS) {
-      this.props.setStep('0.00000001');
+      setStep('0.00000001');
     }
 
-    this.props.setAsset(event.target.value);
+    setAsset(event.target.value);
   };
 
   handleChangeAmount = (event) => {
     const { value } = event.target;
-
-    // Else new BigNumber() fails
-    if (!/^[+-]?([0-9]*[.])?[0-9]+$/.test(value)) return;
-
-    const bnValue = new BigNumber(value);
-
-    const finalValue = this.props.asset === NEO ?
-      bnValue.toFixed(0) :
-      bnValue.toFixed(8);
-    this.props.setAmount(finalValue);
+    this.props.setAmount(value);
   };
 
   handleChangeReceiver = (event) => {
     this.props.setReceiver(event.target.value);
   };
 
-  showTransferConfirm = () => {
+  showTransferConfirm = async () => {
     const { confirm, amount, receiver, asset } = this.props;
+
+    const bnValue = new BigNumber(amount);
+
+    await this.setState({
+      formattedAmount: this.props.asset === NEO ?
+        bnValue.toFixed(0) :
+        bnValue.toFixed(8)
+    });
+
     confirm((
-      <div className={styles.prompt}>
-        <p>Would you like to transfer {amount} {assetsByHash[asset]} to {receiver}</p>
+      <div>
+        <p>Would you like to transfer {this.state.formattedAmount} {assetsByHash[asset]} to {receiver}</p>
       </div>
     ), {
       title: 'Confirm fund transfer',
