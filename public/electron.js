@@ -33,21 +33,17 @@ function createWindow() {
     Object.assign({ width: 1250, height: 700, show: false }, framelessConfig)
   );
 
-  splashWindow = new BrowserWindow(
-    { width: 1250, height: 700, show: true }
-  );
-
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
 
-  splashWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, '../build/splash.html'),
-      protocol: 'file:',
-      slashes: true
-    })
-  );
+  // splashWindow is shown while mainWindow is loading hidden
+  // As it is light weight it will load almost instantly and before mainWindow
+  splashWindow = new BrowserWindow({ width: 1250, height: 700, show: true });
+
+  process.env.NODE_ENV === 'production' ?
+    splashWindow.loadURL(`file://${process.env.PUBLIC_URL}/splash.html`) :
+    splashWindow.loadURL(`file://${__dirname}/splash.html`)
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
@@ -58,12 +54,13 @@ function createWindow() {
       })
   );
 
+  // When mainWindow finishes loading, then show
+  // the mainWindow and desotry the splashWindow.
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     splashWindow.destroy();
   });
 
-  // if main window is ready to show, then destroy the splash window and show up the main window
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
