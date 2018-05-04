@@ -43,10 +43,19 @@ export default class Settings extends React.Component {
             {map(settings.networks, this.renderNetworkOption)}
           </select>
         </label>
+        <div className={styles.networkDetails}>
+          Custom Neoscan URL: {this.getCurrentNetworkUrl()}
+        </div>
         {this.renderButtons()}
         {this.state.saved && <Saved /> }
       </div>
     );
+  }
+
+  getCurrentNetworkUrl = () => {
+    const currentNetworkConfig = settings.networks[this.props.currentNetwork];
+    const currentNetworkUrl = currentNetworkConfig && currentNetworkConfig.extra.neoscan;
+    return currentNetworkUrl;
   }
 
   renderNetworkOption = (network, key) => {
