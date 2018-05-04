@@ -23,9 +23,6 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
 
 // Getters
 export default createActions(NETWORKS_ID, () => async () => {
-  const allNetworks = await getStorage(NETWORKS_ID);
-  if (!allNetworks || !Array.isArray(allNetworks)) {
-    return [];
-  }
-  return allNetworks;
+  const networks = await getStorage(NETWORKS_ID);
+  return [...networks];
 });

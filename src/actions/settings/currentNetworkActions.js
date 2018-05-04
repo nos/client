@@ -12,8 +12,5 @@ export const setCurrentNetwork = createActions(ID, (currentNetwork) => async () 
 // Getters
 export default createActions(ID, () => async () => {
   const currentNetwork = await getStorage(ID);
-  if (typeof currentNetwork !== 'string') {
-    return 'TestNet';
-  }
-  return currentNetwork;
+  return typeof currentNetwork === 'string' ? currentNetwork : 'TestNet';
 });
