@@ -9,7 +9,7 @@ import Button from '../../Forms/Button/Button';
 import Input from '../../Forms/Input/Input';
 import Icon from '../../Icon/Icon';
 import Select from '../../Forms/Select/Select';
-import { assetsForSelect, NEO, GAS, assetsByHash } from '../../../values/assets';
+import { assetsByHash, assetsForSelect, GAS, NEO } from '../../../values/assets';
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
@@ -155,7 +155,10 @@ export default class AccountTxPanel extends React.Component {
 
     confirm((
       <div>
-        <p>Would you like to transfer {this.state.formattedAmount} {assetsByHash[asset]} to {receiver}</p>
+        <p>
+          Would you like to
+          transfer {this.state.formattedAmount} {assetsByHash[asset]} to {receiver}
+        </p>
       </div>
     ), {
       title: 'Confirm fund transfer',
