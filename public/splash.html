@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+        .bg {
+          -webkit-app-region: drag;
+          position: absolute;
+          background: radial-gradient(#fff, #c1c1c1);
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: contain;
+        }
+
+        .loader {
+          border: 18px solid rgb(118, 184, 86);
+          border-radius: 50%;
+          border-top: 18px solid rgb(185, 208, 83);
+          width: 90px;
+          height: 90px;
+          -webkit-animation: spin 1.2s linear infinite; /* Safari */
+          animation: spin 1.2s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .cn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+    </style>
+
+  </head>
+  <body>
+
+    <div class="bg cn"><div class="loader"></div></div>
+
+  </body>
+</html>
