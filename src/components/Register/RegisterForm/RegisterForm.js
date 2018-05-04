@@ -51,7 +51,7 @@ export default class RegisterForm extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled}>Register</Button>
+          <Button type="submit" disabled={disabled || !this.isValid()}>Register</Button>
           <span className={styles.login}>
             Already have an account?{' '}
             <Link to="/login">Login</Link>
@@ -70,10 +70,13 @@ export default class RegisterForm extends React.Component {
   }
 
   handleRegister = (event) => {
-    event.preventDefault();
+    const { passphrase, passphraseConfirmation, onRegister } = this.props;
 
-    // TODO: ensure passphrases match
-    const { passphrase, passphraseConfirmation } = this.props;
-    return this.props.onRegister({ passphrase, passphraseConfirmation });
+    event.preventDefault();
+    onRegister({ passphrase, passphraseConfirmation });
+  }
+
+  isValid = () => {
+    return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
   }
 }
