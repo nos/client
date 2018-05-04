@@ -124,7 +124,7 @@ export default class Settings extends React.Component {
     };
 
     this.props.addNetwork(newNetwork);
-    this.props.setCurrentNetwork(this.props.networkUrl);
+    this.props.setCurrentNetwork(this.props.networkName);
   }
 
   handleChangeNetworkName = (event) => {
