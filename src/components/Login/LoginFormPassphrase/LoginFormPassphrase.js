@@ -51,7 +51,7 @@ export default class LoginFormWIF extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled}>Login</Button>
+          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
           <span className={styles.register}>
             New to NEO?{' '}
             <Link to="/register">Create an account</Link>
@@ -74,5 +74,9 @@ export default class LoginFormWIF extends React.Component {
 
     event.preventDefault();
     onLogin({ passphrase, encryptedWIF });
+  }
+
+  isValid = () => {
+    return this.props.passphrase !== '' && this.props.encryptedWIF !== '';
   }
 }
