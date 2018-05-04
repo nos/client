@@ -52,12 +52,6 @@ export default class Settings extends React.Component {
     );
   }
 
-  getCurrentNetworkUrl = () => {
-    const currentNetworkConfig = settings.networks[this.props.currentNetwork];
-    const currentNetworkUrl = currentNetworkConfig && currentNetworkConfig.extra.neoscan;
-    return currentNetworkUrl;
-  }
-
   renderNetworkOption = (network, key) => {
     return (
       <option key={key} value={network.name}>
@@ -147,6 +141,12 @@ export default class Settings extends React.Component {
   handleChangeSelectedNetwork = (event) => {
     return this.saveNetwork(event.target.value);
   };
+
+  getCurrentNetworkUrl = () => {
+    const currentNetworkConfig = settings.networks[this.props.currentNetwork];
+    const currentNetworkUrl = currentNetworkConfig && currentNetworkConfig.extra.neoscan;
+    return currentNetworkUrl;
+  }
 
   saveNetwork = (network) => {
     this.setState({ saved: true });
