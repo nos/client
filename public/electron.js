@@ -22,6 +22,7 @@ function installExtensions() {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let splashWindow;
 
 const isMac = process.platform === 'darwin';
 
@@ -29,12 +30,27 @@ function createWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700 }, framelessConfig)
+    Object.assign({ width: 1250, height: 700, show: false }, framelessConfig)
   );
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
+
+  // splashWindow is shown while mainWindow is loading hidden
+  // As it is light weight it will load almost instantly and before mainWindow
+  splashWindow = new BrowserWindow({ width: 1250, height: 700, show: true });
+
+  splashWindow.loadURL(
+    url.format({
+      pathname: path.join(
+        process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : __dirname,
+        'splash.html'
+      ),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
@@ -44,6 +60,13 @@ function createWindow() {
         slashes: true
       })
   );
+
+  // When mainWindow finishes loading, then show
+  // the mainWindow and desotry the splashWindow.
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+    splashWindow.destroy();
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
