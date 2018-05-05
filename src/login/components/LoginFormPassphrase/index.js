@@ -8,11 +8,12 @@ import {
   progressValues
 } from 'spunky';
 
+import Loading from 'shared/components/Loading';
+import withInitialCall from 'shared/hocs/withInitialCall';
+
 import LoginFormPassphrase from './LoginFormPassphrase';
-import Loading from '../../../shared/components/Loading';
 import previousAuthActions, { writePreviousAuthActions } from '../../actions/previousAuthActions';
 import withLogin from '../../hocs/withLogin';
-import withInitialCall from '../../../shared/hocs/withInitialCall';
 
 const { LOADING } = progressValues;
 

@@ -2,9 +2,10 @@ import { createActions } from 'spunky';
 import Neon, { wallet } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
+import { GAS } from 'shared/values/assets';
+
 import generateDAppActionId from './generateDAppActionId';
 import createScript from '../util/createScript';
-import { GAS } from '../../shared/values/assets';
 
 export const ID = 'invoke';
 

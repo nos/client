@@ -1,7 +1,8 @@
 import { withData } from 'spunky';
 
+import authActions from 'login/actions/authActions';
+
 import GetAddress from './GetAddress';
-import authActions from '../../../../login/actions/authActions';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
 

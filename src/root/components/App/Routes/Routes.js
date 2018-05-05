@@ -1,15 +1,16 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import { Register } from 'register';
+import { Login } from 'login';
+import { Logout } from 'logout';
+import { Browser } from 'browser';
+import { Exchange } from 'exchange';
+import { Favorites } from 'favorites';
+import { Account } from 'account';
+import { Settings } from 'settings';
+
 import PrivateRoute from '../../PrivateRoute';
-import { Register } from '../../../../register';
-import { Login } from '../../../../login';
-import { Logout } from '../../../../logout';
-import { Browser } from '../../../../browser';
-import { Exchange } from '../../../../exchange';
-import { Favorites } from '../../../../favorites';
-import { Account } from '../../../../account';
-import { Settings } from '../../../../settings';
 import LoginLayout from '../../LoginLayout';
 import AuthenticatedLayout from '../../AuthenticatedLayout';
 import withLayout from '../../../hocs/withLayout';

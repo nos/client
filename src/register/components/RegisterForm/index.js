@@ -1,10 +1,11 @@
 import { compose, withState } from 'recompose';
 import { progressValues } from 'spunky';
 
+import withAlert from 'shared/hocs/withAlert';
+import withProgressChange from 'shared/hocs/withProgressChange';
+
 import RegisterForm from './RegisterForm';
 import createAccountActions from '../../actions/createAccountActions';
-import withAlert from '../../../shared/hocs/withAlert';
-import withProgressChange from '../../../shared/hocs/withProgressChange';
 
 const { FAILED } = progressValues;
 

@@ -2,10 +2,11 @@ import React from 'react';
 import { string, node } from 'prop-types';
 import classNames from 'classnames';
 
+import logo from 'shared/images/logo.svg';
+
 import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
 import AddressBar from './AddressBar';
-import logo from '../../../shared/images/logo.svg';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {

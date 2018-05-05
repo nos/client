@@ -4,14 +4,15 @@ import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
 import { map, noop } from 'lodash';
 
-import Panel from '../../../shared/components/Panel';
-import Button from '../../../shared/components/Forms/Button/Button';
-import Input from '../../../shared/components/Forms/Input/Input';
-import Icon from '../../../shared/components/Icon/Icon';
-import Select from '../../../shared/components/Forms/Select/Select';
-import isNumeric from '../../util/isNumeric';
-import { ASSETS, NEO } from '../../../shared/values/assets';
+import Panel from 'shared/components/Panel';
+import Button from 'shared/components/Forms/Button/Button';
+import Input from 'shared/components/Forms/Input/Input';
+import Icon from 'shared/components/Icon/Icon';
+import Select from 'shared/components/Forms/Select/Select';
+import { ASSETS, NEO } from 'shared/values/assets';
+
 import styles from './SendPanel.scss';
+import isNumeric from '../../util/isNumeric';
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {

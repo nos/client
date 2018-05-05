@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { withProgress, progressValues } from 'spunky';
 import { omit } from 'lodash';
 
+import authActions from 'login/actions/authActions';
+
 import PrivateRoute from './PrivateRoute';
-import authActions from '../../../login/actions/authActions';
 
 const { LOADED } = progressValues;
 

@@ -2,7 +2,8 @@ import React from 'react';
 import { bool, string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 
-import Button from '../../../shared/components/Forms/Button';
+import Button from 'shared/components/Forms/Button';
+
 import styles from './LoginFormLedger.scss';
 
 const POLL_FREQUENCY = 1000;

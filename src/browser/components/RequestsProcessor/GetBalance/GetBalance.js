@@ -2,8 +2,8 @@ import React from 'react';
 import { string, func, arrayOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 
-import { NEO, GAS } from '../../../../shared/values/assets';
-import balanceShape from '../../../../account/shapes/balanceShape';
+import balanceShape from 'account/shapes/balanceShape';
+import { NEO, GAS } from 'shared/values/assets';
 
 function isValidScriptHash(scriptHash) {
   return wallet.isScriptHash(scriptHash) || [NEO, GAS].includes(scriptHash);

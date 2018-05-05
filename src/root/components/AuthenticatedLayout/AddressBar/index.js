@@ -2,8 +2,9 @@ import { compose, withState, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { withData } from 'spunky';
 
+import queryActions from 'browser/actions/queryActions';
+
 import AddressBar from './AddressBar';
-import queryActions from '../../../../browser/actions/queryActions';
 
 const mapQueryDataToProps = (query) => ({ query });
 

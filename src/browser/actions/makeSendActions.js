@@ -1,7 +1,8 @@
 import { createActions } from 'spunky';
 
+import sendAsset from 'shared/util/sendAsset';
+
 import generateDAppActionId from './generateDAppActionId';
-import sendAsset from '../../shared/util/sendAsset';
 
 export const ID = 'send';
 

@@ -2,7 +2,8 @@ import React from 'react';
 import { string, func } from 'prop-types';
 import { isFunction } from 'lodash';
 
-import withConfirm from '../../../shared/hocs/withConfirm';
+import withConfirm from 'shared/hocs/withConfirm';
+
 import styles from './styles.scss';
 
 export default function withPrompt(message) {

@@ -1,6 +1,6 @@
 import { withData } from 'spunky';
 
-import getAllNetworks from '../../settings/actions/networksActions';
+import getAllNetworks from 'settings/actions/networksActions';
 
 export default function withAllNetworkData() {
   const mapSettingsDataToProps = (allNetworks) => ({ allNetworks });

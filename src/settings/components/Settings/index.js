@@ -1,15 +1,16 @@
 import { compose, withState } from 'recompose';
 import { withActions, progressValues } from 'spunky';
 
+import balancesActions from 'shared/actions/balancesActions';
+import withNetworkData from 'shared/hocs/withNetworkData';
+import withAllNetworkData from 'shared/hocs/withAllNetworkData';
+import withProgressChange from 'shared/hocs/withProgressChange';
+import withConfirm from 'shared/hocs/withConfirm';
+import withAlert from 'shared/hocs/withAlert';
+
 import Settings from './Settings';
-import balancesActions from '../../../shared/actions/balancesActions';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/currentNetworkActions';
 import { setNetworks, addNetwork, clearNetworks } from '../../actions/networksActions';
-import withNetworkData from '../../../shared/hocs/withNetworkData';
-import withAllNetworkData from '../../../shared/hocs/withAllNetworkData';
-import withProgressChange from '../../../shared/hocs/withProgressChange';
-import withConfirm from '../../../shared/hocs/withConfirm';
-import withAlert from '../../../shared/hocs/withAlert';
 
 const { LOADED, FAILED } = progressValues;
 

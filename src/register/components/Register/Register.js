@@ -1,12 +1,13 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
 
+import Panel from 'shared/components/Panel';
+import Tabs from 'shared/components/Tabs';
+import logo from 'shared/images/logo.svg';
+
 import RegisterForm from '../RegisterForm';
 import AccountDetails from '../AccountDetails';
 import accountShape from '../../shapes/accountShape';
-import Panel from '../../../shared/components/Panel';
-import Tabs from '../../../shared/components/Tabs';
-import logo from '../../../shared/images/logo.svg';
 import styles from './Register.scss';
 
 const TAB_CREATE = 'create';

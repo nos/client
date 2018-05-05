@@ -1,7 +1,8 @@
 import React from 'react';
 import { remote } from 'electron';
 
-import Icon from '../../../../shared/components/Icon';
+import Icon from 'shared/components/Icon';
+
 import styles from './ButtonBar.scss';
 
 export default class ButtonBar extends React.Component {

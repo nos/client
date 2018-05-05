@@ -2,8 +2,9 @@ import React from 'react';
 import { func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Alert from '../../../../shared/components/Alert';
-import Confirm from '../../../../shared/components/Confirm';
+import Alert from 'shared/components/Alert';
+import Confirm from 'shared/components/Confirm';
+
 import dialogShape from '../../../shapes/dialogShape';
 import { TYPE_ALERT, TYPE_CONFIRM } from '../../../values/dialogs';
 

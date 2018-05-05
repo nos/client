@@ -1,13 +1,14 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
 
+import Panel from 'shared/components/Panel';
+import Tabs from 'shared/components/Tabs';
+import logo from 'shared/images/logo.svg';
+
 import LoginFormPassphrase from '../LoginFormPassphrase';
 import LoginFormWIF from '../LoginFormWIF';
 import LoginFormLedger from '../LoginFormLedger';
 import LoginFormWalletFile from '../LoginFormWalletFile';
-import Panel from '../../../shared/components/Panel';
-import Tabs from '../../../shared/components/Tabs';
-import logo from '../../../shared/images/logo.svg';
 import styles from './Login.scss';
 
 const TAB_WIF = 'wif';

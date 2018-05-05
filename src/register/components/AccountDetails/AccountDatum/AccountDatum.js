@@ -3,8 +3,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { string } from 'prop-types';
 import { upperFirst, lowerCase } from 'lodash';
 
-import Icon from '../../../../shared/components/Icon';
-import Tooltip from '../../../../shared/components/Tooltip';
+import Icon from 'shared/components/Icon';
+import Tooltip from 'shared/components/Tooltip';
+
 import styles from './AccountDatum.scss';
 
 const COPIED_DURATION = 2000;

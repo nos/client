@@ -3,8 +3,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import Icon from '../../../../shared/components/Icon';
-import Tooltip from '../../../../shared/components/Tooltip';
+import Icon from 'shared/components/Icon';
+import Tooltip from 'shared/components/Tooltip';
+
 import styles from './Navigation.scss';
 
 export default class Navigation extends React.Component {

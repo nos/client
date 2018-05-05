@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from '../../../shared/components/Forms/Input';
-import Button from '../../../shared/components/Forms/Button';
+import Input from 'shared/components/Forms/Input';
+import Button from 'shared/components/Forms/Button';
+
 import styles from './RegisterForm.scss';
 
 export default class RegisterForm extends React.Component {

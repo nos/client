@@ -1,10 +1,11 @@
 import { compose, withProps } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
 
+import withImmediateReset from 'shared/hocs/withImmediateReset';
+import pureStrategy from 'shared/hocs/strategies/pureStrategy';
+
 import Register from './Register';
 import createAccountActions from '../../actions/createAccountActions';
-import withImmediateReset from '../../../shared/hocs/withImmediateReset';
-import pureStrategy from '../../../shared/hocs/strategies/pureStrategy';
 
 const { LOADING } = progressValues;
 

@@ -1,6 +1,6 @@
 import { progressValues } from 'spunky';
 
-import withAuthChange from '../../shared/hocs/withAuthChange';
+import withAuthChange from 'shared/hocs/withAuthChange';
 
 const { INITIAL } = progressValues;
 

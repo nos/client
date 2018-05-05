@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -87,6 +88,25 @@ function injectPublicPath(config, env) {
   });
 }
 
+function rewireBabel(config, _env) {
+  const newConfig = Object.assign({}, config);
+  const oneOfRules = newConfig.module.rules.find((rule) => rule.oneOf).oneOf;
+
+  const babelLoader = oneOfRules.find(
+    (rule) => typeof rule.loader === 'string' && rule.loader.match('/babel-loader/')
+  );
+
+  if (!babelLoader) {
+    return newConfig;
+  }
+
+  babelLoader.options = merge(babelLoader.options, {
+    babelrc: fs.existsSync(path.resolve(__dirname, './.babelrc'))
+  });
+
+  return newConfig;
+}
+
 function injectHID(config, _env) {
   return merge(config, {
     externals: {
@@ -95,4 +115,4 @@ function injectHID(config, _env) {
   });
 }
 
-module.exports = compose(injectTarget, injectSassLoader, injectPublicPath, injectHID);
+module.exports = compose(injectTarget, injectSassLoader, injectPublicPath, rewireBabel, injectHID);

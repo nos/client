@@ -2,8 +2,9 @@ import React from 'react';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from '../../../shared/components/Forms/Input';
-import Button from '../../../shared/components/Forms/Button';
+import Input from 'shared/components/Forms/Input';
+import Button from 'shared/components/Forms/Button';
+
 import styles from './LoginFormWIF.scss';
 
 export default class LoginFormWIF extends React.Component {

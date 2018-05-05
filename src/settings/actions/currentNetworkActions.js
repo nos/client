@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 
-import { getStorage, setStorage } from '../../shared/lib/storage';
+import { getStorage, setStorage } from 'shared/lib/storage';
 
 export const ID = 'currentNetwork';
 

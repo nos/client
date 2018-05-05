@@ -1,6 +1,6 @@
 import { findIndex, omit } from 'lodash';
 
-import { ENQUEUE_REQUEST, DEQUEUE_REQUEST, EMPTY_REQUESTS } from '../../browser/actions/requestsActions';
+import { ENQUEUE_REQUEST, DEQUEUE_REQUEST, EMPTY_REQUESTS } from '../actions/requestsActions';
 
 const initialState = {};
 

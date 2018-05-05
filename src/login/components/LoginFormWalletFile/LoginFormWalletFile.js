@@ -4,8 +4,9 @@ import { bool, string, func, object, arrayOf } from 'prop-types';
 import { noop, map } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
-import Button from '../../../shared/components/Forms/Button';
-import Select from '../../../shared/components/Forms/Select';
+import Button from 'shared/components/Forms/Button';
+import Select from 'shared/components/Forms/Select';
+
 import styles from './LoginFormWalletFile.scss';
 
 export default class LoginFormWalletFile extends React.Component {

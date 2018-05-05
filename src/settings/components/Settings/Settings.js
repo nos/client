@@ -3,9 +3,10 @@ import { func, string, object, arrayOf } from 'prop-types';
 import { settings } from '@cityofzion/neon-js';
 import { noop, map } from 'lodash';
 
+import Input from 'shared/components/Forms/Input';
+import Button from 'shared/components/Forms/Button';
+
 import Saved from '../Saved';
-import Input from '../../../shared/components/Forms/Input';
-import Button from '../../../shared/components/Forms/Button';
 import { PREDEFINED_NETWORKS } from '../../values/networks';
 import styles from './Settings.scss';
 

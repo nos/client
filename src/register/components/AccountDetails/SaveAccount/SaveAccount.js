@@ -6,8 +6,9 @@ import { promisify } from 'es6-promisify';
 import { noop, isEmpty } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
-import Input from '../../../../shared/components/Forms/Input';
-import Button from '../../../../shared/components/Forms/Button';
+import Input from 'shared/components/Forms/Input';
+import Button from 'shared/components/Forms/Button';
+
 import accountShape from '../../../shapes/accountShape';
 import styles from './SaveAccount.scss';
 

@@ -1,7 +1,8 @@
 import { compose, withState } from 'recompose';
 
+import withAlert from 'shared/hocs/withAlert';
+
 import SaveAccount from './SaveAccount';
-import withAlert from '../../../../shared/hocs/withAlert';
 
 export default compose(
   withAlert(),

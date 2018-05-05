@@ -1,14 +1,15 @@
 import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
+import authActions from 'login/actions/authActions';
+import withNetworkData from 'shared/hocs/withNetworkData';
+import { NEO, GAS } from 'shared/values/assets';
+
 import Send from './Send';
-import authActions from '../../../../login/actions/authActions';
 import withClean from '../../../hocs/withClean';
 import withPrompt from '../../../hocs/withPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
-import withNetworkData from '../../../../shared/hocs/withNetworkData';
-import { NEO, GAS } from '../../../../shared/values/assets';
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });

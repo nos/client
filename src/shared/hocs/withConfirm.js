@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { confirm } from '../../root/actions/dialogsActions';
+import { confirm } from 'root/actions/dialogsActions';
 
 export default function withConfirm(propName = 'confirm') {
   const mapDispatchToProps = (dispatch) => ({

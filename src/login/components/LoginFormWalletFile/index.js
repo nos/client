@@ -1,9 +1,10 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 
+import withAlert from 'shared/hocs/withAlert';
+
 import LoginFormWalletFile from './LoginFormWalletFile';
 import withLogin from '../../hocs/withLogin';
-import withAlert from '../../../shared/hocs/withAlert';
 
 export default compose(
   withAlert(),

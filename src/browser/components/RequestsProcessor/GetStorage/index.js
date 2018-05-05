@@ -1,11 +1,12 @@
 import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 
+import withNetworkData from 'shared/hocs/withNetworkData';
+
 import GetStorage from './GetStorage';
 import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
-import withNetworkData from '../../../../shared/hocs/withNetworkData';
 
 const mapStorageDataToProps = (data) => ({ data });
 

@@ -1,9 +1,10 @@
 import { compose, withProps } from 'recompose';
 import { withCall, withData } from 'spunky';
 
+import authActions from 'login/actions/authActions';
+import withNetworkData from 'shared/hocs/withNetworkData';
+
 import GetBalance from './GetBalance';
-import authActions from '../../../../login/actions/authActions';
-import withNetworkData from '../../../../shared/hocs/withNetworkData';
 import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';

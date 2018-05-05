@@ -1,8 +1,9 @@
 import { compose } from 'recompose';
 import { withActions } from 'spunky';
 
+import accountActions from 'shared/actions/accountActions';
+
 import Logout from './Logout';
-import accountActions from '../../../shared/actions/accountActions';
 import withLogout from '../../hocs/withLogout';
 
 const mapActionsToProps = ({ reset }) => ({

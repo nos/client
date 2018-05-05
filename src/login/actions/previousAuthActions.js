@@ -1,7 +1,7 @@
 import { wallet } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
-import { getStorage, setStorage } from '../../shared/lib/storage';
+import { getStorage, setStorage } from 'shared/lib/storage';
 
 export const ID = 'previousAuth';
 
