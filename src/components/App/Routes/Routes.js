@@ -2,17 +2,17 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from '../../PrivateRoute';
-import Register from '../../Register';
-import Login from '../../Login';
-import Logout from '../../Logout';
-import Browser from '../../Browser';
-import Exchange from '../../Exchange';
-import Favorites from '../../Favorites';
-import Account from '../../Account';
-import Settings from '../../Settings';
+import Register from '../../../register/components';
+import Login from '../../../login/components';
+import Logout from '../../../logout/components';
+import Browser from '../../../browser/components';
+import Exchange from '../../../exchange/components';
+import Favorites from '../../../favorites/components';
+import Account from '../../../account/components';
+import Settings from '../../../settings/components';
 import LoginLayout from '../../LoginLayout';
 import AuthenticatedLayout from '../../AuthenticatedLayout';
-import withLayout from '../../../hocs/withLayout';
+import withLayout from '../../../shared/hocs/withLayout';
 
 const withLoginLayout = withLayout(LoginLayout);
 const withAuthLayout = withLayout(AuthenticatedLayout);

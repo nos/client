@@ -4,7 +4,7 @@ import { withProgress, progressValues } from 'spunky';
 import { omit } from 'lodash';
 
 import PrivateRoute from './PrivateRoute';
-import authActions from '../../actions/authActions';
+import authActions from '../../login/actions/authActions';
 
 const { LOADED } = progressValues;
 

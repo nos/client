@@ -4,7 +4,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createHashHistory';
 
 import App from '../App';
-import configureStore from '../../store/configureStore';
+import configureStore from '../../shared/store/configureStore';
 
 const history = createHistory();
 const store = configureStore(history);

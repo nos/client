@@ -5,7 +5,7 @@ import 'what-input';
 import Root from './components/Root';
 import registerServiceWorker from './registerServiceWorker';
 
-import './stylesheets/global.scss';
+import './shared/stylesheets/global.scss';
 
 function render(Component) {
   ReactDOM.render(<Component />, document.getElementById('root'));

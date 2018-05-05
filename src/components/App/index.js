@@ -3,12 +3,12 @@ import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy
 import { withRouter } from 'react-router-dom';
 
 import App from './App';
-import Loading from '../Loading';
-import currentNetworkActions from '../../actions/settings/currentNetworkActions';
-import getAllNetworks from '../../actions/settings/networksActions';
-import withInitialCall from '../../hocs/withInitialCall';
-import withProgressChange from '../../hocs/withProgressChange';
-import updateNetworks from '../../util/updateNetworks';
+import Loading from '../../shared/components/Loading';
+import currentNetworkActions from '../../settings/actions/currentNetworkActions';
+import getAllNetworks from '../../settings/actions/networksActions';
+import withInitialCall from '../../shared/hocs/withInitialCall';
+import withProgressChange from '../../shared/hocs/withProgressChange';
+import updateNetworks from '../../shared/util/updateNetworks';
 
 const { LOADING, LOADED } = progressValues;
 

@@ -1,8 +1,8 @@
 import { compose } from 'recompose';
 
 import AuthenticatedLayout from './AuthenticatedLayout';
-import withAuthState from '../../hocs/withAuthState';
-import withNetworkData from '../../hocs/withNetworkData';
+import withAuthState from '../../login/hocs/withAuthState';
+import withNetworkData from '../../shared/hocs/withNetworkData';
 
 export default compose(
   withAuthState(),

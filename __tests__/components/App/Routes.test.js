@@ -6,10 +6,10 @@ import { Redirect } from 'react-router-dom';
 import { progressValues } from 'spunky';
 
 import Routes from '../../../src/components/App/Routes';
-import Account from '../../../src/components/Account';
-import Login from '../../../src/components/Login';
-import Logout from '../../../src/components/Logout';
-import Browser from '../../../src/components/Browser';
+import Account from '../../../src/account/components';
+import Login from '../../../src/login/components';
+import Logout from '../../../src/logout/components';
+import Browser from '../../../src/browser/components';
 import { provideState } from '../../testHelpers';
 
 const { LOADED } = progressValues;

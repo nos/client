@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { withData } from 'spunky';
 
 import AddressBar from './AddressBar';
-import queryActions from '../../../actions/queryActions';
+import queryActions from '../../../browser/actions/queryActions';
 
 const mapQueryDataToProps = (query) => ({ query });
 
