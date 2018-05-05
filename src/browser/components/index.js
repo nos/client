@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { withCall, withData, withProgressComponents, progressValues } from 'spunky';
 
 import Browser from './Browser';
-import Loading from '../Loading';
-import Failed from '../Failed';
-import queryActions from '../../actions/queryActions';
-import parseURL from '../../util/parseURL';
+import Loading from '../../shared/components/Loading';
+import Failed from '../../shared/components/Failed';
+import queryActions from '../actions/queryActions';
+import parseURL from '../util/parseURL';
 
 const { LOADING, FAILED } = progressValues;
 

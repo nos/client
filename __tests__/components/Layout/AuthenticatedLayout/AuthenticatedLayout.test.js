@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 
-import AuthenticatedLayout from '../../../../src/components/AuthenticatedLayout';
+import AuthenticatedLayout from '../../../../src/root/components/AuthenticatedLayout';
 import { provideState } from '../../../testHelpers';
 
 describe('<AuthenticatedLayout />', () => {
