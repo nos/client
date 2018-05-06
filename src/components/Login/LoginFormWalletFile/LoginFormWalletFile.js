@@ -73,7 +73,7 @@ export default class LoginFormWalletFile extends React.Component {
     }
   }
 
-  handleSubmit = (event: Object) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.onLogin({ wif: this.props.wif });
   }
