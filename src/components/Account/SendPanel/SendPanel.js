@@ -62,12 +62,11 @@ export default class AccountTxPanel extends React.Component {
               min="0"
               step={step}
               value={amount}
-              disabled={false}
               onChange={this.handleChangeAmount}
             />
             <Select
-              id="asset"
               className={styles.asset}
+              id="asset"
               value={asset}
               onChange={this.handleChangeAsset}
             >
