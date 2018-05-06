@@ -7,7 +7,7 @@ import withAlert from '../../../hocs/withAlert';
 
 export default compose(
   withAlert(),
-  withState('encryptedWIF', 'setEncryptedWIF'),
+  withState('wif', 'setWIF'),
   withState('accounts', 'setAccounts'),
   withState('passphrase', 'setPassphrase'),
 
