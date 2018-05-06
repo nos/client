@@ -31,7 +31,6 @@ export default class LoginFormWIF extends React.Component {
 
   render() {
     const { passphrase, encryptedWIF, encryptedWIFs, disabled } = this.props;
-    console.log(encryptedWIFs);
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>

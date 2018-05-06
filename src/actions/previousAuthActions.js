@@ -10,7 +10,7 @@ export const writePreviousAuthActions = createActions(ID, ({ encryptedWIF }) => 
   }
 
   const previousAuth = await getStorage(ID) || {};
-  const previousWIF = previousAuth && previousAuth.encryptedWIFs || [];
+  const previousWIF = (previousAuth && previousAuth.encryptedWIFs) || [];
   const data = { encryptedWIFs: [...previousWIF, encryptedWIF] };
   await setStorage(ID, data);
   return data;
