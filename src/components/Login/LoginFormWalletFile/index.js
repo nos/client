@@ -9,7 +9,6 @@ export default compose(
   withAlert(),
   withState('wif', 'setWIF'),
   withState('accounts', 'setAccounts'),
-  withState('passphrase', 'setPassphrase'),
 
   // redirect on login
   withRouter,
