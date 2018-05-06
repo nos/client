@@ -21,7 +21,7 @@ const mapPreviousAuthActionsToProps = (actions) => ({
 });
 
 const mapPreviousAuthDataToProps = (data) => ({
-  encryptedWIF: data && data.encryptedWIF
+  encryptedWIFs: data && data.encryptedWIFs
 });
 
 export default compose(
