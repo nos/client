@@ -12,7 +12,7 @@
 
   .amount {
     width: 22vh;
-    border-radius: 4px 0 0 4px !important;
+    border-radius: 4px 0 0 4px;
   }
 
   .asset {
@@ -20,7 +20,7 @@
     align-self: flex-end;
     height: 36.5px;
     border: 2px solid #dde2ec;
-    border-radius: 0 4px 4px 0 !important;
+    border-radius: 0 4px 4px 0;
 
     &::placeholder {
       color: #999;
