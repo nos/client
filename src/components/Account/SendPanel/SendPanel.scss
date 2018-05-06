@@ -3,26 +3,24 @@
     padding: 0 24px 32px;
   }
 
-  .inputWrapper {
+  .inputs {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
   }
 
-  .smallInputChild{
+  .amount {
     width: 22vh;
-
     border-radius: 4px 0 0 4px !important;
     //border-right: 10px !important;
   }
 
-  .selectChild {
+  .asset {
     margin-right: 10px;
     align-self: flex-end;
     height: 36.5px;
     border: 2px solid #dde2ec;
-
     border-radius: 0 4px 4px 0 !important;
     //border-left: 10px !important;
 
@@ -37,26 +35,23 @@
     }
   }
 
-  .inputChild {
+  .recipient {
     flex-grow: 2;
   }
 
-  .buttonWrapper {
+  .actions {
     display: flex;
     justify-content: flex-end;
+    margin-top: 8px;
 
+    .icon {
+      margin-right: 6px;
+    }
   }
 
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-
-  .Icons {
-    margin-right: 7px;
-  }
-  .Buttons {
-    margin-top: 7px;
   }
 }

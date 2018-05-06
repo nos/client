@@ -1,16 +1,18 @@
 import { compose, withProps, withState } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
 
-import AccountTxPanel from './AccountTxPanel';
+import SendPanel from './SendPanel';
 import authActions from '../../../actions/authActions';
-import withNetworkData from '../../../hocs/withNetworkData';
 import sendActions from '../../../actions/sendActions';
-import { NEO } from '../../../values/assets';
-import pureStrategy from '../../../hocs/strategies/pureStrategy';
+import withNetworkData from '../../../hocs/withNetworkData';
 import withConfirm from '../../../hocs/withConfirm';
 import withAlert from '../../../hocs/withAlert';
+import withLoadingProp from '../../../hocs/withLoadingProp';
+import withProgressChange from '../../../hocs/withProgressChange';
+import pureStrategy from '../../../hocs/strategies/pureStrategy';
+import { NEO } from '../../../values/assets';
 
-const { LOADING } = progressValues;
+const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapSendActionsToProps = (actions) => ({
   doTransfer: ({ net, asset, amount, receiver, address, wif }) => {
@@ -21,8 +23,7 @@ const mapSendActionsToProps = (actions) => ({
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
 export default compose(
-
-  withState('amount', 'setAmount', '0'),
+  withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
   withState('asset', 'setAsset', NEO),
   withState('step', 'setStep', '1'),
@@ -31,10 +32,19 @@ export default compose(
   withNetworkData(),
   withActions(sendActions, mapSendActionsToProps),
 
-  withProgress(sendActions, { strategy: pureStrategy }),
+  withProgress(sendActions),
   withProps((props) => ({ loading: props.progress === LOADING })),
 
   withConfirm(),
-  withAlert()
+  withAlert(),
 
-)(AccountTxPanel);
+  withLoadingProp(sendActions, { strategy: pureStrategy }),
+  withProgressChange(sendActions, LOADED, (state, props) => {
+    props.alert('Transaction complete');
+    props.setAmount('0');
+    props.setReceiver('');
+  }),
+  withProgressChange(sendActions, FAILED, (state, props) => {
+    props.alert(`Error: ${state.error}`);
+  })
+)(SendPanel);
