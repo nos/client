@@ -67,7 +67,6 @@ export default class SaveAccount extends React.Component {
 
   handleAddToWallet = async () => {
     const { account, label } = this.props;
-    console.log('handleAddToWallet',account);
 
     const filenames = remote.dialog.showOpenDialog({
       title: 'Add account to a NEP6 Wallet',
@@ -86,14 +85,12 @@ export default class SaveAccount extends React.Component {
     }
 
     const newAccount = new wallet.Account({ ...account, key: account.encryptedKey, label });
-    console.log('handleAddToWallet',newAccount);
     walletLoaded.addAccount(newAccount);
     await this.save(filenames[0], walletLoaded);
   }
 
   handleSaveNewWallet = async () => {
     const { label, account } = this.props;
-    console.log('handleSaveNewWallet',account);
 
     const filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
       title: 'Save as new NEP6 Wallet',
