@@ -1,8 +1,14 @@
 .settings {
   h1 {
-    margin-top: 0;
+    margin-top: 0pt;
   }
-
+  .divider {
+    margin-top: 10pt;
+  }
+  .networkDetails {
+    margin-top: 10pt;
+    margin-bottom: 10pt;
+  }
   select {
     width: 200px;
     margin: 5px 5px 5px 0;
