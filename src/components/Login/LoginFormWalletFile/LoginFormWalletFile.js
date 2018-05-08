@@ -14,6 +14,8 @@ export default class LoginFormWalletFile extends React.Component {
     disabled: bool,
     wif: string,
     setWIF: func,
+    passphrase: string,
+    setPassphrase: func,
     accounts: arrayOf(object),
     setAccounts: func,
     onLogin: func,
@@ -24,6 +26,8 @@ export default class LoginFormWalletFile extends React.Component {
     disabled: false,
     wif: '',
     setWIF: noop,
+    passphrase: '',
+    setPassphrase: noop,
     accounts: [],
     setAccounts: noop,
     onLogin: noop,
@@ -61,6 +65,14 @@ export default class LoginFormWalletFile extends React.Component {
             <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
           ))}
         </Select>
+        <Input
+          id="passphrase"
+          type="password"
+          label="Passphrase"
+          placeholder="Enter passphrase"
+          value={passphrase}
+          onChange={this.handleChangePassphrase}
+        />
       </div>
     );
   }
@@ -86,6 +98,10 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSelect = (event) => {
     this.props.setWIF(event.target.value);
+  }
+
+  handleChangePassphrase = (event) => {
+    this.props.setPassphrase(event.target.value);
   }
 
   isValid = () => {
