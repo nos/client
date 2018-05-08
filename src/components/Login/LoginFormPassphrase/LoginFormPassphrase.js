@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { bool, string, func, arrayOf, object } from 'prop-types';
-import { noop, map } from 'lodash';
+import { bool, string, func } from 'prop-types';
+import { noop } from 'lodash';
 
 import Input from '../../Forms/Input';
 import Button from '../../Forms/Button';
-import Select from '../../Forms/Select';
 import styles from './LoginFormPassphrase.scss';
 
 export default class LoginFormWIF extends React.Component {
@@ -13,7 +12,6 @@ export default class LoginFormWIF extends React.Component {
     disabled: bool,
     passphrase: string,
     encryptedWIF: string,
-    encryptedWIFs: arrayOf(string),
     setPassphrase: func,
     setEncryptedWIF: func,
     onLogin: func
@@ -23,24 +21,16 @@ export default class LoginFormWIF extends React.Component {
     disabled: false,
     passphrase: '',
     encryptedWIF: '',
-    encryptedWIFs: [],
     setPassphrase: noop,
     setEncryptedWIF: noop,
     onLogin: noop
   };
 
   render() {
-    const { passphrase, encryptedWIF, encryptedWIFs, disabled } = this.props;
-    console.log(encryptedWIFs);
+    const { passphrase, encryptedWIF, disabled } = this.props;
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <Select className={styles.accounts} value={'wif'} onChange={this.handleSelect}>
-          <option value="">Select an account</option>
-          {map(encryptedWIFs, (account, index) => (
-            <option value={account} key={`account${index}`}>{account}</option>
-          ))}
-        </Select>
         <Input
           id="encryptedWIF"
           type="password"

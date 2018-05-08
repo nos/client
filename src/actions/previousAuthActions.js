@@ -9,9 +9,7 @@ export const writePreviousAuthActions = createActions(ID, ({ encryptedWIF }) => 
     throw new Error('Invalid encrypted WIF');
   }
 
-  const previousAuth = await getStorage(ID) || {};
-  const previousWIF = previousAuth && previousAuth.encryptedWIFs || [];
-  const data = { encryptedWIFs: [...previousWIF, encryptedWIF] };
+  const data = { encryptedWIF };
   await setStorage(ID, data);
   return data;
 });
