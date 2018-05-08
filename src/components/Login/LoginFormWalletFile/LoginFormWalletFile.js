@@ -115,7 +115,7 @@ export default class LoginFormWalletFile extends React.Component {
     }
   }
 
-  handleSubmit = (event: Object) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { encryptedWIF, passphrase = '', onLogin } = this.props;
     const loginCredentials = wallet.isPrivateKey(encryptedWIF) ? {

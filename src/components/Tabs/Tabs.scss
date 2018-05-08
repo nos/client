@@ -35,10 +35,6 @@
           transition: all 0.2s ease;
         }
 
-        &:focus {
-          outline: 0;
-        }
-
         &.selected {
           color: #495057;
 

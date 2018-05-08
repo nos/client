@@ -21,7 +21,6 @@
       &:focus,
       &:hover {
         color: lighten($primary-text-color, 20%);
-        outline: none;
       }
 
       &:active {

@@ -13,7 +13,6 @@
   font-size: 0.9rem;
   font-weight: 400;
   white-space: nowrap;
-  outline: none;
   user-select: none;
   transition: color 0.15s ease-in-out,
               background-color 0.15s ease-in-out,
@@ -21,7 +20,8 @@
               box-shadow 0.15s ease-in-out;
 
   &:focus {
-    box-shadow: 0 0 0 0.2rem rgba(#047bf8, 0.5)
+    box-shadow: 0 0 0 0.2rem rgba(#047bf8, 0.5);
+    outline-width: 0;
   }
 
   &:not([disabled]) {
