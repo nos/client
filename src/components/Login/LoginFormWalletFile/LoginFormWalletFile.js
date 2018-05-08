@@ -12,8 +12,8 @@ import Input from '../../Forms/Input';
 export default class LoginFormWalletFile extends React.Component {
   static propTypes = {
     disabled: bool,
-    wif: string,
-    setWIF: func,
+    encryptedWIF: string,
+    setEncryptedWIF: func,
     passphrase: string,
     setPassphrase: func,
     accounts: arrayOf(object),
@@ -24,8 +24,8 @@ export default class LoginFormWalletFile extends React.Component {
 
   static defaultProps = {
     disabled: false,
-    wif: '',
-    setWIF: noop,
+    encryptedWIF: '',
+    setEncryptedWIF: noop,
     passphrase: '',
     setPassphrase: noop,
     accounts: [],
@@ -51,7 +51,7 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   renderAccounts = () => {
-    const { accounts, wif, passphrase } = this.props;
+    const { accounts, encryptedWIF, passphrase } = this.props;
 
     if (accounts.length === 0) {
       return null;
@@ -59,7 +59,7 @@ export default class LoginFormWalletFile extends React.Component {
 
     return (
       <div>
-        <Select className={styles.accounts} value={wif} onChange={this.handleSelect}>
+        <Select className={styles.accounts} value={encryptedWIF} onChange={this.handleSelect}>
           <option value="">Select an account</option>
           {map(this.props.accounts, (account, index) => (
             <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
@@ -91,13 +91,13 @@ export default class LoginFormWalletFile extends React.Component {
   handleSubmit = (event: Object) => {
     event.preventDefault();
     this.props.onLogin({
-      wif: this.props.wif,
+      encryptedWIF: this.props.encryptedWIF,
       passphrase: this.props.passphrase
     });
   }
 
   handleSelect = (event) => {
-    this.props.setWIF(event.target.value);
+    this.props.setEncryptedWIF(event.target.value);
   }
 
   handleChangePassphrase = (event) => {
@@ -105,11 +105,11 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   isValid = () => {
-    return this.props.wif !== '';
+    return this.props.encryptedWIF !== '';
   }
 
   load = (filename) => {
-    const { setAccounts, setWIF, alert } = this.props;
+    const { setAccounts, setEncryptedWIF, alert } = this.props;
 
     try {
       const walletFile = wallet.Wallet.readFile(filename);
@@ -119,7 +119,7 @@ export default class LoginFormWalletFile extends React.Component {
       }
 
       setAccounts(walletFile.accounts);
-      setWIF('');
+      setEncryptedWIF('');
     } catch (err) {
       alert(`Error loading wallet file: ${err.message}`);
     }
