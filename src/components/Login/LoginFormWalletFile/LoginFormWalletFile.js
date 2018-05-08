@@ -51,11 +51,28 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   renderAccounts = () => {
-    const { accounts, encryptedWIF, passphrase } = this.props;
+    const { accounts, encryptedWIF } = this.props;
 
     if (accounts.length === 0) {
       return null;
     }
+
+    return (
+      <div>
+        <Select className={styles.accounts} value={encryptedWIF} onChange={this.handleSelect}>
+          <option value="">Select an account</option>
+          {map(this.props.accounts, (account, index) => (
+            <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
+          ))}
+        </Select>
+        {this.renderPassphraseInput()}
+        {this.renderDescription()}
+      </div>
+    );
+  }
+
+  renderPassphraseInput = () => {
+    const { encryptedWIF, passphrase } = this.props;
 
     let input;
     if (encryptedWIF != '' && !wallet.isPrivateKey(encryptedWIF)) {
@@ -70,18 +87,21 @@ export default class LoginFormWalletFile extends React.Component {
         />
       );
     }
+    return input;
+  }
 
-    return (
-      <div>
-        <Select className={styles.accounts} value={encryptedWIF} onChange={this.handleSelect}>
-          <option value="">Select an account</option>
-          {map(this.props.accounts, (account, index) => (
-            <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
-          ))}
-        </Select>
-        {input}
-      </div>
-    );
+  renderDescription = () => {
+    const { encryptedWIF } = this.props;
+
+    if (encryptedWIF == '') {
+      return '';
+    }
+
+    if (wallet.isPrivateKey(encryptedWIF)) {
+      return 'Private key detected';
+    } else {
+      return 'Encrypted key detected, please type passphrase';
+    }
   }
 
   handleLoadWallet = () => {
