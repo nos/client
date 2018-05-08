@@ -1,5 +1,6 @@
-import React from 'react';
 import path from 'path';
+import React from 'react';
+import classNames from 'classnames';
 import { shell } from 'electron';
 import { string, func } from 'prop-types';
 
@@ -8,11 +9,16 @@ import styles from './DAppContainer.scss';
 
 export default class DAppContainer extends React.Component {
   static propTypes = {
+    className: string,
     sessionId: string.isRequired,
     query: string.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired
+  };
+
+  static defaultProps = {
+    className: null
   };
 
   componentDidMount() {
@@ -32,7 +38,7 @@ export default class DAppContainer extends React.Component {
 
   render() {
     return (
-      <div className={styles.dAppContainer}>
+      <div className={classNames(styles.dAppContainer, this.props.className)}>
         <webview
           ref={this.registerRef}
           src={this.props.query}
