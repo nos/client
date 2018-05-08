@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 
-import AuthenticatedLayout from '../../../../src/components/AuthenticatedLayout';
-import { provideState } from '../../../testHelpers';
+import AuthenticatedLayout from 'root/components/AuthenticatedLayout';
+import { provideState } from 'testHelpers';
 
 describe('<AuthenticatedLayout />', () => {
   it('renders without crashing', () => {

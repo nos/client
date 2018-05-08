@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "testHelpers": "./__tests__/testHelpers"
+      }
+    }]
+  ]
+}
