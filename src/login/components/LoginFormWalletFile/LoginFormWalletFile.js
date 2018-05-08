@@ -6,9 +6,9 @@ import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
+import Input from 'shared/components/Forms/Input/Input';
 
 import styles from './LoginFormWalletFile.scss';
-import Input from '../../Forms/Input';
 
 export default class LoginFormWalletFile extends React.Component {
   static propTypes = {
