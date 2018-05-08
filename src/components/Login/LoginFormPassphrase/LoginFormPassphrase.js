@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { bool, string, func, arrayOf } from 'prop-types';
+import { bool, string, func, arrayOf, object } from 'prop-types';
 import { noop, map } from 'lodash';
 
 import Input from '../../Forms/Input';
@@ -35,7 +35,7 @@ export default class LoginFormWIF extends React.Component {
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <Select className={styles.accounts} value={encryptedWIF} onChange={this.handleSelect}>
+        <Select className={styles.accounts} value={'wif'} onChange={this.handleSelect}>
           <option value="">Select an account</option>
           {map(encryptedWIFs, (account, index) => (
             <option value={account} key={`account${index}`}>{account}</option>
@@ -69,10 +69,6 @@ export default class LoginFormWIF extends React.Component {
         </div>
       </form>
     );
-  }
-
-  handleSelect = (event) => {
-    this.props.setEncryptedWIF(event.target.value);
   }
 
   handleChangeEncryptedWIF = (event) => {
