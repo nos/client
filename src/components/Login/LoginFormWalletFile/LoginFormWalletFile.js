@@ -75,7 +75,7 @@ export default class LoginFormWalletFile extends React.Component {
     const { encryptedWIF, passphrase } = this.props;
 
     let input;
-    if (encryptedWIF != '' && !wallet.isPrivateKey(encryptedWIF)) {
+    if (encryptedWIF !== '' && !wallet.isPrivateKey(encryptedWIF)) {
       input = (
         <Input
           id="passphrase"
@@ -93,7 +93,7 @@ export default class LoginFormWalletFile extends React.Component {
   renderDescription = () => {
     const { encryptedWIF } = this.props;
 
-    if (encryptedWIF == '') {
+    if (encryptedWIF === '') {
       return '';
     }
 
@@ -117,8 +117,13 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSubmit = (event: Object) => {
     event.preventDefault();
-    const { encryptedWIF, passphrase = '', onLogin} = this.props;
-    let loginCredentials = wallet.isPrivateKey(encryptedWIF) ? { wif: encryptedWIF } : { encryptedWIF: encryptedWIF, passphrase }
+    const { encryptedWIF, passphrase = '', onLogin } = this.props;
+    const loginCredentials = wallet.isPrivateKey(encryptedWIF) ? {
+      wif: encryptedWIF
+    } : {
+      encryptedWIF,
+      passphrase
+    };
 
     onLogin(loginCredentials);
   }
