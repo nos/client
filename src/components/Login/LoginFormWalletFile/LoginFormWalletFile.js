@@ -7,6 +7,7 @@ import { wallet } from '@cityofzion/neon-js';
 import Button from '../../Forms/Button';
 import Select from '../../Forms/Select';
 import styles from './LoginFormWalletFile.scss';
+import Input from '../../Forms/Input';
 
 export default class LoginFormWalletFile extends React.Component {
   static propTypes = {
@@ -46,19 +47,21 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   renderAccounts = () => {
-    const { accounts, wif } = this.props;
+    const { accounts, wif, passphrase } = this.props;
 
     if (accounts.length === 0) {
       return null;
     }
 
     return (
-      <Select className={styles.accounts} value={wif} onChange={this.handleSelect}>
-        <option value="">Select an account</option>
-        {map(this.props.accounts, (account, index) => (
-          <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
-        ))}
-      </Select>
+      <div>
+        <Select className={styles.accounts} value={wif} onChange={this.handleSelect}>
+          <option value="">Select an account</option>
+          {map(this.props.accounts, (account, index) => (
+            <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
+          ))}
+        </Select>
+      </div>
     );
   }
 
@@ -75,7 +78,10 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSubmit = (event: Object) => {
     event.preventDefault();
-    this.props.onLogin({ wif: this.props.wif });
+    this.props.onLogin({
+      wif: this.props.wif,
+      passphrase: this.props.passphrase
+    });
   }
 
   handleSelect = (event) => {
