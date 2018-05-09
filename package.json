@@ -4,7 +4,7 @@
   "author": "nOS",
   "version": "0.2.1",
   "private": true,
-  "main": "public/electron.js",
+  "main": "dist/main/main.js",
   "license": "MIT",
   "dependencies": {
     "@cityofzion/neon-js": "3.9.0",
@@ -20,8 +20,8 @@
     "es6-promisify": "6.0.0",
     "history": "4.7.2",
     "lodash": "4.17.5",
-    "mime-types": "^2.1.18",
-    "node-fetch": "^2.1.2",
+    "mime-types": "2.1.18",
+    "node-fetch": "2.1.2",
     "prop-types": "15.6.0",
     "rc-tooltip": "3.7.2",
     "react": "16.4.1",
@@ -34,73 +34,105 @@
     "redux": "3.7.2",
     "redux-saga": "0.16.0",
     "redux-thunk": "2.3.0",
+    "source-map-support": "0.5.6",
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
     "uuid": "3.2.1",
     "what-input": "5.0.5"
   },
   "scripts": {
-    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:5000/ && yarn run start-electron\" --kill-others --success first",
-    "build": "react-app-rewired build",
+    "start": "yarn build:main && concurrently -r \"yarn start:renderer\" \"wait-on http://localhost:9080/ && yarn start:electron\" --kill-others --success first",
+    "start:renderer": "webpack-dev-server --config config/webpack.renderer.js",
+    "start:electron": "electron .",
+    "build": "yarn build:main && yarn build:renderer",
+    "build:main": "electron-webpack main",
+    "build:renderer": "cross-env NODE_ENV=production webpack --config config/webpack.renderer.js",
+    "dist": "yarn run clean && yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
+    "pack": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "pretest": "yarn run lint",
-    "test": "react-app-rewired test --env=jsdom --testMatch \"**/__tests__/**/*.test.{js,jsx,mjs}\" --setupTestFrameworkScriptFile \"./__tests__/setupTests.js\"",
-    "start-react": "cross-env PORT=5000 BROWSER=none react-app-rewired start",
-    "start-electron": "cross-env ELECTRON_START_URL=http://localhost:5000/ electron .",
-    "pack": "yarn run build && electron-builder --dir",
-    "dist": "yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
+    "test": "jest",
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist",
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "autoprefixer": "8.6.1",
     "babel-eslint": "8.2.2",
+    "babel-jest": "23.0.1",
     "babel-plugin-module-resolver": "3.1.1",
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-es2015-classes": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-react": "6.24.1",
     "concurrently": "3.5.1",
     "cross-env": "5.2.0",
+    "css-loader": "0.28.11",
     "electron": "2.0.0",
     "electron-builder": "20.11.1",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.7.3",
+    "electron-webpack": "1.13.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.17.0",
     "eslint-config-airbnb": "16.1.0",
     "eslint-import-resolver-babel-module": "4.0.0",
     "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-jest": "21.17.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.9.0",
-    "extract-text-webpack-plugin": "3.0.2",
+    "jest": "23.1.0",
+    "jest-css-modules": "^1.1.0",
     "node-loader": "0.6.0",
-    "node-sass": "4.7.2",
-    "postcss-flexbugs-fixes": "3.3.0",
-    "react-app-rewired": "1.4.1",
+    "node-sass": "4.9.0",
+    "react-hot-loader": "4.2.0",
     "react-router-test-context": "0.1.0",
-    "react-scripts": "1.1.1",
     "redux-devtools-extension": "2.13.2",
     "redux-mock-store": "1.5.3",
     "rimraf": "2.6.2",
     "sass-loader": "7.0.3",
+    "style-loader": "0.21.0",
+    "svg-react": "1.0.9",
     "wait-on": "2.1.0",
     "webpack": "3.11.0",
-    "webpack-merge": "4.1.2"
+    "webpack-cli": "3.0.6",
+    "webpack-dev-server": "2.11.1"
   },
   "build": {
     "appId": "io.nos.desktop",
     "win": {
-      "icon": "./public/icons/icon1024x1024.ico"
+      "icon": "./static/icons/icon1024x1024.ico"
     },
     "directories": {
-      "buildResources": "public"
-    }
+      "buildResources": "static"
+    },
+    "files": [
+      "static/**/*"
+    ]
   },
-  "homepage": "./",
   "greenkeeper": {
     "ignore": [
       "webpack",
       "redux"
+    ]
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "setupFiles": [
+      "./__tests__/setupTests.js"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.(css|scss|less)$": "jest-css-modules"
+    },
+    "moduleNameMapper": {
+      "^[./a-zA-Z0-9$_-]+\\.(css|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "moduleDirectories": [
+      "node_modules"
     ]
   }
 }

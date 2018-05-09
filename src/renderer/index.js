@@ -8,7 +8,7 @@ import { Root } from './root';
 // import registerServiceWorker from './registerServiceWorker';
 
 function render(Component) {
-  ReactDOM.render(<Component />, document.getElementById('root'));
+  ReactDOM.render(<Component />, document.getElementById('app'));
 }
 
 render(Root);

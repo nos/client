@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { shell } from 'electron';
 import { string, bool, number, func } from 'prop-types';
 
+import getStaticPath from 'getStaticPath';
+
 import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
@@ -173,7 +175,6 @@ export default class DAppContainer extends React.Component {
   }
 
   getPreloadPath = () => {
-    const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
-    return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
+    return `file:${path.join(getStaticPath(), 'preloadRenderer.js')}`;
   }
 }

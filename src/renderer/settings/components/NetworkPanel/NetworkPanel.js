@@ -8,7 +8,7 @@ import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
 import Panel from 'shared/components/Panel';
 
-import Saved from './Saved';
+import Saved from '../Saved';
 import { PREDEFINED_NETWORKS } from '../../values/networks';
 import styles from './NetworkPanel.scss';
 
@@ -60,7 +60,7 @@ export default class NetworkPanel extends React.Component {
               >
                 {map(settings.networks, this.renderNetworkOption)}
               </Select>
-              { this.state.saved && <Saved className={styles.savedProp} /> }
+              {this.state.saved && <Saved className={styles.savedProp} />}
             </div>
           </div>
 

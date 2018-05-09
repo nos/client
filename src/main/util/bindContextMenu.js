@@ -1,7 +1,5 @@
-const electron = require('electron');
-const { find } = require('lodash');
-
-const { app, shell, Menu } = electron;
+import { app, shell, Menu } from 'electron';
+import { find } from 'lodash';
 
 function bindAppMenu() {
   const template = [
@@ -145,7 +143,7 @@ function bindContextMenu(browserWindow) {
   });
 }
 
-module.exports = function bindMenus(browserWindow) {
+export default function bindMenus(browserWindow) {
   bindAppMenu();
   bindContextMenu(browserWindow);
-};
+}
