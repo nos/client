@@ -85,9 +85,9 @@
     "webpack-merge": "^4.1.2"
   },
   "build": {
-    "appId": "com.nos.electron",
+    "appId": "io.nos",
     "win": {
-      "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+      "icon": "./public/icons/icon.ico"
     },
     "directories": {
       "buildResources": "public"

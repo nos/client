@@ -41,9 +41,13 @@ const isMac = process.platform === 'darwin';
 
 function createWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
+  const iconPath = path.join(
+    process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : __dirname,
+    'icons/icon.png'
+  );
 
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700, show: false }, framelessConfig)
+    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
 
   if (isDev) {
@@ -52,7 +56,7 @@ function createWindow() {
 
   // splashWindow is shown while mainWindow is loading hidden
   // As it is light weight it will load almost instantly and before mainWindow
-  splashWindow = new BrowserWindow({ width: 1250, height: 700, show: true });
+  splashWindow = new BrowserWindow({ width: 1250, height: 700, show: true, icon: iconPath });
 
   splashWindow.loadURL(
     url.format({
