@@ -24,7 +24,7 @@ const testInvoke = async ({ net, scriptHash, operation, args }) => {
   const script = createScript(scriptHash, operation, args);
   const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 
-  return result.script;
+  return result;
 };
 
 export default function makeTestInvokeActions(sessionId, requestId) {

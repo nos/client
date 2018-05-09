@@ -1,14 +1,14 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { any, objectOf, func } from 'prop-types';
 
 export default class TestInvoke extends React.Component {
   static propTypes = {
-    script: string.isRequired,
+    result: objectOf(any).isRequired,
     onResolve: func.isRequired
   };
 
   componentDidMount() {
-    this.props.onResolve(this.props.script);
+    this.props.onResolve(this.props.result);
   }
 
   render() {
