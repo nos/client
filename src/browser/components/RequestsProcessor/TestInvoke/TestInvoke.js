@@ -1,14 +1,16 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { func } from 'prop-types';
+
+import testInvokeShape from '../../../shapes/testInvokeShape';
 
 export default class TestInvoke extends React.Component {
   static propTypes = {
-    script: string.isRequired,
+    result: testInvokeShape.isRequired,
     onResolve: func.isRequired
   };
 
   componentDidMount() {
-    this.props.onResolve(this.props.script);
+    this.props.onResolve(this.props.result);
   }
 
   render() {
