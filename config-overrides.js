@@ -92,12 +92,11 @@ function rewireBabel(config, _env) {
   const loader = getBabelLoader(config.module.rules);
 
   if (!loader) {
-    console.warn('babel-loader not found'); // eslint-disable-line no-console
     return config;
   }
 
   loader.options = merge(loader.options, {
-    babelrc: fs.existsSync(path)
+    babelrc: fs.existsSync(path.resolve(__dirname, './.babelrc'))
   });
 
   return config;
