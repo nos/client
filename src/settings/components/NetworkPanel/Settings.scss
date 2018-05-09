@@ -1,0 +1,48 @@
+.settingsPanel {
+  .formatUrl {
+    margin-top: -15px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .content {
+    padding: 32px 24px;
+  }
+
+  .selectNetworkWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  .selectNetwork {
+    width: 100%;
+    flex-grow: 0;
+  }
+
+  .savedProp {
+    width: 5%;
+    margin-left: 10px;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  .addButton {
+    margin-right: 2px;
+    flex-grow: 1;
+  }
+
+  .clearButton {
+    margin-left: 2px;
+    flex-grow: 1;
+    &:hover {
+      background-color: #e65252;
+      border-color: #e65252;
+    }
+  }
+}
