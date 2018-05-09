@@ -5,10 +5,10 @@ import { BigNumber } from 'bignumber.js';
 import { map, noop } from 'lodash';
 
 import Panel from 'shared/components/Panel';
-import Button from 'shared/components/Forms/Button/Button';
-import Input from 'shared/components/Forms/Input/Input';
+import Button from 'shared/components/Forms/Button';
+import Input from 'shared/components/Forms/Input';
 import Icon from 'shared/components/Icon/Icon';
-import Select from 'shared/components/Forms/Select/Select';
+import Select from 'shared/components/Forms/Select';
 import { ASSETS, NEO } from 'shared/values/assets';
 
 import styles from './SendPanel.scss';
@@ -50,7 +50,7 @@ export default class AccountTxPanel extends React.Component {
     const symbol = ASSETS[asset];
 
     return (
-      <Panel className={styles.accountPanel} renderHeader={null}>
+      <Panel className={styles.sendPanel} renderHeader={null}>
         <form className={styles.content}>
           <h2>Transfer Funds</h2>
           <div className={styles.inputs}>
