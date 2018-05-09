@@ -8,7 +8,7 @@ import withProgressChange from 'shared/hocs/withProgressChange';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
 
-import Settings from './Settings';
+import NetworkPanel from './NetworkPanel';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/currentNetworkActions';
 import { setNetworks, addNetwork, clearNetworks } from '../../actions/networksActions';
 
@@ -59,4 +59,4 @@ compose(
   // State for modal
   withState('networkName', 'setNetworkName', ''),
   withState('networkUrl', 'setNetworkUrl', ''),
-)(Settings);
+)(NetworkPanel);

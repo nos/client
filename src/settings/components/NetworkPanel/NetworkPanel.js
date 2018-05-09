@@ -10,9 +10,9 @@ import Panel from 'shared/components/Panel';
 
 import Saved from './Saved';
 import { PREDEFINED_NETWORKS } from '../../values/networks';
-import styles from './Settings.scss';
+import styles from './NetworkPanel.scss';
 
-export default class Settings extends React.Component {
+export default class NetworkPanel extends React.Component {
   static propTypes = {
     currentNetwork: string.isRequired,
     setCurrentNetwork: func.isRequired,
