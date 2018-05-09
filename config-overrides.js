@@ -92,6 +92,7 @@ function rewireBabel(config, _env) {
   const loader = getBabelLoader(config.module.rules);
 
   if (!loader) {
+    console.warn('babel-loader not found'); // eslint-disable-line no-console
     return config;
   }
 
