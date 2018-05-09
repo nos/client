@@ -8,7 +8,7 @@ import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
-const mapInvokeDataToProps = (script) => ({ script });
+const mapInvokeDataToProps = (result) => ({ result });
 
 export default function makeStorageComponent(testInvokeActions) {
   return compose(
