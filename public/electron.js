@@ -52,7 +52,7 @@ function createWindow() {
 
   // splashWindow is shown while mainWindow is loading hidden
   // As it is light weight it will load almost instantly and before mainWindow
-  splashWindow = new BrowserWindow({ width: 1250, height: 700, show: true });
+  splashWindow = new BrowserWindow({ width: 275, height: 330, show: true, titleBarStyle: 'customButtonsOnHover', frame: false });
 
   splashWindow.loadURL(
     url.format({
@@ -75,7 +75,7 @@ function createWindow() {
   );
 
   // When mainWindow finishes loading, then show
-  // the mainWindow and desotry the splashWindow.
+  // the mainWindow and destroy the splashWindow.
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     splashWindow.destroy();
