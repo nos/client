@@ -103,12 +103,21 @@ function rewireBabel(config, _env) {
   return config;
 }
 
-function injectHID(config, _env) {
-  return merge(config, {
-    externals: {
-      'node-hid': 'commonjs node-hid'
-    }
-  });
+function injectExternal(external) {
+  return (config, _env) => {
+    return merge(config, {
+      externals: {
+        [external]: `commonjs ${external}`
+      }
+    });
+  };
 }
 
-module.exports = compose(injectTarget, injectSassLoader, injectPublicPath, rewireBabel, injectHID);
+module.exports = compose(
+  injectTarget,
+  injectSassLoader,
+  injectPublicPath,
+  rewireBabel,
+  injectExternal('@cityofzion/neon-js'),
+  injectExternal('node-hid')
+);
