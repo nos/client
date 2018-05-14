@@ -78,7 +78,7 @@ export default class LoginFormWalletFile extends React.Component {
   renderPassphraseInput = () => {
     const { encryptedWIF, passphrase, disabled } = this.props;
 
-    if(encryptedWIF === '' || wallet.isPrivateKey(encryptedWIF)) {
+    if (encryptedWIF === '' || wallet.isPrivateKey(encryptedWIF)) {
       return null;
     }
 
@@ -135,7 +135,7 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSelect = (event) => {
     this.props.setEncryptedWIF(event.target.value);
-    this.props.setPassphrase('')
+    this.props.setPassphrase('');
   }
 
   handleChangePassphrase = (event) => {
