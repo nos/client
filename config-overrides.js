@@ -5,7 +5,7 @@ const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const postCssFlexBugsFixes = require('postcss-flexbugs-fixes');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const { compose } = require('react-app-rewired');
+const { compose, getBabelLoader } = require('react-app-rewired');
 
 function injectSassLoader(config, env) {
   const isDev = env === 'development';
@@ -89,30 +89,35 @@ function injectPublicPath(config, env) {
 }
 
 function rewireBabel(config, _env) {
-  const newConfig = Object.assign({}, config);
-  const oneOfRules = newConfig.module.rules.find((rule) => rule.oneOf).oneOf;
+  const loader = getBabelLoader(config.module.rules);
 
-  const babelLoader = oneOfRules.find(
-    (rule) => typeof rule.loader === 'string' && rule.loader.match('/babel-loader/')
-  );
-
-  if (!babelLoader) {
-    return newConfig;
+  if (!loader) {
+    console.warn('babel-loader not found'); // eslint-disable-line no-console
+    return config;
   }
 
-  babelLoader.options = merge(babelLoader.options, {
+  loader.options = merge(loader.options, {
     babelrc: fs.existsSync(path.resolve(__dirname, './.babelrc'))
   });
 
-  return newConfig;
+  return config;
 }
 
-function injectHID(config, _env) {
-  return merge(config, {
-    externals: {
-      'node-hid': 'commonjs node-hid'
-    }
-  });
+function injectExternal(external) {
+  return (config, _env) => {
+    return merge(config, {
+      externals: {
+        [external]: `commonjs ${external}`
+      }
+    });
+  };
 }
 
-module.exports = compose(injectTarget, injectSassLoader, injectPublicPath, rewireBabel, injectHID);
+module.exports = compose(
+  injectTarget,
+  injectSassLoader,
+  injectPublicPath,
+  rewireBabel,
+  injectExternal('@cityofzion/neon-js'),
+  injectExternal('node-hid')
+);
