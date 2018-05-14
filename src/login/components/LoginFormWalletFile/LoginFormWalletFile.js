@@ -43,6 +43,8 @@ export default class LoginFormWalletFile extends React.Component {
         <Button onClick={this.handleLoadWallet} disabled={disabled}>Select Wallet File</Button>
 
         {this.renderAccounts()}
+        {this.renderPassphraseInput()}
+        {this.renderDescription()}
 
         <div className={styles.actions}>
           <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
@@ -52,56 +54,58 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   renderAccounts = () => {
-    const { accounts, encryptedWIF } = this.props;
+    const { accounts, encryptedWIF, disabled } = this.props;
 
     if (accounts.length === 0) {
       return null;
     }
 
     return (
-      <div>
-        <Select className={styles.accounts} value={encryptedWIF} onChange={this.handleSelect}>
-          <option value="">Select an account</option>
-          {map(this.props.accounts, (account, index) => (
-            <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
-          ))}
-        </Select>
-        {this.renderPassphraseInput()}
-        {this.renderDescription()}
-      </div>
+      <Select
+        className={styles.accounts}
+        value={encryptedWIF}
+        onChange={this.handleSelect}
+        disabled={disabled}
+      >
+        <option value="">Select an account</option>
+        {map(this.props.accounts, (account, index) => (
+          <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
+        ))}
+      </Select>
     );
   }
 
   renderPassphraseInput = () => {
-    const { encryptedWIF, passphrase } = this.props;
+    const { encryptedWIF, passphrase, disabled } = this.props;
 
-    let input;
-    if (encryptedWIF !== '' && !wallet.isPrivateKey(encryptedWIF)) {
-      input = (
-        <Input
-          id="passphrase"
-          type="password"
-          label="Passphrase"
-          placeholder="Enter passphrase"
-          value={passphrase}
-          onChange={this.handleChangePassphrase}
-        />
-      );
+    if(encryptedWIF === '' || wallet.isPrivateKey(encryptedWIF)) {
+      return null;
     }
-    return input;
+
+    return (
+      <Input
+        id="passphrase"
+        type="password"
+        label="Passphrase"
+        placeholder="Enter passphrase"
+        value={passphrase}
+        onChange={this.handleChangePassphrase}
+        disabled={disabled}
+      />
+    );
   }
 
   renderDescription = () => {
     const { encryptedWIF } = this.props;
 
     if (encryptedWIF === '') {
-      return '';
+      return null;
     }
 
     if (wallet.isPrivateKey(encryptedWIF)) {
-      return 'Private key detected';
+      return 'Private key detected.';
     } else {
-      return 'Encrypted key detected, please type passphrase';
+      return 'Encrypted key detected, please type passphrase.';
     }
   }
 
@@ -118,7 +122,7 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { encryptedWIF, passphrase = '', onLogin } = this.props;
+    const { encryptedWIF, passphrase, onLogin } = this.props;
     const loginCredentials = wallet.isPrivateKey(encryptedWIF) ? {
       wif: encryptedWIF
     } : {
@@ -131,6 +135,7 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSelect = (event) => {
     this.props.setEncryptedWIF(event.target.value);
+    this.props.setPassphrase('')
   }
 
   handleChangePassphrase = (event) => {
