@@ -40,9 +40,11 @@ let splashWindow;
 const isMac = process.platform === 'darwin';
 
 function createWindow() {
+  const basePath = isDev ? __dirname : process.env.PUBLIC_URL;
+
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
   const iconPath = path.join(
-    process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : __dirname,
+    basePath,
     'icons/icon.png'
   );
 
@@ -61,7 +63,7 @@ function createWindow() {
   splashWindow.loadURL(
     url.format({
       pathname: path.join(
-        process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : __dirname,
+        basePath,
         'splash.html'
       ),
       protocol: 'file:',
