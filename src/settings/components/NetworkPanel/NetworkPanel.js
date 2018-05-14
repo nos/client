@@ -158,7 +158,9 @@ export default class NetworkPanel extends React.Component {
     this.setState({ saved: true });
     this.props.setCurrentNetwork(network);
     setTimeout(() => {
-      this.setState({ saved: false });
+      if (this) {
+        this.setState({ saved: false });
+      }
     }, 1250);
   };
 }
