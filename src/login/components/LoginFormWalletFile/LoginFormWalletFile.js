@@ -134,8 +134,8 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   handleSelect = (event) => {
-    this.props.setEncryptedWIF(event.target.value);
     this.props.setPassphrase('');
+    this.props.setEncryptedWIF(event.target.value);
   }
 
   handleChangePassphrase = (event) => {
