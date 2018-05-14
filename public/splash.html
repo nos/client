@@ -12,7 +12,7 @@
       }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/4.13.0/bodymovin_light.min.js"></script>
+    <script src="animations/bodymovin_light_4_13.min.js"></script>
     
     <script>
       if (window.module) {
@@ -33,7 +33,7 @@
         font-family: 'Rubik', sans-serif;
       }
 
-      #bm {
+      #animation {
         width: 50%;
         height: 50%;
       }
@@ -49,16 +49,6 @@
         background-size: contain;
       }
 
-      .loader {
-        border: 18px solid rgb(118, 184, 86);
-        border-radius: 50%;
-        border-top: 18px solid rgb(185, 208, 83);
-        width: 90px;
-        height: 90px;
-        -webkit-animation: spin 1.2s linear infinite; /* Safari */
-        animation: spin 1.2s linear infinite;
-      }
-
       .cn {
         display: flex;
         justify-content: center;
@@ -72,7 +62,7 @@
   <body>
 
     <div class="bg cn">
-        <div id="bm"></div>
+        <div id="animation"></div>
         <div>Loading nOS...</div>
     </div>
 
