@@ -29,6 +29,12 @@ export default class NetworkPanel extends React.Component {
 
   state = { saved: false };
 
+  componentWillUnmount() {
+    if (this.saveTimeout) {
+      clearTimeout(this.saveTimeout);
+    }
+  }
+
   render() {
     const neoScanUrl = this.getCurrentNetworkUrl();
 
@@ -157,7 +163,7 @@ export default class NetworkPanel extends React.Component {
   saveNetwork = (network) => {
     this.setState({ saved: true });
     this.props.setCurrentNetwork(network);
-    setTimeout(() => {
+    this.saveTimeout = setTimeout(() => {
       this.setState({ saved: false });
     }, 1250);
   };
