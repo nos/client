@@ -85,7 +85,7 @@
     "webpack-merge": "^4.1.2"
   },
   "build": {
-    "appId": "io.nos",
+    "appId": "io.nos.desktop",
     "win": {
       "icon": "./public/icons/icon.ico"
     },
