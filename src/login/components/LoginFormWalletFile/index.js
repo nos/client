@@ -8,8 +8,9 @@ import withLogin from '../../hocs/withLogin';
 
 export default compose(
   withAlert(),
-  withState('wif', 'setWIF'),
+  withState('encryptedWIF', 'setEncryptedWIF'),
   withState('accounts', 'setAccounts'),
+  withState('passphrase', 'setPassphrase'),
 
   // redirect on login
   withRouter,

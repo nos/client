@@ -6,14 +6,17 @@ import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
+import Input from 'shared/components/Forms/Input/Input';
 
 import styles from './LoginFormWalletFile.scss';
 
 export default class LoginFormWalletFile extends React.Component {
   static propTypes = {
     disabled: bool,
-    wif: string,
-    setWIF: func,
+    encryptedWIF: string,
+    setEncryptedWIF: func,
+    passphrase: string,
+    setPassphrase: func,
     accounts: arrayOf(object),
     setAccounts: func,
     onLogin: func,
@@ -22,8 +25,10 @@ export default class LoginFormWalletFile extends React.Component {
 
   static defaultProps = {
     disabled: false,
-    wif: '',
-    setWIF: noop,
+    encryptedWIF: '',
+    setEncryptedWIF: noop,
+    passphrase: '',
+    setPassphrase: noop,
     accounts: [],
     setAccounts: noop,
     onLogin: noop,
@@ -38,6 +43,8 @@ export default class LoginFormWalletFile extends React.Component {
         <Button onClick={this.handleLoadWallet} disabled={disabled}>Select Wallet File</Button>
 
         {this.renderAccounts()}
+        {this.renderPassphraseInput()}
+        {this.renderDescription()}
 
         <div className={styles.actions}>
           <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
@@ -47,20 +54,59 @@ export default class LoginFormWalletFile extends React.Component {
   }
 
   renderAccounts = () => {
-    const { accounts, wif } = this.props;
+    const { accounts, encryptedWIF, disabled } = this.props;
 
     if (accounts.length === 0) {
       return null;
     }
 
     return (
-      <Select className={styles.accounts} value={wif} onChange={this.handleSelect}>
+      <Select
+        className={styles.accounts}
+        value={encryptedWIF}
+        onChange={this.handleSelect}
+        disabled={disabled}
+      >
         <option value="">Select an account</option>
         {map(this.props.accounts, (account, index) => (
           <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
         ))}
       </Select>
     );
+  }
+
+  renderPassphraseInput = () => {
+    const { encryptedWIF, passphrase, disabled } = this.props;
+
+    if (encryptedWIF === '' || wallet.isPrivateKey(encryptedWIF)) {
+      return null;
+    }
+
+    return (
+      <Input
+        id="passphrase"
+        type="password"
+        label="Passphrase"
+        placeholder="Enter passphrase"
+        value={passphrase}
+        onChange={this.handleChangePassphrase}
+        disabled={disabled}
+      />
+    );
+  }
+
+  renderDescription = () => {
+    const { encryptedWIF } = this.props;
+
+    if (encryptedWIF === '') {
+      return null;
+    }
+
+    if (wallet.isPrivateKey(encryptedWIF)) {
+      return 'Private key detected.';
+    } else {
+      return 'Encrypted key detected, please type passphrase.';
+    }
   }
 
   handleLoadWallet = () => {
@@ -76,19 +122,32 @@ export default class LoginFormWalletFile extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.onLogin({ wif: this.props.wif });
+    const { encryptedWIF, passphrase, onLogin } = this.props;
+    const loginCredentials = wallet.isPrivateKey(encryptedWIF) ? {
+      wif: encryptedWIF
+    } : {
+      encryptedWIF,
+      passphrase
+    };
+
+    onLogin(loginCredentials);
   }
 
   handleSelect = (event) => {
-    this.props.setWIF(event.target.value);
+    this.props.setPassphrase('');
+    this.props.setEncryptedWIF(event.target.value);
+  }
+
+  handleChangePassphrase = (event) => {
+    this.props.setPassphrase(event.target.value);
   }
 
   isValid = () => {
-    return this.props.wif !== '';
+    return this.props.encryptedWIF !== '';
   }
 
   load = (filename) => {
-    const { setAccounts, setWIF, alert } = this.props;
+    const { setAccounts, setEncryptedWIF, alert } = this.props;
 
     try {
       const walletFile = wallet.Wallet.readFile(filename);
@@ -98,7 +157,7 @@ export default class LoginFormWalletFile extends React.Component {
       }
 
       setAccounts(walletFile.accounts);
-      setWIF('');
+      setEncryptedWIF('');
     } catch (err) {
       alert(`Error loading wallet file: ${err.message}`);
     }
