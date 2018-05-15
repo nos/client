@@ -17,9 +17,7 @@ export default function makeStorageComponent(testInvokeActions) {
 
     // Rename arguments given by the user
     withProps(({ args }) => ({
-      scriptHash: args[0],
-      operation: args[1],
-      args: args.slice(2)
+      ...args[0]
     })),
 
     // Get the current network
