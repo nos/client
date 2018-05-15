@@ -1,5 +1,5 @@
 {
-  "name": "nos",
+  "name": "nOS",
   "description": "nOS: NEO Operating System",
   "author": "nOS",
   "version": "0.1.0",
@@ -85,9 +85,9 @@
     "webpack-merge": "^4.1.2"
   },
   "build": {
-    "appId": "com.nos.electron",
+    "appId": "io.nos.desktop",
     "win": {
-      "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+      "icon": "./public/icons/icon.ico"
     },
     "directories": {
       "buildResources": "public"
