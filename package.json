@@ -87,7 +87,7 @@
   "build": {
     "appId": "io.nos.desktop",
     "win": {
-      "icon": "./public/icons/icon.ico"
+      "icon": "./public/icons/icon1024x1024.ico"
     },
     "directories": {
       "buildResources": "public"
