@@ -44,7 +44,7 @@ function createWindow() {
 
   const iconPath = path.join(
     app.getAppPath(),
-    '/public/icons/icon.png'
+    '/public/icons/icon1024x1024.png'
   );
 
   mainWindow = new BrowserWindow(
