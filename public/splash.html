@@ -4,51 +4,70 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script>
+      if (typeof module === 'object') {
+        // unset module
+        window.module = module;
+        module = undefined;
+      }
+    </script>
+
+    <script src="animations/bodymovin_light_4_13.min.js"></script>
+    
+    <script>
+      if (window.module) {
+        // set module - allow script imports in electron
+        module = window.module;
+      }
+    </script>
+    
     <style>
-        .bg {
-          -webkit-app-region: drag;
-          position: absolute;
-          background: radial-gradient(#fff, #c1c1c1);
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background-size: contain;
-        }
 
-        .loader {
-          border: 18px solid rgb(118, 184, 86);
-          border-radius: 50%;
-          border-top: 18px solid rgb(185, 208, 83);
-          width: 90px;
-          height: 90px;
-          -webkit-animation: spin 1.2s linear infinite; /* Safari */
-          animation: spin 1.2s linear infinite;
-        }
+      html,
+      body {
+        background-color: #000;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        font-family: 'Rubik', sans-serif;
+      }
 
-        /* Safari */
-        @-webkit-keyframes spin {
-          0% { -webkit-transform: rotate(0deg); }
-          100% { -webkit-transform: rotate(360deg); }
-        }
+      #animation {
+        width: 50%;
+        height: 50%;
+      }
 
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
+      .bg {
+        -webkit-app-region: drag;
+        position: absolute;
+        background: radial-gradient(#fff, #c1c1c1);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-size: contain;
+      }
 
-        .cn {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+      .cn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
     </style>
 
   </head>
   <body>
 
-    <div class="bg cn"><div class="loader"></div></div>
+    <div class="bg cn">
+        <div id="animation"></div>
+        <div>Loading nOS...</div>
+    </div>
+
+    <script src="animations/loader.js"></script>
+    
 
   </body>
 </html>
