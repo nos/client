@@ -1,5 +1,6 @@
 import { compose, withProps } from 'recompose';
 import { withCall, withData } from 'spunky';
+import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
@@ -11,6 +12,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
 const mapBalancesDataToProps = (balances) => ({ balances });
+const CONFIG_KEYS = ['scriptHash', 'address'];
 
 export default function makeGetBalance(balancesActions) {
   return compose(
@@ -24,10 +26,13 @@ export default function makeGetBalance(balancesActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Get the 2nd optional parameter (default = address)
-    withProps(({ args, address }) => ({
-      scriptHash: args[0],
-      address: args[1] || address
-    })),
+    withProps(({ args, address }) => {
+      const { scriptHash, address: fromArgsAddress } = pick(args[0], CONFIG_KEYS);
+      return ({
+        scriptHash,
+        address: fromArgsAddress || address
+      });
+    }),
 
     // Get the balance & wait for success or failure
     withCall(balancesActions, ({ net, address }) => ({ net, address })),
