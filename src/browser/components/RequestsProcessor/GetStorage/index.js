@@ -10,7 +10,7 @@ import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapStorageDataToProps = (data) => ({ data });
-const CONFIG_KEYS = ['scriptHash', 'key', 'encode'];
+const CONFIG_KEYS = ['scriptHash', 'key', 'encodeInput', 'decodeOutput'];
 
 export default function makeStorageComponent(storageActions) {
   return compose(
