@@ -1,12 +1,13 @@
 import uuid from 'uuid/v1';
-import { findIndex, keys, omit, has, size } from 'lodash';
+import { keys, omit, has, size } from 'lodash';
 
-import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_TITLE, QUERY } from '../actions/browserActions';
+import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_TITLE, SET_TAB_TARGET, SET_TAB_LOADED } from '../actions/browserActions';
 import parseURL from '../util/parseURL';
 
 const initialTabState = {
-  target: 'nos://nos.neo/',
-  title: 'Welcome to nOS'
+  target: 'nos://nos.neo',
+  title: 'Welcome to nOS',
+  loading: false
 };
 
 const generateSessionId = () => uuid();
@@ -45,7 +46,7 @@ function updateTab(state, sessionId, data) {
 function parse(query) {
   try {
     const { href } = parseURL(query);
-    return href;
+    return href.replace(/\/$/, ''); // strip trailing slash
   } catch (err) {
     return query;
   }
@@ -75,7 +76,7 @@ function close(state, action) {
     return generateInitialState();
   }
 
-  const tabIndex = findIndex(state.tabs, action.sessionId);
+  const tabIndex = keys(state.tabs).indexOf(action.sessionId);
   const tabs = omit(state.tabs, action.sessionId);
 
   const activeSessionId = state.activeSessionId === action.sessionId
@@ -96,16 +97,22 @@ function focus(state, action) {
   };
 }
 
-function title(state, action) {
-  return updateTab(state, action.sessionId, {
-    title: action.title
-  });
+function setTitle(state, action) {
+  return updateTab(state, action.sessionId, { title: action.title });
 }
 
-function search(state, action) {
-  return updateTab(state, action.sessionId, {
-    target: parse(action.query)
-  });
+function setTarget(state, action) {
+  const target = parse(action.target);
+
+  if (target === state.tabs[action.sessionId].target) {
+    return state;
+  }
+
+  return updateTab(state, action.sessionId, { target, title: target, loading: true });
+}
+
+function setLoaded(state, action) {
+  return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
 export default function browserReducer(state = generateInitialState(), action) {
@@ -117,9 +124,11 @@ export default function browserReducer(state = generateInitialState(), action) {
     case SET_ACTIVE_TAB:
       return focus(state, action);
     case SET_TAB_TITLE:
-      return title(state, action);
-    case QUERY:
-      return search(state, action);
+      return setTitle(state, action);
+    case SET_TAB_TARGET:
+      return setTarget(state, action);
+    case SET_TAB_LOADED:
+      return setLoaded(state, action);
     default:
       return state;
   }

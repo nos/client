@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Browser from './Browser';
-import { query } from '../../actions/browserActions';
+import { setTabTarget } from '../../actions/browserActions';
 
 const mapStateToProps = (state) => {
   const { tabs, activeSessionId } = state.browser;
-  return { tabs, activeSessionId, query: tabs[activeSessionId].target };
+  const { target } = tabs[activeSessionId];
+
+  return { tabs, activeSessionId, target };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ onQuery: query }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ onQuery: setTabTarget }, dispatch);
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

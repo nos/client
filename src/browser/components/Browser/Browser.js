@@ -8,18 +8,18 @@ import tabShape from '../../shapes/tabShape';
 import styles from './Browser.scss';
 
 export default function Browser(props) {
-  const { tabs, activeSessionId, query, onQuery } = props;
+  const { tabs, activeSessionId, target, onQuery } = props;
 
   return (
     <div className={styles.browser}>
-      <AddressBar className={styles.address} query={query} onQuery={onQuery} />
+      <AddressBar className={styles.address} query={target} onQuery={onQuery} />
 
       <Tabs className={styles.tabs} tabs={tabs} activeSessionId={activeSessionId} />
 
       <DAppContainer
         key={activeSessionId}
         className={styles.dapp}
-        query={query}
+        target={target}
         sessionId={activeSessionId}
       />
     </div>
@@ -29,6 +29,6 @@ export default function Browser(props) {
 Browser.propTypes = {
   activeSessionId: string.isRequired,
   tabs: objectOf(tabShape).isRequired,
-  query: string.isRequired,
+  target: string.isRequired,
   onQuery: func.isRequired
 };

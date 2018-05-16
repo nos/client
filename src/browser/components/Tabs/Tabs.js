@@ -33,7 +33,7 @@ export default class Tabs extends React.Component {
   }
 
   renderTab = (tab, sessionId) => {
-    const { target, title } = tab;
+    const { target, title, loading } = tab;
 
     return (
       <Tab
@@ -41,6 +41,7 @@ export default class Tabs extends React.Component {
         className={styles.tab}
         target={target}
         title={title}
+        loading={loading}
         active={sessionId === this.props.activeSessionId}
         onClick={this.handleClick(sessionId)}
         onClose={this.handleClose(sessionId)}

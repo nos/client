@@ -11,8 +11,10 @@ export default class DAppContainer extends React.Component {
   static propTypes = {
     className: string,
     sessionId: string.isRequired,
-    query: string.isRequired,
+    target: string.isRequired,
     setTabTitle: func.isRequired,
+    setTabTarget: func.isRequired,
+    setTabLoaded: func.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired
@@ -27,6 +29,9 @@ export default class DAppContainer extends React.Component {
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
+    this.webview.addEventListener('will-navigate', this.handleNavigateToPage);
+    this.webview.addEventListener('did-navigate-in-page', this.handleNavigateToPage);
+    this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
   }
 
   componentWillUnmount() {
@@ -34,6 +39,9 @@ export default class DAppContainer extends React.Component {
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
+    this.webview.removeEventListener('will-navigate', this.handleNavigateToPage);
+    this.webview.removeEventListener('did-navigate-in-page', this.handleNavigateToPage);
+    this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
 
     // remove any pending requests from the queue
     this.props.empty(this.props.sessionId);
@@ -44,14 +52,14 @@ export default class DAppContainer extends React.Component {
       <div className={classNames(styles.dAppContainer, this.props.className)}>
         <webview
           ref={this.registerRef}
-          src={this.props.query}
+          src={this.props.target}
           preload={this.getPreloadPath()}
           style={{ height: '100%' }}
         />
 
         <RequestsProcessor
           sessionId={this.props.sessionId}
-          src={this.props.query}
+          src={this.props.target}
           onResolve={this.handleResolve}
           onReject={this.handleReject}
         />
@@ -73,6 +81,14 @@ export default class DAppContainer extends React.Component {
 
   handlePageTitleUpdated = (event) => {
     this.props.setTabTitle(this.props.sessionId, event.title);
+  }
+
+  handleNavigateToPage = (event) => {
+    this.props.setTabTarget(this.props.sessionId, event.url);
+  }
+
+  handleNavigatedToPage = () => {
+    this.props.setTabLoaded(this.props.sessionId, true);
   }
 
   handleNewWindow = (event) => {

@@ -10,6 +10,7 @@ export default class Tab extends React.Component {
     className: string,
     active: bool,
     title: string.isRequired,
+    loading: bool,
     onClick: func,
     onClose: func
   };
@@ -17,6 +18,7 @@ export default class Tab extends React.Component {
   static defaultProps = {
     className: null,
     active: false,
+    loading: false,
     onClick: noop,
     onClose: noop
   };
@@ -31,10 +33,19 @@ export default class Tab extends React.Component {
         tabIndex={0}
         onClick={onClick}
       >
+        {this.renderLoading()}
         <span className={styles.title}>{title}</span>
         <button className={styles.close} onClick={this.handleClose}>x</button>
       </div>
     );
+  }
+
+  renderLoading = () => {
+    if (!this.props.loading) {
+      return null;
+    }
+
+    return '...';
   }
 
   handleClose = (event) => {
