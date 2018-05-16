@@ -12,6 +12,7 @@ export default class DAppContainer extends React.Component {
     className: string,
     sessionId: string.isRequired,
     query: string.isRequired,
+    setTabTitle: func.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired
@@ -25,12 +26,14 @@ export default class DAppContainer extends React.Component {
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
+    this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
   }
 
   componentWillUnmount() {
     this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
+    this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
 
     // remove any pending requests from the queue
     this.props.empty(this.props.sessionId);
@@ -60,13 +63,17 @@ export default class DAppContainer extends React.Component {
     console.log('[DApp]', event.message); // eslint-disable-line no-console
   };
 
-  handleIPCMessage = async (event) => {
+  handleIPCMessage = (event) => {
     const { channel } = event;
     const id = event.args[0];
     const args = event.args.slice(1);
 
     this.props.enqueue(this.props.sessionId, { channel, id, args });
   };
+
+  handlePageTitleUpdated = (event) => {
+    this.props.setTabTitle(this.props.sessionId, event.title);
+  }
 
   handleNewWindow = (event) => {
     event.preventDefault();
