@@ -1,0 +1,17 @@
+.login {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+  -webkit-app-region: no-drag;
+
+  .logo {
+    display: block;
+    margin: 40px auto 0;
+    width: 200px;
+  }
+
+  .tabs {
+    margin-left: -32px;
+    margin-right: -32px;
+  }
+}
