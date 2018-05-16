@@ -1,59 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,700,700i" rel="stylesheet">
     <style type="text/css">
-      * {
-        font-family: 'Rubik', sans-serif;
-      }
+        * {
+            font-family: 'Rubik', sans-serif;
+        }
 
-      body {
-        padding: 20px;
-        background: #fff;
-      }
+        a {
+            color: black;
+            text-decoration: none;
+        }
 
-      .center {
-        text-align: center;
-      }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 30%;
+            background-color: #f7fff7;
+            margin-left: 7px;
+            margin-right: 7px;
+        }
 
-      .logo {
-        width: 200px;
-        height: 200px;
-        text-align: center;
-      }
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .card-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .container-card {
+            padding: 2px 16px;
+        }
+
+        body {
+            padding: 20px;
+            background: white url('bg.png') no-repeat;
+            background-size: 100% 480px;
+        }
+
+        .container {
+            margin-top: 150px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            text-align: center;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <p class="center">
-      <img class="logo" src="logo.png" alt="nOS" />
-    </p>
-    <h1 class="center">Welcome to nOS</h1>
-    <h2>What is nOS?</h2>
-    <p>
-      Think of <strong>nOS</strong> as an app store and web browser, a virtual operating system,
-      with the ability to access a new, decentralized internet. On this new internet, apps work
-      transparently and openly. Your data is safe, and it only goes where you want it to go.
-    </p>
+<body>
+<p class="center">
+    <img class="logo" src="logo.png" alt="nOS"/>
+</p>
+<h1 class="center">Welcome to nOS</h1>
+<p class="center">
+    Think of <strong>nOS</strong> as an app store and web browser, a virtual operating system,
+    with the ability to access a new, decentralized internet. On this new internet, apps work
+    transparently and openly. Your data is safe, and it only goes where you want it to go.
+</p>
 
-    <h2>Getting Started with Developing for nOS</h2>
-    <ul>
-      <li><a href="https://github.com/nos/client" target="_blank">nOS Documentation</a></li>
-      <li><a href="https://github.com/nos/dapp-starter-kit" target="_blank">dApp Starter Kit</a></li>
-      <li><a href="https://github.com/nos/nos-local" target="_blank">nOS Local Blockchain & Smart Contract</a></li>
-    </ul>
+<div class="container">
+    <h2 class="center">Getting Started with Developing for nOS</h2>
 
-    <h2>Example Code</h2>
-    <ul>
-      <li><a href="https://github.com/nos/client" target="_blank">nOS Client</a></li>
-      <li><a href="https://github.com/nos/dapp-neoblog" target="_blank">neoblog dApp</a></li>
-    </ul>
+    <div class="card-wrapper">
+        <div class="card">
+            <a href="https://github.com/nos/client/tree/develop/docs" target="_blank">
+                <div class="container-card">
+                    <h4><b>nOS Documentation</b></h4>
+                    <p>Documentation of the nOS API.</p>
+                </div>
+            </a>
+        </div>
 
-    <h2>Registered dApps</h2>
-    <ul>
-      <li><a href="nos://nos.neo">nOS</a> (the page you're on)</li>
-      <li>More coming soon...</li>
-    </ul>
-  </body>
+        <div class="card">
+            <a href="https://github.com/nos/create-nos-dapp" target="_blank">
+                <div class="container-card">
+                    <h4><b>nOS Create dApp</b></h4>
+                    <p>A CLI tool to generate a starter kit in your preferred frontend language!</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="https://github.com/nos/nos-local" target="_blank">
+                <div class="container-card">
+                    <h4><b>nOS Local Blockchain & Smart Contract</b></h4>
+                    <p>A guide to a local blockchain and smart contract setup & deployment</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+    <h2 class="center">Example Code</h2>
+    <div class="card-wrapper">
+        <div class="card">
+            <a href="https://github.com/nos/client" target="_blank">
+                <div class="container-card">
+                    <h4><b>nOS Client</b></h4>
+                    <p>The client codebase.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="https://github.com/nos/dapp-neoblog" target="_blank">
+                <div class="container-card">
+                    <h4><b>NeoBlog dApp</b></h4>
+                    <p>An example implementation using the nOS API.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+    <h2 class="center">Registered dApps</h2>
+    <div class="card-wrapper">
+        <div class="card">
+            <a href="nos://nos.neo">
+                <div class="container-card">
+                    <h4><b>nOS (This page)</b></h4>
+                    <p>The client codebase.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="#">
+                <div class="container-card">
+                    <h4><b>More coming soon..</b></h4>
+                    <p>Many more exciting project coming soon!</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
 </html>
