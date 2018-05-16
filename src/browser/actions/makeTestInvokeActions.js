@@ -4,10 +4,11 @@ import { isArray } from 'lodash';
 
 import generateDAppActionId from './generateDAppActionId';
 import createScript from '../util/createScript';
+import encodeArgs from '../util/encodeArgs';
 
 export const ID = 'testInvoke';
 
-const testInvoke = async ({ net, scriptHash, operation, args }) => {
+const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs: encode }) => {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -21,7 +22,7 @@ const testInvoke = async ({ net, scriptHash, operation, args }) => {
   }
 
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
-  const script = createScript(scriptHash, operation, args);
+  const script = createScript(scriptHash, operation, encode ? encodeArgs(args) : args);
   const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 
   return result;

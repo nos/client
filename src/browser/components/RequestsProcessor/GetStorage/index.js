@@ -28,11 +28,18 @@ export default function makeStorageComponent(storageActions) {
     withNetworkData(),
 
     // Get the storage data & wait for success or failure
-    withCall(storageActions, ({ net, scriptHash, index, encode }) => ({
+    withCall(storageActions, ({
+      net,
+      scriptHash,
+      index,
+      encodeInput,
+      decodeOutput
+    }) => ({
       net,
       scriptHash,
       key: index, // and then map it back to key in the call to keep the same terms as neon-js
-      encode
+      encodeInput,
+      decodeOutput
     })),
     withNullLoader(storageActions),
     withRejectMessage(storageActions, (props) => (

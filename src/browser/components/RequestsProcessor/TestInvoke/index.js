@@ -11,7 +11,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapInvokeDataToProps = (result) => ({ result });
 
-const CONFIG_KEYS = ['scriptHash', 'operation', 'args'];
+const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
 
 export default function makeStorageComponent(testInvokeActions) {
   return compose(
@@ -25,11 +25,18 @@ export default function makeStorageComponent(testInvokeActions) {
     withNetworkData(),
 
     // Run the test invoke & wait for success or failure
-    withCall(testInvokeActions, ({ net, scriptHash, operation, args }) => ({
+    withCall(testInvokeActions, ({
       net,
       scriptHash,
       operation,
-      args
+      args,
+      encodeArgs
+    }) => ({
+      net,
+      scriptHash,
+      operation,
+      args,
+      encodeArgs
     })),
     withNullLoader(testInvokeActions),
     withRejectMessage(testInvokeActions, (props) => (
