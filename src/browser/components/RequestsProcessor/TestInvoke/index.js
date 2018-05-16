@@ -1,5 +1,6 @@
 import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
+import { pick } from 'lodash';
 
 import withNetworkData from 'shared/hocs/withNetworkData';
 
@@ -10,15 +11,15 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapInvokeDataToProps = (result) => ({ result });
 
+const CONFIG_KEYS = ['scriptHash', 'operation', 'args'];
+
 export default function makeStorageComponent(testInvokeActions) {
   return compose(
     // Clean redux store when done
     withClean(testInvokeActions),
 
     // Rename arguments given by the user
-    withProps(({ args }) => ({
-      ...args[0]
-    })),
+    withProps(({ args }) => pick(args[0], CONFIG_KEYS)),
 
     // Get the current network
     withNetworkData(),
