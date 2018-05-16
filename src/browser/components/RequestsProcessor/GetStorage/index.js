@@ -1,5 +1,6 @@
 import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
+import { pick } from 'lodash';
 
 import withNetworkData from 'shared/hocs/withNetworkData';
 
@@ -9,6 +10,7 @@ import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapStorageDataToProps = (data) => ({ data });
+const CONFIG_KEYS = ['scriptHash', 'key', 'encode'];
 
 export default function makeStorageComponent(storageActions) {
   return compose(
@@ -17,27 +19,24 @@ export default function makeStorageComponent(storageActions) {
 
     // Rename arguments given by the user
     withProps(({ args }) => {
-      const options = args[2] || {};
-      return {
-        scriptHash: args[0],
-        storageKey: args[1],
-        encode: !!options.encode
-      };
+      const result = pick(args[0], CONFIG_KEYS);
+      result.index = result.key; // key is reserved in React props, so we map it to index
+      return result;
     }),
 
     // Get the current network
     withNetworkData(),
 
     // Get the storage data & wait for success or failure
-    withCall(storageActions, ({ net, scriptHash, storageKey, encode }) => ({
+    withCall(storageActions, ({ net, scriptHash, index, encode }) => ({
       net,
       scriptHash,
-      key: storageKey,
+      key: index, // and then map it back to key in the call to keep the same terms as neon-js
       encode
     })),
     withNullLoader(storageActions),
     withRejectMessage(storageActions, (props) => (
-      `Retrieving storage failed for key "${props.storageKey}" on "${props.scriptHash}"`
+      `Retrieving storage failed for key "${props.index}" on "${props.scriptHash}"`
     )),
     withData(storageActions, mapStorageDataToProps)
   )(GetStorage);
