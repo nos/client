@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
+import Icon from 'shared/components/Icon';
+
 import styles from './Tab.scss';
 
 export default class Tab extends React.Component {
@@ -35,7 +37,11 @@ export default class Tab extends React.Component {
       >
         {this.renderLoading()}
         <span className={styles.title}>{title}</span>
-        <button className={styles.close} onClick={this.handleClose}>x</button>
+        <button className={styles.close} onClick={this.handleClose}>
+          <span className={styles.closeContent}>
+            <Icon name="close" />
+          </span>
+        </button>
       </div>
     );
   }

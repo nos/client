@@ -44,5 +44,27 @@
 
   .close {
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    margin: 0 0 0 8px;
+    color: rgba(#000, 0.3);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background: #e45b46;
+      border-radius: 50%;
+    }
+
+    .closeContent {
+      flex: 0 0 auto;
+      display: inline-flex;
+    }
   }
 }
