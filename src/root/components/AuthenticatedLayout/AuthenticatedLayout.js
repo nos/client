@@ -4,9 +4,7 @@ import classNames from 'classnames';
 
 import logo from 'shared/images/logo.svg';
 
-import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
-import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {
@@ -19,9 +17,9 @@ export default function AuthenticatedLayout(props) {
         <Navigation />
       </div>
       <main className={styles.main}>
-        <AddressBar />
-        <Breadcrumbs />
-        <div className={styles.content}>{props.children}</div>
+        <div className={styles.content}>
+          {props.children}
+        </div>
         <footer className={styles.footer}>
           <div className={styles.status}>
             Network: {props.currentNetwork}
