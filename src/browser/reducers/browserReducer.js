@@ -47,7 +47,7 @@ function updateTab(state, sessionId, data) {
 function parse(query) {
   try {
     const { href } = parseURL(query);
-    return href.replace(/\/$/, ''); // strip trailing slash
+    return href;
   } catch (err) {
     return query;
   }
