@@ -33,6 +33,7 @@ export default class DAppContainer extends React.Component {
     this.webview.addEventListener('will-navigate', this.handleNavigateToPage);
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigateToPage);
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
+    this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
 
     this.webview.src = this.props.target;
   }
@@ -51,6 +52,7 @@ export default class DAppContainer extends React.Component {
     this.webview.removeEventListener('will-navigate', this.handleNavigateToPage);
     this.webview.removeEventListener('did-navigate-in-page', this.handleNavigateToPage);
     this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
+    this.webview.removeEventListener('did-fail-load', this.handleNavigateFailed);
 
     // remove any pending requests from the queue
     this.props.empty(this.props.sessionId);
@@ -96,6 +98,11 @@ export default class DAppContainer extends React.Component {
   }
 
   handleNavigatedToPage = () => {
+    this.props.setTabLoaded(this.props.sessionId, true);
+  }
+
+  handleNavigateFailed = (_event) => {
+    // TODO: Display an error page or something.  For now, just clear out the loading spinner.
     this.props.setTabLoaded(this.props.sessionId, true);
   }
 
