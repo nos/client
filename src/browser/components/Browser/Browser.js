@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, objectOf } from 'prop-types';
+import { string, bool, func, objectOf } from 'prop-types';
 
 import Tabs from '../Tabs';
 import AddressBar from '../AddressBar';
@@ -8,7 +8,7 @@ import tabShape from '../../shapes/tabShape';
 import styles from './Browser.scss';
 
 export default function Browser(props) {
-  const { tabs, activeSessionId, target, onQuery } = props;
+  const { tabs, activeSessionId, target, addressBarEntry, onQuery } = props;
 
   return (
     <div className={styles.browser}>
@@ -21,6 +21,7 @@ export default function Browser(props) {
         className={styles.dapp}
         target={target}
         sessionId={activeSessionId}
+        addressBarEntry={addressBarEntry}
       />
     </div>
   );
@@ -30,5 +31,6 @@ Browser.propTypes = {
   activeSessionId: string.isRequired,
   tabs: objectOf(tabShape).isRequired,
   target: string.isRequired,
+  addressBarEntry: bool.isRequired,
   onQuery: func.isRequired
 };

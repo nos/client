@@ -7,6 +7,7 @@ import parseURL from '../util/parseURL';
 const initialTabState = {
   target: 'nos://nos.neo',
   title: 'Welcome to nOS',
+  addressBarEntry: true,
   loading: false
 };
 
@@ -108,7 +109,12 @@ function setTarget(state, action) {
     return state;
   }
 
-  return updateTab(state, action.sessionId, { target, title: target, loading: true });
+  return updateTab(state, action.sessionId, {
+    target,
+    title: target,
+    addressBarEntry: action.addressBarEntry,
+    loading: true
+  });
 }
 
 function setLoaded(state, action) {

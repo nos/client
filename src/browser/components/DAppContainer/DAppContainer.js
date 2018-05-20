@@ -2,7 +2,7 @@ import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
 import { shell } from 'electron';
-import { string, func } from 'prop-types';
+import { string, bool, func } from 'prop-types';
 
 import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
@@ -12,6 +12,7 @@ export default class DAppContainer extends React.Component {
     className: string,
     sessionId: string.isRequired,
     target: string.isRequired,
+    addressBarEntry: bool.isRequired,
     setTabTitle: func.isRequired,
     setTabTarget: func.isRequired,
     setTabLoaded: func.isRequired,
@@ -32,6 +33,14 @@ export default class DAppContainer extends React.Component {
     this.webview.addEventListener('will-navigate', this.handleNavigateToPage);
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigateToPage);
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
+
+    this.webview.src = this.props.target;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.addressBarEntry) {
+      this.webview.src = nextProps.target;
+    }
   }
 
   componentWillUnmount() {
@@ -52,7 +61,6 @@ export default class DAppContainer extends React.Component {
       <div className={classNames(styles.dAppContainer, this.props.className)}>
         <webview
           ref={this.registerRef}
-          src={this.props.target}
           preload={this.getPreloadPath()}
           style={{ height: '100%' }}
         />

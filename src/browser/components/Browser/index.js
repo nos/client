@@ -1,18 +1,21 @@
 import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import Browser from './Browser';
 import { setTabTarget } from '../../actions/browserActions';
 
 const mapStateToProps = (state) => {
   const { tabs, activeSessionId } = state.browser;
-  const { target } = tabs[activeSessionId];
+  const { target, addressBarEntry } = tabs[activeSessionId];
 
-  return { tabs, activeSessionId, target };
+  return { tabs, activeSessionId, target, addressBarEntry };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ onQuery: setTabTarget }, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  onQuery: (sessionId, target) => {
+    dispatch(setTabTarget(sessionId, target, { addressBarEntry: true }));
+  }
+});
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
