@@ -39,7 +39,7 @@ require the user to grant permission.
 None.
 
 #### Returns
-`string` - The address of the currently signed in user.
+[string] - The address of the currently signed in user.
 
 #### Example
 ```javascript
@@ -55,12 +55,11 @@ The `getBalance` function provides the balance of a certain address for a
 specified asset or NEP5 token.  It does not require the user to grant permission.
 
 #### Parameters
-1. `asset` - The asset ID or NEP5 token script hash.
-2. `address` (Optional) - The address of the user you'd like to receive the balance for. This defaults to the currently logged on user if the parameter is not passed.
+1. `asset` [string] - The asset ID or NEP5 token script hash.
+2. `address` [string] (Optional) - The address of the user you'd like to receive the balance for. This defaults to the currently logged on user if the parameter is not passed.
 
 #### Returns
-`string` - The balance of the requested asset owned by a certain address.  A
-string is returned instead of a number to prevent floating point rounding issues.
+[string] - The balance of the requested asset owned by a certain address.  A string is returned instead of a number to prevent floating point rounding issues.
 
 #### Example
 ```javascript
@@ -88,7 +87,7 @@ It requires the user to grant permission.
 None.
 
 #### Returns
-`string` - The claim transaction ID.
+[string] - The claim transaction ID.
 
 #### Example
 ```javascript
@@ -104,12 +103,14 @@ The `testInvoke` function executes a test invocation transaction on behalf of th
 authenticated account.  It does not require the user to grant permission.
 
 #### Parameters
-1. `string` - The script hash of the Smart Contract you want to invoke.
-2. `string` - The operation of the Smart Contract you want to invoke.
-3. `...any` - Zero or more args of the Smart Contract you want to invoke.
+1. `scriptHash` [string] - The script hash of the Smart Contract you want to invoke.
+2. `operation` [string] - The operation of the Smart Contract you want to invoke.
+3. `args` [string] - An arguments array of the Smart Contract you want to invoke.
+4. `encodeArgs` [boolean] (Optional) - A flag detailing whether or not you want the nOS API to handle encoding or `args`. This is `true` by default.
+**NOTE: If you're sending no arguments, this should be an empty array.**
 
 #### Returns
-`string` - Returns the script for the test invoke.
+[object] - Returns the RPC result, including testInvoke script, consumed GAS and the result stack.
 
 #### Example
 ```javascript
@@ -117,10 +118,11 @@ const nos = window.NOS.V1;
 
 const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
 const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
-const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
-// const arg2 = '...' if you want to add more args, just append it to the function
+const args = ['ef68bcda-2892-491a-a7e6-9c4cb1a11732'];
 
-nos.testInvoke(scriptHash, operation, arg1)
+// If you handle encoding yourself, use:
+// nos.testInvoke({ scriptHash, operation, args, encodeArgs: false })
+nos.testInvoke({ scriptHash, operation, args })
     .then((script) => alert(`Test invoke script: ${script} `))
     .catch((err) => alert(`Error: ${err.message}`));
 ```
@@ -130,12 +132,13 @@ The `invoke` function executes an invocation transaction on behalf of the curren
 account.  It requires the user to grant permission.
 
 #### Parameters
-1. `string` - The script hash of the Smart Contract you want to invoke.
-2. `string` - The operation of the Smart Contract you want to invoke.
-3. `string` - Zero or more args of the Smart Contract you want to invoke.
+1. `scriptHash` [string] - The script hash of the Smart Contract you want to invoke.
+2. `operation` [string] - The operation of the Smart Contract you want to invoke.
+3. `args` [string] - An arguments array of the Smart Contract you want to invoke.
+4. `encodeArgs` [boolean] (Optional) - A flag detailing whether or not you want the nOS API to handle encoding or `args`. This is `true` by default.
 
 #### Returns
-`string` - The invocation transaction ID.
+[string] - The invocation transaction ID.
 
 #### Example
 ```javascript
@@ -143,10 +146,11 @@ const nos = window.NOS.V1;
 
 const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
 const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
-const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
-// const arg2 = '...' if you want to add more args, just append it to the function
+const args = ['ef68bcda-2892-491a-a7e6-9c4cb1a11732'];
 
-nos.invoke(scriptHash, operation, arg1)
+// If you handle encoding yourself, use:
+// nos.invoke({ scriptHash, operation, args, encodeArgs: false })
+nos.invoke({ scriptHash, operation, args })
     .then((txid) => alert(`Invoke txid: ${txid} `))
     .catch((err) => alert(`Error: ${err.message}`));
 ```
@@ -156,15 +160,13 @@ The `getStorage` function retrieves the value for a specified key from a specifi
 It does not require the user to grant permission.
 
 #### Parameters
-1. `string` - The script hash of a deployed Smart Contract.
-1. `string` - The key to retrieve from the Smart Contract.
-1. `object` - An optional options object
-
-#### Options
-1. **encode**: `bool` - Whether or not the input should be encoded (string to reverse hex). Defaults to true.
+1. `scriptHash` [string] - The script hash of a deployed Smart Contract.
+2. `key` [string] - The key to retrieve from the Smart Contract.
+3. `encodeInput` [boolean] (Optional) - A flag detailing whether or not to encode the input. This is `true` by default
+4. `decodeOutput` [boolean] (Optional) - A flag detailing whether or not to decode the output. This is `true` by default
 
 #### Returns
-`any` - The stored value or `null` if the key did not contain a value.
+[any] - The stored value or `null` if the key did not contain a value.
 
 #### Example
 ```javascript
@@ -172,9 +174,10 @@ const nos = window.NOS.V1;
 
 const scriptHash = '85e9cc1f18fcebf9eb8211a128807e38d094542a';
 const key = 'post.latest';
-const options = { options: false }
 
-nos.getStorage(scriptHash, key, options)
+// If you want to handle encoding / decoding yourself, use:
+// nos.getStorage({ scriptHash, key, encodeInput: false, decodeOutput: false })
+nos.getStorage({ scriptHash, key })
     .then((data) => alert(`Get storage data: ${data} `))
     .catch((err) => alert(`Error: ${err.message}`));
 ```
@@ -184,13 +187,13 @@ The `send` function creates a contract transaction to send assets (NEO or GAS) t
 address on behalf of the currently authenticated account.  It requires the user to grant permission.
 
 #### Parameters
-1. `string` - The asset ID script hash.
-1. `string` - The amount of the asset to send.  It is recommended that strings are used instead of
-   numbers to prevent floating point rounding issues.
-1. `string` - The recipient address of the asset.
+1. `asset` [string] - The asset ID script hash.
+2. `amount` [string] - The amount of the asset to send.
+**NOTE: It is recommended that strings are used instead of numbers to prevent floating point rounding issues.**
+3. `receiver` [string] - The recipient address of the asset.
 
 #### Returns
-`string` - The contract transaction ID.
+[string] - The contract transaction ID.
 
 #### Example
 ```javascript
@@ -218,38 +221,38 @@ const RPX = 'ecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9';
 
 const scriptHash = '2f228c37687d474d0a65d7d82d4ebf8a24a3fcbc';
 const operation = '9937f74e-1edc-40ae-96ad-1120166eab1b';
-const arg1 = 'ef68bcda-2892-491a-a7e6-9c4cb1a11732';
+const args = ['ef68bcda-2892-491a-a7e6-9c4cb1a11732'];
 
 nos.getAddress()
   .then((address) => alert(`Address: ${address}`))
   .catch((err) => alert(`Error: ${err.message}`));
 
-nos.getBalance(NEO)
+nos.getBalance({ asset: NEO })
   .then((balance) => alert(`Balance: ${balance}`))
   .catch((err) => alert(`Error: ${err.message}`));
 
-nos.getBalance(NEO, 'AZPkgTJixxkSFPyBZrcVpLj9nsHsPDUVkF')
+nos.getBalance({ asset: NEO, address: 'AZPkgTJixxkSFPyBZrcVpLj9nsHsPDUVkF' })
   .then((balance) => alert(`Balance: ${balance}`))
   .catch((err) => alert(`Error: ${err.message}`));
 
-nos.invoke(scriptHash, operation, arg1)
+nos.invoke({ scriptHash, operation, args })
   .then((txid) => alert(`Invoke txid: ${txid} `))
   .catch((err) => alert(`Error: ${err.message}`));
 
-nos.testInvoke(scriptHash, operation, arg1)
+nos.testInvoke({ scriptHash, operation, args })
   .then((script) => alert(`Test invoke script: ${script} `))
   .catch((err) => alert(`Error: ${err.message}`));
 
 const scriptHash = '85e9cc1f18fcebf9eb8211a128807e38d094542a';
 const key = 'post.latest';
-nos.getStorage(scriptHash, key)
+nos.getStorage({ scriptHash, key })
   .then((data) => alert(`Get storage data: ${data} `))
   .catch((err) => alert(`Error: ${err.message}`));
 
 const asset = GAS;
 const amount = '1';
 const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
-nos.send(asset, amount, receiver)
+nos.send({ asset, amount, receiver })
   .then((data) => alert(`${amount} ${asset} sent: ${data} `))
   .catch((err) => alert(`Error: ${err.message}`));
 
