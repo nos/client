@@ -34,7 +34,14 @@ export default function makeInvokeComponent(invokeActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Run the invoke & wait for success or failure
-    withCall(invokeActions, ({ net, address, wif, scriptHash, operation, args }) => ({
+    withCall(invokeActions, ({
+      net,
+      address,
+      wif,
+      scriptHash,
+      operation,
+      args
+    }) => ({
       net,
       address,
       wif,
