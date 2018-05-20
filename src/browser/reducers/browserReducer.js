@@ -113,7 +113,7 @@ function setTarget(state, action) {
     target,
     title: target,
     addressBarEntry: action.addressBarEntry,
-    loading: true
+    loading: action.leavingPage
   });
 }
 

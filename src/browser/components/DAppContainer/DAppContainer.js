@@ -30,9 +30,9 @@ export default class DAppContainer extends React.Component {
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
-    this.webview.addEventListener('will-navigate', this.handleNavigateToPage);
-    this.webview.addEventListener('did-navigate-in-page', this.handleNavigateToPage);
+    this.webview.addEventListener('will-navigate', this.handleNavigatingToPage);
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
+    this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
 
     this.webview.src = this.props.target;
@@ -49,9 +49,9 @@ export default class DAppContainer extends React.Component {
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
-    this.webview.removeEventListener('will-navigate', this.handleNavigateToPage);
-    this.webview.removeEventListener('did-navigate-in-page', this.handleNavigateToPage);
+    this.webview.removeEventListener('will-navigate', this.handleNavigatingToPage);
     this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
+    this.webview.removeEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.removeEventListener('did-fail-load', this.handleNavigateFailed);
 
     // remove any pending requests from the queue
@@ -93,12 +93,16 @@ export default class DAppContainer extends React.Component {
     this.props.setTabTitle(this.props.sessionId, event.title);
   }
 
-  handleNavigateToPage = (event) => {
+  handleNavigatingToPage = (event) => {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
   handleNavigatedToPage = () => {
     this.props.setTabLoaded(this.props.sessionId, true);
+  }
+
+  handleNavigatedToAnchor = (event) => {
+    this.props.setTabTarget(this.props.sessionId, event.url, { leavingPage: false });
   }
 
   handleNavigateFailed = (_event) => {

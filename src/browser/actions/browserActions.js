@@ -8,11 +8,15 @@ export const SET_TAB_LOADED = 'SET_TAB_LOADED';
 export const openTab = () => ({ type: OPEN_TAB });
 export const closeTab = (sessionId) => ({ type: CLOSE_TAB, sessionId });
 export const setActiveTab = (sessionId) => ({ type: SET_ACTIVE_TAB, sessionId });
-export const setTabTarget = (sessionId, target, { addressBarEntry = false } = {}) => ({
+export const setTabTarget = (sessionId, target, {
+  addressBarEntry = false,
+  leavingPage = true
+} = {}) => ({
   type: SET_TAB_TARGET,
   sessionId,
   target,
-  addressBarEntry // this is used to differentiate between link clicks and address bar entries
+  addressBarEntry, // differentiates between link clicks and address bar entries
+  leavingPage // differentiates between anchor link clicks on the current page vs. new page loads
 });
 export const setTabTitle = (sessionId, title) => ({ type: SET_TAB_TITLE, sessionId, title });
 export const setTabLoaded = (sessionId, loaded) => ({ type: SET_TAB_LOADED, sessionId, loaded });
