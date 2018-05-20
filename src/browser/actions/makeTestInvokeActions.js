@@ -4,7 +4,6 @@ import { isArray } from 'lodash';
 
 import generateDAppActionId from './generateDAppActionId';
 import createScript from '../util/createScript';
-import encode from '../util/encodeArgs';
 
 export const ID = 'testInvoke';
 
@@ -22,7 +21,7 @@ const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs }) => {
   }
 
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
-  const script = createScript(scriptHash, operation, encodeArgs ? encode(args) : args);
+  const script = createScript(scriptHash, operation, args, encodeArgs);
   const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 
   return result;

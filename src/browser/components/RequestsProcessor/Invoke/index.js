@@ -14,7 +14,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });
 
-const CONFIG_KEYS = ['scriptHash', 'operation', 'args'];
+const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
 
 export default function makeInvokeComponent(invokeActions) {
   return compose(
@@ -40,14 +40,16 @@ export default function makeInvokeComponent(invokeActions) {
       wif,
       scriptHash,
       operation,
-      args
+      args,
+      encodeArgs
     }) => ({
       net,
       address,
       wif,
       scriptHash,
       operation,
-      args
+      args,
+      encodeArgs
     })),
     withNullLoader(invokeActions),
     withRejectMessage(invokeActions, ({ operation, scriptHash }) => (
