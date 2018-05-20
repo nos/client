@@ -51,7 +51,7 @@ export default class Tab extends React.Component {
       return null;
     }
 
-    return '...';
+    return <Icon className={styles.loading} name="spin" />;
   }
 
   handleClose = (event) => {

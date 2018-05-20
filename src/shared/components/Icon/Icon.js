@@ -24,6 +24,7 @@ import {
   faPlusSquare,
   faQuestionCircle,
   faSignOutAlt,
+  faSpinner,
   faSync,
   faTimes
 } from '@fortawesome/fontawesome-free-solid';
@@ -38,16 +39,17 @@ fontawesome.library.add(
   faCubes,
   faHandshake,
   faKey,
+  faPlusSquare,
   faQuestionCircle,
   faSignOutAlt,
+  faSpinner,
+  faSync,
   faTimes,
   faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
-  faWindowRestore,
-  faSync,
-  faPlusSquare
+  faWindowRestore
 );
 
 const ICONS = {
@@ -63,6 +65,7 @@ const ICONS = {
   logout: 'sign-out-alt',
   notifications: ['far', 'bell'],
   settings: 'cog',
+  spin: 'spinner',
   unfavorite: ['far', 'bookmark'],
   wallet: ['far', 'money-bill-alt'],
   windowClose: ['far', 'window-close'],
