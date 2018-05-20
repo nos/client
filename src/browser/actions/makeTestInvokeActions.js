@@ -4,11 +4,11 @@ import { isArray } from 'lodash';
 
 import generateDAppActionId from './generateDAppActionId';
 import createScript from '../util/createScript';
-import encodeArgs from '../util/encodeArgs';
+import encode from '../util/encodeArgs';
 
 export const ID = 'testInvoke';
 
-const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs: encode }) => {
+const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs }) => {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -22,7 +22,7 @@ const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs: encode
   }
 
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
-  const script = createScript(scriptHash, operation, encode ? encodeArgs(args) : args);
+  const script = createScript(scriptHash, operation, encodeArgs ? encode(args) : args);
   const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 
   return result;
@@ -31,7 +31,7 @@ const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs: encode
 export default function makeTestInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({ net, scriptHash, operation, args }) => () => {
-    return testInvoke({ net, scriptHash, operation, args });
+  return createActions(id, ({ net, scriptHash, operation, args, encodeArgs }) => () => {
+    return testInvoke({ net, scriptHash, operation, args, encodeArgs });
   });
 }

@@ -17,15 +17,13 @@ const encodeArgs = (args) => {
   const encodedArgs = args.map((arg) => {
     const executor = tree`
       lazy ${arg}
-        expression ${wallet.isAddress} ${() => u.reverseHex(arg)}
+        expression ${wallet.isAddress} ${() => u.reverseHex(wallet.getScriptHashFromAddress(arg))}
         expression ${Array.isArray} ${() => encodeArgs(arg)}
         type ${'string'} ${() => u.str2hexstring(arg)}
         type ${1} ${() => u.int2hex(arg)}
     `;
-
     return executor();
   });
-
   return encodedArgs;
 };
 
