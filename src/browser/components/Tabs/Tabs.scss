@@ -1,11 +1,15 @@
 .tabs {
   display: flex;
-  flex-direction: row;
   flex-wrap: nowrap;
-  padding: 4px 4px 0;
+  padding: 0 32px;
+  border-bottom: 1px solid #dee2e6;
 
   .tab {
     flex: 0 1 auto;
-    margin-right: 4px;
+    margin-right: 16px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
