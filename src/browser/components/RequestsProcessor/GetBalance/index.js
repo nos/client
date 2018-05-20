@@ -12,7 +12,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
 const mapBalancesDataToProps = (balances) => ({ balances });
-const CONFIG_KEYS = ['scriptHash', 'address'];
+const CONFIG_KEYS = ['asset', 'address'];
 
 export default function makeGetBalance(balancesActions) {
   return compose(
@@ -27,9 +27,9 @@ export default function makeGetBalance(balancesActions) {
 
     // Get the 2nd optional parameter (default = address)
     withProps(({ args, address }) => {
-      const { scriptHash, address: fromArgsAddress } = pick(args[0], CONFIG_KEYS);
+      const { asset, address: fromArgsAddress } = pick(args[0], CONFIG_KEYS);
       return ({
-        scriptHash,
+        asset,
         address: fromArgsAddress || address
       });
     }),
