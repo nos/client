@@ -8,7 +8,8 @@ const initialTabState = {
   target: 'nos://nos.neo',
   title: 'Welcome to nOS',
   addressBarEntry: true,
-  loading: false
+  loading: false,
+  requestCount: 1
 };
 
 const generateSessionId = () => uuid();
@@ -103,17 +104,20 @@ function setTitle(state, action) {
 }
 
 function setTarget(state, action) {
-  const target = parse(action.target);
+  const tab = state.tabs[action.sessionId];
 
-  if (target === state.tabs[action.sessionId].target) {
+  if (!tab) {
     return state;
   }
+
+  const target = parse(action.target);
 
   return updateTab(state, action.sessionId, {
     target,
     title: target,
+    loading: action.leavingPage,
     addressBarEntry: action.addressBarEntry,
-    loading: action.leavingPage
+    requestCount: tab.requestCount + 1
   });
 }
 

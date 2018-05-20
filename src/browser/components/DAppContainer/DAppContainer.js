@@ -2,7 +2,7 @@ import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
 import { shell } from 'electron';
-import { string, bool, func } from 'prop-types';
+import { string, bool, number, func } from 'prop-types';
 
 import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
@@ -13,6 +13,7 @@ export default class DAppContainer extends React.Component {
     sessionId: string.isRequired,
     target: string.isRequired,
     addressBarEntry: bool.isRequired,
+    requestCount: number.isRequired,
     setTabTitle: func.isRequired,
     setTabTarget: func.isRequired,
     setTabLoaded: func.isRequired,
@@ -39,8 +40,8 @@ export default class DAppContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.addressBarEntry) {
-      this.webview.src = nextProps.target;
+    if (nextProps.addressBarEntry && nextProps.requestCount !== this.props.requestCount) {
+      this.webview.loadURL(nextProps.target);
     }
   }
 
