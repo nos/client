@@ -1,7 +1,7 @@
 import Neon from '@cityofzion/neon-js';
 import encode from './encodeArgs';
 
-const createScript = (scriptHash, operation, rawArgs, encodeArgs = true) => {
+const createScript = (scriptHash, operation, rawArgs, encodeArgs) => {
   const args = encodeArgs ? encode(rawArgs) : rawArgs;
 
   const invoke = {

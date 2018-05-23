@@ -5,7 +5,7 @@ import generateDAppActionId from './generateDAppActionId';
 
 export const ID = 'storage';
 
-const getStorage = async ({ net, scriptHash, key, encodeInput = true, decodeOutput = true }) => {
+const getStorage = async ({ net, scriptHash, key, encodeInput, decodeOutput }) => {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -26,7 +26,7 @@ const getStorage = async ({ net, scriptHash, key, encodeInput = true, decodeOutp
 export default function makeStorageActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({ net, scriptHash, key, encodeInput, decodeOutput }) => async () => {
+  return createActions(id, ({ net, scriptHash, key, encodeInput = true, decodeOutput = true }) => async () => {
     return getStorage({ net, scriptHash, key, encodeInput, decodeOutput });
   });
 }

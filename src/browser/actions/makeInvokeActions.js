@@ -52,7 +52,7 @@ export default function makeInvokeActions(sessionId, requestId) {
     scriptHash,
     operation,
     args,
-    encodeArgs
+    encodeArgs = true
   }) => () => {
     return doInvoke({ net, address, wif, scriptHash, operation, args, encodeArgs });
   });
