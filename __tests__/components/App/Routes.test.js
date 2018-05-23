@@ -68,7 +68,10 @@ describe('<Routes />', () => {
     it('renders when authenticated', () => {
       const wrapper = mountPath('/browser', {
         spunky: { auth: authenticatedState },
-        browser: { target: 'nos://nos.neo/' }
+        browser: {
+          activeSessionId: '1',
+          tabs: { 1: { title: 'Welcome to nOS', target: 'nos://nos.neo', loading: false } }
+        }
       });
       expect(wrapper.find(Browser).exists()).toBe(true);
     });
