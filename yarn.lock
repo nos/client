@@ -7928,9 +7928,9 @@ sw-toolbox@^3.4.0:
     path-to-regexp "^1.0.1"
     serviceworker-cache-polyfill "^4.0.0"
 
-switch-tree@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/switch-tree/-/switch-tree-0.2.1.tgz#7952516411818f64a3182da748605014936ec873"
+switch-tree@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/switch-tree/-/switch-tree-0.2.2.tgz#e8f5644c02de770e33fa983d1587e4fba042e009"
 
 symbol-observable@1.0.1:
   version "1.0.1"
