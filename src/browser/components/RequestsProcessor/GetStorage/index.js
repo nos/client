@@ -20,7 +20,10 @@ export default function makeStorageComponent(storageActions) {
     // Rename arguments given by the user
     withProps(({ args }) => {
       const result = pick(args[0], CONFIG_KEYS);
-      result.index = result.key; // key is reserved in React props, so we map it to index
+      if (result.key) {
+        result.index = result.key; // key is reserved in React props, so we map it to index
+        delete result.key;
+      }
       return result;
     }),
 
