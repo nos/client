@@ -46,7 +46,7 @@ We welcome contributions to the code base. If you are interested in becoming a c
 - [Code contribution guidelines](/.github/CONTRIBUTING.md#Code-Contribution)
 
 
-There is a [specific channel called develop](https://discord.nos.io/) on Discord to discuss development.
+There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Discord to discuss development.
 
 
 # Contribute by building a dApp on nOS
@@ -55,7 +55,7 @@ There is a [specific channel called develop](https://discord.nos.io/) on Discord
 
 Resources: 
 
-- [dApp-starter-kit repository](https://github.com/nos/dapp-starter-kit)
+- [dApp-starter-kit repository](https://github.com/nos/create-nos-dapp)
 - [dApp-starter-kit example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
 
 Future resources:

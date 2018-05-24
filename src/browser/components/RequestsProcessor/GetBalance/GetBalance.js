@@ -5,25 +5,25 @@ import { wallet } from '@cityofzion/neon-js';
 import balanceShape from 'account/shapes/balanceShape';
 import { NEO, GAS } from 'shared/values/assets';
 
-function isValidScriptHash(scriptHash) {
-  return wallet.isScriptHash(scriptHash) || [NEO, GAS].includes(scriptHash);
+function isValidAssetHash(asset) {
+  return wallet.isScriptHash(asset) || [NEO, GAS].includes(asset);
 }
 
 export default class GetBalance extends React.Component {
   static propTypes = {
     balances: arrayOf(balanceShape).isRequired,
-    scriptHash: string.isRequired,
+    asset: string.isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired
   };
 
   componentDidMount() {
-    const { scriptHash } = this.props;
+    const { asset } = this.props;
 
-    if (!isValidScriptHash(scriptHash)) {
-      this.props.onReject(`Invalid script hash: "${scriptHash}"`);
+    if (!isValidAssetHash(asset)) {
+      this.props.onReject(`Invalid asset hash: "${asset}"`);
     } else {
-      this.props.onResolve(this.getBalance(scriptHash));
+      this.props.onResolve(this.getBalance(asset));
     }
   }
 
@@ -31,8 +31,8 @@ export default class GetBalance extends React.Component {
     return null;
   }
 
-  getBalance = (scriptHash) => {
-    const token = this.props.balances[scriptHash];
+  getBalance = (asset) => {
+    const token = this.props.balances[asset];
     return token ? token.balance : '0';
   };
 }

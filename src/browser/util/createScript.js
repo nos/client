@@ -1,14 +1,13 @@
-import Neon, { u } from '@cityofzion/neon-js';
+import Neon from '@cityofzion/neon-js';
+import encode from './encodeArgs';
 
-const s2h = u.str2hexstring;
-
-const createScript = (scriptHash, operation, args) => {
-  const myArgs = args.map((myArg) => s2h(myArg));
+const createScript = (scriptHash, operation, rawArgs, encodeArgs) => {
+  const args = encodeArgs ? encode(rawArgs) : rawArgs;
 
   const invoke = {
     scriptHash,
     operation,
-    args: myArgs
+    args
   };
 
   // Create script

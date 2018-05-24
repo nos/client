@@ -1,5 +1,6 @@
 import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
+import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
@@ -13,17 +14,15 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });
 
+const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
+
 export default function makeInvokeComponent(invokeActions) {
   return compose(
     // Clean redux store when done
     withClean(invokeActions),
 
     // Rename arguments given by the user
-    withProps(({ args }) => ({
-      scriptHash: args[0],
-      operation: args[1],
-      args: args.slice(2)
-    })),
+    withProps(({ args }) => pick(args[0], CONFIG_KEYS)),
 
     // Prompt user
     withPrompt(({ operation, scriptHash }) => (
@@ -35,13 +34,22 @@ export default function makeInvokeComponent(invokeActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Run the invoke & wait for success or failure
-    withCall(invokeActions, ({ net, address, wif, scriptHash, operation, args }) => ({
+    withCall(invokeActions, ({
       net,
       address,
       wif,
       scriptHash,
       operation,
-      args
+      args,
+      encodeArgs
+    }) => ({
+      net,
+      address,
+      wif,
+      scriptHash,
+      operation,
+      args,
+      encodeArgs
     })),
     withNullLoader(invokeActions),
     withRejectMessage(invokeActions, ({ operation, scriptHash }) => (

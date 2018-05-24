@@ -1,5 +1,6 @@
 import { withCall, withData } from 'spunky';
 import { compose, withProps } from 'recompose';
+import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
@@ -25,17 +26,15 @@ const getAssetName = (assetId) => {
   }
 };
 
+const CONFIG_KEYS = ['asset', 'amount', 'receiver'];
+
 export default function makeSendComponent(sendActions) {
   return compose(
     // Clean redux store when done
     withClean(sendActions),
 
     // Rename arguments given by the user
-    withProps(({ args }) => ({
-      asset: args[0],
-      amount: args[1],
-      receiver: args[2]
-    })),
+    withProps(({ args }) => pick(args[0], CONFIG_KEYS)),
 
     // Prompt user
     withPrompt(({ amount, asset, receiver }) => (

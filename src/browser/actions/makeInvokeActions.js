@@ -9,7 +9,7 @@ import createScript from '../util/createScript';
 
 export const ID = 'invoke';
 
-const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
+const doInvoke = async ({ net, address, wif, scriptHash, operation, args, encodeArgs }) => {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -25,7 +25,7 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
   const { response: { result, txid } } = await Neon.doInvoke({
     net,
     address,
-    script: createScript(scriptHash, operation, args),
+    script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
     gas: 0,
     intents: [{
@@ -45,7 +45,15 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args }) => {
 export default function makeInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({ net, address, wif, scriptHash, operation, args }) => () => {
-    return doInvoke({ net, address, wif, scriptHash, operation, args });
+  return createActions(id, ({
+    net,
+    address,
+    wif,
+    scriptHash,
+    operation,
+    args,
+    encodeArgs = true
+  }) => () => {
+    return doInvoke({ net, address, wif, scriptHash, operation, args, encodeArgs });
   });
 }
