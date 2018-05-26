@@ -41,10 +41,9 @@ export default function requestsReducer(state = initialState, action) {
       return enqueue(state, action.sessionId, action.request);
     case DEQUEUE_REQUEST:
       return dequeue(state, action.sessionId, action.id);
-    case EMPTY_REQUESTS:
-      return empty(state, action.sessionId);
     case EMPTY_ALL_REQUESTS:
       return initialState;
+    case EMPTY_REQUESTS:
     case CLOSE_TAB:
       return empty(state, action.sessionId);
     default:
