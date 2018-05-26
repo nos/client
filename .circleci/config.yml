@@ -1,13 +1,21 @@
 # Javascript Node CircleCI 2.0 configuration file.
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 version: 2
-jobs:
-  build:
+
+references:
+  workspace: &workspace
+    ~/repo
+
+  container_config: &container_config
     docker:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/node:7.10
-    working_directory: ~/repo
+    working_directory: *workspace
+
+jobs:
+  build:
+    <<: *container_config
     steps:
       - checkout
       # Download and cache dependencies
@@ -22,4 +30,27 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  test:
+    <<: *container_config
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: sudo yarn global add yarn@1.5.1
       - run: yarn test
+    store_artifacts:
+      - path: artifacts
+      - destination: yarnpkg
+
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
