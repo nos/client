@@ -9,6 +9,7 @@
     flex-direction: column;
     border-right: $primary-border-style;
     width: 70px;
+    min-width: 70px;
 
     header {
       @include headerStyle;
