@@ -19,12 +19,13 @@ export default class DAppContainer extends React.Component {
     setTabLoaded: func.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
-    empty: func.isRequired
-  };
+    empty: func.isRequired,
+    closeTab: func.isRequired
+  }
 
   static defaultProps = {
     className: null
-  };
+  }
 
   componentDidMount() {
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
@@ -35,6 +36,7 @@ export default class DAppContainer extends React.Component {
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
+    this.webview.addEventListener('close', this.handleCloseWindow);
 
     this.webview.src = this.props.target;
   }
@@ -54,6 +56,7 @@ export default class DAppContainer extends React.Component {
     this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.removeEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.removeEventListener('did-fail-load', this.handleNavigateFailed);
+    this.webview.removeEventListener('close', this.handleCloseWindow);
 
     // remove any pending requests from the queue
     this.props.empty(this.props.sessionId);
@@ -80,7 +83,7 @@ export default class DAppContainer extends React.Component {
 
   handleConsoleMessage = (event) => {
     console.log('[DApp]', event.message); // eslint-disable-line no-console
-  };
+  }
 
   handleIPCMessage = (event) => {
     const { channel } = event;
@@ -88,7 +91,7 @@ export default class DAppContainer extends React.Component {
     const args = event.args.slice(1);
 
     this.props.enqueue(this.props.sessionId, { channel, id, args });
-  };
+  }
 
   handlePageTitleUpdated = (event) => {
     this.props.setTabTitle(this.props.sessionId, event.title);
@@ -115,6 +118,9 @@ export default class DAppContainer extends React.Component {
     event.preventDefault();
     shell.openExternal(event.url);
   }
+  handleCloseWindow = () => {
+    this.props.closeTab(this.props.sessionId);
+  }
 
   handleResolve = (request, result) => {
     const { channel, id } = request;
@@ -130,10 +136,10 @@ export default class DAppContainer extends React.Component {
 
   registerRef = (el) => {
     this.webview = el;
-  };
+  }
 
   getPreloadPath = () => {
     const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
     return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
-  };
+  }
 }
