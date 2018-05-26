@@ -12,6 +12,8 @@
 
 ---
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nos/client.svg)](https://greenkeeper.io/)
+
 # Getting Started with nOS
 
 The app can be cloned from GitHub and run using the development steps below.
