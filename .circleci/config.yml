@@ -8,7 +8,7 @@ references:
 
   container_config: &container_config
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.9
     working_directory: *workspace
 
   win64_config: &win64_config
