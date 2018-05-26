@@ -4,6 +4,11 @@
 
 <h1 align="center">nOS</h1>
 <p align="center">
+  <a href="https://greenkeeper.io/">
+    <img src="https://badges.greenkeeper.io/nos/client.svg" />
+  </a>
+</p>
+<p align="center">
   <strong>nOS</strong> is a NEO-powered virtual operating system that serves as the gateway to the NEO Smart Economy.
 </p>
 <p align="center">
