@@ -70,7 +70,15 @@ describe('<Routes />', () => {
         spunky: { auth: authenticatedState },
         browser: {
           activeSessionId: '1',
-          tabs: { 1: { title: 'Welcome to nOS', target: 'nos://nos.neo', loading: false } }
+          tabs: {
+            1: {
+              title: 'Welcome to nOS',
+              target: 'nos://nos.neo',
+              loading: false,
+              requestCount: 1,
+              addressBarEntry: true
+            }
+          }
         }
       });
       expect(wrapper.find(Browser).exists()).toBe(true);
