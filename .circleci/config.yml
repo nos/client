@@ -8,9 +8,19 @@ references:
 
   container_config: &container_config
     docker:
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/node:7.10
+    working_directory: *workspace
+
+  win64_config: &win64_config
+    docker:
+      - image: electronuserland/builder:wine
+        environment:
+          TARGET_ARCH: x64
+    working_directory: *workspace
+
+  mac_config: &mac_config
+    macos:
+      xcode: 9.2
     working_directory: *workspace
 
 jobs:
@@ -18,11 +28,9 @@ jobs:
     <<: *container_config
     steps:
       - checkout
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run: sudo yarn global add yarn@1.5.1
       - run: yarn install
@@ -46,6 +54,54 @@ jobs:
       - path: artifacts
       - destination: yarnpkg
 
+  deploy_win64:
+    <<: *win64_config
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: apt-get -y update
+      - run: apt-get -y install libudev-dev libusb-1.0-0-dev
+      - run: yarn install
+      # - run: yarn dist
+      - run: yarn dist -w --x64
+      - store_artifacts:
+          path: dist
+          destination: build
+
+  deploy_linux:
+    <<: *container_config
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: sudo yarn global add yarn@1.5.1
+      - run: yarn install
+      - run: yarn dist
+      - store_artifacts:
+          path: dist
+          destination: build
+
+  deploy_mac:
+    <<: *mac_config
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      - run: brew install yarn
+      - run: yarn install
+      - run: yarn dist
+      - store_artifacts:
+          path: dist
+          destination: build
+
 workflows:
   version: 2
   build_test:
@@ -54,3 +110,23 @@ workflows:
       - test:
           requires:
             - build
+  deploy:
+    jobs:
+      - deploy_win64:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)+.*/
+      - deploy_linux:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)+.*/
+      # - deploy_mac:
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /[0-9]+(\.[0-9]+)+.*/
