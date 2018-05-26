@@ -9,10 +9,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   setTabTitle,
   setTabTarget,
   setTabLoaded,
+  closeTab,
   enqueue,
   dequeue,
-  empty,
-  closeTab
+  empty
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(DAppContainer);

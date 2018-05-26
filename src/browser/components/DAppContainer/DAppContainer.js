@@ -118,6 +118,7 @@ export default class DAppContainer extends React.Component {
     event.preventDefault();
     shell.openExternal(event.url);
   }
+
   handleCloseWindow = () => {
     this.props.closeTab(this.props.sessionId);
   }
