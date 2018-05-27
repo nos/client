@@ -38,12 +38,12 @@
     "what-input": "5.0.5"
   },
   "scripts": {
-    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:4000/ && yarn run start-electron\" --kill-others --success first",
+    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:5000/ && yarn run start-electron\" --kill-others --success first",
     "build": "react-app-rewired build",
     "pretest": "yarn run lint",
     "test": "react-app-rewired test --env=jsdom --testMatch \"**/__tests__/**/*.test.{js,jsx,mjs}\" --setupTestFrameworkScriptFile \"./__tests__/setupTests.js\"",
-    "start-react": "cross-env PORT=4000 BROWSER=none react-app-rewired start",
-    "start-electron": "cross-env ELECTRON_START_URL=http://localhost:4000/ electron .",
+    "start-react": "cross-env PORT=5000 BROWSER=none react-app-rewired start",
+    "start-electron": "cross-env ELECTRON_START_URL=http://localhost:5000/ electron .",
     "pack": "yarn run build && electron-builder --dir",
     "dist": "yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
