@@ -1,6 +1,7 @@
 import { findIndex, omit } from 'lodash';
 
-import { ENQUEUE_REQUEST, DEQUEUE_REQUEST, EMPTY_REQUESTS } from '../actions/requestsActions';
+import { ENQUEUE_REQUEST, DEQUEUE_REQUEST, EMPTY_REQUESTS, EMPTY_ALL_REQUESTS } from '../actions/requestsActions';
+import { CLOSE_TAB } from '../actions/browserActions';
 
 const initialState = {};
 
@@ -40,7 +41,10 @@ export default function requestsReducer(state = initialState, action) {
       return enqueue(state, action.sessionId, action.request);
     case DEQUEUE_REQUEST:
       return dequeue(state, action.sessionId, action.id);
+    case EMPTY_ALL_REQUESTS:
+      return initialState;
     case EMPTY_REQUESTS:
+    case CLOSE_TAB:
       return empty(state, action.sessionId);
     default:
       return state;
