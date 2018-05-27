@@ -51,6 +51,6 @@ address bar (which you built/compiled in the pre-requisites step earlier) at the
 ## Known issues
 Combining a custom protocol like `nos://` with hot module replacement is a known issue, causing the nOS client to return a black screen when running your dApp.
 
-In such cases, it is adviced to use a bundler without hot module replacement (f.e. in Parcel this is done by adding `--no-hmr` to your start command.
+In such cases, it is adviced to use a bundler without hot module replacemen. As an example: using Parcel, this is done by adding `--no-hmr` to your start command.
 
 If you really want to use HMR, you can use `http://` within the client instead (though we would advice against it).
