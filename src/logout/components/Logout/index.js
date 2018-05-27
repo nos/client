@@ -11,11 +11,13 @@ const mapActionsToProps = ({ reset }) => ({
   reset
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  emptyAllRequests: () => dispatch(emptyAll())
+});
+
 export default compose(
   withActions(accountActions, mapActionsToProps),
-  connect(null, (dispatch) => ({
-    emptyAllRequests: () => dispatch(emptyAll())
-  })),
+  connect(null, mapDispatchToProps),
   withLogout((state, { history }) => history.push('/login')),
   withProps(({ emptyAllRequests, reset }) => ({
     logout: () => {
