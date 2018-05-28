@@ -2,6 +2,7 @@ const electron = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
+
 const resolve = require('./resolve');
 
 const { app, protocol, BrowserWindow } = electron;

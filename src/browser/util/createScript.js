@@ -1,4 +1,5 @@
 import Neon from '@cityofzion/neon-js';
+
 import encode from './encodeArgs';
 
 const createScript = (scriptHash, operation, rawArgs, encodeArgs) => {
