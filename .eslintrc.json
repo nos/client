@@ -24,6 +24,10 @@
         "config-overrides.js"
       ]
     }],
+    "import/order": ["error", {
+      "groups": [["external", "builtin"], "internal", ["sibling", "parent"]],
+      "newlines-between": "always-and-inside-groups"
+    }],
     "react/no-typos": ["off"],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/sort-comp": ["error", {
