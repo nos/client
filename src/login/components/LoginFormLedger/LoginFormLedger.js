@@ -95,8 +95,8 @@ export default class LoginFormLedger extends React.Component {
     if (this.state.connected) {
       this.getDeviceStatus();
       this.state.deviceInfo = (deviceInfo) ?
-        <p>Found USB {deviceInfo.manufacturer} {deviceInfo.product}</p> :
-        <p>Found USB Ledger device</p>;
+        <p>Found USB {deviceInfo.manufacturer} {deviceInfo.product}.</p> :
+        <p>Found USB Ledger device.</p>;
     } else {
       this.state.deviceStatus = null;
       this.state.deviceInfo =
@@ -114,7 +114,7 @@ export default class LoginFormLedger extends React.Component {
       this.getDeviceError();
     } else {
       this.state.deviceStatus = (deviceInfo) ?
-        <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}</p> :
+        <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}.</p> :
         <p>Connected to Ledger.</p>;
     }
   }
