@@ -62,10 +62,7 @@ function createWindow() {
 
   splashWindow.loadURL(
     url.format({
-      pathname: path.join(
-        __dirname,
-        'splash.html'
-      ),
+      pathname: path.join(__dirname, 'splash.html'),
       protocol: 'file:',
       slashes: true
     })
