@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import { withData, withError, withActions } from 'spunky';
+import { withData, withError, withActions, withProgress, recentlyCompletedStrategy } from 'spunky';
 
 import LoginFormLedger from './LoginFormLedger';
 import ledgerActions from '../../actions/ledgerActions';
@@ -23,6 +23,9 @@ export default compose(
   withActions(ledgerActions, mapLedgerActionsToProps),
   withData(ledgerActions, mapLedgerDataToProps),
   withError(ledgerActions, mapLedgerErrorToProps),
+  withProgress(ledgerActions, {
+    progress: recentlyCompletedStrategy
+  }),
 
   // redirect on login
   withRouter,
