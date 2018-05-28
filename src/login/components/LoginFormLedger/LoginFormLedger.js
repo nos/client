@@ -35,8 +35,8 @@ export default class LoginFormLedger extends React.Component {
     deviceStatus: null,
     deviceInfo: null,
     deviceError: null,
-    ledgerConnected: false,
-    ledgerAppOpen: false
+    connected: false,
+    open: false
   };
 
   componentDidMount() {
@@ -66,10 +66,12 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderActions = () => {
-    const disabled = (this.state.ledgerConnected && this.state.ledgerAppOpen) ? this.props.disabled : true;
+    const disabled = (this.state.connected && this.state.open) ? this.props.disabled : true;
     const onClick = disabled ? null : this.handleLogin;
 
-    this.state.deviceError = (!disabled) ? null : this.state.deviceError;
+    this.state.deviceError = (!disabled) ?
+      null :
+      this.state.deviceError;
 
     return (
       <div className={styles.actions}>
@@ -78,44 +80,49 @@ export default class LoginFormLedger extends React.Component {
     );
   }
 
+  handleLogin = (event) => {
+    const { publicKey, onLogin } = this.props;
+
+    event.preventDefault();
+    onLogin({ publicKey });
+  }
+
   getDeviceInfo = () => {
     const { deviceInfo, deviceError } = this.props;
 
-    this.state.ledgerConnected = (deviceError !== 'No USB device found.');
+    this.state.connected = (deviceError !== 'No USB device found.');
 
-    if (this.state.ledgerConnected) {
+    if (this.state.connected) {
       this.getDeviceStatus();
-      this.state.deviceInfo = (deviceInfo) ? <p>Found USB {deviceInfo.manufacturer} {deviceInfo.product}</p> : <p>Found USB Ledger device</p>;
+      this.state.deviceInfo = (deviceInfo) ?
+        <p>Found USB {deviceInfo.manufacturer} {deviceInfo.product}</p> :
+        <p>Found USB Ledger device</p>;
     } else {
       this.state.deviceStatus = null;
-      this.state.deviceInfo = <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
+      this.state.deviceInfo =
+        <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
       this.getDeviceError();
     }
   }
 
   getDeviceStatus = () => {
     const { publicKey, deviceInfo } = this.props;
-    this.state.ledgerAppOpen = !!(publicKey);
+    this.state.open = !!(publicKey);
 
-    if (!this.state.ledgerAppOpen) {
+    if (!this.state.open) {
       this.state.deviceStatus = null;
       this.getDeviceError();
     } else {
-      this.state.deviceStatus = (deviceInfo) ? <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}</p> : <p>Connected to Ledger.</p>;
+      this.state.deviceStatus = (deviceInfo) ?
+        <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}</p> :
+        <p>Connected to Ledger.</p>;
     }
   }
 
   getDeviceError = () => {
     const { deviceError } = this.props;
 
-    this.state.ledgerConnected = (deviceError !== 'No USB device found.');
+    this.state.connected = (deviceError !== 'No USB device found.');
     this.state.deviceError = (!deviceError) ? '' : <p>{deviceError}</p>;
-  }
-
-  handleLogin = (event) => {
-    const { publicKey, onLogin } = this.props;
-
-    event.preventDefault();
-    onLogin({ publicKey });
   }
 }
