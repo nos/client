@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, shape } from 'prop-types';
+import { bool, string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 import { progressValues } from 'spunky';
 
@@ -9,7 +9,7 @@ import styles from './LoginFormLedger.scss';
 
 const POLL_FREQUENCY = 1000;
 
-const { FAILED } = progressValues;
+const { INITIAL, LOADED } = progressValues;
 
 const deviceInfoShape = shape({
   manufacturer: string.isRequired,
@@ -23,7 +23,8 @@ export default class LoginFormLedger extends React.Component {
     deviceInfo: deviceInfoShape,
     deviceError: string,
     onLogin: func,
-    progress: string
+    progress: string,
+    disabled: bool
   };
 
   static defaultProps = {
@@ -31,7 +32,8 @@ export default class LoginFormLedger extends React.Component {
     deviceInfo: null,
     deviceError: null,
     onLogin: noop,
-    progress: 'INITIAL'
+    progress: INITIAL,
+    disabled: false
   };
 
   componentDidMount() {
@@ -57,8 +59,7 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderActions = () => {
-    const { publicKey, deviceInfo, progress } = this.props;
-    const disabled = !(publicKey && deviceInfo && (progress !== FAILED));
+    const disabled = this.props.disabled || this.props.progress !== LOADED;
     const onClick = disabled ? null : this.handleLogin;
 
     return (
@@ -69,16 +70,16 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderStatus = () => {
-    const { publicKey, deviceError, deviceInfo, progress } = this.props;
+    const { deviceError, deviceInfo, progress } = this.props;
 
-    if (deviceError !== 'No USB device found.') {
-      if (publicKey && deviceInfo && (progress !== FAILED)) {
-        return <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}.</p>;
-      } else {
-        return <p>{deviceError}</p>;
-      }
-    } else {
+    if (progress === LOADED) {
+      return <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}.</p>;
+    }
+
+    if (deviceError === 'No USB device found.') {
       return <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
+    } else {
+      return <p>{deviceError}</p>;
     }
   }
 
