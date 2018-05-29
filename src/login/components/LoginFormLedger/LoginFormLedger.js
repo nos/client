@@ -9,7 +9,7 @@ import styles from './LoginFormLedger.scss';
 
 const POLL_FREQUENCY = 1000;
 
-const { INITIAL, LOADED } = progressValues;
+const { INITIAL, LOADED, LOADING } = progressValues;
 
 const deviceInfoShape = shape({
   manufacturer: string.isRequired,
@@ -36,8 +36,19 @@ export default class LoginFormLedger extends React.Component {
     disabled: false
   };
 
+  state = {
+    status: INITIAL
+  };
+
   componentDidMount() {
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
+  }
+
+  componentDidUpdate() {
+    const { progress } = this.props;
+    if (progress !== LOADING) {
+      this.setStatus(progress);
+    }
   }
 
   componentWillUnmount() {
@@ -59,7 +70,7 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderActions = () => {
-    const disabled = this.props.disabled || this.props.progress !== LOADED;
+    const disabled = this.props.disabled || this.state.status !== LOADED;
     const onClick = disabled ? null : this.handleLogin;
 
     return (
@@ -70,9 +81,9 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderStatus = () => {
-    const { deviceError, deviceInfo, progress } = this.props;
+    const { deviceError, deviceInfo } = this.props;
 
-    if (progress === LOADED) {
+    if (this.state.status === LOADED) {
       return <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}.</p>;
     }
 
@@ -88,5 +99,13 @@ export default class LoginFormLedger extends React.Component {
 
     event.preventDefault();
     onLogin({ publicKey });
+  }
+
+  setStatus = (progress) => {
+    if (progress !== this.state.status) {
+      this.setState({
+        status: progress
+      });
+    }
   }
 }
