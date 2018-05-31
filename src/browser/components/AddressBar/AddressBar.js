@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { func, string } from 'prop-types';
+import { func, number, string } from 'prop-types';
 import { noop } from 'lodash';
 
 import ButtonBar from '../ButtonBar';
@@ -12,12 +12,14 @@ export default class AddressBar extends React.Component {
   static propTypes = {
     className: string,
     query: string,
+    tabCount: number,
     onQuery: func
   };
 
   static defaultProps = {
     className: null,
     query: '',
+    tabCount: 1,
     onQuery: noop
   };
 

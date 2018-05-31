@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AddressBar from './AddressBar';
 
 const mapStateToProps = (state) => {
-  const tabCount = Object.keys(state.browser.tabs).length
+  const tabCount = Object.keys(state.browser.tabs).length;
 
   return { tabCount };
 };
