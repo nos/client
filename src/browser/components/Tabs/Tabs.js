@@ -70,8 +70,10 @@ export default class Tabs extends React.Component {
   }
 
   handleShortcuts = (event) => {
+    const combinationKeyIsPressed = process.platform === 'darwin' ? event.metaKey : event.ctrlKey;
+
     // Command + w (close current tab or client)
-    if (event.metaKey && event.key === 'w') {
+    if (combinationKeyIsPressed && event.key === 'w') {
       if (Object.keys(this.props.tabs).length > 1) {
         // Prevent client to quit (default behavior)
         event.preventDefault();
@@ -81,7 +83,7 @@ export default class Tabs extends React.Component {
     }
 
     // Command + t (open new tab)
-    if (event.metaKey && event.key === 't') {
+    if (combinationKeyIsPressed && event.key === 't') {
       event.preventDefault();
       this.props.onOpen();
     }
