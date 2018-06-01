@@ -1,5 +1,4 @@
-// AuthenticatedLayout Sizes
-$menu-width: 70px;
+$authenticatedlayout-menu-width: 70px;
 
 .authenticatedLayout {
   background-color: $content-bg-color;
@@ -11,7 +10,7 @@ $menu-width: 70px;
     align-items: center;
     flex-direction: column;
     border-right: $primary-border-style;
-    min-width: $menu-width;
+    min-width: $authenticatedlayout-menu-width;
 
     header {
       @include headerStyle;
@@ -54,7 +53,7 @@ $menu-width: 70px;
     display: flex;
     flex-direction: column;
     -webkit-app-region: no-drag;
-    width: calc(100% - #{$menu-width});
+    width: calc(100% - #{$authenticatedlayout-menu-width});
 
     .content {
       box-sizing: border-box;

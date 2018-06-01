@@ -1,14 +1,9 @@
-// Tabs Component Sizes
-$tabs-height: 38px;
-
-
 .tabs {
   display: flex;
   flex-wrap: nowrap;
   padding: 0;
   border-bottom: 1px solid $primary-border-color;
   width: 100%;
-  height: $tabs-height;
   overflow: hidden;
 
   .tab {
@@ -20,9 +15,5 @@ $tabs-height: 38px;
     &:last-of-type {
       margin-right: 15px;
     }
-  }
-
-  .button {
-    height: $tabs-height;
   }
 }
