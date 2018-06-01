@@ -1,3 +1,10 @@
+// Tab Component Colors
+$tab-active-color: #f8f8f8;
+$tab-default-color: #eee;
+
+// Tab Component Sizes
+$tab-height: 38px;
+
 .tab {
   display: flex;
   flex-direction: row;
@@ -13,7 +20,7 @@
     width: calc(100% - 10px);
     position: absolute;
     border-radius: 4px;
-    border: 1px solid $tab-border-color;
+    border: 1px solid $primary-border-color;
     border-bottom: none;
     bottom: -6px;
     left: 5px;
@@ -29,7 +36,7 @@
 
     .tabBackground {
       background-color: $tab-active-color;
-      box-shadow: 0 0 2px 0 $tab-active-highlight-color inset;
+      box-shadow: 0 0 2px 0 $color-light inset;
     }
 
     .title {
