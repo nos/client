@@ -35,6 +35,8 @@ export default class Tab extends React.Component {
         tabIndex={0}
         onClick={onClick}
       >
+        <div className={styles.tabBackground}>
+        </div>
         {this.renderLoading()}
         <span className={styles.title}>{title}</span>
         <button className={styles.close} onClick={this.handleClose}>
