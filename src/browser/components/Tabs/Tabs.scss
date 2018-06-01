@@ -3,10 +3,13 @@
   flex-wrap: nowrap;
   padding: 0 32px;
   border-bottom: 1px solid #dee2e6;
+  width: 100%;
 
   .tab {
     flex: 0 1 auto;
+    overflow: hidden;
     margin-right: 16px;
+    flex-direction: row;
 
     &:last-child {
       margin-right: 0;
