@@ -1,15 +1,19 @@
 .tabs {
   display: flex;
   flex-wrap: nowrap;
-  padding: 0 32px;
-  border-bottom: 1px solid #dee2e6;
+  padding: 0;
+  border-bottom: 1px solid $primary-border-color;
+  width: 100%;
+  overflow: hidden;
 
   .tab {
     flex: 0 1 auto;
-    margin-right: 16px;
+    overflow: hidden;
+    margin-right: -15px;
+    flex-direction: row;
 
-    &:last-child {
-      margin-right: 0;
+    &:last-of-type {
+      margin-right: 15px;
     }
   }
 }

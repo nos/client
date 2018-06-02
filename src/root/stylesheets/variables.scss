@@ -1,7 +1,9 @@
 // Colors
+$color-light: #fff;
 
 $content-bg-color: #f5f5f5;
 $primary-text-color: #6c6c6e;
+$primary-border-color: #dee2e6;
 
 // Common Variables
 
@@ -11,6 +13,6 @@ $primary-border-style: thin solid rgba(0, 0, 0, 0.05);
 // Portals
 
 $modal-backdrop-color: #235a94;
-$modal-background-color: #fff;
+$modal-background-color: $color-light;
 $modal-shadow-color: rgba(4, 111, 223, 0.5);
 $modal-shadow: 0 25px 65px $modal-shadow-color;
