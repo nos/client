@@ -1,7 +1,8 @@
 .tabs {
   display: flex;
   flex-wrap: nowrap;
-  padding: 0 32px;
+  width: 100%;
+  padding: 0 12px;
   border-bottom: 1px solid #dee2e6;
 
   .tab {
