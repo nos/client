@@ -79,7 +79,7 @@
     "redux-devtools-extension": "2.13.2",
     "redux-mock-store": "1.5.1",
     "rimraf": "2.6.2",
-    "sass-loader": "7.0.1",
+    "sass-loader": "7.0.2",
     "wait-on": "2.1.0",
     "webpack": "3.11.0",
     "webpack-merge": "4.1.2"
