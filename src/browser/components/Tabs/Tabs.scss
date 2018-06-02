@@ -3,11 +3,11 @@
   flex-wrap: nowrap;
   padding: 0 32px;
   border-bottom: 1px solid #dee2e6;
-  width: calc(100vw - 64px);
+
   .tab {
     flex: 0 1 auto;
     margin-right: 16px;
-    min-width: 0;
+
     &:last-child {
       margin-right: 0;
     }
