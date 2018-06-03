@@ -11,6 +11,7 @@ export default class DAppContainer extends React.Component {
   static propTypes = {
     className: string,
     sessionId: string.isRequired,
+    active: bool.isRequired,
     target: string.isRequired,
     addressBarEntry: bool.isRequired,
     requestCount: number.isRequired,
@@ -63,8 +64,10 @@ export default class DAppContainer extends React.Component {
   }
 
   render() {
+    const { className, active, sessionId, target } = this.props;
+
     return (
-      <div className={classNames(styles.dAppContainer, this.props.className)}>
+      <div className={classNames(styles.dAppContainer, className, { [styles.active]: active })}>
         <webview
           ref={this.registerRef}
           preload={this.getPreloadPath()}
@@ -72,8 +75,8 @@ export default class DAppContainer extends React.Component {
         />
 
         <RequestsProcessor
-          sessionId={this.props.sessionId}
-          src={this.props.target}
+          sessionId={sessionId}
+          src={target}
           onResolve={this.handleResolve}
           onReject={this.handleReject}
         />
