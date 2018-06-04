@@ -6,9 +6,9 @@ import { setTabTarget } from '../../actions/browserActions';
 
 const mapStateToProps = (state) => {
   const { tabs, activeSessionId } = state.browser;
-  const { target, addressBarEntry, requestCount } = tabs[activeSessionId];
+  const { target } = tabs[activeSessionId];
 
-  return { tabs, activeSessionId, target, addressBarEntry, requestCount };
+  return { tabs, activeSessionId, target };
 };
 
 const mapDispatchToProps = (dispatch) => ({
