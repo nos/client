@@ -4,9 +4,26 @@
 
 <h1 align="center">nOS</h1>
 <p align="center">
+  <a href='http://makeapullrequest.com'>
+    <img src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg'>
+  </a>
+
+  <a href='https://discordapp.com/invite/eGFAskm'>
+    <img src='https://img.shields.io/badge/chat-discord-brightgreen.svg'>
+  </a>
+
+  <a href='https://circleci.com/gh/nos/client/tree/develop'>
+    <img src='https://img.shields.io/circleci/project/github/nos/client/develop.svg'>
+  </a>
+  
   <a href="https://greenkeeper.io/">
     <img src="https://badges.greenkeeper.io/nos/client.svg" />
   </a>
+  
+  <a href='https://github.com/prettier/prettier'>
+    <img src='https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat'>
+  </a>
+
 </p>
 <p align="center">
   <strong>nOS</strong> is a NEO-powered virtual operating system that serves as the gateway to the NEO Smart Economy.
@@ -60,8 +77,8 @@ There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Disc
 
 Resources:
 
-- [dApp-starter-kit repository](https://github.com/nos/create-nos-dapp)
-- [dApp-starter-kit example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
+- [Ceate-nOS-dApp repository](https://github.com/nos/create-nos-dapp)
+- [Ceate-nOS-dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
 
 Future resources:
 - Tutorials (Feel free to create any tutorials!!)
