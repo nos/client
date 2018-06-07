@@ -24,7 +24,7 @@ export default compose(
   withData(ledgerActions, mapLedgerDataToProps),
   withError(ledgerActions, mapLedgerErrorToProps),
   withProgress(ledgerActions, {
-    progress: recentlyCompletedStrategy
+    strategy: recentlyCompletedStrategy
   }),
 
   // redirect on login

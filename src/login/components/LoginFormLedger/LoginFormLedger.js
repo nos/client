@@ -9,7 +9,7 @@ import styles from './LoginFormLedger.scss';
 
 const POLL_FREQUENCY = 1000;
 
-const { INITIAL, LOADED, LOADING } = progressValues;
+const { LOADED, FAILED } = progressValues;
 
 const deviceInfoShape = shape({
   manufacturer: string.isRequired,
@@ -32,23 +32,13 @@ export default class LoginFormLedger extends React.Component {
     deviceInfo: null,
     deviceError: null,
     onLogin: noop,
-    progress: INITIAL,
+    progress: null,
     disabled: false
   };
 
-  state = {
-    status: INITIAL
-  };
-
   componentDidMount() {
+    this.props.poll();
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
-  }
-
-  componentDidUpdate() {
-    const { progress } = this.props;
-    if (progress !== LOADING) {
-      this.setStatus(progress);
-    }
   }
 
   componentWillUnmount() {
@@ -70,7 +60,7 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderActions = () => {
-    const disabled = this.props.disabled || this.state.status !== LOADED;
+    const disabled = this.props.disabled || this.props.progress !== LOADED;
     const onClick = disabled ? null : this.handleLogin;
 
     return (
@@ -81,17 +71,17 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderStatus = () => {
-    const { deviceError, deviceInfo } = this.props;
+    const { deviceError, deviceInfo, progress } = this.props;
 
-    if (this.state.status === LOADED) {
+    if (progress === LOADED) {
       return <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}.</p>;
     }
 
-    if (deviceError === 'No USB device found.') {
-      return <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
-    } else {
+    if (progress === FAILED) {
       return <p>{deviceError}</p>;
     }
+
+    return <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
   }
 
   handleLogin = (event) => {
@@ -99,13 +89,5 @@ export default class LoginFormLedger extends React.Component {
 
     event.preventDefault();
     onLogin({ publicKey });
-  }
-
-  setStatus = (progress) => {
-    if (progress !== this.state.status) {
-      this.setState({
-        status: progress
-      });
-    }
   }
 }
