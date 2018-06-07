@@ -54,7 +54,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "autoprefixer": "8.6.0",
+    "autoprefixer": "8.6.1",
     "babel-eslint": "8.2.2",
     "babel-plugin-module-resolver": "3.1.1",
     "concurrently": "3.5.1",
