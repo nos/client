@@ -23,6 +23,14 @@ export default class Tabs extends React.Component {
     setActiveTab: noop
   };
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleShortcuts, true);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleShortcuts);
+  }
+
   render() {
     return (
       <div className={styles.tabs}>
@@ -59,5 +67,25 @@ export default class Tabs extends React.Component {
     return () => {
       this.props.onClose(sessionId);
     };
+  }
+
+  handleShortcuts = (event) => {
+    const combinationKeyIsPressed = process.platform === 'darwin' ? event.metaKey : event.ctrlKey;
+
+    // Command + w (close current tab or client)
+    if (combinationKeyIsPressed && event.key === 'w') {
+      if (Object.keys(this.props.tabs).length > 1) {
+        // Prevent client to quit (default behavior)
+        event.preventDefault();
+        // Only close active tab if there is more than 1 tab added
+        this.props.onClose(this.props.activeSessionId);
+      }
+    }
+
+    // Command + t (open new tab)
+    if (combinationKeyIsPressed && event.key === 't') {
+      event.preventDefault();
+      this.props.onOpen();
+    }
   }
 }

@@ -7,7 +7,7 @@
   "main": "public/electron.js",
   "license": "MIT",
   "dependencies": {
-    "@cityofzion/neon-js": "3.8.0",
+    "@cityofzion/neon-js": "3.8.1",
     "@fortawesome/fontawesome": "1.1.4",
     "@fortawesome/fontawesome-free-regular": "5.0.8",
     "@fortawesome/fontawesome-free-solid": "5.0.8",
@@ -31,19 +31,19 @@
     "recompose": "0.27.1",
     "redux": "3.7.2",
     "redux-saga": "0.16.0",
-    "redux-thunk": "2.2.0",
+    "redux-thunk": "2.3.0",
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
     "uuid": "3.2.1",
     "what-input": "5.0.5"
   },
   "scripts": {
-    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:4000/ && yarn run start-electron\" --kill-others --success first",
+    "start": "concurrently -r \"yarn run start-react\" \"wait-on http://localhost:5000/ && yarn run start-electron\" --kill-others --success first",
     "build": "react-app-rewired build",
     "pretest": "yarn run lint",
     "test": "react-app-rewired test --env=jsdom --testMatch \"**/__tests__/**/*.test.{js,jsx,mjs}\" --setupTestFrameworkScriptFile \"./__tests__/setupTests.js\"",
-    "start-react": "cross-env PORT=4000 BROWSER=none react-app-rewired start",
-    "start-electron": "cross-env ELECTRON_START_URL=http://localhost:4000/ electron .",
+    "start-react": "cross-env PORT=5000 BROWSER=none react-app-rewired start",
+    "start-electron": "cross-env ELECTRON_START_URL=http://localhost:5000/ electron .",
     "pack": "yarn run build && electron-builder --dir",
     "dist": "yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
@@ -52,7 +52,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "autoprefixer": "8.0.0",
+    "autoprefixer": "8.6.0",
     "babel-eslint": "8.2.2",
     "babel-plugin-module-resolver": "3.1.1",
     "concurrently": "3.5.1",
@@ -79,7 +79,7 @@
     "redux-devtools-extension": "2.13.2",
     "redux-mock-store": "1.5.1",
     "rimraf": "2.6.2",
-    "sass-loader": "7.0.1",
+    "sass-loader": "7.0.2",
     "wait-on": "2.1.0",
     "webpack": "3.11.0",
     "webpack-merge": "4.1.2"
