@@ -14,7 +14,7 @@
     "@fortawesome/react-fontawesome": "0.0.20",
     "@ledgerhq/hw-transport-node-hid": "4.7.0",
     "bignumber.js": "7.0.1",
-    "classnames": "2.2.5",
+    "classnames": "2.2.6",
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.0",
     "es6-promisify": "6.0.0",
