@@ -26,10 +26,10 @@
 
 </p>
 <p align="center">
-  <strong>nOS</strong> is a NEO-powered virtual operating system that serves as the gateway to the NEO Smart Economy.
+  <strong>nOS</strong> is a NEO-powered virtual operating system that serves as the gateway to the Blockchain-powered Smart Economy.
 </p>
 <p align="center">
-  The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with NEO Smart Contracts in the back-end.
+  The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with Smart Contracts in the back-end.
 </p>
 
 ---
