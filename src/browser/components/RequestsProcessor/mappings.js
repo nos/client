@@ -10,7 +10,7 @@ import makeTestInvokeActions from '../../actions/makeTestInvokeActions';
 import makeStorageActions from '../../actions/makeStorageActions';
 import makeSendActions from '../../actions/makeSendActions';
 import makeClaimActions from '../../actions/makeClaimActions';
-import makeBalancesActions from '../../actions/makeBalancesAction';
+import makeBalancesActions from '../../actions/makeBalancesActions';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,
