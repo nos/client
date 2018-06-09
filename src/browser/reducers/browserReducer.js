@@ -5,11 +5,17 @@ import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_TITLE, SET_TAB_TARGET, SET
 import parseURL from '../util/parseURL';
 
 const initialTabState = {
-  target: 'nos://nos.neo',
-  title: 'Welcome to nOS',
+  target: 'https://my.nos.app',
+  title: 'My nOS',
   addressBarEntry: true,
   loading: false,
   requestCount: 1
+};
+
+const newTabState = {
+  ...initialTabState,
+  target: 'nos://nos.neo',
+  title: 'Welcome to nOS'
 };
 
 const generateSessionId = () => uuid();
@@ -63,7 +69,7 @@ function open(state) {
     activeSessionId: sessionId,
     tabs: {
       ...tabs,
-      [sessionId]: { ...initialTabState }
+      [sessionId]: { ...newTabState }
     }
   };
 }

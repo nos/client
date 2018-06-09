@@ -72,8 +72,8 @@ describe('<Routes />', () => {
           activeSessionId: '1',
           tabs: {
             1: {
-              title: 'Welcome to nOS',
-              target: 'nos://nos.neo',
+              title: 'My nOS',
+              target: 'https://my.nos.app',
               loading: false,
               requestCount: 1,
               addressBarEntry: true
