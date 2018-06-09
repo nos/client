@@ -1,9 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
-import { progressValues } from 'spunky';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
+import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
 
 import makeGetBalance from 'browser/components/RequestsProcessor/GetBalance';
 import makeBalancesActions from 'browser/actions/makeBalancesActions';
@@ -41,16 +40,8 @@ describe('<GetBalance />', () => {
     return mount(provideStore(<GetBalance {...props} />, store));
   };
 
-  const addBalancesLoadedListener = (done) => {
-    const unsubscribe = store.subscribe(() => {
-      const key = `${spunkyKey}.sessions.${sessionId}.balances-${requestId}.progress`;
-      const progress = get(store.getState(), key);
-
-      if (progress === progressValues.LOADED || progress === progressValues.FAILED) {
-        unsubscribe();
-        done();
-      }
-    });
+  const addBalancesLoadedListener = (callback) => {
+    addLoadedListener(store, callback, `sessions.${sessionId}.balances-${requestId}`);
   };
 
   let callSpy;
