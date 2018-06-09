@@ -97,7 +97,5 @@ We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create bu
 3. Open "Artifacts" tab & download executable files.
 
 ## macOS
-nOS currently requires a system running macOS.
-
 1. Create the distributable, i.e. `yarn dist`.
 2. Locate executable file `dist/nOS-1.0.0.dmg`.
