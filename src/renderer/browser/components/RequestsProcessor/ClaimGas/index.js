@@ -28,11 +28,7 @@ export default function makeClaimComponent(claimActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Do invoke if user accepts
-    withCall(claimActions, ({ net, address, wif }) => ({
-      net,
-      address,
-      wif
-    })),
+    withCall(claimActions, ({ net, address, wif }) => ({ net, address, wif })),
     withNullLoader(claimActions),
     withRejectMessage(claimActions, ({ error }) => (`Could not claim GAS: ${error}`)),
     withData(claimActions, mapSendDataToProps)
