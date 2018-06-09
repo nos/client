@@ -3,21 +3,20 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
-const resolve = require('./resolve');
+const registerNosProtocol = require('./registerNosProtocol');
+const pkg = require('../package.json');
 
-const { app, protocol, BrowserWindow } = electron;
+const { app, protocol, session, BrowserWindow } = electron;
 
 protocol.registerStandardSchemes(['nos']);
 
-function registerProtocol() {
-  protocol.registerHttpProtocol('nos', async (request, callback) => {
-    try {
-      const resolvedUrl = await resolve(url.parse(request.url));
-      const result = Object.assign({}, request, { url: resolvedUrl });
-      callback(result);
-    } catch (error) {
-      callback({ error });
-    }
+function injectHeaders() {
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    const requestHeaders = {
+      ...details.requestHeaders,
+      'X-nOS-Version': pkg.version
+    };
+    callback({ cancel: false, requestHeaders });
   });
 }
 
@@ -58,7 +57,14 @@ function createWindow() {
 
   // splashWindow is shown while mainWindow is loading hidden
   // As it is light weight it will load almost instantly and before mainWindow
-  splashWindow = new BrowserWindow({ width: 275, height: 330, show: true, titleBarStyle: 'customButtonsOnHover', frame: false, icon: iconPath });
+  splashWindow = new BrowserWindow({
+    width: 275,
+    height: 330,
+    show: true,
+    titleBarStyle: 'customButtonsOnHover',
+    frame: false,
+    icon: iconPath
+  });
 
   splashWindow.loadURL(
     url.format({
@@ -93,7 +99,8 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  registerProtocol();
+  registerNosProtocol();
+  injectHeaders();
 
   if (isDev) {
     installExtensions().then(createWindow);

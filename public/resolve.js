@@ -1,5 +1,5 @@
 const path = require('path');
-const { format } = require('url');
+const { resolve: resolveURL, format: formatURL } = require('url');
 const { rpc, u } = require('@cityofzion/neon-js');
 
 // TODO: Configurable network settings and script hash
@@ -24,12 +24,12 @@ async function resolve(url) {
     const filename = pathname === '/' ? 'welcome.html' : pathname;
 
     if (process.env.ELECTRON_START_URL) {
-      return path.join(process.env.ELECTRON_START_URL, filename);
+      return resolveURL(process.env.ELECTRON_START_URL, filename);
     } else {
-      return format({
+      return formatURL({
         pathname: path.join(__dirname, filename),
         protocol: 'file:',
-        slashes: true
+        slashes: false
       });
     }
   }
