@@ -3,23 +3,11 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
-const resolve = require('./resolve');
+const registerNosProtocol = require('./registerNosProtocol');
 
 const { app, protocol, BrowserWindow } = electron;
 
 protocol.registerStandardSchemes(['nos']);
-
-function registerProtocol() {
-  protocol.registerHttpProtocol('nos', async (request, callback) => {
-    try {
-      const resolvedUrl = await resolve(url.parse(request.url));
-      const result = Object.assign({}, request, { url: resolvedUrl });
-      callback(result);
-    } catch (error) {
-      callback({ error });
-    }
-  });
-}
 
 function installExtensions() {
   const {
@@ -93,7 +81,7 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  registerProtocol();
+  registerNosProtocol();
 
   if (isDev) {
     installExtensions().then(createWindow);
