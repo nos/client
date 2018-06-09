@@ -77,8 +77,8 @@ There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Disc
 
 Resources:
 
-- [Ceate-nOS-dApp repository](https://github.com/nos/create-nos-dapp)
-- [Ceate-nOS-dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
+- [Create-nOS-dApp repository](https://github.com/nos/create-nos-dapp)
+- [Create-nOS-dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
 
 Future resources:
 - Tutorials (Feel free to create any tutorials!!)
