@@ -4,10 +4,21 @@ const path = require('path');
 const url = require('url');
 
 const registerNosProtocol = require('./registerNosProtocol');
+const pkg = require('../package.json');
 
-const { app, protocol, BrowserWindow } = electron;
+const { app, protocol, session, BrowserWindow } = electron;
 
 protocol.registerStandardSchemes(['nos']);
+
+function injectHeaders() {
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    const requestHeaders = {
+      ...details.requestHeaders,
+      'X-nOS-Version': pkg.version
+    };
+    callback({ cancel: false, requestHeaders });
+  });
+}
 
 function installExtensions() {
   const {
@@ -46,7 +57,14 @@ function createWindow() {
 
   // splashWindow is shown while mainWindow is loading hidden
   // As it is light weight it will load almost instantly and before mainWindow
-  splashWindow = new BrowserWindow({ width: 275, height: 330, show: true, titleBarStyle: 'customButtonsOnHover', frame: false, icon: iconPath });
+  splashWindow = new BrowserWindow({
+    width: 275,
+    height: 330,
+    show: true,
+    titleBarStyle: 'customButtonsOnHover',
+    frame: false,
+    icon: iconPath
+  });
 
   splashWindow.loadURL(
     url.format({
@@ -82,6 +100,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   registerNosProtocol();
+  injectHeaders();
 
   if (isDev) {
     installExtensions().then(createWindow);
