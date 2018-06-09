@@ -29,7 +29,7 @@ async function resolve(url) {
       return formatURL({
         pathname: path.join(__dirname, filename),
         protocol: 'file:',
-        slashes: true
+        slashes: false
       });
     }
   }
