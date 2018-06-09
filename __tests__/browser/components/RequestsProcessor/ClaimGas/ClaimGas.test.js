@@ -10,7 +10,7 @@ describe('<ClaimGas />', () => {
 
   it('renders nothing', () => {
     const wrapper = mount(<ClaimGas {...defaultProps} />);
-    expect(wrapper.children().length).toBe(0);
+    expect(wrapper.children()).toHaveLength(0);
   });
 
   it('calls onResolve with txid', () => {

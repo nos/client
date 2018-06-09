@@ -70,7 +70,7 @@ describe('<GetBalance />', () => {
       });
 
       it('renders nothing', () => {
-        expect(wrapper.find('NullLoader').length).toBe(1);
+        expect(wrapper.find('NullLoader')).toHaveLength(1);
       });
 
       it('does not resolve or reject', () => {
