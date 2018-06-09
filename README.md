@@ -81,7 +81,7 @@ Resources:
 - [Create-nOS-dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
 
 Future resources:
-- Tutorials (Feel free to create any tutorials!!)
+- Tutorials
 - List of known bugs
 - List of coming features
 
