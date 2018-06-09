@@ -207,7 +207,7 @@ const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
 const amount = '1';
 const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
 
-nos.send(GAS, amount, receiver)
+nos.send({ asset: GAS, amount, receiver })
     .then((txid) => alert(`${amount} GAS sent in transaction ${txid}`))
     .catch((err) => alert(`Error: ${err.message}`));
 ```
@@ -257,11 +257,11 @@ const asset = GAS;
 const amount = '1';
 const receiver = 'AMh8o3uv5PwdryBsiZPd5zoVBDVaredZLG';
 nos.send({ asset, amount, receiver })
-  .then((data) => alert(`${amount} ${asset} sent: ${data} `))
+  .then((txId) => alert(`${amount} ${asset} sent: ${txId} `))
   .catch((err) => alert(`Error: ${err.message}`));
 
 nos.claimGas()
-  .then((data) => alert(`Gas claimed ${data}`))
+  .then((txId) => alert(`Gas claimed ${txId}`))
   .catch((err) => alert(`Error: ${err.message}`));
 ```
 

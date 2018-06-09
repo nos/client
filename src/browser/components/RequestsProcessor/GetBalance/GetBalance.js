@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, arrayOf } from 'prop-types';
+import { string, func, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 
 import balanceShape from 'account/shapes/balanceShape';
@@ -11,7 +11,7 @@ function isValidAssetHash(asset) {
 
 export default class GetBalance extends React.Component {
   static propTypes = {
-    balances: arrayOf(balanceShape).isRequired,
+    balances: objectOf(balanceShape).isRequired,
     asset: string.isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired

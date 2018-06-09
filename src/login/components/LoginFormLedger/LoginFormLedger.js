@@ -1,12 +1,15 @@
 import React from 'react';
 import { bool, string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
+import { progressValues } from 'spunky';
 
 import Button from 'shared/components/Forms/Button';
 
 import styles from './LoginFormLedger.scss';
 
 const POLL_FREQUENCY = 1000;
+
+const { LOADED, FAILED } = progressValues;
 
 const deviceInfoShape = shape({
   manufacturer: string.isRequired,
@@ -15,23 +18,26 @@ const deviceInfoShape = shape({
 
 export default class LoginFormLedger extends React.Component {
   static propTypes = {
-    disabled: bool,
     poll: func.isRequired,
     publicKey: string,
     deviceInfo: deviceInfoShape,
     deviceError: string,
-    onLogin: func
+    onLogin: func,
+    progress: string,
+    disabled: bool
   };
 
   static defaultProps = {
-    disabled: false,
     publicKey: null,
     deviceInfo: null,
     deviceError: null,
-    onLogin: noop
+    onLogin: noop,
+    progress: null,
+    disabled: false
   };
 
   componentDidMount() {
+    this.props.poll();
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
   }
 
@@ -45,9 +51,7 @@ export default class LoginFormLedger extends React.Component {
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
         <div>
-          {this.renderDeviceStatus()}
-          {this.renderDeviceInfo()}
-          {this.renderDeviceError()}
+          {this.renderStatus()}
         </div>
 
         {this.renderActions()}
@@ -56,7 +60,7 @@ export default class LoginFormLedger extends React.Component {
   }
 
   renderActions = () => {
-    const disabled = this.props.disabled || !this.props.deviceInfo;
+    const disabled = this.props.disabled || this.props.progress !== LOADED;
     const onClick = disabled ? null : this.handleLogin;
 
     return (
@@ -66,34 +70,18 @@ export default class LoginFormLedger extends React.Component {
     );
   }
 
-  renderDeviceInfo = () => {
-    const { deviceInfo } = this.props;
+  renderStatus = () => {
+    const { deviceError, deviceInfo, progress } = this.props;
 
-    if (deviceInfo) {
-      return <p>Found USB {deviceInfo.manufacturer} {deviceInfo.product}</p>;
-    } else {
-      return <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
-    }
-  }
-
-  renderDeviceStatus = () => {
-    const { publicKey } = this.props;
-
-    if (!publicKey) {
-      return null;
+    if (progress === LOADED) {
+      return <p>Connected to {deviceInfo.manufacturer} {deviceInfo.product}.</p>;
     }
 
-    return <p>Connected to Ledger.</p>;
-  }
-
-  renderDeviceError = () => {
-    const { deviceError } = this.props;
-
-    if (!deviceError) {
-      return null;
+    if (progress === FAILED) {
+      return <p>{deviceError}</p>;
     }
 
-    return <p>{deviceError}</p>;
+    return <p>Searching for USB devices. Please plug in your Ledger to login.</p>;
   }
 
   handleLogin = (event) => {
