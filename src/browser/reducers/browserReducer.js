@@ -12,6 +12,12 @@ const initialTabState = {
   requestCount: 1
 };
 
+const newTabState = {
+  ...initialTabState,
+  target: 'nos://nos.neo',
+  title: 'Welcome to nOS'
+};
+
 const generateSessionId = () => uuid();
 
 function generateInitialState() {
@@ -63,7 +69,7 @@ function open(state) {
     activeSessionId: sessionId,
     tabs: {
       ...tabs,
-      [sessionId]: { ...initialTabState }
+      [sessionId]: { ...newTabState }
     }
   };
 }
