@@ -5,7 +5,8 @@
   align-items: center;
   position: relative;
   border-color: #dee2e6 #dee2e6 transparent;
-  padding: 8px 12px;
+  min-width: 0;
+  padding: 8px 10px;
   font-size: 11.52px;
   transition: all 0.2s ease;
   cursor: pointer;
