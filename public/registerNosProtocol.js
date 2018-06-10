@@ -2,20 +2,13 @@ const electron = require('electron');
 const path = require('path');
 const url = require('url');
 const mime = require('mime-types');
-const request = require('request');
+const fetch = require('node-fetch');
 const { createReadStream } = require('fs');
-const { PassThrough } = require('stream');
+const { omit } = require('lodash');
 
 const resolve = require('./resolve');
 
 const { protocol } = electron;
-
-function createDataStream(str) {
-  const stream = new PassThrough();
-  stream.push(str);
-  stream.push(null);
-  return stream;
-}
 
 function registerNosProtocol() {
   protocol.registerStreamProtocol('nos', async (req, callback) => {
@@ -31,21 +24,13 @@ function registerNosProtocol() {
           data: createReadStream(resolvedUrl.path)
         });
       } else {
-        /**
-         * TODO: The `request` package allows us to treat `request.get` as a stream.  Unfortunately,
-         * the result is treated as content-type "text/plain".  If that can be solved, the solution
-         * can be simplified to something like:
-         *
-         *   callback(request.get(resolvedUrl.href));
-         */
-        request({ url: resolvedUrl, encoding: null }, (err, response, body) => {
-          if (err) throw err;
+        const response = await fetch(resolvedUrl.href);
 
-          callback({
-            statusCode: response.statusCode,
-            headers: response.headers,
-            data: createDataStream(body)
-          });
+        callback({
+          statusCode: response.status,
+          // Since the body is being streamed without encoding, we need to strip this header.
+          headers: omit(response.headers.raw(), 'content-encoding'),
+          data: response.body
         });
       }
     } catch (error) {
