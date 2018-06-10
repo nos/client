@@ -1,7 +1,0 @@
-@mixin headerStyle {
-  box-sizing: border-box;
-  height: calc(32px + 1rem);
-  display: flex;
-  align-items: center;
-  border-bottom: $primary-border-style;
-}

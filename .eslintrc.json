@@ -4,8 +4,12 @@
   "env": {
     "browser": true,
     "node": true,
-    "jasmine": true
+    "jasmine": true,
+    "jest/globals": true
   },
+  "plugins": [
+    "jest"
+  ],
   "rules": {
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
@@ -14,7 +18,8 @@
     "no-else-return": ["off"],
     "function-paren-newline": ["error", "consistent"],
     "object-curly-newline": ["error", { "consistent": true }],
-    "jsx-a11y/anchor-is-valid": [ "error", { "components": ["Link"], "specialLink": ["to"] }],
+    "jsx-a11y/anchor-is-valid": ["error", { "components": ["Link"], "specialLink": ["to"] }],
+    "jsx-a11y/click-events-have-key-events": ["off"],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": [
         "**/__mocks__/**/*.js",
@@ -22,6 +27,10 @@
         "**/public/electron.js",
         "config-overrides.js"
       ]
+    }],
+    "import/order": ["error", {
+      "groups": [["external", "builtin"], "internal", ["sibling", "parent"]],
+      "newlines-between": "always-and-inside-groups"
     }],
     "react/no-typos": ["off"],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
@@ -44,10 +53,10 @@
           "mixins",
           "statics",
           "defaultProps",
+          "state",
           "constructor",
           "getDefaultProps",
           "getInitialState",
-          "state",
           "getChildContext",
           "componentWillMount",
           "componentDidMount",
@@ -68,6 +77,7 @@
     }]
   },
   "settings": {
-    "import/core-modules": ["electron"]
+    "import/core-modules": ["electron"],
+    "import/resolver": { "babel-module": {} }
   }
 }

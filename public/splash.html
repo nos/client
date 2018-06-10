@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script>
+      if (typeof module === 'object') {
+        // unset module
+        window.module = module;
+        module = undefined;
+      }
+    </script>
+
+    <script src="animations/bodymovin_light_4_13.min.js"></script>
+    
+    <script>
+      if (window.module) {
+        // set module - allow script imports in electron
+        module = window.module;
+      }
+    </script>
+    
+    <style>
+
+      html,
+      body {
+        background-color: #000;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        font-family: 'Rubik', sans-serif;
+      }
+
+      #animation {
+        width: 50%;
+        height: 50%;
+      }
+
+      .bg {
+        -webkit-app-region: drag;
+        position: absolute;
+        background: radial-gradient(#fff, #c1c1c1);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-size: contain;
+      }
+
+      .cn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+    </style>
+
+  </head>
+  <body>
+
+    <div class="bg cn">
+        <div id="animation"></div>
+        <div>Loading nOS...</div>
+    </div>
+
+    <script src="animations/loader.js"></script>
+    
+
+  </body>
+</html>

@@ -1,10 +1,11 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const postCssFlexBugsFixes = require('postcss-flexbugs-fixes');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const { compose } = require('react-app-rewired');
+const { compose, getBabelLoader } = require('react-app-rewired');
 
 function injectSassLoader(config, env) {
   const isDev = env === 'development';
@@ -38,7 +39,7 @@ function injectSassLoader(config, env) {
     {
       loader: 'sass-loader',
       options: {
-        data: '@import "stylesheets/variables"; @import "stylesheets/mixins";',
+        data: '@import "root/stylesheets/variables"; @import "root/stylesheets/mixins";',
         includePaths: [path.resolve(__dirname, './src')],
         sourceMap: isDev
       }
@@ -87,12 +88,36 @@ function injectPublicPath(config, env) {
   });
 }
 
-function injectHID(config, _env) {
-  return merge(config, {
-    externals: {
-      'node-hid': 'commonjs node-hid'
-    }
+function rewireBabel(config, _env) {
+  const loader = getBabelLoader(config.module.rules);
+
+  if (!loader) {
+    console.warn('babel-loader not found'); // eslint-disable-line no-console
+    return config;
+  }
+
+  loader.options = merge(loader.options, {
+    babelrc: fs.existsSync(path.resolve(__dirname, './.babelrc'))
   });
+
+  return config;
 }
 
-module.exports = compose(injectTarget, injectSassLoader, injectPublicPath, injectHID);
+function injectExternal(external) {
+  return (config, _env) => {
+    return merge(config, {
+      externals: {
+        [external]: `commonjs ${external}`
+      }
+    });
+  };
+}
+
+module.exports = compose(
+  injectTarget,
+  injectSassLoader,
+  injectPublicPath,
+  rewireBabel,
+  injectExternal('@cityofzion/neon-js'),
+  injectExternal('node-hid')
+);
