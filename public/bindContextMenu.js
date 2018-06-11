@@ -100,24 +100,39 @@ function bindAppMenu() {
 function bindContextMenu(browserWindow) {
   browserWindow.webContents.on('context-menu', (event, params) => {
     const template = [];
+    const { isEditable, editFlags } = params;
 
-    if (params.isEditable) {
+    if (isEditable) {
       template.push({
-        role: 'undo'
+        label: 'Undo',
+        role: editFlags.canUndo ? 'undo' : '',
+        enabled: editFlags.canUndo
       }, {
-        role: 'redo'
+        label: 'Redo',
+        role: editFlags.canRedo ? 'redo' : '',
+        enabled: editFlags.canRedo
       }, {
         type: 'separator'
       }, {
-        role: 'cut'
+        label: 'Cut',
+        role: editFlags.canCut ? 'cut' : '',
+        enabled: editFlags.canCut
       }, {
-        role: 'copy'
+        label: 'Copy',
+        role: editFlags.canCopy ? 'copy' : '',
+        enabled: editFlags.canCopy
       }, {
-        role: 'paste'
+        label: 'Paste',
+        role: editFlags.canPaste ? 'paste' : '',
+        enabled: editFlags.canPaste
       }, {
-        role: 'pasteandmatchstyle'
+        label: 'Paste and Match Style',
+        role: editFlags.canPaste ? 'pasteandmatchstyle' : '',
+        enabled: editFlags.canPaste
       }, {
-        role: 'selectall'
+        label: 'Select All',
+        role: editFlags.canSelectAll ? 'selectall' : '',
+        enabled: editFlags.canSelectAll
       });
     }
 
