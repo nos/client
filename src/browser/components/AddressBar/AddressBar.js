@@ -31,7 +31,12 @@ export default class AddressBar extends React.Component {
 
     if (this.props.tabCount > prevProps.tabCount) {
       // Focus the address field after opening a new tab
-      this.input.focus();
+      this.input.select();
+    } else if (this.props.tabCount < prevProps.tabCount) {
+      // Blur the address field after closing a tab and make sure the
+      // correspondent address is shown
+      this.input.value = this.props.query;
+      this.input.blur();
     }
   }
 
