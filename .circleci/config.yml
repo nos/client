@@ -33,7 +33,7 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: sudo yarn global add yarn@1.7.0
-      - run: yarn global add greenkeeper-lockfile@1
+      - run: yarn add greenkeeper-lockfile@1
       - run: yarn install
       - run: greenkeeper-lockfile-update
       - save_cache:
