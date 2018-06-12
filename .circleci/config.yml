@@ -34,13 +34,13 @@ jobs:
           - v1-dependencies-
       - run: sudo yarn global add yarn@1.7.0
       - run: yarn global add greenkeeper-lockfile@1
-      - run: yarn greenkeeper-lockfile-update
+      - run: greenkeeper-lockfile-update
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn greenkeeper-lockfile-upload
+      - run: greenkeeper-lockfile-upload
   test:
     <<: *container_config
     steps:
