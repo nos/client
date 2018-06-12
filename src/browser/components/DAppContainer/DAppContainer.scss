@@ -6,11 +6,11 @@
     display: block;
   }
 
-	.webview {
-		height: 100%;
+  .webview {
+    height: 100%;
 
-	  &.hidden {
-	    display: none;
-	  }
-	}
+    &.hidden {
+      display: none;
+    }
+  }
 }
