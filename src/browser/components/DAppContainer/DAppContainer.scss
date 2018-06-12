@@ -5,4 +5,12 @@
   &.active {
     display: block;
   }
+
+	.webview {
+		height: 100%;
+
+	  &.hidden {
+	    display: none;
+	  }
+	}
 }
