@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 
-import getBalances from 'shared/util/getBalances';
+import getBalances from '../util/getBalances';
 
 export const ID = 'balances';
 
