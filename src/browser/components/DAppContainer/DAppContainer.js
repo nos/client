@@ -90,19 +90,17 @@ export default class DAppContainer extends React.Component {
   renderError() {
     const { target, errorCode, errorDescription } = this.props;
 
-    // Validate if there is an error code (do not check with ! as the code
-    // could have a negative value)
-    if (errorCode !== null) {
-      return (
-        <Error
-          target={target}
-          code={errorCode}
-          description={errorDescription}
-        />
-      );
+    if (errorCode === null) {
+      return null;
     }
 
-    return null;
+    return (
+      <Error
+        target={target}
+        code={errorCode}
+        description={errorDescription}
+      />
+    );
   }
 
   renderWebView() {
