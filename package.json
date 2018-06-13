@@ -24,7 +24,7 @@
     "node-fetch": "^2.1.2",
     "prop-types": "15.6.0",
     "rc-tooltip": "3.7.2",
-    "react": "16.2.0",
+    "react": "16.4.1",
     "react-copy-to-clipboard": "5.0.1",
     "react-dom": "16.2.0",
     "react-redux": "5.0.6",
