@@ -1,7 +1,7 @@
 import uuid from 'uuid/v1';
 import { keys, omit, has, size } from 'lodash';
 
-import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_TITLE, SET_TAB_TARGET, SET_TAB_LOADED } from '../actions/browserActions';
+import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_ERROR, SET_TAB_TITLE, SET_TAB_TARGET, SET_TAB_LOADED } from '../actions/browserActions';
 import parseURL from '../util/parseURL';
 
 const initialTabState = {
@@ -9,7 +9,9 @@ const initialTabState = {
   title: 'My nOS',
   addressBarEntry: true,
   loading: false,
-  requestCount: 1
+  requestCount: 1,
+  errorCode: null,
+  errorDescription: null
 };
 
 const newTabState = {
@@ -109,6 +111,14 @@ function setTitle(state, action) {
   return updateTab(state, action.sessionId, { title: action.title });
 }
 
+function setError(state, action) {
+  return updateTab(state, action.sessionId, {
+    loading: false,
+    errorCode: action.code,
+    errorDescription: action.description
+  });
+}
+
 function setTarget(state, action) {
   const tab = state.tabs[action.sessionId];
 
@@ -123,7 +133,9 @@ function setTarget(state, action) {
     title: target,
     loading: action.leavingPage,
     addressBarEntry: action.addressBarEntry,
-    requestCount: tab.requestCount + 1
+    requestCount: tab.requestCount + 1,
+    errorCode: null,
+    errorDescription: null
   });
 }
 
@@ -139,6 +151,8 @@ export default function browserReducer(state = generateInitialState(), action) {
       return close(state, action);
     case SET_ACTIVE_TAB:
       return focus(state, action);
+    case SET_TAB_ERROR:
+      return setError(state, action);
     case SET_TAB_TITLE:
       return setTitle(state, action);
     case SET_TAB_TARGET:
