@@ -29,10 +29,7 @@ export default async function getBalances({ net, address, tokens }) {
 
   // asset balances
   promises.push((async () => {
-    const assetBalances = await api.loadBalance(api.getBalanceFrom, {
-      net,
-      address
-    });
+    const assetBalances = await api.getBalanceFrom({ net, address }, api.neoscan);
 
     const { assets } = assetBalances.balance;
 

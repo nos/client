@@ -10,9 +10,7 @@ const claimGas = async ({ net, address, wif }) => {
     privateKey: wif
   };
 
-  api.setApiSwitch(1);
-  const { response: { result, txid } } = await api.claimGas(config);
-  api.setApiSwitch(0); // only temporarily use neonDB for gasClaims
+  const { response: { result, txid } } = await api.claimGas(config, api.neoscan);
 
   if (!result) {
     throw new Error('Claim failed.');

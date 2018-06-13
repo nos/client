@@ -14,7 +14,7 @@ const getStorage = async ({ net, scriptHash, key, encodeInput, decodeOutput }) =
     throw new Error(`Invalid key: "${key}"`);
   }
 
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
+  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
   const { result } =
     await rpc.Query.getStorage(scriptHash, encodeInput
       ? u.str2hexstring(key)
