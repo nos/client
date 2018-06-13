@@ -3,7 +3,7 @@ const { resolve: resolveURL, format: formatURL } = require('url');
 const { rpc, u } = require('@cityofzion/neon-js');
 
 // TODO: Configurable network settings and script hash
-const NS_SCRIPT_HASH = '0x956b19cdbeb7bcf151819a73a6f4b4e410b32c18';
+const NS_SCRIPT_HASH = '0xd8a68570faabe5edfd19a3d375f11a24a0a4832c';
 const RPC_URL = 'http://localhost:30333';
 
 // https://cs.chromium.org/chromium/src/net/base/net_error_list.h
