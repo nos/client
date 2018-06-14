@@ -10,7 +10,7 @@ import styles from './AccountDatum.scss';
 
 const COPIED_DURATION = 2000;
 
-export default class AccountDetails extends React.Component {
+export default class AccountDatum extends React.Component {
   static propTypes = {
     label: string.isRequired,
     value: string.isRequired
