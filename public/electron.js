@@ -3,6 +3,7 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 
+const bindContextMenu = require('./bindContextMenu');
 const registerNosProtocol = require('./registerNosProtocol');
 const pkg = require('../package.json');
 
@@ -50,6 +51,8 @@ function createWindow() {
   mainWindow = new BrowserWindow(
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
+
+  bindContextMenu(mainWindow);
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
