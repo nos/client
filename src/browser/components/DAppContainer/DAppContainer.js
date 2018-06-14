@@ -4,17 +4,21 @@ import classNames from 'classnames';
 import { shell } from 'electron';
 import { string, bool, number, func } from 'prop-types';
 
+import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
 
 export default class DAppContainer extends React.Component {
   static propTypes = {
     className: string,
+    errorCode: number,
+    errorDescription: string,
     sessionId: string.isRequired,
     active: bool.isRequired,
     target: string.isRequired,
     addressBarEntry: bool.isRequired,
     requestCount: number.isRequired,
+    setTabError: func.isRequired,
     setTabTitle: func.isRequired,
     setTabTarget: func.isRequired,
     setTabLoaded: func.isRequired,
@@ -25,7 +29,9 @@ export default class DAppContainer extends React.Component {
   }
 
   static defaultProps = {
-    className: null
+    className: null,
+    errorCode: null,
+    errorDescription: null
   }
 
   componentDidMount() {
@@ -68,11 +74,8 @@ export default class DAppContainer extends React.Component {
 
     return (
       <div className={classNames(styles.dAppContainer, className, { [styles.active]: active })}>
-        <webview
-          ref={this.registerRef}
-          preload={this.getPreloadPath()}
-          style={{ height: '100%' }}
-        />
+        {this.renderWebView()}
+        {this.renderError()}
 
         <RequestsProcessor
           sessionId={sessionId}
@@ -81,6 +84,34 @@ export default class DAppContainer extends React.Component {
           onReject={this.handleReject}
         />
       </div>
+    );
+  }
+
+  renderError() {
+    const { target, errorCode, errorDescription } = this.props;
+
+    if (errorCode === null) {
+      return null;
+    }
+
+    return (
+      <Error
+        target={target}
+        code={errorCode}
+        description={errorDescription}
+      />
+    );
+  }
+
+  renderWebView() {
+    const { errorCode } = this.props;
+
+    return (
+      <webview
+        ref={this.registerRef}
+        preload={this.getPreloadPath()}
+        className={classNames(styles.webview, { [styles.hidden]: errorCode !== null })}
+      />
     );
   }
 
@@ -112,9 +143,8 @@ export default class DAppContainer extends React.Component {
     this.props.setTabTarget(this.props.sessionId, event.url, { leavingPage: false });
   }
 
-  handleNavigateFailed = (_event) => {
-    // TODO: Display an error page or something.  For now, just clear out the loading spinner.
-    this.props.setTabLoaded(this.props.sessionId, true);
+  handleNavigateFailed = ({ errorCode, errorDescription }) => {
+    this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
   }
 
   handleNewWindow = (event) => {

@@ -48,6 +48,8 @@ export default class Browser extends React.Component {
         addressBarEntry={tab.addressBarEntry}
         requestCount={tab.requestCount}
         active={sessionId === this.props.activeSessionId}
+        errorCode={tab.errorCode}
+        errorDescription={tab.errorDescription}
       />
     );
   }
