@@ -16,7 +16,6 @@ export default function AccountDetails(props) {
         <AccountDatum label="Address" value={account.address} />
         <AccountDatum label="Private Key" value={account.key} />
         <AccountDatum label="Encrypted Key" value={account.encryptedKey} />
-        <AccountDatum label="Passphrase" value={account.passphrase} />
       </div>
       <div className={styles.actions}>
         <Link to="/login">Login</Link>
