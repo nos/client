@@ -20,7 +20,7 @@ const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs }) => {
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
+  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
   const script = createScript(scriptHash, operation, args, encodeArgs);
   const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 

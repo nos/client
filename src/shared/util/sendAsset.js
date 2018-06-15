@@ -26,7 +26,7 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
     intents
   };
 
-  const { response: { result, txid } } = await api.sendAsset(config);
+  const { response: { result, txid } } = await api.sendAsset(config, api.neoscan);
 
   if (!result) {
     throw new Error('Invocation failed.');
