@@ -2,7 +2,7 @@
   "name": "nOS",
   "description": "nOS: NEO Operating System",
   "author": "nOS",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "main": "public/electron.js",
   "license": "MIT",
