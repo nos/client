@@ -127,7 +127,7 @@ describe('<Encrypt />', () => {
   describe('with invalid args', () => {
     const args = [{ recipientPublicKey: wrongRecipientPublicKey, data }];
     const defaultProps = { args, onResolve: noop, onReject: noop };
-  
+
     let wrapper;
 
     beforeEach((done) => {
