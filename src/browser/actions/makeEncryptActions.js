@@ -14,7 +14,11 @@ function aes256CbcEncrypt(iv, key, data) {
   return Buffer.concat([firstChunk, secondChunk]);
 }
 
-const encrypt = ({ recipientPublicKey, wif, data }) => {
+function getRandomIV() {
+  return randomBytes(16);
+}
+
+const encrypt = ({ recipientPublicKey, wif, data, ivProvider }) => {
   const ecdh = ECDH('prime256v1');
   const senderAccount = new wallet.Account(wif);
   const senderPrivateKey = senderAccount.privateKey;
@@ -22,7 +26,7 @@ const encrypt = ({ recipientPublicKey, wif, data }) => {
   const senderPublicKey = Buffer.from(senderAccount.publicKey, 'hex');
   const sharedKey = ecdh.computeSecret(recipientPublicKey, 'hex');
   const hash = createHash('sha512').update(sharedKey).digest();
-  const iv = randomBytes(16);
+  const iv = ivProvider();
   const encryptionKey = hash.slice(0, 32);
   const macKey = hash.slice(32);
   const encrypted = aes256CbcEncrypt(iv, encryptionKey, data);
@@ -35,7 +39,7 @@ const encrypt = ({ recipientPublicKey, wif, data }) => {
   };
 };
 
-export default function makeEncryptActions(sessionId, requestId) {
+export default function makeEncryptActions(sessionId, requestId, ivProvider = getRandomIV) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
   return createActions(id, ({
@@ -43,6 +47,6 @@ export default function makeEncryptActions(sessionId, requestId) {
     wif,
     data
   }) => () => {
-    return encrypt({ recipientPublicKey, wif, data });
+    return encrypt({ recipientPublicKey, wif, data, ivProvider });
   });
 }

@@ -321,11 +321,11 @@ The `decrypt` function allows you to decrypt previously encrypted data for this 
 ```javascript
 const nos = window.NOS.V1;
 
-// for the test data below WIF of the recipient account is L4vkCE39rVLZPyGhbnV76wR1MjjEEccQa42hRAV2vUR1xibhKhEt
-const senderPublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
-const iv = "cd26ef7a70b1b3fcf54ef32394008db6";
-const mac = "9cbce3044af030d0c1d6ede34179e7f6ba7ede8c6f9553b96e6a824c952a48c9";
-const data = "46b2fac9a8b2123fc498c42d123fd14b";
+// for the test data below WIF of the recipient account is KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr
+const senderPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
+const iv = 'cd26ef7a70b1b3fcf54ef32394008db6';
+const mac = '170d03c25d49c7c03c8e1515a316f94fafb52feac73c46196525813883d64596';
+const data = '16f55cabb8b9c87a85af3232f30c0a07';
 
 nos.decrypt({ senderPublicKey, iv, mac, data })
   .then((data) => alert(`Decrypted Data: ${data}`))
