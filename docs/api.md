@@ -9,6 +9,9 @@
   * [`invoke`](#invoke)
   * [`getStorage`](#getstorage)
   * [`send`](#send)
+  * [`getPublicKey`](#getPublicKey)
+  * [`encrypt`](#encrypt)
+  * [`decrypt`](#decrypt)
 * [Full implementation example](#full-implementation-example)
 * [Future](#future)
   * [Block height](#block-height)
@@ -212,6 +215,74 @@ nos.send({ asset: GAS, amount, receiver })
     .catch((err) => alert(`Error: ${err.message}`));
 ```
 
+### `getPublicKey`
+The `getPublicKey` provides the public key of the currently authenticated account. It does not require the user to grant permission.
+
+#### Parameters
+None.
+
+#### Returns
+**string** - The public key of the currently signed in user.
+
+#### Example
+```javascript
+const nos = window.NOS.V1;
+
+nos.getPublicKey()
+  .then((publicKey) => alert(`Public Key: ${publicKey}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+```
+
+### `encrypt`
+The `encrypt` function allows you to encrypt arbitrary data for another user (you will need his public key, please see `getPublicKey`). It does not require the user to grant permission.
+
+#### Parameters
+* `recipientPublicKey` **string** - The public key of the recipient account.
+* `data` **string** | **Buffer** - The data to encrypt.
+
+#### Returns
+**object** - object containing encrypted data and values needed for decryption (`iv`, `mac`, `data`)
+
+#### Example
+```javascript
+const nos = window.NOS.V1;
+
+// for the test data below WIF of the sender account is KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr
+const recipientPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
+const data = 'some text';
+
+nos.encrypt({ recipientPublicKey, data })
+  .then(({ iv, mac, data }) => alert(`iv: ${iv}\nmac: ${mac}\ndata: ${data}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+```
+
+### `decrypt`
+The `decrypt` function allows you to decrypt previously encrypted data for this user (you will need public key of the sender account, please see `getPublicKey`). It does not require the user to grant permission.
+
+#### Parameters
+* `senderPublicKey` **string** - The public key of the sender account.
+* `iv` **string** - The IV received during encryption.
+* `mac` **string** - The MAC received during encryption.
+* `data` **string** | **Buffer** - The data to decrypt.
+
+#### Returns
+**Buffer** - decrypted data
+
+#### Example
+```javascript
+const nos = window.NOS.V1;
+
+// for the test data below WIF of the recipient account is KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr
+const senderPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
+const iv = 'cd26ef7a70b1b3fcf54ef32394008db6';
+const mac = '170d03c25d49c7c03c8e1515a316f94fafb52feac73c46196525813883d64596';
+const data = '16f55cabb8b9c87a85af3232f30c0a07';
+
+nos.decrypt({ senderPublicKey, iv, mac, data })
+  .then((data) => alert(`Decrypted Data: ${data}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+```
+
 ## Full implementation example
 This is an example of a service layer in your frontend application which implements all
 functionalities of nOS.
@@ -263,70 +334,23 @@ nos.send({ asset, amount, receiver })
 nos.claimGas()
   .then((txId) => alert(`Gas claimed ${txId}`))
   .catch((err) => alert(`Error: ${err.message}`));
-```
-
-### `getPublicKey`
-The `getPublicKey` provides the public key of the currently authenticated account. It does not require the user to grant permission.
-
-#### Parameters
-None.
-
-#### Returns
-**string** - The public key of the currently signed in user.
-
-#### Example
-```javascript
-const nos = window.NOS.V1;
 
 nos.getPublicKey()
   .then((publicKey) => alert(`Public Key: ${publicKey}`))
   .catch((err) => alert(`Error: ${err.message}`));
-```
 
-### `encrypt`
-The `encrypt` function allows you to encrypt arbitrary data for another user (you will need his public key, please see `getPublicKey`). It does not require the user to grant permission.
-
-#### Parameters
-* `recipientPublicKey` **string** - The public key of the recipient account.
-* `data` **string** | **Buffer** - The data to encrypt.
-
-#### Returns
-**object** - object containing encrypted data and values needed for decryption (`iv`, `mac`, `data`)
-
-#### Example
-```javascript
-const nos = window.NOS.V1;
-
+// for the test data below WIF of the sender account is KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr
 const recipientPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
 const data = 'some text';
-
 nos.encrypt({ recipientPublicKey, data })
   .then(({ iv, mac, data }) => alert(`iv: ${iv}\nmac: ${mac}\ndata: ${data}`))
   .catch((err) => alert(`Error: ${err.message}`));
-```
-
-### `decrypt`
-The `decrypt` function allows you to decrypt previously encrypted data for this user (you will need public key of the sender account, please see `getPublicKey`). It does not require the user to grant permission.
-
-#### Parameters
-* `senderPublicKey` **string** - The public key of the sender account.
-* `iv` **string** - The IV received during encryption.
-* `mac` **string** - The MAC received during encryption.
-* `data` **string** | **Buffer** - The data to decrypt.
-
-#### Returns
-**Buffer** - decrypted data
-
-#### Example
-```javascript
-const nos = window.NOS.V1;
 
 // for the test data below WIF of the recipient account is KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr
 const senderPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
 const iv = 'cd26ef7a70b1b3fcf54ef32394008db6';
 const mac = '170d03c25d49c7c03c8e1515a316f94fafb52feac73c46196525813883d64596';
 const data = '16f55cabb8b9c87a85af3232f30c0a07';
-
 nos.decrypt({ senderPublicKey, iv, mac, data })
   .then((data) => alert(`Decrypted Data: ${data}`))
   .catch((err) => alert(`Error: ${err.message}`));
