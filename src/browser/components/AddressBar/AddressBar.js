@@ -35,12 +35,17 @@ export default class AddressBar extends React.Component {
           ref={this.registerRef}
           type="text"
           placeholder="Search or enter address"
+          onFocus={this.handleFocus}
           onKeyDown={this.handleKeyDown}
           defaultValue={this.props.query}
         />
         <ButtonBar />
       </div>
     );
+  }
+
+  handleFocus = (event) => {
+    event.target.select();
   }
 
   handleKeyDown = (event) => {
