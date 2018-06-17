@@ -3,7 +3,7 @@ import path from 'path';
 import { resolve as resolveURL, format as formatURL } from 'url';
 import { rpc, u } from '@cityofzion/neon-js';
 
-import getStaticPath from 'getStaticPath';
+import getStaticPath from './getStaticPath';
 
 // TODO: Configurable network settings and script hash
 const NS_SCRIPT_HASH = '0xd8a68570faabe5edfd19a3d375f11a24a0a4832c';
