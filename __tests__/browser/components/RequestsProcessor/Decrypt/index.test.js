@@ -18,6 +18,7 @@ const account = new wallet.Account(wif);
 const senderPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
 const iv = 'cd26ef7a70b1b3fcf54ef32394008db6';
 const mac = '170d03c25d49c7c03c8e1515a316f94fafb52feac73c46196525813883d64596';
+const wrongMac = '1111111111111111111111111111111111111111111111111111111111111111';
 const data = 'some text';
 const encrypted = '16f55cabb8b9c87a85af3232f30c0a07';
 
@@ -36,8 +37,6 @@ describe('<Decrypt />', () => {
 
   const decryptActions = makeDecryptActions(sessionId, requestId);
   const Decrypt = makeDecrypt(decryptActions);
-  const args = [{ senderPublicKey, iv, mac, data: encrypted }];
-  const defaultProps = { args, onResolve: noop, onReject: noop };
 
   const mountContainer = (props) => {
     return mount(provideStore(<Decrypt {...props} />, store));
@@ -65,28 +64,69 @@ describe('<Decrypt />', () => {
     onReject = jest.fn();
   });
 
-  describe('on first render', () => {
-    let wrapper;
+  describe('with valid args', () => {
+    const args = [{ senderPublicKey, iv, mac, data: encrypted }];
+    const defaultProps = { args, onResolve: noop, onReject: noop };
 
-    beforeEach(() => {
-      wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
+    describe('on first render', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
+      });
+
+      it('initiates an decrypt data call', () => {
+        expect(callSpy).toHaveBeenCalled();
+      });
+
+      it('renders nothing', () => {
+        expect(wrapper.find('NullLoader').length).toBe(1);
+      });
+
+      it('does not resolve or reject', () => {
+        expect(onResolve).not.toHaveBeenCalled();
+        expect(onReject).not.toHaveBeenCalled();
+      });
     });
 
-    it('initiates an decrypt data call', () => {
-      expect(callSpy).toHaveBeenCalled();
+    describe('when decrypted data has loaded', () => {
+      let wrapper;
+
+      beforeEach((done) => {
+        addDecryptLoadedListener(done);
+        wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
+      });
+
+      it('resolves', () => {
+        wrapper.update();
+        expect(onResolve).toHaveBeenCalledWith(Buffer.from(data));
+        expect(onReject).not.toHaveBeenCalled();
+      });
     });
 
-    it('renders nothing', () => {
-      expect(wrapper.find('NullLoader').length).toBe(1);
-    });
+    describe('on unmount', () => {
+      let wrapper;
 
-    it('does not resolve or reject', () => {
-      expect(onResolve).not.toHaveBeenCalled();
-      expect(onReject).not.toHaveBeenCalled();
+      const getDecryptState = () => {
+        return get(store.getState(), `${spunkyKey}.sessions.${sessionId}.decrypt-${requestId}`);
+      };
+
+      beforeEach(() => {
+        wrapper = mountContainer(defaultProps);
+      });
+
+      it('removes the request from the session', () => {
+        expect(getDecryptState()).not.toBe(undefined);
+        wrapper.unmount();
+        expect(getDecryptState()).toBe(undefined);
+      });
     });
   });
 
-  describe('when decrypted data has loaded', () => {
+  describe('with invalid args', () => {
+    const args = [{ senderPublicKey, iv, mac: wrongMac, data: encrypted }];
+    const defaultProps = { args, onResolve: noop, onReject: noop };
+
     let wrapper;
 
     beforeEach((done) => {
@@ -94,28 +134,10 @@ describe('<Decrypt />', () => {
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
     });
 
-    it('resolves', () => {
+    it('rejects', () => {
       wrapper.update();
-      expect(onResolve).toHaveBeenCalledWith(Buffer.from(data));
-      expect(onReject).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('on unmount', () => {
-    let wrapper;
-
-    const getDecryptState = () => {
-      return get(store.getState(), `${spunkyKey}.sessions.${sessionId}.decrypt-${requestId}`);
-    };
-
-    beforeEach(() => {
-      wrapper = mountContainer(defaultProps);
-    });
-
-    it('removes the request from the session', () => {
-      expect(getDecryptState()).not.toBe(undefined);
-      wrapper.unmount();
-      expect(getDecryptState()).toBe(undefined);
+      expect(onReject).toHaveBeenCalledWith('Decryption failed.');
+      expect(onResolve).not.toHaveBeenCalled();
     });
   });
 });

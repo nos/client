@@ -7,6 +7,7 @@ import authActions from 'login/actions/authActions';
 import Encrypt from './Encrypt';
 import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
+import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapAuthDataToProps = ({ wif }) => ({ wif });
 const mapEncryptDataToProps = ({ iv, mac, data }) => ({ iv, mac, data });
@@ -31,6 +32,7 @@ export default function makeEncrypt(encryptActions) {
       data
     })),
     withNullLoader(encryptActions),
+    withRejectMessage(encryptActions, 'Encryption failed.'),
     withData(encryptActions, mapEncryptDataToProps)
   )(Encrypt);
 }

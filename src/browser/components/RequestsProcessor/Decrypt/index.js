@@ -7,6 +7,7 @@ import authActions from 'login/actions/authActions';
 import Decrypt from './Decrypt';
 import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
+import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapAuthDataToProps = ({ wif }) => ({ wif });
 const mapDecryptDataToProps = (data) => ({ data });
@@ -35,6 +36,7 @@ export default function makeDecrypt(decryptActions) {
       data
     })),
     withNullLoader(decryptActions),
+    withRejectMessage(decryptActions, 'Decryption failed.'),
     withData(decryptActions, mapDecryptDataToProps)
   )(Decrypt);
 }
