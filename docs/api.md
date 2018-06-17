@@ -9,7 +9,7 @@
   * [`invoke`](#invoke)
   * [`getStorage`](#getstorage)
   * [`send`](#send)
-  * [`getPublicKey`](#getPublicKey)
+  * [`getPublicKey`](#getpublickey)
   * [`encrypt`](#encrypt)
   * [`decrypt`](#decrypt)
 * [Full implementation example](#full-implementation-example)
