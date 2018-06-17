@@ -237,8 +237,9 @@ nos.getPublicKey()
 The `encrypt` function allows you to encrypt arbitrary data for another user (you will need his public key, please see `getPublicKey`). It does not require the user to grant permission.
 
 #### Parameters
-* `recipientPublicKey` **string** - The public key of the recipient account.
-* `data` **string** | **Buffer** - The data to encrypt.
+* `config` **object** - The config options to perform this operation.
+* `config.publicKey` **string** - The public key of the recipient account.
+* `config.data` **string | Buffer** - The data to encrypt.
 
 #### Returns
 **object** - object containing encrypted data and values needed for decryption (`iv`, `mac`, `data`)
@@ -260,10 +261,11 @@ nos.encrypt({ recipientPublicKey, data })
 The `decrypt` function allows you to decrypt previously encrypted data for this user (you will need public key of the sender account, please see `getPublicKey`). It does not require the user to grant permission.
 
 #### Parameters
-* `senderPublicKey` **string** - The public key of the sender account.
-* `iv` **string** - The IV received during encryption.
-* `mac` **string** - The MAC received during encryption.
-* `data` **string** | **Buffer** - The data to decrypt.
+* `config` **object** - The config options to perform this operation.
+* `config.publicKey` **string** - The public key of the sender account.
+* `config.iv` **string** - The IV received during encryption.
+* `config.mac` **string** - The MAC received during encryption.
+* `config.data` **string** | **Buffer** - The data to decrypt.
 
 #### Returns
 **Buffer** - decrypted data
