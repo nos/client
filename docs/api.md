@@ -265,6 +265,73 @@ nos.claimGas()
   .catch((err) => alert(`Error: ${err.message}`));
 ```
 
+### `getPublicKey`
+The `getPublicKey` provides the public key of the currently authenticated account. It does not require the user to grant permission.
+
+#### Parameters
+None.
+
+#### Returns
+**string** - The public key of the currently signed in user.
+
+#### Example
+```javascript
+const nos = window.NOS.V1;
+
+nos.getPublicKey()
+  .then((publicKey) => alert(`Public Key: ${publicKey}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+```
+
+### `encrypt`
+The `encrypt` function allows you to encrypt arbitrary data for another user (you will need his public key, please see `getPublicKey`). It does not require the user to grant permission.
+
+#### Parameters
+* `recipientPublicKey` **string** - The public key of the recipient account.
+* `data` **string** | **Buffer** - The data to encrypt.
+
+#### Returns
+**object** - object containing encrypted data and values needed for decryption (`iv`, `mac`, `data`)
+
+#### Example
+```javascript
+const nos = window.NOS.V1;
+
+const recipientPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
+const data = 'some text';
+
+nos.encrypt({ recipientPublicKey, data })
+  .then(({ iv, mac, data }) => alert(`iv: ${iv}\nmac: ${mac}\ndata: ${data}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+```
+
+### `decrypt`
+The `decrypt` function allows you to decrypt previously encrypted data for this user (you will need public key of the sender account, please see `getPublicKey`). It does not require the user to grant permission.
+
+#### Parameters
+* `senderPublicKey` **string** - The public key of the sender account.
+* `iv` **string** - The IV received during encryption.
+* `mac` **string** - The MAC received during encryption.
+* `data` **string** | **Buffer** - The data to decrypt.
+
+#### Returns
+**Buffer** - decrypted data
+
+#### Example
+```javascript
+const nos = window.NOS.V1;
+
+// for the test data below WIF of the recipient account is L4vkCE39rVLZPyGhbnV76wR1MjjEEccQa42hRAV2vUR1xibhKhEt
+const senderPublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
+const iv = "cd26ef7a70b1b3fcf54ef32394008db6";
+const mac = "9cbce3044af030d0c1d6ede34179e7f6ba7ede8c6f9553b96e6a824c952a48c9";
+const data = "46b2fac9a8b2123fc498c42d123fd14b";
+
+nos.decrypt({ senderPublicKey, iv, mac, data })
+  .then((data) => alert(`Decrypted Data: ${data}`))
+  .catch((err) => alert(`Error: ${err.message}`));
+```
+
 ## Future
 More features are coming to the nOS API in the near future.  The nOS team plans to work closely with
 dApp developers to ensure that any interactions that will ease development are exposed through the

@@ -28,6 +28,9 @@ const V1 = {
   getBalance: createDelegate('getBalance'),
   getStorage: createDelegate('getStorage'),
   testInvoke: createDelegate('testInvoke'),
+  getPublicKey: createDelegate('getPublicKey'),
+  encrypt: createDelegate('encrypt'),
+  decrypt: createDelegate('decrypt'),
 
   // Permissions required
   invoke: createDelegate('invoke'),
