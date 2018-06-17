@@ -10,7 +10,7 @@ const getPublicKey = (wif) => {
   return account.publicKey;
 };
 
-export default function makeEncryptActions(sessionId, requestId) {
+export default function makePublicKeyActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
   return createActions(id, ({

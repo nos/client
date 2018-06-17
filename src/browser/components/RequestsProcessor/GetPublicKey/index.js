@@ -10,7 +10,7 @@ import withNullLoader from '../../../hocs/withNullLoader';
 const mapAuthDataToProps = ({ wif }) => ({ wif });
 const mapPublicKeyDataToProps = (publicKey) => ({ publicKey });
 
-export default function makeEncrypt(publicKeyActions) {
+export default function makeGetPublicKey(publicKeyActions) {
   return compose(
     withClean(publicKeyActions),
 
