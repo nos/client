@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { func, string } from 'prop-types';
+import { func, number, string } from 'prop-types';
 import { noop } from 'lodash';
 
 import ButtonBar from '../ButtonBar';
@@ -12,17 +12,29 @@ export default class AddressBar extends React.Component {
   static propTypes = {
     className: string,
     query: string,
+    tabCount: number,
     onQuery: func
   };
 
   static defaultProps = {
     className: null,
     query: '',
+    tabCount: 1,
     onQuery: noop
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.query !== prevProps.query) {
+      this.input.value = this.props.query;
+      this.input.blur();
+    }
+
+    if (this.props.tabCount > prevProps.tabCount) {
+      // Focus the address field after opening a new tab
+      this.input.select();
+    } else if (this.props.tabCount < prevProps.tabCount) {
+      // Blur the address field after closing a tab and make sure the
+      // correspondent address is shown
       this.input.value = this.props.query;
       this.input.blur();
     }
