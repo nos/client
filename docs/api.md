@@ -238,7 +238,7 @@ The `encrypt` function allows you to encrypt arbitrary data for another user (yo
 
 #### Parameters
 * `config` **object** - The config options to perform this operation.
-* `config.publicKey` **string** - The public key of the recipient account.
+* `config.recipientPublicKey` **string** - The public key of the recipient account.
 * `config.data` **string | Buffer** - The data to encrypt.
 
 #### Returns
@@ -262,7 +262,7 @@ The `decrypt` function allows you to decrypt previously encrypted data for this 
 
 #### Parameters
 * `config` **object** - The config options to perform this operation.
-* `config.publicKey` **string** - The public key of the sender account.
+* `config.senderPublicKey` **string** - The public key of the sender account.
 * `config.iv` **string** - The IV received during encryption.
 * `config.mac` **string** - The MAC received during encryption.
 * `config.data` **string** | **Buffer** - The data to decrypt.
