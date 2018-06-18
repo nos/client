@@ -1,14 +1,12 @@
-const electron = require('electron');
-const path = require('path');
-const url = require('url');
-const mime = require('mime-types');
-const fetch = require('node-fetch');
-const { createReadStream } = require('fs');
-const { omit } = require('lodash');
+import url from 'url';
+import path from 'path';
+import mime from 'mime-types';
+import fetch from 'node-fetch';
+import { protocol } from 'electron';
+import { createReadStream } from 'fs';
+import { omit } from 'lodash';
 
-const resolve = require('./resolve');
-
-const { protocol } = electron;
+import resolve from './resolve';
 
 function streamFile(uri, callback) {
   const contentType = mime.contentType(path.extname(uri.path));
@@ -33,7 +31,7 @@ async function streamFetch(uri, callback) {
   });
 }
 
-function registerNosProtocol() {
+export default function registerNosProtocol() {
   protocol.registerStreamProtocol('nos', async (req, callback) => {
     try {
       const uri = url.parse(await resolve(url.parse(req.url)));
@@ -46,5 +44,3 @@ function registerNosProtocol() {
     }
   });
 }
-
-module.exports = registerNosProtocol;

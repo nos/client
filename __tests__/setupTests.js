@@ -4,4 +4,5 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-global.process.env.PUBLIC_PATH = path.join(__dirname, '../public');
+// Polyfill global defined by electron-webpack.
+global.__static = path.join(__dirname, '..', 'static'); // eslint-disable-line no-underscore-dangle

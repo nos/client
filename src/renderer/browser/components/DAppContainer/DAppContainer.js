@@ -173,7 +173,6 @@ export default class DAppContainer extends React.Component {
   }
 
   getPreloadPath = () => {
-    const publicPath = process.env.NODE_ENV === 'production' ? __dirname : process.env.PUBLIC_PATH;
-    return `file:${path.join(publicPath, 'preloadRenderer.js')}`;
+    return `file:${path.join(__static, 'preloadRenderer.js')}`;
   }
 }

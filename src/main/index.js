@@ -1,13 +1,19 @@
-const electron = require('electron');
-const isDev = require('electron-is-dev');
-const path = require('path');
-const url = require('url');
+import { app, protocol, session, BrowserWindow } from 'electron';
+import isDev from 'electron-is-dev';
+import path from 'path';
+import url from 'url';
 
-const bindContextMenu = require('./bindContextMenu');
-const registerNosProtocol = require('./registerNosProtocol');
-const pkg = require('../package.json');
+import getStaticPath from './util/getStaticPath';
+import bindContextMenu from './util/bindContextMenu';
+import registerNosProtocol from './util/registerNosProtocol';
+import pkg from '../../package.json';
 
-const { app, protocol, session, BrowserWindow } = electron;
+// This wouldn't be necessary if we could call `electron-webpack` directly.  But since we have to
+// use webpack-cli (as a result of using a custom webpack config), we are faking this env var
+// already being assigned.
+if (isDev) {
+  process.env.ELECTRON_WEBPACK_WDS_PORT = process.env.ELECTRON_WEBPACK_WDS_PORT || 9080;
+}
 
 protocol.registerStandardSchemes(['nos']);
 
@@ -43,10 +49,7 @@ const isMac = process.platform === 'darwin';
 function createWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
-  const iconPath = path.join(
-    app.getAppPath(),
-    '/public/icons/icon1024x1024.png'
-  );
+  const iconPath = path.join(getStaticPath(), 'icons', 'icon1024x1024.png');
 
   mainWindow = new BrowserWindow(
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
@@ -70,17 +73,20 @@ function createWindow() {
   });
 
   splashWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, 'splash.html'),
-      protocol: 'file:',
-      slashes: true
-    })
+    isDev ?
+      `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/splash.html` :
+      url.format({
+        pathname: path.join(getStaticPath(), 'splash.html'),
+        protocol: 'file:',
+        slashes: true
+      })
   );
 
   mainWindow.loadURL(
-    process.env.ELECTRON_START_URL ||
+    isDev ?
+      `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` :
       url.format({
-        pathname: path.join(__dirname, '../build/index.html'),
+        pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true
       })

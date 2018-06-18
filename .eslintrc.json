@@ -10,6 +10,9 @@
   "plugins": [
     "jest"
   ],
+  "globals": {
+    "__static": true
+  },
   "rules": {
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
@@ -22,10 +25,11 @@
     "jsx-a11y/click-events-have-key-events": ["off"],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": [
-        "**/__mocks__/**/*.js",
-        "**/__tests__/**/*.js",
-        "**/public/electron.js",
-        "config-overrides.js"
+        "__mocks__/**/*.js",
+        "__tests__/**/*.js",
+        "src/main/index.js",
+        "config/**/*.js",
+        "scripts/**/*.js"
       ]
     }],
     "import/order": ["error", {
