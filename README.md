@@ -4,6 +4,9 @@
 
 <h1 align="center">nOS</h1>
 <p align="center">
+  <a href="https://github.com/nos/client/releases">
+    <img src="https://img.shields.io/github/release/nos/client/all.svg">
+  </a>
   <a href='http://makeapullrequest.com'>
     <img src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg'>
   </a>
