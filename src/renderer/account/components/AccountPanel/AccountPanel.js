@@ -18,12 +18,12 @@ export default class AccountPanel extends React.Component {
 
   render() {
     const tokenBalances = [];
-    Object.entries(TOKENS).forEach(([scriptHash, tokenSymbol], i) => {
+    Object.entries(TOKENS).forEach(([scriptHash, tokenSymbol]) => {
       const token = this.props.balances[scriptHash];
       if (!token) {
         return;
       }
-      const balance = token.balance;
+      const { balance } = token;
       tokenBalances.push({ tokenSymbol, balance });
     });
 
@@ -33,8 +33,8 @@ export default class AccountPanel extends React.Component {
           NEO: {this.getBalance(NEO)}<br />
           GAS: {this.getBalance(GAS)}<br />
           {
-            tokenBalances.map(({tokenSymbol, balance}, index) => {
-              return <span key={index}>{tokenSymbol}: {balance}<br /></span>;
+            tokenBalances.map(({ tokenSymbol, balance }) => {
+              return <span key={tokenSymbol}>{tokenSymbol}: {balance}<br /></span>;
             })
           }
         </div>

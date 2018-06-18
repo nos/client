@@ -4,6 +4,13 @@ import { api, wallet } from '@cityofzion/neon-js';
 import { NEO, GAS } from '../values/assets';
 import { TOKEN_NAMES, TOKEN_PRECISION } from '../values/tokens';
 
+function getTokenData(tokens, tokenName) {
+  const scriptHash = TOKEN_NAMES[tokenName];
+  const decimals = TOKEN_PRECISION[scriptHash];
+  const balance = tokens[tokenName] ? tokens[tokenName].balance.div(10 ** decimals).round(decimals).toString() : '0';
+  return { scriptHash, balance, decimals };
+}
+
 export default async function getBalances({ net, address, tokens }) {
   const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
 
@@ -28,13 +35,6 @@ export default async function getBalances({ net, address, tokens }) {
     }
   });
 
-  function getTokenData(tokens, tokenName) {
-    const scriptHash = TOKEN_NAMES[tokenName];
-    const decimals = TOKEN_PRECISION[scriptHash];
-    const balance = tokens[tokenName] ? tokens[tokenName].balance.div(10 ** decimals).round(decimals).toString() : '0';
-    return { scriptHash, balance, decimals };
-  }
-
   // asset balances
   promises.push((async () => {
     const assetBalances = await api.getBalanceFrom({ net, address }, api.neoscan);
@@ -53,7 +53,7 @@ export default async function getBalances({ net, address, tokens }) {
     delete assets.NEO;
     delete assets.GAS;
 
-    Object.keys(assets).forEach(tokenName => {
+    Object.keys(assets).forEach((tokenName) => {
       const tokenData = getTokenData(assets, tokenName);
       balances[tokenData.scriptHash] = tokenData;
     });
