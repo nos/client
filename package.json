@@ -22,7 +22,7 @@
     "lodash": "4.17.5",
     "mime-types": "2.1.18",
     "node-fetch": "2.1.2",
-    "prop-types": "15.6.0",
+    "prop-types": "15.6.2",
     "rc-tooltip": "3.7.2",
     "react": "16.4.1",
     "react-copy-to-clipboard": "5.0.1",
