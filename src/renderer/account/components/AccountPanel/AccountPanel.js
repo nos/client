@@ -3,7 +3,6 @@ import { string, objectOf } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import { NEO, GAS } from 'shared/values/assets';
-import { TOKENS } from 'shared/values/tokens';
 
 import balanceShape from '../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
@@ -17,24 +16,18 @@ export default class AccountPanel extends React.Component {
   };
 
   render() {
-    const tokenBalances = [];
-    Object.entries(TOKENS).forEach(([scriptHash, tokenSymbol]) => {
-      const token = this.props.balances[scriptHash];
-      if (!token) {
-        return;
-      }
-      const { balance } = token;
-      tokenBalances.push({ tokenSymbol, balance });
-    });
-
     return (
       <Panel className={styles.accountPanel} renderHeader={this.renderHeader}>
         <div className={styles.content}>
           NEO: {this.getBalance(NEO)}<br />
           GAS: {this.getBalance(GAS)}<br />
           {
-            tokenBalances.map(({ tokenSymbol, balance }) => {
-              return <span key={tokenSymbol}>{tokenSymbol}: {balance}<br /></span>;
+            Object.values(this.props.balances).map(({ symbol, balance }) => {
+              if (symbol === undefined || balance === '0') {
+                return null;
+              }
+
+              return <span key={symbol}>{symbol}: {balance}<br /></span>;
             })
           }
         </div>

@@ -19,6 +19,7 @@
     "electron-json-storage": "4.1.0",
     "es6-promisify": "6.0.0",
     "history": "4.7.2",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "4.17.5",
     "mime-types": "2.1.18",
     "node-fetch": "2.1.2",
