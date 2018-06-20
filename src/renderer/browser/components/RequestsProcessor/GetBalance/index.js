@@ -37,7 +37,7 @@ export default function makeGetBalance(balancesActions) {
     // Get the balance & wait for success or failure
     withCall(balancesActions, ({ net, address }) => ({ net, address })),
     withNullLoader(balancesActions),
-    withRejectMessage(balancesActions, 'Your account balance could not be retrieved.'),
+    withRejectMessage(balancesActions, ({ error }) => (`Your account balance could not be retrieved.\n${error}`)),
     withData(balancesActions, mapBalancesDataToProps)
   )(GetBalance);
 }

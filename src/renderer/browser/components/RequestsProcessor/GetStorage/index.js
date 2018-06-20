@@ -46,7 +46,7 @@ export default function makeStorageComponent(storageActions) {
     })),
     withNullLoader(storageActions),
     withRejectMessage(storageActions, (props) => (
-      `Retrieving storage failed for key "${props.index}" on "${props.scriptHash}"`
+      `Retrieving storage failed for key "${props.index}" on "${props.scriptHash}"\n${props.error}`
     )),
     withData(storageActions, mapStorageDataToProps)
   )(GetStorage);
