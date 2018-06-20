@@ -11,7 +11,8 @@ export default async function getBalances({ net, address, tokens }) {
   }
 
   // token balances
-  const promises = tokens.map(async (token) => {
+  const resolvedTokens = await Promise.resolve(tokens);
+  const promises = resolvedTokens.map(async (token) => {
     const { scriptHash } = token;
 
     try {
