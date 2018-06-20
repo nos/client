@@ -52,8 +52,8 @@ export default function makeInvokeComponent(invokeActions) {
       encodeArgs
     })),
     withNullLoader(invokeActions),
-    withRejectMessage(invokeActions, ({ operation, scriptHash }) => (
-      `Could not perform operation '${operation}' on contract with address '${scriptHash}'`
+    withRejectMessage(invokeActions, ({ operation, scriptHash, error }) => (
+      `Could not perform operation '${operation}' on contract with address '${scriptHash}'\n${error}`
     )),
     withData(invokeActions, mapInvokeDataToProps)
   )(Invoke);
