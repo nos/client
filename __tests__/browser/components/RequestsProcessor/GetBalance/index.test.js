@@ -117,7 +117,7 @@ describe('<GetBalance />', () => {
 
       it('rejects', () => {
         wrapper.update();
-        expect(onReject).toHaveBeenCalledWith('Your account balance could not be retrieved.\nFake test error');
+        expect(onReject).toHaveBeenCalledWith('Your account balance could not be retrieved: Fake test error');
         expect(onResolve).not.toHaveBeenCalled();
       });
     });

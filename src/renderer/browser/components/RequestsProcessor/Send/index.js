@@ -56,7 +56,7 @@ export default function makeSendComponent(sendActions) {
     })),
     withNullLoader(sendActions),
     withRejectMessage(sendActions, ({ amount, asset, receiver, error }) => (
-      `Could not send ${amount} ${asset} to ${receiver}\n${error}`
+      `Could not send ${amount} ${asset} to ${receiver}: ${error}`
     )),
     withData(sendActions, mapSendDataToProps)
   )(Send);
