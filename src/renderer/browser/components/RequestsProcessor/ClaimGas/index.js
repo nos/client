@@ -34,7 +34,7 @@ export default function makeClaimComponent(claimActions) {
       wif
     })),
     withNullLoader(claimActions),
-    withRejectMessage(claimActions, 'Could not claim GAS.'),
+    withRejectMessage(claimActions, ({ error }) => (`Could not claim GAS: ${error}`)),
     withData(claimActions, mapSendDataToProps)
   )(ClaimGas);
 }
