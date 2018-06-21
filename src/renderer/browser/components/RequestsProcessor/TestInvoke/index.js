@@ -39,8 +39,8 @@ export default function makeStorageComponent(testInvokeActions) {
       encodeArgs
     })),
     withNullLoader(testInvokeActions),
-    withRejectMessage(testInvokeActions, (props) => (
-      `Invocation failed for operation "${props.operation}" on "${props.scriptHash}"`
+    withRejectMessage(testInvokeActions, ({ operation, scriptHash, error }) => (
+      `Invocation failed for operation "${operation}" on "${scriptHash}": ${error}`
     )),
     withData(testInvokeActions, mapInvokeDataToProps)
   )(TestInvoke);
