@@ -36,16 +36,16 @@ about: Create a report to help us improve the nOS Client
 
 <!--- How has this issue affected you? What are you trying to accomplish? -->
 <!--- Providing context helps us come up with a solution that is most useful in the real world -->
-## Additional context 
+## Additional context
 
 
 
 
-## Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
+## Your Environment
 * Version used:
 * Environment name and version
     * Node version:
-    * NPM version: 
+    * NPM version:
     * Yarn version
 * Operating System and version (desktop or mobile):
