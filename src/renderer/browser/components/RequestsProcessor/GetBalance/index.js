@@ -1,8 +1,9 @@
 import { compose, withProps } from 'recompose';
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import GetBalance from './GetBalance';
@@ -35,7 +36,7 @@ export default function makeGetBalance(balancesActions) {
     }),
 
     // Get the balance & wait for success or failure
-    withCall(balancesActions, ({ net, address }) => ({ net, address })),
+    withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
     withNullLoader(balancesActions),
     withRejectMessage(balancesActions, ({ error }) => (`Your account balance could not be retrieved: ${error}`)),
     withData(balancesActions, mapBalancesDataToProps)

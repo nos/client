@@ -1,7 +1,8 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose } from 'recompose';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import ClaimGas from './ClaimGas';
@@ -28,7 +29,7 @@ export default function makeClaimComponent(claimActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Do invoke if user accepts
-    withCall(claimActions, ({ net, address, wif }) => ({ net, address, wif })),
+    withInitialCall(claimActions, ({ net, address, wif }) => ({ net, address, wif })),
     withNullLoader(claimActions),
     withRejectMessage(claimActions, ({ error }) => (`Could not claim GAS: ${error}`)),
     withData(claimActions, mapSendDataToProps)
