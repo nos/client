@@ -54,6 +54,10 @@ describe('<GetBalance />', () => {
     onReject = jest.fn();
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('with valid args', () => {
     const args = [{ address: 'ALq7AWrhAueN6mJNqk6FHJjnsEoPRytLdW', asset: NEO }];
     const defaultProps = { args, onResolve: noop, onReject: noop };
