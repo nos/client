@@ -15,11 +15,9 @@ const getStorage = async ({ net, scriptHash, key, encodeInput, decodeOutput }) =
   }
 
   const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
-  const { result } =
-    await rpc.Query.getStorage(scriptHash, encodeInput
-      ? u.str2hexstring(key)
-      : key)
-      .execute(endpoint);
+  const input = encodeInput ? u.str2hexstring(key) : key;
+  const { result } = await rpc.Query.getStorage(scriptHash, input).execute(endpoint);
+
   return decodeOutput ? u.hexstring2str(result) : result;
 };
 

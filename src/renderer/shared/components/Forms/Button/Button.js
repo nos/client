@@ -6,7 +6,7 @@ import styles from './Button.scss';
 
 export default class Button extends React.Component {
   render() {
-    return (
+    return ( // eslint-disable-next-line react/button-has-type
       <button
         {...this.props}
         ref={this.registerRef}

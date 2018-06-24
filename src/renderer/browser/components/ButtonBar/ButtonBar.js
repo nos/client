@@ -22,7 +22,7 @@ export default class ButtonBar extends React.Component {
   render() {
     return (
       <div className={styles.buttonBar}>
-        <button>
+        <button type="button">
           <Icon name="notifications" />
         </button>
         {this.renderWindowIcons()}
@@ -36,13 +36,13 @@ export default class ButtonBar extends React.Component {
     }
 
     return [
-      <button onClick={this.handleMinimizeWindow} key="min">
+      <button type="button" onClick={this.handleMinimizeWindow} key="min">
         <Icon name="windowMin" />
       </button>,
-      <button onClick={this.handleResizeWindow} key="max">
+      <button type="button" onClick={this.handleResizeWindow} key="max">
         <Icon name={this.state.isMaximized ? 'windowRestore' : 'windowMax'} />
       </button>,
-      <button onClick={this.handleCloseWindow} key="close">
+      <button type="button" onClick={this.handleCloseWindow} key="close">
         <Icon name="windowClose" />
       </button>
     ];
