@@ -1,9 +1,12 @@
 import React from 'react';
 import { func } from 'prop-types';
 import { isFunction } from 'lodash';
-import { withProgressComponents, progressValues } from 'spunky';
+import { withProgressComponents, withError, progressValues } from 'spunky';
+import { compose } from 'recompose';
 
 const { FAILED } = progressValues;
+
+const mapErrorToProps = (error) => ({ error });
 
 export default function withRejectMessage(actions, message, options = {}) {
   class RejectMessageComponent extends React.Component {
@@ -20,7 +23,10 @@ export default function withRejectMessage(actions, message, options = {}) {
     }
   }
 
-  return withProgressComponents(actions, {
-    [FAILED]: RejectMessageComponent
-  }, options);
+  return compose(
+    withError(actions, mapErrorToProps),
+    withProgressComponents(actions, {
+      [FAILED]: RejectMessageComponent
+    }, options)
+  );
 }

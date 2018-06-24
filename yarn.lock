@@ -172,14 +172,14 @@
     humps "^2.0.1"
     prop-types "^15.5.7"
 
-"@ledgerhq/hw-transport-node-hid@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/hw-transport-node-hid/-/hw-transport-node-hid-4.7.0.tgz#dc1c4201694fd0c56c3c3982c08eee7a927903ec"
+"@ledgerhq/hw-transport-node-hid@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.npmjs.org/@ledgerhq/hw-transport-node-hid/-/hw-transport-node-hid-4.13.0.tgz#86306ff10c860d8bbd002db3f4618078460e4b9a"
   dependencies:
-    "@ledgerhq/hw-transport" "^4.7.0"
+    "@ledgerhq/hw-transport" "^4.13.0"
     node-hid "^0.7.2"
 
-"@ledgerhq/hw-transport@^4.7.0":
+"@ledgerhq/hw-transport@^4.13.0":
   version "4.13.0"
   resolved "https://registry.npmjs.org/@ledgerhq/hw-transport/-/hw-transport-4.13.0.tgz#463043200c96c91379318052ad4dbe8c80d95cf5"
   dependencies:
@@ -7763,9 +7763,9 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-redux-devtools-extension@2.13.2:
-  version "2.13.2"
-  resolved "https://registry.npmjs.org/redux-devtools-extension/-/redux-devtools-extension-2.13.2.tgz#e0f9a8e8dfca7c17be92c7124958a3b94eb2911d"
+redux-devtools-extension@2.13.5:
+  version "2.13.5"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
 
 redux-mock-store@1.5.3:
   version "1.5.3"
