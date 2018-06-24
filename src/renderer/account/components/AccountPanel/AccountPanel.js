@@ -23,10 +23,6 @@ export default class AccountPanel extends React.Component {
           GAS: {this.getBalance(GAS)}<br />
           {
             Object.values(this.props.balances).map(({ symbol, balance }) => {
-              if (symbol === undefined || balance === '0') {
-                return null;
-              }
-
               return <span key={symbol}>{symbol}: {balance}<br /></span>;
             })
           }

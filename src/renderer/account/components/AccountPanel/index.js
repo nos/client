@@ -1,6 +1,6 @@
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { withData, withProgressComponents, progressValues } from 'spunky';
-import { sortBy } from 'lodash';
+import { sortBy, pickBy } from 'lodash';
 import fetch from 'node-fetch';
 
 import Loading from 'shared/components/Loading';
@@ -57,5 +57,6 @@ export default compose(
     [LOADING]: Loading,
     [FAILED]: Failed
   }),
-  withData(balancesActions, mapBalancesDataToProps)
+  withData(balancesActions, mapBalancesDataToProps),
+  withProps(({ balances }) => ({ balances: pickBy(balances, ({ symbol, balance }) => symbol !== undefined && balance !== '0') }))
 )(AccountPanel);
