@@ -58,7 +58,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.4",
+    "babel-eslint": "8.2.5",
     "babel-jest": "23.0.1",
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
@@ -79,7 +79,7 @@
     "eslint": "5.0.0",
     "eslint-config-airbnb": "17.0.0",
     "eslint-import-resolver-babel-module": "4.0.0",
-    "eslint-plugin-import": "2.12.0",
+    "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jest": "21.17.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.9.1",
