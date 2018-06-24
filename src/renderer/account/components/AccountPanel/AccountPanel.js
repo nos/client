@@ -12,7 +12,8 @@ const balancesShape = objectOf(balanceShape);
 export default class AccountPanel extends React.Component {
   static propTypes = {
     address: string.isRequired,
-    balances: balancesShape.isRequired
+    balances: balancesShape.isRequired,
+    tokenBalances: balancesShape.isRequired
   };
 
   render() {
@@ -22,7 +23,7 @@ export default class AccountPanel extends React.Component {
           NEO: {this.getBalance(NEO)}<br />
           GAS: {this.getBalance(GAS)}<br />
           {
-            Object.values(this.props.balances).map(({ symbol, balance }) => {
+            Object.values(this.props.tokenBalances).map(({ symbol, balance }) => {
               return <span key={symbol}>{symbol}: {balance}<br /></span>;
             })
           }

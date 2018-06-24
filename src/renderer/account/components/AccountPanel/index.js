@@ -21,11 +21,15 @@ const MAINNET = PREDEFINED_NETWORKS[0];
 const tokenListUrl = 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/tokenList.json';
 
 const tokenListPromise = (async () => {
-  const response = await fetch(tokenListUrl);
-  const tokenList = Object.values(await response.json());
-  return sortBy(tokenList, 'symbol').map((token) => {
-    return { scriptHash: token.networks['1'].hash };
-  });
+  try {
+    const response = await fetch(tokenListUrl);
+    const tokenList = Object.values(await response.json());
+    return sortBy(tokenList, 'symbol').map((token) => {
+      return { scriptHash: token.networks['1'].hash };
+    });
+  } catch (_) {
+    return [];
+  }
 })();
 
 const tokensPromise = (async () => {
@@ -58,5 +62,5 @@ export default compose(
     [FAILED]: Failed
   }),
   withData(balancesActions, mapBalancesDataToProps),
-  withProps(({ balances }) => ({ balances: pickBy(balances, ({ symbol, balance }) => symbol !== undefined && balance !== '0') }))
+  withProps(({ balances }) => ({ tokenBalances: pickBy(balances, ({ symbol, balance }) => symbol !== undefined && balance !== '0') }))
 )(AccountPanel);
