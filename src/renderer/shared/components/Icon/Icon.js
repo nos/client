@@ -73,7 +73,8 @@ const ICONS = {
   windowMin: ['far', 'window-minimize'],
   windowRestore: ['far', 'window-restore'],
   transfer: ['fas', 'sync'],
-  add: ['far', 'plus-square']
+  add: ['far', 'plus-square'],
+  reload: 'sync-alt'
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,

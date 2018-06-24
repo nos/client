@@ -15,6 +15,13 @@ export default class Navigation extends React.Component {
         <ul className={styles.group}>
           <li>
             <NavLink to="/browser">
+              <Tooltip id="reload" overlay="reload">
+                <Icon name="reload" aria-describedby="reload" />
+              </Tooltip>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/browser">
               <Tooltip id="browser" overlay="Browser">
                 <Icon name="browser" aria-describedby="browser" />
               </Tooltip>
