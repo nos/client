@@ -43,7 +43,7 @@ about: Create a report to help us improve the nOS Client
 
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 ## Your Environment
-* Version used:
+* nOS Client version used:
 * Environment name and version
     * Node version:
     * NPM version:

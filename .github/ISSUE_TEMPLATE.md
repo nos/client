@@ -12,13 +12,6 @@
 
 
 
-<!--- Not obligatory, but suggest a fix/reason for the bug, -->
-<!--- or ideas how to implement the addition or change -->
-## Possible Solution
-
-
-
-
 <!--- Provide a link to a live example, or an unambiguous set of steps to -->
 <!--- reproduce this bug. Include code to reproduce, if relevant -->
 ## Steps to Reproduce (for bugs)
@@ -30,9 +23,16 @@
 
 
 
+<!--- Not obligatory, but suggest a fix/reason for the bug, -->
+<!--- or ideas how to implement the addition or change -->
+## Possible Solution
+
+
+
+
 <!--- How has this issue affected you? What are you trying to accomplish? -->
 <!--- Providing context helps us come up with a solution that is most useful in the real world -->
-## Context
+## Additional context
 
 
 
