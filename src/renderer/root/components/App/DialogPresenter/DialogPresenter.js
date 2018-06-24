@@ -4,9 +4,9 @@ import { noop } from 'lodash';
 
 import Alert from 'shared/components/Alert';
 import Confirm from 'shared/components/Confirm';
+import { TYPE_ALERT, TYPE_CONFIRM } from 'values/dialogs';
 
 import dialogShape from '../../../shapes/dialogShape';
-import { TYPE_ALERT, TYPE_CONFIRM } from '../../../values/dialogs';
 
 export default class AlertPresenter extends React.Component {
   static propTypes = {

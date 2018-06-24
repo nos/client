@@ -1,6 +1,6 @@
 import { string, func, oneOf, oneOfType, any, shape } from 'prop-types';
 
-import { TYPE_ALERT, TYPE_CONFIRM } from '../values/dialogs';
+import { TYPE_ALERT, TYPE_CONFIRM } from 'values/dialogs';
 
 const alertShape = shape({
   title: string,

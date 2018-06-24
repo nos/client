@@ -3,7 +3,7 @@ import { string, func, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 
 import balanceShape from 'account/shapes/balanceShape';
-import { NEO, GAS } from 'shared/values/assets';
+import { NEO, GAS } from 'values/assets';
 
 function isValidAssetHash(asset) {
   return wallet.isScriptHash(asset) || [NEO, GAS].includes(asset);

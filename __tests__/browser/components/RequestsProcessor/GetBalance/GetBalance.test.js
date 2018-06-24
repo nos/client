@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { noop } from 'lodash';
 
 import GetBalance from 'browser/components/RequestsProcessor/GetBalance/GetBalance';
-import { NEO, GAS } from 'shared/values/assets';
+import { NEO, GAS } from 'values/assets';
 
 describe('<GetBalance />', () => {
   const defaultProps = {

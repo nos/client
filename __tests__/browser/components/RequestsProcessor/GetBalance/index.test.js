@@ -7,7 +7,7 @@ import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelp
 
 import makeGetBalance from 'browser/components/RequestsProcessor/GetBalance';
 import makeBalancesActions from 'browser/actions/makeBalancesActions';
-import { NEO, GAS } from 'shared/values/assets';
+import { NEO, GAS } from 'values/assets';
 
 const sessionId = 'abc';
 const requestId = '123';

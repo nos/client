@@ -2,14 +2,14 @@ import { compose, withProps, withState } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
 
 import authActions from 'login/actions/authActions';
-import sendActions from 'shared/actions/sendActions';
+import sendActions from 'actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { NEO } from 'shared/values/assets';
+import { NEO } from 'values/assets';
 
 import SendPanel from './SendPanel';
 

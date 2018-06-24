@@ -9,7 +9,7 @@ import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
 import Icon from 'shared/components/Icon/Icon';
 import Select from 'shared/components/Forms/Select';
-import { ASSETS, NEO } from 'shared/values/assets';
+import { ASSETS, NEO } from 'values/assets';
 
 import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';

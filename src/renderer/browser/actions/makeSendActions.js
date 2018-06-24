@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 
-import sendAsset from 'shared/util/sendAsset';
+import sendAsset from 'util/sendAsset';
 
 import generateDAppActionId from './generateDAppActionId';
 

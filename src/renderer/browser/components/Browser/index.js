@@ -1,8 +1,9 @@
 import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 
+import { setTabTarget } from 'actions/browserActions';
+
 import Browser from './Browser';
-import { setTabTarget } from '../../actions/browserActions';
 
 const mapStateToProps = (state) => {
   const { tabs, activeSessionId } = state.browser;

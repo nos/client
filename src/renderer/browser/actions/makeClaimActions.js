@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 
-import claimGas from 'shared/util/claimGas';
+import claimGas from 'util/claimGas';
 
 import generateDAppActionId from './generateDAppActionId';
 

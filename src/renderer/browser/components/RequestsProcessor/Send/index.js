@@ -4,7 +4,7 @@ import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import { NEO, GAS } from 'shared/values/assets';
+import { NEO, GAS } from 'values/assets';
 
 import Send from './Send';
 import withClean from '../../../hocs/withClean';

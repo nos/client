@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 
+import { close } from 'actions/dialogsActions';
+
 import DialogPresenter from './DialogPresenter';
-import { close } from '../../../actions/dialogsActions';
 
 const mapStateToProps = (state) => ({
   dialog: state.dialogs[0]

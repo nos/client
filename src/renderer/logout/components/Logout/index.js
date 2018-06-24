@@ -2,8 +2,8 @@ import { compose, withProps } from 'recompose';
 import { withActions } from 'spunky';
 import { connect } from 'react-redux';
 
-import accountActions from 'shared/actions/accountActions';
-import { emptyAll } from 'browser/actions/requestsActions';
+import accountActions from 'actions/accountActions';
+import { emptyAll } from 'actions/requestsActions';
 
 import Logout from './Logout';
 import withLogout from '../../hocs/withLogout';

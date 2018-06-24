@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { alert } from 'root/actions/dialogsActions';
+import { alert } from 'actions/dialogsActions';
 
 export default function withAlert(propName = 'alert') {
   const mapDispatchToProps = (dispatch) => ({

@@ -3,8 +3,9 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createHashHistory';
 
+import configureStore from 'store/configureStore';
+
 import App from '../App';
-import configureStore from '../../store/configureStore';
 
 const history = createHistory();
 const store = configureStore(history);

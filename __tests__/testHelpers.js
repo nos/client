@@ -6,7 +6,7 @@ import { createStore as createReduxStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { saga, progressValues } from 'spunky';
 
-import reducers from 'root/reducers';
+import reducers from 'reducers';
 
 export const createStore = (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware();

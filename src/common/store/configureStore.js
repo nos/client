@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import { saga } from 'spunky';
 import { identity } from 'lodash';
 
-import reducers from '../reducers';
+import reducers from 'reducers';
 
 export default function configureStore(history) {
   const initialState = {};
@@ -23,8 +23,8 @@ export default function configureStore(history) {
   const store = createStore(reducers, initialState, enhancers);
 
   if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      store.replaceReducer(require('../reducers').default);
+    module.hot.accept('reducers', () => {
+      store.replaceReducer(require('reducers').default);
     });
   }
 

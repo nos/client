@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { setTabError, setTabTitle, setTabTarget, setTabLoaded, closeTab } from 'actions/browserActions';
+import { enqueue, dequeue, empty } from 'actions/requestsActions';
+
 import DAppContainer from './DAppContainer';
-import { setTabError, setTabTitle, setTabTarget, setTabLoaded, closeTab } from '../../actions/browserActions';
-import { enqueue, dequeue, empty } from '../../actions/requestsActions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   setTabError,

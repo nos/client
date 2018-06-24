@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { openTab, closeTab, setActiveTab } from 'actions/browserActions';
+
 import Tabs from './Tabs';
-import { openTab, closeTab, setActiveTab } from '../../actions/browserActions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onOpen: openTab,
