@@ -14,10 +14,9 @@ export default function configureStore(history) {
 
   const middleware = [thunk, sagaMiddleware, routerMiddleware(history)];
 
-  const composeEnhancers =
-    process.env.NODE_ENV === 'production'
-      ? identity
-      : require('redux-devtools-extension').composeWithDevTools;
+  const composeEnhancers = process.env.NODE_ENV === 'production'
+    ? identity
+    : require('redux-devtools-extension').composeWithDevTools;
 
   const enhancers = composeEnhancers(applyMiddleware(...middleware));
   const store = createStore(reducers, initialState, enhancers);

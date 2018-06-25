@@ -18,7 +18,7 @@ describe('<GetBalance />', () => {
 
   it('renders nothing', () => {
     const wrapper = mount(<GetBalance {...defaultProps} />);
-    expect(wrapper.children().length).toBe(0);
+    expect(wrapper.children()).toHaveLength(0);
   });
 
   describe('recognized asset', () => {

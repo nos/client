@@ -1,8 +1,9 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import { NEO, GAS } from 'shared/values/assets';
 
@@ -46,7 +47,7 @@ export default function makeSendComponent(sendActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Send assets & wait for success or failure
-    withCall(sendActions, ({ net, amount, asset, receiver, address, wif }) => ({
+    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif }) => ({
       net,
       amount,
       asset,

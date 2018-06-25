@@ -19,10 +19,9 @@ export default class RequestProcessor extends React.Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (this.props.sessionId !== nextProps.sessionId
-      || this.props.src !== nextProps.src
-      || !isEqual(this.props.request, nextProps.request)
-    ) {
+    if (this.props.sessionId !== nextProps.sessionId ||
+        this.props.src !== nextProps.src ||
+        !isEqual(this.props.request, nextProps.request)) {
       this.Component = this.getComponent(nextProps);
     }
   };

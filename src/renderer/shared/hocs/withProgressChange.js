@@ -21,8 +21,8 @@ export default function withProgressChange(actions, progress, callback) {
   return (Component) => {
     class WrappedComponent extends React.Component {
       componentWillReceiveProps(nextProps) {
-        if (!progresses.includes(this.props[PROGRESS_PROP])
-            && progresses.includes(nextProps[PROGRESS_PROP])) {
+        if (!progresses.includes(this.props[PROGRESS_PROP]) &&
+            progresses.includes(nextProps[PROGRESS_PROP])) {
           callback(this.getCallbackState(nextProps), this.getCallbackProps(nextProps));
         }
       }
