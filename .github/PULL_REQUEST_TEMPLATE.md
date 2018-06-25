@@ -1,39 +1,44 @@
-<!--- Provide a general summary of your changes in the Title above -->
-
 <!-- Thanks for submitting a pull request! -->
 <!-- Please provide enough information so that others can review your pull request -->
 <!-- For more information, see the `CONTRIBUTING` guide. -->
 
-## Description
 <!--- Describe your changes in detail -->
+## Description
 
-## Motivation and Context
+
+
 <!--- Why is this change required? What problem does it solve? -->
 <!--- Describe the current and new situation/behavior --->
-<!--- If it fixes an open issue, please link to the issue here. -->
+## Motivation and Context
 
-## How Has This Been Tested?
+
+
 <!--- Please describe in detail how you tested your changes. -->
-<!--- Include details of your testing environment, tests ran to see how -->
-<!--- your change affects other areas of the code, etc. -->
+<!--- Include details of your testing environment -->
+## How Has This Been Tested?
+
+
 
 ## Screenshots (if appropriate):
 
-## Types of changes
+
+
 <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
+## Types of changes
 - [ ] Chore (tests, refactors, and fixes)
 - [ ] New feature (adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
-## Checklist:
+
+
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
-<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] My code follows the code style of this project.
-- [ ] The commit message follows our guidelines
+## Checklist:
+- [ ] I have read the **[CONTRIBUTING](./CONTRIBUTING.md)** guidelines and confirm that my code follows the code style of this project.
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
-- [ ] I have read the **CONTRIBUTING** document.
 
-## Closing issues
+
+
 <!-- Put `closes #XXXX` in your comment to auto-close the issue that your PR fixes (if such). -->
+## Closing issues
 Fixes #
