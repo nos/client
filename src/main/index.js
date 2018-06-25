@@ -46,9 +46,9 @@ let splashWindow;
 
 const isMac = process.platform === 'darwin';
 
-function getWindowPath(productionPath) {
+function getWindowPath(productionPath, suffix = "") {
   return isDev
-    ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/splash.html`
+    ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${suffix}`
     : url.format({ pathname: productionPath, protocol: 'file:', slashes: true });
 }
 
@@ -78,7 +78,7 @@ function createWindow() {
     icon: iconPath
   });
 
-  splashWindow.loadURL(getWindowPath(path.join(getStaticPath(), 'splash.html')));
+  splashWindow.loadURL(getWindowPath(path.join(getStaticPath(), 'splash.html'), 'splash.html'));
   mainWindow.loadURL(getWindowPath(path.join(__dirname, 'index.html')));
 
   // When mainWindow finishes loading, then show
