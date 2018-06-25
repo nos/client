@@ -46,7 +46,7 @@ let splashWindow;
 
 const isMac = process.platform === 'darwin';
 
-function getWindowPath(productionPath, suffix = "") {
+function getWindowPath(productionPath, suffix = '') {
   return isDev
     ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${suffix}`
     : url.format({ pathname: productionPath, protocol: 'file:', slashes: true });
