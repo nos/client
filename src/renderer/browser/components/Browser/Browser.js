@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { string, func, objectOf } from 'prop-types';
 import { map } from 'lodash';
 
@@ -17,12 +18,10 @@ export default class Browser extends React.Component {
   };
 
   render() {
-    const { tabs, activeSessionId, target, onQuery } = this.props;
+    const { tabs, activeSessionId } = this.props;
 
     return (
       <div className={styles.browser}>
-        <AddressBar className={styles.address} query={target} onQuery={onQuery} />
-
         <Tabs
           className={styles.tabs}
           tabs={tabs}
@@ -39,18 +38,30 @@ export default class Browser extends React.Component {
   }
 
   renderSession = (tab, sessionId) => {
+    const { target, onQuery, activeSessionId } = this.props;
+
+    const className = classNames(styles.container, {
+      [styles.active]: sessionId === activeSessionId
+    });
+
     return (
-      <DAppContainer
-        key={sessionId}
-        className={styles.dapp}
-        sessionId={sessionId}
-        target={tab.target}
-        addressBarEntry={tab.addressBarEntry}
-        requestCount={tab.requestCount}
-        active={sessionId === this.props.activeSessionId}
-        errorCode={tab.errorCode}
-        errorDescription={tab.errorDescription}
-      />
+      <div key={sessionId} className={className}>
+        <AddressBar
+          className={styles.address}
+          query={target}
+          onQuery={onQuery}
+        />
+
+        <DAppContainer
+          className={styles.dapp}
+          sessionId={sessionId}
+          target={tab.target}
+          addressBarEntry={tab.addressBarEntry}
+          requestCount={tab.requestCount}
+          errorCode={tab.errorCode}
+          errorDescription={tab.errorDescription}
+        />
+      </div>
     );
   }
 }

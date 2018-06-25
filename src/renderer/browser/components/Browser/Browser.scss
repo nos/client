@@ -3,13 +3,27 @@
   flex-direction: column;
   height: 100%;
 
-  .address,
   .tabs {
     flex: 0 0 auto;
+    padding-right: 125px; // account for ButtonBar
   }
 
-  .dapp {
+  .container {
     flex: 1 1 auto;
+    display: none;
+    flex-direction: column;
     height: 100%;
+
+    &.active {
+      display: flex;
+    }
+
+    .address {
+      flex: 0 0 auto;
+    }
+
+    .dapp {
+      flex: 1 1 auto;
+    }
   }
 }
