@@ -1,7 +1,8 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import TestInvoke from './TestInvoke';
@@ -25,13 +26,7 @@ export default function makeStorageComponent(testInvokeActions) {
     withNetworkData(),
 
     // Run the test invoke & wait for success or failure
-    withCall(testInvokeActions, ({
-      net,
-      scriptHash,
-      operation,
-      args,
-      encodeArgs
-    }) => ({
+    withInitialCall(testInvokeActions, ({ net, scriptHash, operation, args, encodeArgs }) => ({
       net,
       scriptHash,
       operation,

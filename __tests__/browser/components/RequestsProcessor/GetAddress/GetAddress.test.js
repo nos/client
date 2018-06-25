@@ -10,7 +10,7 @@ describe('<GetAddress />', () => {
 
   it('renders nothing', () => {
     const wrapper = mount(<GetAddress {...defaultProps} />);
-    expect(wrapper.children().length).toBe(0);
+    expect(wrapper.children()).toHaveLength(0);
   });
 
   it('calls onResolve with address', () => {

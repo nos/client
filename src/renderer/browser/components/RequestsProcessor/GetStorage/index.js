@@ -1,7 +1,8 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import GetStorage from './GetStorage';
@@ -21,7 +22,7 @@ export default function makeStorageComponent(storageActions) {
     withProps(({ args }) => {
       const result = pick(args[0], CONFIG_KEYS);
       if (result.key) {
-        result.index = result.key; // key is reserved in React props, so we map it to index
+        result.index = result.key; // key is reserved in React props, so we map it to index...
         delete result.key;
       }
       return result;
@@ -31,16 +32,10 @@ export default function makeStorageComponent(storageActions) {
     withNetworkData(),
 
     // Get the storage data & wait for success or failure
-    withCall(storageActions, ({
+    withInitialCall(storageActions, ({ net, scriptHash, index, encodeInput, decodeOutput }) => ({
       net,
       scriptHash,
-      index,
-      encodeInput,
-      decodeOutput
-    }) => ({
-      net,
-      scriptHash,
-      key: index, // and then map it back to key in the call to keep the same terms as neon-js
+      key: index, // ...and then map it back to key in the call to keep the same terms as neon-js
       encodeInput,
       decodeOutput
     })),
