@@ -114,12 +114,6 @@
       "static/**/*"
     ]
   },
-  "greenkeeper": {
-    "ignore": [
-      "webpack",
-      "redux"
-    ]
-  },
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.test.js"
