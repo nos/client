@@ -6,6 +6,9 @@
   "private": true,
   "main": "dist/main/main.js",
   "license": "MIT",
+  "engines" : {
+    "node" : "^8.10.0 || >=9.10.0"
+  },
   "dependencies": {
     "@cityofzion/neon-js": "3.9.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
@@ -57,7 +60,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.2",
+    "babel-eslint": "8.2.5",
     "babel-jest": "23.0.1",
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
@@ -75,10 +78,10 @@
     "electron-webpack": "1.13.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.17.0",
-    "eslint-config-airbnb": "16.1.0",
+    "eslint": "5.0.0",
+    "eslint-config-airbnb": "17.0.0",
     "eslint-import-resolver-babel-module": "4.0.0",
-    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jest": "21.17.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.9.0",
