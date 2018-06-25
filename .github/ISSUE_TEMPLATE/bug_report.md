@@ -9,10 +9,8 @@ about: Create a report to help us improve the nOS Client
 
 
 
-
 <!--- If describing a bug, tell us what happens instead of the expected behavior -->
 ## Current Behavior
-
 
 
 
@@ -26,11 +24,9 @@ about: Create a report to help us improve the nOS Client
 
 
 
-
 <!--- Not obligatory, but suggest a fix/reason for the bug, -->
 <!--- or ideas how to implement the addition or change -->
 ## Possible Solution
-
 
 
 
@@ -40,12 +36,11 @@ about: Create a report to help us improve the nOS Client
 
 
 
-
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 ## Your Environment
 * nOS Client version used:
 * Environment name and version
     * Node version:
     * NPM version:
-    * Yarn version
+    * Yarn version:
 * Operating System and version (desktop or mobile):

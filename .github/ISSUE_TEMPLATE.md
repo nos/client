@@ -4,11 +4,9 @@
 
 
 
-
 <!--- If describing a bug, tell us what happens instead of the expected behavior -->
 <!--- If suggesting a change/improvement, explain the difference from current behavior -->
 ## Current Behavior
-
 
 
 
@@ -22,11 +20,9 @@
 
 
 
-
 <!--- Not obligatory, but suggest a fix/reason for the bug, -->
 <!--- or ideas how to implement the addition or change -->
 ## Possible Solution
-
 
 
 
@@ -36,12 +32,11 @@
 
 
 
-
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 ## Your Environment
 * nOS Client version used:
 * Environment name and version
     * Node version:
     * NPM version:
-    * Yarn version
+    * Yarn version:
 * Operating System and version (desktop or mobile):

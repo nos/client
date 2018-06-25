@@ -7,11 +7,9 @@
 
 
 
-
 <!--- Why is this change required? What problem does it solve? -->
 <!--- Describe the current and new situation/behavior --->
 ## Motivation and Context
-
 
 
 
@@ -21,9 +19,7 @@
 
 
 
-
 ## Screenshots (if appropriate):
-
 
 
 
@@ -35,13 +31,11 @@
 
 
 
-
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 ## Checklist:
 - [ ] I have read the **[CONTRIBUTING](./CONTRIBUTING.md)** guidelines and confirm that my code follows the code style of this project.
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
-
 
 
 
