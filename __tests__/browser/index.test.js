@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { merge } from 'lodash';
 
 import { provideStore, createStore } from 'testHelpers';
 import { Browser } from 'browser';
@@ -25,15 +26,6 @@ const initialState = {
         addressBarEntry: true,
         loading: false,
         requestCount: 1
-      },
-      'tab-3': {
-        target: 'protocol://error',
-        title: 'nOS Error',
-        addressBarEntry: true,
-        loading: false,
-        requestCount: 1,
-        errorCode: -105,
-        errorDescription: 'NAME_NOT_RESOLVED'
       }
     }
   }
@@ -52,14 +44,13 @@ const openTab = (wrapper, index) => {
 describe('<Browser />', () => {
   it('renders all tabs', () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(Session)).toHaveLength(3);
+    expect(wrapper.find(Session)).toHaveLength(2);
   });
 
   it("only marks the activeSessionId's dapp as active", () => {
     const wrapper = mountBrowser();
     expect(wrapper.find(Session).at(0).hasClass('active')).toBe(true);
     expect(wrapper.find(Session).at(1).hasClass('active')).toBe(false);
-    expect(wrapper.find(Session).at(2).hasClass('active')).toBe(false);
   });
 
   it('changes tabs', () => {
@@ -67,18 +58,35 @@ describe('<Browser />', () => {
     openTab(wrapper, 1);
     expect(wrapper.find(Tab).at(0).prop('active')).toBe(false);
     expect(wrapper.find(Tab).at(1).prop('active')).toBe(true);
-    expect(wrapper.find(Tab).at(2).prop('active')).toBe(false);
   });
 
   it('does not remove the webview from the DOM when changing tabs', () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find('webview')).toHaveLength(3);
+    expect(wrapper.find('webview')).toHaveLength(2);
     openTab(wrapper, 1);
-    expect(wrapper.find('webview')).toHaveLength(3);
+    expect(wrapper.find('webview')).toHaveLength(2);
   });
 
-  it('hides the webview and shows an error', () => {
-    const wrapper = mountBrowser();
-    expect(wrapper.find(Error).length).toBe(1);
+  describe('when a tab has an error', () => {
+    const state = merge({}, initialState, {
+      browser: {
+        tabs: {
+          'tab-3': {
+            target: 'protocol://error',
+            title: 'nOS Error',
+            addressBarEntry: true,
+            loading: false,
+            requestCount: 1,
+            errorCode: -105,
+            errorDescription: 'NAME_NOT_RESOLVED'
+          }
+        }
+      }
+    });
+
+    it('hides the webview and shows an error', () => {
+      const wrapper = mountBrowser(state);
+      expect(wrapper.find(Error).length).toBe(1);
+    });
   });
 });
