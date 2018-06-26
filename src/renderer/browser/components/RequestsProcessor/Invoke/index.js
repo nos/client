@@ -17,7 +17,7 @@ const mapInvokeDataToProps = (txid) => ({ txid });
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
 
-export default function makeInvokeComponent(invokeActions) {
+export default function makeInvoke(invokeActions) {
   return compose(
     // Clean redux store when done
     withClean(invokeActions),

@@ -14,7 +14,7 @@ const mapInvokeDataToProps = (result) => ({ result });
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
 
-export default function makeStorageComponent(testInvokeActions) {
+export default function makeTestInvoke(testInvokeActions) {
   return compose(
     // Clean redux store when done
     withClean(testInvokeActions),

@@ -11,21 +11,18 @@ import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapStorageDataToProps = (data) => ({ data });
+
 const CONFIG_KEYS = ['scriptHash', 'key', 'encodeInput', 'decodeOutput'];
 
-export default function makeStorageComponent(storageActions) {
+export default function makeGetStorage(storageActions) {
   return compose(
     // Clean redux store when done
     withClean(storageActions),
 
     // Rename arguments given by the user
     withProps(({ args }) => {
-      const result = pick(args[0], CONFIG_KEYS);
-      if (result.key) {
-        result.index = result.key; // key is reserved in React props, so we map it to index...
-        delete result.key;
-      }
-      return result;
+      const { key: index, ...config } = pick(args[0], CONFIG_KEYS);
+      return { index, ...config }; // `key` is reserved in react props, so rename it to `index`...
     }),
 
     // Get the current network
@@ -35,7 +32,7 @@ export default function makeStorageComponent(storageActions) {
     withInitialCall(storageActions, ({ net, scriptHash, index, encodeInput, decodeOutput }) => ({
       net,
       scriptHash,
-      key: index, // ...and then map it back to key in the call to keep the same terms as neon-js
+      key: index, // ...and then map it back to `key` as expected by neon-js
       encodeInput,
       decodeOutput
     })),
