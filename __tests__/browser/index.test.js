@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { provideStore, createStore } from 'testHelpers';
 import { Browser } from 'browser';
 
-import DAppContainer from 'browser/components/DAppContainer';
+import Session from 'browser/components/Session';
 import Error from 'browser/components/Error';
 import Tab from 'browser/components/Tab';
 
@@ -52,14 +52,14 @@ const openTab = (wrapper, index) => {
 describe('<Browser />', () => {
   it('renders all tabs', () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(DAppContainer)).toHaveLength(3);
+    expect(wrapper.find(Session)).toHaveLength(3);
   });
 
   it("only marks the activeSessionId's dapp as active", () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(DAppContainer).at(0).prop('active')).toBe(true);
-    expect(wrapper.find(DAppContainer).at(1).prop('active')).toBe(false);
-    expect(wrapper.find(DAppContainer).at(2).prop('active')).toBe(false);
+    expect(wrapper.find(Session).at(0).hasClass('active')).toBe(true);
+    expect(wrapper.find(Session).at(1).hasClass('active')).toBe(false);
+    expect(wrapper.find(Session).at(2).hasClass('active')).toBe(false);
   });
 
   it('changes tabs', () => {

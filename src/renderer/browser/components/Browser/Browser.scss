@@ -8,22 +8,13 @@
     padding-right: 125px; // account for ButtonBar
   }
 
-  .container {
+  .session {
     flex: 1 1 auto;
-    display: none;
     flex-direction: column;
     height: 100%;
 
-    &.active {
-      display: flex;
-    }
-
-    .address {
-      flex: 0 0 auto;
-    }
-
-    .dapp {
-      flex: 1 1 auto;
+    &:not(.active) {
+      display: none;
     }
   }
 }
