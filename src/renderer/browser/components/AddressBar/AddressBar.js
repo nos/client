@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import { func, string } from 'prop-types';
 import { noop } from 'lodash';
 
-import ButtonBar from '../ButtonBar';
+import Icon from 'shared/components/Icon';
+
 import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
@@ -38,7 +39,12 @@ export default class AddressBar extends React.Component {
           onKeyDown={this.handleKeyDown}
           defaultValue={this.props.query}
         />
-        <ButtonBar />
+
+        <div className={styles.buttons}>
+          <button type="button">
+            <Icon name="notifications" />
+          </button>
+        </div>
       </div>
     );
   }

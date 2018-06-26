@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@cityofzion/neon-js": "3.9.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.0",
-    "@fortawesome/free-regular-svg-icons": "^5.1.0",
-    "@fortawesome/free-solid-svg-icons": "^5.1.0",
+    "@fortawesome/fontawesome-svg-core": "1.2.0",
+    "@fortawesome/free-regular-svg-icons": "5.1.0",
+    "@fortawesome/free-solid-svg-icons": "5.1.0",
     "@fortawesome/react-fontawesome": "0.1.0",
     "@ledgerhq/hw-transport-node-hid": "4.13.0",
     "bignumber.js": "7.0.1",
@@ -85,8 +85,8 @@
     "eslint-plugin-jest": "21.17.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.10.0",
+    "identity-obj-proxy": "3.0.0",
     "jest": "23.1.0",
-    "jest-css-modules": "^1.1.0",
     "node-loader": "0.6.0",
     "node-sass": "4.9.0",
     "react-hot-loader": "4.2.0",
@@ -128,11 +128,11 @@
       "./__tests__/setupTests.js"
     ],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.(css|scss|less)$": "jest-css-modules"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "moduleNameMapper": {
-      "^[./a-zA-Z0-9$_-]+\\.(css|svg)$": "<rootDir>/__mocks__/fileMock.js"
+      "^.+\\.svg$": "<rootDir>/__mocks__/fileMock.js",
+      "^.+\\.(css|scss|less)$": "identity-obj-proxy"
     },
     "moduleDirectories": [
       "node_modules"

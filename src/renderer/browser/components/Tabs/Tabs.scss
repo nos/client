@@ -2,8 +2,14 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
+  height: 40px;
   padding: 0 12px;
   border-bottom: 1px solid #dee2e6;
+  -webkit-app-region: drag;
+
+  * {
+    -webkit-app-region: no-drag;
+  }
 
   .tab {
     flex: 0 1 auto;
@@ -12,5 +18,9 @@
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  .newTab {
+    align-self: center;
   }
 }
