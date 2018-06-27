@@ -57,7 +57,7 @@ library.add(
 const ICONS = {
   account: 'user',
   browser: 'globe',
-  check: 'check-circle',
+  check: ['far', 'check-circle'],
   close: 'times',
   copy: 'copy',
   dapp: 'cube',
