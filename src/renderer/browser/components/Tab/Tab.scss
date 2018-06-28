@@ -4,39 +4,22 @@
   flex-wrap: nowrap;
   align-items: center;
   position: relative;
-  border-color: #dee2e6 #dee2e6 transparent;
   min-width: 0;
-  padding: 8px 10px;
-  font-size: 11.52px;
+  padding: 8px 14px;
+  background: #edeef2;
+  font-size: 12px;
   transition: all 0.2s ease;
-  cursor: pointer;
 
-  &::after {
-    content: "";
-    width: 0%;
-    height: 3px;
-    background-color: #047bf8;
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.2s ease;
-  }
-
-  &.active {
-    .title {
-      color: #495057;
-    }
-
-    &::after {
-      width: 100%;
-    }
+  &.active,
+  &:hover {
+    background: #fff;
+    z-index: 1; // stay on top of `AddressBar` box-shadow
   }
 
   .title {
     flex: 1 1 auto;
     max-width: 100px;
-    color: rgba(#000, 0.3);
+    color: #1e1b52;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -55,7 +38,6 @@
     color: rgba(#000, 0.3);
     background: transparent;
     border: none;
-    cursor: pointer;
 
     &:hover {
       color: #fff;
