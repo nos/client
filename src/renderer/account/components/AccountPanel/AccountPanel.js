@@ -1,8 +1,8 @@
 import React from 'react';
 import { string, objectOf } from 'prop-types';
+import { values } from 'lodash';
 
 import Panel from 'shared/components/Panel';
-import { NEO, GAS } from 'shared/values/assets';
 
 import balanceShape from '../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
@@ -19,8 +19,7 @@ export default class AccountPanel extends React.Component {
     return (
       <Panel className={styles.accountPanel} renderHeader={this.renderHeader}>
         <div className={styles.content}>
-          NEO: {this.getBalance(NEO)}<br />
-          GAS: {this.getBalance(GAS)}
+          {this.renderBalances()}
         </div>
       </Panel>
     );
@@ -28,6 +27,18 @@ export default class AccountPanel extends React.Component {
 
   renderHeader = () => {
     return `Address ${this.props.address}`;
+  }
+
+  renderBalances = () => {
+    const balances = values(this.props.balances);
+
+    if (balances.length === 0) {
+      return 'No available assets.';
+    }
+
+    return balances.map(({ symbol, balance }) => (
+      <span key={symbol}>{symbol}: {balance}<br /></span>
+    ));
   }
 
   getBalance = (assetIdOrScriptHash) => {
