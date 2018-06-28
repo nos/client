@@ -13,6 +13,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
 const mapBalancesDataToProps = (balances) => ({ balances });
+
 const CONFIG_KEYS = ['asset', 'address'];
 
 export default function makeGetBalance(balancesActions) {

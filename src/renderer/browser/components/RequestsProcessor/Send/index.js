@@ -29,7 +29,7 @@ const getAssetName = (assetId) => {
 
 const CONFIG_KEYS = ['asset', 'amount', 'receiver'];
 
-export default function makeSendComponent(sendActions) {
+export default function makeSend(sendActions) {
   return compose(
     // Clean redux store when done
     withClean(sendActions),

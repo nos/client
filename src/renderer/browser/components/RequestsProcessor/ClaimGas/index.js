@@ -14,7 +14,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
 
-export default function makeClaimComponent(claimActions) {
+export default function makeClaimGas(claimActions) {
   return compose(
     // Clean redux store when done
     withClean(claimActions),
