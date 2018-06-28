@@ -13,13 +13,19 @@ export default class AddressBar extends React.Component {
   static propTypes = {
     className: string,
     query: string,
-    onQuery: func
+    onQuery: func,
+    onBack: func,
+    onForward: func,
+    onReload: func
   };
 
   static defaultProps = {
     className: null,
     query: '',
-    onQuery: noop
+    onQuery: noop,
+    onBack: noop,
+    onForward: noop,
+    onReload: noop
   };
 
   componentDidUpdate(prevProps) {
@@ -32,6 +38,12 @@ export default class AddressBar extends React.Component {
   render() {
     return (
       <div className={classNames(styles.addressBar, this.props.className)}>
+        <div className={styles.buttonGroup}>
+          <Icon name="back" className={styles.button} onClick={this.props.onBack} />
+          <Icon name="forward" className={styles.button} onClick={this.props.onForward} />
+          <Icon name="reload" className={styles.button} onClick={this.props.onReload} />
+        </div>
+
         <input
           ref={this.registerRef}
           type="text"
@@ -40,10 +52,8 @@ export default class AddressBar extends React.Component {
           defaultValue={this.props.query}
         />
 
-        <div className={styles.buttons}>
-          <button type="button">
-            <Icon name="notifications" />
-          </button>
+        <div className={styles.buttonGroup}>
+          <Icon name="notifications" className={styles.button} />
         </div>
       </div>
     );

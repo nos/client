@@ -16,21 +16,26 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 
 import {
+  faArrowLeft,
+  faArrowRight,
   faBookmark,
   faCog,
   faCubes,
   faGlobe,
   faKey,
-  faPlusSquare,
+  faPlus,
   faQuestionCircle,
   faSignOutAlt,
   faSpinner,
   faSync,
   faTimes,
+  faUndo,
   faUser
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faArrowLeft,
+  faArrowRight,
   faBell,
   faBookmark,
   faBookmarkReg,
@@ -41,12 +46,13 @@ library.add(
   faGlobe,
   faHandshake,
   faKey,
-  faPlusSquare,
+  faPlus,
   faQuestionCircle,
   faSignOutAlt,
   faSpinner,
   faSync,
   faTimes,
+  faUndo,
   faUser,
   faWindowClose,
   faWindowMaximize,
@@ -56,6 +62,8 @@ library.add(
 
 const ICONS = {
   account: 'user',
+  add: ['fas', 'plus'],
+  back: ['fas', 'arrow-left'],
   browser: 'globe',
   check: 'check-circle',
   close: 'times',
@@ -63,9 +71,11 @@ const ICONS = {
   dapp: 'cube',
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],
+  forward: ['fas', 'arrow-right'],
   login: 'key',
   logout: 'sign-out-alt',
   notifications: ['far', 'bell'],
+  reload: ['fas', 'undo'],
   settings: 'cog',
   spin: 'spinner',
   unfavorite: ['far', 'bookmark'],
@@ -74,8 +84,7 @@ const ICONS = {
   windowMax: ['far', 'window-maximize'],
   windowMin: ['far', 'window-minimize'],
   windowRestore: ['far', 'window-restore'],
-  transfer: ['fas', 'sync'],
-  add: ['far', 'plus-square']
+  transfer: ['fas', 'sync']
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,

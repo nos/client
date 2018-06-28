@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop } from 'lodash';
 
-import Button from 'shared/components/Forms/Button';
+import Icon from 'shared/components/Icon';
 
 import Tab from '../Tab';
 import tabShape from '../../shapes/tabShape';
@@ -38,7 +38,7 @@ export default class Tabs extends React.Component {
     return (
       <div className={classNames(styles.tabs, this.props.className)}>
         {map(this.props.tabs, this.renderTab)}
-        <Button className={styles.newTab} onClick={this.props.onOpen}>New Tab</Button>
+        <Icon className={styles.newTab} name="add" onClick={this.props.onOpen} />
       </div>
     );
   }
