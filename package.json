@@ -6,12 +6,15 @@
   "private": true,
   "main": "dist/main/main.js",
   "license": "MIT",
+  "engines" : {
+    "node" : "^8.10.0 || >=9.10.0"
+  },
   "dependencies": {
     "@cityofzion/neon-js": "3.9.1",
-    "@fortawesome/fontawesome": "1.1.4",
-    "@fortawesome/fontawesome-free-regular": "5.0.8",
-    "@fortawesome/fontawesome-free-solid": "5.0.8",
-    "@fortawesome/react-fontawesome": "0.0.20",
+    "@fortawesome/fontawesome-svg-core": "1.2.0",
+    "@fortawesome/free-regular-svg-icons": "5.1.0",
+    "@fortawesome/free-solid-svg-icons": "5.1.0",
+    "@fortawesome/react-fontawesome": "0.1.0",
     "@ledgerhq/hw-transport-node-hid": "4.13.0",
     "bignumber.js": "7.0.1",
     "classnames": "2.2.6",
@@ -57,7 +60,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.2",
+    "babel-eslint": "8.2.5",
     "babel-jest": "23.0.1",
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
@@ -68,22 +71,22 @@
     "concurrently": "3.6.0",
     "cross-env": "5.2.0",
     "css-loader": "0.28.11",
-    "electron": "2.0.0",
+    "electron": "2.0.3",
     "electron-builder": "20.11.1",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.7.3",
     "electron-webpack": "1.13.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.17.0",
-    "eslint-config-airbnb": "16.1.0",
+    "eslint": "5.0.0",
+    "eslint-config-airbnb": "17.0.0",
     "eslint-import-resolver-babel-module": "4.0.0",
-    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jest": "21.17.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "7.9.0",
+    "eslint-plugin-react": "7.10.0",
+    "identity-obj-proxy": "3.0.0",
     "jest": "23.1.0",
-    "jest-css-modules": "^1.1.0",
     "node-loader": "0.6.0",
     "node-sass": "4.9.0",
     "react-hot-loader": "4.2.0",
@@ -125,11 +128,11 @@
       "./__tests__/setupTests.js"
     ],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.(css|scss|less)$": "jest-css-modules"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "moduleNameMapper": {
-      "^[./a-zA-Z0-9$_-]+\\.(css|svg)$": "<rootDir>/__mocks__/fileMock.js"
+      "^.+\\.svg$": "<rootDir>/__mocks__/fileMock.js",
+      "^.+\\.(css|scss|less)$": "identity-obj-proxy"
     },
     "moduleDirectories": [
       "node_modules"

@@ -1,10 +1,6 @@
 .dAppContainer {
+  display: block;
   height: 100%;
-  display: none;
-
-  &.active {
-    display: block;
-  }
 
   .webview {
     height: 100%;

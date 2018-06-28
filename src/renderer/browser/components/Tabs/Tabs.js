@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop } from 'lodash';
 
@@ -10,6 +11,7 @@ import styles from './Tabs.scss';
 
 export default class Tabs extends React.Component {
   static propTypes = {
+    className: string,
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,
     onOpen: func,
@@ -18,6 +20,7 @@ export default class Tabs extends React.Component {
   };
 
   static defaultProps = {
+    className: null,
     onOpen: noop,
     onClose: noop,
     setActiveTab: noop
@@ -33,9 +36,9 @@ export default class Tabs extends React.Component {
 
   render() {
     return (
-      <div className={styles.tabs}>
+      <div className={classNames(styles.tabs, this.props.className)}>
         {map(this.props.tabs, this.renderTab)}
-        <Button onClick={this.props.onOpen}>New Tab</Button>
+        <Button className={styles.newTab} onClick={this.props.onOpen}>New Tab</Button>
       </div>
     );
   }

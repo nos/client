@@ -1,7 +1,7 @@
 import React from 'react';
 import { string } from 'prop-types';
-import fontawesome from '@fortawesome/fontawesome';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   faBell,
@@ -9,27 +9,28 @@ import {
   faCheckCircle,
   faCopy,
   faHandshake,
-  faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
   faWindowRestore
-} from '@fortawesome/fontawesome-free-regular';
+} from '@fortawesome/free-regular-svg-icons';
 
 import {
   faBookmark,
   faCog,
   faCubes,
+  faGlobe,
   faKey,
   faPlusSquare,
   faQuestionCircle,
   faSignOutAlt,
   faSpinner,
   faSync,
-  faTimes
-} from '@fortawesome/fontawesome-free-solid';
+  faTimes,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
 
-fontawesome.library.add(
+library.add(
   faBell,
   faBookmark,
   faBookmarkReg,
@@ -37,6 +38,7 @@ fontawesome.library.add(
   faCheckCircle,
   faCopy,
   faCubes,
+  faGlobe,
   faHandshake,
   faKey,
   faPlusSquare,
@@ -55,7 +57,7 @@ fontawesome.library.add(
 const ICONS = {
   account: 'user',
   browser: 'globe',
-  check: 'check-circle',
+  check: ['far', 'check-circle'],
   close: 'times',
   copy: 'copy',
   dapp: 'cube',

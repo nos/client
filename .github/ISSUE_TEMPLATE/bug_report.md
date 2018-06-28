@@ -1,18 +1,22 @@
-<!--- If you're describing a bug, tell us what should happen -->
-<!--- If you're suggesting a change/improvement, tell us how it should work -->
+---
+name: Bug report
+about: Create a report to help us improve the nOS Client
+
+---
+
+<!--- A clear and concise description of what you expected to happen. -->
 ## Expected Behavior
 
 
 
 <!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
 ## Current Behavior
 
 
 
 <!--- Provide a link to a live example, or an unambiguous set of steps to -->
 <!--- reproduce this bug. Include code to reproduce, if relevant -->
-## Steps to Reproduce (for bugs)
+## Steps to Reproduce
 1.
 2.
 3.
