@@ -65,7 +65,7 @@ const ICONS = {
   add: ['fas', 'plus'],
   back: ['fas', 'arrow-left'],
   browser: 'globe',
-  check: 'check-circle',
+  check: ['far', 'check-circle'],
   close: 'times',
   copy: 'copy',
   dapp: 'cube',
