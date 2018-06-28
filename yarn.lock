@@ -162,16 +162,16 @@
     humps "^2.0.1"
     prop-types "^15.5.10"
 
-"@ledgerhq/hw-transport-node-hid@4.13.0":
-  version "4.13.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/hw-transport-node-hid/-/hw-transport-node-hid-4.13.0.tgz#86306ff10c860d8bbd002db3f4618078460e4b9a"
+"@ledgerhq/hw-transport-node-hid@4.16.0":
+  version "4.16.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-transport-node-hid/-/hw-transport-node-hid-4.16.0.tgz#de8d7ffd37e01c77aed566d8c534fe3937c3c35c"
   dependencies:
-    "@ledgerhq/hw-transport" "^4.13.0"
+    "@ledgerhq/hw-transport" "^4.15.0"
     node-hid "^0.7.2"
 
-"@ledgerhq/hw-transport@^4.13.0":
-  version "4.13.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/hw-transport/-/hw-transport-4.13.0.tgz#463043200c96c91379318052ad4dbe8c80d95cf5"
+"@ledgerhq/hw-transport@^4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-transport/-/hw-transport-4.15.0.tgz#ec99436c2662e70fb6f9c72f7bb5d1f3a051c4e3"
   dependencies:
     events "^2.0.0"
 
