@@ -14,7 +14,6 @@ export default class DAppContainer extends React.Component {
     errorCode: number,
     errorDescription: string,
     sessionId: string.isRequired,
-    active: bool.isRequired,
     target: string.isRequired,
     addressBarEntry: bool.isRequired,
     requestCount: number.isRequired,
@@ -70,10 +69,10 @@ export default class DAppContainer extends React.Component {
   }
 
   render() {
-    const { className, active, sessionId, target } = this.props;
+    const { className, sessionId, target } = this.props;
 
     return (
-      <div className={classNames(styles.dAppContainer, className, { [styles.active]: active })}>
+      <div className={classNames(styles.dAppContainer, className)}>
         {this.renderWebView()}
         {this.renderError()}
 

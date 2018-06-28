@@ -70,10 +70,10 @@ $authenticatedlayout-menu-width: 70px;
       border-top: $primary-border-style;
     }
   }
-}
 
-:global(.darwin) {
-  header {
-    margin-top: 20px;
+  &.darwin {
+    header {
+      margin-top: 20px;
+    }
   }
 }
