@@ -7,7 +7,7 @@ import { map, noop } from 'lodash';
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
-import Icon from 'shared/components/Icon/Icon';
+import Icon from 'shared/components/Icon';
 import Select from 'shared/components/Forms/Select';
 import { ASSETS, NEO } from 'shared/values/assets';
 
