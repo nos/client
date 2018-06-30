@@ -1,8 +1,9 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import Invoke from './Invoke';
@@ -16,7 +17,7 @@ const mapInvokeDataToProps = (txid) => ({ txid });
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
 
-export default function makeInvokeComponent(invokeActions) {
+export default function makeInvoke(invokeActions) {
   return compose(
     // Clean redux store when done
     withClean(invokeActions),
@@ -34,7 +35,7 @@ export default function makeInvokeComponent(invokeActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Run the invoke & wait for success or failure
-    withCall(invokeActions, ({
+    withInitialCall(invokeActions, ({
       net,
       address,
       wif,

@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import { func, string } from 'prop-types';
 import { noop } from 'lodash';
 
-import ButtonBar from '../ButtonBar';
+import Icon from 'shared/components/Icon';
+
 import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
@@ -12,13 +13,19 @@ export default class AddressBar extends React.Component {
   static propTypes = {
     className: string,
     query: string,
-    onQuery: func
+    onQuery: func,
+    onBack: func,
+    onForward: func,
+    onReload: func
   };
 
   static defaultProps = {
     className: null,
     query: '',
-    onQuery: noop
+    onQuery: noop,
+    onBack: noop,
+    onForward: noop,
+    onReload: noop
   };
 
   componentDidUpdate(prevProps) {
@@ -31,6 +38,12 @@ export default class AddressBar extends React.Component {
   render() {
     return (
       <div className={classNames(styles.addressBar, this.props.className)}>
+        <div className={styles.buttonGroup}>
+          <Icon name="back" className={styles.button} onClick={this.props.onBack} />
+          <Icon name="forward" className={styles.button} onClick={this.props.onForward} />
+          <Icon name="reload" className={styles.button} onClick={this.props.onReload} />
+        </div>
+
         <input
           ref={this.registerRef}
           type="text"
@@ -38,7 +51,10 @@ export default class AddressBar extends React.Component {
           onKeyDown={this.handleKeyDown}
           defaultValue={this.props.query}
         />
-        <ButtonBar />
+
+        <div className={styles.buttonGroup}>
+          <Icon name="notifications" className={styles.button} />
+        </div>
       </div>
     );
   }

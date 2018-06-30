@@ -37,7 +37,7 @@ export default class Tab extends React.Component {
       >
         {this.renderLoading()}
         <span className={styles.title}>{title}</span>
-        <button className={styles.close} onClick={this.handleClose}>
+        <button type="button" className={styles.close} onClick={this.handleClose}>
           <span className={styles.closeContent}>
             <Icon name="close" />
           </span>

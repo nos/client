@@ -8,8 +8,12 @@ import Navigation from './Navigation';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {
+  const className = classNames(styles.authenticatedLayout, {
+    [styles[process.platform]]: true
+  });
+
   return (
-    <div className={classNames(styles.authenticatedLayout, process.platform)}>
+    <div className={className}>
       <div className={styles.menu}>
         <header>
           <img src={logo} alt="nOS Logo" width="36" height="36" />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { string } from 'prop-types';
-import fontawesome from '@fortawesome/fontawesome';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   faBell,
@@ -9,27 +9,33 @@ import {
   faCheckCircle,
   faCopy,
   faHandshake,
-  faUser,
   faWindowClose,
   faWindowMaximize,
   faWindowMinimize,
   faWindowRestore
-} from '@fortawesome/fontawesome-free-regular';
+} from '@fortawesome/free-regular-svg-icons';
 
 import {
+  faArrowLeft,
+  faArrowRight,
   faBookmark,
   faCog,
   faCubes,
+  faGlobe,
   faKey,
-  faPlusSquare,
+  faPlus,
   faQuestionCircle,
   faSignOutAlt,
   faSpinner,
   faSync,
-  faTimes
-} from '@fortawesome/fontawesome-free-solid';
+  faTimes,
+  faUndo,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
 
-fontawesome.library.add(
+library.add(
+  faArrowLeft,
+  faArrowRight,
   faBell,
   faBookmark,
   faBookmarkReg,
@@ -37,14 +43,16 @@ fontawesome.library.add(
   faCheckCircle,
   faCopy,
   faCubes,
+  faGlobe,
   faHandshake,
   faKey,
-  faPlusSquare,
+  faPlus,
   faQuestionCircle,
   faSignOutAlt,
   faSpinner,
   faSync,
   faTimes,
+  faUndo,
   faUser,
   faWindowClose,
   faWindowMaximize,
@@ -54,16 +62,20 @@ fontawesome.library.add(
 
 const ICONS = {
   account: 'user',
+  add: ['fas', 'plus'],
+  back: ['fas', 'arrow-left'],
   browser: 'globe',
-  check: 'check-circle',
+  check: ['far', 'check-circle'],
   close: 'times',
   copy: 'copy',
   dapp: 'cube',
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],
+  forward: ['fas', 'arrow-right'],
   login: 'key',
   logout: 'sign-out-alt',
   notifications: ['far', 'bell'],
+  reload: ['fas', 'undo'],
   settings: 'cog',
   spin: 'spinner',
   unfavorite: ['far', 'bookmark'],
@@ -72,8 +84,7 @@ const ICONS = {
   windowMax: ['far', 'window-maximize'],
   windowMin: ['far', 'window-minimize'],
   windowRestore: ['far', 'window-restore'],
-  transfer: ['fas', 'sync'],
-  add: ['far', 'plus-square']
+  transfer: ['fas', 'sync']
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,

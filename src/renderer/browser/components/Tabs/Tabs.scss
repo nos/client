@@ -2,15 +2,27 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-  padding: 0 12px;
-  border-bottom: 1px solid #dee2e6;
+  height: 30px;
+  background: #edeef2;
+  box-shadow: inset 0 -4px 8px rgba(53, 52, 69, 0.05);
+  -webkit-app-region: drag;
+
+  * {
+    -webkit-app-region: no-drag;
+  }
 
   .tab {
     flex: 0 1 auto;
-    margin-right: 16px;
+    margin-right: 4px;
 
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  .newTab {
+    align-self: center;
+    margin-left: 10px;
+    color: #9a99a5;
   }
 }
