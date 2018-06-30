@@ -1,13 +1,11 @@
-import { api, wallet } from '@cityofzion/neon-js';
+import Neon, { api, wallet, u } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
-import { ASSETS } from '../values/assets';
+import createScript from 'shared/util/createScript';
+
+import { ASSETS, GAS } from '../values/assets';
 
 export default async function sendAsset({ net, asset, amount, receiver, address, wif }) {
-  if (!keys(ASSETS).includes(asset)) {
-    throw new Error(`Invalid asset: ${asset}`);
-  }
-
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
   }
@@ -16,17 +14,38 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
     throw new Error(`Invalid amount: "${amount}"`);
   }
 
-  const selectedAsset = ASSETS[asset];
-  const intents = await api.makeIntent({ [selectedAsset]: amount }, receiver);
+  let result;
+  let txid;
+  if (keys(ASSETS).includes(asset)) {
+    const selectedAsset = ASSETS[asset];
+    const intents = await api.makeIntent({ [selectedAsset]: amount }, receiver);
 
-  const config = {
-    net,
-    address,
-    privateKey: new wallet.Account(wif).privateKey,
-    intents
-  };
+    const config = {
+      net,
+      address,
+      privateKey: new wallet.Account(wif).privateKey,
+      intents
+    };
 
-  const { response: { result, txid } } = await api.sendAsset(config, api.neoscan);
+    ({ response: { result, txid } } = await api.sendAsset(config, api.neoscan));
+  } else {
+    ({ response: { result, txid } } = await Neon.doInvoke({
+      net,
+      address,
+      script: createScript(asset, 'transfer', [
+        u.reverseHex(wallet.getScriptHashFromAddress(address)),
+        u.reverseHex(wallet.getScriptHashFromAddress(receiver)),
+        new u.Fixed8(amount).toReverseHex()
+      ], false),
+      privateKey: wif,
+      gas: 0,
+      intents: [{
+        assetId: GAS,
+        value: '0.00000001',
+        scriptHash: wallet.getScriptHashFromAddress(address)
+      }]
+    }));
+  }
 
   if (!result) {
     throw new Error('Invocation failed.');

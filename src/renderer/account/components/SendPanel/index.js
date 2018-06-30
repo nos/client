@@ -1,8 +1,11 @@
 import { compose, withProps, withState } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
+import { pickBy } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import sendActions from 'shared/actions/sendActions';
+import balancesActions from 'shared/actions/balancesActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
@@ -23,6 +26,8 @@ const mapSendActionsToProps = (actions) => ({
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
+const mapBalancesDataToProps = (balances) => ({ balances });
+
 export default compose(
   withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
@@ -31,6 +36,11 @@ export default compose(
 
   withData(authActions, mapAuthDataToProps),
   withNetworkData(),
+  withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
+  withData(balancesActions, mapBalancesDataToProps),
+  withProps(({ balances }) => ({
+    balances: pickBy(balances, ({ balance }) => balance !== '0')
+  })),
   withActions(sendActions, mapSendActionsToProps),
 
   withProgress(sendActions),

@@ -4,8 +4,9 @@ import { isArray } from 'lodash';
 
 import { GAS } from 'shared/values/assets';
 
+import createScript from 'shared/util/createScript';
+
 import generateDAppActionId from './generateDAppActionId';
-import createScript from '../util/createScript';
 
 export const ID = 'invoke';
 
