@@ -3,21 +3,29 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: center;
   position: relative;
   min-width: 0;
   padding: 8px 14px;
-  background: #edeef2;
+  background: rgba(#fff, 0.4);
   font-size: 12px;
   transition: all 0.2s ease;
 
   &.active,
   &:hover {
-    background: #fff;
     z-index: 1; // stay on top of `AddressBar` box-shadow
   }
 
+  &.active {
+    background: #fff;
+  }
+
+  &:hover {
+    background: rgba(#fff, 0.6);
+  }
+
   .title {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     max-width: 100px;
     color: #1e1b52;
     overflow: hidden;
@@ -27,17 +35,18 @@
   }
 
   .close {
-    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 50%;
+    right: 10px;
     width: 15px;
     height: 15px;
-    padding: 0;
-    margin: 0 0 0 8px;
-    color: rgba(#000, 0.3);
+    color: #9a99a5;
     background: transparent;
     border: none;
+    transform: translateY(-50%);
 
     &:hover {
       color: #fff;
