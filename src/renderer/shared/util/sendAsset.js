@@ -33,10 +33,10 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
       net,
       address,
       script: createScript(asset, 'transfer', [
-        u.reverseHex(wallet.getScriptHashFromAddress(address)),
-        u.reverseHex(wallet.getScriptHashFromAddress(receiver)),
-        new u.Fixed8(amount).toReverseHex()
-      ], false),
+        address,
+        receiver,
+        new u.Fixed8(amount)
+      ], true),
       privateKey: wif,
       gas: 0,
       intents: [{
