@@ -54,6 +54,7 @@ jobs:
       - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
       - run: sudo yarn global add yarn@1.7.0
       - run: yarn test
+      - run: yarn codecov
     store_artifacts:
       - path: artifacts
       - destination: yarnpkg

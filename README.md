@@ -5,28 +5,26 @@
 <h1 align="center">nOS</h1>
 <p align="center">
   <a href="https://github.com/nos/client/releases">
-    <img src="https://img.shields.io/github/release/nos/client/all.svg">
+    <img src="https://img.shields.io/github/release/nos/client/all.svg" />
   </a>
-  <a href='http://makeapullrequest.com'>
-    <img src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg'>
+  <a href="http://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
   </a>
-
-  <a href='https://discordapp.com/invite/eGFAskm'>
-    <img src='https://img.shields.io/badge/chat-discord-brightgreen.svg'>
+  <a href="https://discordapp.com/invite/eGFAskm">
+    <img src="https://img.shields.io/badge/chat-discord-brightgreen.svg" />
   </a>
-
-  <a href='https://circleci.com/gh/nos/client/tree/develop'>
-    <img src='https://img.shields.io/circleci/project/github/nos/client/develop.svg'>
+  <a href="https://circleci.com/gh/nos/client/tree/develop">
+    <img src="https://img.shields.io/circleci/project/github/nos/client/develop.svg" />
   </a>
-  
   <a href="https://greenkeeper.io/">
     <img src="https://badges.greenkeeper.io/nos/client.svg" />
   </a>
-  
-  <a href='https://github.com/prettier/prettier'>
-    <img src='https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat'>
+  <a href="https://github.com/prettier/prettier">
+    <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat" />
   </a>
-
+  <a href="https://codecov.io/gh/nos/client">
+    <img src="https://codecov.io/gh/nos/client/branch/develop/graph/badge.svg" />
+  </a>
 </p>
 <p align="center">
   <strong>nOS</strong> is a NEO-powered virtual operating system that serves as the gateway to the Blockchain-powered Smart Economy.
