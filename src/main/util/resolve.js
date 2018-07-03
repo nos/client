@@ -6,7 +6,7 @@ import { rpc, u } from '@cityofzion/neon-js';
 import getStaticPath from './getStaticPath';
 
 // TODO: Configurable network settings and script hash
-const NS_SCRIPT_HASH = '0x9a309cfe03cead5b653bbb11f68ff6beced8f031';
+const NS_SCRIPT_HASH = '0xa2d2b79ba7620a8808f7f7679a8e2ab1bcc62bce';
 const RPC_URL = 'http://localhost:30333';
 
 function isNOS(host) {
