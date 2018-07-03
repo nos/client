@@ -6,15 +6,25 @@ export const SET_TAB_TARGET = 'SET_TAB_TARGET';
 export const SET_TAB_TITLE = 'SET_TAB_TITLE';
 export const SET_TAB_LOADED = 'SET_TAB_LOADED';
 
-export const openTab = () => ({ type: OPEN_TAB });
+const DEFAULT_TARGET = 'nos://nos.neo';
+
+export const openTab = ({ target = DEFAULT_TARGET, title = 'New Tab' } = {}) => ({
+  type: OPEN_TAB,
+  target,
+  title
+});
+
 export const closeTab = (sessionId) => ({ type: CLOSE_TAB, sessionId });
+
 export const setActiveTab = (sessionId) => ({ type: SET_ACTIVE_TAB, sessionId });
+
 export const setTabError = (sessionId, code, description) => ({
   type: SET_TAB_ERROR,
   sessionId,
   code,
   description
 });
+
 export const setTabTarget = (sessionId, target, {
   addressBarEntry = false,
   leavingPage = true
@@ -22,8 +32,10 @@ export const setTabTarget = (sessionId, target, {
   type: SET_TAB_TARGET,
   sessionId,
   target,
-  addressBarEntry, // Differentiates between link clicks and address bar entries
-  leavingPage // Differentiates between anchor link clicks on the current page vs. new page loads
+  addressBarEntry, // differentiates between link clicks and address bar entries
+  leavingPage // differentiates between anchor link clicks on the current page vs. new page loads
 });
+
 export const setTabTitle = (sessionId, title) => ({ type: SET_TAB_TITLE, sessionId, title });
+
 export const setTabLoaded = (sessionId, loaded) => ({ type: SET_TAB_LOADED, sessionId, loaded });

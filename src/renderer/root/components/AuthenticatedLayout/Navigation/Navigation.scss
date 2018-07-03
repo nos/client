@@ -10,9 +10,11 @@
 
     color: transparentize($primary-text-color, 0.5);
 
-    a {
+    .link {
       text-decoration: none;
+      cursor: default;
 
+      &,
       &:link,
       &:visited {
         color: $primary-text-color;

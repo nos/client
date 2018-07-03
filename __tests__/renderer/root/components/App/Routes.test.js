@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 import { progressValues } from 'spunky';
 
 import Routes from 'root/components/App/Routes';
-import { Account } from 'account';
 import { Login } from 'login';
 import { Logout } from 'logout';
 import { Browser } from 'browser';
@@ -42,15 +41,6 @@ describe('<Routes />', () => {
   it('redirects to browser on invalid route', () => {
     const wrapper = mountPath('/index.html');
     expect(wrapper.find(Redirect).prop('to')).toEqual('/browser');
-  });
-
-  describe('account route', () => {
-    itBehavesLikeAuthenticatedRoute('/account');
-
-    it('renders when authenticated', () => {
-      const wrapper = mountPath('/account', { spunky: { auth: authenticatedState } });
-      expect(wrapper.find(Account).exists()).toBe(true);
-    });
   });
 
   describe('logout route', () => {

@@ -16,8 +16,8 @@ const initialTabState = {
 
 const newTabState = {
   ...initialTabState,
-  target: 'nos://nos.neo',
-  title: 'Welcome to nOS'
+  target: '',
+  title: 'New Tab'
 };
 
 const generateSessionId = () => uuid();
@@ -62,16 +62,17 @@ function parse(query) {
   }
 }
 
-function open(state) {
+function open(state, action) {
   const sessionId = generateSessionId();
   const { tabs } = state;
+  const { target } = action;
 
   return {
     ...state,
     activeSessionId: sessionId,
     tabs: {
       ...tabs,
-      [sessionId]: { ...newTabState }
+      [sessionId]: { ...newTabState, target }
     }
   };
 }
@@ -146,7 +147,7 @@ function setLoaded(state, action) {
 export default function browserReducer(state = generateInitialState(), action) {
   switch (action.type) {
     case OPEN_TAB:
-      return open(state);
+      return open(state, action);
     case CLOSE_TAB:
       return close(state, action);
     case SET_ACTIVE_TAB:
