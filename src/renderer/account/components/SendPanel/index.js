@@ -1,6 +1,6 @@
 import { compose, withProps, withState } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
-import { pickBy, values } from 'lodash';
+import { pickBy, keys } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import sendActions from 'shared/actions/sendActions';
@@ -11,7 +11,7 @@ import withAlert from 'shared/hocs/withAlert';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { NEO } from 'shared/values/assets';
+import { NEO, ASSETS } from 'shared/values/assets';
 
 import SendPanel from './SendPanel';
 
@@ -37,7 +37,7 @@ export default compose(
   withNetworkData(),
   withData(balancesActions, mapBalancesDataToProps),
   withProps(({ balances }) => ({
-    balances: values(pickBy(balances, ({ balance }) => balance !== '0'))
+    balances: pickBy(balances, ({ scriptHash, balance }) => keys(ASSETS).includes(scriptHash) || balance !== '0')
   })),
   withActions(sendActions, mapSendActionsToProps),
 
