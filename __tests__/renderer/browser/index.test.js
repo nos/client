@@ -7,7 +7,7 @@ import { Browser } from 'browser';
 
 import Session from 'browser/components/Session';
 import Error from 'browser/components/Error';
-import Tab from 'browser/components/Tab';
+import Tab from 'root/components/AuthenticatedLayout/Tab';
 
 const initialState = {
   browser: {

@@ -1,14 +1,18 @@
 import React from 'react';
-import { string, node } from 'prop-types';
 import classNames from 'classnames';
+import { string, node, objectOf } from 'prop-types';
 
 import logo from 'shared/images/logo.svg';
+import tabShape from 'browser/shapes/tabShape';
 
+import Tabs from './Tabs';
 import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {
+  const { tabs, activeSessionId } = props;
+
   const className = classNames(styles.authenticatedLayout, {
     [styles[process.platform]]: true
   });
@@ -22,6 +26,11 @@ export default function AuthenticatedLayout(props) {
         <Navigation />
       </div>
       <main className={styles.main}>
+        <Tabs
+          className={styles.tabs}
+          tabs={tabs}
+          activeSessionId={activeSessionId}
+        />
         <AddressBar className={styles.addressBar} />
         <div className={styles.content}>
           {props.children}
@@ -39,8 +48,10 @@ export default function AuthenticatedLayout(props) {
 AuthenticatedLayout.displayName = 'AuthenticatedLayout';
 
 AuthenticatedLayout.propTypes = {
-  children: node,
-  currentNetwork: string.isRequired
+  activeSessionId: string.isRequired,
+  tabs: objectOf(tabShape).isRequired,
+  currentNetwork: string.isRequired,
+  children: node
 };
 
 AuthenticatedLayout.defaultProps = {

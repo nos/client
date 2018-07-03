@@ -1,16 +1,7 @@
 .browser {
-  display: flex;
-  flex-direction: column;
   height: 100%;
 
-  .tabs {
-    flex: 0 0 auto;
-    padding-right: 125px; // account for ButtonBar
-  }
-
   .session {
-    flex: 1 1 auto;
-    flex-direction: column;
     height: 100%;
 
     &:not(.active) {

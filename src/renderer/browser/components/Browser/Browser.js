@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { string, objectOf } from 'prop-types';
 import { map } from 'lodash';
 
-import Tabs from '../Tabs';
 import Session from '../Session';
 import tabShape from '../../shapes/tabShape';
 import styles from './Browser.scss';
@@ -15,16 +14,8 @@ export default class Browser extends React.Component {
   };
 
   render() {
-    const { tabs, activeSessionId } = this.props;
-
     return (
       <div className={styles.browser}>
-        <Tabs
-          className={styles.tabs}
-          tabs={tabs}
-          activeSessionId={activeSessionId}
-        />
-
         {this.renderSessions()}
       </div>
     );

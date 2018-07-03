@@ -1,5 +1,5 @@
 import uuid from 'uuid/v1';
-import { keys, omit, has, size } from 'lodash';
+import { keys, omit, has, size, isEmpty } from 'lodash';
 
 import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_ERROR, SET_TAB_TITLE, SET_TAB_TARGET, SET_TAB_LOADED } from '../actions/browserActions';
 import parseURL from '../util/parseURL';
@@ -72,7 +72,7 @@ function open(state, action) {
     activeSessionId: sessionId,
     tabs: {
       ...tabs,
-      [sessionId]: { ...newTabState, target }
+      [sessionId]: { ...newTabState, target, loading: !isEmpty(target) }
     }
   };
 }
