@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import logo from 'shared/images/logo.svg';
 
 import Navigation from './Navigation';
+import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
 export default function AuthenticatedLayout(props) {
@@ -21,6 +22,7 @@ export default function AuthenticatedLayout(props) {
         <Navigation />
       </div>
       <main className={styles.main}>
+        <AddressBar className={styles.addressBar} />
         <div className={styles.content}>
           {props.children}
         </div>
