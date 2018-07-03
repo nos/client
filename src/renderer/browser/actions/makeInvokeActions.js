@@ -1,8 +1,6 @@
 import { createActions } from 'spunky';
-import Neon, { wallet } from '@cityofzion/neon-js';
+import { wallet, api } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
-
-import { GAS } from 'shared/values/assets';
 
 import createScript from 'shared/util/createScript';
 
@@ -23,17 +21,12 @@ const doInvoke = async ({ net, address, wif, scriptHash, operation, args, encode
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
-  const { response: { result, txid } } = await Neon.doInvoke({
+  const { response: { result, txid } } = await api.doInvoke({
     net,
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
-    gas: 0,
-    intents: [{
-      assetId: GAS,
-      value: '0.00000001',
-      scriptHash: wallet.getScriptHashFromAddress(address)
-    }]
+    gas: 0
   });
 
   if (!result) {

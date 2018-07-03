@@ -1,8 +1,8 @@
 import React from 'react';
-import { func, string, bool, objectOf } from 'prop-types';
+import { func, string, bool, arrayOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
-import { noop, values, mapValues, keyBy } from 'lodash';
+import { noop, mapValues, keyBy } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
@@ -13,10 +13,9 @@ import { NEO } from 'shared/values/assets';
 
 import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';
-
 import balanceShape from '../../shapes/balanceShape';
 
-const balancesShape = objectOf(balanceShape);
+const balancesShape = arrayOf(balanceShape);
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
@@ -51,8 +50,8 @@ export default class AccountTxPanel extends React.Component {
   };
 
   render() {
-    const { loading, amount, receiver, asset, step, balances } = this.props;
-    const assets = this.getAssets(balances);
+    const { loading, amount, receiver, asset, step } = this.props;
+    const assets = this.getAssets();
     const symbol = assets[asset];
 
     return (
@@ -107,7 +106,7 @@ export default class AccountTxPanel extends React.Component {
   }
 
   renderAssets = () => {
-    const balances = values(this.props.balances);
+    const { balances } = this.props;
 
     if (balances.length === 0) {
       return <option key={NEO} value={NEO}>NEO</option>;
@@ -119,8 +118,8 @@ export default class AccountTxPanel extends React.Component {
   }
 
   handleTransfer = () => {
-    const { confirm, receiver, asset, balances } = this.props;
-    const assets = this.getAssets(balances);
+    const { confirm, receiver, asset } = this.props;
+    const assets = this.getAssets();
 
     confirm(`Would you like to transfer ${this.getAmount()} ${assets[asset]} to ${receiver}?`, {
       title: 'Confirm fund transfer',
@@ -151,8 +150,9 @@ export default class AccountTxPanel extends React.Component {
     this.props.setReceiver(event.target.value);
   };
 
-  getAssets = (balances) => {
-    return mapValues(keyBy(values(balances), 'scriptHash'), 'symbol');
+  getAssets = () => {
+    const { balances } = this.props;
+    return mapValues(keyBy(balances, 'scriptHash'), 'symbol');
   }
 
   getAmount = () => {
