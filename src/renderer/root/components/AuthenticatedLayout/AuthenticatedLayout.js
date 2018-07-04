@@ -10,50 +10,94 @@ import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
-export default function AuthenticatedLayout(props) {
-  const { tabs, activeSessionId } = props;
+export default class AuthenticatedLayout extends React.Component {
+  static propTypes = {
+    activeSessionId: string.isRequired,
+    tabs: objectOf(tabShape).isRequired,
+    currentNetwork: string.isRequired,
+    children: node
+  };
 
-  const className = classNames(styles.authenticatedLayout, {
-    [styles[process.platform]]: true
-  });
+  static defaultProps = {
+    children: null
+  };
 
-  return (
-    <div className={className}>
-      <div className={styles.menu}>
+  state = {
+    showSidebar: true
+  };
+
+  render() {
+    const { tabs, activeSessionId } = this.props;
+
+    const className = classNames(styles.authenticatedLayout, {
+      [styles[process.platform]]: true
+    });
+
+    return (
+      <div className={className}>
         <header>
-          <img src={logo} alt="nOS Logo" width="36" height="36" />
+          {this.renderTrafficLights()}
+          <Tabs
+            className={styles.tabs}
+            tabs={tabs}
+            activeSessionId={activeSessionId}
+          />
         </header>
-        <Navigation />
+
+        <main>
+          {this.renderSidebar()}
+          {this.renderContent()}
+        </main>
       </div>
-      <main className={styles.main}>
-        <Tabs
-          className={styles.tabs}
-          tabs={tabs}
-          activeSessionId={activeSessionId}
+    );
+  }
+
+  renderTrafficLights = () => {
+    if (!this.state.showSidebar && process.platform !== 'darwin') {
+      return null;
+    }
+
+    return <div className={styles.sidebar} />;
+  }
+
+  renderSidebar = () => {
+    if (!this.state.showSidebar) {
+      return null;
+    }
+
+    // TODO: move this onClick event into the Navigation component
+    /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+    return (
+      <div className={styles.sidebar}>
+        <img
+          className={styles.logo}
+          src={logo}
+          alt="nOS Logo"
+          width="36"
+          height="36"
+          onClick={() => this.setState((prevState) => ({ showSidebar: !prevState.showSidebar }))}
         />
+        <Navigation
+          className={styles.navigation}
+        />
+      </div>
+    );
+    /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
+  }
+
+  renderContent = () => {
+    const { currentNetwork, children } = this.props;
+
+    return (
+      <div className={styles.container}>
         <AddressBar className={styles.addressBar} />
         <div className={styles.content}>
-          {props.children}
+          {children}
         </div>
         <footer className={styles.footer}>
-          <div className={styles.status}>
-            Network: {props.currentNetwork}
-          </div>
+          Network: {currentNetwork}
         </footer>
-      </main>
-    </div>
-  );
+      </div>
+    );
+  }
 }
-
-AuthenticatedLayout.displayName = 'AuthenticatedLayout';
-
-AuthenticatedLayout.propTypes = {
-  activeSessionId: string.isRequired,
-  tabs: objectOf(tabShape).isRequired,
-  currentNetwork: string.isRequired,
-  children: node
-};
-
-AuthenticatedLayout.defaultProps = {
-  children: null
-};
