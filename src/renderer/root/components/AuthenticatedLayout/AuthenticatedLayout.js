@@ -57,7 +57,11 @@ export default class AuthenticatedLayout extends React.Component {
       return null;
     }
 
-    return <div className={styles.sidebar} />;
+    const className = classNames(styles.sidebar, {
+      [styles.expanded]: this.state.showSidebar
+    });
+
+    return <div className={className} />;
   }
 
   renderSidebar = () => {

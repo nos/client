@@ -1,10 +1,10 @@
-$authenticatedlayout-menu-width: 70px;
+$sidebar-shadow: inset -1px 0 0 #d7d8de;
 
 @mixin sidebar {
   width: 68px;
   background: #edeef2;
   mix-blend-mode: normal;
-  box-shadow: inset -1px 0 0 #d7d8de;
+  box-shadow: $sidebar-shadow;
 }
 
 .authenticatedLayout {
@@ -21,6 +21,11 @@ $authenticatedlayout-menu-width: 70px;
     .sidebar {
       @include sidebar;
       flex: 0 0 auto;
+      box-shadow: $sidebar-shadow, inset 0 -4px 8px rgba(53, 52, 69, 0.05);
+
+      &.expanded {
+        box-shadow: $sidebar-shadow;
+      }
     }
 
     .tabs {
