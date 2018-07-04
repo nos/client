@@ -27,7 +27,7 @@ export default class AccountDatum extends React.Component {
           {label}
           <Tooltip id={label} overlay={this.getTooltip()}>
             <CopyToClipboard text={value} onCopy={this.handleCopy}>
-              <Icon className={styles.copy} name={this.getIcon()} aria-describedby={label} />
+              <Icon className={styles.copy} name={this.getIcon()} aria-label={label} />
             </CopyToClipboard>
           </Tooltip>
         </div>

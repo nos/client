@@ -95,7 +95,7 @@ export default class AccountTxPanel extends React.Component {
               disabled={loading || !this.isValid()}
               onClick={this.handleTransfer}
             >
-              <Icon className={styles.icon} name="transfer" aria-describedby="transfer" />
+              <Icon className={styles.icon} name="transfer" />
               Transfer
             </Button>
           </div>
