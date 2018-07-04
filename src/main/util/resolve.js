@@ -6,8 +6,8 @@ import { rpc, u } from '@cityofzion/neon-js';
 import getStaticPath from './getStaticPath';
 
 // TODO: Configurable network settings and script hash
-const NS_SCRIPT_HASH = '0xd8a68570faabe5edfd19a3d375f11a24a0a4832c';
-const RPC_URL = 'http://localhost:30333';
+const NS_SCRIPT_HASH = 'a2d2b79ba7620a8808f7f7679a8e2ab1bcc62bce';
+const RPC_URL = 'http://testnet.nos.io:30333';
 
 function isNOS(host) {
   return host === 'nos.neo';
