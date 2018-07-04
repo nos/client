@@ -51,7 +51,7 @@ async function getAssetBalances(net, address) {
 }
 
 export default async function getBalances({ net, address }) {
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
+  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
 
   if (!wallet.isAddress(address)) {
     throw new Error(`Invalid script hash: "${address}"`);
