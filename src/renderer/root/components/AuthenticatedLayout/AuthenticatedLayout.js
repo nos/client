@@ -65,8 +65,6 @@ export default class AuthenticatedLayout extends React.Component {
       return null;
     }
 
-    // TODO: move this onClick event into the Navigation component
-    /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
     return (
       <div className={styles.sidebar}>
         <img
@@ -75,14 +73,12 @@ export default class AuthenticatedLayout extends React.Component {
           alt="nOS Logo"
           width="36"
           height="36"
-          onClick={() => this.setState((prevState) => ({ showSidebar: !prevState.showSidebar }))}
         />
         <Navigation
           className={styles.navigation}
         />
       </div>
     );
-    /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
   }
 
   renderContent = () => {
@@ -90,7 +86,11 @@ export default class AuthenticatedLayout extends React.Component {
 
     return (
       <div className={styles.container}>
-        <AddressBar className={styles.addressBar} />
+        <AddressBar
+          className={styles.addressBar}
+          sidebarOpen={this.state.showSidebar}
+          onToggleSidebar={this.handleToggleSidebar}
+        />
         <div className={styles.content}>
           {children}
         </div>
@@ -99,5 +99,11 @@ export default class AuthenticatedLayout extends React.Component {
         </footer>
       </div>
     );
+  }
+
+  handleToggleSidebar = () => {
+    this.setState((prevState) => ({
+      showSidebar: !prevState.showSidebar
+    }));
   }
 }

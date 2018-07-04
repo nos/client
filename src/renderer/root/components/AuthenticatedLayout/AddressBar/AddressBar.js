@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { func, string } from 'prop-types';
+import { func, string, bool } from 'prop-types';
 import { noop } from 'lodash';
 
 import Icon from 'shared/components/Icon';
@@ -16,7 +16,9 @@ export default class AddressBar extends React.Component {
     onQuery: func,
     onBack: func,
     onForward: func,
-    onReload: func
+    onReload: func,
+    onToggleSidebar: func,
+    sidebarOpen: bool
   };
 
   static defaultProps = {
@@ -25,7 +27,9 @@ export default class AddressBar extends React.Component {
     onQuery: noop,
     onBack: noop,
     onForward: noop,
-    onReload: noop
+    onReload: noop,
+    onToggleSidebar: noop,
+    sidebarOpen: true
   };
 
   componentDidUpdate(prevProps) {
@@ -39,6 +43,11 @@ export default class AddressBar extends React.Component {
     return (
       <div className={classNames(styles.addressBar, this.props.className)}>
         <div className={styles.buttonGroup}>
+          <Icon
+            name="sidebar"
+            className={classNames(styles.button, { [styles.selected]: this.props.sidebarOpen })}
+            onClick={this.props.onToggleSidebar}
+          />
           <Icon name="back" className={styles.button} onClick={this.props.onBack} />
           <Icon name="forward" className={styles.button} onClick={this.props.onForward} />
           <Icon name="reload" className={styles.button} onClick={this.props.onReload} />

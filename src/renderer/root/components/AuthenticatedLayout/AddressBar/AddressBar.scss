@@ -1,3 +1,16 @@
+@mixin button($color) {
+  color: $color;
+
+  &:focus,
+  &:hover {
+    color: lighten($color, 20%);
+  }
+
+  &:active {
+    color: darken($color, 20%);
+  }
+}
+
 .addressBar {
   display: flex;
   align-items: center;
@@ -24,6 +37,7 @@
     padding: 0 0.5rem;
 
     .button {
+      @include button(#9a99a5);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -31,17 +45,11 @@
       margin: 0.5rem;
       border: 0;
       background: transparent;
-      color: lighten(#9a99a5, 20%);
       font-size: 1rem;
 
-      // &:focus,
-      // &:hover {
-      //   color: lighten(#9a99a5, 20%);
-      // }
-      //
-      // &:active {
-      //   color: darken(#9a99a5, 20%);
-      // }
+      &.selected {
+        @include button(#8bc83c);
+      }
     }
   }
 }
