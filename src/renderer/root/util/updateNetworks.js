@@ -14,7 +14,7 @@ const nosLocalConfig = {
 
 const nosTestnetConfig = {
   name: NOS_TESTNET,
-  extra:{
+  extra: {
     neoscan: 'http://neoscan-testnet.nos.io:4000/api/main_net'
   }
 };
