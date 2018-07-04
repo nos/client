@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { values, sortBy, extend } from 'lodash';
+import { values, sortBy, compact, extend } from 'lodash';
 import { api, wallet } from '@cityofzion/neon-js';
 
 import { GAS, NEO } from '../values/assets';
@@ -12,10 +12,13 @@ const NETWORK_MAP = {
 
 async function getTokens(net) {
   const networkKey = NETWORK_MAP[net];
+
   const response = await fetch(TOKENS_URL);
   const tokens = values(await response.json());
+  const sortedTokens = sortBy(tokens, 'symbol');
+  const networkTokens = compact(sortedTokens.map((token) => token.networks[networkKey]));
 
-  return sortBy(tokens, 'symbol').map((token) => token.networks[networkKey].hash);
+  return networkTokens.map((token) => token.hash);
 }
 
 async function getTokenBalance(endpoint, scriptHash, address) {
@@ -48,7 +51,7 @@ async function getAssetBalances(net, address) {
 }
 
 export default async function getBalances({ net, address }) {
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
+  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
 
   if (!wallet.isAddress(address)) {
     throw new Error(`Invalid script hash: "${address}"`);
