@@ -4,13 +4,14 @@
   }
 
   li {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+    padding: 8px 0;
+    margin: 0;
     text-align: center;
 
     color: transparentize($primary-text-color, 0.5);
 
     .link {
+      display: block;
       text-decoration: none;
       cursor: default;
 
@@ -34,8 +35,9 @@
         color: lighten($primary-text-color, 20%);
       }
 
-      span {
-        padding-left: 0.5rem;
+      svg {
+        display: block;
+        margin: 0 auto;
       }
     }
   }

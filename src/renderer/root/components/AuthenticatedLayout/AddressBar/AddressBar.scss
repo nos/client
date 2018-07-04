@@ -1,13 +1,16 @@
 @mixin button($color) {
   color: $color;
+  stroke: currentColor;
 
   &:focus,
   &:hover {
     color: lighten($color, 20%);
+    stroke: currentColor;
   }
 
   &:active {
     color: darken($color, 20%);
+    stroke: currentColor;
   }
 }
 
@@ -34,6 +37,7 @@
   .buttonGroup {
     flex: 0 0 auto;
     display: flex;
+    align-items: center;
     padding: 0 0.5rem;
 
     .button {
@@ -41,11 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0;
-      margin: 0.5rem;
-      border: 0;
-      background: transparent;
-      font-size: 1rem;
+      margin: 0 4px;
 
       &.selected {
         @include button(#8bc83c);

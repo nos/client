@@ -3,7 +3,12 @@ import classNames from 'classnames';
 import { func, string, bool } from 'prop-types';
 import { noop } from 'lodash';
 
-import Icon from 'shared/components/Icon';
+import SidebarIcon from 'shared/images/icons/sidebar.svg';
+import SidebarActiveIcon from 'shared/images/icons/sidebar-active.svg';
+import BackIcon from 'shared/images/icons/back.svg';
+import ForwardIcon from 'shared/images/icons/forward.svg';
+import ReloadIcon from 'shared/images/icons/reload.svg';
+import NotificationsIcon from 'shared/images/icons/notifications.svg';
 
 import styles from './AddressBar.scss';
 
@@ -43,14 +48,10 @@ export default class AddressBar extends React.Component {
     return (
       <div className={classNames(styles.addressBar, this.props.className)}>
         <div className={styles.buttonGroup}>
-          <Icon
-            name="sidebar"
-            className={classNames(styles.button, { [styles.selected]: this.props.sidebarOpen })}
-            onClick={this.props.onToggleSidebar}
-          />
-          <Icon name="back" className={styles.button} onClick={this.props.onBack} />
-          <Icon name="forward" className={styles.button} onClick={this.props.onForward} />
-          <Icon name="reload" className={styles.button} onClick={this.props.onReload} />
+          {this.renderSidebarIcon()}
+          <BackIcon className={styles.button} onClick={this.props.onBack} />
+          <ForwardIcon className={styles.button} onClick={this.props.onForward} />
+          <ReloadIcon className={styles.button} onClick={this.props.onReload} />
         </div>
 
         <input
@@ -62,9 +63,27 @@ export default class AddressBar extends React.Component {
         />
 
         <div className={styles.buttonGroup}>
-          <Icon name="notifications" className={styles.button} />
+          <NotificationsIcon className={styles.button} />
         </div>
       </div>
+    );
+  }
+
+  renderSidebarIcon = () => {
+    if (this.props.sidebarOpen) {
+      return (
+        <SidebarActiveIcon
+          className={classNames(styles.button, styles.selected)}
+          onClick={this.props.onToggleSidebar}
+        />
+      );
+    }
+
+    return (
+      <SidebarIcon
+        className={styles.button}
+        onClick={this.props.onToggleSidebar}
+      />
     );
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, node } from 'prop-types';
+import { bool, string, func, node } from 'prop-types';
 import { noop } from 'lodash';
 
 import styles from './TabLink.scss';
@@ -11,14 +11,16 @@ export default class TabLink extends React.Component {
     target: string.isRequired,
     title: string,
     children: node,
-    openTab: func
+    openTab: func,
+    disabled: bool
   };
 
   static defaultProps = {
     className: null,
     title: 'New Tab',
     openTab: noop,
-    children: null
+    children: null,
+    disabled: false
   };
 
   render() {
@@ -35,7 +37,10 @@ export default class TabLink extends React.Component {
   }
 
   handleClick = () => {
-    const { target, title } = this.props;
-    this.props.openTab({ target, title });
+    const { disabled, target, title } = this.props;
+
+    if (!disabled) {
+      this.props.openTab({ target, title });
+    }
   }
 }
