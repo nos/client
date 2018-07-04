@@ -11,6 +11,7 @@ body {
   padding: 0;
   background: $content-bg-color;
   color: #58585a;
+  user-select: none;
 
   font: {
     family: $primary-font-stack;
