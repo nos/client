@@ -1,18 +1,21 @@
 import React from 'react';
-import { func, string, bool } from 'prop-types';
+import { func, string, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
-import { map, noop } from 'lodash';
+import { map, noop, keys, size, find } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
 import Icon from 'shared/components/Icon';
 import Select from 'shared/components/Forms/Select';
-import { ASSETS, NEO } from 'shared/values/assets';
+import { NEO, ASSETS } from 'shared/values/assets';
 
 import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';
+import balanceShape from '../../shapes/balanceShape';
+
+const balancesShape = objectOf(balanceShape);
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
@@ -29,7 +32,8 @@ export default class AccountTxPanel extends React.Component {
     setReceiver: func,
     setStep: func,
     setAsset: func,
-    doTransfer: func
+    doTransfer: func,
+    balances: balancesShape.isRequired
   };
 
   static defaultProps = {
@@ -47,7 +51,7 @@ export default class AccountTxPanel extends React.Component {
 
   render() {
     const { loading, amount, receiver, asset, step } = this.props;
-    const symbol = ASSETS[asset];
+    const symbol = this.getSymbol();
 
     return (
       <Panel className={styles.sendPanel} renderHeader={null}>
@@ -71,9 +75,7 @@ export default class AccountTxPanel extends React.Component {
               value={asset}
               onChange={this.handleChangeAsset}
             >
-              {map(ASSETS, (label, value) => (
-                <option key={value} value={value}>{label}</option>
-              ))}
+              {this.renderAssets()}
             </Select>
             <Input
               className={styles.recipient}
@@ -102,10 +104,25 @@ export default class AccountTxPanel extends React.Component {
     );
   }
 
-  handleTransfer = () => {
-    const { confirm, receiver, asset } = this.props;
+  renderAssets = () => {
+    const { balances } = this.props;
 
-    confirm(`Would you like to transfer ${this.getAmount()} ${ASSETS[asset]} to ${receiver}?`, {
+    if (size(balances) === 0) {
+      return map(ASSETS, (label, value) => (
+        <option key={value} value={value}>{label}</option>
+      ));
+    }
+
+    return map(balances, ({ symbol, scriptHash }) => (
+      <option key={scriptHash} value={scriptHash}>{symbol}</option>
+    ));
+  }
+
+  handleTransfer = () => {
+    const { confirm, receiver } = this.props;
+    const symbol = this.getSymbol();
+
+    confirm(`Would you like to transfer ${this.getAmount()} ${symbol} to ${receiver}?`, {
       title: 'Confirm fund transfer',
       onConfirm: this.handleConfirm,
       onCancel: noop
@@ -133,6 +150,16 @@ export default class AccountTxPanel extends React.Component {
   handleChangeRecipient = (event) => {
     this.props.setReceiver(event.target.value);
   };
+
+  getSymbol = () => {
+    const { asset, balances } = this.props;
+
+    if (keys(ASSETS).includes(asset)) {
+      return ASSETS[asset];
+    } else {
+      return find(balances, ['scriptHash', asset]).symbol;
+    }
+  }
 
   getAmount = () => {
     const { asset, amount } = this.props;
