@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, node, objectOf } from 'prop-types';
 
-import logo from 'shared/images/logo.svg';
+import Logo from 'shared/images/logo.svg';
 import tabShape from 'browser/shapes/tabShape';
 
 import Tabs from './Tabs';
@@ -67,16 +67,8 @@ export default class AuthenticatedLayout extends React.Component {
 
     return (
       <div className={styles.sidebar}>
-        <img
-          className={styles.logo}
-          src={logo}
-          alt="nOS Logo"
-          width="36"
-          height="36"
-        />
-        <Navigation
-          className={styles.navigation}
-        />
+        <Logo className={styles.logo} />
+        <Navigation className={styles.navigation} />
       </div>
     );
   }
