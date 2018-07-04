@@ -40,7 +40,7 @@
     "source-map-support": "0.5.6",
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
-    "uuid": "3.3.0",
+    "uuid": "3.3.2",
     "what-input": "5.0.5"
   },
   "scripts": {
@@ -72,8 +72,8 @@
     "concurrently": "3.6.0",
     "cross-env": "5.2.0",
     "css-loader": "0.28.11",
-    "electron": "2.0.3",
-    "electron-builder": "20.16.0",
+    "electron": "2.0.4",
+    "electron-builder": "20.17.1",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.1",
     "electron-webpack": "1.13.0",
