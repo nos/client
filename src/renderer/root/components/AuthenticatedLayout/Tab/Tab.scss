@@ -20,7 +20,7 @@
     background: #fff;
   }
 
-  &:hover {
+  &:not(.active):hover {
     background: rgba(#fff, 0.6);
   }
 
