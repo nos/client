@@ -89,7 +89,7 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "23.1.0",
     "node-loader": "0.6.0",
-    "node-sass": "4.9.0",
+    "node-sass": "4.9.1",
     "react-hot-loader": "4.2.0",
     "react-router-test-context": "0.1.0",
     "redux-devtools-extension": "2.13.5",
