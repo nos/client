@@ -73,7 +73,7 @@
     "cross-env": "5.2.0",
     "css-loader": "0.28.11",
     "electron": "2.0.4",
-    "electron-builder": "20.17.1",
+    "electron-builder": "20.19.2",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.1",
     "electron-webpack": "1.13.0",
