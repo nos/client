@@ -117,8 +117,9 @@
   },
   "greenkeeper": {
     "ignore": [
+      "redux",
       "webpack",
-      "redux"
+      "webpack-dev-server"
     ]
   },
   "jest": {
