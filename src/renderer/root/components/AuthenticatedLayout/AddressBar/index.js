@@ -24,7 +24,7 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
     onQuery: (ownProps) => (target) => {
-      ownProps.setTabTarget(ownProps.sessionId, target, { addressBarEntry: true });
+      ownProps.setTabTarget(ownProps.activeSessionId, target, { addressBarEntry: true });
     }
   })
 )(AddressBar);
