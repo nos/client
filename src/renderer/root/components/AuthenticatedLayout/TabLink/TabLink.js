@@ -1,26 +1,28 @@
 import React from 'react';
 import classNames from 'classnames';
-import { bool, string, func, node } from 'prop-types';
+import { bool, string, func, node, oneOf } from 'prop-types';
 import { noop } from 'lodash';
+
+import { INTERNAL, EXTERNAL } from 'browser/values/browserValues';
 
 import styles from './TabLink.scss';
 
 export default class TabLink extends React.Component {
   static propTypes = {
     className: string,
+    type: oneOf([INTERNAL, EXTERNAL]),
     target: string.isRequired,
-    title: string,
+    disabled: bool,
     children: node,
-    openTab: func,
-    disabled: bool
+    openTab: func
   };
 
   static defaultProps = {
     className: null,
-    title: 'New Tab',
-    openTab: noop,
+    type: INTERNAL,
+    disabled: false,
     children: null,
-    disabled: false
+    openTab: noop
   };
 
   render() {
@@ -37,10 +39,10 @@ export default class TabLink extends React.Component {
   }
 
   handleClick = () => {
-    const { disabled, target, title } = this.props;
+    const { disabled, type, target } = this.props;
 
     if (!disabled) {
-      this.props.openTab({ target, title });
+      this.props.openTab({ type, target });
     }
   }
 }

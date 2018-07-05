@@ -5,7 +5,7 @@ import { merge } from 'lodash';
 import { provideStore, createStore } from 'testHelpers';
 import { Browser } from 'browser';
 
-import Session from 'browser/components/Session';
+import DAppContainer from 'browser/components/DAppContainer';
 import Error from 'browser/components/Error';
 import Tab from 'root/components/AuthenticatedLayout/Tab';
 
@@ -44,13 +44,13 @@ const openTab = (wrapper, index) => {
 describe('<Browser />', () => {
   it('renders all tabs', () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(Session)).toHaveLength(2);
+    expect(wrapper.find(DAppContainer)).toHaveLength(2);
   });
 
   it("only marks the activeSessionId's dapp as active", () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(Session).at(0).hasClass('active')).toBe(true);
-    expect(wrapper.find(Session).at(1).hasClass('active')).toBe(false);
+    expect(wrapper.find(DAppContainer).at(0).hasClass('active')).toBe(true);
+    expect(wrapper.find(DAppContainer).at(1).hasClass('active')).toBe(false);
   });
 
   it('changes tabs', () => {

@@ -23,7 +23,8 @@ export default class AddressBar extends React.Component {
     onForward: func,
     onReload: func,
     onToggleSidebar: func,
-    sidebarOpen: bool
+    sidebarOpen: bool,
+    disabled: bool
   };
 
   static defaultProps = {
@@ -34,7 +35,8 @@ export default class AddressBar extends React.Component {
     onForward: noop,
     onReload: noop,
     onToggleSidebar: noop,
-    sidebarOpen: true
+    sidebarOpen: true,
+    disabled: false
   };
 
   componentDidUpdate(prevProps) {
@@ -45,25 +47,30 @@ export default class AddressBar extends React.Component {
   }
 
   render() {
+    const { className, disabled, query, onBack, onForward, onReload } = this.props;
+
+    const buttonClass = classNames(styles.button, { [styles.disabled]: disabled });
+
     return (
-      <div className={classNames(styles.addressBar, this.props.className)}>
+      <div className={classNames(styles.addressBar, className)}>
         <div className={styles.buttonGroup}>
           {this.renderSidebarIcon()}
-          <BackIcon className={styles.button} onClick={this.props.onBack} />
-          <ForwardIcon className={styles.button} onClick={this.props.onForward} />
-          <ReloadIcon className={styles.button} onClick={this.props.onReload} />
+          <BackIcon className={buttonClass} onClick={onBack} />
+          <ForwardIcon className={buttonClass} onClick={onForward} />
+          <ReloadIcon className={buttonClass} onClick={onReload} />
         </div>
 
         <input
           ref={this.registerRef}
           type="text"
+          disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
-          defaultValue={this.props.query}
+          defaultValue={query}
         />
 
         <div className={styles.buttonGroup}>
-          <NotificationsIcon className={styles.button} />
+          <NotificationsIcon className={buttonClass} />
         </div>
       </div>
     );

@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 import { noop } from 'lodash';
 
+import { DAPPS, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
 import DAppsIcon from 'shared/images/icons/dapps.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
@@ -20,21 +21,21 @@ export default function Navigation(props) {
     <nav className={classNames(styles.navigation, props.className)}>
       <ul className={styles.group}>
         <li>
-          <TabLink target="about:dapps" className={styles.link} disabled>
+          <TabLink target={DAPPS} className={styles.link} disabled>
             <Tooltip id="dapps" overlay="DApps">
               <DAppsIcon aria-label="dapps" />
             </Tooltip>
           </TabLink>
         </li>
         <li>
-          <TabLink target="about:account" className={styles.link}>
+          <TabLink target={ACCOUNT} className={styles.link}>
             <Tooltip id="account" overlay="Account">
               <AccountIcon aria-label="account" />
             </Tooltip>
           </TabLink>
         </li>
         <li>
-          <TabLink target="about:settings" className={styles.link}>
+          <TabLink target={SETTINGS} className={styles.link}>
             <Tooltip id="settings" overlay="Settings">
               <SettingsIcon aria-label="settings" />
             </Tooltip>

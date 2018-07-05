@@ -3,7 +3,10 @@ import classNames from 'classnames';
 import { string, objectOf } from 'prop-types';
 import { map } from 'lodash';
 
-import Session from '../Session';
+import isInternalPage from 'shared/util/isInternalPage';
+
+import InternalPage from '../InternalPage';
+import DAppContainer from '../DAppContainer';
 import tabShape from '../../shapes/tabShape';
 import styles from './Browser.scss';
 
@@ -16,32 +19,50 @@ export default class Browser extends React.Component {
   render() {
     return (
       <div className={styles.browser}>
-        {this.renderSessions()}
+        {this.renderTabs()}
       </div>
     );
   }
 
-  renderSessions = () => {
-    return map(this.props.tabs, this.renderSession);
+  renderTabs = () => {
+    return map(this.props.tabs, this.renderTab);
   }
 
-  renderSession = (tab, sessionId) => {
+  renderTab = (tab, sessionId) => {
+    if (isInternalPage(tab.type)) {
+      return this.renderInternalPage(tab, sessionId);
+    } else {
+      return this.renderDApp(tab, sessionId);
+    }
+  }
+
+  renderInternalPage = (tab, sessionId) => {
+    if (sessionId !== this.props.activeSessionId) {
+      return null;
+    }
+
+    return (
+      <InternalPage
+        key={sessionId}
+        className={styles.internalPage}
+        tab={tab}
+      />
+    );
+  }
+
+  renderDApp = (tab, sessionId) => {
     const { activeSessionId } = this.props;
 
-    const className = classNames(styles.session, {
+    const className = classNames(styles.dapp, {
       [styles.active]: sessionId === activeSessionId
     });
 
     return (
-      <Session
+      <DAppContainer
         key={sessionId}
         className={className}
         sessionId={sessionId}
-        target={tab.target}
-        addressBarEntry={tab.addressBarEntry}
-        requestCount={tab.requestCount}
-        errorCode={tab.errorCode}
-        errorDescription={tab.errorDescription}
+        tab={tab}
       />
     );
   }

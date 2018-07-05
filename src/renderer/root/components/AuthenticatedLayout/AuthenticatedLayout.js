@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { string, node, objectOf } from 'prop-types';
 
 import Logo from 'shared/images/logo.svg';
+import isInternalPage from 'shared/util/isInternalPage';
 import tabShape from 'browser/shapes/tabShape';
 
 import Tabs from './Tabs';
@@ -84,6 +85,7 @@ export default class AuthenticatedLayout extends React.Component {
       <div className={styles.container}>
         <AddressBar
           className={styles.addressBar}
+          disabled={this.isInternalPage()}
           sidebarOpen={this.state.showSidebar}
           onToggleSidebar={this.handleToggleSidebar}
         />
@@ -101,5 +103,10 @@ export default class AuthenticatedLayout extends React.Component {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
+  }
+
+  isInternalPage = () => {
+    const tab = this.props.tabs[this.props.activeSessionId];
+    return isInternalPage(tab.type);
   }
 }
