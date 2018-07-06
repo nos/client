@@ -1,22 +1,9 @@
 import fetch from 'node-fetch';
-import { values, sortBy, extend } from 'lodash';
+import { extend } from 'lodash';
 import { api, wallet } from '@cityofzion/neon-js';
 
-import { GAS, NEO } from '../values/assets';
-
-const TOKENS_URL = 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/tokenList.json';
-
-const NETWORK_MAP = {
-  MainNet: '1'
-};
-
-async function getTokens(net) {
-  const networkKey = NETWORK_MAP[net];
-  const response = await fetch(TOKENS_URL);
-  const tokens = values(await response.json());
-
-  return sortBy(tokens, 'symbol').map((token) => token.networks[networkKey].hash);
-}
+import { GAS, NEO } from 'shared/values/assets';
+import getTokens from 'shared/util/getTokens';
 
 async function getTokenBalance(endpoint, scriptHash, address) {
   try {
