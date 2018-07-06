@@ -59,6 +59,9 @@ yarn test
 yarn dist
 ```
 
+If you are encountering problems during the installation, please reference
+with the the [typical installation problems](#typical-installation-problems)
+section.
 
 # Contribute to this repository
 
@@ -100,3 +103,23 @@ We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create bu
 ## macOS
 1. Create the distributable, i.e. `yarn dist`.
 2. Locate executable file `dist/nOS-1.0.0.dmg`.
+
+
+# Typical installation problems
+
+_Description:_
+
+```
+error An unexpected error occurred: "/Users/nikitin/Development/nos-client/node_modules/node-hid: Command failed.
+Exit code: 127
+Command: sh
+Arguments: -c prebuild-install || node-gyp rebuild
+Directory: /Users/nikitin/Development/nos-client/node_modules/node-hid
+Output:
+prebuild-install WARN install No prebuilt binaries found (target=10.6.0 runtime=node arch=x64 platform=darwin)
+```
+
+_Solution:_ `npm install -g node-gyp`
+
+_Explanation:_ some node.js modules does not have pre-compiled binaries for your version of OS/node.js. To build them you need to have node-gyp installed in the global scope.
+
