@@ -3,6 +3,7 @@ import { wallet, api } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
 import createScript from 'shared/util/createScript';
+
 import generateDAppActionId from './generateDAppActionId';
 
 export const ID = 'invoke';
