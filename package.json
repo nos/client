@@ -2,7 +2,7 @@
   "name": "nOS",
   "description": "nOS: NEO Operating System",
   "author": "nOS",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "main": "dist/main/main.js",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "source-map-support": "0.5.6",
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
-    "uuid": "3.3.0",
+    "uuid": "3.3.2",
     "what-input": "5.0.5"
   },
   "scripts": {
@@ -72,10 +72,10 @@
     "concurrently": "3.6.0",
     "cross-env": "5.2.0",
     "css-loader": "0.28.11",
-    "electron": "2.0.3",
-    "electron-builder": "20.16.0",
+    "electron": "2.0.4",
+    "electron-builder": "20.17.1",
     "electron-devtools-installer": "2.2.4",
-    "electron-rebuild": "1.7.3",
+    "electron-rebuild": "1.8.1",
     "electron-webpack": "1.13.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
@@ -84,7 +84,7 @@
     "eslint-import-resolver-babel-module": "4.0.0",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jest": "21.17.0",
-    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-jsx-a11y": "6.1.0",
     "eslint-plugin-react": "7.10.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.1.0",
@@ -117,8 +117,9 @@
   },
   "greenkeeper": {
     "ignore": [
+      "redux",
       "webpack",
-      "redux"
+      "webpack-dev-server"
     ]
   },
   "jest": {

@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { extend } from 'lodash';
 import { api, wallet } from '@cityofzion/neon-js';
 
@@ -35,7 +34,7 @@ async function getAssetBalances(net, address) {
 }
 
 export default async function getBalances({ net, address }) {
-  const endpoint = await api.loadBalance(api.getRPCEndpointFrom, { net });
+  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
 
   if (!wallet.isAddress(address)) {
     throw new Error(`Invalid script hash: "${address}"`);

@@ -9,8 +9,8 @@ describe('<GetBalance />', () => {
   const defaultProps = {
     asset: NEO,
     balances: {
-      [NEO]: { scriptHash: NEO, balance: '12', decimals: 0 },
-      [GAS]: { scriptHash: GAS, balance: '1.00000007', decimals: 8 }
+      [NEO]: { scriptHash: NEO, name: 'NEO', symbol: 'NEO', balance: '12', decimals: 0 },
+      [GAS]: { scriptHash: GAS, name: 'GAS', symbol: 'GAS', balance: '1.00000007', decimals: 8 }
     },
     onResolve: noop,
     onReject: noop

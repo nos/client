@@ -2,8 +2,9 @@ import { createActions } from 'spunky';
 import { api, rpc, wallet } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
+import createScript from 'shared/util/createScript';
+
 import generateDAppActionId from './generateDAppActionId';
-import createScript from '../util/createScript';
 
 export const ID = 'testInvoke';
 

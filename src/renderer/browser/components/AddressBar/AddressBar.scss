@@ -31,17 +31,17 @@
       margin: 0.5rem;
       border: 0;
       background: transparent;
-      color: #9a99a5;
+      color: lighten(#9a99a5, 20%);
       font-size: 1rem;
 
-      &:focus,
-      &:hover {
-        color: lighten(#9a99a5, 20%);
-      }
-
-      &:active {
-        color: darken(#9a99a5, 20%);
-      }
+      // &:focus,
+      // &:hover {
+      //   color: lighten(#9a99a5, 20%);
+      // }
+      //
+      // &:active {
+      //   color: darken(#9a99a5, 20%);
+      // }
     }
   }
 }
