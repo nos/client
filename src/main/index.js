@@ -84,6 +84,7 @@ function createWindow() {
   // When mainWindow finishes loading, then show
   // the mainWindow and destroy the splashWindow.
   mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.maximize();
     mainWindow.show();
     splashWindow.destroy();
   });
