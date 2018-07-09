@@ -115,9 +115,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@cityofzion/neon-js@3.9.1":
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/@cityofzion/neon-js/-/neon-js-3.9.1.tgz#bc13f39042fb8bedb6f0f15e0cc2009109d51735"
+"@cityofzion/neon-js@3.9.2":
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/@cityofzion/neon-js/-/neon-js-3.9.2.tgz#01af435f3c54b1439496a480b2e290ab3c354936"
   dependencies:
     axios "^0.18.0"
     bignumber.js "5.0.0"
