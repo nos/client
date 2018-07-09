@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore as createReduxStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { saga, progressValues } from 'spunky';
+import { get } from 'lodash';
 
 import reducers from 'root/reducers';
 
@@ -56,3 +57,15 @@ export const mockSpunkyFailed = (error, { loadedCount = 0 } = {}) => ({
   loadedCount,
   error
 });
+
+export const addLoadedListener = (store, storeKey, callback) => {
+  const unsubscribe = store.subscribe(() => {
+    const key = `${spunkyKey}.${storeKey}.progress`;
+    const progress = get(store.getState(), key);
+
+    if (progress === progressValues.LOADED || progress === progressValues.FAILED) {
+      unsubscribe();
+      callback();
+    }
+  });
+};

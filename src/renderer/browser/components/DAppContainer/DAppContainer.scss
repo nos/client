@@ -1,0 +1,12 @@
+.dAppContainer {
+  display: block;
+  height: 100%;
+
+  .webview {
+    height: 100%;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}

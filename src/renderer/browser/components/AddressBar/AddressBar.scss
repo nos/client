@@ -1,0 +1,47 @@
+.addressBar {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(30, 27, 82, 0.12);
+  z-index: 0;
+
+  input {
+    flex: 1 1 auto;
+    padding: 6px;
+    margin: 0 8px;
+    border: 1px solid #E3E4EA;
+    border-radius: 4px;
+    background: #f7f8fa;
+    color: #494759;
+    font-family: $primary-font-stack;
+    font-size: 12px;
+  }
+
+  .buttonGroup {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 0 0.5rem;
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0.5rem;
+      border: 0;
+      background: transparent;
+      color: lighten(#9a99a5, 20%);
+      font-size: 1rem;
+
+      // &:focus,
+      // &:hover {
+      //   color: lighten(#9a99a5, 20%);
+      // }
+      //
+      // &:active {
+      //   color: darken(#9a99a5, 20%);
+      // }
+    }
+  }
+}
