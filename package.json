@@ -10,7 +10,7 @@
     "node": "^8.10.0 || >=9.10.0"
   },
   "dependencies": {
-    "@cityofzion/neon-js": "3.9.1",
+    "@cityofzion/neon-js": "3.9.2",
     "@fortawesome/fontawesome-svg-core": "1.2.0",
     "@fortawesome/free-regular-svg-icons": "5.1.0",
     "@fortawesome/free-solid-svg-icons": "5.1.0",
@@ -68,12 +68,12 @@
     "babel-plugin-transform-es2015-classes": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-react": "6.24.1",
-    "codecov": "3.0.2",
+    "codecov": "3.0.4",
     "concurrently": "3.6.0",
     "cross-env": "5.2.0",
     "css-loader": "0.28.11",
     "electron": "2.0.4",
-    "electron-builder": "20.17.1",
+    "electron-builder": "20.19.2",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.1",
     "electron-webpack": "1.13.0",
