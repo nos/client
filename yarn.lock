@@ -2696,15 +2696,16 @@ electron-is-dev@0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
 
-electron-json-storage@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/electron-json-storage/-/electron-json-storage-4.1.0.tgz#98edb44995104fb8b5f85b3473217ad52ec7f146"
+electron-json-storage@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/electron-json-storage/-/electron-json-storage-4.1.1.tgz#4995a03e6d44552527bc0e9f6cdc34e98a6dcca7"
   dependencies:
     async "^2.0.0"
+    electron "^2.0.4"
+    lockfile "^1.0.4"
     lodash "^4.0.1"
     mkdirp "^0.5.1"
     rimraf "^2.5.1"
-    rwlock "^5.0.0"
 
 electron-osx-sign@0.4.10:
   version "0.4.10"
@@ -2790,7 +2791,7 @@ electron-webpack@1.13.0:
     webpack-merge "^4.1.1"
     yargs "^11.0.0"
 
-electron@2.0.4:
+electron@2.0.4, electron@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/electron/-/electron-2.0.4.tgz#87b86b8d9c13748032868c1be97e2b7021a51808"
   dependencies:
@@ -5384,6 +5385,12 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
+lockfile@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/lockfile/-/lockfile-1.0.4.tgz#07f819d25ae48f87e538e6578b6964a4981a5609"
+  dependencies:
+    signal-exit "^3.0.2"
+
 lodash-es@^4.17.5, lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.10"
   resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.10.tgz#62cd7104cdf5dd87f235a837f0ede0e8e5117e05"
@@ -7698,10 +7705,6 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   resolved "https://registry.npmjs.org/run-queue/-/run-queue-1.0.3.tgz#e848396f057d223f24386924618e25694161ec47"
   dependencies:
     aproba "^1.1.1"
-
-rwlock@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/rwlock/-/rwlock-5.0.0.tgz#888d6a77a3351cc1a209204ef2ee1722093836cf"
 
 rx@2.3.24:
   version "2.3.24"
