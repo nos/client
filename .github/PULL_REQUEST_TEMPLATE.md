@@ -19,7 +19,7 @@
 
 
 
-## Screenshots (if appropriate):
+## Screenshots (if appropriate)
 
 
 
@@ -32,7 +32,7 @@
 
 
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
-## Checklist:
+## Checklist
 - [ ] I have read the **[CONTRIBUTING](./CONTRIBUTING.md)** guidelines and confirm that my code follows the code style of this project.
 - [ ] Tests for the changes have been added (for bug fixes / features)
 
@@ -40,7 +40,7 @@
 
 <!-- Mark this to let us know if the docs require adjustments for this PR. -->
 <!-- We have our documentation in a seperate repo, feel free to update the docs accordingly. :) -->
-##### Documentation
+#### Documentation
 - [ ] Docs need to be added/ updated (for bug fixes / features)
 
 
