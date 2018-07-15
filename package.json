@@ -44,8 +44,8 @@
     "what-input": "5.0.5"
   },
   "scripts": {
-    "start": "yarn build:main && run-p -l -n start:renderer wait start:electron",
-    "wait": "wait-on http://localhost:9080/",
+    "start": "yarn build:main && run-p -l -n -r start:renderer start:electron-after-wait",
+    "start:electron-after-wait": "wait-on http://localhost:9080/ && yarn start:electron",
     "start:renderer": "webpack-dev-server --config config/webpack.renderer.js",
     "start:electron": "electron .",
     "build": "yarn build:main && yarn build:renderer",
