@@ -45,6 +45,6 @@
 
 
 
-<!-- Put `closes #XXXX` of `fixes #XXXX` in your comment to auto-close the issue that your PR fixes (if such). -->
+<!-- Put `closes #XXXX` or `fixes #XXXX` in your comment to auto-close the issue that your PR fixes (if such). -->
 ## Closing issues
 Fixes #
