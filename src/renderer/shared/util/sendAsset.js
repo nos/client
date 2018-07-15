@@ -8,7 +8,7 @@ import { ASSETS } from '../values/assets';
 export default async function sendAsset(
   { net, asset, amount, receiver, address, wif, remark },
   getBalance = api.neoscan.getBalance,
-  sendAsset = api.sendAsset
+  call = api.sendAsset
 ) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);

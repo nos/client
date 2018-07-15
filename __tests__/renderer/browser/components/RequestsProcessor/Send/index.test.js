@@ -1,12 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
+import { u, wallet } from '@cityofzion/neon-js';
 
 import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
 
 import makeSend from 'browser/components/RequestsProcessor/Send';
 import makeSendActions, { ID as sendKey } from 'browser/actions/makeSendActions';
-import { NEO } from 'shared/values/assets';
+import { NEO, ASSETS } from 'shared/values/assets';
 
 const sessionId = 'abc';
 const requestId = '123';
@@ -30,8 +31,19 @@ describe('<Send />', () => {
     store = getStore();
   });
 
-  const mockGetBalance = jest.fn(({ net, address, wif }) => ({
-    [NEO]: { scriptHash: NEO, balance: '1', decimals: 0 },
+  const mockGetBalance = jest.fn(({ net, address }) => new wallet.Balance({
+    net,
+    address,
+    assets: {
+      [ASSETS[NEO]]: { balance: new u.Fixed8(1),
+        unspent: [{ index: 0,
+          txid:
+         '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
+          value: new u.Fixed8(1) }
+        ],
+        spent: [],
+        unconfirmed: [] }
+    }
   }));
 
   const mockSendAsset = jest.fn(({ net, address, wif }) => {
