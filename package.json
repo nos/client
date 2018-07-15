@@ -44,9 +44,9 @@
     "what-input": "5.1.0"
   },
   "scripts": {
-    "start": "yarn build:main && concurrently -r \"yarn start:renderer\" \"wait-on http://localhost:9080/ && yarn start:electron\" --kill-others --success first",
+    "start": "yarn build:main && run-p -l -n -r start:renderer start:electron",
     "start:renderer": "webpack-dev-server --config config/webpack.renderer.js",
-    "start:electron": "electron .",
+    "start:electron": "wait-on http://localhost:9080/ && electron .",
     "build": "yarn build:main && yarn build:renderer",
     "build:main": "electron-webpack main",
     "build:renderer": "cross-env NODE_ENV=production webpack --config config/webpack.renderer.js",
@@ -69,7 +69,6 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-react": "6.24.1",
     "codecov": "3.0.4",
-    "concurrently": "3.6.0",
     "cross-env": "5.2.0",
     "css-loader": "0.28.11",
     "electron": "2.0.5",
@@ -90,6 +89,7 @@
     "jest": "23.4.1",
     "node-loader": "0.6.0",
     "node-sass": "4.9.2",
+    "npm-run-all": "4.1.3",
     "react-hot-loader": "4.3.3",
     "react-router-test-context": "0.1.0",
     "redux-devtools-extension": "2.13.5",
