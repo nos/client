@@ -1,11 +1,11 @@
-import { api, wallet, u } from '@cityofzion/neon-js';
+import { api, wallet, u, tx } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
 import createScript from 'shared/util/createScript';
 
 import { ASSETS } from '../values/assets';
 
-export default async function sendAsset({ net, asset, amount, receiver, address, wif }) {
+export default async function sendAsset({ net, asset, amount, receiver, address, wif, remark }) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
   }
@@ -14,14 +14,34 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
     throw new Error(`Invalid amount: "${amount}"`);
   }
 
-  const send = () => {
+  if (Array.isArray(remark)) {
+    if (remark.length > 16) {
+      throw new Error('Exceeded maximum remark count');
+    }
+    for (let i = 0; i < remark.length; i += 1) {
+      if (typeof remark[i] !== 'string') {
+        throw new Error(`Wrong remark value: ${remark[i]}`);
+      }
+    }
+  }
+
+  const send = async () => {
     const config = { net, address, privateKey: wif };
 
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset];
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
+      const balance = await api.neoscan.getBalance(net, address);
+      const transaction = tx.Transaction.createContractTx(balance, intents);
+      if (typeof remark === 'string') {
+        transaction.addRemark(remark);
+      } else if (Array.isArray(remark)) {
+        for (let i = 0; i < remark.length; i += 1) {
+          transaction.addAttribute(240 + i, remark[i]);
+        }
+      }
 
-      return api.sendAsset({ ...config, intents }, api.neoscan);
+      return api.sendAsset({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
       const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
 

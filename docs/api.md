@@ -195,6 +195,7 @@ address on behalf of the currently authenticated account.  It requires the user 
 * `config.asset` **string** - The asset ID script hash.
 * `config.amount` **string** - The amount of the asset to send. **NOTE: It is recommended that strings are used instead of numbers to prevent floating point rounding issues.**
 * `config.receiver` **string** - The recipient address of the asset.
+* `config.remark` **string** | **string[]** (Optional) - A remark to add to transaction. **NOTE: It's either string or an array of hex strings.**
 
 #### Returns
 **string** - The contract transaction ID.

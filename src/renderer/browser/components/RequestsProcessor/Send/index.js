@@ -27,7 +27,7 @@ const getAssetName = (assetId) => {
   }
 };
 
-const CONFIG_KEYS = ['asset', 'amount', 'receiver'];
+const CONFIG_KEYS = ['asset', 'amount', 'receiver', 'remark'];
 
 export default function makeSend(sendActions) {
   return compose(
@@ -47,13 +47,14 @@ export default function makeSend(sendActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Send assets & wait for success or failure
-    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif }) => ({
+    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif, remark }) => ({
       net,
       amount,
       asset,
       receiver,
       address,
-      wif
+      wif,
+      remark
     })),
     withNullLoader(sendActions),
     withRejectMessage(sendActions, ({ amount, asset, receiver, error }) => (
