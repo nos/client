@@ -30,14 +30,18 @@ describe('<Send />', () => {
     store = getStore();
   });
 
-  const mockSend = jest.fn(({ net, address, wif }) => {
+  const mockGetBalance = jest.fn(({ net, address, wif }) => ({
+    [NEO]: { scriptHash: NEO, balance: '1', decimals: 0 },
+  }));
+
+  const mockSendAsset = jest.fn(({ net, address, wif }) => {
     if (net === currentNetwork && address === currentAddress && wif === currentWif) {
-      return '9a560de43649bc4671dcfc522c8a54d176cfd2bb34410e1ac976ddf1f150ab05';
+      return { response: { result: true, txid: '9a560de43649bc4671dcfc522c8a54d176cfd2bb34410e1ac976ddf1f150ab05' } };
     }
-    return null;
+    return { response: { result: false } };
   });
 
-  const sendActions = makeSendActions(sessionId, requestId, mockSend);
+  const sendActions = makeSendActions(sessionId, requestId, mockGetBalance, mockSendAsset);
   const Send = makeSend(sendActions);
 
   let callSpy;
@@ -115,7 +119,7 @@ describe('<Send />', () => {
     let wrapper;
 
     beforeEach((done) => {
-      mockSend.mockImplementation(() => {
+      mockSendAsset.mockImplementation(() => {
         throw new Error('Fake test error');
       });
 

@@ -5,7 +5,11 @@ import createScript from 'shared/util/createScript';
 
 import { ASSETS } from '../values/assets';
 
-export default async function sendAsset({ net, asset, amount, receiver, address, wif, remark }) {
+export default async function sendAsset(
+  { net, asset, amount, receiver, address, wif, remark },
+  getBalance = api.neoscan.getBalance,
+  sendAsset = api.sendAsset
+) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
   }
@@ -31,7 +35,7 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset];
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
-      const balance = await api.neoscan.getBalance(net, address);
+      const balance = await getBalance(net, address);
       const transaction = tx.Transaction.createContractTx(balance, intents);
       if (typeof remark === 'string') {
         transaction.addRemark(remark);
@@ -41,7 +45,7 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
         }
       }
 
-      return api.sendAsset({ ...config, balance, tx: transaction }, api.neoscan);
+      return call({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
       const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
 
