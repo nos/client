@@ -15,7 +15,6 @@
     margin: 0.5rem;
     color: $primary-text-color;
 
-    &:focus,
     &:hover {
       color: lighten($primary-text-color, 20%);
     }
