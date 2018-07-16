@@ -12,6 +12,6 @@ export default function getStaticPath() {
     // open issue related to it.  What's interesting is that nOS's `__static` value is even
     // different than what users in this issue are reporting.  This workaround addresses it for now.
     // https://github.com/electron-userland/electron-webpack/issues/52
-    return __static.replace(/static$/, 'app.asar/static');
+    return path.join(__dirname, 'static');
   }
 }
