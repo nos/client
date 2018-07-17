@@ -133,10 +133,6 @@
     semver "^5.5.0"
     wif "^2.0.6"
 
-"@fortawesome/fontawesome-common-types@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.0.tgz#6bcf6481030f59e7ffd1a40a67cd464d47780f6a"
-
 "@fortawesome/fontawesome-common-types@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.1.tgz#b919b31ab1b42cd2aadab5fa45934347c30ee316"
@@ -147,11 +143,11 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.1"
 
-"@fortawesome/free-regular-svg-icons@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.1.0.tgz#9d41c1d8167d5d4af9165bd667bbf3130a7c7d10"
+"@fortawesome/free-regular-svg-icons@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.1.1.tgz#c73a91d3dfb19dd01f710d4a523a92fdcd09db9d"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.0"
+    "@fortawesome/fontawesome-common-types" "^0.2.1"
 
 "@fortawesome/free-solid-svg-icons@5.1.1":
   version "5.1.1"
