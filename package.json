@@ -23,7 +23,7 @@
     "es6-promisify": "6.0.0",
     "history": "4.7.2",
     "lodash": "4.17.10",
-    "mime-types": "2.1.18",
+    "mime-types": "2.1.19",
     "node-fetch": "2.1.2",
     "prop-types": "15.6.2",
     "rc-tooltip": "3.7.2",
