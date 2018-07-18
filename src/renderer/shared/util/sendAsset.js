@@ -2,6 +2,7 @@ import { api, wallet, u, tx } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
 import createScript from 'shared/util/createScript';
+import validateRemark from 'shared/util/validateRemark';
 
 import { ASSETS } from '../values/assets';
 
@@ -18,15 +19,8 @@ export default async function sendAsset(
     throw new Error(`Invalid amount: "${amount}"`);
   }
 
-  if (Array.isArray(remark)) {
-    if (remark.length > 16) {
-      throw new Error('Exceeded maximum remark count');
-    }
-    for (let i = 0; i < remark.length; i += 1) {
-      if (typeof remark[i] !== 'string') {
-        throw new Error(`Wrong remark value: ${remark[i]}`);
-      }
-    }
+  if (remark !== undefined) {
+    validateRemark(remark);
   }
 
   const send = async () => {
@@ -41,7 +35,7 @@ export default async function sendAsset(
         transaction.addRemark(remark);
       } else if (Array.isArray(remark)) {
         for (let i = 0; i < remark.length; i += 1) {
-          transaction.addAttribute(240 + i, remark[i]);
+          transaction.addAttribute(tx.TxAttrUsage.Remark + i, remark[i]);
         }
       }
 
