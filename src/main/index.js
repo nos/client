@@ -3,8 +3,7 @@ import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
 
-import getStaticPath from 'util/getStaticPath';
-
+import getStaticPath from './util/getStaticPath';
 import bindContextMenu from './util/bindContextMenu';
 import registerNosProtocol from './util/registerNosProtocol';
 import pkg from '../../package.json';

@@ -4,8 +4,7 @@ import classNames from 'classnames';
 import { shell } from 'electron';
 import { string, bool, number, func } from 'prop-types';
 
-import getStaticPath from 'util/getStaticPath';
-
+import getStaticPath from '../../../util/getStaticPath';
 import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import styles from './DAppContainer.scss';
