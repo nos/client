@@ -5,11 +5,13 @@ import { object } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { progressValues } from 'spunky';
 
+import { provideState } from 'testHelpers';
+
 import Routes from 'root/components/App/Routes';
 import { Login } from 'login';
 import { Logout } from 'logout';
 import { Browser } from 'browser';
-import { provideState } from 'testHelpers';
+import { EXTERNAL } from 'browser/values/browserValues';
 
 const { LOADED } = progressValues;
 
@@ -20,9 +22,31 @@ const authenticatedState = {
   data: { wif: 'abc123', address: 'def456' }
 };
 
+const initialState = {
+  browser: {
+    activeSessionId: 'tab-1',
+    tabs: {
+      'tab-1': {
+        type: EXTERNAL,
+        target: 'nos://nos.neo',
+        title: 'Welcome to nOS',
+        addressBarEntry: true,
+        loading: false,
+        requestCount: 1,
+        errorCode: null,
+        errorDescription: null
+      }
+    }
+  }
+};
+
 const mountPath = (pathname, state = {}) => {
   const context = createRouterContext({ location: { pathname } });
-  return mount(provideState(<Routes />, state), { context, childContextTypes });
+
+  return mount(provideState(<Routes />, { ...initialState, ...state }), {
+    context,
+    childContextTypes
+  });
 };
 
 function itBehavesLikeAuthenticatedRoute(pathname) {
@@ -56,21 +80,7 @@ describe('<Routes />', () => {
     itBehavesLikeAuthenticatedRoute('/browser');
 
     it('renders when authenticated', () => {
-      const wrapper = mountPath('/browser', {
-        spunky: { auth: authenticatedState },
-        browser: {
-          activeSessionId: '1',
-          tabs: {
-            1: {
-              title: 'My nOS',
-              target: 'https://my.nos.app',
-              loading: false,
-              requestCount: 1,
-              addressBarEntry: true
-            }
-          }
-        }
-      });
+      const wrapper = mountPath('/browser', { spunky: { auth: authenticatedState } });
       expect(wrapper.find(Browser).exists()).toBe(true);
     });
   });
