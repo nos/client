@@ -150,13 +150,12 @@ function setTarget(state, action) {
   if (!tab) {
     return state;
   }
-
   const target = parse(action.target);
 
   return updateTab(state, action.sessionId, {
     target,
     title: target,
-    loading: isNavigatingAway(state.target, target),
+    loading: isNavigatingAway(state.tabs[state.activeSessionId].target, target),
     addressBarEntry: action.addressBarEntry,
     requestCount: tab.requestCount + 1,
     errorCode: null,
