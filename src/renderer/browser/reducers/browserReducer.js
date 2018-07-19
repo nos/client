@@ -150,6 +150,7 @@ function setTarget(state, action) {
   if (!tab) {
     return state;
   }
+
   const target = parse(action.target);
 
   return updateTab(state, action.sessionId, {
