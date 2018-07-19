@@ -76,11 +76,7 @@ function normalize(target) {
   return target.split('#')[0].replace(/\/^/, '');
 }
 
-function isNavigatingAway(type, oldTarget, newTarget) {
-  if (type === INTERNAL) {
-    return false;
-  }
-
+function isNavigatingAway(oldTarget, newTarget) {
   return normalize(oldTarget) === normalize(newTarget);
 }
 
