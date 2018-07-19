@@ -1,13 +1,23 @@
 import uuid from 'uuid/v1';
-import { keys, omit, has, size } from 'lodash';
+import { keys, omit, has, size, isEmpty } from 'lodash';
 
-import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_ERROR, SET_TAB_TITLE, SET_TAB_TARGET, SET_TAB_LOADED } from '../actions/browserActions';
 import parseURL from '../util/parseURL';
+import { INTERNAL, EXTERNAL } from '../values/browserValues';
+import {
+  OPEN_TAB,
+  CLOSE_TAB,
+  SET_ACTIVE_TAB,
+  SET_TAB_ERROR,
+  SET_TAB_TITLE,
+  SET_TAB_TARGET,
+  SET_TAB_LOADED
+} from '../actions/browserActions';
 
 const initialTabState = {
+  type: EXTERNAL,
   target: 'https://my.nos.app',
   title: 'My nOS',
-  addressBarEntry: true,
+  addressBarEntry: true, // differentiates between link clicks and address bar entries
   loading: false,
   requestCount: 1,
   errorCode: null,
@@ -16,8 +26,8 @@ const initialTabState = {
 
 const newTabState = {
   ...initialTabState,
-  target: 'nos://nos.neo',
-  title: 'Welcome to nOS'
+  target: '',
+  title: 'New Tab'
 };
 
 const generateSessionId = () => uuid();
@@ -62,17 +72,36 @@ function parse(query) {
   }
 }
 
-function open(state) {
+function normalize(target) {
+  return target.split('#')[0].replace(/\/^/, '');
+}
+
+function isNavigatingAway(type, oldTarget, newTarget) {
+  if (type === INTERNAL) {
+    return false;
+  }
+
+  return normalize(oldTarget) === normalize(newTarget);
+}
+
+function open(state, action) {
   const sessionId = generateSessionId();
   const { tabs } = state;
+  const { type, target } = action;
+  const internal = type === INTERNAL;
+
+  const tab = {
+    ...newTabState,
+    type,
+    target,
+    title: internal ? target : newTabState.title,
+    loading: !internal && !isEmpty(target)
+  };
 
   return {
     ...state,
     activeSessionId: sessionId,
-    tabs: {
-      ...tabs,
-      [sessionId]: { ...newTabState }
-    }
+    tabs: { ...tabs, [sessionId]: tab }
   };
 }
 
@@ -131,7 +160,7 @@ function setTarget(state, action) {
   return updateTab(state, action.sessionId, {
     target,
     title: target,
-    loading: action.leavingPage,
+    loading: isNavigatingAway(state.target, target),
     addressBarEntry: action.addressBarEntry,
     requestCount: tab.requestCount + 1,
     errorCode: null,
@@ -146,19 +175,19 @@ function setLoaded(state, action) {
 export default function browserReducer(state = generateInitialState(), action) {
   switch (action.type) {
     case OPEN_TAB:
-      return open(state);
+      return open(state, action.payload);
     case CLOSE_TAB:
-      return close(state, action);
+      return close(state, action.payload);
     case SET_ACTIVE_TAB:
-      return focus(state, action);
+      return focus(state, action.payload);
     case SET_TAB_ERROR:
-      return setError(state, action);
+      return setError(state, action.payload);
     case SET_TAB_TITLE:
-      return setTitle(state, action);
+      return setTitle(state, action.payload);
     case SET_TAB_TARGET:
-      return setTarget(state, action);
+      return setTarget(state, action.payload);
     case SET_TAB_LOADED:
-      return setLoaded(state, action);
+      return setLoaded(state, action.payload);
     default:
       return state;
   }
