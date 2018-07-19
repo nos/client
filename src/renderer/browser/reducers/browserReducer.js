@@ -76,11 +76,7 @@ function normalize(target) {
   return target.split('#')[0].replace(/\/^/, '');
 }
 
-function isNavigatingAway(type, oldTarget, newTarget) {
-  if (type === INTERNAL) {
-    return false;
-  }
-
+function isNavigatingAway(oldTarget, newTarget) {
   return normalize(oldTarget) === normalize(newTarget);
 }
 
@@ -160,7 +156,7 @@ function setTarget(state, action) {
   return updateTab(state, action.sessionId, {
     target,
     title: target,
-    loading: isNavigatingAway(state.target, target),
+    loading: isNavigatingAway(state.tabs[state.activeSessionId].target, target),
     addressBarEntry: action.addressBarEntry,
     requestCount: tab.requestCount + 1,
     errorCode: null,
