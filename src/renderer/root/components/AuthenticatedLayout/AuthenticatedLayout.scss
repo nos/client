@@ -97,6 +97,10 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
   }
 
   &.darwin main .sidebar .logo {
-    margin: 0;
+    margin: 0; // shift logo up when Mac traffic lights don't exist
+  }
+
+  &:not(.darwin) header .tabs {
+    padding-right: 120px; // leave space for Windows/Linux button bar
   }
 }
