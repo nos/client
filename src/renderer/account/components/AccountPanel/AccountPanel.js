@@ -17,16 +17,13 @@ export default class AccountPanel extends React.Component {
 
   render() {
     return (
-      <Panel className={styles.accountPanel} renderHeader={this.renderHeader}>
+      <Panel className={styles.accountPanel}>
         <div className={styles.content}>
+          <p>Wallet Address: {this.props.address}</p>
           {this.renderBalances()}
         </div>
       </Panel>
     );
-  }
-
-  renderHeader = () => {
-    return `Address ${this.props.address}`;
   }
 
   renderBalances = () => {

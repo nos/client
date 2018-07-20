@@ -54,7 +54,7 @@ export default class AccountTxPanel extends React.Component {
     const symbol = this.getSymbol();
 
     return (
-      <Panel className={styles.sendPanel} renderHeader={null}>
+      <Panel className={styles.sendPanel}>
         <form className={styles.content}>
           <h2>Transfer Funds</h2>
           <div className={styles.inputs}>
