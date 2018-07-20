@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { string, objectOf } from 'prop-types';
 import { values } from 'lodash';
 
@@ -11,13 +12,18 @@ const balancesShape = objectOf(balanceShape);
 
 export default class AccountPanel extends React.Component {
   static propTypes = {
+    className: string,
     address: string.isRequired,
     balances: balancesShape.isRequired
   };
 
+  static defaultProps = {
+    className: null
+  };
+
   render() {
     return (
-      <Panel className={styles.accountPanel}>
+      <Panel className={classNames(styles.accountPanel, this.props.className)}>
         <div className={styles.content}>
           <p>Wallet Address: {this.props.address}</p>
           {this.renderBalances()}

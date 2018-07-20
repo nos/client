@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { func, string, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
@@ -19,6 +20,7 @@ const balancesShape = objectOf(balanceShape);
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
+    className: string,
     loading: bool.isRequired,
     confirm: func.isRequired,
     step: string.isRequired,
@@ -37,6 +39,7 @@ export default class AccountTxPanel extends React.Component {
   };
 
   static defaultProps = {
+    className: null,
     amount: '',
     receiver: '',
     net: '',
@@ -50,11 +53,11 @@ export default class AccountTxPanel extends React.Component {
   };
 
   render() {
-    const { loading, amount, receiver, asset, step } = this.props;
+    const { className, loading, amount, receiver, asset, step } = this.props;
     const symbol = this.getSymbol();
 
     return (
-      <Panel className={styles.sendPanel}>
+      <Panel className={classNames(styles.sendPanel, className)}>
         <form className={styles.content}>
           <h2>Transfer Funds</h2>
           <div className={styles.inputs}>

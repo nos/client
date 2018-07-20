@@ -7,8 +7,8 @@ import styles from './Account.scss';
 export default function Account() {
   return (
     <div className={styles.account}>
-      <AccountPanel />
-      <SendPanel />
+      <AccountPanel className={styles.panel} />
+      <SendPanel className={styles.panel} />
     </div>
   );
 }
