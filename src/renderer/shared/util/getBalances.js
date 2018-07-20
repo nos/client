@@ -16,18 +16,20 @@ async function getTokens(net) {
   const response = await fetch(TOKENS_URL);
   const tokens = values(await response.json());
   const sortedTokens = sortBy(tokens, 'symbol');
-  const networkTokens = compact(sortedTokens.map((token) => token.networks[networkKey]));
 
-  return networkTokens.map((token) => token.hash);
+  return compact(sortedTokens.map(({ image, networks }) => {
+    const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
+    return { name, scriptHash, decimals, totalSupply, image };
+  }));
 }
 
-async function getTokenBalance(endpoint, scriptHash, address) {
+async function getTokenBalance(endpoint, token, address) {
   try {
-    const response = await api.nep5.getToken(endpoint, scriptHash, address);
+    const response = await api.nep5.getToken(endpoint, token.scriptHash, address);
     const balance = (response.balance || 0).toString();
 
     return {
-      [scriptHash]: { ...response, scriptHash, balance }
+      [token.scriptHash]: { ...token, ...response, balance }
     };
   } catch (err) {
     // invalid scriptHash
