@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { values, sortBy, compact, extend } from 'lodash';
+import { values, sortBy, compact, extend, replace, trim } from 'lodash';
 import { api, wallet } from '@cityofzion/neon-js';
 
 import { GAS, NEO } from '../values/assets';
@@ -10,6 +10,11 @@ const NETWORK_MAP = {
   MainNet: '1'
 };
 
+function normalizeImage(str) {
+  const src = replace(str, 'raw.githubusercontent.com', 'rawgit.com');
+  return trim(src) === '' ? null : src;
+}
+
 async function getTokens(net) {
   const networkKey = NETWORK_MAP[net];
 
@@ -19,7 +24,7 @@ async function getTokens(net) {
 
   return compact(sortedTokens.map(({ image, networks }) => {
     const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
-    return { name, scriptHash, decimals, totalSupply, image };
+    return { name, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
   }));
 }
 

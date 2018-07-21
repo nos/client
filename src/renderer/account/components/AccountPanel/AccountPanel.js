@@ -1,20 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, objectOf } from 'prop-types';
+import { string, arrayOf } from 'prop-types';
 import { values } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 
+import TokenBalance from './TokenBalance';
 import balanceShape from '../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
-
-const balancesShape = objectOf(balanceShape);
 
 export default class AccountPanel extends React.Component {
   static propTypes = {
     className: string,
     address: string.isRequired,
-    balances: balancesShape.isRequired
+    balances: arrayOf(balanceShape).isRequired
   };
 
   static defaultProps = {
@@ -25,6 +24,7 @@ export default class AccountPanel extends React.Component {
     return (
       <Panel className={classNames(styles.accountPanel, this.props.className)}>
         <div className={styles.content}>
+          <h2>My Holdings</h2>
           <p>Wallet Address: {this.props.address}</p>
           {this.renderBalances()}
         </div>
@@ -39,13 +39,8 @@ export default class AccountPanel extends React.Component {
       return 'No available assets.';
     }
 
-    return balances.map(({ symbol, balance }) => (
-      <span key={symbol}>{symbol}: {balance}<br /></span>
+    return balances.map((token) => (
+      <TokenBalance key={token.symbol} token={token} />
     ));
-  }
-
-  getBalance = (assetIdOrScriptHash) => {
-    const assetOrToken = this.props.balances[assetIdOrScriptHash];
-    return assetOrToken ? assetOrToken.balance : '0';
   }
 }

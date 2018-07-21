@@ -1,6 +1,6 @@
 import { compose, withProps } from 'recompose';
 import { withData } from 'spunky';
-import { pickBy, keys } from 'lodash';
+import { values, filter, keys } from 'lodash';
 
 import balancesActions from 'shared/actions/balancesActions';
 import authActions from 'login/actions/authActions';
@@ -16,6 +16,8 @@ export default compose(
   withData(authActions, mapAuthDataToProps),
   withData(balancesActions, mapBalancesDataToProps),
   withProps(({ balances }) => ({
-    balances: pickBy(balances, ({ scriptHash, balance }) => keys(ASSETS).includes(scriptHash) || balance !== '0')
+    balances: filter(values(balances), ({ scriptHash, balance }) => {
+      return keys(ASSETS).includes(scriptHash) || balance !== '0';
+    })
   }))
 )(AccountPanel);
