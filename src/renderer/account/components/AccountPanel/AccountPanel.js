@@ -4,39 +4,31 @@ import { number, string, arrayOf, objectOf } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 
-import TokenBalance from './TokenBalance';
+import AccountAddress from './AccountAddress';
+import Breakdown from './Breakdown';
+import Holdings from './Holdings';
 import balanceShape from '../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
 
-export default class AccountPanel extends React.Component {
-  static propTypes = {
-    className: string,
-    address: string.isRequired,
-    balances: arrayOf(balanceShape).isRequired,
-    prices: objectOf(number).isRequired
-  };
-
-  static defaultProps = {
-    className: null
-  };
-
-  render() {
-    return (
-      <Panel className={classNames(styles.accountPanel, this.props.className)}>
-        <div className={styles.content}>
-          <h2>My Holdings</h2>
-          <p>Wallet Address: {this.props.address}</p>
-          {this.renderBalances()}
-        </div>
-      </Panel>
-    );
-  }
-
-  renderBalances = () => {
-    const { balances, prices } = this.props;
-
-    return balances.map((token) => (
-      <TokenBalance key={token.symbol} token={token} price={prices[token.symbol] || 0} />
-    ));
-  }
+export default function AccountPanel(props) {
+  return (
+    <Panel className={classNames(styles.accountPanel, props.className)}>
+      <div className={styles.summary}>
+        <Breakdown className={styles.breakdown} />
+        <AccountAddress className={styles.address} address={props.address} />
+      </div>
+      <Holdings className={styles.holdings} balances={props.balances} prices={props.prices} />
+    </Panel>
+  );
 }
+
+AccountPanel.propTypes = {
+  className: string,
+  address: string.isRequired,
+  balances: arrayOf(balanceShape).isRequired,
+  prices: objectOf(number).isRequired
+};
+
+AccountPanel.defaultProps = {
+  className: null
+};

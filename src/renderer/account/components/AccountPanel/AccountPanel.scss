@@ -1,12 +1,29 @@
 .accountPanel {
-  .content {
+  $width: 270px;
+
+  display: flex;
+
+  .summary {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
     padding: 32px 24px;
+
+    .breakdown {
+      flex: 1 1 auto;
+    }
+
+    .address {
+      flex: 0 0 auto;
+      margin-bottom: 16px;
+    }
   }
 
-  h2 {
-    margin: 0 0 25px;
-    color: #494759;
-    font-size: 18px;
-    font-weight: 500;
+  .holdings {
+    flex: 0 1 auto;
+    $border-width: 1px;
+
+    min-width: $width - $border-width;
+    border-left: $border-width solid #edeef4;
   }
 }
