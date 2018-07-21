@@ -3,8 +3,11 @@
   margin: 0 0 16px;
 
   .label {
-    display: inline-block;
+    display: block;
     margin-bottom: 4px;
+    color: #494759;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   input {

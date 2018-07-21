@@ -48,38 +48,37 @@ export default class AccountTxPanel extends React.Component {
     return (
       <Panel className={classNames(styles.sendPanel, className)}>
         <form className={styles.content}>
-          <h2>Transfer Funds</h2>
-          <div className={styles.inputs}>
-            <Input
-              className={styles.amount}
-              id="amount"
-              type="number"
-              label="Amount"
-              placeholder={`Enter ${symbol} Amount`}
-              min="0"
-              step={step}
-              value={amount}
-              onChange={this.handleChangeAmount}
-            />
-            <Select
-              className={styles.asset}
-              id="asset"
-              value={asset}
-              onChange={this.handleChangeAsset}
-            >
-              {this.renderAssets()}
-            </Select>
-            <Input
-              className={styles.recipient}
-              id="recipient"
-              type="text"
-              label="Recipient"
-              placeholder="Enter NEO Address"
-              value={receiver}
-              disabled={false}
-              onChange={this.handleChangeRecipient}
-            />
-          </div>
+          <h2>Send</h2>
+          <Select
+            className={styles.asset}
+            id="asset"
+            label="Token to send"
+            value={asset}
+            onChange={this.handleChangeAsset}
+          >
+            {this.renderAssets()}
+          </Select>
+          <Input
+            className={styles.amount}
+            id="amount"
+            type="number"
+            label="Sending amount"
+            placeholder={`Enter ${symbol} amount`}
+            min="0"
+            step={step}
+            value={amount}
+            onChange={this.handleChangeAmount}
+          />
+          <Input
+            className={styles.recipient}
+            id="recipient"
+            type="text"
+            label="Recipient"
+            placeholder="Wallet address"
+            value={receiver}
+            disabled={false}
+            onChange={this.handleChangeRecipient}
+          />
           <hr />
           <div className={styles.actions}>
             <Button
