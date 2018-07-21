@@ -1,16 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { func, string, bool, arrayOf } from 'prop-types';
+import { func, string, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
-import { map, noop, keys, find } from 'lodash';
+import { map, noop } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
 import Icon from 'shared/components/Icon';
 import Select from 'shared/components/Forms/Select';
-import { NEO, ASSETS } from 'shared/values/assets';
 
 import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';
@@ -30,7 +29,7 @@ export default class AccountTxPanel extends React.Component {
     setStep: func,
     setAsset: func,
     onSend: func,
-    balances: arrayOf(balanceShape).isRequired
+    balances: objectOf(balanceShape).isRequired
   };
 
   static defaultProps = {
@@ -126,9 +125,10 @@ export default class AccountTxPanel extends React.Component {
   handleChangeAsset = (event) => {
     const { value } = event.target;
     const { setAsset, setStep } = this.props;
+    const { decimals } = this.getAsset(value);
 
-    setAsset(event.target.value);
-    setStep(value === NEO ? '1' : '0.00000001');
+    setAsset(value);
+    setStep(new BigNumber(10).pow(-decimals).toFixed(decimals));
   };
 
   handleChangeAmount = (event) => {
@@ -140,19 +140,17 @@ export default class AccountTxPanel extends React.Component {
   };
 
   getSymbol = () => {
-    const { asset, balances } = this.props;
-
-    if (keys(ASSETS).includes(asset)) {
-      return ASSETS[asset];
-    } else {
-      return find(balances, ['scriptHash', asset]).symbol;
-    }
+    return this.getAsset(this.props.asset).symbol;
   }
 
   getAmount = () => {
     const { asset, amount } = this.props;
-    return new BigNumber(amount).toFixed(asset === NEO ? 0 : 8);
+    return new BigNumber(amount).toFixed(this.getAsset(asset).decimals);
   };
+
+  getAsset = (scriptHash) => {
+    return this.props.balances[scriptHash];
+  }
 
   isValid = () => {
     return isNumeric(this.props.amount) && wallet.isAddress(this.props.receiver);

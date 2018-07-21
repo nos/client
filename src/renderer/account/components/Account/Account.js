@@ -1,5 +1,6 @@
 import React from 'react';
-import { arrayOf, objectOf, number } from 'prop-types';
+import { objectOf, number } from 'prop-types';
+import { values } from 'lodash';
 
 import AccountPanel from '../AccountPanel';
 import SendPanel from '../SendPanel';
@@ -11,13 +12,20 @@ export default function Account(props) {
 
   return (
     <div className={styles.account}>
-      <AccountPanel className={styles.panel} balances={balances} prices={prices} />
-      <SendPanel className={styles.panel} balances={balances} />
+      <AccountPanel
+        className={styles.panel}
+        balances={values(balances)}
+        prices={prices}
+      />
+      <SendPanel
+        className={styles.panel}
+        balances={balances}
+      />
     </div>
   );
 }
 
 Account.propTypes = {
-  balances: arrayOf(balanceShape).isRequired,
+  balances: objectOf(balanceShape).isRequired,
   prices: objectOf(number).isRequired
 };

@@ -1,6 +1,6 @@
 import { compose } from 'recompose';
 import { withData, withProgressComponents, progressValues } from 'spunky';
-import { filter, values, keys } from 'lodash';
+import { pickBy, keys } from 'lodash';
 
 import Loading from 'shared/components/Loading';
 import Failed from 'shared/components/Failed';
@@ -18,7 +18,7 @@ const { LOADING, FAILED } = progressValues;
 const mapAuthDataToProps = ({ address }) => ({ address });
 
 const mapBalancesDataToProps = (balances) => ({
-  balances: filter(values(balances), ({ scriptHash, balance }) => {
+  balances: pickBy(balances, ({ scriptHash, balance }) => {
     return keys(ASSETS).includes(scriptHash) || balance !== '0';
   })
 });
