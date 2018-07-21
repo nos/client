@@ -14,10 +14,15 @@ import SendPanel from './SendPanel';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapSendActionsToProps = (actions) => ({
-  doTransfer: ({ net, asset, amount, receiver, address, wif }) => {
-    return actions.call({ net, asset, amount, receiver, address, wif });
-  }
+const mapSendActionsToProps = (actions, props) => ({
+  onSend: ({ asset, amount, receiver }) => actions.call({
+    net: props.net,
+    address: props.address,
+    wif: props.wif,
+    asset,
+    amount,
+    receiver
+  })
 });
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });

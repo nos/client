@@ -24,15 +24,12 @@ export default class AccountTxPanel extends React.Component {
     step: string.isRequired,
     asset: string.isRequired,
     amount: string,
-    address: string,
-    wif: string,
-    net: string,
     receiver: string,
     setAmount: func,
     setReceiver: func,
     setStep: func,
     setAsset: func,
-    doTransfer: func,
+    onSend: func,
     balances: arrayOf(balanceShape).isRequired
   };
 
@@ -40,14 +37,11 @@ export default class AccountTxPanel extends React.Component {
     className: null,
     amount: '',
     receiver: '',
-    net: '',
-    address: '',
-    wif: '',
     setAmount: noop,
     setReceiver: noop,
     setAsset: noop,
     setStep: noop,
-    doTransfer: noop
+    onSend: noop
   };
 
   render() {
@@ -123,9 +117,10 @@ export default class AccountTxPanel extends React.Component {
   }
 
   handleConfirm = () => {
-    const { doTransfer, net, asset, receiver, address, wif } = this.props;
+    const { onSend, asset, receiver } = this.props;
+    const amount = this.getAmount();
 
-    doTransfer({ net, asset, amount: this.getAmount(), receiver, address, wif });
+    onSend({ asset, amount, receiver });
   };
 
   handleChangeAsset = (event) => {
