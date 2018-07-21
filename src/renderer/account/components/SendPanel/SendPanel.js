@@ -26,7 +26,6 @@ export default class AccountTxPanel extends React.Component {
     receiver: string,
     setAmount: func,
     setReceiver: func,
-    setStep: func,
     setAsset: func,
     onSend: func,
     balances: objectOf(balanceShape).isRequired
@@ -39,7 +38,6 @@ export default class AccountTxPanel extends React.Component {
     setAmount: noop,
     setReceiver: noop,
     setAsset: noop,
-    setStep: noop,
     onSend: noop
   };
 
@@ -123,12 +121,7 @@ export default class AccountTxPanel extends React.Component {
   };
 
   handleChangeAsset = (event) => {
-    const { value } = event.target;
-    const { setAsset, setStep } = this.props;
-    const { decimals } = this.getAsset(value);
-
-    setAsset(value);
-    setStep(new BigNumber(10).pow(-decimals).toFixed(decimals));
+    this.props.setAsset(event.target.value);
   };
 
   handleChangeAmount = (event) => {

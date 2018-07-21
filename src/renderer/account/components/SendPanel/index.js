@@ -1,4 +1,5 @@
-import { compose, withProps, withState } from 'recompose';
+import BigNumber from 'bignumber.js';
+import { compose, withProps, withState, withHandlers } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
 
 import authActions from 'login/actions/authActions';
@@ -31,7 +32,14 @@ export default compose(
   withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
   withState('asset', 'setAsset', NEO),
-  withState('step', 'setStep', '1'),
+  withState('step', 'setStep', '0'),
+  withHandlers({
+    setAsset: ({ setAsset, setStep, balances }) => (asset) => {
+      const { decimals } = balances[asset];
+      setAsset(asset);
+      setStep(new BigNumber(10).pow(-decimals).toFixed(decimals));
+    }
+  }),
 
   withData(authActions, mapAuthDataToProps),
   withActions(sendActions, mapSendActionsToProps),
