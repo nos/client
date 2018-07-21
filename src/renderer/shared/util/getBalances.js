@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { values, sortBy, compact, extend, replace, trim } from 'lodash';
+import { values, sortBy, filter, extend, replace, trim } from 'lodash';
 import { api, wallet } from '@cityofzion/neon-js';
 
 import { GAS, NEO } from '../values/assets';
@@ -20,12 +20,13 @@ async function getTokens(net) {
 
   const response = await fetch(TOKENS_URL);
   const tokens = values(await response.json());
-  const sortedTokens = sortBy(tokens, 'symbol');
+  const networkTokens = filter(tokens, (token) => token.networks[networkKey]);
+  const sortedTokens = sortBy(networkTokens, 'symbol');
 
-  return compact(sortedTokens.map(({ image, networks }) => {
+  return sortedTokens.map(({ image, networks }) => {
     const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
     return { name, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
-  }));
+  });
 }
 
 async function getTokenBalance(endpoint, token, address) {

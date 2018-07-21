@@ -1,17 +1,14 @@
 import { compose, withProps, withState } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
-import { pickBy, keys } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import sendActions from 'shared/actions/sendActions';
-import balancesActions from 'shared/actions/balancesActions';
-import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { NEO, ASSETS } from 'shared/values/assets';
+import { NEO } from 'shared/values/assets';
 
 import SendPanel from './SendPanel';
 
@@ -25,8 +22,6 @@ const mapSendActionsToProps = (actions) => ({
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
-const mapBalancesDataToProps = (balances) => ({ balances });
-
 export default compose(
   withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
@@ -34,11 +29,6 @@ export default compose(
   withState('step', 'setStep', '1'),
 
   withData(authActions, mapAuthDataToProps),
-  withNetworkData(),
-  withData(balancesActions, mapBalancesDataToProps),
-  withProps(({ balances }) => ({
-    balances: pickBy(balances, ({ scriptHash, balance }) => keys(ASSETS).includes(scriptHash) || balance !== '0')
-  })),
   withActions(sendActions, mapSendActionsToProps),
 
   withProgress(sendActions),

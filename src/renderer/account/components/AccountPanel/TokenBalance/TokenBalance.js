@@ -1,18 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import GasIcon from 'shared/images/tokens/gas.svg';
 import { NEO, GAS } from 'shared/values/assets';
 
 import balanceShape from '../../../shapes/balanceShape';
+import formatCurrency from '../../../util/formatCurrency';
 import styles from './TokenBalance.scss';
 
 export default class TokenBalance extends React.Component {
   static propTypes = {
     className: string,
-    token: balanceShape.isRequired
+    token: balanceShape.isRequired,
+    price: number.isRequired
   };
 
   static defaultProps = {
@@ -20,7 +22,7 @@ export default class TokenBalance extends React.Component {
   };
 
   render = () => {
-    const { className, token } = this.props;
+    const { className, token, price } = this.props;
 
     return (
       <div className={classNames(styles.tokenBalance, className)}>
@@ -28,8 +30,8 @@ export default class TokenBalance extends React.Component {
         <div className={styles.detail}>
           <div className={styles.balance}>{token.balance} {token.symbol}</div>
           <div className={styles.currency}>
-            <span className={styles.tokenValue}>$xx.xx</span>
-            <span className={styles.totalValue}>$xx.xx</span>
+            <span className={styles.tokenValue}>{formatCurrency(price, 'usd')}</span>
+            <span className={styles.totalValue}>{formatCurrency(price * token.balance, 'usd')}</span>
           </div>
         </div>
       </div>

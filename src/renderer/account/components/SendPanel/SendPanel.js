@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { func, string, bool, objectOf } from 'prop-types';
+import { func, string, bool, arrayOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
-import { map, noop, keys, size, find } from 'lodash';
+import { map, noop, keys, find } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
@@ -15,8 +15,6 @@ import { NEO, ASSETS } from 'shared/values/assets';
 import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';
 import balanceShape from '../../shapes/balanceShape';
-
-const balancesShape = objectOf(balanceShape);
 
 export default class AccountTxPanel extends React.Component {
   static propTypes = {
@@ -35,7 +33,7 @@ export default class AccountTxPanel extends React.Component {
     setStep: func,
     setAsset: func,
     doTransfer: func,
-    balances: balancesShape.isRequired
+    balances: arrayOf(balanceShape).isRequired
   };
 
   static defaultProps = {
@@ -108,15 +106,7 @@ export default class AccountTxPanel extends React.Component {
   }
 
   renderAssets = () => {
-    const { balances } = this.props;
-
-    if (size(balances) === 0) {
-      return map(ASSETS, (label, value) => (
-        <option key={value} value={value}>{label}</option>
-      ));
-    }
-
-    return map(balances, ({ symbol, scriptHash }) => (
+    return map(this.props.balances, ({ symbol, scriptHash }) => (
       <option key={scriptHash} value={scriptHash}>{symbol}</option>
     ));
   }

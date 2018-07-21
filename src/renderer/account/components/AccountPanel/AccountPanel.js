@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, arrayOf } from 'prop-types';
-import { values } from 'lodash';
+import { number, string, arrayOf, objectOf } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 
@@ -13,7 +12,8 @@ export default class AccountPanel extends React.Component {
   static propTypes = {
     className: string,
     address: string.isRequired,
-    balances: arrayOf(balanceShape).isRequired
+    balances: arrayOf(balanceShape).isRequired,
+    prices: objectOf(number).isRequired
   };
 
   static defaultProps = {
@@ -33,14 +33,10 @@ export default class AccountPanel extends React.Component {
   }
 
   renderBalances = () => {
-    const balances = values(this.props.balances);
-
-    if (balances.length === 0) {
-      return 'No available assets.';
-    }
+    const { balances, prices } = this.props;
 
     return balances.map((token) => (
-      <TokenBalance key={token.symbol} token={token} />
+      <TokenBalance key={token.symbol} token={token} price={prices[token.symbol] || 0} />
     ));
   }
 }
