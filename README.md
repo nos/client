@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/screenshot.png" width="400px" />
+  <img src="./.github/screenshot.png" width="400px" />
 </p>
 
 <h1 align="center">nOS</h1>
@@ -37,17 +37,14 @@
 
 # Getting Started with nOS
 
-The app can be cloned from GitHub and run using the development steps below.
-
-## nOS Client Developer Documentation
-
-- [API Documentation](./docs/api.md)
-- [Create your own dApp](./docs/create-your-own-dapp.md)
-- [Setup nos-local](./docs/nos-local.md)
-
+The standalone client installers can be found [here](https://github.com/nos/client/releases).
+To build manually, the client can be cloned from GitHub and run using the development steps below.
 
 ### Commands
 ```
+// Cloning from Github
+git clone https://github.com/nos/client.git
+
 // Install dependencies and launch the nOS client
 // This is used to start developing on the nOS client
 yarn install && yarn start
@@ -60,8 +57,22 @@ yarn dist
 ```
 
 
-# Contribute to this repository
 
+## Getting started with nOS Development
+Need some help with building nOS dApps? Check out our dedicated [documentation website](https://docs.nos.io/) containing useful info for the following topics:
+- [**nOS Client API Documentation**](https://docs.nos.io/docs/nos-client/api.html)
+- [Create nOS dApp Usage](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html)
+- [nOS Local Setup and usage](https://docs.nos.io/docs/nos-local/installation-usage.html)
+- [Contribution Guidelines](https://docs.nos.io/docs/contributing.html)
+
+Future resources:
+- Tutorials
+- List of known bugs
+- List of coming features
+
+
+
+# Contribute to this repository
 We welcome contributions to the code base. If you are interested in becoming a contributor, please read the [contributing guide](/.github/CONTRIBUTING.md) that covers the following:
 
 - [Reporting bugs](/.github/CONTRIBUTING.md#reporting-bugs)
@@ -72,22 +83,19 @@ We welcome contributions to the code base. If you are interested in becoming a c
 There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Discord to discuss development.
 
 
-# Contribute by building a dApp on nOS
 
-**Check out the documentation of the dapp-starter-kit [dApp-starter-kit](./docs/create-your-own-dapp.md) to get going quickly.**
+# Contribute by building a dApp on nOS
+**Check out the documentation of the [Create nOS dApp CLI tool](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html) to get going quickly.**
 
 Resources:
 
-- [Create-nOS-dApp repository](https://github.com/nos/create-nos-dapp)
-- [Create-nOS-dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
+- [Create nOS dApp repository](https://github.com/nos/create-nos-dapp)
+- [Create nOS dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
+- [nOS Client API Documentation](https://docs.nos.io/docs/nos-client/api.html)
 
-Future resources:
-- Tutorials
-- List of known bugs
-- List of coming features
+
 
 # Releasing
-
 ## Windows & Linux
 We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create builds based upon git tags.
 
