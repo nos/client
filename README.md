@@ -56,7 +56,7 @@ yarn test
 yarn dist
 ```
 
-&nbsp;
+
 
 ## Getting started with nOS Development
 Need some help with building nOS dApps? Check out our dedicated [documentation website](https://docs.nos.io/) containing useful info for the following topics:
@@ -70,7 +70,7 @@ Future resources:
 - List of known bugs
 - List of coming features
 
-&nbsp;
+
 
 # Contribute to this repository
 We welcome contributions to the code base. If you are interested in becoming a contributor, please read the [contributing guide](/.github/CONTRIBUTING.md) that covers the following:
@@ -82,7 +82,7 @@ We welcome contributions to the code base. If you are interested in becoming a c
 
 There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Discord to discuss development.
 
-&nbsp;
+
 
 # Contribute by building a dApp on nOS
 **Check out the documentation of the [Create nOS dApp CLI tool](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html) to get going quickly.**
@@ -93,7 +93,7 @@ Resources:
 - [Create nOS dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
 - [nOS Client API Documentation](https://docs.nos.io/docs/nos-client/api.html)
 
-&nbsp;
+
 
 # Releasing
 ## Windows & Linux
