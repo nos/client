@@ -8,7 +8,6 @@ import { map, noop } from 'lodash';
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
-import Icon from 'shared/components/Icon';
 import Select from 'shared/components/Forms/Select';
 
 import styles from './SendPanel.scss';
@@ -79,17 +78,13 @@ export default class AccountTxPanel extends React.Component {
             disabled={false}
             onChange={this.handleChangeRecipient}
           />
-          <hr />
-          <div className={styles.actions}>
-            <Button
-              type="submit"
-              disabled={loading || !this.isValid()}
-              onClick={this.handleTransfer}
-            >
-              <Icon className={styles.icon} name="transfer" />
-              Transfer
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            disabled={loading || !this.isValid()}
+            onClick={this.handleTransfer}
+          >
+            Next
+          </Button>
         </form>
       </Panel>
     );
