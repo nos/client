@@ -4,9 +4,9 @@ import { string, objectOf, func } from 'prop-types';
 import { map, noop } from 'lodash';
 
 import Icon from 'shared/components/Icon';
+import tabShape from 'browser/shapes/tabShape';
 
 import Tab from '../Tab';
-import tabShape from '../../shapes/tabShape';
 import styles from './Tabs.scss';
 
 export default class Tabs extends React.Component {

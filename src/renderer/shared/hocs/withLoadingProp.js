@@ -3,7 +3,7 @@ import { withProgress, progressValues } from 'spunky';
 
 const { LOADING } = progressValues;
 
-const PROGRESS_PROP: string = '__progress__';
+const PROGRESS_PROP = '__progress__';
 
 export default function withLoadingProp(actions, { propName = 'loading', ...options } = {}) {
   return compose(
