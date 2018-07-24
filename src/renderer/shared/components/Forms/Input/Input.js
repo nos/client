@@ -5,22 +5,36 @@ import { omit } from 'lodash';
 
 import styles from './Input.scss';
 
-export default function Input(props) {
-  return (
-    <label htmlFor={props.id} className={classNames(styles.input, props.className)}>
-      <span className={styles.label}>{props.label}</span>
-      <input id={props.id} {...omit(props, 'label')} />
-    </label>
-  );
+export default class Input extends React.Component {
+  static propTypes = {
+    className: string,
+    id: string.isRequired,
+    label: string
+  };
+
+  static defaultProps = {
+    className: null,
+    label: null
+  };
+
+  render() {
+    const { id, className } = this.props;
+
+    return (
+      <label htmlFor={id} className={classNames(styles.input, className)}>
+        {this.renderLabel()}
+        <input id={id} {...omit(this.props, 'className', 'label')} />
+      </label>
+    );
+  }
+
+  renderLabel = () => {
+    const { label } = this.props;
+
+    if (!label) {
+      return null;
+    }
+
+    return <span className={styles.label}>{label}</span>;
+  }
 }
-
-Input.propTypes = {
-  className: string,
-  id: string,
-  label: string.isRequired
-};
-
-Input.defaultProps = {
-  className: null,
-  id: null
-};

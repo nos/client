@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@cityofzion/neon-js": "3.9.2",
-    "@fortawesome/fontawesome-svg-core": "1.2.1",
-    "@fortawesome/free-regular-svg-icons": "5.1.1",
-    "@fortawesome/free-solid-svg-icons": "5.1.1",
+    "@fortawesome/fontawesome-svg-core": "1.2.2",
+    "@fortawesome/free-regular-svg-icons": "5.2.0",
+    "@fortawesome/free-solid-svg-icons": "5.2.0",
     "@fortawesome/react-fontawesome": "0.1.0",
     "@ledgerhq/hw-transport-node-hid": "4.16.0",
     "bignumber.js": "7.2.1",
@@ -21,10 +21,11 @@
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.1",
     "es6-promisify": "6.0.0",
+    "format-currency": "1.0.0",
     "history": "4.7.2",
     "lodash": "4.17.10",
-    "mime-types": "2.1.18",
-    "node-fetch": "2.1.2",
+    "mime-types": "2.1.19",
+    "node-fetch": "2.2.0",
     "prop-types": "15.6.2",
     "rc-tooltip": "3.7.2",
     "react": "16.4.1",
@@ -33,6 +34,7 @@
     "react-redux": "5.0.6",
     "react-router-dom": "4.3.0",
     "react-router-redux": "next",
+    "recharts": "1.1.0",
     "recompose": "0.27.1",
     "redux": "3.7.2",
     "redux-saga": "0.16.0",
@@ -41,7 +43,7 @@
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
     "uuid": "3.3.2",
-    "what-input": "5.1.0"
+    "what-input": "5.1.1"
   },
   "scripts": {
     "start": "yarn build:main && run-p -l -n -r start:renderer start:electron",
@@ -62,7 +64,7 @@
   "devDependencies": {
     "babel-eslint": "8.2.6",
     "babel-jest": "23.4.0",
-    "babel-plugin-dynamic-import-node": "^2.0.0",
+    "babel-plugin-dynamic-import-node": "2.0.0",
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-plugin-transform-class-properties": "6.24.1",

@@ -39,12 +39,7 @@ export default class NetworkPanel extends React.Component {
     const neoScanUrl = this.getCurrentNetworkUrl();
 
     return (
-      <Panel
-        className={styles.settingsPanel}
-        renderHeader={() => {
-          return 'Settings';
-        }}
-      >
+      <Panel className={styles.settingsPanel}>
         <div className={styles.content}>
 
           <div>

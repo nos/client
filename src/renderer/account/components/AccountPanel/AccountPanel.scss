@@ -1,5 +1,30 @@
 .accountPanel {
-  .content {
+  $width: 270px;
+
+  display: flex;
+
+  .summary {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 0; // required for recharts `ResponsiveContainer` to resize when browser resizes
     padding: 32px 24px;
+
+    .breakdown {
+      flex: 1 1 auto;
+    }
+
+    .address {
+      flex: 0 0 auto;
+      margin-bottom: 16px;
+    }
+  }
+
+  .holdings {
+    flex: 0 1 auto;
+    $border-width: 1px;
+
+    min-width: $width - $border-width;
+    border-left: $border-width solid #edeef4;
   }
 }
