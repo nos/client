@@ -1,0 +1,26 @@
+.accountAddress {
+  color: #1e1b53;
+  text-align: center;
+  font-size: 14px;
+
+  .address {
+    color: #8bc83c;
+  }
+
+  .actions {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+
+    .action {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      vertical-align: middle;
+
+      &:not(:last-child) {
+        margin-right: 28px;
+      }
+    }
+  }
+}
