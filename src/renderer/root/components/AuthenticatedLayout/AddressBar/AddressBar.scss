@@ -33,12 +33,12 @@
     border: 1px solid #E3E4EA;
     border-radius: 4px;
     background: #f7f8fa;
-    color: #494759;
+    color: $primary-text-color;
     font-family: $primary-font-stack;
     font-size: 12px;
 
     &:disabled {
-      color: lighten(#494759, 50%);
+      color: lighten($primary-text-color, 50%);
     }
   }
 
@@ -49,7 +49,7 @@
     padding: 0 0.5rem;
 
     .button {
-      @include button(#9a99a5);
+      @include button($light-text-color);
       display: flex;
       align-items: center;
       justify-content: center;
