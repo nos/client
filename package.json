@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@cityofzion/neon-js": "3.9.2",
-    "@fortawesome/fontawesome-svg-core": "1.2.1",
-    "@fortawesome/free-regular-svg-icons": "5.1.1",
-    "@fortawesome/free-solid-svg-icons": "5.1.1",
+    "@fortawesome/fontawesome-svg-core": "1.2.2",
+    "@fortawesome/free-regular-svg-icons": "5.2.0",
+    "@fortawesome/free-solid-svg-icons": "5.2.0",
     "@fortawesome/react-fontawesome": "0.1.0",
     "@ledgerhq/hw-transport-node-hid": "4.16.0",
     "bignumber.js": "7.2.1",
@@ -21,6 +21,7 @@
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.1",
     "es6-promisify": "6.0.0",
+    "format-currency": "1.0.0",
     "history": "4.7.2",
     "lodash": "4.17.10",
     "mime-types": "2.1.19",
@@ -33,6 +34,7 @@
     "react-redux": "5.0.6",
     "react-router-dom": "4.3.0",
     "react-router-redux": "next",
+    "recharts": "1.1.0",
     "recompose": "0.27.1",
     "redux": "3.7.2",
     "redux-saga": "0.16.0",
@@ -41,7 +43,7 @@
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
     "uuid": "3.3.2",
-    "what-input": "5.1.0"
+    "what-input": "5.1.1"
   },
   "scripts": {
     "start": "yarn build:main && run-p -l -n -r start:renderer start:electron",
@@ -62,6 +64,7 @@
   "devDependencies": {
     "babel-eslint": "8.2.6",
     "babel-jest": "23.4.0",
+    "babel-plugin-dynamic-import-node": "2.0.0",
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-plugin-transform-class-properties": "6.24.1",
@@ -97,11 +100,12 @@
     "rimraf": "2.6.2",
     "sass-loader": "7.0.3",
     "style-loader": "0.21.0",
-    "svg-react": "1.0.9",
+    "svg-react-loader": "0.4.5",
     "wait-on": "2.1.0",
     "webpack": "3.11.0",
     "webpack-cli": "3.0.6",
-    "webpack-dev-server": "2.11.1"
+    "webpack-dev-server": "2.11.1",
+    "webpack-merge": "4.1.3"
   },
   "build": {
     "appId": "io.nos.desktop",
@@ -133,7 +137,7 @@
       "^.+\\.jsx?$": "babel-jest"
     },
     "moduleNameMapper": {
-      "^.+\\.svg$": "<rootDir>/__mocks__/fileMock.js",
+      "^.+\\.svg$": "<rootDir>/__mocks__/svgMock.js",
       "^.+\\.(css|scss|less)$": "identity-obj-proxy"
     },
     "moduleDirectories": [

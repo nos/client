@@ -1,66 +1,62 @@
 /* eslint-disable consistent-return */
 
 import React from 'react';
+import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import { string } from 'prop-types';
+import { noop } from 'lodash';
 
-import Icon from 'shared/components/Icon';
+import { DAPPS, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
+import DAppsIcon from 'shared/images/icons/dapps.svg';
+import AccountIcon from 'shared/images/icons/account.svg';
+import SettingsIcon from 'shared/images/icons/settings.svg';
+import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
 
+import TabLink from '../TabLink';
 import styles from './Navigation.scss';
 
-export default class Navigation extends React.Component {
-  render() {
-    return (
-      <nav className={styles.navigation}>
-        <ul className={styles.group}>
-          <li>
-            <NavLink to="/browser">
-              <Tooltip id="browser" overlay="Browser">
-                <Icon name="browser" aria-label="Browser" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/favorites" className={styles.disabled} onClick={this.handleDisabled}>
-              <Tooltip id="favorites" overlay="Favorites (coming soon!)">
-                <Icon name="favorite" aria-label="Favorites" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/exchange" className={styles.disabled} onClick={this.handleDisabled}>
-              <Tooltip id="exchange" overlay="Exchange (coming soon!)">
-                <Icon name="exchange" aria-label="Exchange" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink id="account" exact to="/account">
-              <Tooltip id="account" overlay="Account">
-                <Icon name="account" aria-label="Account" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/settings">
-              <Tooltip id="settings" overlay="Settings">
-                <Icon name="settings" aria-label="Settings" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/logout">
-              <Tooltip id="logout" overlay="Logout">
-                <Icon name="logout" aria-label="Logout" />
-              </Tooltip>
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    );
-  }
-
-  handleDisabled = (event) => {
-    event.preventDefault();
-  }
+export default function Navigation(props) {
+  return (
+    <nav className={classNames(styles.navigation, props.className)}>
+      <ul className={styles.group}>
+        <li>
+          <TabLink target={DAPPS} className={styles.link} disabled>
+            <Tooltip id="dapps" overlay="DApps">
+              <DAppsIcon aria-label="dapps" />
+            </Tooltip>
+          </TabLink>
+        </li>
+        <li>
+          <TabLink target={ACCOUNT} className={styles.link}>
+            <Tooltip id="account" overlay="Account">
+              <AccountIcon aria-label="account" />
+            </Tooltip>
+          </TabLink>
+        </li>
+        <li>
+          <TabLink target={SETTINGS} className={styles.link}>
+            <Tooltip id="settings" overlay="Settings">
+              <SettingsIcon aria-label="settings" />
+            </Tooltip>
+          </TabLink>
+        </li>
+        <li>
+          <NavLink exact to="/logout" draggable={false} className={styles.link}>
+            <Tooltip id="logout" overlay="Logout">
+              <LogoutIcon aria-label="logout" />
+            </Tooltip>
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
 }
+
+Navigation.propTypes = {
+  className: string
+};
+
+Navigation.defaultProps = {
+  className: noop
+};

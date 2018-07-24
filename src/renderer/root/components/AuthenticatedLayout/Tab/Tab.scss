@@ -1,0 +1,68 @@
+.tab {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 0;
+  padding: 8px 14px;
+  background: rgba(#fff, 0.4);
+  font-size: 12px;
+  transition: all 0.2s ease;
+
+  &.active,
+  &:hover {
+    z-index: 1; // stay on top of `AddressBar` box-shadow
+  }
+
+  &.active {
+    background: #fff;
+  }
+
+  &:not(.active):hover {
+    background: rgba(#fff, 0.6);
+  }
+
+  .title {
+    flex: 0 1 auto;
+    max-width: 100px;
+    color: #1e1b52;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.25em;
+  }
+
+  .close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    color: $light-text-color;
+    background: transparent;
+    border: none;
+    transform: translateY(-50%);
+
+    &:hover {
+      color: #fff;
+      background: #e45b46;
+      border-radius: 50%;
+    }
+
+    .closeContent {
+      flex: 0 0 auto;
+      display: inline-flex;
+    }
+  }
+
+  .loading {
+    @include spin;
+    flex: 0 0 auto;
+    margin-right: 8px;
+  }
+}

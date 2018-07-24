@@ -9,7 +9,7 @@ import Select from 'shared/components/Forms/Select';
 import Panel from 'shared/components/Panel';
 
 import Saved from '../Saved';
-import { PREDEFINED_NETWORKS } from '../../values/networks';
+import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
 import styles from './NetworkPanel.scss';
 
 export default class NetworkPanel extends React.Component {
@@ -39,12 +39,7 @@ export default class NetworkPanel extends React.Component {
     const neoScanUrl = this.getCurrentNetworkUrl();
 
     return (
-      <Panel
-        className={styles.settingsPanel}
-        renderHeader={() => {
-          return 'Settings';
-        }}
-      >
+      <Panel className={styles.settingsPanel}>
         <div className={styles.content}>
 
           <div>
@@ -90,7 +85,7 @@ export default class NetworkPanel extends React.Component {
   handleClearNetworks = () => {
     // If user is on a custom network, switch to TestNet
     if (!PREDEFINED_NETWORKS.includes(this.props.currentNetwork)) {
-      this.props.setCurrentNetwork('TestNet');
+      this.props.setCurrentNetwork(DEFAULT_NET);
     }
 
     this.props.clearNetworks();

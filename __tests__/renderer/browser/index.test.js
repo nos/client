@@ -3,29 +3,35 @@ import { mount } from 'enzyme';
 import { merge } from 'lodash';
 
 import { provideStore, createStore } from 'testHelpers';
-import { Browser } from 'browser';
 
-import Session from 'browser/components/Session';
+import { Browser } from 'browser';
+import { EXTERNAL } from 'browser/values/browserValues';
+import DAppContainer from 'browser/components/DAppContainer';
 import Error from 'browser/components/Error';
-import Tab from 'browser/components/Tab';
 
 const initialState = {
   browser: {
     activeSessionId: 'tab-1',
     tabs: {
       'tab-1': {
+        type: EXTERNAL,
         target: 'nos://nos.neo',
         title: 'Welcome to nOS',
         addressBarEntry: true,
         loading: false,
-        requestCount: 1
+        requestCount: 1,
+        errorCode: null,
+        errorDescription: null
       },
       'tab-2': {
+        type: EXTERNAL,
         target: 'nos://nos.neo/splash.html',
         title: 'nOS Splash',
         addressBarEntry: true,
         loading: false,
-        requestCount: 1
+        requestCount: 1,
+        errorCode: null,
+        errorDescription: null
       }
     }
   }
@@ -36,35 +42,16 @@ const mountBrowser = (state = initialState) => {
   return mount(provideStore(<Browser />, store));
 };
 
-const openTab = (wrapper, index) => {
-  wrapper.find(Tab).at(index).prop('onClick')();
-  wrapper.update();
-};
-
 describe('<Browser />', () => {
   it('renders all tabs', () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(Session)).toHaveLength(2);
+    expect(wrapper.find(DAppContainer)).toHaveLength(2);
   });
 
   it("only marks the activeSessionId's dapp as active", () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(Session).at(0).hasClass('active')).toBe(true);
-    expect(wrapper.find(Session).at(1).hasClass('active')).toBe(false);
-  });
-
-  it('changes tabs', () => {
-    const wrapper = mountBrowser();
-    openTab(wrapper, 1);
-    expect(wrapper.find(Tab).at(0).prop('active')).toBe(false);
-    expect(wrapper.find(Tab).at(1).prop('active')).toBe(true);
-  });
-
-  it('does not remove the webview from the DOM when changing tabs', () => {
-    const wrapper = mountBrowser();
-    expect(wrapper.find('webview')).toHaveLength(2);
-    openTab(wrapper, 1);
-    expect(wrapper.find('webview')).toHaveLength(2);
+    expect(wrapper.find(DAppContainer).at(0).hasClass('active')).toBe(true);
+    expect(wrapper.find(DAppContainer).at(1).hasClass('active')).toBe(false);
   });
 
   describe('when a tab has an error', () => {
@@ -72,6 +59,7 @@ describe('<Browser />', () => {
       browser: {
         tabs: {
           'tab-3': {
+            type: EXTERNAL,
             target: 'protocol://error',
             title: 'nOS Error',
             addressBarEntry: true,

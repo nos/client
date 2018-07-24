@@ -1,3 +1,12 @@
 .account {
+  display: flex;
   padding: 24px;
+
+  .panel {
+    flex: 1 1 auto;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
 }
