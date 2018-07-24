@@ -11,13 +11,15 @@ import balanceShape from '../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
 
 export default function AccountPanel(props) {
+  const { className, address, balances, prices } = props;
+
   return (
-    <Panel className={classNames(styles.accountPanel, props.className)}>
+    <Panel className={classNames(styles.accountPanel, className)}>
       <div className={styles.summary}>
-        <Breakdown className={styles.breakdown} />
-        <AccountAddress className={styles.address} address={props.address} />
+        <Breakdown className={styles.breakdown} balances={balances} prices={prices} />
+        <AccountAddress className={styles.address} address={address} />
       </div>
-      <Holdings className={styles.holdings} balances={props.balances} prices={props.prices} />
+      <Holdings className={styles.holdings} balances={balances} prices={prices} />
     </Panel>
   );
 }

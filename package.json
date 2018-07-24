@@ -34,6 +34,7 @@
     "react-redux": "5.0.6",
     "react-router-dom": "4.3.0",
     "react-router-redux": "next",
+    "recharts": "1.1.0",
     "recompose": "0.27.1",
     "redux": "3.7.2",
     "redux-saga": "0.16.0",

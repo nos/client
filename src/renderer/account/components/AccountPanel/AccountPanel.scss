@@ -7,6 +7,7 @@
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    width: 0; // required for recharts `ResponsiveContainer` to resize when browser resizes
     padding: 32px 24px;
 
     .breakdown {
