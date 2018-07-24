@@ -52,7 +52,13 @@ export default class LoginFormWIF extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
+          <Button
+            className={styles.login}
+            type="submit"
+            disabled={disabled || !this.isValid()}
+          >
+            Login
+          </Button>
           <span className={styles.register}>
             New to NEO?{' '}
             <Link to="/register">Create an account</Link>

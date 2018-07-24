@@ -5,5 +5,6 @@ export default shape({
   name: string.isRequired,
   symbol: string.isRequired,
   balance: string.isRequired,
-  decimals: number.isRequired
+  decimals: number.isRequired,
+  image: string
 });

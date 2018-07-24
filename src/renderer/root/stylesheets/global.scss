@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,700');
+@import url('https://rsms.me/inter/inter-ui.css');
+// @import './fonts/inter-ui';
 
 * {
   box-sizing: border-box;
+  font-family: $primary-font-stack;
 }
 
 body {
