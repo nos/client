@@ -43,7 +43,7 @@
     "spunky": "1.2.1",
     "switch-tree": "0.2.2",
     "uuid": "3.3.2",
-    "what-input": "5.1.0"
+    "what-input": "5.1.1"
   },
   "scripts": {
     "start": "yarn build:main && run-p -l -n -r start:renderer start:electron",
