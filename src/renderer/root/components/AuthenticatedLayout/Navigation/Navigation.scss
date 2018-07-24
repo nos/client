@@ -1,4 +1,6 @@
 .navigation {
+  $link-color: $light-text-color;
+
   ul:not(:first-child) {
     border-top: $primary-border-style;
   }
@@ -8,31 +10,25 @@
     margin: 0;
     text-align: center;
 
-    color: transparentize($primary-text-color, 0.5);
-
     .link {
       display: block;
+      color: $link-color;
       text-decoration: none;
       cursor: default;
 
-      &,
-      &:link,
-      &:visited {
-        color: $primary-text-color;
-      }
-
-      &:focus,
-      &:hover {
-        color: lighten($primary-text-color, 20%);
-      }
-
-      &:active {
-        color: darken($primary-text-color, 20%);
-      }
-
       &.disabled {
-        cursor: not-allowed;
-        color: lighten($primary-text-color, 20%);
+        color: lighten($link-color, 20%);
+      }
+
+      &:not(.disabled):focus,
+      &:not(.disabled):hover {
+        color: lighten($link-color, 20%);
+        stroke: currentColor;
+      }
+
+      &:not(.disabled):active {
+        color: darken($link-color, 20%);
+        stroke: currentColor;
       }
 
       svg {

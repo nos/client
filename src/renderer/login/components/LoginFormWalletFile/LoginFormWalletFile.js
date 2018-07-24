@@ -62,6 +62,7 @@ export default class LoginFormWalletFile extends React.Component {
 
     return (
       <Select
+        id="account"
         className={styles.accounts}
         value={encryptedWIF}
         onChange={this.handleSelect}
