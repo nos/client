@@ -2,6 +2,7 @@ import { EXTERNAL } from '../values/browserValues';
 
 export const OPEN_TAB = 'OPEN_TAB';
 export const CLOSE_TAB = 'CLOSE_TAB';
+export const RESET_TABS = 'RESET_TABS';
 export const SET_ACTIVE_TAB = 'SET_ACTIVE_TAB';
 export const SET_TAB_ERROR = 'SET_TAB_ERROR';
 export const SET_TAB_TARGET = 'SET_TAB_TARGET';
@@ -18,6 +19,10 @@ export const openTab = ({ type = EXTERNAL, target = DEFAULT_TARGET } = {}) => ({
 export const closeTab = (sessionId) => ({
   type: CLOSE_TAB,
   payload: { sessionId }
+});
+
+export const resetTabs = () => ({
+  type: RESET_TABS
 });
 
 export const setActiveTab = (sessionId) => ({
