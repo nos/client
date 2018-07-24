@@ -14,7 +14,7 @@ import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';
 import balanceShape from '../../shapes/balanceShape';
 
-export default class AccountTxPanel extends React.Component {
+export default class SendPanel extends React.Component {
   static propTypes = {
     className: string,
     loading: bool.isRequired,
