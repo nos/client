@@ -6,6 +6,7 @@ import { INTERNAL, EXTERNAL } from '../values/browserValues';
 import {
   OPEN_TAB,
   CLOSE_TAB,
+  RESET_TABS,
   SET_ACTIVE_TAB,
   SET_TAB_ERROR,
   SET_TAB_TITLE,
@@ -168,12 +169,14 @@ function setLoaded(state, action) {
   return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
-export default function browserReducer(state = generateInitialState(), action) {
+export default function browserReducer(state = generateInitialState(), action = {}) {
   switch (action.type) {
     case OPEN_TAB:
       return open(state, action.payload);
     case CLOSE_TAB:
       return close(state, action.payload);
+    case RESET_TABS:
+      return generateInitialState();
     case SET_ACTIVE_TAB:
       return focus(state, action.payload);
     case SET_TAB_ERROR:
