@@ -1,5 +1,6 @@
 .accountPanel {
   $width: 270px;
+  $border-width: 1px;
 
   display: flex;
 
@@ -8,23 +9,37 @@
     display: flex;
     flex-direction: column;
     width: 0; // required for recharts `ResponsiveContainer` to resize when browser resizes
-    padding: 32px 24px;
 
     .breakdown {
       flex: 1 1 auto;
+      min-height: 300px;
     }
 
     .address {
       flex: 0 0 auto;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
   }
 
   .holdings {
     flex: 0 1 auto;
-    $border-width: 1px;
-
+    padding: 20px 20px 40px;
     min-width: $width - $border-width;
     border-left: $border-width solid #edeef4;
+  }
+
+  @media only screen and (max-width: $responsive-width) {
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    .summary {
+      flex-basis: 100%;
+    }
+
+    .holdings {
+      flex-basis: 100%;
+      border: 0;
+      border-top: $border-width solid #edeef4;
+    }
   }
 }
