@@ -145,8 +145,10 @@ export default class DAppContainer extends React.Component {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
-  handleNavigateFailed = ({ errorCode, errorDescription }) => {
-    this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+  handleNavigateFailed = ({ errorCode, errorDescription, isMainFrame }) => {
+    if (isMainFrame) {
+      this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+    }
   }
 
   handleNewWindow = (event) => {
