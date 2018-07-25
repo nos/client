@@ -1,19 +1,19 @@
 .buttonBar {
-  align-self: stretch;
-  padding: 0 0.5rem;
   display: flex;
+  align-self: stretch;
   justify-content: center;
+  padding: 0 0.5rem;
 
   button {
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 1rem;
-    border: none;
+    justify-content: center;
     padding: 0;
-    background-color: transparent;
     margin: 0.5rem;
+    font-size: 1rem;
     color: $primary-text-color;
+    background-color: transparent;
+    border: 0;
 
     &:hover {
       color: lighten($primary-text-color, 20%);

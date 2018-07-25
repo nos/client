@@ -17,23 +17,23 @@
   }
 
   .detail {
+    align-items: stretch;
     flex: 1 1 auto;
     flex-direction: column;
-    align-items: stretch;
 
     .balance {
-      color: #000;
-      line-height: 21px;
       font-size: 14px;
       font-weight: 500;
+      line-height: 21px;
+      color: #000;
     }
 
     .currency {
       display: flex;
       justify-content: space-between;
-      color: #8887a5;
-      line-height: 21px;
       font-size: 12px;
+      line-height: 21px;
+      color: #8887a5;
     }
   }
 }

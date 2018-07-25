@@ -6,13 +6,13 @@
 
 .saveButtons {
   display: flex;
-  align-items: center;
   align-content: stretch;
+  align-items: center;
   flex-wrap: nowrap;
   padding-bottom: 16px;
 
   .button {
-  flex: 1;
+    flex: 1;
 
     &:first-child {
       margin-right: 8px;

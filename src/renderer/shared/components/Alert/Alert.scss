@@ -1,40 +1,40 @@
 .alert {
   display: flex;
-  justify-content: space-between;
   align-items: stretch;
+  justify-content: space-between;
   width: 900px;
 
   .media {
-    flex: 0 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex: 0 0 auto;
+    flex-direction: column;
     justify-content: center;
     width: 300px;
-    padding: 40px 0px;
+    padding: 40px 0;
   }
 
   .content {
-    flex: 1 1 auto;
     display: flex;
-    flex-direction: column;
     align-items: stretch;
+    flex: 1 1 auto;
+    flex-direction: column;
     justify-content: center;
     padding: 60px 70px;
     font-weight: 300;
-    background-image: url(../../images/modal-gradient-vertical.png);
-    background-size: auto 100%;
+    background-image: url("../../images/modal-gradient-vertical.png");
     background-position: center left;
     background-repeat: no-repeat;
+    background-size: auto 100%;
 
     .title {
       flex: 0 0 auto;
       margin: 0 0 1.5rem;
-      color: #047bf8;
-      line-height: 1.2;
-      text-align: center;
       font-size: 1.5rem;
       font-weight: 500;
+      line-height: 1.2;
+      color: #047bf8;
+      text-align: center;
     }
 
     .body {

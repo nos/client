@@ -1,0 +1,19 @@
+linters:
+  ColorVariable:
+    enabled: false
+  LeadingZero:
+    style: include_zero
+  NestingDepth:
+    ignore_parent_selectors: true
+    max_depth: 4
+  PropertySortOrder:
+    order: recess
+  SelectorDepth:
+    max_depth: 4
+  SelectorFormat:
+    convention: camel_case
+  StringQuotes:
+    enabled: true
+    style: double_quotes
+exclude:
+  - "node_modules/**"

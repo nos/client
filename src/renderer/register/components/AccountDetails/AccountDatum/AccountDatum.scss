@@ -1,18 +1,18 @@
 .accountDatum {
   .label {
     margin: 0 0 4px;
-    color: #334152;
-    line-height: 1.2;
     font-size: 14.4px;
     font-weight: 600;
-    text-transform: uppercase;
+    line-height: 1.2;
     letter-spacing: 1px;
+    color: #334152;
+    text-transform: uppercase;
   }
 
   .value {
     margin: 0 0 16px;
-    color: rgba(0, 0, 0, 0.5);
     font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
   }
 
   .copy {

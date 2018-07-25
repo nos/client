@@ -10,10 +10,9 @@
 
 .modal {
   position: relative;
-  margin: 1.75rem auto;
   margin: 0.5rem;
-  border-radius: 6px;
-  background-color: $modal-background-color;
   background-clip: padding-box;
+  background-color: $modal-background-color;
+  border-radius: 6px;
   box-shadow: $modal-shadow;
 }
