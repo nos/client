@@ -79,6 +79,7 @@ export default class SendPanel extends React.Component {
             onChange={this.handleChangeRecipient}
           />
           <Button
+            className={styles.next}
             type="submit"
             disabled={loading || !this.isValid()}
             onClick={this.handleTransfer}
