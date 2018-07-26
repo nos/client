@@ -19,23 +19,23 @@
 }
 
 .addressBar {
+  z-index: 0;
   display: flex;
   align-items: center;
   height: 42px;
   background: #fff;
   box-shadow: 0 2px 6px rgba(30, 27, 82, 0.12);
-  z-index: 0;
 
   input {
     flex: 1 1 auto;
     padding: 6px;
     margin: 0 8px;
-    border: 1px solid #E3E4EA;
-    border-radius: 4px;
-    background: #f7f8fa;
-    color: $primary-text-color;
     font-family: $primary-font-stack;
     font-size: 12px;
+    color: $primary-text-color;
+    background: #f7f8fa;
+    border: 1px solid #e3e4ea;
+    border-radius: 4px;
 
     &:disabled {
       color: lighten($primary-text-color, 50%);
@@ -43,9 +43,9 @@
   }
 
   .buttonGroup {
-    flex: 0 0 auto;
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
     padding: 0 0.5rem;
 
     .button {

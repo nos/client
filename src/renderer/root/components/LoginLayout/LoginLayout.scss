@@ -1,13 +1,13 @@
 .loginLayout {
-  -webkit-app-region: drag;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   padding: 20px;
-  background-size: contain;
-  background: url(../../../shared/images/auth-background.png),
-  linear-gradient(to bottom right, #d7bbea, #65a8f1) repeat 0 0;
   overflow: auto;
+  background: url("../../../shared/images/auth-background.png"),
+              linear-gradient(to bottom right, #d7bbea, #65a8f1) repeat 0 0;
+  background-size: contain;
+  -webkit-app-region: drag;
 }

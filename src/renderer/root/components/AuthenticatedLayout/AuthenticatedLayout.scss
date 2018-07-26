@@ -15,8 +15,8 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
 
   header {
     display: flex;
-    justify-content: stretch;
     align-items: stretch;
+    justify-content: stretch;
 
     .sidebar {
       @include sidebar;
@@ -35,19 +35,20 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
 
   main {
     display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
 
     .sidebar {
       @include sidebar;
+      flex: 0 0 auto;
 
       .logo {
-        flex: 0 0 auto;
         display: block;
+        flex: 0 0 auto;
         width: 36px;
         height: 36px;
-        margin: -12px 0 12px;
         padding: 3px 16px;
-        height: 36px;
-        width: 36px;
+        margin: -12px 0 12px;
         box-sizing: content-box;
       }
 
@@ -56,21 +57,10 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         flex: 0 0 auto;
       }
     }
-  }
-
-  main {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: row;
-
-    .sidebar {
-      @include sidebar;
-      flex: 0 0 auto;
-    }
 
     .container {
-      flex: 1 1 auto;
       display: flex;
+      flex: 1 1 auto;
       flex-direction: column;
 
       .addressBar {
@@ -78,20 +68,19 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
       }
 
       .content {
-        flex: 1 1 auto;
-        box-sizing: border-box;
+        flex: 1 1 100%;
         overflow-y: auto;
-        flex: 1;
+        box-sizing: border-box;
       }
 
       .footer {
         flex: 0 0 auto;
-        background-color: darken($content-bg-color, 5%);
-        opacity: 0.5;
         padding: 0.2rem;
         font-size: 0.8rem;
         font-weight: 300;
+        background-color: darken($content-bg-color, 5%);
         border-top: $primary-border-style;
+        opacity: 0.5;
       }
     }
   }

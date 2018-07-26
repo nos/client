@@ -12,34 +12,35 @@
 
   .selectNetworkWrapper {
     display: flex;
-    flex-direction: row;
     align-items: baseline;
+    flex-direction: row;
   }
 
   .selectNetwork {
-    width: 100%;
     flex-grow: 0;
+    width: 100%;
   }
 
   .savedProp {
-    white-space: nowrap;
     margin-left: 10px;
+    white-space: nowrap;
   }
 
   .buttonWrapper {
     display: flex;
-    flex-direction: row;
     align-items: baseline;
+    flex-direction: row;
   }
 
   .addButton {
-    margin-right: 2px;
     flex-grow: 1;
+    margin-right: 2px;
   }
 
   .clearButton {
-    margin-left: 2px;
     flex-grow: 1;
+    margin-left: 2px;
+
     &:hover {
       background-color: #e65252;
       border-color: #e65252;

@@ -1,14 +1,14 @@
 .tab {
+  position: relative;
   display: flex;
+  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;
   justify-content: center;
-  position: relative;
   min-width: 0;
   padding: 8px 14px;
-  background: rgba(#fff, 0.4);
   font-size: 12px;
+  background: rgba(#fff, 0.4);
   transition: all 0.2s ease;
 
   &.active,
@@ -27,25 +27,25 @@
   .title {
     flex: 0 1 auto;
     max-width: 100px;
-    color: #1e1b52;
     overflow: hidden;
+    line-height: 1.25em;
+    color: #1e1b52;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 1.25em;
   }
 
   .close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     top: 50%;
     right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 15px;
     height: 15px;
     color: $light-text-color;
     background: transparent;
-    border: none;
+    border: 0;
     transform: translateY(-50%);
 
     &:hover {
@@ -55,8 +55,8 @@
     }
 
     .closeContent {
-      flex: 0 0 auto;
       display: inline-flex;
+      flex: 0 0 auto;
     }
   }
 

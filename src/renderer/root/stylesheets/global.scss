@@ -1,22 +1,20 @@
+// scss-lint:disable IdSelector, SelectorFormat
+
 @import url('https://rsms.me/inter/inter-ui.css');
-// @import './fonts/inter-ui';
 
 * {
-  box-sizing: border-box;
   font-family: $primary-font-stack;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
   padding: 0;
-  background: $content-bg-color;
+  margin: 0;
+  font-family: $primary-font-stack;
+  font-size: 16px;
+  font-weight: 400;
   color: #58585a;
-
-  font: {
-    family: $primary-font-stack;
-    size: 16px;
-    weight: 400;
-  }
+  background: $content-bg-color;
 }
 
 body,
@@ -25,13 +23,13 @@ body,
 }
 
 ul {
-  list-style: none;
   padding-left: 0;
+  list-style: none;
 }
 
 a {
-  text-decoration: underline;
   color: #4b72fa;
+  text-decoration: underline;
 }
 
 [data-whatintent="mouse"] :focus {

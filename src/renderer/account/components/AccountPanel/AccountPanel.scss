@@ -5,8 +5,8 @@
   display: flex;
 
   .summary {
-    flex: 1 1 auto;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     width: 0; // required for recharts `ResponsiveContainer` to resize when browser resizes
 
@@ -23,8 +23,8 @@
 
   .holdings {
     flex: 0 1 auto;
-    padding: 20px 20px 40px;
     min-width: $width - $border-width;
+    padding: 20px 20px 40px;
     border-left: $border-width solid #edeef4;
   }
 
