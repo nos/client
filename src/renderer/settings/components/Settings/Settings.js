@@ -1,12 +1,14 @@
 import React from 'react';
 
+import Page from 'shared/components/Page';
+
 import NetworkPanel from '../NetworkPanel';
 import styles from './Settings.scss';
 
 export default function Settings() {
   return (
-    <div className={styles.settings}>
+    <Page className={styles.settings}>
       <NetworkPanel />
-    </div>
+    </Page>
   );
 }
