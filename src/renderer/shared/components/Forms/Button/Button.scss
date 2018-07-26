@@ -13,6 +13,7 @@
   box-shadow: 0 2px 10px rgba(#353445, 0.15),
               0 3px 6px rgba(#8bc83c, 0.3);
   cursor: pointer;
+  -webkit-font-smoothing: antialiased;
 
   &:focus {
     // box-shadow: 0 0 0 0.2rem rgba(#047bf8, 0.5);
