@@ -23,6 +23,7 @@
     line-height: 17px;
     font-size: 14px;
     font-weight: 500;
+    -webkit-font-smoothing: antialiased;
 
     &::placeholder {
       color: $light-text-color;
