@@ -8,7 +8,6 @@ import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
 import NetworkIcon from 'shared/images/settings/network.svg';
 
-import Saved from '../Saved';
 import SectionTitle from '../SectionTitle';
 import SectionContent from '../SectionContent';
 import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
@@ -29,8 +28,6 @@ export default class NetworkSettings extends React.Component {
     confirm: func.isRequired
   };
 
-  state = { saved: false };
-
   componentWillUnmount() {
     if (this.saveTimeout) {
       clearTimeout(this.saveTimeout);
@@ -47,31 +44,25 @@ export default class NetworkSettings extends React.Component {
         </SectionTitle>
 
         <SectionContent>
-          {/* eslint-disable-next-line jsx-a11y/label-has-for */}
-          <label className={styles.inputContainer} htmlFor="network">
-            <div className={styles.label}>Current Network</div>
-            <Select
-              className={styles.input}
-              name="network"
-              id="network"
-              value={this.props.currentNetwork}
-              onChange={this.handleChangeSelectedNetwork}
-            >
-              {map(settings.networks, this.renderNetworkOption)}
-            </Select>
-            {this.state.saved && <Saved className={styles.saved} />}
-          </label>
+          <Select
+            className={styles.input}
+            labelClass={styles.label}
+            id="network"
+            label="Current Network"
+            value={this.props.currentNetwork}
+            onChange={this.handleChangeSelectedNetwork}
+          >
+            {map(settings.networks, this.renderNetworkOption)}
+          </Select>
 
-          {/* eslint-disable-next-line jsx-a11y/label-has-for */}
-          <label className={styles.inputContainer} htmlFor="neoscan">
-            <div className={styles.label}>Neoscan URL</div>
-            <Input
-              className={styles.input}
-              id="neoscan"
-              value={neoscanAddress}
-              readOnly
-            />
-          </label>
+          <Input
+            className={styles.input}
+            labelClass={styles.label}
+            id="neoscan"
+            label="Neoscan URL"
+            value={neoscanAddress}
+            readOnly
+          />
 
           <div className={styles.actions}>
             <Button className={styles.action} onClick={this.handleAddNewNetwork}>
@@ -160,20 +151,11 @@ export default class NetworkSettings extends React.Component {
   };
 
   handleChangeSelectedNetwork = (event) => {
-    this.saveNetwork(event.target.value);
+    this.props.setCurrentNetwork(event.target.value);
   };
 
   getCurrentNetworkUrl = () => {
     const currentNetworkConfig = settings.networks[this.props.currentNetwork];
     return currentNetworkConfig && currentNetworkConfig.extra.neoscan;
-  };
-
-  saveNetwork = (network) => {
-    this.setState({ saved: true }, () => {
-      this.props.setCurrentNetwork(network);
-      this.saveTimeout = setTimeout(() => {
-        this.setState({ saved: false });
-      }, 1250);
-    });
   };
 }

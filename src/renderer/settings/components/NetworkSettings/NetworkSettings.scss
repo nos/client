@@ -1,21 +1,10 @@
 .networkSettings {
-  .inputContainer {
+  .input {
     display: flex;
     align-items: center;
-    margin: 0 0 16px;
 
     .label {
       flex: 0 1 230px;
-    }
-
-    .input {
-      flex: 1 1 auto;
-      margin: 0;
-    }
-
-    .saved {
-      flex: 0 0 auto;
-      margin-left: 10px;
     }
   }
 
