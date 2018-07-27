@@ -14,7 +14,8 @@ export default class TokenBalance extends React.Component {
   static propTypes = {
     className: string,
     token: balanceShape.isRequired,
-    price: number.isRequired
+    price: number.isRequired,
+    currency: string.isRequired
   };
 
   static defaultProps = {
@@ -22,7 +23,7 @@ export default class TokenBalance extends React.Component {
   };
 
   render = () => {
-    const { className, token, price } = this.props;
+    const { className, token, price, currency } = this.props;
 
     return (
       <div className={classNames(styles.tokenBalance, className)}>
@@ -30,8 +31,12 @@ export default class TokenBalance extends React.Component {
         <div className={styles.detail}>
           <div className={styles.balance}>{token.balance} {token.symbol}</div>
           <div className={styles.currency}>
-            <span className={styles.tokenValue}>{formatCurrency(price, 'usd')}</span>
-            <span className={styles.totalValue}>{formatCurrency(price * token.balance, 'usd')}</span>
+            <span className={styles.tokenValue}>
+              {formatCurrency(price, currency)}
+            </span>
+            <span className={styles.totalValue}>
+              {formatCurrency(price * token.balance, currency)}
+            </span>
           </div>
         </div>
       </div>

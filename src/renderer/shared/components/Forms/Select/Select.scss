@@ -10,6 +10,7 @@
     color: $primary-text-color;
     font-size: 14px;
     font-weight: 500;
+    -webkit-font-smoothing: antialiased;
   }
 
   select {
