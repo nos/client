@@ -11,7 +11,7 @@ import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
-export default class AuthenticatedLayout extends React.Component {
+export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,

@@ -7,7 +7,7 @@ import Icon from 'shared/components/Icon';
 
 import styles from './ButtonBar.scss';
 
-export default class ButtonBar extends React.Component {
+export default class ButtonBar extends React.PureComponent {
   static propTypes = {
     className: string
   };

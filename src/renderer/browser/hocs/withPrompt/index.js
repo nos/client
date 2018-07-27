@@ -8,7 +8,7 @@ import styles from './styles.scss';
 
 export default function withPrompt(message) {
   return (Component) => {
-    class PromptComponent extends React.Component {
+    class PromptComponent extends React.PureComponent {
       static propTypes = {
         confirm: func.isRequired,
         src: string.isRequired,

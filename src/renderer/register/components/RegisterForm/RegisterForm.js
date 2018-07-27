@@ -8,7 +8,7 @@ import Button from 'shared/components/Forms/Button';
 
 import styles from './RegisterForm.scss';
 
-export default class RegisterForm extends React.Component {
+export default class RegisterForm extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,

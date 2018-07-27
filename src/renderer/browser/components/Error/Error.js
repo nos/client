@@ -3,7 +3,7 @@ import { string, number } from 'prop-types';
 
 import styles from './Error.scss';
 
-export default class Error extends React.Component {
+export default class Error extends React.PureComponent {
   static propTypes = {
     target: string.isRequired,
     code: number.isRequired,

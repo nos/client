@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 
 import styles from './Input.scss';
 
-export default class Input extends React.Component {
+export default class Input extends React.PureComponent {
   static propTypes = {
     className: string,
     id: string.isRequired,

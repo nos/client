@@ -7,7 +7,7 @@ import { INTERNAL, EXTERNAL } from 'browser/values/browserValues';
 
 import styles from './TabLink.scss';
 
-export default class TabLink extends React.Component {
+export default class TabLink extends React.PureComponent {
   static propTypes = {
     className: string,
     type: oneOf([INTERNAL, EXTERNAL]),

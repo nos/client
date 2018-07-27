@@ -10,7 +10,7 @@ import balanceShape from '../../../shapes/balanceShape';
 import formatCurrency from '../../../util/formatCurrency';
 import styles from './TokenBalance.scss';
 
-export default class TokenBalance extends React.Component {
+export default class TokenBalance extends React.PureComponent {
   static propTypes = {
     className: string,
     token: balanceShape.isRequired,
