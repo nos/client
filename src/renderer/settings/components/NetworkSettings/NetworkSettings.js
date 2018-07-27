@@ -6,13 +6,12 @@ import { noop, map } from 'lodash';
 import Input from 'shared/components/Forms/Input';
 import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
-import Panel from 'shared/components/Panel';
 
 import Saved from '../Saved';
 import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
-import styles from './NetworkPanel.scss';
+import styles from './NetworkSettings.scss';
 
-export default class NetworkPanel extends React.Component {
+export default class NetworkSettings extends React.Component {
   static propTypes = {
     currentNetwork: string.isRequired,
     setCurrentNetwork: func.isRequired,
@@ -39,7 +38,7 @@ export default class NetworkPanel extends React.Component {
     const neoScanUrl = this.getCurrentNetworkUrl();
 
     return (
-      <Panel className={styles.settingsPanel}>
+      <div className={styles.networkSettings}>
         <div className={styles.content}>
 
           <div>
@@ -70,7 +69,7 @@ export default class NetworkPanel extends React.Component {
           </div>
 
         </div>
-      </Panel>
+      </div>
     );
   }
 
