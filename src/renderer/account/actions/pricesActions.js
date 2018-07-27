@@ -24,4 +24,4 @@ async function getPrices(currency) {
 
 export const ID = 'prices';
 
-export default createActions(ID, ({ currency = 'usd' }) => () => getPrices(currency));
+export default createActions(ID, ({ currency }) => () => getPrices(currency));

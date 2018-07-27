@@ -10,7 +10,8 @@ export default class Holdings extends React.Component {
   static propTypes = {
     className: string,
     balances: arrayOf(balanceShape).isRequired,
-    prices: objectOf(number).isRequired
+    prices: objectOf(number).isRequired,
+    currency: string.isRequired
   };
 
   static defaultProps = {
@@ -27,10 +28,15 @@ export default class Holdings extends React.Component {
   }
 
   renderBalances = () => {
-    const { balances, prices } = this.props;
+    const { balances, prices, currency } = this.props;
 
     return balances.map((token) => (
-      <TokenBalance key={token.symbol} token={token} price={prices[token.symbol] || 0} />
+      <TokenBalance
+        key={token.symbol}
+        token={token}
+        price={prices[token.symbol] || 0}
+        currency={currency}
+      />
     ));
   }
 }
