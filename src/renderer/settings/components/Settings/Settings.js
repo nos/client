@@ -9,7 +9,7 @@ import styles from './Settings.scss';
 export default function Settings() {
   return (
     <Page className={styles.settings}>
-      <Panel>
+      <Panel className={styles.panel}>
         <NetworkSettings />
       </Panel>
     </Page>

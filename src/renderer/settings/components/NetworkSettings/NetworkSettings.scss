@@ -1,48 +1,35 @@
 .networkSettings {
-  .formatUrl {
-    margin-top: -15px;
-    margin-bottom: 8px;
-    font-size: 12px;
-    font-weight: bold;
+  .inputContainer {
+    display: flex;
+    align-items: center;
+    margin: 0 0 16px;
+
+    .label {
+      flex: 0 1 230px;
+    }
+
+    .input {
+      flex: 1 1 auto;
+      margin: 0;
+    }
+
+    .saved {
+      flex: 0 0 auto;
+      margin-left: 10px;
+    }
   }
 
-  .content {
-    padding: 32px 24px;
-  }
-
-  .selectNetworkWrapper {
+  .actions {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-  }
 
-  .selectNetwork {
-    width: 100%;
-    flex-grow: 0;
-  }
+    .action {
+      flex-grow: 1;
+      margin-right: 2px;
 
-  .savedProp {
-    white-space: nowrap;
-    margin-left: 10px;
-  }
-
-  .buttonWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-  }
-
-  .addButton {
-    margin-right: 2px;
-    flex-grow: 1;
-  }
-
-  .clearButton {
-    margin-left: 2px;
-    flex-grow: 1;
-    &:hover {
-      background-color: #e65252;
-      border-color: #e65252;
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
     }
   }
 }

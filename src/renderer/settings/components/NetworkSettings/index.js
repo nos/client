@@ -34,8 +34,7 @@ const mapClearNetworksActionsToProps = (actions) => ({
   clearNetworks: actions.call
 });
 
-export default
-compose(
+export default compose(
   // Pass in props and actions around displaying/changing network
   withActions(setCurrentNetwork, mapCurrentNetworkActionsToProps),
   withActions(setNetworks, mapNetworksActionsToProps),

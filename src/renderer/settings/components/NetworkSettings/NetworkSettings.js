@@ -6,8 +6,11 @@ import { noop, map } from 'lodash';
 import Input from 'shared/components/Forms/Input';
 import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
+import NetworkIcon from 'shared/images/settings/network.svg';
 
 import Saved from '../Saved';
+import SectionTitle from '../SectionTitle';
+import SectionContent from '../SectionContent';
 import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
 import styles from './NetworkSettings.scss';
 
@@ -35,40 +38,51 @@ export default class NetworkSettings extends React.Component {
   }
 
   render() {
-    const neoScanUrl = this.getCurrentNetworkUrl();
+    const neoscanAddress = this.getCurrentNetworkUrl();
 
     return (
       <div className={styles.networkSettings}>
-        <div className={styles.content}>
+        <SectionTitle renderIcon={NetworkIcon}>
+          Network Settings
+        </SectionTitle>
 
-          <div>
-            <h2>Selected Network</h2>
-            <div className={styles.formatUrl}>{neoScanUrl}</div>
-            <div className={styles.selectNetworkWrapper}>
-              <Select
-                className={styles.selectNetwork}
-                name="network"
-                id="network"
-                value={this.props.currentNetwork}
-                onChange={this.handleChangeSelectedNetwork}
-              >
-                {map(settings.networks, this.renderNetworkOption)}
-              </Select>
-              {this.state.saved && <Saved className={styles.savedProp} />}
-            </div>
-          </div>
+        <SectionContent>
+          {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+          <label className={styles.inputContainer} htmlFor="network">
+            <div className={styles.label}>Current Network</div>
+            <Select
+              className={styles.input}
+              name="network"
+              id="network"
+              value={this.props.currentNetwork}
+              onChange={this.handleChangeSelectedNetwork}
+            >
+              {map(settings.networks, this.renderNetworkOption)}
+            </Select>
+            {this.state.saved && <Saved className={styles.saved} />}
+          </label>
 
-          <div className={styles.buttonWrapper}>
-            <Button onClick={this.handleAddNewNetwork} className={styles.addButton}>
-              Add custom network configuration
+          {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+          <label className={styles.inputContainer} htmlFor="neoscan">
+            <div className={styles.label}>Neoscan URL</div>
+            <Input
+              className={styles.input}
+              id="neoscan"
+              value={neoscanAddress}
+              readOnly
+            />
+          </label>
+
+          <div className={styles.actions}>
+            <Button className={styles.action} onClick={this.handleAddNewNetwork}>
+              Add Custom Network
             </Button>
             <br />
-            <Button onClick={this.handleClearNetworks} className={styles.clearButton}>
-              Clear custom network configurations
+            <Button className={styles.action} onClick={this.handleClearNetworks}>
+              Clear Custom Networks
             </Button>
           </div>
-
-        </div>
+        </SectionContent>
       </div>
     );
   }
@@ -146,7 +160,7 @@ export default class NetworkSettings extends React.Component {
   };
 
   handleChangeSelectedNetwork = (event) => {
-    return this.saveNetwork(event.target.value);
+    this.saveNetwork(event.target.value);
   };
 
   getCurrentNetworkUrl = () => {
@@ -155,10 +169,11 @@ export default class NetworkSettings extends React.Component {
   };
 
   saveNetwork = (network) => {
-    this.setState({ saved: true });
-    this.props.setCurrentNetwork(network);
-    this.saveTimeout = setTimeout(() => {
-      this.setState({ saved: false });
-    }, 1250);
+    this.setState({ saved: true }, () => {
+      this.props.setCurrentNetwork(network);
+      this.saveTimeout = setTimeout(() => {
+        this.setState({ saved: false });
+      }, 1250);
+    });
   };
 }
