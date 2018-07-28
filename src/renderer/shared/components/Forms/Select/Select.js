@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 
 import styles from './Select.scss';
 
-export default class Select extends React.Component {
+export default class Select extends React.PureComponent {
   static propTypes = {
     className: string,
     id: string.isRequired,

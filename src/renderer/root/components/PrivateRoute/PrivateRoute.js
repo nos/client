@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { bool, func } from 'prop-types';
 import { omit } from 'lodash';
 
-export default class PrivateRoute extends React.Component {
+export default class PrivateRoute extends React.PureComponent {
   static propTypes = {
     authenticated: bool,
     component: func.isRequired

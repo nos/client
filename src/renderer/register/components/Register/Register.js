@@ -16,7 +16,7 @@ const TABS = {
   [TAB_CREATE]: 'Create Account'
 };
 
-export default class Register extends React.Component {
+export default class Register extends React.PureComponent {
   static propTypes = {
     loading: bool,
     account: accountShape,

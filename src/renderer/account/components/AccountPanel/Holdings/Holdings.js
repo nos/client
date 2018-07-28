@@ -6,7 +6,7 @@ import TokenBalance from '../TokenBalance';
 import balanceShape from '../../../shapes/balanceShape';
 import styles from './Holdings.scss';
 
-export default class Holdings extends React.Component {
+export default class Holdings extends React.PureComponent {
   static propTypes = {
     className: string,
     balances: arrayOf(balanceShape).isRequired,
