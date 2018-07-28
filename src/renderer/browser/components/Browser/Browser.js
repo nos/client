@@ -10,7 +10,7 @@ import DAppContainer from '../DAppContainer';
 import tabShape from '../../shapes/tabShape';
 import styles from './Browser.scss';
 
-export default class Browser extends React.Component {
+export default class Browser extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired

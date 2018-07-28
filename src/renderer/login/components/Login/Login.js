@@ -23,7 +23,7 @@ const TABS = {
   [TAB_FILE]: 'Wallet File'
 };
 
-export default class Login extends React.Component {
+export default class Login extends React.PureComponent {
   static propTypes = {
     loading: bool,
     login: func.isRequired

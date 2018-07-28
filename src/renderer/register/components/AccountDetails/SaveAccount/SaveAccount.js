@@ -18,7 +18,7 @@ const FILE_FILTERS = [
   { name: 'NEP6 Wallet File', extensions: ['json'] }
 ];
 
-export default class SaveAccount extends React.Component {
+export default class SaveAccount extends React.PureComponent {
   static propTypes = {
     account: accountShape.isRequired,
     label: string,

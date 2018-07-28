@@ -10,7 +10,7 @@ import SectionTitle from '../SectionTitle';
 import SectionContent from '../SectionContent';
 import styles from './GeneralSettings.scss';
 
-export default class GeneralSettings extends React.Component {
+export default class GeneralSettings extends React.PureComponent {
   static propTypes = {
     currency: string.isRequired,
     setCurrency: func.isRequired

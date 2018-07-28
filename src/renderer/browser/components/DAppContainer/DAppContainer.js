@@ -10,7 +10,7 @@ import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
 import styles from './DAppContainer.scss';
 
-export default class DAppContainer extends React.Component {
+export default class DAppContainer extends React.PureComponent {
   static propTypes = {
     className: string,
     sessionId: string.isRequired,

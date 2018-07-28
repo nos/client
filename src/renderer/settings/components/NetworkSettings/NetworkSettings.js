@@ -13,7 +13,7 @@ import SectionContent from '../SectionContent';
 import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
 import styles from './NetworkSettings.scss';
 
-export default class NetworkSettings extends React.Component {
+export default class NetworkSettings extends React.PureComponent {
   static propTypes = {
     currentNetwork: string.isRequired,
     setCurrentNetwork: func.isRequired,
