@@ -15,7 +15,7 @@
     "@fortawesome/free-regular-svg-icons": "5.2.0",
     "@fortawesome/free-solid-svg-icons": "5.2.0",
     "@fortawesome/react-fontawesome": "0.1.0",
-    "@ledgerhq/hw-transport-node-hid": "4.16.0",
+    "@ledgerhq/hw-transport-node-hid": "4.18.0",
     "bignumber.js": "7.2.1",
     "classnames": "2.2.6",
     "electron-is-dev": "0.3.0",
