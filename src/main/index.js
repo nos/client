@@ -6,6 +6,7 @@ import url from 'url';
 import getStaticPath from './util/getStaticPath';
 import bindMenus from './util/bindMenus';
 import injectHeaders from './util/injectHeaders';
+import installExtensions from './util/installExtensions';
 import registerNosProtocol from './util/registerNosProtocol';
 
 // This wouldn't be necessary if we could call `electron-webpack` directly.  But since we have to
@@ -16,18 +17,6 @@ if (isDev) {
 }
 
 protocol.registerStandardSchemes(['nos']);
-
-function installExtensions() {
-  const {
-    default: installer,
-    REACT_DEVELOPER_TOOLS,
-    REDUX_DEVTOOLS
-  } = require('electron-devtools-installer'); // eslint-disable-line global-require
-
-  const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
-
-  return Promise.all(extensions.map((extension) => installer(extension)));
-}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
