@@ -1,12 +1,19 @@
 import React from 'react';
 
-import NetworkPanel from '../NetworkPanel';
+import Page from 'shared/components/Page';
+import Panel from 'shared/components/Panel';
+
+import GeneralSettings from '../GeneralSettings';
+import NetworkSettings from '../NetworkSettings';
 import styles from './Settings.scss';
 
 export default function Settings() {
   return (
-    <div className={styles.settings}>
-      <NetworkPanel />
-    </div>
+    <Page className={styles.settings}>
+      <Panel className={styles.panel}>
+        <GeneralSettings />
+        <NetworkSettings />
+      </Panel>
+    </Page>
   );
 }

@@ -5,9 +5,11 @@ import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelp
 
 import { Account } from 'account';
 import { NEO, GAS } from 'shared/values/assets';
+import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 
 const initialState = {
   [spunkyKey]: {
+    currency: mockSpunkyLoaded(DEFAULT_CURRENCY),
     currentNetwork: mockSpunkyLoaded('MainNet'),
     auth: mockSpunkyLoaded({
       address: 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s',

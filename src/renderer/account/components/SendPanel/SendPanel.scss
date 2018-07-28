@@ -2,7 +2,7 @@
   max-width: 316px;
 
   .content {
-    padding: 32px 24px;
+    padding: 20px;
   }
 
   h2 {
@@ -12,17 +12,19 @@
     font-weight: 500;
   }
 
-  .actions {
-    margin-top: 8px;
-
-    .icon {
-      margin-right: 6px;
-    }
+  .next {
+    display: block;
+    width: 100%;
   }
 
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  @media only screen and (max-width: $responsive-width) {
+    max-width: 100%;
+    flex-basis: 100%;
   }
 }

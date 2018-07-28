@@ -1,13 +1,17 @@
 import format from 'format-currency';
-import { lowerCase } from 'lodash';
+
+import { CAD, EUR, GBP, USD, DEFAULT_CURRENCY } from 'shared/values/currencies';
 
 // Refer to https://www.npmjs.com/package/format-currency#usage when adding new currencies.
 const FORMAT_OPTIONS = {
-  usd: { format: '%s%v', code: 'USD', symbol: '$' }
+  [CAD]: { code: CAD, format: '%s%v', symbol: '$' },
+  [EUR]: { code: EUR, format: '%s%v', symbol: '€', locale: 'en-GB' },
+  [GBP]: { code: GBP, format: '%s%v', symbol: '£', locale: 'en-GB' },
+  [USD]: { code: USD, format: '%s%v', symbol: '$' }
 };
 
 function getFormatOptions(currency) {
-  return FORMAT_OPTIONS[lowerCase(currency)] || FORMAT_OPTIONS.usd;
+  return FORMAT_OPTIONS[currency] || FORMAT_OPTIONS[DEFAULT_CURRENCY];
 }
 
 export default function formatCurrency(number, currency) {

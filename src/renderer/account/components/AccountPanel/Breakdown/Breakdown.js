@@ -19,7 +19,8 @@ function reduceOthers(data) {
 export default class Breakdown extends React.Component {
   static propTypes = {
     className: string,
-    data: chartDataShape.isRequired
+    data: chartDataShape.isRequired,
+    currency: string.isRequired
   };
 
   static defaultProps = {
@@ -83,6 +84,6 @@ export default class Breakdown extends React.Component {
   }
 
   formatValue = (value) => {
-    return formatCurrency(value, 'usd');
+    return formatCurrency(value, this.props.currency);
   }
 }

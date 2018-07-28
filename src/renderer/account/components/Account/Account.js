@@ -2,6 +2,8 @@ import React from 'react';
 import { objectOf, number } from 'prop-types';
 import { values } from 'lodash';
 
+import Page from 'shared/components/Page';
+
 import AccountPanel from '../AccountPanel';
 import SendPanel from '../SendPanel';
 import balanceShape from '../../shapes/balanceShape';
@@ -11,7 +13,7 @@ export default function Account(props) {
   const { balances, prices } = props;
 
   return (
-    <div className={styles.account}>
+    <Page className={styles.account}>
       <AccountPanel
         className={styles.panel}
         balances={values(balances)}
@@ -21,7 +23,7 @@ export default function Account(props) {
         className={styles.panel}
         balances={balances}
       />
-    </div>
+    </Page>
   );
 }
 

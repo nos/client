@@ -6,13 +6,14 @@ import { noop, map } from 'lodash';
 import Input from 'shared/components/Forms/Input';
 import Button from 'shared/components/Forms/Button';
 import Select from 'shared/components/Forms/Select';
-import Panel from 'shared/components/Panel';
+import NetworkIcon from 'shared/images/settings/network.svg';
 
-import Saved from '../Saved';
+import SectionTitle from '../SectionTitle';
+import SectionContent from '../SectionContent';
 import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
-import styles from './NetworkPanel.scss';
+import styles from './NetworkSettings.scss';
 
-export default class NetworkPanel extends React.Component {
+export default class NetworkSettings extends React.Component {
   static propTypes = {
     currentNetwork: string.isRequired,
     setCurrentNetwork: func.isRequired,
@@ -27,8 +28,6 @@ export default class NetworkPanel extends React.Component {
     confirm: func.isRequired
   };
 
-  state = { saved: false };
-
   componentWillUnmount() {
     if (this.saveTimeout) {
       clearTimeout(this.saveTimeout);
@@ -36,41 +35,46 @@ export default class NetworkPanel extends React.Component {
   }
 
   render() {
-    const neoScanUrl = this.getCurrentNetworkUrl();
+    const neoscanAddress = this.getCurrentNetworkUrl();
 
     return (
-      <Panel className={styles.settingsPanel}>
-        <div className={styles.content}>
+      <div className={styles.networkSettings}>
+        <SectionTitle renderIcon={NetworkIcon}>
+          Network Settings
+        </SectionTitle>
 
-          <div>
-            <h2>Selected Network</h2>
-            <div className={styles.formatUrl}>{neoScanUrl}</div>
-            <div className={styles.selectNetworkWrapper}>
-              <Select
-                className={styles.selectNetwork}
-                name="network"
-                id="network"
-                value={this.props.currentNetwork}
-                onChange={this.handleChangeSelectedNetwork}
-              >
-                {map(settings.networks, this.renderNetworkOption)}
-              </Select>
-              {this.state.saved && <Saved className={styles.savedProp} />}
-            </div>
-          </div>
+        <SectionContent>
+          <Select
+            className={styles.input}
+            labelClass={styles.label}
+            id="network"
+            label="Current Network"
+            value={this.props.currentNetwork}
+            onChange={this.handleChangeSelectedNetwork}
+          >
+            {map(settings.networks, this.renderNetworkOption)}
+          </Select>
 
-          <div className={styles.buttonWrapper}>
-            <Button onClick={this.handleAddNewNetwork} className={styles.addButton}>
-              Add custom network configuration
+          <Input
+            className={styles.input}
+            labelClass={styles.label}
+            id="neoscan"
+            label="Neoscan URL"
+            value={neoscanAddress}
+            readOnly
+          />
+
+          <div className={styles.actions}>
+            <Button className={styles.action} onClick={this.handleAddNewNetwork}>
+              Add Custom Network
             </Button>
             <br />
-            <Button onClick={this.handleClearNetworks} className={styles.clearButton}>
-              Clear custom network configurations
+            <Button className={styles.action} onClick={this.handleClearNetworks}>
+              Clear Custom Networks
             </Button>
           </div>
-
-        </div>
-      </Panel>
+        </SectionContent>
+      </div>
     );
   }
 
@@ -147,19 +151,11 @@ export default class NetworkPanel extends React.Component {
   };
 
   handleChangeSelectedNetwork = (event) => {
-    return this.saveNetwork(event.target.value);
+    this.props.setCurrentNetwork(event.target.value);
   };
 
   getCurrentNetworkUrl = () => {
     const currentNetworkConfig = settings.networks[this.props.currentNetwork];
     return currentNetworkConfig && currentNetworkConfig.extra.neoscan;
-  };
-
-  saveNetwork = (network) => {
-    this.setState({ saved: true });
-    this.props.setCurrentNetwork(network);
-    this.saveTimeout = setTimeout(() => {
-      this.setState({ saved: false });
-    }, 1250);
   };
 }

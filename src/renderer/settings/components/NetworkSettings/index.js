@@ -8,7 +8,7 @@ import withProgressChange from 'shared/hocs/withProgressChange';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
 
-import NetworkPanel from './NetworkPanel';
+import NetworkSettings from './NetworkSettings';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/currentNetworkActions';
 import { setNetworks, addNetwork, clearNetworks } from '../../actions/networksActions';
 
@@ -34,8 +34,7 @@ const mapClearNetworksActionsToProps = (actions) => ({
   clearNetworks: actions.call
 });
 
-export default
-compose(
+export default compose(
   // Pass in props and actions around displaying/changing network
   withActions(setCurrentNetwork, mapCurrentNetworkActionsToProps),
   withActions(setNetworks, mapNetworksActionsToProps),
@@ -59,4 +58,4 @@ compose(
   // State for modal
   withState('networkName', 'setNetworkName', ''),
   withState('networkUrl', 'setNetworkUrl', ''),
-)(NetworkPanel);
+)(NetworkSettings);

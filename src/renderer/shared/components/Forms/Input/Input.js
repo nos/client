@@ -9,12 +9,14 @@ export default class Input extends React.Component {
   static propTypes = {
     className: string,
     id: string.isRequired,
-    label: string
+    label: string,
+    labelClass: string
   };
 
   static defaultProps = {
     className: null,
-    label: null
+    label: null,
+    labelClass: null
   };
 
   render() {
@@ -23,18 +25,22 @@ export default class Input extends React.Component {
     return (
       <label htmlFor={id} className={classNames(styles.input, className)}>
         {this.renderLabel()}
-        <input id={id} {...omit(this.props, 'className', 'label')} />
+        <input id={id} {...omit(this.props, 'className', 'label', 'labelClass')} />
       </label>
     );
   }
 
   renderLabel = () => {
-    const { label } = this.props;
+    const { label, labelClass } = this.props;
 
     if (!label) {
       return null;
     }
 
-    return <span className={styles.label}>{label}</span>;
+    return (
+      <span className={classNames(styles.label, labelClass)}>
+        {label}
+      </span>
+    );
   }
 }
