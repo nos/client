@@ -4,6 +4,7 @@ import { withData, withActions, withProgress, progressValues } from 'spunky';
 
 import authActions from 'login/actions/authActions';
 import sendActions from 'shared/actions/sendActions';
+import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
@@ -41,6 +42,7 @@ export default compose(
     }
   }),
 
+  withNetworkData(),
   withData(authActions, mapAuthDataToProps),
   withActions(sendActions, mapSendActionsToProps),
 
