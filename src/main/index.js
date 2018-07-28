@@ -1,12 +1,12 @@
-import { app, protocol, session, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow } from 'electron';
 import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
 
 import getStaticPath from './util/getStaticPath';
 import bindMenus from './util/bindMenus';
+import injectHeaders from './util/injectHeaders';
 import registerNosProtocol from './util/registerNosProtocol';
-import pkg from '../../package.json';
 
 // This wouldn't be necessary if we could call `electron-webpack` directly.  But since we have to
 // use webpack-cli (as a result of using a custom webpack config), we are faking this env var
@@ -16,16 +16,6 @@ if (isDev) {
 }
 
 protocol.registerStandardSchemes(['nos']);
-
-function injectHeaders() {
-  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    const requestHeaders = {
-      ...details.requestHeaders,
-      'X-nOS-Version': pkg.version
-    };
-    callback({ cancel: false, requestHeaders });
-  });
-}
 
 function installExtensions() {
   const {
