@@ -4,7 +4,7 @@ import path from 'path';
 import url from 'url';
 
 import getStaticPath from './util/getStaticPath';
-import bindContextMenu from './util/bindContextMenu';
+import bindMenus from './util/bindMenus';
 import registerNosProtocol from './util/registerNosProtocol';
 import pkg from '../../package.json';
 
@@ -61,7 +61,7 @@ function createWindow() {
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
 
-  bindContextMenu(mainWindow);
+  bindMenus(mainWindow);
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
