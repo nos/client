@@ -9,7 +9,7 @@ describe('encrypt', () => {
   const ivProvider = jest.fn(() => Buffer.from(iv, 'hex'));
 
   describe('when given a valid public key', () => {
-    const recipientPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
+    const recipientPublicKey = '031d8e1630ce640966967bc6d95223d21f44304133003140c3b52004dc981349c9';
 
     it('returns an object containing iv, mac, and data', () => {
       const result = encrypt({ recipientPublicKey, wif, data, ivProvider });
@@ -21,14 +21,14 @@ describe('encrypt', () => {
       expect(generatedIV).toEqual(iv);
     });
 
-    it('includes the encrypted data', () => {
+    it('includes the mac', () => {
       const { mac } = encrypt({ recipientPublicKey, wif, data, ivProvider });
-      expect(mac).toEqual('a92b6ea8fafd5ce64f344279aba7cb9a9cd2c3a5996eb60d77d8d16560159975');
+      expect(mac).toEqual('39a9c5c682a1661c93b32983b70e5758a4bec0338fe2797758af7c45bf43002b');
     });
 
     it('includes the encrypted data', () => {
       const { data: encryptedData } = encrypt({ recipientPublicKey, wif, data, ivProvider });
-      expect(encryptedData).toEqual('6e4444c8928cffec1f36fd7eec78ac145040cf11eb10a72091483ef0477ad444');
+      expect(encryptedData).toEqual('ce7e03644b59757b66123e9a1dca172fb76c012b01f60572befb3563ec7b7b17');
     });
   });
 
