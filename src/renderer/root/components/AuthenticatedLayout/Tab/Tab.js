@@ -7,7 +7,7 @@ import Icon from 'shared/components/Icon';
 
 import styles from './Tab.scss';
 
-export default class Tab extends React.Component {
+export default class Tab extends React.PureComponent {
   static propTypes = {
     className: string,
     active: bool,

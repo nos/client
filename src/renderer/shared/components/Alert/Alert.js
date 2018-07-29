@@ -8,7 +8,7 @@ import Button from '../Forms/Button';
 import defaultImage from '../../images/modal-request-icon.png';
 import styles from './Alert.scss';
 
-export default class Alert extends React.Component {
+export default class Alert extends React.PureComponent {
   static propTypes = {
     className: string,
     children: node,

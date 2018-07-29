@@ -8,7 +8,7 @@ import Button from 'shared/components/Forms/Button';
 
 import styles from './RegisterForm.scss';
 
-export default class RegisterForm extends React.Component {
+export default class RegisterForm extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,
@@ -52,7 +52,13 @@ export default class RegisterForm extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Register</Button>
+          <Button
+            className={styles.register}
+            type="submit"
+            disabled={disabled || !this.isValid()}
+          >
+            Register
+          </Button>
           <span className={styles.login}>
             Already have an account?{' '}
             <Link to="/login">Login</Link>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, func } from 'prop-types';
 
-export default class GetAddress extends React.Component {
+export default class GetAddress extends React.PureComponent {
   static propTypes = {
     address: string.isRequired,
     onResolve: func.isRequired

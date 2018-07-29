@@ -2,12 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import { string } from 'prop-types';
 import { remote } from 'electron';
+import { debounce } from 'lodash';
 
 import Icon from 'shared/components/Icon';
 
 import styles from './ButtonBar.scss';
 
-export default class ButtonBar extends React.Component {
+export default class ButtonBar extends React.PureComponent {
   static propTypes = {
     className: string
   };
@@ -21,12 +22,12 @@ export default class ButtonBar extends React.Component {
   };
 
   componentDidMount() {
-    this.updateIsMax();
-    window.addEventListener('resize', this.updateIsMax);
+    this.handleUpdateMaximized();
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateIsMax);
+    window.removeEventListener('resize', this.handleResize);
   }
 
   render() {
@@ -67,15 +68,17 @@ export default class ButtonBar extends React.Component {
     this.getBrowserWindow().close();
   }
 
-  showWindowIcons = () => {
-    return process.platform !== 'darwin';
-  }
-
-  updateIsMax = () => {
+  handleUpdateMaximized = () => {
     const win = this.getBrowserWindow();
     if (win) {
       this.setState({ isMaximized: win.isMaximized() });
     }
+  }
+
+  handleResize = debounce(this.handleUpdateMaximized, 250)
+
+  showWindowIcons = () => {
+    return process.platform !== 'darwin';
   }
 
   getBrowserWindow = () => {

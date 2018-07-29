@@ -10,7 +10,7 @@ export default function withClean(actions, { propName = ACTION_PROP } = {}) {
   });
 
   return (Component) => {
-    class WithCleanComponent extends React.Component {
+    class WithCleanComponent extends React.PureComponent {
       componentWillUnmount() {
         this.props[propName]();
       }

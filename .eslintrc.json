@@ -28,7 +28,6 @@
       "devDependencies": [
         "__mocks__/**/*.js",
         "__tests__/**/*.js",
-        "src/main/index.js",
         "config/**/*.js",
         "scripts/**/*.js"
       ]

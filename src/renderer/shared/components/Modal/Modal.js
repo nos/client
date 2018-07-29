@@ -5,7 +5,7 @@ import { string, func, node } from 'prop-types';
 import Portal from '../Portal';
 import styles from './Modal.scss';
 
-export default class Modal extends React.Component {
+export default class Modal extends React.PureComponent {
   static propTypes = {
     className: string,
     children: node,
