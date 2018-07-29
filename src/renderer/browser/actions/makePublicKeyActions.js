@@ -13,9 +13,7 @@ const getPublicKey = (wif) => {
 export default function makePublicKeyActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({
-    wif
-  }) => () => {
+  return createActions(id, ({ wif }) => () => {
     return getPublicKey(wif);
   });
 }

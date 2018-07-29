@@ -22,11 +22,7 @@ export default function makeEncrypt(encryptActions) {
 
     withData(authActions, mapAuthDataToProps),
 
-    withCall(encryptActions, ({
-      recipientPublicKey,
-      wif,
-      data
-    }) => ({
+    withCall(encryptActions, ({ recipientPublicKey, wif, data }) => ({
       recipientPublicKey,
       wif,
       data

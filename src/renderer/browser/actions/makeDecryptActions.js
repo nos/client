@@ -37,13 +37,7 @@ const decrypt = ({ senderPublicKey, wif, iv, mac, data }) => {
 export default function makeDecryptActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({
-    senderPublicKey,
-    wif,
-    iv,
-    mac,
-    data
-  }) => () => {
+  return createActions(id, ({ senderPublicKey, wif, iv, mac, data }) => () => {
     return decrypt({ senderPublicKey, wif, iv, mac, data });
   });
 }

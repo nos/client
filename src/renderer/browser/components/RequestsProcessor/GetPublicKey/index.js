@@ -16,11 +16,7 @@ export default function makeGetPublicKey(publicKeyActions) {
 
     withData(authActions, mapAuthDataToProps),
 
-    withCall(publicKeyActions, ({
-      wif
-    }) => ({
-      wif
-    })),
+    withCall(publicKeyActions, ({ wif }) => ({ wif })),
     withNullLoader(publicKeyActions),
     withData(publicKeyActions, mapPublicKeyDataToProps)
   )(GetPublicKey);

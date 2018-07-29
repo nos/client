@@ -22,13 +22,7 @@ export default function makeDecrypt(decryptActions) {
 
     withData(authActions, mapAuthDataToProps),
 
-    withCall(decryptActions, ({
-      senderPublicKey,
-      wif,
-      iv,
-      mac,
-      data
-    }) => ({
+    withCall(decryptActions, ({ senderPublicKey, wif, iv, mac, data }) => ({
       senderPublicKey,
       wif,
       iv,
