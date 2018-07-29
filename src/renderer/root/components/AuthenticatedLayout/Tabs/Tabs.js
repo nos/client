@@ -9,7 +9,7 @@ import tabShape from 'browser/shapes/tabShape';
 import Tab from '../Tab';
 import styles from './Tabs.scss';
 
-export default class Tabs extends React.Component {
+export default class Tabs extends React.PureComponent {
   static propTypes = {
     className: string,
     activeSessionId: string.isRequired,

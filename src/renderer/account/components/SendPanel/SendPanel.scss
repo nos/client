@@ -1,55 +1,30 @@
 .sendPanel {
+  max-width: 316px;
+
   .content {
-    padding: 0 24px 32px;
+    padding: 20px;
   }
 
-  .inputs {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  h2 {
+    margin: 0 0 25px;
+    color: $primary-text-color;
+    font-size: 18px;
+    font-weight: 500;
   }
 
-  .amount {
-    width: 22vh;
-    border-radius: 4px 0 0 4px;
-  }
-
-  .asset {
-    margin-right: 10px;
-    align-self: flex-end;
-    height: 36.5px;
-    border: 2px solid #dde2ec;
-    border-radius: 0 4px 4px 0;
-
-    &::placeholder {
-      color: #999;
-    }
-
-    &:focus {
-      outline: 0;
-      color: #495057;
-      border-color: #047bf8;
-    }
-  }
-
-  .recipient {
-    flex-grow: 2;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 8px;
-
-    .icon {
-      margin-right: 6px;
-    }
+  .next {
+    display: block;
+    width: 100%;
   }
 
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  @media only screen and (max-width: $responsive-width) {
+    max-width: 100%;
+    flex-basis: 100%;
   }
 }

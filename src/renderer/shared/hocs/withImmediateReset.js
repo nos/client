@@ -13,7 +13,7 @@ const withImmediateReset = (
     [propName]: reset
   });
 
-  class ConditionalCallComponent extends React.Component {
+  class ConditionalCallComponent extends React.PureComponent {
     static propTypes = {
       [propName]: func.isRequired
     };

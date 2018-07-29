@@ -1,119 +1,98 @@
 import React from 'react';
+import classNames from 'classnames';
 import { func, string, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
-import { map, noop, keys, size, find } from 'lodash';
+import { map, noop } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
-import Icon from 'shared/components/Icon';
 import Select from 'shared/components/Forms/Select';
-import { NEO, ASSETS } from 'shared/values/assets';
 
 import styles from './SendPanel.scss';
 import isNumeric from '../../util/isNumeric';
 import balanceShape from '../../shapes/balanceShape';
 
-const balancesShape = objectOf(balanceShape);
-
-export default class AccountTxPanel extends React.Component {
+export default class SendPanel extends React.PureComponent {
   static propTypes = {
+    className: string,
     loading: bool.isRequired,
     confirm: func.isRequired,
     step: string.isRequired,
     asset: string.isRequired,
     amount: string,
-    address: string,
-    wif: string,
-    net: string,
     receiver: string,
     setAmount: func,
     setReceiver: func,
-    setStep: func,
     setAsset: func,
-    doTransfer: func,
-    balances: balancesShape.isRequired
+    onSend: func,
+    balances: objectOf(balanceShape).isRequired
   };
 
   static defaultProps = {
+    className: null,
     amount: '',
     receiver: '',
-    net: '',
-    address: '',
-    wif: '',
     setAmount: noop,
     setReceiver: noop,
     setAsset: noop,
-    setStep: noop,
-    doTransfer: noop
+    onSend: noop
   };
 
   render() {
-    const { loading, amount, receiver, asset, step } = this.props;
+    const { className, loading, amount, receiver, asset, step } = this.props;
     const symbol = this.getSymbol();
 
     return (
-      <Panel className={styles.sendPanel} renderHeader={null}>
+      <Panel className={classNames(styles.sendPanel, className)}>
         <form className={styles.content}>
-          <h2>Transfer Funds</h2>
-          <div className={styles.inputs}>
-            <Input
-              className={styles.amount}
-              id="amount"
-              type="number"
-              label="Amount"
-              placeholder={`Enter ${symbol} Amount`}
-              min="0"
-              step={step}
-              value={amount}
-              onChange={this.handleChangeAmount}
-            />
-            <Select
-              className={styles.asset}
-              id="asset"
-              value={asset}
-              onChange={this.handleChangeAsset}
-            >
-              {this.renderAssets()}
-            </Select>
-            <Input
-              className={styles.recipient}
-              id="recipient"
-              type="text"
-              label="Recipient"
-              placeholder="Enter NEO Address"
-              value={receiver}
-              disabled={false}
-              onChange={this.handleChangeRecipient}
-            />
-          </div>
-          <hr />
-          <div className={styles.actions}>
-            <Button
-              type="submit"
-              disabled={loading || !this.isValid()}
-              onClick={this.handleTransfer}
-            >
-              <Icon className={styles.icon} name="transfer" />
-              Transfer
-            </Button>
-          </div>
+          <h2>Send</h2>
+          <Select
+            className={styles.asset}
+            id="asset"
+            label="Token to send"
+            value={asset}
+            onChange={this.handleChangeAsset}
+          >
+            {this.renderAssets()}
+          </Select>
+          <Input
+            className={styles.amount}
+            id="amount"
+            type="number"
+            label="Sending amount"
+            placeholder={`Enter ${symbol} amount`}
+            min="0"
+            step={step}
+            value={amount}
+            onChange={this.handleChangeAmount}
+          />
+          <Input
+            className={styles.recipient}
+            id="recipient"
+            type="text"
+            label="Recipient"
+            placeholder="Wallet address"
+            value={receiver}
+            disabled={false}
+            onChange={this.handleChangeRecipient}
+          />
+          <Button
+            className={styles.next}
+            type="submit"
+            disabled={loading || !this.isValid()}
+            onClick={this.handleTransfer}
+          >
+            Next
+          </Button>
         </form>
       </Panel>
     );
   }
 
   renderAssets = () => {
-    const { balances } = this.props;
-
-    if (size(balances) === 0) {
-      return map(ASSETS, (label, value) => (
-        <option key={value} value={value}>{label}</option>
-      ));
-    }
-
-    return map(balances, ({ symbol, scriptHash }) => (
+    return map(this.props.balances, ({ symbol, scriptHash }) => (
       <option key={scriptHash} value={scriptHash}>{symbol}</option>
     ));
   }
@@ -130,17 +109,14 @@ export default class AccountTxPanel extends React.Component {
   }
 
   handleConfirm = () => {
-    const { doTransfer, net, asset, receiver, address, wif } = this.props;
+    const { onSend, asset, receiver } = this.props;
+    const amount = this.getAmount();
 
-    doTransfer({ net, asset, amount: this.getAmount(), receiver, address, wif });
+    onSend({ asset, amount, receiver });
   };
 
   handleChangeAsset = (event) => {
-    const { value } = event.target;
-    const { setAsset, setStep } = this.props;
-
-    setAsset(event.target.value);
-    setStep(value === NEO ? '1' : '0.00000001');
+    this.props.setAsset(event.target.value);
   };
 
   handleChangeAmount = (event) => {
@@ -152,19 +128,17 @@ export default class AccountTxPanel extends React.Component {
   };
 
   getSymbol = () => {
-    const { asset, balances } = this.props;
-
-    if (keys(ASSETS).includes(asset)) {
-      return ASSETS[asset];
-    } else {
-      return find(balances, ['scriptHash', asset]).symbol;
-    }
+    return this.getAsset(this.props.asset).symbol;
   }
 
   getAmount = () => {
     const { asset, amount } = this.props;
-    return new BigNumber(amount).toFixed(asset === NEO ? 0 : 8);
+    return new BigNumber(amount).toFixed(this.getAsset(asset).decimals);
   };
+
+  getAsset = (scriptHash) => {
+    return this.props.balances[scriptHash];
+  }
 
   isValid = () => {
     return isNumeric(this.props.amount) && wallet.isAddress(this.props.receiver);

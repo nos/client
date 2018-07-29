@@ -9,7 +9,7 @@ const { FAILED } = progressValues;
 const mapErrorToProps = (error) => ({ error });
 
 export default function withRejectMessage(actions, message, options = {}) {
-  class RejectMessageComponent extends React.Component {
+  class RejectMessageComponent extends React.PureComponent {
     static propTypes = {
       onReject: func.isRequired
     };

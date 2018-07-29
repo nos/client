@@ -10,7 +10,7 @@ import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
 import styles from './DAppContainer.scss';
 
-export default class DAppContainer extends React.Component {
+export default class DAppContainer extends React.PureComponent {
   static propTypes = {
     className: string,
     sessionId: string.isRequired,
@@ -145,8 +145,10 @@ export default class DAppContainer extends React.Component {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
-  handleNavigateFailed = ({ errorCode, errorDescription }) => {
-    this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+  handleNavigateFailed = ({ errorCode, errorDescription, isMainFrame }) => {
+    if (isMainFrame) {
+      this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+    }
   }
 
   handleNewWindow = (event) => {

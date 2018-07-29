@@ -4,7 +4,7 @@ import { string } from 'prop-types';
 
 import styles from './Button.scss';
 
-export default class Button extends React.Component {
+export default class Button extends React.PureComponent {
   render() {
     return ( // eslint-disable-next-line react/button-has-type
       <button

@@ -7,6 +7,7 @@ export { default as Select } from './components/Forms/Select';
 export { default as Icon } from './components/Icon';
 export { default as Loading } from './components/Loading';
 export { default as Modal } from './components/Modal';
+export { default as Page } from './components/Page';
 export { default as Panel } from './components/Panel';
 export { default as Portal } from './components/Portal';
 export { default as Tabs } from './components/Tabs';

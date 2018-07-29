@@ -4,7 +4,7 @@ import { string } from 'prop-types';
 import tabShape from 'browser/shapes/tabShape';
 import getInternalPageComponent from 'shared/util/getInternalPageComponent';
 
-export default class InternalPage extends React.Component {
+export default class InternalPage extends React.PureComponent {
   static propTypes = {
     className: string,
     tab: tabShape.isRequired

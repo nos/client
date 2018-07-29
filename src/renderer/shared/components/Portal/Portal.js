@@ -5,7 +5,7 @@ import { string, node } from 'prop-types';
 
 import styles from './Portal.scss';
 
-export default class Portal extends React.Component {
+export default class Portal extends React.PureComponent {
   static propTypes = {
     className: string,
     children: node

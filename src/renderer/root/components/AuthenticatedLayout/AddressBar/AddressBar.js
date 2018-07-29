@@ -14,7 +14,7 @@ import styles from './AddressBar.scss';
 
 const RETURN_KEY = 13;
 
-export default class AddressBar extends React.Component {
+export default class AddressBar extends React.PureComponent {
   static propTypes = {
     className: string,
     query: string,

@@ -1,0 +1,24 @@
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.0001);
+  mix-blend-mode: normal;
+  box-shadow: inset 0px -1px 0px #D7D8DE;
+
+  .icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    font-size: 18px;
+    font-weight: normal;
+    color: #1e1b52;
+    -webkit-font-smoothing: antialiased;
+  }
+}

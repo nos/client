@@ -4,6 +4,6 @@ import getBalances from '../util/getBalances';
 
 export const ID = 'balances';
 
-export default createActions(ID, ({ net, address, tokens = [] } = {}) => async () => {
-  return getBalances({ net, address, tokens });
+export default createActions(ID, ({ net, address } = {}) => async () => {
+  return getBalances({ net, address });
 });
