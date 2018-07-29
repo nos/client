@@ -12,6 +12,7 @@ import styles from './DAppContainer.scss';
 export default class DAppContainer extends React.PureComponent {
   static propTypes = {
     className: string,
+    address: string.isRequired,
     sessionId: string.isRequired,
     tab: tabShape.isRequired,
     setTabError: func.isRequired,
@@ -98,6 +99,7 @@ export default class DAppContainer extends React.PureComponent {
     return (
       <webview
         ref={this.registerRef}
+        partition={this.props.address}
         preload={this.getPreloadPath()}
         className={classNames(styles.webview, { [styles.hidden]: this.isHidden() })}
       />
