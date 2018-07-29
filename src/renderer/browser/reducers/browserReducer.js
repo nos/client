@@ -86,6 +86,23 @@ function open(state, action) {
   const { tabs } = state;
   const { type, target } = action;
   const internal = type === INTERNAL;
+  let tabState = {};
+
+  Object.keys(tabs).forEach((key) => {
+    if (tabs[key].target === target) {
+      tabState = {
+        isOpened: true,
+        sessionId: key
+      };
+    }
+  });
+
+  if (tabState.isOpened) {
+    return {
+      ...state,
+      activeSessionId: tabState.sessionId
+    };
+  }
 
   const tab = {
     ...newTabState,
