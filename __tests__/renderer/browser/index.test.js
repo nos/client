@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { merge } from 'lodash';
 
-import { provideStore, createStore } from 'testHelpers';
+import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import { Browser } from 'browser';
 import { EXTERNAL } from 'browser/values/browserValues';
@@ -10,6 +10,12 @@ import DAppContainer from 'browser/components/DAppContainer';
 import Error from 'browser/components/Error';
 
 const initialState = {
+  [spunkyKey]: {
+    auth: mockSpunkyLoaded({
+      address: 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s',
+      wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG'
+    })
+  },
   browser: {
     activeSessionId: 'tab-1',
     tabs: {
