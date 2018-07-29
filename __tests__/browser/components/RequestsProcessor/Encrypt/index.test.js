@@ -15,8 +15,6 @@ const requestId = '123';
 const wif = 'KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr';
 const account = new wallet.Account(wif);
 
-const recipientPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
-const wrongRecipientPublicKey = '111111111111111111111111111111111111111111111111111111111111111111';
 const iv = 'cd26ef7a70b1b3fcf54ef32394008db6';
 const mac = '170d03c25d49c7c03c8e1515a316f94fafb52feac73c46196525813883d64596';
 const data = 'some text';
@@ -66,6 +64,7 @@ describe('<Encrypt />', () => {
   });
 
   describe('with valid args', () => {
+    const recipientPublicKey = '031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a';
     const args = [{ recipientPublicKey, data }];
     const defaultProps = { args, onResolve: noop, onReject: noop };
 
@@ -125,7 +124,8 @@ describe('<Encrypt />', () => {
   });
 
   describe('with invalid args', () => {
-    const args = [{ recipientPublicKey: wrongRecipientPublicKey, data }];
+    const recipientPublicKey = '111111111111111111111111111111111111111111111111111111111111111111';
+    const args = [{ recipientPublicKey, data }];
     const defaultProps = { args, onResolve: noop, onReject: noop };
 
     let wrapper;
