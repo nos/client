@@ -37,6 +37,7 @@ export default class Register extends React.PureComponent {
       <Panel className={styles.register}>
         <Logo className={styles.logo} />
         <Tabs
+          className={styles.tabs}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}

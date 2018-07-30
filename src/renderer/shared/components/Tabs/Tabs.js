@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, objectOf } from 'prop-types';
+import { string, func, node, objectOf } from 'prop-types';
 import { map } from 'lodash';
 
 import styles from './Tabs.scss';
@@ -8,7 +8,7 @@ import styles from './Tabs.scss';
 export default class Tabs extends React.PureComponent {
   static propTypes = {
     className: string,
-    tabs: objectOf(string).isRequired,
+    tabs: objectOf(node).isRequired,
     selectedTab: string.isRequired,
     renderTab: func.isRequired,
     onSelect: func.isRequired
