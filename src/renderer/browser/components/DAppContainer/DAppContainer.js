@@ -32,6 +32,7 @@ export default class DAppContainer extends React.PureComponent {
   async componentDidMount() {
     window.addEventListener('focus', this.handleFocus);
 
+    this.webview.addEventListener('dom-ready', this.handleFocus);
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
@@ -56,6 +57,7 @@ export default class DAppContainer extends React.PureComponent {
   componentWillUnmount() {
     window.removeEventListener('focus', this.handleFocus);
 
+    this.webview.removeEventListener('dom-ready', this.handleFocus);
     this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
