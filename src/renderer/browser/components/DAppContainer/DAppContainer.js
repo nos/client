@@ -1,7 +1,6 @@
 import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
-import { shell } from 'electron';
 import { string, func } from 'prop-types';
 
 import getStaticPath from '../../../util/getStaticPath';
@@ -22,6 +21,7 @@ export default class DAppContainer extends React.PureComponent {
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired,
+    openTab: func.isRequired,
     closeTab: func.isRequired
   }
 
@@ -152,8 +152,7 @@ export default class DAppContainer extends React.PureComponent {
   }
 
   handleNewWindow = (event) => {
-    event.preventDefault();
-    shell.openExternal(event.url);
+    this.props.openTab({ target: event.url });
   }
 
   handleCloseWindow = () => {
