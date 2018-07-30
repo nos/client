@@ -1,5 +1,5 @@
 import uuid from 'uuid/v1';
-import { keys, omit, has, size, isEmpty } from 'lodash';
+import { keys, findKey, omit, has, size, isEmpty } from 'lodash';
 
 import parseURL from '../util/parseURL';
 import { INTERNAL, EXTERNAL } from '../values/browserValues';
@@ -81,11 +81,23 @@ function isNavigatingAway(oldTarget, newTarget) {
   return normalize(oldTarget) === normalize(newTarget);
 }
 
+function findExistingTab(tabs, action) {
+  return findKey(tabs, (tab) => tab.type === action.type && tab.target === action.target);
+}
+
 function open(state, action) {
   const sessionId = generateSessionId();
   const { tabs } = state;
   const { type, target } = action;
   const internal = type === INTERNAL;
+  const existingSessionId = findExistingTab(tabs, action);
+
+  if (internal && existingSessionId) {
+    return {
+      ...state,
+      activeSessionId: existingSessionId
+    };
+  }
 
   const tab = {
     ...newTabState,
