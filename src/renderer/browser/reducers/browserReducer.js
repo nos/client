@@ -74,15 +74,26 @@ function parse(query) {
 }
 
 function normalize(target) {
-  return target.split('#')[0].replace(/\/^/, '');
+  return target.split('#')[0].replace(/\/$/, '');
 }
 
 function isNavigatingAway(oldTarget, newTarget) {
-  return normalize(oldTarget) === normalize(newTarget);
+  return normalize(oldTarget) !== normalize(newTarget);
 }
 
-function findExistingTab(tabs, action) {
-  return findKey(tabs, (tab) => tab.type === action.type && tab.target === action.target);
+function getSessionId(tabs, callback) {
+  return findKey(tabs, callback);
+}
+
+function focus(state, action) {
+  if (!tabExists(state.tabs, action.sessionId)) {
+    return state;
+  }
+
+  return {
+    ...state,
+    activeSessionId: action.sessionId
+  };
 }
 
 function open(state, action) {
@@ -90,13 +101,13 @@ function open(state, action) {
   const { tabs } = state;
   const { type, target } = action;
   const internal = type === INTERNAL;
-  const existingSessionId = findExistingTab(tabs, action);
+
+  const existingSessionId = getSessionId(tabs, (tab) => {
+    return tab.type === action.type && tab.target === action.target;
+  });
 
   if (internal && existingSessionId) {
-    return {
-      ...state,
-      activeSessionId: existingSessionId
-    };
+    return focus(state, { sessionId: existingSessionId });
   }
 
   const tab = {
@@ -132,17 +143,6 @@ function close(state, action) {
     : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
-}
-
-function focus(state, action) {
-  if (!tabExists(state.tabs, action.sessionId)) {
-    return state;
-  }
-
-  return {
-    ...state,
-    activeSessionId: action.sessionId
-  };
 }
 
 function setTitle(state, action) {
