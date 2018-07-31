@@ -17,6 +17,7 @@
       .label {
         position: relative;
         display: inline-block;
+        width: 100%;
         color: #9a99a5;
         border-color: #dee2e6 #dee2e6 transparent;
         padding: 8px 12px;
@@ -44,6 +45,11 @@
           &::after {
             width: 100%;
           }
+        }
+
+        &:hover {
+          color: #353445;
+          font-weight: bold;
         }
       }
     }

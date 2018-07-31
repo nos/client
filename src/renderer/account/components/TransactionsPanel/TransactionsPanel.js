@@ -4,9 +4,12 @@ import { string, objectOf } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
+import SendIcon from 'shared/images/account/send.svg';
+import ReceiveIcon from 'shared/images/account/receive.svg';
 
 import Send from './Send';
 import Receive from './Receive';
+import IconTab from './IconTab';
 import balanceShape from '../../shapes/balanceShape';
 import styles from './TransactionsPanel.scss';
 
@@ -14,8 +17,8 @@ const TAB_SEND = 'send';
 const TAB_RECEIVE = 'receive';
 
 const TABS = {
-  [TAB_SEND]: 'Send',
-  [TAB_RECEIVE]: 'Receive'
+  [TAB_SEND]: <IconTab renderIcon={SendIcon}>Send</IconTab>,
+  [TAB_RECEIVE]: <IconTab renderIcon={ReceiveIcon}>Receive</IconTab>
 };
 
 export default class TransactionsPanel extends React.PureComponent {
@@ -36,6 +39,8 @@ export default class TransactionsPanel extends React.PureComponent {
     return (
       <Panel className={classNames(styles.transactionsPanel, this.props.className)}>
         <Tabs
+          tabsClass={styles.tabs}
+          tabClass={styles.tab}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}
