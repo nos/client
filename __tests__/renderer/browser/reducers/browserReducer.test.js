@@ -1,7 +1,7 @@
 import { keys } from 'lodash';
 
 import browserReducer from 'browser/reducers/browserReducer';
-import { EXTERNAL } from 'browser/values/browserValues';
+import { INTERNAL, EXTERNAL, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
 import {
   OPEN_TAB,
   // CLOSE_TAB,
@@ -24,7 +24,7 @@ describe('browserReducer', () => {
   describe('action type OPEN_TAB', () => {
     const state = browserReducer(initialState, {
       type: OPEN_TAB,
-      payload: { type: EXTERNAL, target: 'nos://example.neo' }
+      payload: { type: INTERNAL, target: ACCOUNT }
     });
 
     it('adds a session to the tabs list', () => {
@@ -33,6 +33,36 @@ describe('browserReducer', () => {
 
     it('changes the active session to the new tab', () => {
       expect(state.activeSessionId).not.toEqual(initialState.activeSessionId);
+    });
+
+    describe('when the internal tab exists', () => {
+      const updatedState = browserReducer(state, {
+        type: OPEN_TAB,
+        payload: { type: INTERNAL, target: ACCOUNT }
+      });
+
+      it('does not open a new tab', () => {
+        expect(keys(updatedState.tabs)).toEqual(keys(state.tabs));
+      });
+
+      it('focuses the existing tab', () => {
+        expect(updatedState.tabs[updatedState.activeSessionId].target).toEqual(ACCOUNT);
+      });
+    });
+
+    describe('when the internal tab does not exists', () => {
+      const updatedState = browserReducer(state, {
+        type: OPEN_TAB,
+        payload: { type: INTERNAL, target: SETTINGS }
+      });
+
+      it('opens a new tab', () => {
+        expect(keys(updatedState.tabs)).toHaveLength(keys(state.tabs).length + 1);
+      });
+
+      it('focuses the existing tab', () => {
+        expect(updatedState.tabs[updatedState.activeSessionId].target).toEqual(SETTINGS);
+      });
     });
   });
 
