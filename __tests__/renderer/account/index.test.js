@@ -49,8 +49,8 @@ describe('<Account />', () => {
     expect(wrapper.find('AccountPanel').exists()).toBe(true);
   });
 
-  it('renders the send panel', () => {
+  it('renders the transactions panel', () => {
     const wrapper = mountAccount();
-    expect(wrapper.find('SendPanel').exists()).toBe(true);
+    expect(wrapper.find('TransactionsPanel').exists()).toBe(true);
   });
 });

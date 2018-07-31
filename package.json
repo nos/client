@@ -91,6 +91,7 @@
     "eslint-plugin-react": "7.10.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.4.1",
+    "jest-canvas-mock": "1.1.0",
     "node-loader": "0.6.0",
     "node-sass": "4.9.2",
     "npm-run-all": "4.1.3",
@@ -132,7 +133,8 @@
       "**/__tests__/**/*.test.js"
     ],
     "setupFiles": [
-      "./__tests__/setupTests.js"
+      "./__tests__/setupTests.js",
+      "jest-canvas-mock"
     ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
