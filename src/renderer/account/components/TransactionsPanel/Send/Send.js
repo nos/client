@@ -68,11 +68,9 @@ export default class Send extends React.PureComponent {
         <Input
           className={styles.recipient}
           id="recipient"
-          type="text"
           label="Recipient"
           placeholder="Wallet address"
           value={receiver}
-          disabled={false}
           onChange={this.handleChangeRecipient}
         />
         <Button
