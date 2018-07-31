@@ -11,9 +11,4 @@
     -webkit-appearance: none;
     margin: 0;
   }
-
-  @media only screen and (max-width: $responsive-width) {
-    max-width: 100%;
-    flex-basis: 100%;
-  }
 }

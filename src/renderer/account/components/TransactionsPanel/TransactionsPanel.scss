@@ -9,4 +9,9 @@
       flex: 1 0 auto;
     }
   }
+
+  @media only screen and (max-width: $responsive-width) {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
 }
