@@ -74,11 +74,11 @@ function parse(query) {
 }
 
 function normalize(target) {
-  return target.split('#')[0].replace(/\/^/, '');
+  return target.split('#')[0].replace(/\/$/, '');
 }
 
 function isNavigatingAway(oldTarget, newTarget) {
-  return normalize(oldTarget) === normalize(newTarget);
+  return normalize(oldTarget) !== normalize(newTarget);
 }
 
 function findExistingTab(tabs, action) {
