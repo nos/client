@@ -42,6 +42,7 @@ export default class Login extends React.PureComponent {
       <Panel className={styles.login}>
         <Logo className={styles.logo} />
         <Tabs
+          className={styles.tabs}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}

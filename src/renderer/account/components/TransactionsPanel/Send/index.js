@@ -12,7 +12,7 @@ import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import { NEO } from 'shared/values/assets';
 
-import SendPanel from './SendPanel';
+import Send from './Send';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
@@ -61,4 +61,4 @@ export default compose(
   withProgressChange(sendActions, FAILED, (state, props) => {
     props.alert(`Error: ${state.error}`);
   })
-)(SendPanel);
+)(Send);
