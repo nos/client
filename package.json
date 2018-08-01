@@ -100,7 +100,7 @@
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.3",
     "rimraf": "2.6.2",
-    "sass-loader": "7.0.3",
+    "sass-loader": "7.1.0",
     "style-loader": "0.21.0",
     "svg-react-loader": "0.4.5",
     "wait-on": "2.1.0",
