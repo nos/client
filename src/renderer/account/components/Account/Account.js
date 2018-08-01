@@ -5,7 +5,7 @@ import { values } from 'lodash';
 import Page from 'shared/components/Page';
 
 import AccountPanel from '../AccountPanel';
-import SendPanel from '../SendPanel';
+import TransactionsPanel from '../TransactionsPanel';
 import balanceShape from '../../shapes/balanceShape';
 import styles from './Account.scss';
 
@@ -19,7 +19,7 @@ export default function Account(props) {
         balances={values(balances)}
         prices={prices}
       />
-      <SendPanel
+      <TransactionsPanel
         className={styles.panel}
         balances={balances}
       />
