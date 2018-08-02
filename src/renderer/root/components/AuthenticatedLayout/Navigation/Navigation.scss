@@ -20,15 +20,12 @@
         color: lighten($link-color, 20%);
       }
 
-      &:not(.disabled):focus,
       &:not(.disabled):hover {
         color: lighten($link-color, 20%);
-        stroke: currentColor;
       }
 
       &:not(.disabled):active {
         color: darken($link-color, 20%);
-        stroke: currentColor;
       }
 
       svg {
