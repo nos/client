@@ -7659,9 +7659,9 @@ recharts@1.1.0:
     recharts-scale "0.3.2"
     reduce-css-calc "1.3.0"
 
-recompose@0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.28.0.tgz#3511d488af90001cb12e76cd3f971ba1f495c024"
+recompose@0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.28.1.tgz#a70aa017f9421df59539b9e6033135b10eb09e4c"
   dependencies:
     "@babel/runtime" "^7.0.0-beta.55"
     change-emitter "^0.1.2"
