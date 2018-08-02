@@ -7656,7 +7656,7 @@ quick-lru@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
 
-raf@^3.2.0, raf@^3.4.0:
+raf@^3.2.0, raf@^3.3.0, raf@^3.4.0:
   version "3.4.0"
   resolved "https://registry.npmjs.org/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
   dependencies:
@@ -7872,6 +7872,13 @@ react-smooth@1.0.0:
     prop-types "^15.6.0"
     raf "^3.2.0"
     react-transition-group "^2.2.1"
+
+react-sticky@6.0.3:
+  version "6.0.3"
+  resolved "https://registry.npmjs.org/react-sticky/-/react-sticky-6.0.3.tgz#7a18b643e1863da113d7f7036118d2a75d9ecde4"
+  dependencies:
+    prop-types "^15.5.8"
+    raf "^3.3.0"
 
 react-test-renderer@^16.0.0-0:
   version "16.4.1"

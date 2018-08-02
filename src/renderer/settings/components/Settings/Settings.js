@@ -1,5 +1,6 @@
 import React from 'react';
 import { Element, scrollSpy } from 'react-scroll';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 import Page from 'shared/components/Page';
 import Panel from 'shared/components/Panel';
@@ -16,22 +17,26 @@ export default class Settings extends React.PureComponent {
 
   render() {
     return (
-      <div id="settingsContainer" className={styles.settings}>
-        <Page className={styles.page} id="settingsContainer">
+      <StickyContainer id="settingsContainer" className={styles.settings}>
+        <Page className={styles.page}>
           <Panel className={styles.panel}>
             <div className={styles.sidebar}>
-              <ul>
-                <li>
-                  <SidebarLink to="general" containerId="settingsContainer" offset={-24}>
-                    General
-                  </SidebarLink>
-                </li>
-                <li>
-                  <SidebarLink to="network" containerId="settingsContainer" offset={-24}>
-                    Network
-                  </SidebarLink>
-                </li>
-              </ul>
+              <Sticky relative>
+                {({ style }) => (
+                  <ul style={style}>
+                    <li>
+                      <SidebarLink to="general" containerId="settingsContainer">
+                        General
+                      </SidebarLink>
+                    </li>
+                    <li>
+                      <SidebarLink to="network" containerId="settingsContainer">
+                        Network
+                      </SidebarLink>
+                    </li>
+                  </ul>
+                )}
+              </Sticky>
             </div>
 
             <div className={styles.content}>
@@ -44,7 +49,7 @@ export default class Settings extends React.PureComponent {
             </div>
           </Panel>
         </Page>
-      </div>
+      </StickyContainer>
     );
   }
 }
