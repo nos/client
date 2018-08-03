@@ -1,3 +1,4 @@
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -11,6 +12,7 @@ import {
   openTab,
   closeTab
 } from '../../actions/browserActions';
+import withWebviewIPC from '../../hocs/withWebviewIPC';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   setTabError,
@@ -24,4 +26,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   empty
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(DAppContainer);
+export default compose(
+  connect(null, mapDispatchToProps),
+  withWebviewIPC
+)(DAppContainer);

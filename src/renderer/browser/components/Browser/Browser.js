@@ -45,25 +45,28 @@ export default class Browser extends React.PureComponent {
       <InternalPage
         key={sessionId}
         className={styles.internalPage}
+        active={this.isActive(sessionId)}
         tab={tab}
       />
     );
   }
 
   renderDApp = (tab, sessionId) => {
-    const { activeSessionId } = this.props;
-
-    const className = classNames(styles.dapp, {
-      [styles.active]: sessionId === activeSessionId
-    });
+    const active = this.isActive(sessionId);
+    const className = classNames(styles.dapp, { [styles.active]: active });
 
     return (
       <DAppContainer
         key={sessionId}
         className={className}
         sessionId={sessionId}
+        active={active}
         tab={tab}
       />
     );
+  }
+
+  isActive = (sessionId) => {
+    return sessionId === this.props.activeSessionId;
   }
 }

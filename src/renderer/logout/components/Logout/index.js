@@ -1,6 +1,7 @@
 import { compose, withProps } from 'recompose';
 import { withActions } from 'spunky';
 import { connect } from 'react-redux';
+import { ipcRenderer } from 'electron';
 
 import accountActions from 'shared/actions/accountActions';
 import blockActions from 'shared/actions/blockActions';
@@ -29,6 +30,7 @@ export default compose(
       resetBlock();
       resetAllTabs();
       emptyAllRequests();
+      ipcRenderer.send('webview:focus', null);
     }
   }))
 )(Logout);

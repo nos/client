@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, withHandlers } from 'recompose';
+import { ipcRenderer } from 'electron';
 
 import { navigate } from 'browser/actions/browserActions';
 
@@ -25,6 +26,9 @@ export default compose(
   withHandlers({
     onQuery: (props) => (target) => {
       props.navigate(props.activeSessionId, target);
-    }
+    },
+    onBack: (_props) => () => ipcRenderer.send('history:back'),
+    onForward: (_props) => () => ipcRenderer.send('history:forward'),
+    onReload: (_props) => () => ipcRenderer.send('view:reload')
   })
 )(AddressBar);
