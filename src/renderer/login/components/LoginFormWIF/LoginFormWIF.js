@@ -7,7 +7,7 @@ import Button from 'shared/components/Forms/Button';
 
 import styles from './LoginFormWIF.scss';
 
-export default class LoginFormWIF extends React.Component {
+export default class LoginFormWIF extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     wif: string,

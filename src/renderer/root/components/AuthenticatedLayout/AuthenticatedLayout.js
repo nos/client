@@ -1,46 +1,112 @@
 import React from 'react';
-import { string, node } from 'prop-types';
 import classNames from 'classnames';
+import { string, node, objectOf } from 'prop-types';
 
-import logo from 'shared/images/logo.svg';
+import Logo from 'shared/images/logo.svg';
+import isInternalPage from 'shared/util/isInternalPage';
+import tabShape from 'browser/shapes/tabShape';
 
+import Tabs from './Tabs';
 import Navigation from './Navigation';
+import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
-export default function AuthenticatedLayout(props) {
-  const className = classNames(styles.authenticatedLayout, {
-    [styles[process.platform]]: true
-  });
+export default class AuthenticatedLayout extends React.PureComponent {
+  static propTypes = {
+    activeSessionId: string.isRequired,
+    tabs: objectOf(tabShape).isRequired,
+    currentNetwork: string.isRequired,
+    children: node
+  };
 
-  return (
-    <div className={className}>
-      <div className={styles.menu}>
+  static defaultProps = {
+    children: null
+  };
+
+  state = {
+    showSidebar: true
+  };
+
+  render() {
+    const { tabs, activeSessionId } = this.props;
+
+    const className = classNames(styles.authenticatedLayout, {
+      [styles[process.platform]]: true
+    });
+
+    return (
+      <div className={className}>
         <header>
-          <img src={logo} alt="nOS Logo" width="36" height="36" />
+          {this.renderTrafficLights()}
+          <Tabs
+            className={styles.tabs}
+            tabs={tabs}
+            activeSessionId={activeSessionId}
+          />
         </header>
-        <Navigation />
+
+        <main>
+          {this.renderSidebar()}
+          {this.renderContent()}
+        </main>
       </div>
-      <main className={styles.main}>
+    );
+  }
+
+  renderTrafficLights = () => {
+    if (!this.state.showSidebar && process.platform !== 'darwin') {
+      return null;
+    }
+
+    const className = classNames(styles.sidebar, {
+      [styles.expanded]: this.state.showSidebar
+    });
+
+    return <div className={className} />;
+  }
+
+  renderSidebar = () => {
+    if (!this.state.showSidebar) {
+      return null;
+    }
+
+    return (
+      <div className={styles.sidebar}>
+        <Logo className={styles.logo} />
+        <Navigation className={styles.navigation} />
+      </div>
+    );
+  }
+
+  renderContent = () => {
+    const { currentNetwork, children } = this.props;
+
+    return (
+      <div className={styles.container}>
+        <AddressBar
+          className={styles.addressBar}
+          disabled={this.isInternalPage()}
+          sidebarOpen={this.state.showSidebar}
+          onToggleSidebar={this.handleToggleSidebar}
+        />
         <div className={styles.content}>
-          {props.children}
+          {children}
         </div>
         <footer className={styles.footer}>
-          <div className={styles.status}>
-            Network: {props.currentNetwork}
-          </div>
+          Network: {currentNetwork}
         </footer>
-      </main>
-    </div>
-  );
+      </div>
+    );
+  }
+
+  handleToggleSidebar = () => {
+    this.setState((prevState) => ({
+      showSidebar: !prevState.showSidebar
+    }));
+  }
+
+  isInternalPage = () => {
+    const tab = this.props.tabs[this.props.activeSessionId];
+    return isInternalPage(tab.type);
+  }
 }
-
-AuthenticatedLayout.displayName = 'AuthenticatedLayout';
-
-AuthenticatedLayout.propTypes = {
-  children: node,
-  currentNetwork: string.isRequired
-};
-
-AuthenticatedLayout.defaultProps = {
-  children: null
-};

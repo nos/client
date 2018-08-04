@@ -1,4 +1,6 @@
 .registerForm {
+  margin: 48px 0 0;
+
   .actions {
     display: flex;
     align-items: center;
@@ -7,6 +9,7 @@
     border-top: 1px solid rgba(#000, 0.1);
 
     .login {
+      flex: 0 0 auto;
       margin-left: 10px;
       font-size: 14px;
     }

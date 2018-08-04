@@ -1,5 +1,6 @@
 {
   "plugins": [
+    "syntax-dynamic-import",
     ["module-resolver", {
       "root": [
         "./src/common",
@@ -15,6 +16,7 @@
     "test": {
       "presets": ["env", "react"],
       "plugins": [
+        "dynamic-import-node",
         "transform-class-properties",
         "transform-es2015-modules-commonjs"
       ]

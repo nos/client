@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,700');
+@import url('https://rsms.me/inter/inter-ui.css');
+// @import './fonts/inter-ui';
 
 * {
   box-sizing: border-box;
+  font-family: $primary-font-stack;
 }
 
 body {
@@ -29,7 +31,7 @@ ul {
 
 a {
   text-decoration: underline;
-  color: #4b72fa;
+  color: #8bc83c;
 }
 
 [data-whatintent="mouse"] :focus {

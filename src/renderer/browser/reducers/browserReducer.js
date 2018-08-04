@@ -1,13 +1,24 @@
 import uuid from 'uuid/v1';
-import { keys, omit, has, size } from 'lodash';
+import { keys, findKey, omit, has, size, isEmpty } from 'lodash';
 
-import { OPEN_TAB, CLOSE_TAB, SET_ACTIVE_TAB, SET_TAB_ERROR, SET_TAB_TITLE, SET_TAB_TARGET, SET_TAB_LOADED } from '../actions/browserActions';
 import parseURL from '../util/parseURL';
+import { INTERNAL, EXTERNAL } from '../values/browserValues';
+import {
+  OPEN_TAB,
+  CLOSE_TAB,
+  RESET_TABS,
+  SET_ACTIVE_TAB,
+  SET_TAB_ERROR,
+  SET_TAB_TITLE,
+  SET_TAB_TARGET,
+  SET_TAB_LOADED
+} from '../actions/browserActions';
 
 const initialTabState = {
+  type: EXTERNAL,
   target: 'https://my.nos.app',
   title: 'My nOS',
-  addressBarEntry: true,
+  addressBarEntry: true, // differentiates between link clicks and address bar entries
   loading: false,
   requestCount: 1,
   errorCode: null,
@@ -16,8 +27,8 @@ const initialTabState = {
 
 const newTabState = {
   ...initialTabState,
-  target: 'nos://nos.neo',
-  title: 'Welcome to nOS'
+  target: '',
+  title: 'New Tab'
 };
 
 const generateSessionId = () => uuid();
@@ -62,17 +73,55 @@ function parse(query) {
   }
 }
 
-function open(state) {
+function normalize(target) {
+  return target.split('#')[0].replace(/\/$/, '');
+}
+
+function isNavigatingAway(oldTarget, newTarget) {
+  return normalize(oldTarget) !== normalize(newTarget);
+}
+
+function getSessionId(tabs, callback) {
+  return findKey(tabs, callback);
+}
+
+function focus(state, action) {
+  if (!tabExists(state.tabs, action.sessionId)) {
+    return state;
+  }
+
+  return {
+    ...state,
+    activeSessionId: action.sessionId
+  };
+}
+
+function open(state, action) {
   const sessionId = generateSessionId();
   const { tabs } = state;
+  const { type, target } = action;
+  const internal = type === INTERNAL;
+
+  const existingSessionId = getSessionId(tabs, (tab) => {
+    return tab.type === action.type && tab.target === action.target;
+  });
+
+  if (internal && existingSessionId) {
+    return focus(state, { sessionId: existingSessionId });
+  }
+
+  const tab = {
+    ...newTabState,
+    type,
+    target,
+    title: internal ? target : newTabState.title,
+    loading: !internal && !isEmpty(target)
+  };
 
   return {
     ...state,
     activeSessionId: sessionId,
-    tabs: {
-      ...tabs,
-      [sessionId]: { ...newTabState }
-    }
+    tabs: { ...tabs, [sessionId]: tab }
   };
 }
 
@@ -94,17 +143,6 @@ function close(state, action) {
     : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
-}
-
-function focus(state, action) {
-  if (!tabExists(state.tabs, action.sessionId)) {
-    return state;
-  }
-
-  return {
-    ...state,
-    activeSessionId: action.sessionId
-  };
 }
 
 function setTitle(state, action) {
@@ -131,7 +169,7 @@ function setTarget(state, action) {
   return updateTab(state, action.sessionId, {
     target,
     title: target,
-    loading: action.leavingPage,
+    loading: isNavigatingAway(state.tabs[state.activeSessionId].target, target),
     addressBarEntry: action.addressBarEntry,
     requestCount: tab.requestCount + 1,
     errorCode: null,
@@ -143,22 +181,24 @@ function setLoaded(state, action) {
   return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
-export default function browserReducer(state = generateInitialState(), action) {
+export default function browserReducer(state = generateInitialState(), action = {}) {
   switch (action.type) {
     case OPEN_TAB:
-      return open(state);
+      return open(state, action.payload);
     case CLOSE_TAB:
-      return close(state, action);
+      return close(state, action.payload);
+    case RESET_TABS:
+      return generateInitialState();
     case SET_ACTIVE_TAB:
-      return focus(state, action);
+      return focus(state, action.payload);
     case SET_TAB_ERROR:
-      return setError(state, action);
+      return setError(state, action.payload);
     case SET_TAB_TITLE:
-      return setTitle(state, action);
+      return setTitle(state, action.payload);
     case SET_TAB_TARGET:
-      return setTarget(state, action);
+      return setTarget(state, action.payload);
     case SET_TAB_LOADED:
-      return setLoaded(state, action);
+      return setLoaded(state, action.payload);
     default:
       return state;
   }

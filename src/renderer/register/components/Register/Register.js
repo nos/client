@@ -3,7 +3,7 @@ import { bool, func } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
-import logo from 'shared/images/logo.svg';
+import Logo from 'shared/images/logo.svg';
 
 import RegisterForm from '../RegisterForm';
 import AccountDetails from '../AccountDetails';
@@ -16,7 +16,7 @@ const TABS = {
   [TAB_CREATE]: 'Create Account'
 };
 
-export default class Register extends React.Component {
+export default class Register extends React.PureComponent {
   static propTypes = {
     loading: bool,
     account: accountShape,
@@ -35,8 +35,9 @@ export default class Register extends React.Component {
   render() {
     return (
       <Panel className={styles.register}>
-        <img className={styles.logo} src={logo} alt="nOS" />
+        <Logo className={styles.logo} />
         <Tabs
+          className={styles.tabs}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}

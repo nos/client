@@ -1,17 +1,23 @@
 import fetch from 'node-fetch';
-import { sortBy, values, compact } from 'lodash';
+import { sortBy, trim, filter, values, compact, replace } from 'lodash';
 
 import { TOKENS_URL, NETWORK_MAP } from 'shared/values/config';
 
-export default async function getTokens(net, details = false) {
+function normalizeImage(str) {
+  const src = replace(str, 'raw.githubusercontent.com', 'rawgit.com');
+  return trim(src) === '' ? null : src;
+}
+
+export default async function getTokens(net) {
   const networkKey = NETWORK_MAP[net];
 
   const response = await fetch(TOKENS_URL);
   const tokens = values(await response.json());
-  const sortedTokens = sortBy(tokens, 'symbol');
-  const networkTokens = compact(sortedTokens.map((token) => ({
-    symbol: token.symbol,
-    ...token.networks[networkKey]
-  })));
-  return networkTokens.map((token) => (details ? token : token.hash));
+  const networkTokens = filter(tokens, (token) => token.networks[networkKey]);
+  const sortedTokens = sortBy(networkTokens, 'symbol');
+
+  return sortedTokens.map(({ image, networks }) => {
+    const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
+    return { name, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
+  });
 }

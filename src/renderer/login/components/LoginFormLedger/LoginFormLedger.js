@@ -16,7 +16,7 @@ const deviceInfoShape = shape({
   product: string.isRequired
 });
 
-export default class LoginFormLedger extends React.Component {
+export default class LoginFormLedger extends React.PureComponent {
   static propTypes = {
     poll: func.isRequired,
     publicKey: string,

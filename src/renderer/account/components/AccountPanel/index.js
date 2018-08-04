@@ -1,21 +1,15 @@
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 import { withData } from 'spunky';
-import { pickBy, keys } from 'lodash';
 
-import balancesActions from 'shared/actions/balancesActions';
 import authActions from 'login/actions/authActions';
-import { ASSETS } from 'shared/values/assets';
+import currencyActions from 'settings/actions/currencyActions';
 
 import AccountPanel from './AccountPanel';
 
 const mapAuthDataToProps = ({ address }) => ({ address });
-
-const mapBalancesDataToProps = (balances) => ({ balances });
+const mapCurrencyDataToProps = (currency) => ({ currency });
 
 export default compose(
   withData(authActions, mapAuthDataToProps),
-  withData(balancesActions, mapBalancesDataToProps),
-  withProps(({ balances }) => ({
-    balances: pickBy(balances, ({ scriptHash, balance }) => keys(ASSETS).includes(scriptHash) || balance !== '0')
-  }))
+  withData(currencyActions, mapCurrencyDataToProps)
 )(AccountPanel);

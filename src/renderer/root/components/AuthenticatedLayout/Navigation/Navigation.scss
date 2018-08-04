@@ -1,39 +1,36 @@
 .navigation {
+  $link-color: $light-text-color;
+
   ul:not(:first-child) {
     border-top: $primary-border-style;
   }
 
   li {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+    padding: 8px 0;
+    margin: 0;
     text-align: center;
 
-    color: transparentize($primary-text-color, 0.5);
-
-    a {
+    .link {
+      display: block;
+      color: $link-color;
       text-decoration: none;
-
-      &:link,
-      &:visited {
-        color: $primary-text-color;
-      }
-
-      &:focus,
-      &:hover {
-        color: lighten($primary-text-color, 20%);
-      }
-
-      &:active {
-        color: darken($primary-text-color, 20%);
-      }
+      cursor: default;
 
       &.disabled {
-        cursor: not-allowed;
-        color: lighten($primary-text-color, 20%);
+        color: lighten($link-color, 20%);
       }
 
-      span {
-        padding-left: 0.5rem;
+      &:not(.disabled):hover {
+        color: lighten($link-color, 20%);
+      }
+
+      &:not(.disabled):active {
+        color: darken($link-color, 20%);
+      }
+
+      svg {
+        display: block;
+        margin: 0 auto;
       }
     }
   }

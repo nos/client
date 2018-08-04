@@ -10,7 +10,7 @@ import Input from 'shared/components/Forms/Input/Input';
 
 import styles from './LoginFormWalletFile.scss';
 
-export default class LoginFormWalletFile extends React.Component {
+export default class LoginFormWalletFile extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     encryptedWIF: string,
@@ -62,6 +62,7 @@ export default class LoginFormWalletFile extends React.Component {
 
     return (
       <Select
+        id="account"
         className={styles.accounts}
         value={encryptedWIF}
         onChange={this.handleSelect}
