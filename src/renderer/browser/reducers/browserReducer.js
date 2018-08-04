@@ -1,11 +1,12 @@
 import uuid from 'uuid/v1';
-import { keys, omit, has, size, isEmpty } from 'lodash';
+import { keys, findKey, omit, has, size, isEmpty } from 'lodash';
 
 import parseURL from '../util/parseURL';
 import { INTERNAL, EXTERNAL } from '../values/browserValues';
 import {
   OPEN_TAB,
   CLOSE_TAB,
+  RESET_TABS,
   SET_ACTIVE_TAB,
   SET_TAB_ERROR,
   SET_TAB_TITLE,
@@ -73,11 +74,26 @@ function parse(query) {
 }
 
 function normalize(target) {
-  return target.split('#')[0].replace(/\/^/, '');
+  return target.split('#')[0].replace(/\/$/, '');
 }
 
 function isNavigatingAway(oldTarget, newTarget) {
-  return normalize(oldTarget) === normalize(newTarget);
+  return normalize(oldTarget) !== normalize(newTarget);
+}
+
+function getSessionId(tabs, callback) {
+  return findKey(tabs, callback);
+}
+
+function focus(state, action) {
+  if (!tabExists(state.tabs, action.sessionId)) {
+    return state;
+  }
+
+  return {
+    ...state,
+    activeSessionId: action.sessionId
+  };
 }
 
 function open(state, action) {
@@ -85,6 +101,14 @@ function open(state, action) {
   const { tabs } = state;
   const { type, target } = action;
   const internal = type === INTERNAL;
+
+  const existingSessionId = getSessionId(tabs, (tab) => {
+    return tab.type === action.type && tab.target === action.target;
+  });
+
+  if (internal && existingSessionId) {
+    return focus(state, { sessionId: existingSessionId });
+  }
 
   const tab = {
     ...newTabState,
@@ -119,17 +143,6 @@ function close(state, action) {
     : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
-}
-
-function focus(state, action) {
-  if (!tabExists(state.tabs, action.sessionId)) {
-    return state;
-  }
-
-  return {
-    ...state,
-    activeSessionId: action.sessionId
-  };
 }
 
 function setTitle(state, action) {
@@ -168,12 +181,14 @@ function setLoaded(state, action) {
   return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
-export default function browserReducer(state = generateInitialState(), action) {
+export default function browserReducer(state = generateInitialState(), action = {}) {
   switch (action.type) {
     case OPEN_TAB:
       return open(state, action.payload);
     case CLOSE_TAB:
       return close(state, action.payload);
+    case RESET_TABS:
+      return generateInitialState();
     case SET_ACTIVE_TAB:
       return focus(state, action.payload);
     case SET_TAB_ERROR:

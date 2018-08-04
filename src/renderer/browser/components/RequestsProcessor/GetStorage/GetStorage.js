@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, any, objectOf } from 'prop-types';
 
-export default class GetStorage extends React.Component {
+export default class GetStorage extends React.PureComponent {
   static propTypes = {
     data: objectOf(any).isRequired,
     onResolve: func.isRequired

@@ -8,7 +8,7 @@ import Button from 'shared/components/Forms/Button';
 
 import styles from './LoginFormPassphrase.scss';
 
-export default class LoginFormWIF extends React.Component {
+export default class LoginFormWIF extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,

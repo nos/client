@@ -1,7 +1,6 @@
 import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
-import { shell } from 'electron';
 import { string, func } from 'prop-types';
 
 import getStaticPath from '../../../util/getStaticPath';
@@ -10,7 +9,7 @@ import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
 import styles from './DAppContainer.scss';
 
-export default class DAppContainer extends React.Component {
+export default class DAppContainer extends React.PureComponent {
   static propTypes = {
     className: string,
     sessionId: string.isRequired,
@@ -22,6 +21,7 @@ export default class DAppContainer extends React.Component {
     enqueue: func.isRequired,
     dequeue: func.isRequired,
     empty: func.isRequired,
+    openTab: func.isRequired,
     closeTab: func.isRequired
   }
 
@@ -30,6 +30,9 @@ export default class DAppContainer extends React.Component {
   }
 
   async componentDidMount() {
+    window.addEventListener('focus', this.handleFocus);
+
+    this.webview.addEventListener('dom-ready', this.handleFocus);
     this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
@@ -52,6 +55,9 @@ export default class DAppContainer extends React.Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('focus', this.handleFocus);
+
+    this.webview.removeEventListener('dom-ready', this.handleFocus);
     this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
@@ -117,6 +123,10 @@ export default class DAppContainer extends React.Component {
     );
   }
 
+  handleFocus = () => {
+    this.webview.focus();
+  }
+
   handleConsoleMessage = (event) => {
     console.log('[DApp]', event.message); // eslint-disable-line no-console
   }
@@ -145,13 +155,14 @@ export default class DAppContainer extends React.Component {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
-  handleNavigateFailed = ({ errorCode, errorDescription }) => {
-    this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+  handleNavigateFailed = ({ errorCode, errorDescription, isMainFrame }) => {
+    if (isMainFrame) {
+      this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+    }
   }
 
   handleNewWindow = (event) => {
-    event.preventDefault();
-    shell.openExternal(event.url);
+    this.props.openTab({ target: event.url });
   }
 
   handleCloseWindow = () => {

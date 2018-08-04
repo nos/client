@@ -18,7 +18,7 @@ const withInitialCall = (
   mapPropsToAction = defaultMapPropsToAction,
   { propName = PROGRESS_PROP, strategy = pureStrategy, ...options } = {}
 ) => (Component) => {
-  class ConditionalCallComponent extends React.Component {
+  class ConditionalCallComponent extends React.PureComponent {
     static propTypes = {
       [propName]: string.isRequired
     };

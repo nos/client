@@ -5,9 +5,11 @@ import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelp
 
 import { Account } from 'account';
 import { NEO, GAS } from 'shared/values/assets';
+import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 
 const initialState = {
   [spunkyKey]: {
+    currency: mockSpunkyLoaded(DEFAULT_CURRENCY),
     currentNetwork: mockSpunkyLoaded('MainNet'),
     auth: mockSpunkyLoaded({
       address: 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s',
@@ -47,8 +49,8 @@ describe('<Account />', () => {
     expect(wrapper.find('AccountPanel').exists()).toBe(true);
   });
 
-  it('renders the send panel', () => {
+  it('renders the transactions panel', () => {
     const wrapper = mountAccount();
-    expect(wrapper.find('SendPanel').exists()).toBe(true);
+    expect(wrapper.find('TransactionsPanel').exists()).toBe(true);
   });
 });

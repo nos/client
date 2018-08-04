@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 import RequestProcessor from './RequestProcessor';
 import requestShape from '../../shapes/requestShape';
 
-export default class RequestsProcessor extends React.Component {
+export default class RequestsProcessor extends React.PureComponent {
   static propTypes = {
     sessionId: string.isRequired,
     src: string.isRequired,

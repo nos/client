@@ -5,16 +5,15 @@ import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
 import { map, noop } from 'lodash';
 
-import Panel from 'shared/components/Panel';
 import Button from 'shared/components/Forms/Button';
 import Input from 'shared/components/Forms/Input';
 import Select from 'shared/components/Forms/Select';
 
-import styles from './SendPanel.scss';
-import isNumeric from '../../util/isNumeric';
-import balanceShape from '../../shapes/balanceShape';
+import isNumeric from '../../../util/isNumeric';
+import balanceShape from '../../../shapes/balanceShape';
+import styles from './Send.scss';
 
-export default class SendPanel extends React.Component {
+export default class Send extends React.PureComponent {
   static propTypes = {
     className: string,
     loading: bool.isRequired,
@@ -45,48 +44,44 @@ export default class SendPanel extends React.Component {
     const symbol = this.getSymbol();
 
     return (
-      <Panel className={classNames(styles.sendPanel, className)}>
-        <form className={styles.content}>
-          <h2>Send</h2>
-          <Select
-            className={styles.asset}
-            id="asset"
-            label="Token to send"
-            value={asset}
-            onChange={this.handleChangeAsset}
-          >
-            {this.renderAssets()}
-          </Select>
-          <Input
-            className={styles.amount}
-            id="amount"
-            type="number"
-            label="Sending amount"
-            placeholder={`Enter ${symbol} amount`}
-            min="0"
-            step={step}
-            value={amount}
-            onChange={this.handleChangeAmount}
-          />
-          <Input
-            className={styles.recipient}
-            id="recipient"
-            type="text"
-            label="Recipient"
-            placeholder="Wallet address"
-            value={receiver}
-            disabled={false}
-            onChange={this.handleChangeRecipient}
-          />
-          <Button
-            type="submit"
-            disabled={loading || !this.isValid()}
-            onClick={this.handleTransfer}
-          >
-            Next
-          </Button>
-        </form>
-      </Panel>
+      <form className={classNames(styles.send, className)}>
+        <Select
+          className={styles.asset}
+          id="asset"
+          label="Token to send"
+          value={asset}
+          onChange={this.handleChangeAsset}
+        >
+          {this.renderAssets()}
+        </Select>
+        <Input
+          className={styles.amount}
+          id="amount"
+          type="number"
+          label="Sending amount"
+          placeholder={`Enter ${symbol} amount`}
+          min="0"
+          step={step}
+          value={amount}
+          onChange={this.handleChangeAmount}
+        />
+        <Input
+          className={styles.recipient}
+          id="recipient"
+          label="Recipient"
+          placeholder="Wallet address"
+          value={receiver}
+          onChange={this.handleChangeRecipient}
+        />
+        <Button
+          className={styles.next}
+          type="submit"
+          disabled={loading || !this.isValid()}
+          onClick={this.handleTransfer}
+        >
+          Next
+        </Button>
+      </form>
     );
   }
 

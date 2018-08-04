@@ -9,7 +9,7 @@ function isValidAssetHash(asset) {
   return wallet.isScriptHash(asset) || [NEO, GAS].includes(asset);
 }
 
-export default class GetBalance extends React.Component {
+export default class GetBalance extends React.PureComponent {
   static propTypes = {
     balances: objectOf(balanceShape).isRequired,
     asset: string.isRequired,

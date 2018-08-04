@@ -1,15 +1,12 @@
 .loginForm {
+  margin: 48px 0 0;
+
   .actions {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     margin-top: 24px;
     padding-top: 16px;
     border-top: 1px solid rgba(#000, 0.1);
-
-    .login {
-      flex: 0 0 1%;
-    }
 
     .register {
       flex: 0 0 auto;

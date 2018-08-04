@@ -23,7 +23,7 @@ const TABS = {
   [TAB_FILE]: 'Wallet File'
 };
 
-export default class Login extends React.Component {
+export default class Login extends React.PureComponent {
   static propTypes = {
     loading: bool,
     login: func.isRequired
@@ -42,6 +42,7 @@ export default class Login extends React.Component {
       <Panel className={styles.login}>
         <Logo className={styles.logo} />
         <Tabs
+          className={styles.tabs}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}

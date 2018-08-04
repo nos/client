@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { values, sortBy, filter, extend, replace, trim } from 'lodash';
-import { api, wallet } from '@cityofzion/neon-js';
+import { values, sortBy, filter, extend, replace, get, find, trim } from 'lodash';
+import { api, rpc, wallet } from '@cityofzion/neon-js';
 
 import { GAS, NEO } from '../values/assets';
 
@@ -43,14 +43,12 @@ async function getTokenBalance(endpoint, token, address) {
   }
 }
 
-async function getAssetBalances(net, address) {
-  const assetBalances = await api.getBalanceFrom({ net, address }, api.neoscan);
+async function getAssetBalances(endpoint, address) {
+  const client = new rpc.RPCClient(endpoint);
+  const { balances } = await client.getAccountState(address);
 
-  const { assets } = assetBalances.balance;
-
-  // The API doesn't always return NEO or GAS keys if, for example, the address only has one asset
-  const neoBalance = assets.NEO ? assets.NEO.balance.toString() : '0';
-  const gasBalance = assets.GAS ? assets.GAS.balance.round(8).toString() : '0';
+  const neoBalance = get(find(balances, { asset: `0x${NEO}` }), 'value', '0');
+  const gasBalance = get(find(balances, { asset: `0x${GAS}` }), 'value', '0');
 
   return {
     [NEO]: { name: 'NEO', symbol: 'NEO', scriptHash: NEO, balance: neoBalance, decimals: 0 },
@@ -71,7 +69,7 @@ export default async function getBalances({ net, address }) {
   });
 
   // asset balances
-  promises.unshift(getAssetBalances(net, address));
+  promises.unshift(getAssetBalances(endpoint, address));
 
   return extend({}, ...await Promise.all(promises));
 }
