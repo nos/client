@@ -1,4 +1,5 @@
 .tab {
+  cursor: default;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -16,33 +17,31 @@
     box-shadow: none;
   }
 
+  &.active,
+  &:hover {
+    z-index: 1; // stay on top of `AddressBar` box-shadow
+  }
+
   &:last-of-type {
     &:not(.active) {
       box-shadow: inset 1px 0 0 $light-text-color,
-                  inset -1px 0 0 $light-text-color;
+      inset -1px 0 0 $light-text-color;
     }
-  }
-
-  &.active + &:last-of-type {
-    box-shadow: inset -1px 0 0 $light-text-color;
   }
 
   &.active,
   &.active + & {
     box-shadow: none;
   }
-
-  &.active,
-  &:hover {
-    z-index: 1; // stay on top of `AddressBar` box-shadow
+  &:not(.active):hover {
+    background: rgba(#fff, 0.6);
+  }
+  &.active + &:last-of-type {
+    box-shadow: inset -1px 0 0 $light-text-color;
   }
 
   &.active {
     background: #fff;
-  }
-
-  &:not(.active):hover {
-    background: rgba(#fff, 0.6);
   }
 
   .title {
