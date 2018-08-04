@@ -76,7 +76,7 @@ Future resources:
 We welcome contributions to the code base. If you are interested in becoming a contributor, please read the [contributing guide](/.github/CONTRIBUTING.md) that covers the following:
 
 - [Reporting bugs](/.github/CONTRIBUTING.md#reporting-bugs)
-- [Suggesting enchancements](/.github/CONTRIBUTING.md#Suggesting-Enhancements)
+- [Suggesting enhancements](/.github/CONTRIBUTING.md#Suggesting-Enhancements)
 - [Code contribution guidelines](/.github/CONTRIBUTING.md#Code-Contribution)
 
 
