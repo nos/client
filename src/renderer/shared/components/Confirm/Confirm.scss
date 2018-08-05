@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     width: 300px;
-    padding: 40px 0px;
+    padding: 40px 0;
   }
 
   .content {
@@ -22,10 +22,8 @@
     justify-content: center;
     padding: 60px 70px;
     font-weight: 300;
-    background-image: url(../../images/modal-gradient-vertical.png);
+    background: url("../../images/modal-gradient-vertical.png") no-repeat center left;
     background-size: auto 100%;
-    background-position: center left;
-    background-repeat: no-repeat;
 
     .title {
       flex: 0 0 auto;
@@ -59,24 +57,24 @@
           margin-right: 0;
         }
       }
+    }
 
-      .cancel {
-        color: #fff;
-        background-color: #292b2c;
-        border-color: #292b2c;
+    .cancel {
+      color: #fff;
+      background-color: #292b2c;
+      border-color: #292b2c;
 
-        &:focus {
-          box-shadow: none;
-        }
+      &:focus {
+        box-shadow: none;
+      }
 
-        &:not([disabled]) {
-          cursor: pointer;
+      &:not([disabled]) {
+        cursor: pointer;
 
-          &:active,
-          &:hover {
-            background-color: #101112;
-            border-color: #0a0b0b;
-          }
+        &:active,
+        &:hover {
+          background-color: #101112;
+          border-color: #0a0b0b;
         }
       }
     }

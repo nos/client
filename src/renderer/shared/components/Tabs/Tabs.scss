@@ -13,44 +13,44 @@
       &:not(:last-child) {
         margin-right: 24px;
       }
+    }
 
-      .label {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        color: #9a99a5;
-        border-color: #dee2e6 #dee2e6 transparent;
-        padding: 8px 12px;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 17px;
+    .label {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      color: #9a99a5;
+      border-color: #dee2e6 #dee2e6 transparent;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+      transition: all 0.2s ease;
+
+      &::after {
+        content: "";
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(90deg, #b9d532 0%, #5bba47 100%);
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
         transition: all 0.2s ease;
+      }
+
+      &.selected {
+        color: #353445;
+        font-weight: bold;
 
         &::after {
-          content: "";
-          width: 0%;
-          height: 2px;
-          background: linear-gradient(90deg, #b9d532 0%, #5bba47 100%);
-          position: absolute;
-          bottom: -2px;
-          left: 50%;
-          transform: translateX(-50%);
-          transition: all 0.2s ease;
+          width: 100%;
         }
+      }
 
-        &.selected {
-          color: #353445;
-          font-weight: bold;
-
-          &::after {
-            width: 100%;
-          }
-        }
-
-        &:hover {
-          color: #353445;
-          font-weight: bold;
-        }
+      &:hover {
+        color: #353445;
+        font-weight: bold;
       }
     }
   }

@@ -72,7 +72,8 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         flex: 1 1 auto;
         box-sizing: border-box;
         overflow-y: auto;
-        flex: 1;
+        height: 100vh;
+        //flex: 1;
       }
 
       .footer {
