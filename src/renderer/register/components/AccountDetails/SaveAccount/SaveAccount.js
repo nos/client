@@ -7,7 +7,7 @@ import { noop, isEmpty } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
 import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import accountShape from '../../../shapes/accountShape';
 import styles from './SaveAccount.scss';
@@ -43,20 +43,20 @@ export default class SaveAccount extends React.PureComponent {
           onChange={this.handleChangeLabel}
         />
         <div className={styles.saveButtons}>
-          <Button
+          <PrimaryButton
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleSaveNewWallet}
           >
             Save as new NEP6 Wallet
-          </Button>
-          <Button
+          </PrimaryButton>
+          <PrimaryButton
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleAddToWallet}
           >
             Add account to NEP6 Wallet
-          </Button>
+          </PrimaryButton>
         </div>
       </div>
     );

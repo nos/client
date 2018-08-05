@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { string } from 'prop-types';
 
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './Receive.scss';
 
@@ -27,7 +27,7 @@ export default class Receive extends React.PureComponent {
         <div className={styles.address}>{address}</div>
 
         <CopyToClipboard text={address}>
-          <Button className={styles.copy}>Copy to clipboard</Button>
+          <PrimaryButton className={styles.copy}>Copy to clipboard</PrimaryButton>
         </CopyToClipboard>
 
         <div className={styles.label}>My wallet QR code</div>

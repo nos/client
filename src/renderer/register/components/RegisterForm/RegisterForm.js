@@ -4,7 +4,7 @@ import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './RegisterForm.scss';
 
@@ -52,13 +52,13 @@ export default class RegisterForm extends React.PureComponent {
         />
 
         <div className={styles.actions}>
-          <Button
+          <PrimaryButton
             className={styles.register}
             type="submit"
             disabled={disabled || !this.isValid()}
           >
             Register
-          </Button>
+          </PrimaryButton>
           <span className={styles.login}>
             Already have an account?{' '}
             <Link to="/login">Login</Link>
