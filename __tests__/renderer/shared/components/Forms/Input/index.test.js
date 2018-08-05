@@ -1,22 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-import Input from 'shared/components/Forms/Input';
+import InputContainer from 'shared/components/Forms/Input';
+import Input from 'shared/components/Forms/Input/Input';
 
 const mountContainer = (props = {}) => {
-  return shallow(<Input {...props} />);
+  return mount(<InputContainer {...props} />);
 };
 
 describe('<Input />', () => {
-  it('renders an input', () => {
-    const props = { id: 'name', defaultValue: 'foo' };
-    const wrapper = mountContainer(props);
-    expect(wrapper.type()).toEqual('input');
-    expect(wrapper.props()).toEqual(expect.objectContaining(props));
-  });
-
-  it('applies a custom className', () => {
-    const wrapper = mountContainer({ className: 'passwordField' });
-    expect(wrapper.prop('className').split(' ')).toContain('passwordField');
+  it('forwards the ref to the component', () => {
+    const wrapper = mountContainer({ ref: React.createRef() });
+    expect(wrapper).toForwardRefTo(Input);
   });
 });
