@@ -1,7 +1,7 @@
 import { compose, withState } from 'recompose';
 import { progressValues } from 'spunky';
 
-import withAlert from 'shared/hocs/withAlert';
+import withErrorToast from 'shared/hocs/withErrorToast';
 import withProgressChange from 'shared/hocs/withProgressChange';
 
 import RegisterForm from './RegisterForm';
@@ -12,6 +12,8 @@ const { FAILED } = progressValues;
 export default compose(
   withState('passphrase', 'setPassphrase', ''),
   withState('passphraseConfirmation', 'setPassphraseConfirmation', ''),
-  withAlert(),
-  withProgressChange(createAccountActions, FAILED, (state, props) => props.alert(`Error: ${state.error}`))
+  withErrorToast(),
+  withProgressChange(createAccountActions, FAILED, (state, props) => {
+    props.showToast(`Account creation failed: ${state.error}`);
+  })
 )(RegisterForm);
