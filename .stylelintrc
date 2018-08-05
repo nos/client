@@ -1,0 +1,9 @@
+{
+  "extends": "stylelint-config-recommended-scss",
+  "rules": {
+    "function-url-quotes": "always",
+    "number-leading-zero": "always",
+    "max-nesting-depth": 4,
+    "function-name-case": "lower"
+  }
+}
