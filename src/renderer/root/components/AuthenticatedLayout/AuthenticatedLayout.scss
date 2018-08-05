@@ -69,11 +69,9 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
       }
 
       .content {
-        flex: 1 1 auto;
+        flex: 1 1 100%;
         box-sizing: border-box;
         overflow-y: auto;
-        height: 100vh;
-        //flex: 1;
       }
 
       .footer {
