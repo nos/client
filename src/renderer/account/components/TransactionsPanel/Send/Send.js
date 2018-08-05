@@ -5,7 +5,7 @@ import { wallet } from '@cityofzion/neon-js';
 import { BigNumber } from 'bignumber.js';
 import { map, noop } from 'lodash';
 
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import Input from 'shared/components/Forms/Input';
 import Select from 'shared/components/Forms/Select';
 
@@ -73,14 +73,14 @@ export default class Send extends React.PureComponent {
           value={receiver}
           onChange={this.handleChangeRecipient}
         />
-        <Button
+        <PrimaryButton
           className={styles.next}
           type="submit"
           disabled={loading || !this.isValid()}
           onClick={this.handleTransfer}
         >
           Next
-        </Button>
+        </PrimaryButton>
       </form>
     );
   }

@@ -5,6 +5,7 @@ import { noop, map } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import Select from 'shared/components/Forms/Select';
 import Input from 'shared/components/Forms/Input/Input';
 
@@ -47,7 +48,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
         {this.renderDescription()}
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
+          <PrimaryButton type="submit" disabled={disabled || !this.isValid()}>Login</PrimaryButton>
         </div>
       </form>
     );

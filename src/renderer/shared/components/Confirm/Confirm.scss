@@ -58,25 +58,5 @@
         }
       }
     }
-
-    .cancel {
-      color: #fff;
-      background-color: #292b2c;
-      border-color: #292b2c;
-
-      &:focus {
-        box-shadow: none;
-      }
-
-      &:not([disabled]) {
-        cursor: pointer;
-
-        &:active,
-        &:hover {
-          background-color: #101112;
-          border-color: #0a0b0b;
-        }
-      }
-    }
   }
 }

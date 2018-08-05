@@ -5,6 +5,7 @@ import { noop, map } from 'lodash';
 
 import Input from 'shared/components/Forms/Input';
 import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import Select from 'shared/components/Forms/Select';
 import NetworkIcon from 'shared/images/settings/network.svg';
 
@@ -65,9 +66,9 @@ export default class NetworkSettings extends React.PureComponent {
           />
 
           <div className={styles.actions}>
-            <Button className={styles.action} onClick={this.handleAddNewNetwork}>
+            <PrimaryButton className={styles.action} onClick={this.handleAddNewNetwork}>
               Add Custom Network
-            </Button>
+            </PrimaryButton>
             <br />
             <Button className={styles.action} onClick={this.handleClearNetworks}>
               Clear Custom Networks

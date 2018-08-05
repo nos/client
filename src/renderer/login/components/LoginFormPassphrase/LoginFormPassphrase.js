@@ -4,7 +4,7 @@ import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormPassphrase.scss';
 
@@ -52,13 +52,13 @@ export default class LoginFormWIF extends React.PureComponent {
         />
 
         <div className={styles.actions}>
-          <Button
+          <PrimaryButton
             className={styles.login}
             type="submit"
             disabled={disabled || !this.isValid()}
           >
             Login
-          </Button>
+          </PrimaryButton>
           <span className={styles.register}>
             New to NEO?{' '}
             <Link to="/register">Create an account</Link>
