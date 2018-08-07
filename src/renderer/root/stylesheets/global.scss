@@ -12,6 +12,7 @@ body {
   background: $content-bg-color;
   color: #58585a;
   user-select: none;
+  cursor: default;
 
   font: {
     family: $primary-font-stack;
