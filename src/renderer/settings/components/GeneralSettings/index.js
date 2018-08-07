@@ -3,8 +3,7 @@ import { withActions, withData, withReset, progressValues } from 'spunky';
 
 import pricesActions from 'account/actions/pricesActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
-import withSuccessToast from 'shared/hocs/withSuccessToast';
-import withErrorToast from 'shared/hocs/withErrorToast';
+import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import GeneralSettings from './GeneralSettings';
 import currencyActions, { setCurrency } from '../../actions/currencyActions';
@@ -22,12 +21,12 @@ export default compose(
   withData(currencyActions, mapCurrencyDataToProps),
   withReset(pricesActions, 'currency'),
 
-  withSuccessToast('showSuccessToast'),
+  withSuccessToast(),
   withProgressChange(setCurrency, LOADED, (state, props) => {
     props.showSuccessToast('Settings successfully updated');
   }),
 
-  withErrorToast('showErrorToast'),
+  withErrorToast(),
   withProgressChange(setCurrency, FAILED, (state, props) => {
     props.showErrorToast(`Error updating settings: ${state.error}`);
   })

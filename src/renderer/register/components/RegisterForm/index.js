@@ -3,9 +3,9 @@ import { withActions, progressValues } from 'spunky';
 
 import withImmediateReset from 'shared/hocs/withImmediateReset';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
-import withErrorToast from 'shared/hocs/withErrorToast';
-import pureStrategy from 'shared/hocs/strategies/pureStrategy';
+import { withErrorToast } from 'shared/hocs/withToast';
 import withProgressChange from 'shared/hocs/withProgressChange';
+import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 
 import RegisterForm from './RegisterForm';
 import createAccountActions from '../../actions/createAccountActions';
@@ -27,6 +27,6 @@ export default compose(
   withState('passphraseConfirmation', 'setPassphraseConfirmation', ''),
   withErrorToast(),
   withProgressChange(createAccountActions, FAILED, (state, props) => {
-    props.showToast(`Account creation failed: ${state.error}`);
+    props.showErrorToast(`Account creation failed: ${state.error}`);
   })
 )(RegisterForm);

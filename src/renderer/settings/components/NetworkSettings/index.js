@@ -7,8 +7,7 @@ import withAllNetworkData from 'shared/hocs/withAllNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
-import withSuccessToast from 'shared/hocs/withSuccessToast';
-import withErrorToast from 'shared/hocs/withErrorToast';
+import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import NetworkSettings from './NetworkSettings';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/currentNetworkActions';
@@ -61,12 +60,12 @@ export default compose(
   withState('networkName', 'setNetworkName', ''),
   withState('networkUrl', 'setNetworkUrl', ''),
 
-  withSuccessToast('showSuccessToast'),
+  withSuccessToast(),
   withProgressChange(setCurrentNetwork, LOADED, (state, props) => {
     props.showSuccessToast('Settings successfully updated');
   }),
 
-  withErrorToast('showErrorToast'),
+  withErrorToast(),
   withProgressChange(setCurrentNetwork, FAILED, (state, props) => {
     props.showErrorToast(`Error updating settings: ${state.error}`);
   })
