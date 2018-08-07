@@ -1,0 +1,10 @@
+.toasts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 20px;
+  pointer-events: none;
+}

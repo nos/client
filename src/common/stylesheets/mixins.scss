@@ -1,11 +1,3 @@
-@mixin headerStyle {
-  box-sizing: border-box;
-  height: calc(32px + 1rem);
-  display: flex;
-  align-items: center;
-  border-bottom: $primary-border-style;
-}
-
 @keyframes spin {
   from {
     -webkit-transform: rotate(0deg);
@@ -20,4 +12,30 @@
 
 @mixin spin {
   animation: spin 2s infinite linear;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@mixin fade-in {
+  animation: fade-in 0.25s linear;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@mixin fade-out {
+  animation: fade-out 0.25s linear;
 }
