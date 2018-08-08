@@ -1,0 +1,35 @@
+.toast {
+  @include fade-in;
+  display: flex;
+  align-items: center;
+  max-width: 350px;
+  padding: 8px;
+  background: $dark-text-color;
+  box-shadow: 0 4px 8px rgba(53, 52, 69, 0.1),
+              0 2px 4px rgba(53, 52, 69, 0.2);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: all;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  .icon {
+    flex: 0 0 auto;
+    margin-right: 16px;
+  }
+
+  .message {
+    flex: 1 1 auto;
+    color: #fff;
+  }
+
+  .close {
+    flex: 0 0 auto;
+    margin-left: 16px;
+    color: $light-text-color;
+    cursor: pointer;
+  }
+}

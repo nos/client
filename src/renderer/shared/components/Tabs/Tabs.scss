@@ -7,7 +7,7 @@
 
     .tab {
       display: block;
-      cursor: pointer;
+      cursor: default;
       -webkit-font-smoothing: antialiased;
 
       &:not(:last-child) {
