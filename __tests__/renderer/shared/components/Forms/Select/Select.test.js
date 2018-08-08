@@ -1,28 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Select from 'shared/components/Forms/Select/Select';
+import Dropdown from 'shared/components/Dropdown';
 
 const mountContainer = (props = {}) => {
-  return shallow(<Select {...props} />);
+  return mount(<Select {...props} />);
 };
 
 describe('<Select />', () => {
-  it('renders a select', () => {
-    const children = (
-      <React.Fragment>
-        <option value="foo">Foo</option>
-        <option value="bar">Bar</option>
-      </React.Fragment>
-    );
-    const props = { id: 'name', defaultValue: 'foo', children };
-    const wrapper = mountContainer(props);
-    expect(wrapper.type()).toEqual('select');
-    expect(wrapper.props()).toEqual(expect.objectContaining(props));
+  it('renders a dropdown', () => {
+    const wrapper = mountContainer({ id: 'name' });
+    expect(wrapper.find(Dropdown).exists()).toBe(true);
   });
 
   it('applies a custom className', () => {
-    const wrapper = mountContainer({ className: 'currency' });
+    const wrapper = mountContainer({ id: 'currency', className: 'currency' });
     expect(wrapper.prop('className').split(' ')).toContain('currency');
   });
 });

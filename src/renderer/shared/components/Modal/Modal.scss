@@ -1,19 +1,32 @@
-.backdrop {
+.portal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: $modal-backdrop-color;
-  opacity: 0.3;
-}
+  overflow-x: hidden;
+  overflow-y: auto;
 
-.modal {
-  position: relative;
-  margin: 1.75rem auto;
-  margin: 0.5rem;
-  border-radius: 6px;
-  background-color: $modal-background-color;
-  background-clip: padding-box;
-  box-shadow: $modal-shadow;
+  .backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $modal-backdrop-color;
+    opacity: 0.3;
+  }
+
+  .modal {
+    position: relative;
+    margin: 1.75rem auto;
+    margin: 0.5rem;
+    border-radius: 6px;
+    background-color: $modal-background-color;
+    background-clip: padding-box;
+    box-shadow: $modal-shadow;
+  }
 }

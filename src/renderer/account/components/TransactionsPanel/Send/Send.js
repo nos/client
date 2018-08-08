@@ -49,11 +49,11 @@ export default class Send extends React.PureComponent {
           className={styles.asset}
           id="asset"
           label="Token to send"
+          placeholder="Select token"
           value={asset}
+          items={this.getAssetItems()}
           onChange={this.handleChangeAsset}
-        >
-          {this.renderAssets()}
-        </LabeledSelect>
+        />
         <LabeledInput
           className={styles.amount}
           id="amount"
@@ -85,12 +85,6 @@ export default class Send extends React.PureComponent {
     );
   }
 
-  renderAssets = () => {
-    return map(this.props.balances, ({ symbol, scriptHash }) => (
-      <option key={scriptHash} value={scriptHash}>{symbol}</option>
-    ));
-  }
-
   handleTransfer = () => {
     const { confirm, receiver } = this.props;
     const symbol = this.getSymbol();
@@ -109,8 +103,8 @@ export default class Send extends React.PureComponent {
     onSend({ asset, amount, receiver });
   };
 
-  handleChangeAsset = (event) => {
-    this.props.setAsset(event.target.value);
+  handleChangeAsset = (value) => {
+    this.props.setAsset(value);
   };
 
   handleChangeAmount = (event) => {
@@ -120,6 +114,13 @@ export default class Send extends React.PureComponent {
   handleChangeRecipient = (event) => {
     this.props.setReceiver(event.target.value);
   };
+
+  getAssetItems = () => {
+    return map(this.props.balances, ({ symbol, scriptHash }) => ({
+      label: symbol,
+      value: scriptHash
+    }));
+  }
 
   getSymbol = () => {
     return this.getAsset(this.props.asset).symbol;

@@ -30,24 +30,19 @@ export default class GeneralSettings extends React.PureComponent {
             id="currency"
             label="Local Currency"
             value={this.props.currency}
+            items={this.getCurrencyItems()}
             onChange={this.handleChangeCurrency}
-          >
-            {map(CURRENCIES, this.renderCurrencyOption)}
-          </LabeledSelect>
+          />
         </SectionContent>
       </div>
     );
   }
 
-  renderCurrencyOption = (label, value) => {
-    return (
-      <option key={value} value={value}>
-        {label} ({value})
-      </option>
-    );
-  };
+  handleChangeCurrency = (value) => {
+    this.props.setCurrency(value);
+  }
 
-  handleChangeCurrency = (event) => {
-    this.props.setCurrency(event.target.value);
-  };
+  getCurrencyItems = () => {
+    return map(CURRENCIES, (label, value) => ({ label: `${label} (${value})`, value }));
+  }
 }

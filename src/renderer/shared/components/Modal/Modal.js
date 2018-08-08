@@ -22,7 +22,7 @@ export default class Modal extends React.PureComponent {
 
   render() {
     return (
-      <Portal>
+      <Portal className={styles.portal}>
         <div className={styles.backdrop} />
         <div className={classNames(styles.modal, this.props.className)}>
           {this.renderHeader()}

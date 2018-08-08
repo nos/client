@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { string, node } from 'prop-types';
+import { string, node, func } from 'prop-types';
+import { noop } from 'lodash';
 
 import styles from './Portal.scss';
 
 export default class Portal extends React.PureComponent {
   static propTypes = {
     className: string,
-    children: node
+    children: node,
+    onClickOutside: func
   };
 
   static defaultProps = {
     className: null,
-    children: null
+    children: null,
+    onClickOutside: noop
   };
 
   constructor(props) {
@@ -32,5 +35,9 @@ export default class Portal extends React.PureComponent {
 
   render() {
     return ReactDOM.createPortal(this.props.children, this.el);
+  }
+
+  handleClickOutside = () => {
+    this.props.onClickOutside();
   }
 }
