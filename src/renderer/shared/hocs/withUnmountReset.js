@@ -5,10 +5,7 @@ import { omit } from 'lodash';
 
 const RESET_PROP = '__reset__';
 
-const withImmediateReset = (
-  actions,
-  { propName = RESET_PROP, ...options } = {}
-) => (Component) => {
+const withUnmountReset = (actions, { propName = RESET_PROP, ...options } = {}) => (Component) => {
   const mapResetToProps = ({ reset }) => ({
     [propName]: reset
   });
@@ -18,7 +15,7 @@ const withImmediateReset = (
       [propName]: func.isRequired
     };
 
-    componentWillMount() {
+    componentWillUnmount() {
       this.props[propName]();
     }
 
@@ -30,4 +27,4 @@ const withImmediateReset = (
   return withActions(actions, mapResetToProps, { propName, ...options })(ConditionalCallComponent);
 };
 
-export default withImmediateReset;
+export default withUnmountReset;
