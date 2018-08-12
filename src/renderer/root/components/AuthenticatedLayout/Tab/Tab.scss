@@ -1,3 +1,5 @@
+$tab-inactive-border-color: rgba($light-text-color, .4);
+
 .tab {
   cursor: default;
   display: flex;
@@ -11,7 +13,7 @@
   background: rgba(#fff, 0.4);
   font-size: 12px;
   transition: all 0.2s ease;
-  box-shadow: inset 1px 0 0 $light-text-color;
+  box-shadow: inset 1px 0 0 $tab-inactive-border-color;
 
   &:first-of-type {
     box-shadow: none;
@@ -19,8 +21,8 @@
 
   &:last-of-type {
     &:not(.active) {
-      box-shadow: inset 1px 0 0 $light-text-color,
-      inset -1px 0 0 $light-text-color;
+      box-shadow: inset 1px 0 0 $tab-inactive-border-color,
+      inset -1px 0 0 $tab-inactive-border-color;
     }
   }
 
@@ -32,7 +34,7 @@
     background: rgba(#fff, 0.6);
   }
   &.active + &:last-of-type {
-    box-shadow: inset -1px 0 0 $light-text-color;
+    box-shadow: inset -1px 0 0 $tab-inactive-border-color;
   }
 
   &.active {
