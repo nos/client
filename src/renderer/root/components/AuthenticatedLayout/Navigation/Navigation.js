@@ -22,23 +22,29 @@ export default function Navigation(props) {
       <ul className={styles.group}>
         <li>
           <Tooltip overlay="DApps">
-            <TabLink id="dapps" target={DAPPS} disabled>
-              <DAppsIcon aria-label="dapps" />
-            </TabLink>
+            <div>
+              <TabLink id="dapps" target={DAPPS} disabled>
+                <DAppsIcon aria-label="dapps" />
+              </TabLink>
+            </div>
           </Tooltip>
         </li>
         <li>
           <Tooltip overlay="Account">
-            <TabLink id="account" target={ACCOUNT}>
-              <AccountIcon aria-label="account" />
-            </TabLink>
+            <div>
+              <TabLink id="account" target={ACCOUNT}>
+                <AccountIcon aria-label="account" />
+              </TabLink>
+            </div>
           </Tooltip>
         </li>
         <li>
           <Tooltip overlay="Settings">
-            <TabLink id="settings" target={SETTINGS}>
-              <SettingsIcon aria-label="settings" />
-            </TabLink>
+            <div>
+              <TabLink id="settings" target={SETTINGS}>
+                <SettingsIcon aria-label="settings" />
+              </TabLink>
+            </div>
           </Tooltip>
         </li>
         <li>
