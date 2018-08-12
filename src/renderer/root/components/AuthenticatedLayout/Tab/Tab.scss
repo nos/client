@@ -17,11 +17,6 @@
     box-shadow: none;
   }
 
-  &.active,
-  &:hover {
-    z-index: 1; // stay on top of `AddressBar` box-shadow
-  }
-
   &:last-of-type {
     &:not(.active) {
       box-shadow: inset 1px 0 0 $light-text-color,
