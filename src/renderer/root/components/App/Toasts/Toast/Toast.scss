@@ -31,5 +31,9 @@
     margin-left: 16px;
     color: $light-text-color;
     cursor: pointer;
+
+    &:hover {
+      color: #E3E4EA;
+    }
   }
 }
