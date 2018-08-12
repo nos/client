@@ -8,12 +8,13 @@
 
   &:not(.disabled):focus,
   &:not(.disabled):hover {
-    color: lighten($color, 20%);
+    color: darken($color, 15%);
     stroke: currentColor;
+    transition: color .15s ease;
   }
 
   &:not(.disabled):active {
-    color: darken($color, 20%);
+    color: darken($color, 15%);
     stroke: currentColor;
   }
 }
