@@ -10,7 +10,7 @@
   &:not(.disabled):hover {
     color: darken($color, 15%);
     stroke: currentColor;
-    transition: color .15s ease;
+    transition: color 0.15s ease;
   }
 
   &:not(.disabled):active {

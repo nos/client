@@ -20,7 +20,7 @@
   &:not(.disabled):hover {
     color: $focus-icon-color;
     background: $focus-background-color;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
   }
 
   &:not(.disabled):active {
