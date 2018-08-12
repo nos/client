@@ -1,11 +1,24 @@
 .navigation {
-  li {
-    padding: 0 0;
-    margin: 0;
-    text-align: center;
+  display: flex;
 
-    .link {
-      @include navigationLink;
+  ul {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    li {
+      padding: 0 0;
+      margin: 0;
+      text-align: center;
+
+      &:last-child {
+        margin-top: auto;
+      }
+
+      .link {
+        @include navigationLink;
+      }
     }
   }
 }
