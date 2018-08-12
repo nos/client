@@ -21,32 +21,32 @@ export default function Navigation(props) {
     <nav className={classNames(styles.navigation, props.className)}>
       <ul className={styles.group}>
         <li>
-          <TabLink target={DAPPS} className={styles.link} disabled>
-            <Tooltip id="dapps" overlay="DApps">
+          <Tooltip overlay="DApps">
+            <TabLink id="dapps" target={DAPPS} disabled>
               <DAppsIcon aria-label="dapps" />
-            </Tooltip>
-          </TabLink>
+            </TabLink>
+          </Tooltip>
         </li>
         <li>
-          <TabLink target={ACCOUNT} className={styles.link}>
-            <Tooltip id="account" overlay="Account">
+          <Tooltip overlay="Account">
+            <TabLink id="account" target={ACCOUNT}>
               <AccountIcon aria-label="account" />
-            </Tooltip>
-          </TabLink>
+            </TabLink>
+          </Tooltip>
         </li>
         <li>
-          <TabLink target={SETTINGS} className={styles.link}>
-            <Tooltip id="settings" overlay="Settings">
+          <Tooltip overlay="Settings">
+            <TabLink id="settings" target={SETTINGS}>
               <SettingsIcon aria-label="settings" />
-            </Tooltip>
-          </TabLink>
+            </TabLink>
+          </Tooltip>
         </li>
         <li>
-          <NavLink exact to="/logout" draggable={false} className={styles.link}>
-            <Tooltip id="logout" overlay="Logout">
+          <Tooltip overlay="Logout">
+            <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
               <LogoutIcon aria-label="logout" />
-            </Tooltip>
-          </NavLink>
+            </NavLink>
+          </Tooltip>
         </li>
       </ul>
     </nav>

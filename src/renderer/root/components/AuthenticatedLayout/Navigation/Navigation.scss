@@ -1,37 +1,15 @@
 .navigation {
-  $link-color: $light-text-color;
-
   ul:not(:first-child) {
     border-top: $primary-border-style;
   }
 
   li {
-    padding: 8px 0;
+    padding: 0 0;
     margin: 0;
     text-align: center;
 
     .link {
-      display: block;
-      color: $link-color;
-      text-decoration: none;
-      cursor: default;
-
-      &.disabled {
-        color: lighten($link-color, 20%);
-      }
-
-      &:not(.disabled):hover {
-        color: lighten($link-color, 20%);
-      }
-
-      &:not(.disabled):active {
-        color: darken($link-color, 20%);
-      }
-
-      svg {
-        display: block;
-        margin: 0 auto;
-      }
+      @include navigationLink;
     }
   }
 }

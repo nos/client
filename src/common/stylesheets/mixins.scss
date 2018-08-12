@@ -1,3 +1,53 @@
+@mixin navigationLink {
+  $link-color: $light-text-color;
+  $icon-color: #8bc83c;
+  $focus-background-color: #e9eaee;
+  $active-background-color: #d7d8de;
+
+  position: relative;
+  display: block;
+  padding: 8px 0;
+  color: $link-color;
+  text-decoration: none;
+  cursor: default;
+
+  &.disabled {
+    color: lighten($link-color, 20%);
+  }
+
+  &:not(.disabled):focus,
+  &:not(.disabled):hover {
+    color: $icon-color;
+    background: $focus-background-color;
+  }
+
+  &:not(.disabled):active {
+    color: $icon-color;
+    background: $active-background-color;
+  }
+
+  &:not(.disabled).active {
+    position: relative;
+    color: $icon-color;
+    background: $active-background-color;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 3px;
+      background: linear-gradient(0deg, #b9d532 0%, #5bba47 100%);
+    }
+  }
+
+  svg {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
 @keyframes spin {
   from {
     -webkit-transform: rotate(0deg);
