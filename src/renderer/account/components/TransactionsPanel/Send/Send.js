@@ -9,6 +9,7 @@ import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
+import TokenItem from './TokenItem';
 import isNumeric from '../../../util/isNumeric';
 import balanceShape from '../../../shapes/balanceShape';
 import styles from './Send.scss';
@@ -52,6 +53,7 @@ export default class Send extends React.PureComponent {
           placeholder="Select token"
           value={asset}
           items={this.getAssetItems()}
+          renderItem={TokenItem}
           onChange={this.handleChangeAsset}
         />
         <LabeledInput
@@ -116,9 +118,10 @@ export default class Send extends React.PureComponent {
   };
 
   getAssetItems = () => {
-    return map(this.props.balances, ({ symbol, scriptHash }) => ({
+    return map(this.props.balances, ({ symbol, scriptHash, image }) => ({
       label: symbol,
-      value: scriptHash
+      value: scriptHash,
+      icon: image
     }));
   }
 
