@@ -18,6 +18,12 @@ export default class AccountDatum extends React.PureComponent {
 
   state = { copied: false };
 
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
   render() {
     const { label, value } = this.props;
 
@@ -36,12 +42,6 @@ export default class AccountDatum extends React.PureComponent {
         </div>
       </div>
     );
-  }
-
-  componentWillUnmount() {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
   }
 
   handleCopy = () => {
