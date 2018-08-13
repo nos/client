@@ -38,9 +38,15 @@ export default class AccountDatum extends React.PureComponent {
     );
   }
 
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
   handleCopy = () => {
     this.setState({ copied: true });
-    setTimeout(() => this.setState({ copied: false }), COPIED_DURATION);
+    this.timeout = setTimeout(() => this.setState({ copied: false }), COPIED_DURATION);
   }
 
   getTooltip = () => {

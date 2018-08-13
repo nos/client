@@ -29,12 +29,6 @@ export default class NetworkSettings extends React.PureComponent {
     confirm: func.isRequired
   };
 
-  componentWillUnmount() {
-    if (this.saveTimeout) {
-      clearTimeout(this.saveTimeout);
-    }
-  }
-
   render() {
     const neoscanAddress = this.getCurrentNetworkUrl();
 
