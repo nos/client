@@ -140,6 +140,7 @@
       "./__tests__/setupTests.js",
       "jest-canvas-mock"
     ],
+    "setupTestFrameworkScriptFile": "./__tests__/setupFramework.js",
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },

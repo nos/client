@@ -11,11 +11,11 @@ function withToast({ type, propName = 'showToast', ...options } = {}) {
 }
 
 export function withSuccessToast({ propName = 'showSuccessToast', ...options } = {}) {
-  return withToast({ ...options, propName, type: TYPE_ERROR });
+  return withToast({ ...options, propName, type: TYPE_SUCCESS });
 }
 
-export function withErrorToast({ propName = 'showErrorToast', ...options } = {}) {
-  return withToast({ ...options, propName, type: TYPE_SUCCESS });
+export function withErrorToast({ propName = 'showErrorToast', autoDismiss = false, ...options } = {}) {
+  return withToast({ ...options, propName, type: TYPE_ERROR, autoDismiss });
 }
 
 export function withInfoToast({ propName = 'showInfoToast', ...options } = {}) {
