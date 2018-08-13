@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop } from 'lodash';
 
-import Icon from 'shared/components/Icon';
 import PlusIcon from 'shared/images/icons/icon-16/plus.svg';
 import tabShape from 'browser/shapes/tabShape';
 
