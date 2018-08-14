@@ -1,8 +1,9 @@
 @mixin navigationLink {
   $link-color: $light-text-color;
-  $icon-color: #8bc83c;
   $focus-background-color: #e9eaee;
-  $active-background-color: #d7d8de;
+  $focus-icon-color: #7b7a86;
+  $active-background-color: #e2e3e8;
+  $active-icon-color: #8bc83c;
 
   position: relative;
   display: block;
@@ -10,6 +11,7 @@
   color: $link-color;
   text-decoration: none;
   cursor: default;
+  transition: all 0.2s ease;
 
   &.disabled {
     color: lighten($link-color, 20%);
@@ -17,18 +19,18 @@
 
   &:not(.disabled):focus,
   &:not(.disabled):hover {
-    color: $icon-color;
+    color: $focus-icon-color;
     background: $focus-background-color;
   }
 
   &:not(.disabled):active {
-    color: $icon-color;
+    color: $active-icon-color;
     background: $active-background-color;
   }
 
   &:not(.disabled).active {
     position: relative;
-    color: $icon-color;
+    color: $active-icon-color;
     background: $active-background-color;
 
     &::after {

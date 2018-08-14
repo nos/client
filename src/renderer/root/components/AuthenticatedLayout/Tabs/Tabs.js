@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop } from 'lodash';
 
-import Icon from 'shared/components/Icon';
+import PlusIcon from 'shared/images/browser/plus.svg';
 import tabShape from 'browser/shapes/tabShape';
 
 import Tab from '../Tab';
@@ -38,7 +38,7 @@ export default class Tabs extends React.PureComponent {
     return (
       <div className={classNames(styles.tabs, this.props.className)}>
         {map(this.props.tabs, this.renderTab)}
-        <Icon className={styles.newTab} name="add" onClick={this.props.onOpen} />
+        <PlusIcon className={styles.newTab} onClick={this.props.onOpen} />
       </div>
     );
   }
