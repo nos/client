@@ -35,7 +35,8 @@ export default class Select extends React.PureComponent {
 
   state = {
     open: false,
-    search: ''
+    search: '',
+    selectedIndex: -1
   };
 
   render() {
@@ -67,15 +68,21 @@ export default class Select extends React.PureComponent {
     );
   }
 
-  renderItem = (item) => {
+  renderItem = (item, index) => {
     const { renderItem: Item, value } = this.props;
+    const focus = index === this.state.selectedIndex;
     const selected = !!value && item.value === value;
+
+    const className = classNames(styles.item, {
+      [styles.focus]: focus,
+      [styles.selected]: selected
+    });
 
     return (
       <div
         key={JSON.stringify(item)}
-        className={classNames(styles.item, { selected })}
-        {...this.getFocusableProps(item, { selected })}
+        className={className}
+        {...this.getFocusableProps(item, index, { selected })}
       >
         <Item item={item} selected={selected} />
       </div>
@@ -115,12 +122,14 @@ export default class Select extends React.PureComponent {
   renderSearch = () => {
     return (
       <Input
+        ref={this.registerRef('search')}
         className={styles.search}
         id="search"
         placeholder="Start typing to search"
         autoFocus
         value={this.state.search}
         onChange={this.handleSearch}
+        onKeyDown={this.handleKeyDown}
       />
     );
   }
@@ -139,15 +148,64 @@ export default class Select extends React.PureComponent {
   }
 
   handleSearch = (event) => {
-    this.setState({ search: event.target.value });
+    this.setSearch(event.target.value);
   }
 
   handleResetSearch = () => {
-    this.setState({ search: '' });
+    this.setSearch('');
+    this.search.focus();
+  }
+
+  handleKeyDown = (event) => {
+    const { selectedIndex } = this.state;
+
+    // eslint-disable-next-line default-case
+    switch (event.key) {
+      case 'ArrowUp':
+        if (selectedIndex > 0) {
+          event.preventDefault();
+          this.setState((prevState) => ({
+            selectedIndex: prevState.selectedIndex - 1
+          }));
+        }
+        break;
+
+      case 'ArrowDown':
+        if (selectedIndex < this.getItems().length - 1) {
+          event.preventDefault();
+          this.setState((prevState) => ({
+            selectedIndex: prevState.selectedIndex + 1
+          }));
+        }
+        break;
+
+      case 'Enter':
+        if (selectedIndex >= 0) {
+          const items = this.getItems();
+          this.handleChange(items[selectedIndex].value);
+        }
+        break;
+
+      case 'Escape':
+        this.setOpen(false);
+        break;
+    }
+  }
+
+  handleMouseOver = (index) => {
+    this.setState({ selectedIndex: index });
+  }
+
+  registerRef = (name) => (el) => {
+    this[name] = el;
   }
 
   setOpen = (open) => {
-    this.setState({ open, search: '' });
+    this.setState({ open, search: '', selectedIndex: -1 });
+  }
+
+  setSearch = (search) => {
+    this.setState({ search, selectedIndex: -1 });
   }
 
   getItems = () => {
@@ -168,7 +226,7 @@ export default class Select extends React.PureComponent {
     return find(this.props.items, { value });
   }
 
-  getFocusableProps = (item, { selected = false, disabled = false } = {}) => {
+  getFocusableProps = (item, index, { selected = false, disabled = false } = {}) => {
     if (disabled) {
       return {};
     }
@@ -177,7 +235,8 @@ export default class Select extends React.PureComponent {
       role: 'option',
       'aria-selected': selected,
       tabIndex: -1,
-      onClick: partial(this.handleChange, item.value)
+      onClick: partial(this.handleChange, item.value),
+      onMouseOver: partial(this.handleMouseOver, index)
     };
   }
 }
