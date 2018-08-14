@@ -31,10 +31,10 @@
     margin-left: 24px;
     color: $light-text-color;
     cursor: pointer;
+    transition: color 0.2s ease;
 
     &:hover {
-      color: #E3E4EA;
-      transition: color 0.2s ease;
+      color: #e3e4ea;
     }
   }
 }

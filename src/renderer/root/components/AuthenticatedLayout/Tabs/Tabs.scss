@@ -25,9 +25,7 @@
 
     &:focus,
     &:hover {
-      color: rgba($primary-text-color, 1);
-      stroke: currentColor;
-      transition: color 0.15s ease;
+      color: $primary-text-color;
     }
   }
 }

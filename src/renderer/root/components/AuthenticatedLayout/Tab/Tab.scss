@@ -1,6 +1,6 @@
-$tab-inactive-border-color: rgba($light-text-color, 0.4);
-
 .tab {
+  $tab-inactive-border-color: rgba($light-text-color, 0.4);
+
   cursor: default;
   display: flex;
   flex-direction: row;

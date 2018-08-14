@@ -1,8 +1,8 @@
 @mixin navigationLink {
   $link-color: $light-text-color;
   $focus-background-color: #e9eaee;
-  $focus-icon-color: #7B7A86;
-  $active-background-color: #E2E3E8;
+  $focus-icon-color: #7b7a86;
+  $active-background-color: #e2e3e8;
   $active-icon-color: #8bc83c;
 
   position: relative;
@@ -11,6 +11,7 @@
   color: $link-color;
   text-decoration: none;
   cursor: default;
+  transition: all 0.2s ease;
 
   &.disabled {
     color: lighten($link-color, 20%);
@@ -20,7 +21,6 @@
   &:not(.disabled):hover {
     color: $focus-icon-color;
     background: $focus-background-color;
-    transition: all 0.2s ease;
   }
 
   &:not(.disabled):active {
