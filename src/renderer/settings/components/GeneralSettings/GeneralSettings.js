@@ -16,12 +16,6 @@ export default class GeneralSettings extends React.PureComponent {
     setCurrency: func.isRequired
   };
 
-  componentWillUnmount() {
-    if (this.saveTimeout) {
-      clearTimeout(this.saveTimeout);
-    }
-  }
-
   render() {
     return (
       <div className={styles.generalSettings}>

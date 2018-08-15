@@ -63,7 +63,7 @@ export default async function getBalances({ net, address }) {
     throw new Error(`Invalid script hash: "${address}"`);
   }
 
-  // token balances
+  // token balances - // TODO use getTokenBalances to avoid multiple api calls
   const promises = (await getTokens(net)).map((token) => {
     return getTokenBalance(endpoint, token, address);
   });
