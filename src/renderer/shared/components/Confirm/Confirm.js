@@ -5,6 +5,7 @@ import { noop } from 'lodash';
 
 import Modal from '../Modal';
 import Button from '../Forms/Button';
+import PrimaryButton from '../Forms/PrimaryButton';
 import defaultImage from '../../images/modal-request-icon.png';
 import styles from './Confirm.scss';
 
@@ -57,10 +58,17 @@ export default class Confirm extends React.PureComponent {
             {children}
           </div>
           <div className={styles.actions}>
-            <Button className={styles.action} ref={this.registerRef('confirm')} onClick={onConfirm}>
+            <PrimaryButton
+              className={styles.action}
+              ref={this.registerRef('confirm')}
+              onClick={onConfirm}
+            >
               {confirmLabel}
-            </Button>
-            <Button className={classNames(styles.action, styles.cancel)} onClick={onCancel}>
+            </PrimaryButton>
+            <Button
+              className={classNames(styles.action, styles.cancel)}
+              onClick={onCancel}
+            >
               {cancelLabel}
             </Button>
           </div>

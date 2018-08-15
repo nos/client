@@ -3,7 +3,7 @@ import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormWIF.scss';
 
@@ -38,7 +38,7 @@ export default class LoginFormWIF extends React.PureComponent {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
+          <PrimaryButton type="submit" disabled={disabled || !this.isValid()}>Login</PrimaryButton>
         </div>
       </form>
     );

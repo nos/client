@@ -7,6 +7,7 @@ import withAllNetworkData from 'shared/hocs/withAllNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withConfirm from 'shared/hocs/withConfirm';
 import withAlert from 'shared/hocs/withAlert';
+import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import NetworkSettings from './NetworkSettings';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/currentNetworkActions';
@@ -58,4 +59,14 @@ export default compose(
   // State for modal
   withState('networkName', 'setNetworkName', ''),
   withState('networkUrl', 'setNetworkUrl', ''),
+
+  withSuccessToast(),
+  withProgressChange(setCurrentNetwork, LOADED, (state, props) => {
+    props.showSuccessToast('Settings successfully updated');
+  }),
+
+  withErrorToast(),
+  withProgressChange(setCurrentNetwork, FAILED, (state, props) => {
+    props.showErrorToast(`Error updating settings: ${state.error}`);
+  })
 )(NetworkSettings);

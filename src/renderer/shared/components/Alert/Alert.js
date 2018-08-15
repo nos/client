@@ -4,7 +4,7 @@ import { string, func, node } from 'prop-types';
 import { noop } from 'lodash';
 
 import Modal from '../Modal';
-import Button from '../Forms/Button';
+import PrimaryButton from '../Forms/PrimaryButton';
 import defaultImage from '../../images/modal-request-icon.png';
 import styles from './Alert.scss';
 
@@ -45,9 +45,13 @@ export default class Alert extends React.PureComponent {
             {children}
           </div>
           <div className={styles.actions}>
-            <Button className={styles.action} ref={this.registerRef('confirm')} onClick={onConfirm}>
+            <PrimaryButton
+              className={styles.action}
+              ref={this.registerRef('confirm')}
+              onClick={onConfirm}
+            >
               {confirmLabel}
-            </Button>
+            </PrimaryButton>
           </div>
         </div>
       </Modal>

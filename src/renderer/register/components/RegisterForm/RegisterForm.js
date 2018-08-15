@@ -4,13 +4,13 @@ import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './RegisterForm.scss';
 
 export default class RegisterForm extends React.PureComponent {
   static propTypes = {
-    disabled: bool,
+    loading: bool,
     passphrase: string,
     passphraseConfirmation: string,
     setPassphrase: func,
@@ -19,7 +19,7 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   static defaultProps = {
-    disabled: false,
+    loading: false,
     passphrase: '',
     passphraseConfirmation: '',
     setPassphrase: noop,
@@ -28,7 +28,7 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   render = () => {
-    const { passphrase, passphraseConfirmation, disabled } = this.props;
+    const { passphrase, passphraseConfirmation, loading } = this.props;
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
@@ -38,7 +38,7 @@ export default class RegisterForm extends React.PureComponent {
           label="Passphrase"
           placeholder="Enter passphrase"
           value={passphrase}
-          disabled={disabled}
+          disabled={loading}
           onChange={this.handleChangePassphrase}
         />
         <Input
@@ -47,18 +47,18 @@ export default class RegisterForm extends React.PureComponent {
           label="Confirm Passphrase"
           placeholder="Enter passphrase again"
           value={passphraseConfirmation}
-          disabled={disabled}
+          disabled={loading}
           onChange={this.handleChangePassphraseConfirmation}
         />
 
         <div className={styles.actions}>
-          <Button
+          <PrimaryButton
             className={styles.register}
             type="submit"
-            disabled={disabled || !this.isValid()}
+            disabled={loading || !this.isValid()}
           >
             Register
-          </Button>
+          </PrimaryButton>
           <span className={styles.login}>
             Already have an account?{' '}
             <Link to="/login">Login</Link>

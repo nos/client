@@ -69,7 +69,7 @@ const ICONS = {
   browser: 'globe',
   check: ['far', 'check-circle'],
   close: 'times',
-  copy: 'copy',
+  copy: ['far', 'copy'],
   dapp: 'cube',
   exchange: ['far', 'handshake'],
   favorite: ['far', 'bookmark'],

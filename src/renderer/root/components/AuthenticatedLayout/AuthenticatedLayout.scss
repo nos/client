@@ -42,6 +42,8 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
     .sidebar {
       @include sidebar;
       flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
 
       .logo {
         flex: 0 0 auto;
@@ -50,14 +52,12 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         height: 36px;
         margin: -12px 0 12px;
         padding: 3px 16px;
-        height: 36px;
-        width: 36px;
         box-sizing: content-box;
       }
 
       .navigation {
         @include sidebar;
-        flex: 0 0 auto;
+        flex: 1 1 auto;
       }
     }
 
@@ -71,10 +71,9 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
       }
 
       .content {
-        flex: 1 1 auto;
+        flex: 1 1 100%;
         box-sizing: border-box;
         overflow-y: auto;
-        flex: 1;
       }
 
       .footer {
