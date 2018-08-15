@@ -1,5 +1,5 @@
 import { reduce, map } from 'lodash';
-// import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import toastsReducer from 'shared/reducers/toastsReducer';
 import { ENQUEUE, TYPE_SUCCESS } from 'shared/actions/toastsActions';
@@ -39,17 +39,17 @@ describe('toastsReducer', () => {
     });
   });
 
-  // describe('action type LOCATION_CHANGE', () => {
-  //   it('resets the store state', () => {
-  //     const intermediateState = toastsReducer(initialState, {
-  //       type: ENQUEUE,
-  //       payload: { message: 'foo', type: 'bar', autoDismiss: false }
-  //     });
-  //     const state = toastsReducer(intermediateState, {
-  //       type: LOCATION_CHANGE
-  //     });
-  //
-  //     expect(state).toEqual([]);
-  //   });
-  // });
+  describe('action type LOCATION_CHANGE', () => {
+    it('resets the store state', () => {
+      const intermediateState = toastsReducer(initialState, {
+        type: ENQUEUE,
+        payload: { message: 'foo', type: 'bar', autoDismiss: false }
+      });
+      const state = toastsReducer(intermediateState, {
+        type: LOCATION_CHANGE
+      });
+
+      expect(state).toEqual([]);
+    });
+  });
 });

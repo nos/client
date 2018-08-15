@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1';
 import { takeRight, filter } from 'lodash';
-// import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import { ENQUEUE, DEQUEUE } from '../actions/toastsActions';
 import { MAX_TOASTS } from '../values/toasts';
@@ -24,8 +24,8 @@ export default function toastsReducer(state = initialState, action = {}) {
       return enqueue(state, action.payload);
     case DEQUEUE:
       return dequeue(state, action.payload);
-    // case LOCATION_CHANGE:
-    //   return initialState;
+    case LOCATION_CHANGE:
+      return initialState;
     default:
       return state;
   }
