@@ -28,8 +28,13 @@
 
   .close {
     flex: 0 0 auto;
-    margin-left: 16px;
+    margin-left: 24px;
     color: $light-text-color;
     cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #e3e4ea;
+    }
   }
 }

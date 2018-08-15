@@ -1,6 +1,7 @@
 @mixin button($color) {
   color: $color;
   stroke: currentColor;
+  transition: color 0.15s ease;
 
   &.disabled {
     color: lighten($color, 20%);
@@ -8,12 +9,12 @@
 
   &:not(.disabled):focus,
   &:not(.disabled):hover {
-    color: lighten($color, 20%);
+    color: darken($color, 15%);
     stroke: currentColor;
   }
 
   &:not(.disabled):active {
-    color: darken($color, 20%);
+    color: darken($color, 15%);
     stroke: currentColor;
   }
 }
@@ -32,7 +33,7 @@
     flex: 1 1 auto;
     padding: 6px;
     margin: 0 8px;
-    border: 1px solid #E3E4EA;
+    border: 1px solid #e3e4ea;
     border-radius: 4px;
     background: #f7f8fa;
     color: $primary-text-color;
