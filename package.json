@@ -82,7 +82,7 @@
     "electron-rebuild": "1.8.2",
     "electron-webpack": "1.13.0",
     "enzyme": "3.4.1",
-    "enzyme-adapter-react-16": "1.1.1",
+    "enzyme-adapter-react-16": "3.4.1",
     "eslint": "5.3.0",
     "eslint-config-airbnb": "17.0.0",
     "eslint-import-resolver-babel-module": "4.0.0",
