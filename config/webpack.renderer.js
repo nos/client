@@ -1,7 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpackRenderer = require('electron-webpack/webpack.renderer.config.js');
-const { extend, find, flow } = require('lodash');
+const { extend, find, flow, has } = require('lodash');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -63,7 +63,9 @@ function replaceUglifyPlugin(config) {
 
   // Don't inline single-use functions.  Prevents `TypeError: Assignment to constant variable`.
   // REF: https://github.com/mishoo/UglifyJS2/issues/2842
-  uglify.options.uglifyOptions.compress.inline = 1;
+  if (has(uglify, 'options.uglifyOptions.compress')) {
+    uglify.options.uglifyOptions.compress.inline = 1;
+  }
 
   return config;
 }
