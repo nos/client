@@ -2,7 +2,8 @@ import React from 'react';
 import QRCode from 'qrcode.react';
 import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
+import { noop } from 'lodash';
 
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
@@ -11,11 +12,13 @@ import styles from './Receive.scss';
 export default class Receive extends React.PureComponent {
   static propTypes = {
     className: string,
-    address: string.isRequired
+    address: string.isRequired,
+    showInfoToast: func
   };
 
   static defaultProps = {
-    className: null
+    className: null,
+    showInfoToast: noop
   };
 
   render() {
@@ -26,7 +29,7 @@ export default class Receive extends React.PureComponent {
         <div className={styles.label}>My public wallet address</div>
         <div className={styles.address}>{address}</div>
 
-        <CopyToClipboard text={address}>
+        <CopyToClipboard text={address} onCopy={this.handleCopy}>
           <PrimaryButton className={styles.copy}>Copy to clipboard</PrimaryButton>
         </CopyToClipboard>
 
@@ -34,5 +37,9 @@ export default class Receive extends React.PureComponent {
         <QRCode className={styles.qrcode} value={address} />
       </div>
     );
+  }
+
+  handleCopy = () => {
+    this.props.showInfoToast('Address copied to clipboard.');
   }
 }
