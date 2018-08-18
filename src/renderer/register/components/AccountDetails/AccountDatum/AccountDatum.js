@@ -1,27 +1,22 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { string } from 'prop-types';
-import { upperFirst, lowerCase } from 'lodash';
+import { string, func } from 'prop-types';
+import { noop, toLower, startCase } from 'lodash';
 
 import Icon from 'shared/components/Icon';
 import Tooltip from 'shared/components/Tooltip';
 
 import styles from './AccountDatum.scss';
 
-const COPIED_DURATION = 2000;
-
 export default class AccountDatum extends React.PureComponent {
   static propTypes = {
     label: string.isRequired,
-    value: string.isRequired
+    value: string.isRequired,
+    showInfoToast: func
   };
 
-  state = { copied: false };
-
-  componentWillUnmount() {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
+  static defaultProps = {
+    showInfoToast: noop
   }
 
   render() {
@@ -31,9 +26,9 @@ export default class AccountDatum extends React.PureComponent {
       <div className={styles.accountDatum}>
         <div className={styles.label}>
           {label}
-          <Tooltip id={label} overlay={this.getTooltip()}>
+          <Tooltip id={label} overlay={`Copy ${toLower(label)}`}>
             <CopyToClipboard text={value} onCopy={this.handleCopy}>
-              <Icon className={styles.copy} name={this.getIcon()} aria-label={label} />
+              <Icon className={styles.copy} name="copy" aria-label={label} />
             </CopyToClipboard>
           </Tooltip>
         </div>
@@ -45,16 +40,7 @@ export default class AccountDatum extends React.PureComponent {
   }
 
   handleCopy = () => {
-    this.setState({ copied: true });
-    this.timeout = setTimeout(() => this.setState({ copied: false }), COPIED_DURATION);
-  }
-
-  getTooltip = () => {
-    const { label } = this.props;
-    return upperFirst(lowerCase(this.state.copied ? `${label} copied!` : `Copy ${label}`));
-  }
-
-  getIcon = () => {
-    return this.state.copied ? 'check' : 'copy';
+    const { showInfoToast, label } = this.props;
+    showInfoToast(`${startCase(toLower(label))} copied to clipboard.`);
   }
 }
