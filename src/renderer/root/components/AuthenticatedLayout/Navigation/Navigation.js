@@ -21,7 +21,7 @@ export default function Navigation(props) {
     <nav className={classNames(styles.navigation, props.className)}>
       <ul className={styles.group}>
         <li>
-          <Tooltip overlay="DApps">
+          <Tooltip overlay="dApps">
             <div>
               <TabLink id="dapps" target={DAPPS} disabled>
                 <DAppsIcon aria-label="dapps" />
