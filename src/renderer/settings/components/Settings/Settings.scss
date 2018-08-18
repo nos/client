@@ -1,7 +1,41 @@
 .settings {
-  padding: 24px;
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+
+  .page {
+    padding: 24px;
+  }
 
   .panel {
-    padding: 0 40px 20px;
+    display: flex;
+
+    .sidebar {
+      flex: 0 0 auto;
+    }
+
+    .content {
+      flex: 1 1 auto;
+    }
+  }
+
+  .sidebar {
+    width: 170px;
+    box-shadow: inset -1px 0px 0px #d7d8de;
+
+    ul {
+      list-style: none;
+      margin: 0;
+    }
+  }
+
+  .content {
+    padding: 0 40px;
+  }
+
+  @media only screen and (max-width: $responsive-width) {
+    .sidebar {
+      display: none;
+    }
   }
 }
