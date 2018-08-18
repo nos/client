@@ -11,17 +11,22 @@ import SidebarLink from '../SidebarLink';
 import styles from './Settings.scss';
 
 export default class Settings extends React.PureComponent {
+  state = {
+    offset: 0
+  };
+
   componentDidMount() {
+    this.setState({ offset: this.container.node.offsetTop });
     scrollSpy.update();
   }
 
   render() {
     return (
-      <StickyContainer id="settingsContainer" className={styles.settings}>
+      <StickyContainer id="settingsContainer" ref={this.registerRef} className={styles.settings}>
         <Page className={styles.page}>
           <Panel className={styles.panel}>
             <div className={styles.sidebar}>
-              <Sticky relative>
+              <Sticky relative topOffset={this.state.offset}>
                 {({ style }) => (
                   <ul style={style}>
                     <li>
@@ -51,5 +56,9 @@ export default class Settings extends React.PureComponent {
         </Page>
       </StickyContainer>
     );
+  }
+
+  registerRef = (el) => {
+    this.container = el;
   }
 }
