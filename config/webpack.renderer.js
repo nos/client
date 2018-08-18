@@ -58,11 +58,22 @@ function replaceSvgLoader(config) {
   });
 }
 
+function replaceUglifyPlugin(config) {
+  const uglify = find(config.plugins, (plugin) => plugin.constructor.name === 'UglifyJsPlugin');
+
+  // Don't inline single-use functions.  Prevents `TypeError: Assignment to constant variable`.
+  // REF: https://github.com/mishoo/UglifyJS2/issues/2842
+  uglify.options.uglifyOptions.compress.inline = 1;
+
+  return config;
+}
+
 module.exports = async (env) => {
   const config = await webpackRenderer(env);
 
   return flow(
     replaceSassLoader,
-    replaceSvgLoader
+    replaceSvgLoader,
+    replaceUglifyPlugin
   )(config);
 };
