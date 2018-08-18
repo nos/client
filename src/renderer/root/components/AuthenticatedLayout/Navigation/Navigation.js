@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 import { noop } from 'lodash';
 
-import { /* DAPPS, */ ACCOUNT, SETTINGS } from 'browser/values/browserValues';
-// import DAppsIcon from 'shared/images/icons/dapps.svg';
+import { DAPPS, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
+import DAppsIcon from 'shared/images/icons/dapps.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
 import LogoutIcon from 'shared/images/icons/logout.svg';
@@ -20,15 +20,15 @@ export default function Navigation(props) {
   return (
     <nav className={classNames(styles.navigation, props.className)}>
       <ul className={styles.group}>
-        {/* <li>
+        <li>
           <Tooltip overlay="DApps">
             <div>
-              <TabLink id="dapps" target={DAPPS}>
+              <TabLink id="dapps" target={DAPPS} disabled>
                 <DAppsIcon aria-label="dapps" />
               </TabLink>
             </div>
           </Tooltip>
-        </li> */}
+        </li>
         <li>
           <Tooltip overlay="Account">
             <div>
