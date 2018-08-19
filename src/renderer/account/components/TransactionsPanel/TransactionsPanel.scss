@@ -6,6 +6,7 @@
     display: flex;
 
     .tab {
+      @include webComponent;
       flex: 1 0 auto;
     }
   }
