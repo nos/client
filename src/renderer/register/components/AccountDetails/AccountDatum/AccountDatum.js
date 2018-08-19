@@ -28,7 +28,13 @@ export default class AccountDatum extends React.PureComponent {
           {label}
           <Tooltip id={label} overlay={`Copy ${toLower(label)}`}>
             <CopyToClipboard text={value} onCopy={this.handleCopy}>
-              <Icon className={styles.copy} name="copy" aria-label={label} />
+              <Icon
+                className={styles.copy}
+                name="copy"
+                role="button"
+                tabIndex={0}
+                aria-label={label}
+              />
             </CopyToClipboard>
           </Tooltip>
         </div>
