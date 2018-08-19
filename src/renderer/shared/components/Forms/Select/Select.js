@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Sifter from 'sifter';
 import classNames from 'classnames';
 import { string, func, arrayOf } from 'prop-types';
@@ -38,6 +39,12 @@ export default class Select extends React.PureComponent {
     search: '',
     selectedIndex: -1
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.selectedIndex !== prevState.selectedIndex) {
+      this.scrollToItem(this.state.selectedIndex);
+    }
+  }
 
   render() {
     return (
@@ -92,7 +99,11 @@ export default class Select extends React.PureComponent {
         className={className}
         {...this.getFocusableProps(item, index, { selected })}
       >
-        <Item item={item} selected={selected} />
+        <Item
+          ref={this.registerRef(`item${index}`)}
+          item={item}
+          selected={selected}
+        />
       </div>
     );
   }
@@ -172,23 +183,19 @@ export default class Select extends React.PureComponent {
       case 'ArrowUp':
         if (selectedIndex > 0) {
           event.preventDefault();
-          this.setState((prevState) => ({
-            selectedIndex: prevState.selectedIndex - 1
-          }));
+          this.incrementSelection(-1);
         }
         break;
 
       case 'ArrowDown':
         if (selectedIndex < this.getItems().length - 1) {
           event.preventDefault();
-          this.setState((prevState) => ({
-            selectedIndex: prevState.selectedIndex + 1
-          }));
+          this.incrementSelection(+1);
         }
         break;
 
       case 'Enter':
-        if (selectedIndex >= 0) {
+        if (selectedIndex !== -1) {
           const items = this.getItems();
           this.handleChange(items[selectedIndex].value);
         }
@@ -242,5 +249,22 @@ export default class Select extends React.PureComponent {
       onClick: partial(this.handleChange, item.value),
       onMouseOver: partial(this.handleMouseOver, index)
     };
+  }
+
+  incrementSelection = (offset) => {
+    this.setState((prevState) => ({
+      selectedIndex: prevState.selectedIndex + offset
+    }));
+  }
+
+  scrollToItem = (index) => {
+    const item = this[`item${index}`];
+
+    // eslint-disable-next-line react/no-find-dom-node
+    const element = item && ReactDOM.findDOMNode(item);
+
+    if (element) {
+      element.scrollIntoViewIfNeeded(false);
+    }
   }
 }
