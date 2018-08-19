@@ -2,7 +2,7 @@
   @include fade-in;
   display: flex;
   align-items: center;
-  max-width: 350px;
+  width: 350px;
   padding: 8px;
   background: $dark-text-color;
   box-shadow: 0 4px 8px rgba(53, 52, 69, 0.1),
@@ -28,8 +28,13 @@
 
   .close {
     flex: 0 0 auto;
-    margin-left: 16px;
+    margin-left: 24px;
     color: $light-text-color;
     cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #e3e4ea;
+    }
   }
 }

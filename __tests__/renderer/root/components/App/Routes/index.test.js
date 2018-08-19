@@ -55,21 +55,17 @@ const openTab = (wrapper, index) => {
 };
 
 describe('<Routes />', () => {
-  describe('browser route', () => {
-    const routerState = { router: { location: { pathname: '/browser', search: '', hash: '' } } };
+  it('changes tabs', () => {
+    const wrapper = mountRoutes();
+    openTab(wrapper, 1);
+    expect(wrapper.find(Tab).at(0).prop('active')).toBe(false);
+    expect(wrapper.find(Tab).at(1).prop('active')).toBe(true);
+  });
 
-    it('changes tabs', () => {
-      const wrapper = mountRoutes(routerState);
-      openTab(wrapper, 1);
-      expect(wrapper.find(Tab).at(0).prop('active')).toBe(false);
-      expect(wrapper.find(Tab).at(1).prop('active')).toBe(true);
-    });
-
-    it('does not remove the webview from the DOM when changing tabs', () => {
-      const wrapper = mountRoutes(routerState);
-      expect(wrapper.find('webview')).toHaveLength(2);
-      openTab(wrapper, 1);
-      expect(wrapper.find('webview')).toHaveLength(2);
-    });
+  it('does not remove the webview from the DOM when changing tabs', () => {
+    const wrapper = mountRoutes();
+    expect(wrapper.find('webview')).toHaveLength(2);
+    openTab(wrapper, 1);
+    expect(wrapper.find('webview')).toHaveLength(2);
   });
 });

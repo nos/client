@@ -12,7 +12,7 @@ import styles from './Breakdown.scss';
 
 const COLORS = ['#5ebb46', '#b5d433', '#0b99e3'];
 
-function reduceOthers(data) {
+function reduceSum(data) {
   return reduce(data, (sum, datum) => sum + datum.value, 0);
 }
 
@@ -74,13 +74,12 @@ export default class Breakdown extends React.PureComponent {
 
     return [
       ...data.splice(0, 2),
-      { label: 'OTHERS', value: reduceOthers(data) }
+      { label: 'OTHERS', value: reduceSum(data) }
     ];
   }
 
   getTotalValue = () => {
-    const value = reduce(this.props.data, (sum, datum) => sum + datum.value, 0);
-    return this.formatValue(value);
+    return this.formatValue(reduceSum(this.props.data));
   }
 
   formatValue = (value) => {

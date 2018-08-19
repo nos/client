@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 import { noop } from 'lodash';
 
-import { DAPPS, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
-import DAppsIcon from 'shared/images/icons/dapps.svg';
+import { /* DAPPS, */ ACCOUNT, SETTINGS } from 'browser/values/browserValues';
+// import DAppsIcon from 'shared/images/icons/dapps.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
 import LogoutIcon from 'shared/images/icons/logout.svg';
@@ -20,33 +20,39 @@ export default function Navigation(props) {
   return (
     <nav className={classNames(styles.navigation, props.className)}>
       <ul className={styles.group}>
+        {/* <li>
+          <Tooltip overlay="DApps">
+            <div>
+              <TabLink id="dapps" target={DAPPS}>
+                <DAppsIcon aria-label="dapps" />
+              </TabLink>
+            </div>
+          </Tooltip>
+        </li> */}
         <li>
-          <TabLink target={DAPPS} className={styles.link} disabled>
-            <Tooltip id="dapps" overlay="DApps">
-              <DAppsIcon aria-label="dapps" />
-            </Tooltip>
-          </TabLink>
+          <Tooltip overlay="Account">
+            <div>
+              <TabLink id="account" target={ACCOUNT}>
+                <AccountIcon aria-label="account" />
+              </TabLink>
+            </div>
+          </Tooltip>
         </li>
         <li>
-          <TabLink target={ACCOUNT} className={styles.link}>
-            <Tooltip id="account" overlay="Account">
-              <AccountIcon aria-label="account" />
-            </Tooltip>
-          </TabLink>
+          <Tooltip overlay="Settings">
+            <div>
+              <TabLink id="settings" target={SETTINGS}>
+                <SettingsIcon aria-label="settings" />
+              </TabLink>
+            </div>
+          </Tooltip>
         </li>
         <li>
-          <TabLink target={SETTINGS} className={styles.link}>
-            <Tooltip id="settings" overlay="Settings">
-              <SettingsIcon aria-label="settings" />
-            </Tooltip>
-          </TabLink>
-        </li>
-        <li>
-          <NavLink exact to="/logout" draggable={false} className={styles.link}>
-            <Tooltip id="logout" overlay="Logout">
+          <Tooltip overlay="Logout">
+            <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
               <LogoutIcon aria-label="logout" />
-            </Tooltip>
-          </NavLink>
+            </NavLink>
+          </Tooltip>
         </li>
       </ul>
     </nav>

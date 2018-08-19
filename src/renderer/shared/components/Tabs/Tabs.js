@@ -5,7 +5,7 @@ import { map } from 'lodash';
 
 import styles from './Tabs.scss';
 
-export default class Tabs extends React.PureComponent {
+export default class Tabs extends React.Component {
   static propTypes = {
     className: string,
     tabsClass: string,

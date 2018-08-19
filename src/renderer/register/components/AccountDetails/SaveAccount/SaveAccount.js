@@ -1,5 +1,5 @@
-import fs from 'fs';
 import React from 'react';
+import fs from 'fs';
 import { string, func } from 'prop-types';
 import { remote } from 'electron';
 import { promisify } from 'es6-promisify';
