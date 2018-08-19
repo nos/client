@@ -42,11 +42,11 @@ export default class Select extends React.PureComponent {
   render() {
     return (
       <Dropdown
-        className={classNames(styles.dropdown, this.props.className)}
+        className={classNames(styles.select, this.props.className)}
         ref={this.props.forwardedRef}
         id={this.props.id}
         open={this.state.open}
-        content={this.renderItems()}
+        content={this.renderOptions()}
         onClick={this.handleShow}
         onClickOutside={this.handleHide}
       >
@@ -56,13 +56,21 @@ export default class Select extends React.PureComponent {
     );
   }
 
-  renderItems = () => {
+  renderOptions = () => {
     const items = this.getItems();
 
     return (
-      <div className={styles.items}>
+      <div className={styles.options}>
         {this.renderSearch()}
         {this.renderZeroState(items)}
+        {this.renderItems(items)}
+      </div>
+    );
+  }
+
+  renderItems = (items) => {
+    return (
+      <div className={styles.items}>
         {map(items, this.renderItem)}
       </div>
     );
@@ -212,11 +220,7 @@ export default class Select extends React.PureComponent {
     const { items } = this.props;
 
     const result = new Sifter(items).search(this.state.search, {
-      fields: ['label'],
-      sort: [
-        { field: 'label', direction: 'asc' },
-        { field: 'value', direction: 'asc' }
-      ]
+      fields: ['label']
     });
 
     return map(result.items, ({ id }) => items[id]);
