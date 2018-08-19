@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-tabindex */
+
 import React from 'react';
 import classNames from 'classnames';
 import { bool, string, func, node, arrayOf, oneOf } from 'prop-types';
@@ -82,9 +84,9 @@ export default class Dropdown extends React.PureComponent {
       <div
         ref={this.registerRef('container')}
         className={styles.container}
-        role="combobox"
+        role="button"
         tabIndex={0}
-        aria-controls=""
+        aria-haspopup="true"
         aria-expanded={open}
         onClick={onClick}
       >

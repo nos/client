@@ -77,9 +77,9 @@ export default class Select extends React.PureComponent {
 
   renderItems = (items) => {
     return (
-      <div className={styles.items}>
+      <ul className={styles.items} role="listbox">
         {map(items, this.renderItem)}
-      </div>
+      </ul>
     );
   }
 
@@ -94,17 +94,21 @@ export default class Select extends React.PureComponent {
     });
 
     return (
-      <div
+      <li
         key={JSON.stringify(item)}
         className={className}
-        {...this.getFocusableProps(item, index, { selected })}
+        role="option"
+        aria-selected={selected}
+        onClick={partial(this.handleChange, item.value)}
+        onFocus={partial(this.handleFocus, item.value)}
+        onMouseOver={partial(this.handleFocus, index)}
       >
         <Item
           ref={this.registerRef(`item${index}`)}
           item={item}
           selected={selected}
         />
-      </div>
+      </li>
     );
   }
 
@@ -207,7 +211,7 @@ export default class Select extends React.PureComponent {
     }
   }
 
-  handleMouseOver = (index) => {
+  handleFocus = (index) => {
     this.setState({ selectedIndex: index });
   }
 
@@ -235,20 +239,6 @@ export default class Select extends React.PureComponent {
 
   getItem = (value) => {
     return find(this.props.items, { value });
-  }
-
-  getFocusableProps = (item, index, { selected = false, disabled = false } = {}) => {
-    if (disabled) {
-      return {};
-    }
-
-    return {
-      role: 'option',
-      'aria-selected': selected,
-      tabIndex: -1,
-      onClick: partial(this.handleChange, item.value),
-      onMouseOver: partial(this.handleMouseOver, index)
-    };
   }
 
   incrementSelection = (offset) => {
