@@ -50,6 +50,15 @@
   }
 }
 
+@mixin webComponent {
+  user-select: auto;
+  cursor: pointer;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
 @keyframes spin {
   from {
     -webkit-transform: rotate(0deg);
