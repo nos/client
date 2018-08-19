@@ -1,15 +1,17 @@
 import React from 'react';
 import { Element, scrollSpy } from 'react-scroll';
-import { StickyContainer, Sticky } from 'react-sticky';
+import { Sticky } from 'react-sticky';
 
 import Page from 'shared/components/Page';
 import Panel from 'shared/components/Panel';
 
+import ScrollContainer from '../ScrollContainer';
 import GeneralSettings from '../GeneralSettings';
 import NetworkSettings from '../NetworkSettings';
 import SidebarLink from '../SidebarLink';
 import styles from './Settings.scss';
 
+// eslint-disable-next-line react/no-multi-comp
 export default class Settings extends React.PureComponent {
   state = {
     offset: 0
@@ -22,7 +24,7 @@ export default class Settings extends React.PureComponent {
 
   render() {
     return (
-      <StickyContainer id="settingsContainer" ref={this.registerRef} className={styles.settings}>
+      <ScrollContainer id="settingsContainer" ref={this.registerRef} className={styles.settings}>
         <Page className={styles.page}>
           <Panel className={styles.panel}>
             <div className={styles.sidebar}>
@@ -54,7 +56,7 @@ export default class Settings extends React.PureComponent {
             </div>
           </Panel>
         </Page>
-      </StickyContainer>
+      </ScrollContainer>
     );
   }
 

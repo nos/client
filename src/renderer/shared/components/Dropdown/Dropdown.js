@@ -1,14 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import { bool, string, func, node, arrayOf, oneOf } from 'prop-types';
-import { noop, debounce, pick, omit, find, head } from 'lodash';
+import { noop, pick, omit, find, head } from 'lodash';
 
 import Portal from '../Portal';
+import { defaultScrollSpy } from '../../lib/scrollSpy';
 import styles from './Dropdown.scss';
 
 const DEFAULT_ORDER = ['bottom', 'top'];
-
-const RESIZE_TIMEOUT = 50;
 
 const canFitInDirections = (childBounds, dropdownDimensions, windowDimensions) => {
   const fitFromTop = dropdownDimensions.height <= childBounds.top;
@@ -52,11 +51,8 @@ export default class Dropdown extends React.PureComponent {
 
   componentDidMount() {
     this.setPosition();
-
-    this.handleResize = debounce(() => this.setPosition(), RESIZE_TIMEOUT);
-    window.addEventListener('resize', this.handleResize);
-
-    // TODO: register scrolling window & element events
+    defaultScrollSpy.subscribe(this.handleReposition);
+    window.addEventListener('resize', this.handleReposition);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,9 +62,8 @@ export default class Dropdown extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-
-    // TODO: unregister scrolling window & element events
+    defaultScrollSpy.unsubscribe(this.handleReposition);
+    window.removeEventListener('resize', this.handleReposition);
   }
 
   render() {
@@ -128,6 +123,10 @@ export default class Dropdown extends React.PureComponent {
     }
 
     return this.props.content;
+  }
+
+  handleReposition = () => {
+    this.setPosition();
   }
 
   registerRef = (name) => (el) => {
