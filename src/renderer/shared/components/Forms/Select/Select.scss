@@ -44,6 +44,17 @@
     font-size: 12px;
   }
 
+  .noResults {
+    font-size: 14px;
+    padding: 10px 12px;
+    color: $light-text-color;
+    -webkit-font-smoothing: antialiased;
+
+    .clear {
+      text-decoration: underline;
+    }
+  }
+
   .items {
     max-height: 160px;
     margin: 0;

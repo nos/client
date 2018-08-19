@@ -120,7 +120,14 @@ export default class Select extends React.PureComponent {
     return (
       <div className={styles.noResults}>
         <span>No matches found. </span>
-        <span role="button" tabIndex={0} onClick={this.handleResetSearch}>Clear search.</span>
+        <span
+          className={styles.clear}
+          role="button"
+          tabIndex={0}
+          onClick={this.handleResetSearch}
+        >
+          Clear search.
+        </span>
       </div>
     );
   }
