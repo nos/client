@@ -3,10 +3,10 @@ import { func, string, object, arrayOf } from 'prop-types';
 import { settings } from '@cityofzion/neon-js';
 import { noop, map } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import Button from 'shared/components/Forms/Button';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
-import Select from 'shared/components/Forms/Select';
 import NetworkIcon from 'shared/images/settings/network.svg';
 
 import SectionTitle from '../SectionTitle';
@@ -39,7 +39,7 @@ export default class NetworkSettings extends React.PureComponent {
         </SectionTitle>
 
         <SectionContent>
-          <Select
+          <LabeledSelect
             className={styles.input}
             labelClass={styles.label}
             id="network"
@@ -48,9 +48,9 @@ export default class NetworkSettings extends React.PureComponent {
             onChange={this.handleChangeSelectedNetwork}
           >
             {map(settings.networks, this.renderNetworkOption)}
-          </Select>
+          </LabeledSelect>
 
-          <Input
+          <LabeledInput
             className={styles.input}
             labelClass={styles.label}
             id="neoscan"
@@ -94,14 +94,14 @@ export default class NetworkSettings extends React.PureComponent {
   handleAddNewNetwork = () => {
     this.props.confirm((
       <div>
-        <Input
+        <LabeledInput
           id="networkName"
           type="text"
           label="Network name"
           placeholder="Network name"
           onChange={this.handleChangeNetworkName}
         />
-        <Input
+        <LabeledInput
           id="networkURL"
           type="text"
           label="Network URL"
