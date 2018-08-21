@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormWIF.scss';
@@ -27,7 +27,7 @@ export default class LoginFormWIF extends React.PureComponent {
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <Input
+        <LabeledInput
           id="wif"
           type="password"
           label="WIF"

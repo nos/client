@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './RegisterForm.scss';
@@ -32,7 +32,7 @@ export default class RegisterForm extends React.PureComponent {
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
-        <Input
+        <LabeledInput
           id="passphrase"
           type="password"
           label="Passphrase"
@@ -41,7 +41,7 @@ export default class RegisterForm extends React.PureComponent {
           disabled={loading}
           onChange={this.handleChangePassphrase}
         />
-        <Input
+        <LabeledInput
           id="passphraseConfirmation"
           type="password"
           label="Confirm Passphrase"
