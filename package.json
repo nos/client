@@ -131,7 +131,8 @@
     "ignore": [
       "redux",
       "webpack",
-      "webpack-dev-server"
+      "webpack-dev-server",
+      "electron-webpack"
     ]
   },
   "jest": {
