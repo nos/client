@@ -1,23 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, node } from 'prop-types';
+import { string } from 'prop-types';
 
 import styles from './Page.scss';
 
 export default function Page(props) {
   return (
-    <div className={classNames(styles.page, props.className)}>
-      {props.children}
-    </div>
+    <div {...props} className={classNames(styles.page, props.className)} />
   );
 }
 
 Page.propTypes = {
-  className: string,
-  children: node
+  className: string
 };
 
 Page.defaultProps = {
-  className: null,
-  children: null
+  className: null
 };

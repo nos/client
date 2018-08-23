@@ -6,8 +6,8 @@ import { BigNumber } from 'bignumber.js';
 import { map, noop } from 'lodash';
 
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
-import Input from 'shared/components/Forms/Input';
-import Select from 'shared/components/Forms/Select';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
 import isNumeric from '../../../util/isNumeric';
 import balanceShape from '../../../shapes/balanceShape';
@@ -45,7 +45,7 @@ export default class Send extends React.PureComponent {
 
     return (
       <form className={classNames(styles.send, className)}>
-        <Select
+        <LabeledSelect
           className={styles.asset}
           id="asset"
           label="Token to send"
@@ -53,8 +53,8 @@ export default class Send extends React.PureComponent {
           onChange={this.handleChangeAsset}
         >
           {this.renderAssets()}
-        </Select>
-        <Input
+        </LabeledSelect>
+        <LabeledInput
           className={styles.amount}
           id="amount"
           type="number"
@@ -65,7 +65,7 @@ export default class Send extends React.PureComponent {
           value={amount}
           onChange={this.handleChangeAmount}
         />
-        <Input
+        <LabeledInput
           className={styles.recipient}
           id="recipient"
           label="Recipient"

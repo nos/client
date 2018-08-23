@@ -6,8 +6,8 @@ import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
-import Select from 'shared/components/Forms/Select';
-import Input from 'shared/components/Forms/Input/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
 import styles from './LoginFormWalletFile.scss';
 
@@ -62,7 +62,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
     }
 
     return (
-      <Select
+      <LabeledSelect
         id="account"
         className={styles.accounts}
         value={encryptedWIF}
@@ -73,7 +73,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
         {map(this.props.accounts, (account, index) => (
           <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
         ))}
-      </Select>
+      </LabeledSelect>
     );
   }
 
@@ -85,7 +85,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
     }
 
     return (
-      <Input
+      <LabeledInput
         id="passphrase"
         type="password"
         label="Passphrase"

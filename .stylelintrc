@@ -4,6 +4,7 @@
     "function-url-quotes": "always",
     "number-leading-zero": "always",
     "max-nesting-depth": 4,
-    "function-name-case": "lower"
+    "function-name-case": "lower",
+    "no-descending-specificity": null
   }
 }

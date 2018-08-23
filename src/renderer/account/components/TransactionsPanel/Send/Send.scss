@@ -2,6 +2,7 @@
   margin: 20px 0 0;
 
   .next {
+    @include webComponent;
     display: block;
     width: 100%;
   }

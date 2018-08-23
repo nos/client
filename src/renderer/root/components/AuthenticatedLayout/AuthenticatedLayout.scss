@@ -74,6 +74,8 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         flex: 1 1 100%;
         box-sizing: border-box;
         overflow-y: auto;
+        user-select: auto;
+        cursor: auto;
       }
 
       .footer {

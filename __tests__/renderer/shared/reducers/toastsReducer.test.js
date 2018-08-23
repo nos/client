@@ -1,5 +1,5 @@
 import { reduce, map } from 'lodash';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import toastsReducer from 'shared/reducers/toastsReducer';
 import { ENQUEUE, TYPE_SUCCESS } from 'shared/actions/toastsActions';
