@@ -2,7 +2,7 @@ import React from 'react';
 import { string, func } from 'prop-types';
 import { map } from 'lodash';
 
-import Select from 'shared/components/Forms/Select';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import GeneralIcon from 'shared/images/settings/general.svg';
 import CURRENCIES from 'shared/values/currencies';
 
@@ -24,7 +24,7 @@ export default class GeneralSettings extends React.PureComponent {
         </SectionTitle>
 
         <SectionContent>
-          <Select
+          <LabeledSelect
             className={styles.input}
             labelClass={styles.label}
             id="currency"
@@ -33,7 +33,7 @@ export default class GeneralSettings extends React.PureComponent {
             onChange={this.handleChangeCurrency}
           >
             {map(CURRENCIES, this.renderCurrencyOption)}
-          </Select>
+          </LabeledSelect>
         </SectionContent>
       </div>
     );

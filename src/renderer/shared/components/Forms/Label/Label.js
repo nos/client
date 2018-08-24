@@ -31,18 +31,4 @@ export default class Label extends React.PureComponent {
       </label>
     );
   }
-
-  renderLabel = () => {
-    const { label, labelClass } = this.props;
-
-    if (!label) {
-      return null;
-    }
-
-    return (
-      <span className={classNames(styles.label, labelClass)}>
-        {label}
-      </span>
-    );
-  }
 }
