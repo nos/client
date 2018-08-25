@@ -1,4 +1,4 @@
-import { values, sortBy, filter, extend, replace, get, find, trim } from 'lodash';
+import { extend, get, find } from 'lodash';
 import { api, rpc, wallet } from '@cityofzion/neon-js';
 
 import getTokens from 'shared/util/getTokens';

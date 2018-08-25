@@ -30,15 +30,18 @@ const doInvoke = async ({
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
+
+  const madeIntents = intents
+    ? { intents: await api.makeIntent(intents, address) }
+    : null;
+
   const { response: { result, txid } } = await api.doInvoke({
     net,
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
     gas: 0,
-    ...(intents
-      ? { intents: api.makeIntent(intents, wallet.getScriptHashFromAddress(address)) }
-      : undefined)
+    ...madeIntents
   });
 
   if (!result) {

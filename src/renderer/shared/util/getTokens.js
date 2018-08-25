@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { sortBy, trim, filter, values, compact, replace } from 'lodash';
+import { sortBy, trim, filter, values, replace } from 'lodash';
 
 import { TOKENS_URL, NETWORK_MAP } from 'shared/values/config';
 
