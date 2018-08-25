@@ -147,7 +147,7 @@ export default class DAppContainer extends React.PureComponent {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
-  handleNavigatedToPage = () => {
+  handleNavigatedToPage = (event) => {
     this.props.setTabLoaded(this.props.sessionId, true);
   }
 
