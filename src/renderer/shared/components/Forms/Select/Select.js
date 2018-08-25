@@ -9,6 +9,8 @@ import Input from '../Input';
 import Dropdown from '../../Dropdown';
 import DefaultItem from './DefaultItem';
 import CaretIcon from '../../../images/inputs/caret.svg';
+import CloseIcon from '../../../images/inputs/close.svg';
+import SearchIcon from '../../../images/inputs/search.svg';
 import selectItemShape from '../../../shapes/selectItemShape';
 import styles from './Select.scss';
 
@@ -160,8 +162,18 @@ export default class Select extends React.PureComponent {
         value={this.state.search}
         onChange={this.handleSearch}
         onKeyDown={this.handleKeyDown}
+        renderBefore={this.renderSearchIcon}
+        renderAfter={this.renderCloseIcon}
       />
     );
+  }
+
+  renderSearchIcon = () => {
+    return <SearchIcon className={styles.searchIcon} />;
+  }
+
+  renderCloseIcon = () => {
+    return <CloseIcon className={styles.closeIcon} onClick={this.handleClose} />;
   }
 
   handleShow = () => {
@@ -169,6 +181,11 @@ export default class Select extends React.PureComponent {
   }
 
   handleHide = () => {
+    this.setOpen(false);
+  }
+
+  handleClose = (event) => {
+    event.stopPropagation();
     this.setOpen(false);
   }
 

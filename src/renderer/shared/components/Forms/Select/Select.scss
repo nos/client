@@ -34,14 +34,23 @@
   transform: translateY(-31px);
 
   .search {
-    border: 0;
     border-bottom: 1px solid #e3e4ea;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    box-shadow: none;
     background: #fff;
-    padding: 6px 12px;
     color: #353445;
     font-size: 12px;
+
+    .searchIcon {
+      margin-left: 12px;
+      color: $light-text-color;
+    }
+
+    .closeIcon {
+      margin-right: 8px;
+      color: $light-text-color;
+    }
   }
 
   .noResults {

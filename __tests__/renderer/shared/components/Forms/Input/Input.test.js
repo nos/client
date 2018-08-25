@@ -11,12 +11,13 @@ describe('<Input />', () => {
   it('renders an input', () => {
     const props = { id: 'name', defaultValue: 'foo' };
     const wrapper = mountContainer(props);
-    expect(wrapper.type()).toEqual('input');
-    expect(wrapper.props()).toEqual(expect.objectContaining(props));
+    const input = wrapper.find('input');
+    expect(input.exists()).toBe(true);
+    expect(input.props()).toEqual(expect.objectContaining(props));
   });
 
   it('applies a custom className', () => {
-    const wrapper = mountContainer({ className: 'passwordField' });
+    const wrapper = mountContainer({ id: 'password', className: 'passwordField' });
     expect(wrapper.prop('className').split(' ')).toContain('passwordField');
   });
 });
