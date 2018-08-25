@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies, global-require */
 import { createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { saga } from 'spunky';
@@ -19,7 +19,7 @@ export default function configureStore(history) {
     : require('redux-devtools-extension').composeWithDevTools;
 
   const enhancers = composeEnhancers(applyMiddleware(...middleware));
-  const store = createStore(reducers, initialState, enhancers);
+  const store = createStore(connectRouter(history)(reducers), initialState, enhancers);
 
   if (module.hot) {
     module.hot.accept('../reducers', () => {

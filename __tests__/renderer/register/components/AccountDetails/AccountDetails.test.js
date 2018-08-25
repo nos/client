@@ -13,7 +13,7 @@ describe('<AccountDetails />', () => {
   let wrapper;
 
   const findDatum = (label) => {
-    return wrapper.find('AccountDatum').findWhere((node) => node.prop('label') === label);
+    return wrapper.find('Connect(AccountDatum)').findWhere((node) => node.prop('label') === label);
   };
 
   beforeEach(() => {

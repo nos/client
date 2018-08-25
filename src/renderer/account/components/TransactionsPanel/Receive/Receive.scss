@@ -17,6 +17,7 @@
   }
 
   .copy {
+    @include webComponent;
     margin: 10px 0 30px;
   }
 

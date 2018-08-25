@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormPassphrase.scss';
@@ -32,7 +32,7 @@ export default class LoginFormWIF extends React.PureComponent {
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <Input
+        <LabeledInput
           id="encryptedWIF"
           type="password"
           label="Encrypted WIF"
@@ -41,7 +41,7 @@ export default class LoginFormWIF extends React.PureComponent {
           disabled={disabled}
           onChange={this.handleChangeEncryptedWIF}
         />
-        <Input
+        <LabeledInput
           id="passphrase"
           type="password"
           label="Passphrase"

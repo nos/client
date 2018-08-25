@@ -6,7 +6,7 @@ import { promisify } from 'es6-promisify';
 import { noop, isEmpty } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
-import Input from 'shared/components/Forms/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import accountShape from '../../../shapes/accountShape';
@@ -35,7 +35,7 @@ export default class SaveAccount extends React.PureComponent {
   render() {
     return (
       <div className={styles.saveAccount}>
-        <Input
+        <LabeledInput
           className={styles.label}
           id="label"
           label="Account Label"
