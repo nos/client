@@ -1,4 +1,4 @@
-import { defaultTo, noop, filter, isEmpty, forEach, reduce, some, startsWith, split, trim, trimEnd, endsWith } from 'lodash';
+import { noop, filter, isEmpty, some, startsWith, trim, trimEnd, endsWith } from 'lodash';
 
 const protocols = {
   http: {
@@ -15,17 +15,21 @@ const protocols = {
   }
 };
 
-export default function parseURL(query) {
-  try {
-    const trimmedQuery = trimEnd(trim(query), '/');
-
-    const tld = filter(protocols, (protocol) => endsWith(trimmedQuery, protocol.tld));
-    const tldToApply = isEmpty(tld) ? protocols.https : tld[0];
-
-    return some(protocols, (protocol) => startsWith(trimmedQuery, protocol.protocol))
-      ? new URL(trimmedQuery)
-      : new URL(`${tldToApply.protocol}//${trimmedQuery}`);
-  } catch (e) {
-    console.log('error', e);
+function checkLocalhost(tldToApply, trimmedQuery) {
+  if (trimmedQuery.includes('localhost:')) {
+    return `${protocols.http.protocol}//${trimmedQuery}`;
+  } else {
+    return `${tldToApply.protocol}//${trimmedQuery}`;
   }
+}
+
+export default function parseURL(query) {
+  const trimmedQuery = trimEnd(trim(query), '/').split('://').pop();
+
+  const tld = filter(protocols, (protocol) => endsWith(trimmedQuery, protocol.tld));
+  const tldToApply = isEmpty(tld) ? protocols.https : tld[0];
+
+  return some(protocols, (protocol) => startsWith(trimmedQuery, protocol.protocol))
+    ? new URL(`${tldToApply.protocol}//${trimmedQuery}`)
+    : new URL(checkLocalhost(tldToApply, trimmedQuery));
 }
