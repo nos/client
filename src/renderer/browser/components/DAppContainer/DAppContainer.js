@@ -2,9 +2,9 @@ import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
-import contextMenu from 'electron-context-menu';
 
 import getStaticPath from '../../../util/getStaticPath';
+import bindContextMenu from '../../util/bindContextMenu';
 import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
@@ -43,29 +43,7 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
     this.webview.addEventListener('close', this.handleCloseWindow);
 
-    contextMenu({
-      window: this.webview,
-      prepend: (_params, browserWindow) => [
-        {
-          label: 'Back',
-          enabled: browserWindow.canGoBack(),
-          click: () => browserWindow.goBack()
-        },
-        {
-          label: 'Forward',
-          enabled: browserWindow.canGoForward(),
-          click: () => browserWindow.goForward()
-        },
-        browserWindow.isLoading() ? {
-          label: 'Stop',
-          click: () => browserWindow.stop()
-        } : {
-          label: 'Reload',
-          click: () => browserWindow.reload()
-        },
-        { type: 'separator' }
-      ]
-    });
+    bindContextMenu(this.webview);
 
     this.webview.src = this.props.tab.target;
   }
