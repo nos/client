@@ -1,16 +1,6 @@
 import { filter, isEmpty, trim, trimEnd, endsWith } from 'lodash';
 
-const customProtocols = {
-  nos: {
-    tld: '.neo',
-    protocol: 'nos:'
-  }
-};
-
-const protocols = {
-  https: 'https:',
-  http: 'http:'
-};
+import { protocols, customProtocols } from '../values/protocols';
 
 export default function parseURL(query) {
   const trimmedQuery = trimEnd(trim(query), '/').split('://').pop();
