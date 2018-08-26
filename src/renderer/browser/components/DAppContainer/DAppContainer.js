@@ -34,7 +34,6 @@ export default class DAppContainer extends React.PureComponent {
     window.addEventListener('focus', this.handleFocus);
 
     this.webview.addEventListener('dom-ready', this.handleFocus);
-    this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -83,7 +82,6 @@ export default class DAppContainer extends React.PureComponent {
     window.removeEventListener('focus', this.handleFocus);
 
     this.webview.removeEventListener('dom-ready', this.handleFocus);
-    this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -150,10 +148,6 @@ export default class DAppContainer extends React.PureComponent {
 
   handleFocus = () => {
     this.webview.focus();
-  }
-
-  handleConsoleMessage = (event) => {
-    console.log('[DApp]', event.message); // eslint-disable-line no-console
   }
 
   handleIPCMessage = (event) => {
