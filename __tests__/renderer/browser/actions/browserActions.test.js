@@ -1,4 +1,5 @@
 import {
+  navigate,
   openTab,
   closeTab,
   resetTabs,
@@ -7,6 +8,7 @@ import {
   setTabTarget,
   setTabTitle,
   setTabLoaded,
+  NAVIGATE,
   OPEN_TAB,
   CLOSE_TAB,
   RESET_TABS,
@@ -58,6 +60,18 @@ describe('browserActions', () => {
     });
   });
 
+  describe('navigate', () => {
+    const sessionId = 'abc123';
+    const target = 'nos://nos.neo';
+
+    it('returns action object', () => {
+      expect(navigate(sessionId, target)).toEqual({
+        type: NAVIGATE,
+        payload: { sessionId, target }
+      });
+    });
+  });
+
   describe('setTabError', () => {
     it('returns action object', () => {
       const sessionId = 'abc123';
@@ -75,23 +89,10 @@ describe('browserActions', () => {
     const sessionId = 'abc123';
     const target = 'nos://nos.neo';
 
-    describe('without options', () => {
-      it('returns action object', () => {
-        expect(setTabTarget(sessionId, target)).toEqual({
-          type: SET_TAB_TARGET,
-          payload: { sessionId, target, addressBarEntry: false }
-        });
-      });
-    });
-
-    describe('with options', () => {
-      it('returns action object', () => {
-        const addressBarEntry = true;
-
-        expect(setTabTarget(sessionId, target, { addressBarEntry })).toEqual({
-          type: SET_TAB_TARGET,
-          payload: { sessionId, target, addressBarEntry }
-        });
+    it('returns action object', () => {
+      expect(setTabTarget(sessionId, target)).toEqual({
+        type: SET_TAB_TARGET,
+        payload: { sessionId, target }
       });
     });
   });
