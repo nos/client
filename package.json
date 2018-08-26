@@ -59,6 +59,7 @@
     "pack": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "pretest": "yarn run lint && yarn run stylelint",
     "test": "jest",
+    "test:debug": "node inspect ./node_modules/.bin/jest --runInBand",
     "stylelint": "stylelint src/**/*.scss",
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
