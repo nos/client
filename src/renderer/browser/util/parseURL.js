@@ -1,29 +1,26 @@
-import { noop, filter, isEmpty, trim, trimEnd, endsWith } from 'lodash';
+import { filter, isEmpty, trim, trimEnd, endsWith } from 'lodash';
 
-const protocols = {
-  http: {
-    tld: noop,
-    protocol: 'http:'
-  },
-  https: {
-    tld: noop,
-    protocol: 'https:'
-  },
+const customProtocols = {
   nos: {
     tld: '.neo',
     protocol: 'nos:'
   }
 };
 
+const protocols = {
+  https: 'https:',
+  http: 'http:'
+};
+
 export default function parseURL(query) {
   const trimmedQuery = trimEnd(trim(query), '/').split('://').pop();
 
-  const tld = filter(protocols, (protocol) => endsWith(trimmedQuery, protocol.tld));
-  const tldToApply = isEmpty(tld) ? protocols.https : tld[0];
+  const tld = filter(customProtocols, (protocol) => endsWith(trimmedQuery, protocol.tld));
+  const tldToApply = isEmpty(tld) ? protocols.https : tld[0].protocol;
 
   const url = trimmedQuery.includes('localhost:')
-    ? `${protocols.http.protocol}//${trimmedQuery}`
-    : `${tldToApply.protocol}//${trimmedQuery}`;
+    ? `${protocols.http}//${trimmedQuery}`
+    : `${tldToApply}//${trimmedQuery}`;
 
   return new URL(url);
 }
