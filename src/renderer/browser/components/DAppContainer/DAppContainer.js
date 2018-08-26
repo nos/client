@@ -2,6 +2,7 @@ import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
+import contextMenu from 'electron-context-menu';
 
 import getStaticPath from '../../../util/getStaticPath';
 import Error from '../Error';
@@ -42,6 +43,30 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
     this.webview.addEventListener('close', this.handleCloseWindow);
+
+    contextMenu({
+      window: this.webview,
+      prepend: (_params, browserWindow) => [
+        {
+          label: 'Back',
+          enabled: browserWindow.canGoBack(),
+          click: () => browserWindow.goBack()
+        },
+        {
+          label: 'Forward',
+          enabled: browserWindow.canGoForward(),
+          click: () => browserWindow.goForward()
+        },
+        browserWindow.isLoading() ? {
+          label: 'Stop',
+          click: () => browserWindow.stop()
+        } : {
+          label: 'Reload',
+          click: () => browserWindow.reload()
+        },
+        { type: 'separator' }
+      ]
+    });
 
     this.webview.src = this.props.tab.target;
   }
