@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { string, func } from 'prop-types';
 
 import getStaticPath from '../../../util/getStaticPath';
+import bindContextMenu from '../../util/bindContextMenu';
 import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
@@ -33,7 +34,6 @@ export default class DAppContainer extends React.PureComponent {
     window.addEventListener('focus', this.handleFocus);
 
     this.webview.addEventListener('dom-ready', this.handleFocus);
-    this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -42,6 +42,8 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
     this.webview.addEventListener('close', this.handleCloseWindow);
+
+    bindContextMenu(this.webview);
 
     this.webview.src = this.props.tab.target;
   }
@@ -58,7 +60,6 @@ export default class DAppContainer extends React.PureComponent {
     window.removeEventListener('focus', this.handleFocus);
 
     this.webview.removeEventListener('dom-ready', this.handleFocus);
-    this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -127,10 +128,6 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.focus();
   }
 
-  handleConsoleMessage = (event) => {
-    console.log('[DApp]', event.message); // eslint-disable-line no-console
-  }
-
   handleIPCMessage = (event) => {
     const { channel } = event;
     const id = event.args[0];
@@ -147,7 +144,12 @@ export default class DAppContainer extends React.PureComponent {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
-  handleNavigatedToPage = () => {
+  handleNavigatedToPage = (event) => {
+    this.props.setTabTarget(this.props.sessionId, event.url);
+
+    // TODO: This shouldn't be necessary to call after `setTabTarget`.  To fix this, setTabTarget
+    //       will need to be split into two functions, one for automated updates, and one for manual
+    //       navigation via the address bar.
     this.props.setTabLoaded(this.props.sessionId, true);
   }
 
