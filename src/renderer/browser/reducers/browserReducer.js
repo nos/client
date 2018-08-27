@@ -4,6 +4,7 @@ import { keys, findKey, omit, has, size, isEmpty } from 'lodash';
 import parseURL from '../util/parseURL';
 import { INTERNAL, EXTERNAL } from '../values/browserValues';
 import {
+  NAVIGATE,
   OPEN_TAB,
   CLOSE_TAB,
   RESET_TABS,
@@ -71,14 +72,6 @@ function parse(query) {
   } catch (err) {
     return query;
   }
-}
-
-function normalize(target) {
-  return target.split('#')[0].replace(/\/$/, '');
-}
-
-function isNavigatingAway(oldTarget, newTarget) {
-  return normalize(oldTarget) !== normalize(newTarget);
 }
 
 function getSessionId(tabs, callback) {
@@ -158,6 +151,13 @@ function setError(state, action) {
 }
 
 function setTarget(state, action) {
+  return updateTab(state, action.sessionId, {
+    target: action.target,
+    addressBarEntry: false
+  });
+}
+
+function navigate(state, action) {
   const tab = state.tabs[action.sessionId];
 
   if (!tab) {
@@ -169,8 +169,7 @@ function setTarget(state, action) {
   return updateTab(state, action.sessionId, {
     target,
     title: target,
-    loading: isNavigatingAway(state.tabs[state.activeSessionId].target, target),
-    addressBarEntry: action.addressBarEntry,
+    addressBarEntry: true,
     requestCount: tab.requestCount + 1,
     errorCode: null,
     errorDescription: null
@@ -189,6 +188,8 @@ export default function browserReducer(state = generateInitialState(), action = 
       return close(state, action.payload);
     case RESET_TABS:
       return generateInitialState();
+    case NAVIGATE:
+      return navigate(state, action.payload);
     case SET_ACTIVE_TAB:
       return focus(state, action.payload);
     case SET_TAB_ERROR:

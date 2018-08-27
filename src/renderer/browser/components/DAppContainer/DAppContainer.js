@@ -40,6 +40,8 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.addEventListener('will-navigate', this.handleNavigatingToPage);
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
+    this.webview.addEventListener('did-start-loading', this.handleLoading);
+    this.webview.addEventListener('did-stop-loading', this.handleLoaded);
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
     this.webview.addEventListener('close', this.handleCloseWindow);
 
@@ -67,6 +69,8 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.removeEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.removeEventListener('did-fail-load', this.handleNavigateFailed);
+    this.webview.removeEventListener('did-start-loading', this.handleLoading);
+    this.webview.removeEventListener('did-stop-loading', this.handleLoaded);
     this.webview.removeEventListener('close', this.handleCloseWindow);
 
     // remove any pending requests from the queue
@@ -146,11 +150,6 @@ export default class DAppContainer extends React.PureComponent {
 
   handleNavigatedToPage = (event) => {
     this.props.setTabTarget(this.props.sessionId, event.url);
-
-    // TODO: This shouldn't be necessary to call after `setTabTarget`.  To fix this, setTabTarget
-    //       will need to be split into two functions, one for automated updates, and one for manual
-    //       navigation via the address bar.
-    this.props.setTabLoaded(this.props.sessionId, true);
   }
 
   handleNavigatedToAnchor = (event) => {
@@ -161,6 +160,14 @@ export default class DAppContainer extends React.PureComponent {
     if (isMainFrame) {
       this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
     }
+  }
+
+  handleLoading = () => {
+    this.props.setTabLoaded(this.props.sessionId, false);
+  }
+
+  handleLoaded = () => {
+    this.props.setTabLoaded(this.props.sessionId, true);
   }
 
   handleNewWindow = (event) => {
