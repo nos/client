@@ -12,7 +12,7 @@
   "dependencies": {
     "@cityofzion/neon-js": "3.10.1",
     "@fortawesome/fontawesome-svg-core": "1.2.3",
-    "@fortawesome/free-regular-svg-icons": "5.2.0",
+    "@fortawesome/free-regular-svg-icons": "5.3.0",
     "@fortawesome/free-solid-svg-icons": "5.2.0",
     "@fortawesome/react-fontawesome": "0.1.2",
     "@ledgerhq/hw-transport-node-hid": "4.18.0",
