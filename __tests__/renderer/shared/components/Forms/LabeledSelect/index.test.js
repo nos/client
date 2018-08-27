@@ -10,7 +10,7 @@ const mountContainer = (props = {}) => {
 
 describe('<LabeledSelect />', () => {
   it('forwards the ref to the component', () => {
-    const wrapper = mountContainer({ ref: React.createRef() });
+    const wrapper = mountContainer({ id: 'foo', label: 'Foo', ref: React.createRef() });
     expect(wrapper).toForwardRefTo(LabeledSelect);
   });
 });
