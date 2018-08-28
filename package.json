@@ -68,7 +68,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "9.0.0",
     "babel-jest": "23.4.2",
     "babel-plugin-dynamic-import-node": "2.0.0",
     "babel-plugin-module-resolver": "3.1.1",
