@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string, object, arrayOf } from 'prop-types';
 import { settings } from '@cityofzion/neon-js';
-import { noop, map } from 'lodash';
+import { map } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
@@ -25,7 +25,7 @@ export default class NetworkSettings extends React.PureComponent {
     networkUrl: string.isRequired,
     addNetwork: func.isRequired,
     clearNetworks: func.isRequired,
-    alert: func.isRequired,
+    showErrorToast: func.isRequired,
     confirm: func.isRequired
   };
 
@@ -44,8 +44,9 @@ export default class NetworkSettings extends React.PureComponent {
             labelClass={styles.label}
             id="network"
             label="Current Network"
+            name="setCurrentNetwork"
             value={this.props.currentNetwork}
-            onChange={this.handleChangeSelectedNetwork}
+            onChange={this.handleChange}
           >
             {map(settings.networks, this.renderNetworkOption)}
           </LabeledSelect>
@@ -88,7 +89,6 @@ export default class NetworkSettings extends React.PureComponent {
     }
 
     this.props.clearNetworks();
-    this.props.alert('All custom network configurations cleared.');
   };
 
   handleAddNewNetwork = () => {
@@ -99,20 +99,22 @@ export default class NetworkSettings extends React.PureComponent {
           type="text"
           label="Network name"
           placeholder="Network name"
-          onChange={this.handleChangeNetworkName}
+          name="setNetworkName"
+          onChange={this.handleChange}
         />
         <LabeledInput
           id="networkURL"
           type="text"
           label="Network URL"
           placeholder="Network URL"
-          onChange={this.handleChangeNetworkUrl}
+          name="setNetworkUrl"
+          onChange={this.handleChange}
         />
       </div>
     ), {
       title: 'New network configuration',
       onConfirm: this.handleConfirmAddNetwork,
-      onCancel: noop
+      onCancel: () => this.clearModal()
     });
   };
 
@@ -121,8 +123,15 @@ export default class NetworkSettings extends React.PureComponent {
       return element.name === this.props.networkName;
     });
 
+    if (!this.props.networkName || !this.props.networkUrl) {
+      this.props.showErrorToast('Please enter all fields.');
+      this.clearModal();
+      return;
+    }
+
     if (network) {
-      this.props.alert('Error: A network configuration with that name already exist.');
+      this.props.showErrorToast('A network configuration with that name already exist.');
+      this.clearModal();
       return;
     }
 
@@ -137,16 +146,14 @@ export default class NetworkSettings extends React.PureComponent {
     this.props.setCurrentNetwork(this.props.networkName);
   };
 
-  handleChangeNetworkName = (event) => {
-    this.props.setNetworkName(event.target.value);
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.props[name](value);
   };
 
-  handleChangeNetworkUrl = (event) => {
-    this.props.setNetworkUrl(event.target.value);
-  };
-
-  handleChangeSelectedNetwork = (event) => {
-    this.props.setCurrentNetwork(event.target.value);
+  clearModal = () => {
+    this.props.setNetworkName('');
+    this.props.setNetworkUrl('');
   };
 
   getCurrentNetworkUrl = () => {
