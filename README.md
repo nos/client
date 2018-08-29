@@ -52,6 +52,9 @@ yarn install && yarn start
 // Testing command
 yarn test
 
+// Testing with debug (repl) command
+yarn test:debug
+
 // Distribution command
 yarn dist
 ```

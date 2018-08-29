@@ -10,7 +10,6 @@ export default class Label extends React.PureComponent {
   static propTypes = {
     className: string,
     label: node.isRequired,
-    htmlFor: string.isRequired,
     children: node
   };
 
@@ -20,10 +19,10 @@ export default class Label extends React.PureComponent {
   };
 
   render() {
-    const { className, label, children, htmlFor, ...passDownProps } = this.props;
+    const { className, label, children, ...passDownProps } = this.props;
 
     return (
-      <label {...passDownProps} htmlFor={htmlFor} className={classNames(styles.wrapper, className)}>
+      <label {...passDownProps} className={classNames(styles.wrapper, className)}>
         <span className={styles.label}>
           {label}
         </span>

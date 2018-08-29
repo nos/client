@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { string, func } from 'prop-types';
 
 import getStaticPath from '../../../util/getStaticPath';
+import bindContextMenu from '../../util/bindContextMenu';
 import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
@@ -33,15 +34,18 @@ export default class DAppContainer extends React.PureComponent {
     window.addEventListener('focus', this.handleFocus);
 
     this.webview.addEventListener('dom-ready', this.handleFocus);
-    this.webview.addEventListener('console-message', this.handleConsoleMessage);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
     this.webview.addEventListener('will-navigate', this.handleNavigatingToPage);
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
+    this.webview.addEventListener('did-start-loading', this.handleLoading);
+    this.webview.addEventListener('did-stop-loading', this.handleLoaded);
     this.webview.addEventListener('did-fail-load', this.handleNavigateFailed);
     this.webview.addEventListener('close', this.handleCloseWindow);
+
+    bindContextMenu(this.webview);
 
     this.webview.src = this.props.tab.target;
   }
@@ -58,7 +62,6 @@ export default class DAppContainer extends React.PureComponent {
     window.removeEventListener('focus', this.handleFocus);
 
     this.webview.removeEventListener('dom-ready', this.handleFocus);
-    this.webview.removeEventListener('console-message', this.handleConsoleMessage);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -66,6 +69,8 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.removeEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
     this.webview.removeEventListener('did-fail-load', this.handleNavigateFailed);
+    this.webview.removeEventListener('did-start-loading', this.handleLoading);
+    this.webview.removeEventListener('did-stop-loading', this.handleLoaded);
     this.webview.removeEventListener('close', this.handleCloseWindow);
 
     // remove any pending requests from the queue
@@ -127,10 +132,6 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.focus();
   }
 
-  handleConsoleMessage = (event) => {
-    console.log('[DApp]', event.message); // eslint-disable-line no-console
-  }
-
   handleIPCMessage = (event) => {
     const { channel } = event;
     const id = event.args[0];
@@ -147,8 +148,8 @@ export default class DAppContainer extends React.PureComponent {
     this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
-  handleNavigatedToPage = () => {
-    this.props.setTabLoaded(this.props.sessionId, true);
+  handleNavigatedToPage = (event) => {
+    this.props.setTabTarget(this.props.sessionId, event.url);
   }
 
   handleNavigatedToAnchor = (event) => {
@@ -159,6 +160,14 @@ export default class DAppContainer extends React.PureComponent {
     if (isMainFrame) {
       this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
     }
+  }
+
+  handleLoading = () => {
+    this.props.setTabLoaded(this.props.sessionId, false);
+  }
+
+  handleLoaded = () => {
+    this.props.setTabLoaded(this.props.sessionId, true);
   }
 
   handleNewWindow = (event) => {

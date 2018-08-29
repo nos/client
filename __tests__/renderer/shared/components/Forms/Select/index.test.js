@@ -1,28 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-import Select from 'shared/components/Forms/Select';
+import SelectContainer from 'shared/components/Forms/Select';
+import Select from 'shared/components/Forms/Select/Select';
 
 const mountContainer = (props = {}) => {
-  return shallow(<Select {...props} />);
+  return mount(<SelectContainer {...props} />);
 };
 
 describe('<Select />', () => {
-  it('renders a select', () => {
-    const children = (
-      <React.Fragment>
-        <option value="foo">Foo</option>
-        <option value="bar">Bar</option>
-      </React.Fragment>
-    );
-    const props = { id: 'name', defaultValue: 'foo', children };
-    const wrapper = mountContainer(props);
-    expect(wrapper.type()).toEqual('select');
-    expect(wrapper.props()).toEqual(expect.objectContaining(props));
-  });
-
-  it('applies a custom className', () => {
-    const wrapper = mountContainer({ className: 'currency' });
-    expect(wrapper.prop('className').split(' ')).toContain('currency');
+  it('forwards the ref to the component', () => {
+    const wrapper = mountContainer({ ref: React.createRef() });
+    expect(wrapper).toForwardRefTo(Select);
   });
 });

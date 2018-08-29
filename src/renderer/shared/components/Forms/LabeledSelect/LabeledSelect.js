@@ -6,22 +6,24 @@ import Label from '../Label';
 import Select from '../Select';
 import styles from './LabeledSelect.scss';
 
-export default function LabeledSelect(props) {
-  const { id, label, labelClass, ...passDownProps } = props;
+export default class LabeledSelect extends React.PureComponent {
+  static propTypes = {
+    id: string.isRequired,
+    label: node.isRequired,
+    labelClass: string
+  };
 
-  return (
-    <Label htmlFor={id} label={label} className={classNames(styles.labeledSelect, labelClass)}>
-      <Select id={id} {...passDownProps} />
-    </Label>
-  );
+  static defaultProps = {
+    labelClass: null
+  };
+
+  render() {
+    const { id, label, labelClass, ...passDownProps } = this.props;
+
+    return (
+      <Label htmlFor={id} label={label} className={classNames(styles.labeledSelect, labelClass)}>
+        <Select id={id} {...passDownProps} />
+      </Label>
+    );
+  }
 }
-
-LabeledSelect.propTypes = {
-  id: string.isRequired,
-  label: node.isRequired,
-  labelClass: string
-};
-
-LabeledSelect.defaultProps = {
-  labelClass: null
-};
