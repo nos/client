@@ -1,7 +1,7 @@
 import React from 'react';
 import { remote } from 'electron';
 import { bool, string, func, object, arrayOf } from 'prop-types';
-import { noop, map } from 'lodash';
+import { isEmpty, noop, map } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
@@ -21,7 +21,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
     accounts: arrayOf(object),
     setAccounts: func,
     onLogin: func,
-    alert: func
+    showErrorToast: func
   };
 
   static defaultProps = {
@@ -33,7 +33,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
     accounts: [],
     setAccounts: noop,
     onLogin: noop,
-    alert: noop
+    showErrorToast: noop
   };
 
   render() {
@@ -57,7 +57,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
   renderAccounts = () => {
     const { accounts, encryptedWIF, disabled } = this.props;
 
-    if (accounts.length === 0) {
+    if (isEmpty(accounts)) {
       return null;
     }
 
@@ -75,12 +75,12 @@ export default class LoginFormWalletFile extends React.PureComponent {
         ))}
       </LabeledSelect>
     );
-  }
+  };
 
   renderPassphraseInput = () => {
     const { encryptedWIF, passphrase, disabled } = this.props;
 
-    if (encryptedWIF === '' || wallet.isPrivateKey(encryptedWIF)) {
+    if (isEmpty(encryptedWIF) || wallet.isPrivateKey(encryptedWIF)) {
       return null;
     }
 
@@ -95,12 +95,12 @@ export default class LoginFormWalletFile extends React.PureComponent {
         disabled={disabled}
       />
     );
-  }
+  };
 
   renderDescription = () => {
     const { encryptedWIF } = this.props;
 
-    if (encryptedWIF === '') {
+    if (isEmpty(encryptedWIF)) {
       return null;
     }
 
@@ -109,7 +109,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
     } else {
       return 'Encrypted key detected, please type passphrase.';
     }
-  }
+  };
 
   handleLoadWallet = () => {
     const filenames = remote.dialog.showOpenDialog({
@@ -120,7 +120,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
     if (filenames) {
       this.load(filenames[0]);
     }
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -133,35 +133,35 @@ export default class LoginFormWalletFile extends React.PureComponent {
     };
 
     onLogin(loginCredentials);
-  }
+  };
 
   handleSelect = (event) => {
     this.props.setPassphrase('');
     this.props.setEncryptedWIF(event.target.value);
-  }
+  };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
-  }
+  };
 
   isValid = () => {
     return this.props.encryptedWIF !== '';
-  }
+  };
 
   load = (filename) => {
-    const { setAccounts, setEncryptedWIF, alert } = this.props;
+    const { setAccounts, setEncryptedWIF, showErrorToast } = this.props;
 
     try {
       const walletFile = wallet.Wallet.readFile(filename);
 
-      if (walletFile.accounts.length === 0) {
+      if (isEmpty(walletFile.accounts)) {
         throw new Error('This wallet file contains no accounts.');
       }
 
       setAccounts(walletFile.accounts);
       setEncryptedWIF('');
     } catch (err) {
-      alert(`Error loading wallet file: ${err.message}`);
+      showErrorToast(`Error loading wallet file: ${err.message}`);
     }
   }
 }
