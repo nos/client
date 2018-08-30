@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string, object, arrayOf } from 'prop-types';
 import { settings } from '@cityofzion/neon-js';
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
@@ -123,7 +123,7 @@ export default class NetworkSettings extends React.PureComponent {
       return element.name === this.props.networkName;
     });
 
-    if (!this.props.networkName || !this.props.networkUrl) {
+    if (isEmpty(this.props.networkName) || isEmpty(this.props.networkUrl)) {
       this.props.showErrorToast('Please enter all fields.');
       this.clearModal();
       return;
