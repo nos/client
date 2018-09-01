@@ -5,7 +5,5 @@ export const CUSTOM_PROTOCOLS = {
   }
 };
 
-export const PROTOCOLS = {
-  HTTPS: 'https:',
-  HTTP: 'http:'
-};
+export const HTTP = 'http:';
+export const HTTPS = 'https:';
