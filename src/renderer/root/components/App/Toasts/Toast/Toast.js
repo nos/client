@@ -13,13 +13,13 @@ export default class Toast extends React.PureComponent {
   static propTypes = {
     toast: toastShape.isRequired,
     onClose: func.isRequired
-  }
+  };
 
   componentDidMount() {
-    const { autoDismiss } = this.props.toast;
+    const { onClose, toast: { autoDismiss } } = this.props;
 
-    if (autoDismiss !== false) {
-      this.timeout = setTimeout(this.props.onClose, Number(autoDismiss) * 1000);
+    if (autoDismiss) {
+      this.timeout = setTimeout(onClose, Number(autoDismiss) * 1000);
     }
   }
 
