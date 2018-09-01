@@ -6,11 +6,7 @@ export default function parseURL(query) {
   const trimmedQuery = trimEnd(trim(query), '/').split('://').pop();
 
   const tld = filter(customProtocols, (protocol) => endsWith(trimmedQuery, protocol.tld));
-  const tldToApply = isEmpty(tld) ? protocols.https : tld[0].protocol;
+  const tldToApply = isEmpty(tld) ? protocols.http : tld[0].protocol;
 
-  const url = trimmedQuery.includes('localhost:')
-    ? `${protocols.http}//${trimmedQuery}`
-    : `${tldToApply}//${trimmedQuery}`;
-
-  return new URL(url);
+  return new URL(`${tldToApply}//${trimmedQuery}`);
 }
