@@ -1,6 +1,6 @@
 import { filter, isEmpty, trim, trimEnd, endsWith } from 'lodash';
 
-import { PROTOCOLS, CUSTOM_PROTOCOLS} from '../values/protocols';
+import { PROTOCOLS, CUSTOM_PROTOCOLS } from '../values/protocols';
 
 export default function parseURL(query) {
   const trimmedQuery = trimEnd(trim(query), '/').split('://').pop();
