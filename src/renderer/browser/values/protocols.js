@@ -1,11 +1,11 @@
-export const customProtocols = {
-  nos: {
+export const CUSTOM_PROTOCOLS = {
+  NOS: {
     tld: '.neo',
     protocol: 'nos:'
   }
 };
 
-export const protocols = {
-  https: 'https:',
-  http: 'http:'
+export const PROTOCOLS = {
+  HTTPS: 'https:',
+  HTTP: 'http:'
 };
