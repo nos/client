@@ -10,7 +10,7 @@
     "node": "^8.10.0 || >=9.10.0"
   },
   "dependencies": {
-    "@cityofzion/neon-js": "3.10.1",
+    "@cityofzion/neon-js": "4.0.0",
     "@fortawesome/fontawesome-svg-core": "1.2.4",
     "@fortawesome/free-regular-svg-icons": "5.3.1",
     "@fortawesome/free-solid-svg-icons": "5.3.1",
