@@ -48,4 +48,8 @@ describe('parseURL', () => {
   it('handles .com TLD without protocol, with query string', () => {
     expect(parseURL('example.com?foo=bar')).toEqual(new URL('http://example.com?foo=bar'));
   });
+
+  it('handles search queries', () => {
+    expect(parseURL('example.com lol jk')).toEqual(new URL('https://www.google.com/search?q=example.com+lol+jk'));
+  });
 });

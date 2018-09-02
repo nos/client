@@ -16,5 +16,10 @@ export default function parseURL(query) {
   }
 
   const tld = getTLD(trimmedQuery);
-  return new URL(`${tld}//${trimmedQuery}`);
+
+  try {
+    return new URL(`${tld}//${trimmedQuery}`);
+  } catch (err) {
+    return new URL(`https://www.google.com/search?q=${encodeURIComponent(trimmedQuery)}`);
+  }
 }
