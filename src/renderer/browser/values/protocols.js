@@ -1,6 +1,6 @@
 export const CUSTOM_PROTOCOLS = {
   NOS: {
-    tld: '.neo',
+    tld: 'neo',
     protocol: 'nos:'
   }
 };

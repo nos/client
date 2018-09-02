@@ -1,12 +1,20 @@
-import { filter, isEmpty, trim, trimEnd, endsWith } from 'lodash';
+import { filter, isEmpty, trim } from 'lodash';
 
 import { HTTP, CUSTOM_PROTOCOLS } from '../values/protocols';
 
+function getTLD(query) {
+  const tldProvided = query.split(/[/?]/)[0].split('.').pop();
+  const tld = filter(CUSTOM_PROTOCOLS, (protocol) => tldProvided === protocol.tld);
+  return isEmpty(tld) ? HTTP : tld[0].protocol;
+}
+
 export default function parseURL(query) {
-  const trimmedQuery = trimEnd(trim(query), '/').split('://').pop();
+  const trimmedQuery = trim(query);
 
-  const tld = filter(CUSTOM_PROTOCOLS, (protocol) => endsWith(trimmedQuery, protocol.tld));
-  const tldToApply = isEmpty(tld) ? HTTP : tld[0].protocol;
+  if (trimmedQuery.includes('://')) {
+    return new URL(trimmedQuery);
+  }
 
-  return new URL(`${tldToApply}//${trimmedQuery}`);
+  const tld = getTLD(trimmedQuery);
+  return new URL(`${tld}//${trimmedQuery}`);
 }
