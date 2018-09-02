@@ -1,3 +1,5 @@
+import { URL } from 'whatwg-url';
+
 import parseURL from 'browser/util/parseURL';
 
 describe('parseURL', () => {

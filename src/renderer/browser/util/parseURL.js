@@ -1,3 +1,4 @@
+import { URL } from 'whatwg-url';
 import { filter, isEmpty, trim } from 'lodash';
 
 import { HTTP, CUSTOM_PROTOCOLS } from '../values/protocols';
@@ -16,9 +17,10 @@ export default function parseURL(query) {
   }
 
   const tld = getTLD(trimmedQuery);
+  const url = `${tld}//${trimmedQuery}`;
 
   try {
-    return new URL(`${tld}//${trimmedQuery}`);
+    return new URL(url);
   } catch (err) {
     return new URL(`https://www.google.com/search?q=${encodeURIComponent(trimmedQuery)}`);
   }
