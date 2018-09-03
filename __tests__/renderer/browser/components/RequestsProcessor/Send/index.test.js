@@ -35,14 +35,16 @@ describe('<Send />', () => {
     net,
     address,
     assets: {
-      [ASSETS[NEO]]: { balance: new u.Fixed8(1),
-        unspent: [{ index: 0,
-          txid:
-         '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
-          value: new u.Fixed8(1) }
-        ],
+      [ASSETS[NEO].symbol]: {
+        balance: new u.Fixed8(1),
+        unspent: [{
+          index: 0,
+          txid: '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
+          value: new u.Fixed8(1)
+        }],
         spent: [],
-        unconfirmed: [] }
+        unconfirmed: []
+      }
     }
   }));
 

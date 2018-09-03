@@ -1,33 +1,8 @@
-import fetch from 'node-fetch';
-import { values, sortBy, filter, extend, replace, get, find, trim } from 'lodash';
+import { extend, get, find } from 'lodash';
 import { api, rpc, wallet } from '@cityofzion/neon-js';
 
-import { GAS, NEO } from '../values/assets';
-
-const TOKENS_URL = 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/tokenList.json';
-
-const NETWORK_MAP = {
-  MainNet: '1'
-};
-
-function normalizeImage(str) {
-  const src = replace(str, 'raw.githubusercontent.com', 'rawgit.com');
-  return trim(src) === '' ? null : src;
-}
-
-async function getTokens(net) {
-  const networkKey = NETWORK_MAP[net];
-
-  const response = await fetch(TOKENS_URL);
-  const tokens = values(await response.json());
-  const networkTokens = filter(tokens, (token) => token.networks[networkKey]);
-  const sortedTokens = sortBy(networkTokens, 'symbol');
-
-  return sortedTokens.map(({ image, networks }) => {
-    const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
-    return { name, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
-  });
-}
+import getTokens from './getTokens';
+import { GAS, NEO, ASSETS } from '../values/assets';
 
 async function getTokenBalance(endpoint, token, address) {
   try {
@@ -51,8 +26,8 @@ async function getAssetBalances(endpoint, address) {
   const gasBalance = get(find(balances, { asset: `0x${GAS}` }), 'value', '0');
 
   return {
-    [NEO]: { name: 'NEO', symbol: 'NEO', scriptHash: NEO, balance: neoBalance, decimals: 0 },
-    [GAS]: { name: 'GAS', symbol: 'GAS', scriptHash: GAS, balance: gasBalance, decimals: 8 }
+    [NEO]: { ...ASSETS[NEO], scriptHash: NEO, balance: neoBalance },
+    [GAS]: { ...ASSETS[GAS], scriptHash: GAS, balance: gasBalance }
   };
 }
 

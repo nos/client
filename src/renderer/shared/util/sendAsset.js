@@ -27,10 +27,11 @@ export default async function sendAsset(
     const config = { net, address, privateKey: wif };
 
     if (keys(ASSETS).includes(asset)) {
-      const selectedAsset = ASSETS[asset];
+      const selectedAsset = ASSETS[asset].symbol;
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
       const balance = await getBalance(net, address);
       const transaction = tx.Transaction.createContractTx(balance, intents);
+
       if (typeof remark === 'string') {
         transaction.addRemark(remark);
       } else if (Array.isArray(remark)) {
