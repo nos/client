@@ -22,6 +22,6 @@ export default function parseURL(query) {
   try {
     return new URL(url);
   } catch (err) {
-    return new URL(`https://www.google.com/search?q=${encodeURIComponent(trimmedQuery)}`);
+    return new URL(`https://duckduckgo.com/?q=${encodeURIComponent(trimmedQuery)}`);
   }
 }
