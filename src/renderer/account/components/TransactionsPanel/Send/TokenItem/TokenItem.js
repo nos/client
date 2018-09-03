@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, shape } from 'prop-types';
 
+import TokenIcon from 'shared/components/TokenIcon';
 import anyPropsChanged from 'shared/util/anyPropsChanged';
 
-import TokenIcon from '../../../TokenIcon';
 import styles from './TokenItem.scss';
 
 const tokenItemShape = shape({

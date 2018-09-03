@@ -16,17 +16,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: $modal-backdrop-color;
-    opacity: 0.3;
+    background: rgba(53, 52, 69, 0.85);
   }
+}
 
-  .modal {
-    position: relative;
-    margin: 1.75rem auto;
-    margin: 0.5rem;
-    border-radius: 6px;
-    background-color: $modal-background-color;
-    background-clip: padding-box;
-    box-shadow: $modal-shadow;
-  }
+.modal {
+  position: relative;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(30, 27, 82, 0.12);
 }

@@ -13,7 +13,7 @@ export default function TokenIcon(props) {
   const className = classNames(styles.tokenIcon, props.className);
 
   if (image) {
-    return <img className={className} src={image} alt={symbol} />;
+    return <img className={className} src={image} alt={symbol || scriptHash} />;
   }
 
   if (scriptHash === NEO) {
@@ -31,11 +31,12 @@ export default function TokenIcon(props) {
 TokenIcon.propTypes = {
   className: string,
   image: string,
-  symbol: string.isRequired,
+  symbol: string,
   scriptHash: string.isRequired
 };
 
 TokenIcon.defaultProps = {
   className: null,
-  image: null
+  image: null,
+  symbol: null
 };
