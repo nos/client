@@ -1,5 +1,6 @@
 import { EXTERNAL } from '../values/browserValues';
 
+export const NAVIGATE = 'NAVIGATE';
 export const OPEN_TAB = 'OPEN_TAB';
 export const CLOSE_TAB = 'CLOSE_TAB';
 export const RESET_TABS = 'RESET_TABS';
@@ -30,14 +31,19 @@ export const setActiveTab = (sessionId) => ({
   payload: { sessionId }
 });
 
+export const navigate = (sessionId, target) => ({
+  type: NAVIGATE,
+  payload: { sessionId, target }
+});
+
 export const setTabError = (sessionId, code, description) => ({
   type: SET_TAB_ERROR,
   payload: { sessionId, code, description }
 });
 
-export const setTabTarget = (sessionId, target, { addressBarEntry = false } = {}) => ({
+export const setTabTarget = (sessionId, target) => ({
   type: SET_TAB_TARGET,
-  payload: { sessionId, target, addressBarEntry }
+  payload: { sessionId, target }
 });
 
 export const setTabTitle = (sessionId, title) => ({

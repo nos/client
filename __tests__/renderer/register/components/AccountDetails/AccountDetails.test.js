@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import AccountDetails from 'register/components/AccountDetails/AccountDetails';
+import AccountDatum from 'register/components/AccountDetails/AccountDatum';
 
 describe('<AccountDetails />', () => {
   const account = {
@@ -13,7 +14,7 @@ describe('<AccountDetails />', () => {
   let wrapper;
 
   const findDatum = (label) => {
-    return wrapper.find('Connect(AccountDatum)').findWhere((node) => node.prop('label') === label);
+    return wrapper.find(AccountDatum).findWhere((node) => node.prop('label') === label);
   };
 
   beforeEach(() => {

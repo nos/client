@@ -1,25 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import LabeledInput from 'shared/components/Forms/LabeledInput';
+import LabeledInputContainer from 'shared/components/Forms/LabeledInput';
+import LabeledInput from 'shared/components/Forms/LabeledInput/LabeledInput';
 
 const mountContainer = (props = {}) => {
-  return mount(<LabeledInput {...props} />);
+  return mount(<LabeledInputContainer {...props} />);
 };
 
 describe('<LabeledInput />', () => {
-  it('renders a label', () => {
-    const wrapper = mountContainer({ id: 'name', label: 'Name' });
-    const label = wrapper.find('Label');
-    expect(label.exists()).toBe(true);
-    expect(label.props()).toEqual(expect.objectContaining({ label: 'Name', htmlFor: 'name' }));
-  });
-
-  it('renders an input', () => {
-    const inputProps = { id: 'pw', type: 'password', defaultValue: 'foo' };
-    const wrapper = mountContainer({ label: 'Password', ...inputProps });
-    const input = wrapper.find('Input');
-    expect(input.exists()).toBe(true);
-    expect(input.props()).toEqual(expect.objectContaining(inputProps));
+  it('forwards the ref to the component', () => {
+    const wrapper = mountContainer({ id: 'foo', label: 'Foo', ref: React.createRef() });
+    expect(wrapper).toForwardRefTo(LabeledInput);
   });
 });

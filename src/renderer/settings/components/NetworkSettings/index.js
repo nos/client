@@ -6,7 +6,6 @@ import withNetworkData from 'shared/hocs/withNetworkData';
 import withAllNetworkData from 'shared/hocs/withAllNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withConfirm from 'shared/hocs/withConfirm';
-import withAlert from 'shared/hocs/withAlert';
 import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import NetworkSettings from './NetworkSettings';
@@ -52,9 +51,8 @@ export default compose(
     resetAccountData();
   }),
 
-  // Alerts and dialogs
+  // Dialog
   withConfirm(),
-  withAlert(),
 
   // State for modal
   withState('networkName', 'setNetworkName', ''),

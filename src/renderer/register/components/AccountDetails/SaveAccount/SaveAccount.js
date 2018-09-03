@@ -69,7 +69,7 @@ export default class SaveAccount extends React.PureComponent {
   handleAddToWallet = async () => {
     const { account, label } = this.props;
 
-    const filenames = remote.dialog.showOpenDialog({
+    const filenames = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
       title: 'Add account to a NEP6 Wallet',
       message: 'Add account to a NEP6 Wallet',
       filters: FILE_FILTERS

@@ -3,15 +3,20 @@ import { keys } from 'lodash';
 import browserReducer from 'browser/reducers/browserReducer';
 import { INTERNAL, EXTERNAL, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
 import {
+  NAVIGATE,
   OPEN_TAB,
   // CLOSE_TAB,
   RESET_TABS,
-  // SET_ACTIVE_TAB,
-  // SET_TAB_ERROR,
-  SET_TAB_TARGET
-  // SET_TAB_TITLE,
-  // SET_TAB_LOADED
+  SET_ACTIVE_TAB,
+  SET_TAB_ERROR,
+  SET_TAB_TARGET,
+  SET_TAB_TITLE,
+  SET_TAB_LOADED
 } from 'browser/actions/browserActions';
+
+function getActiveTab(state) {
+  return state.tabs[state.activeSessionId];
+}
 
 describe('browserReducer', () => {
   const initialState = browserReducer();
@@ -86,66 +91,120 @@ describe('browserReducer', () => {
     });
   });
 
-  describe('action type SET_TAB_TARGET', () => {
-    const sessionId = initialState.activeSessionId;
-    const addressBarEntry = false;
-
-    function itBehavesLikeTabUpdate(state) {
-      const originalTab = initialState.tabs[sessionId];
-      const updatedTab = state.tabs[sessionId];
-
-      it('sets the title to the target URI', () => {
-        expect(updatedTab.title).toEqual(updatedTab.target);
-      });
-
-      it('assigns the address bar entry flag', () => {
-        expect(updatedTab.addressBarEntry).toEqual(addressBarEntry);
-      });
-
-      it('increments the request count', () => {
-        expect(updatedTab.requestCount).toEqual(originalTab.requestCount + 1);
-      });
-
-      it('resets any errors', () => {
-        expect(updatedTab.errorCode).toBe(null);
-        expect(updatedTab.errorDescription).toBe(null);
-      });
-    }
-
-    describe('when navigating away from the current page', () => {
-      const target = 'nos://example.neo';
-      const state = browserReducer(initialState, {
-        type: SET_TAB_TARGET,
-        payload: { sessionId, target, addressBarEntry }
-      });
-
-      itBehavesLikeTabUpdate(state);
-
-      it('updates the target on the tab', () => {
-        expect(state.tabs[sessionId].target).toEqual(target);
-      });
-
-      it('updates the loading state', () => {
-        expect(state.tabs[sessionId].loading).toBe(true);
-      });
+  describe('action type SET_ACTIVE_TAB', () => {
+    const intermediateState = browserReducer(initialState, {
+      type: OPEN_TAB,
+      payload: { type: INTERNAL, target: ACCOUNT }
+    });
+    const state = browserReducer(intermediateState, {
+      type: SET_ACTIVE_TAB,
+      payload: { sessionId: initialState.activeSessionId }
     });
 
-    describe('when navigating within the current page', () => {
-      const target = `${initialState.tabs[sessionId].target}/#foo`;
-      const state = browserReducer(initialState, {
-        type: SET_TAB_TARGET,
-        payload: { sessionId, target, addressBarEntry }
-      });
+    it('updates the activeSessionId', () => {
+      expect(state.activeSessionId).toEqual(initialState.activeSessionId);
+    });
+  });
 
-      itBehavesLikeTabUpdate(state);
+  describe('action type NAVIGATE', () => {
+    const sessionId = initialState.activeSessionId;
+    const target = 'nos://example.neo';
+    const state = browserReducer(initialState, {
+      type: NAVIGATE,
+      payload: { sessionId, target }
+    });
 
-      it('updates the target on the tab', () => {
-        expect(state.tabs[sessionId].target).toEqual(target);
-      });
+    const originalTab = getActiveTab(initialState);
+    const updatedTab = getActiveTab(state);
 
-      it('updates the loading state', () => {
-        expect(state.tabs[sessionId].loading).toBe(false);
-      });
+    it('updates the target on the tab', () => {
+      expect(updatedTab.target).toEqual(target);
+    });
+
+    it('does not update the loading state', () => {
+      expect(updatedTab.loading).toBe(originalTab.loading);
+    });
+
+    it('sets the title to the target URI', () => {
+      expect(updatedTab.title).toEqual(updatedTab.target);
+    });
+
+    it('increments the request count', () => {
+      expect(updatedTab.requestCount).toEqual(originalTab.requestCount + 1);
+    });
+
+    it('resets any errors', () => {
+      expect(updatedTab.errorCode).toBe(null);
+      expect(updatedTab.errorDescription).toBe(null);
+    });
+  });
+
+  describe('action type SET_TAB_ERROR', () => {
+    const sessionId = initialState.activeSessionId;
+    const errorCode = '-2';
+    const errorDescription = 'Something happened';
+    const state = browserReducer(initialState, {
+      type: SET_TAB_ERROR,
+      payload: { sessionId, code: errorCode, description: errorDescription }
+    });
+
+    const originalTab = getActiveTab(initialState);
+    const updatedTab = getActiveTab(state);
+
+    it('updates the target and addressBarEntry on the tab', () => {
+      expect(updatedTab).toEqual({ ...originalTab, errorCode, errorDescription });
+    });
+  });
+
+  describe('action type SET_TAB_TARGET', () => {
+    const sessionId = initialState.activeSessionId;
+    const target = 'nos://example.neo';
+    const intermediateState = browserReducer(initialState, {
+      type: NAVIGATE,
+      payload: { sessionId, target: 'nos://example.neo' }
+    });
+    const state = browserReducer(intermediateState, {
+      type: SET_TAB_TARGET,
+      payload: { sessionId, target }
+    });
+
+    const originalTab = getActiveTab(intermediateState);
+    const updatedTab = getActiveTab(state);
+
+    it('updates the target and addressBarEntry on the tab', () => {
+      expect(updatedTab).toEqual({ ...originalTab, target, addressBarEntry: false });
+    });
+  });
+
+  describe('action type SET_TAB_TITLE', () => {
+    const sessionId = initialState.activeSessionId;
+    const title = 'Foo';
+    const state = browserReducer(initialState, {
+      type: SET_TAB_TITLE,
+      payload: { sessionId, title }
+    });
+
+    const originalTab = getActiveTab(initialState);
+    const updatedTab = getActiveTab(state);
+
+    it('updates the title on the tab', () => {
+      expect(updatedTab).toEqual({ ...originalTab, title });
+    });
+  });
+
+  describe('action type SET_TAB_LOADED', () => {
+    const sessionId = initialState.activeSessionId;
+    const loaded = true;
+    const state = browserReducer(initialState, {
+      type: SET_TAB_LOADED,
+      payload: { sessionId, loaded }
+    });
+
+    const originalTab = getActiveTab(initialState);
+    const updatedTab = getActiveTab(state);
+
+    it('updates the loading flag on the tab', () => {
+      expect(updatedTab).toEqual({ ...originalTab, loading: !loaded });
     });
   });
 });
