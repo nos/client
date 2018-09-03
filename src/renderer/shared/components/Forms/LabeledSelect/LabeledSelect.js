@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, node } from 'prop-types';
+import { string, node } from 'prop-types';
+
+import refShape from 'shared/shapes/refShape';
 
 import Label from '../Label';
 import Select from '../Select';
@@ -8,7 +10,7 @@ import styles from './LabeledSelect.scss';
 
 export default class LabeledSelect extends React.PureComponent {
   static propTypes = {
-    forwardedRef: func,
+    forwardedRef: refShape,
     id: string.isRequired,
     label: node.isRequired,
     labelClass: string

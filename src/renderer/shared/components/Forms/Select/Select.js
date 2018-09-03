@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { string, func, arrayOf } from 'prop-types';
 import { noop, map, partial, find } from 'lodash';
 
+import refShape from 'shared/shapes/refShape';
+
 import Input from '../Input';
 import Dropdown from '../../Dropdown';
 import DefaultItem from './DefaultItem';
@@ -17,7 +19,7 @@ import styles from './Select.scss';
 export default class Select extends React.PureComponent {
   static propTypes = {
     className: string,
-    forwardedRef: func,
+    forwardedRef: refShape,
     id: string.isRequired,
     placeholder: string,
     items: arrayOf(selectItemShape),

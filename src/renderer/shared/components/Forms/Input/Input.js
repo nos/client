@@ -5,12 +5,14 @@ import classNames from 'classnames';
 import { string, func } from 'prop-types';
 import { noop, omit } from 'lodash';
 
+import refShape from 'shared/shapes/refShape';
+
 import styles from './Input.scss';
 
 export default class Input extends React.PureComponent {
   static propTypes = {
     className: string,
-    forwardedRef: func,
+    forwardedRef: refShape,
     renderBefore: func,
     renderAfter: func,
     onFocus: func,
