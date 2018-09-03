@@ -2,7 +2,7 @@ import { extend, get, find } from 'lodash';
 import { api, rpc, wallet } from '@cityofzion/neon-js';
 
 import getTokens from './getTokens';
-import { GAS, NEO } from '../values/assets';
+import { GAS, NEO, ASSETS } from '../values/assets';
 
 async function getTokenBalance(endpoint, token, address) {
   try {
@@ -26,8 +26,8 @@ async function getAssetBalances(endpoint, address) {
   const gasBalance = get(find(balances, { asset: `0x${GAS}` }), 'value', '0');
 
   return {
-    [NEO]: { name: 'NEO', symbol: 'NEO', scriptHash: NEO, balance: neoBalance, decimals: 0 },
-    [GAS]: { name: 'GAS', symbol: 'GAS', scriptHash: GAS, balance: gasBalance, decimals: 8 }
+    [NEO]: { ...ASSETS[NEO], scriptHash: NEO, balance: neoBalance },
+    [GAS]: { ...ASSETS[GAS], scriptHash: GAS, balance: gasBalance }
   };
 }
 
