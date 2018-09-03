@@ -153,12 +153,14 @@ export default class DAppContainer extends React.PureComponent {
   }
 
   handleNavigatedToAnchor = (event) => {
-    this.props.setTabTarget(this.props.sessionId, event.url);
+    if (event.isMainFrame) {
+      this.props.setTabTarget(this.props.sessionId, event.url);
+    }
   }
 
-  handleNavigateFailed = ({ errorCode, errorDescription, isMainFrame }) => {
-    if (isMainFrame) {
-      this.props.setTabError(this.props.sessionId, errorCode, errorDescription);
+  handleNavigateFailed = (event) => {
+    if (event.isMainFrame) {
+      this.props.setTabError(this.props.sessionId, event.errorCode, event.errorDescription);
     }
   }
 
