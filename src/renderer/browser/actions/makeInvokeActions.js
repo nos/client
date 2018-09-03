@@ -3,21 +3,13 @@ import { wallet, api } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
 import createScript from 'shared/util/createScript';
+import formatIntents from 'shared/util/formatIntents';
 
 import generateDAppActionId from './generateDAppActionId';
 
 export const ID = 'invoke';
 
-const doInvoke = async ({
-  net,
-  address,
-  wif,
-  scriptHash,
-  operation,
-  args,
-  encodeArgs,
-  intents
-}) => {
+async function doInvoke({ net, address, wif, scriptHash, operation, args, encodeArgs, intents }) {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -30,26 +22,27 @@ const doInvoke = async ({
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
-
-  const madeIntents = intents
-    ? { intents: await api.makeIntent(intents, address) }
-    : null;
-
-  const { response: { result, txid } } = await api.doInvoke({
+  const config = {
     net,
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
-    gas: 0,
-    ...madeIntents
-  });
+    gas: 0
+  };
+
+  if (intents) {
+    const scAddress = wallet.getAddressFromScriptHash(scriptHash);
+    config.intents = api.makeIntent(formatIntents(intents), scAddress);
+  }
+
+  const { response: { result, txid } } = await api.doInvoke(config);
 
   if (!result) {
     throw new Error('Invocation failed.');
   }
 
   return txid;
-};
+}
 
 export default function makeInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);

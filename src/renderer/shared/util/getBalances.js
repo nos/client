@@ -1,8 +1,7 @@
 import { extend, get, find } from 'lodash';
 import { api, rpc, wallet } from '@cityofzion/neon-js';
 
-import getTokens from 'shared/util/getTokens';
-
+import getTokens from './getTokens';
 import { GAS, NEO } from '../values/assets';
 
 async function getTokenBalance(endpoint, token, address) {

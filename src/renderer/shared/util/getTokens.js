@@ -1,10 +1,13 @@
 import fetch from 'node-fetch';
-import { sortBy, trim, filter, values, replace } from 'lodash';
+import { sortBy, trim, filter, values } from 'lodash';
 
-import { TOKENS_URL, NETWORK_MAP } from 'shared/values/config';
+const TOKENS_URL = 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/tokenList.json';
 
-function normalizeImage(str) {
-  const src = replace(str, 'raw.githubusercontent.com', 'rawgit.com');
+const NETWORK_MAP = {
+  MainNet: '1'
+};
+
+function normalizeImage(src) {
   return trim(src) === '' ? null : src;
 }
 

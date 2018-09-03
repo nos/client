@@ -31,6 +31,7 @@ export default async function sendAsset(
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
       const balance = await getBalance(net, address);
       const transaction = tx.Transaction.createContractTx(balance, intents);
+
       if (typeof remark === 'string') {
         transaction.addRemark(remark);
       } else if (Array.isArray(remark)) {
