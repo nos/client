@@ -26,7 +26,7 @@ function getInvokeMessage({ operation, scriptHash, assets }) {
 
   return trim(
     `Would you like to perform operation "${operation}" on contract ` +
-    `with address "${scriptHash}"? ${costMessage}`
+    `with address "${scriptHash}"?\n\n${costMessage}`
   );
 }
 
