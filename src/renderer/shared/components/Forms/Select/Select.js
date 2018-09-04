@@ -44,6 +44,8 @@ export default class Select extends React.PureComponent {
     selectedIndex: -1
   };
 
+  search = React.createRef();
+
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.selectedIndex !== prevState.selectedIndex) {
       this.scrollToItem(this.state.selectedIndex);
@@ -156,7 +158,7 @@ export default class Select extends React.PureComponent {
   renderSearch = () => {
     return (
       <Input
-        ref={this.registerRef('search')}
+        ref={this.search}
         className={styles.search}
         id="search"
         placeholder="Start typing to search"
@@ -202,7 +204,7 @@ export default class Select extends React.PureComponent {
 
   handleResetSearch = () => {
     this.setSearch('');
-    this.search.focus();
+    this.search.current.focus();
   }
 
   handleKeyDown = (event) => {
