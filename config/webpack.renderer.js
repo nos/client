@@ -1,6 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpackRenderer = require('electron-webpack/webpack.renderer.config.js');
+const cssnano = require('cssnano');
 const { extend, find, flow, has } = require('lodash');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -18,6 +19,15 @@ function replaceLoader(config, test, callback) {
 // Since we want to uses SCSS modules, we need to replace the
 // default SCSS loader config that ships with electron-webpack.
 function replaceSassLoader(config) {
+  const minimize = isProd ? [{
+    loader: 'postcss-loader',
+    options: {
+      plugins: [
+        cssnano({ preset: 'default' })
+      ]
+    }
+  }] : [];
+
   return replaceLoader(config, /\.scss/, () => ({
     use: [
       'style-loader',
@@ -26,11 +36,11 @@ function replaceSassLoader(config) {
         options: {
           modules: true,
           sourceMap: !isProd,
-          minimize: isProd,
           importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]'
         }
       },
+      ...minimize,
       {
         loader: 'sass-loader',
         options: {
