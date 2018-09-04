@@ -22,7 +22,7 @@ export default function withPrompt(message) {
       componentDidMount() {
         this.props.confirm((
           <div className={styles.prompt}>
-            <p>{isFunction(message) ? message(this.props) : message}</p>
+            <p>{this.renderMessage()}</p>
             <p className={styles.source}>Triggered by <strong>{this.props.src}</strong>.</p>
           </div>
         ), {
@@ -38,6 +38,18 @@ export default function withPrompt(message) {
         }
 
         return <Component {...this.props} />;
+      }
+
+      renderMessage = () => {
+        const output = isFunction(message) ? message(this.props) : message;
+        const lines = output.split(/[\r\n]/);
+
+        return lines.map((line, i) => (
+          <React.Fragment key={line}>
+            {line}
+            {i === lines.length - 1 ? null : <br />}
+          </React.Fragment>
+        ));
       }
 
       handleConfirm = () => {
