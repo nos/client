@@ -112,7 +112,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
   };
 
   handleLoadWallet = () => {
-    const filenames = remote.dialog.showOpenDialog({
+    const filenames = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
       title: 'Select Wallet file',
       filters: [{ name: 'Wallet file', extensions: ['json'] }]
     });
