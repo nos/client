@@ -43,7 +43,7 @@ export default class Input extends React.PureComponent {
       'renderAfter', 'onFocus', 'onBlur');
 
     return (
-      <div className={className} role="textbox" tabIndex={0} onClick={this.handleClick}>
+      <div className={className} role="textbox" tabIndex={-1} onClick={this.handleClick}>
         {this.renderBefore()}
         <input
           {...passDownProps}
