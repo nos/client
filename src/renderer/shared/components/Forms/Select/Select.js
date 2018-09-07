@@ -140,8 +140,9 @@ export default class Select extends React.PureComponent {
 
   renderActiveItem = () => {
     const { value, placeholder, renderItem: Item } = this.props;
+    const item = this.getItem(value);
 
-    if (!value) {
+    if (!item) {
       return <div className={styles.input}>{placeholder}</div>;
     }
 
@@ -149,7 +150,7 @@ export default class Select extends React.PureComponent {
       <div className={styles.input}>
         <Item
           className={styles.activeItem}
-          item={this.getItem(value)}
+          item={item}
         />
       </div>
     );

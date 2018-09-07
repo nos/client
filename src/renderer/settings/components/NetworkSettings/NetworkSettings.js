@@ -157,6 +157,6 @@ export default class NetworkSettings extends React.PureComponent {
 
   getCurrentNetworkUrl = () => {
     const currentNetworkConfig = settings.networks[this.props.currentNetwork];
-    return currentNetworkConfig && currentNetworkConfig.extra.neoscan;
+    return currentNetworkConfig ? currentNetworkConfig.extra.neoscan : '';
   }
 }
