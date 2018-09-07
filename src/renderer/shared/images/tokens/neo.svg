@@ -1,9 +1,36 @@
-<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="28" height="28" fill="url(#pattern0)"/>
+<svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#neo_clip0)">
+<path d="M17.9999 4.27832V16.7518L11.418 13.6563V6.63426L17.9999 4.27832Z" fill="url(#neo_paint0_linear)"/>
+<path d="M2 16.9809L8.42141 20.0001V7.58762L2 4.56836V16.9809Z" fill="url(#neo_paint1_linear)"/>
+<path d="M17.7326 4.03451L17.8396 3.99639L17.9008 3.98114L11.5635 1L11.51 1.02287L11.3418 1.08387L11.2653 1.10674L2.25244 4.33186L8.58976 7.313L11.2653 6.35233L11.4182 6.29896L17.7326 4.03451Z" fill="url(#neo_paint2_linear)"/>
+</g>
 <defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0" transform="scale(0.0357143)"/>
-</pattern>
-<image id="image0" width="28" height="28" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmBJREFUeNq8lj1oFEEUgN9sdkEJFik0/kAgaQQN6RRB8fTEIKgoBIngX+wFYxfB1CqI2lgKhhSKpIooNioqWEmsJNioYBNE0EJITnd2/Oayezde9jZ7l7sb+JjdvT2+fe/tvFlljJFODk86PDou9NMuKqVW/ePpV7Kd6Rycge9wHWYfHZSo9l63bCqthvWESDbZCc7CrpRb5q04NPJwpihhU8ILb2R9ScuJOJrhellxByF+RXoT49RsURZXFV6dUx6SApyHkaVQNugGX2aENsQF5mtPiuZ+Zg0DTy4jGIMhHZXPReuGfKUuJc+I5YtRMsp5ttD35LYfyUet5Jb2ZB/iPb594ihTYnPwFuZgC0U55inp9kyOt9RXZelORJbPcAfhIPPhlArYF+UFrIOjsN9dc16eZYFMbER6mQHSeoWHWCDiu3+N9HPLbngM09ANr1OXlxWqRoSkEIno5fPNyMfhZ2Skj/X2O14qB7Ly3JWn01hhoGJxTFA97smzNBrqNH41qiStZfwkYtXi1mYjKQtcYVS9rk27hE5EtRG3XpgseEcSONG2pYapaY1/a0tKK8JoZVqrjd7uBmvcgCvLQVW6zgqcbLxjugifmhdmiJIHScZ0Qf7QBB5wuANOwYc1pTSoqWFQp4bxTj9jofscYZ6AQmMpzUht1kD+HGzL2wtP/+uvaRvwyx9qgo13HHpL7KJL7IUlB857JofkV94XxXWkPuuhjXKDiPrhEtF8y6phyz4Th3tl8fhWuYdggAYwxjyfpDbw2iBMxsltEo72yRSiQaQj8B7CZoWq05/6/wQYAKLJHlvGmu6TAAAAAElFTkSuQmCC"/>
+<linearGradient id="neo_paint0_linear" x1="2.80718" y1="18.3774" x2="39.8841" y2="-2.56048" gradientUnits="userSpaceOnUse">
+<stop stop-color="#BEEB00"/>
+<stop offset="0.23" stop-color="#58BF00"/>
+<stop offset="0.42" stop-color="#58BF00"/>
+<stop offset="0.61" stop-color="#29B800"/>
+<stop offset="0.78" stop-color="#00AE1D"/>
+<stop offset="0.99" stop-color="#00A62C"/>
+</linearGradient>
+<linearGradient id="neo_paint1_linear" x1="0.772969" y1="14.775" x2="37.8499" y2="-6.16287" gradientUnits="userSpaceOnUse">
+<stop stop-color="#BEEB00"/>
+<stop offset="0.23" stop-color="#58BF00"/>
+<stop offset="0.42" stop-color="#58BF00"/>
+<stop offset="0.61" stop-color="#29B800"/>
+<stop offset="0.78" stop-color="#00AE1D"/>
+<stop offset="0.99" stop-color="#00A62C"/>
+</linearGradient>
+<linearGradient id="neo_paint2_linear" x1="-1.53835" y1="10.6817" x2="35.5386" y2="-10.2562" gradientUnits="userSpaceOnUse">
+<stop stop-color="#BEEB00"/>
+<stop offset="0.23" stop-color="#58BF00"/>
+<stop offset="0.42" stop-color="#58BF00"/>
+<stop offset="0.61" stop-color="#29B800"/>
+<stop offset="0.78" stop-color="#00AE1D"/>
+<stop offset="0.99" stop-color="#00A62C"/>
+</linearGradient>
+<clipPath id="neo_clip0">
+<rect width="18.9333" height="20" fill="white"/>
+</clipPath>
 </defs>
 </svg>
