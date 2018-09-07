@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { bool, string, func, node } from 'prop-types';
 import { noop, pick, omit } from 'lodash';
 
+import refShape from 'shared/shapes/refShape';
+
 import Portal from '../Portal';
 import { defaultScrollSpy } from '../../lib/scrollSpy';
 import styles from './Dropdown.scss';
@@ -19,6 +21,7 @@ const canFitInDirections = (overlap, childBounds, dropdownDimensions, windowDime
 
 export default class Dropdown extends React.PureComponent {
   static propTypes = {
+    forwardedRef: refShape,
     className: string,
     children: node,
     content: node,
@@ -29,6 +32,7 @@ export default class Dropdown extends React.PureComponent {
   };
 
   static defaultProps = {
+    forwardedRef: null,
     className: null,
     children: null,
     content: null,
@@ -46,6 +50,10 @@ export default class Dropdown extends React.PureComponent {
     },
     width: null
   };
+
+  dropdown = React.createRef();
+
+  container = this.props.forwardedRef || React.createRef();
 
   componentDidMount() {
     this.setPosition();
@@ -66,7 +74,7 @@ export default class Dropdown extends React.PureComponent {
 
   render() {
     return (
-      <div className={classNames(styles.dropdown, this.props.className)}>
+      <div className={styles.dropdown}>
         {this.renderContainer()}
         {this.renderPortal()}
       </div>
@@ -78,13 +86,14 @@ export default class Dropdown extends React.PureComponent {
 
     return (
       <div
-        ref={this.registerRef('container')}
-        className={styles.container}
+        ref={this.container}
+        className={classNames(styles.container, this.props.className)}
         role="button"
         tabIndex={0}
         aria-haspopup="true"
         aria-expanded={open}
         onClick={onClick}
+        onKeyDown={this.handleKeyDown}
       >
         {children}
       </div>
@@ -94,14 +103,15 @@ export default class Dropdown extends React.PureComponent {
   renderPortal = () => {
     const portalProps = pick(this.props, 'onClickOutside');
     const contentProps = omit(
-      this.props, 'className', 'children', 'content', 'open', 'overlap', 'onClick', 'onClickOutside'
+      this.props, 'forwardedRef', 'className', 'children', 'content', 'open', 'overlap',
+      'onClick', 'onClickOutside'
     );
 
     return (
       <Portal {...portalProps}>
         <div
-          ref={this.registerRef('dropdown')}
           {...contentProps}
+          ref={this.dropdown}
           className={styles.portal}
           style={this.getDropdownStyles()}
         >
@@ -119,6 +129,13 @@ export default class Dropdown extends React.PureComponent {
     return this.props.content;
   }
 
+  handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.props.onClick();
+    }
+  }
+
   handleReposition = () => {
     this.setPosition();
   }
@@ -132,7 +149,7 @@ export default class Dropdown extends React.PureComponent {
   }
 
   getContainerBounds = () => {
-    return this.container.getBoundingClientRect();
+    return this.container.current.getBoundingClientRect();
   }
 
   getWindowDimensions = () => {
@@ -141,8 +158,7 @@ export default class Dropdown extends React.PureComponent {
   }
 
   getDropdownDimensions() {
-    const { dropdown } = this;
-    return { width: dropdown.clientWidth, height: dropdown.clientHeight };
+    return { width: this.dropdown.current.clientWidth, height: this.dropdown.current.clientHeight };
   }
 
   calculateDropdownProps = () => {

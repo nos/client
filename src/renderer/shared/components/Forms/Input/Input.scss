@@ -6,7 +6,7 @@
   color: $primary-text-color;
   background: #f9fafb;
   border-radius: 4px;
-  box-shadow: 0 0 0 1px $light-text-color;
+  box-shadow: inset 0 0 0 1px $light-text-color;
   line-height: 17px;
   font-size: 14px;
   font-weight: 500;
@@ -36,7 +36,7 @@
 
   &.focus {
     // border-image: linear-gradient(to right, #b9d532, #5bba47)
-    box-shadow: 0 0 0 2px #b9d532;
+    box-shadow: inset 0 0 0 2px #b9d532;
 
     .input {
       outline: none;

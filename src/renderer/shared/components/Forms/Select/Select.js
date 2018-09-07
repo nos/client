@@ -18,8 +18,8 @@ import styles from './Select.scss';
 
 export default class Select extends React.PureComponent {
   static propTypes = {
-    className: string,
     forwardedRef: refShape,
+    className: string,
     id: string.isRequired,
     placeholder: string,
     items: arrayOf(selectItemShape),
@@ -46,6 +46,8 @@ export default class Select extends React.PureComponent {
 
   search = React.createRef();
 
+  dropdown = this.props.forwardedRef || React.createRef();
+
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.selectedIndex !== prevState.selectedIndex) {
       this.scrollToItem(this.state.selectedIndex);
@@ -56,7 +58,7 @@ export default class Select extends React.PureComponent {
     return (
       <Dropdown
         className={classNames(styles.select, this.props.className)}
-        ref={this.props.forwardedRef}
+        ref={this.dropdown}
         id={this.props.id}
         open={this.state.open}
         overlap
@@ -198,6 +200,7 @@ export default class Select extends React.PureComponent {
   handleChange = (value) => {
     this.props.onChange(value);
     this.setOpen(false);
+    this.dropdown.current.focus();
   }
 
   handleSearch = (event) => {
