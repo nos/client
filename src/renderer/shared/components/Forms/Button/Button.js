@@ -1,7 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func } from 'prop-types';
+import { string } from 'prop-types';
 import { omit } from 'lodash';
+
+import refShape from 'shared/shapes/refShape';
 
 import styles from './Button.scss';
 
@@ -9,7 +11,7 @@ export default class Button extends React.PureComponent {
   static propTypes = {
     className: string,
     type: string,
-    forwardedRef: func
+    forwardedRef: refShape
   };
 
   static defaultProps = {

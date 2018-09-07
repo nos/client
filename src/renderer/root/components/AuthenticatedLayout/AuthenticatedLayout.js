@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { string, node, objectOf } from 'prop-types';
 
 import Logo from 'shared/images/logo.svg';
+import ScrollContainer from 'shared/components/ScrollContainer';
 import isInternalPage from 'shared/util/isInternalPage';
 import tabShape from 'browser/shapes/tabShape';
 
@@ -89,9 +90,9 @@ export default class AuthenticatedLayout extends React.PureComponent {
           sidebarOpen={this.state.showSidebar}
           onToggleSidebar={this.handleToggleSidebar}
         />
-        <div className={styles.content}>
+        <ScrollContainer className={styles.content}>
           {children}
-        </div>
+        </ScrollContainer>
         <footer className={styles.footer}>
           Network: {currentNetwork}
         </footer>

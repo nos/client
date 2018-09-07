@@ -64,16 +64,13 @@ export default class LoginFormWalletFile extends React.PureComponent {
     return (
       <LabeledSelect
         id="account"
-        className={styles.accounts}
+        label="Select an account"
+        labelClass={styles.accounts}
         value={encryptedWIF}
-        onChange={this.handleSelect}
+        items={this.getAccountItems()}
         disabled={disabled}
-      >
-        <option value="">Select an account</option>
-        {map(this.props.accounts, (account, index) => (
-          <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
-        ))}
-      </LabeledSelect>
+        onChange={this.handleSelect}
+      />
     );
   };
 
@@ -135,14 +132,18 @@ export default class LoginFormWalletFile extends React.PureComponent {
     onLogin(loginCredentials);
   };
 
-  handleSelect = (event) => {
+  handleSelect = (value) => {
     this.props.setPassphrase('');
-    this.props.setEncryptedWIF(event.target.value);
+    this.props.setEncryptedWIF(value);
   };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
   };
+
+  getAccountItems = () => {
+    return map(this.props.accounts, ({ label, encrypted }) => ({ label, value: encrypted }));
+  }
 
   isValid = () => {
     return this.props.encryptedWIF !== '';

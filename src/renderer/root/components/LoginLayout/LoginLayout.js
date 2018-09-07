@@ -3,20 +3,22 @@ import { node } from 'prop-types';
 
 import styles from './LoginLayout.scss';
 
-export default function LoginLayout(props) {
-  return (
-    <div className={styles.loginLayout}>
-      {props.children}
-    </div>
-  );
+export default class LoginLayout extends React.PureComponent {
+  static displayName = 'LoginLayout';
+
+  static propTypes = {
+    children: node
+  };
+
+  static defaultProps = {
+    children: null
+  };
+
+  render() {
+    return (
+      <div className={styles.loginLayout}>
+        {this.props.children}
+      </div>
+    );
+  }
 }
-
-LoginLayout.displayName = 'LoginLayout';
-
-LoginLayout.propTypes = {
-  children: node
-};
-
-LoginLayout.defaultProps = {
-  children: null
-};
