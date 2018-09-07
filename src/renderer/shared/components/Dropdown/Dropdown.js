@@ -2,22 +2,19 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { bool, string, func, node, arrayOf, oneOf } from 'prop-types';
-import { noop, pick, omit, find, head } from 'lodash';
+import { bool, string, func, node } from 'prop-types';
+import { noop, pick, omit } from 'lodash';
 
 import Portal from '../Portal';
 import { defaultScrollSpy } from '../../lib/scrollSpy';
 import styles from './Dropdown.scss';
 
-const DEFAULT_ORDER = ['bottom', 'top'];
-
-const canFitInDirections = (childBounds, dropdownDimensions, windowDimensions) => {
+const canFitInDirections = (overlap, childBounds, dropdownDimensions, windowDimensions) => {
+  const yOffset = overlap ? childBounds.top : childBounds.bottom;
   const fitFromTop = dropdownDimensions.height <= childBounds.top;
-  const fitFromRight = dropdownDimensions.width <= childBounds.right;
-  const fitFromBottom = (childBounds.bottom + dropdownDimensions.height) <= windowDimensions.height;
-  const fitFromLeft = (childBounds.left + dropdownDimensions.width) <= windowDimensions.width;
+  const fitFromBottom = (yOffset + dropdownDimensions.height) <= windowDimensions.height;
 
-  return { top: fitFromTop, right: fitFromRight, bottom: fitFromBottom, left: fitFromLeft };
+  return { top: fitFromTop, bottom: fitFromBottom };
 };
 
 export default class Dropdown extends React.PureComponent {
@@ -26,7 +23,7 @@ export default class Dropdown extends React.PureComponent {
     children: node,
     content: node,
     open: bool,
-    preferredDirections: arrayOf(oneOf(DEFAULT_ORDER)),
+    overlap: bool,
     onClick: func,
     onClickOutside: func
   };
@@ -36,13 +33,12 @@ export default class Dropdown extends React.PureComponent {
     children: null,
     content: null,
     open: false,
-    preferredDirections: DEFAULT_ORDER,
+    overlap: false,
     onClick: noop,
     onClickOutside: noop
   };
 
   state = {
-    direction: DEFAULT_ORDER[0],
     position: {
       visibility: 'hidden',
       top: '-9999px',
@@ -59,7 +55,7 @@ export default class Dropdown extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {
-      this.setPosition(nextProps);
+      this.setPosition();
     }
   }
 
@@ -98,19 +94,15 @@ export default class Dropdown extends React.PureComponent {
   renderPortal = () => {
     const portalProps = pick(this.props, 'onClickOutside');
     const contentProps = omit(
-      this.props, 'className', 'children', 'content', 'open', 'preferredDirections', 'onClick',
-      'onClickOutside'
+      this.props, 'className', 'children', 'content', 'open', 'overlap', 'onClick', 'onClickOutside'
     );
-    const className = classNames(styles.portal, {
-      [styles[this.state.direction]]: true
-    });
 
     return (
       <Portal {...portalProps}>
         <div
           ref={this.registerRef('dropdown')}
           {...contentProps}
-          className={className}
+          className={styles.portal}
           style={this.getDropdownStyles()}
         >
           {this.renderContent()}
@@ -135,8 +127,8 @@ export default class Dropdown extends React.PureComponent {
     this[name] = el;
   }
 
-  setPosition = (props = this.props) => {
-    this.setState(this.calculateDropdownProps(props.preferredDirections));
+  setPosition = () => {
+    this.setState(this.calculateDropdownProps());
   }
 
   getContainerBounds = () => {
@@ -153,35 +145,32 @@ export default class Dropdown extends React.PureComponent {
     return { width: dropdown.clientWidth, height: dropdown.clientHeight };
   }
 
-  calculateDropdownProps = (preferredDirections) => {
+  calculateDropdownProps = () => {
     const containerBounds = this.getContainerBounds();
     const dropdownDimensions = this.getDropdownDimensions();
     const windowDimensions = this.getWindowDimensions();
 
-    const direction = this.calculateBestDirection(
-      preferredDirections,
+    const canFit = canFitInDirections(
+      this.props.overlap,
       containerBounds,
       dropdownDimensions,
       windowDimensions
     );
 
-    const position = this.getPositionForDirection(containerBounds, direction);
+    const position = this.getPositionForDirection(
+      containerBounds,
+      dropdownDimensions,
+      !canFit.bottom
+    );
 
-    return { direction, position, ...this.getDropdownWidthProps(containerBounds) };
+    return { position, ...this.getDropdownWidthProps(containerBounds) };
   }
 
-  calculateBestDirection = (preferredDirections, ...args) => {
-    const possibleDirections = canFitInDirections(...args);
+  getPositionForDirection = (containerBounds, dropdownDimensions, dropUp) => {
+    const yOrigin = containerBounds.top + (this.props.overlap ? 0 : containerBounds.height);
+    const yOffset = dropUp ? containerBounds.height - dropdownDimensions.height : 0;
 
-    const preferredDirection = find(preferredDirections, (direction) => {
-      return possibleDirections[direction];
-    });
-
-    return preferredDirection || head(preferredDirections);
-  }
-
-  getPositionForDirection = (containerBounds, direction) => {
-    return { top: containerBounds[direction], left: containerBounds.left };
+    return { top: yOrigin + yOffset, left: containerBounds.left };
   }
 
   getDropdownWidthProps = (containerBounds) => {

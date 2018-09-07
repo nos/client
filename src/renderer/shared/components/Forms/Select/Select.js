@@ -59,6 +59,7 @@ export default class Select extends React.PureComponent {
         ref={this.props.forwardedRef}
         id={this.props.id}
         open={this.state.open}
+        overlap
         content={this.renderOptions()}
         onClick={this.handleShow}
         onClickOutside={this.handleHide}
