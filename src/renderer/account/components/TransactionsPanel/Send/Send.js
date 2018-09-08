@@ -91,8 +91,13 @@ export default class Send extends React.PureComponent {
     const { confirm, receiver } = this.props;
     const symbol = this.getSymbol();
 
-    confirm(`Would you like to transfer ${this.getAmount()} ${symbol} to ${receiver}?`, {
-      title: 'Confirm fund transfer',
+    confirm((
+      <span>
+        Would you like to transfer {this.getAmount()} {symbol} to address{' '}
+        <strong>&ldquo;{receiver}&rdquo;</strong>?
+      </span>
+    ), {
+      title: 'Transfer',
       onConfirm: this.handleConfirm,
       onCancel: noop
     });
