@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 450px;
   max-height: 540px;
+  text-align: center;
   overflow: hidden;
 
   .content {
@@ -11,11 +12,9 @@
 
     .title {
       flex: 0 0 auto;
-      margin: 0 0 1.5rem;
-      color: #047bf8;
-      line-height: 1.2;
-      text-align: center;
-      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #1e1b53;
+      font-size: 28px;
       font-weight: 500;
     }
 
@@ -23,6 +22,8 @@
       flex: 1 1 auto;
       overflow-x: hidden;
       overflow-y: auto;
+      line-height: 25px;
+      font-size: 14px;
 
       p {
         margin-bottom: 10px;
@@ -32,7 +33,6 @@
     .actions {
       flex: 0 0 auto;
       margin: 1.5rem 0 0;
-      text-align: center;
 
       .action {
         margin-right: 10px;
@@ -52,6 +52,5 @@
     line-height: 13px;
     font-size: 11px;
     font-weight: 500;
-    text-align: center;
   }
 }
