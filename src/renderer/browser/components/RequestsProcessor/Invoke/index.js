@@ -11,6 +11,8 @@ import withClean from '../../../hocs/withClean';
 import withInvocationPrompt from '../../../hocs/withInvocationPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
+import withValidation from '../../../hocs/withValidation';
+import validateInvokeArgs from '../../../util/validateInvokeArgs';
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 
@@ -24,6 +26,9 @@ export default function makeInvoke(invokeActions) {
 
     // Rename arguments given by the user
     withProps(({ args }) => pick(args[0], CONFIG_KEYS)),
+
+    // Ensure the arguments provided are valid
+    withValidation(validateInvokeArgs),
 
     // Prompt user
     withInvocationPrompt,

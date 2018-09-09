@@ -35,7 +35,7 @@ export default async function getBalances({ net, address }) {
   const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
 
   if (!wallet.isAddress(address)) {
-    throw new Error(`Invalid script hash: "${address}"`);
+    throw new Error(`Invalid address: "${address}"`);
   }
 
   // token balances - // TODO use getTokenBalances to avoid multiple api calls
