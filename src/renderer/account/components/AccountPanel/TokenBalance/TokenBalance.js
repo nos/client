@@ -2,7 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, number } from 'prop-types';
 
-import TokenIcon from '../../TokenIcon';
+import TokenIcon from 'shared/components/TokenIcon';
+
 import balanceShape from '../../../shapes/balanceShape';
 import formatCurrency from '../../../util/formatCurrency';
 import styles from './TokenBalance.scss';
