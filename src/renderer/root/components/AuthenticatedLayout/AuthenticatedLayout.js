@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, node, objectOf } from 'prop-types';
+import { string, func, node, objectOf } from 'prop-types';
+import { noop } from 'lodash';
 
 import Logo from 'shared/images/logo.svg';
 import ScrollContainer from 'shared/components/ScrollContainer';
@@ -12,21 +13,36 @@ import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
+const POLL_FREQUENCY = 5000;
+
 export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,
     currentNetwork: string.isRequired,
-    children: node
+    children: node,
+    getLastBlock: func
   };
 
   static defaultProps = {
-    children: null
+    children: null,
+    getLastBlock: noop
   };
 
   state = {
     showSidebar: true
   };
+
+  componentDidMount() {
+    this.props.getLastBlock();
+    this.timeout = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+  }
+
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearInterval(this.timeout);
+    }
+  }
 
   render() {
     const { tabs, activeSessionId } = this.props;
