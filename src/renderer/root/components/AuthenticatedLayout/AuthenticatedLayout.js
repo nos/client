@@ -19,7 +19,6 @@ export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,
-    currentNetwork: string.isRequired,
     children: node,
     getLastBlock: func
   };
@@ -96,8 +95,6 @@ export default class AuthenticatedLayout extends React.PureComponent {
   }
 
   renderContent = () => {
-    const { currentNetwork, children } = this.props;
-
     return (
       <div className={styles.container}>
         <AddressBar
@@ -107,11 +104,8 @@ export default class AuthenticatedLayout extends React.PureComponent {
           onToggleSidebar={this.handleToggleSidebar}
         />
         <ScrollContainer className={styles.content}>
-          {children}
+          {this.props.children}
         </ScrollContainer>
-        <footer className={styles.footer}>
-          Network: {currentNetwork}
-        </footer>
       </div>
     );
   }
