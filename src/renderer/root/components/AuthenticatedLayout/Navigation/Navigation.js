@@ -14,12 +14,14 @@ import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
 
 import TabLink from '../TabLink';
+import LastBlock from '../LastBlock';
+import StatusIcon from '../StatusIcon';
 import styles from './Navigation.scss';
 
 export default function Navigation(props) {
   return (
     <nav className={classNames(styles.navigation, props.className)}>
-      <ul className={styles.group}>
+      <ul>
         <li>
           <Tooltip overlay="dApps">
             <div>
@@ -44,6 +46,15 @@ export default function Navigation(props) {
               <TabLink id="settings" target={SETTINGS}>
                 <SettingsIcon aria-label="settings" />
               </TabLink>
+            </div>
+          </Tooltip>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <Tooltip overlay={<LastBlock />}>
+            <div className={styles.link}>
+              <StatusIcon aria-label="status" />
             </div>
           </Tooltip>
         </li>

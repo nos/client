@@ -22,7 +22,11 @@ describe('<TokenIcon />', () => {
   });
 
   it('renders custom image', () => {
-    const props = { image: 'https://example.com/rpx.png', symbol: 'RPX' };
+    const props = {
+      scriptHash: 'ecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9',
+      symbol: 'RPX',
+      image: 'https://example.com/rpx.png'
+    };
     const wrapper = mountContainer(props);
     const image = wrapper.find('img');
     expect(image.exists()).toBe(true);
