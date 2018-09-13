@@ -34,7 +34,7 @@
     "react": "16.5.1",
     "react-click-outside": "^3.0.1",
     "react-copy-to-clipboard": "5.0.1",
-    "react-dom": "16.5.0",
+    "react-dom": "16.5.1",
     "react-is": "16.5.0",
     "react-redux": "5.0.7",
     "react-router-dom": "4.3.1",
