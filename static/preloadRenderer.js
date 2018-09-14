@@ -17,8 +17,8 @@ function createDelegate(channel) {
     } catch (err) {
       reject(err);
     } finally {
-      ipcRenderer.removeListener(successChannel, resolve);
-      ipcRenderer.removeListener(failureChannel, reject);
+      ipcRenderer.removeAllListeners(successChannel);
+      ipcRenderer.removeAllListeners(failureChannel);
     }
   });
 }
