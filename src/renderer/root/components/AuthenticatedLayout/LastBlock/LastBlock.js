@@ -75,6 +75,6 @@ export default class LastBlock extends React.PureComponent {
       return null;
     }
 
-    return new Date(block.time).toLocaleTimeString();
+    return new Date(block.time * 1000).toLocaleTimeString();
   }
 }
