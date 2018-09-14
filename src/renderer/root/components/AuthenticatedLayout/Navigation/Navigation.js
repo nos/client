@@ -6,9 +6,10 @@ import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 import { noop } from 'lodash';
 
-import { DAPPS, ACCOUNT, SETTINGS } from 'browser/values/browserValues';
+import { DAPPS, ACCOUNT, EXCHANGE, SETTINGS } from 'browser/values/browserValues';
 import DAppsIcon from 'shared/images/icons/dapps.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
+import ExchangeIcon from 'shared/images/icons/exchange.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
 import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
@@ -27,6 +28,15 @@ export default function Navigation(props) {
             <div>
               <TabLink id="dapps" target={DAPPS} disabled>
                 <DAppsIcon aria-label="dapps" />
+              </TabLink>
+            </div>
+          </Tooltip>
+        </li>
+        <li>
+          <Tooltip overlay="Exchange">
+            <div>
+              <TabLink id="exchange" target={EXCHANGE} disabled>
+                <ExchangeIcon aria-label="exchange" />
               </TabLink>
             </div>
           </Tooltip>
