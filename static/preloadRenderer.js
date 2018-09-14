@@ -1,11 +1,12 @@
 const electron = require('electron');
-const { each, uniqueId, isEmpty, isUndefined } = require('lodash');
+const uuid = require('uuid/v1');
+const { each, isEmpty, isUndefined } = require('lodash');
 
 const { ipcRenderer } = electron;
 
 function createDelegate(channel) {
   return (...args) => new Promise((resolve, reject) => {
-    const id = uniqueId();
+    const id = uuid();
     const successChannel = `${channel}-success-${id}`;
     const failureChannel = `${channel}-failure-${id}`;
 
@@ -25,7 +26,7 @@ function createDelegate(channel) {
 const subscriptions = {};
 
 function on(eventName, callback) {
-  const id = uniqueId();
+  const id = uuid();
   subscriptions[eventName] = subscriptions[eventName] || {};
   subscriptions[eventName][id] = callback;
   return id;
