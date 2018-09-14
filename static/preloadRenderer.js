@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { uniqueId } = require('lodash');
+const { each, uniqueId, isEmpty, isUndefined } = require('lodash');
 
 const { ipcRenderer } = electron;
 
@@ -22,6 +22,43 @@ function createDelegate(channel) {
   });
 }
 
+const subscriptions = {};
+
+function on(eventName, callback) {
+  const id = uniqueId();
+  subscriptions[eventName] = subscriptions[eventName] || {};
+  subscriptions[eventName][id] = callback;
+  return id;
+}
+
+function off(eventName, id) {
+  if (!eventName || !subscriptions[eventName]) {
+    return;
+  }
+
+  if (isUndefined(id)) {
+    delete subscriptions[eventName];
+  } else {
+    delete subscriptions[eventName][id];
+
+    if (isEmpty(subscriptions[eventName])) {
+      delete subscriptions[eventName];
+    }
+  }
+}
+
+function once(eventName, callback) {
+  const id = on(eventName, (...args) => {
+    off(eventName, id);
+    callback(...args);
+  });
+  return id;
+}
+
+ipcRenderer.on('event', (event, eventName, ...args) => {
+  each(subscriptions[eventName], (callback) => callback(...args));
+});
+
 const ASSETS = {
   NEO: 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b',
   GAS: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7'
@@ -38,7 +75,12 @@ const V1 = {
   // Permissions required
   invoke: createDelegate('invoke'),
   send: createDelegate('send'),
-  claimGas: createDelegate('claimGas')
+  claimGas: createDelegate('claimGas'),
+
+  // Events
+  on,
+  off,
+  once
 };
 
 process.once('loaded', () => {
