@@ -13,7 +13,7 @@ import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
-const POLL_FREQUENCY = 5000;
+const POLL_FREQUENCY = 10000; // 10 seconds
 
 export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
