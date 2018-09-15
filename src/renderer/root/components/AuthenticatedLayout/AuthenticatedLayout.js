@@ -13,12 +13,13 @@ import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
-const POLL_FREQUENCY = 5000;
+const POLL_FREQUENCY = 10000; // 10 seconds
 
 export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,
+    currentNetwork: string.isRequired,
     children: node,
     getLastBlock: func
   };
@@ -34,13 +35,18 @@ export default class AuthenticatedLayout extends React.PureComponent {
 
   componentDidMount() {
     this.props.getLastBlock();
-    this.timeout = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+    this.createPoll();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentNetwork !== prevProps.currentNetwork) {
+      this.clearPoll();
+      this.createPoll();
+    }
   }
 
   componentWillUnmount() {
-    if (this.timeout) {
-      clearInterval(this.timeout);
-    }
+    this.clearPoll();
   }
 
   render() {
@@ -114,6 +120,16 @@ export default class AuthenticatedLayout extends React.PureComponent {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
+  }
+
+  createPoll = () => {
+    this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+  }
+
+  clearPoll = () => {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
   }
 
   isInternalPage = () => {

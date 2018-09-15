@@ -1,5 +1,5 @@
 import { compose } from 'recompose';
-import { withData, withProgressComponents, progressValues } from 'spunky';
+import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
 import { pickBy, keys } from 'lodash';
 
 import Loading from 'shared/components/Loading';
@@ -40,10 +40,14 @@ export default compose(
   withProgressComponents(balancesActions, {
     [LOADING]: Loading,
     [FAILED]: Failed
+  }, {
+    strategy: alreadyLoadedStrategy
   }),
   withProgressComponents(pricesActions, {
     [LOADING]: Loading,
     [FAILED]: Failed
+  }, {
+    strategy: alreadyLoadedStrategy
   }),
 
   withData(balancesActions, mapBalancesDataToProps),
