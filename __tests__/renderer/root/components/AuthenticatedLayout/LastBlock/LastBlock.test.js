@@ -12,6 +12,18 @@ describe('<LastBlock />', () => {
     expect(wrapper.find('.network').text()).toContain(network);
   });
 
+  describe("when there's no error and no block", () => {
+    it('renders connecting icon', () => {
+      const wrapper = mount(<LastBlock currentNetwork={network} />);
+      expect(wrapper.find('.icon.connecting').exists()).toBe(true);
+    });
+
+    it('renders "Connecting..."', () => {
+      const wrapper = mount(<LastBlock currentNetwork={network} />);
+      expect(wrapper.find('.block').text()).toContain('Connecting...');
+    });
+  });
+
   describe("when there's no error", () => {
     it('renders connected icon', () => {
       const wrapper = mount(<LastBlock currentNetwork={network} block={block} />);

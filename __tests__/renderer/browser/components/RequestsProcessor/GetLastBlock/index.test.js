@@ -3,26 +3,25 @@ import { mount } from 'enzyme';
 import { noop } from 'lodash';
 
 import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
+import block from 'fixtures/block.json';
 
-import makeGetAddress from 'browser/components/RequestsProcessor/GetAddress';
-
-const address = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
+import makeGetLastBlock from 'browser/components/RequestsProcessor/GetLastBlock';
 
 const getStore = () => createStore({
   [spunkyKey]: {
-    auth: mockSpunkyLoaded({ address, wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG' })
+    block: mockSpunkyLoaded(block)
   }
 });
 
-describe('<GetBalance />', () => {
+describe('<GetLastBlock />', () => {
   let onResolve;
   let onReject;
 
-  const GetAddress = makeGetAddress();
+  const GetLastBlock = makeGetLastBlock();
   const defaultProps = { args: [], onResolve: noop, onReject: noop };
 
   const mountContainer = (props) => {
-    return mount(provideStore(<GetAddress {...props} />, getStore()));
+    return mount(provideStore(<GetLastBlock {...props} />, getStore()));
   };
 
   beforeEach(() => {
@@ -31,8 +30,8 @@ describe('<GetBalance />', () => {
     mountContainer({ ...defaultProps, onResolve, onReject });
   });
 
-  it('resolves with the currently authenticated address', () => {
-    expect(onResolve).toHaveBeenCalledWith(address);
+  it('resolves with the last block', () => {
+    expect(onResolve).toHaveBeenCalledWith(block);
     expect(onReject).not.toHaveBeenCalled();
   });
 });
