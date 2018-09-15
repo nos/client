@@ -35,22 +35,18 @@ export default class AuthenticatedLayout extends React.PureComponent {
 
   componentDidMount() {
     this.props.getLastBlock();
-    this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+    this.createPoll();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentNetwork !== prevProps.currentNetwork) {
-      if (this.pollInterval) {
-        clearInterval(this.pollInterval);
-      }
-      this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+      this.clearPoll();
+      this.createPoll();
     }
   }
 
   componentWillUnmount() {
-    if (this.pollInterval) {
-      clearInterval(this.pollInterval);
-    }
+    this.clearPoll();
   }
 
   render() {
@@ -124,6 +120,16 @@ export default class AuthenticatedLayout extends React.PureComponent {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
+  }
+
+  createPoll = () => {
+    this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+  }
+
+  clearPoll = () => {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
   }
 
   isInternalPage = () => {
