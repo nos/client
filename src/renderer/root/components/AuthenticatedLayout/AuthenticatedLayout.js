@@ -19,6 +19,7 @@ export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,
+    currentNetwork: string.isRequired,
     children: node,
     getLastBlock: func
   };
@@ -34,12 +35,21 @@ export default class AuthenticatedLayout extends React.PureComponent {
 
   componentDidMount() {
     this.props.getLastBlock();
-    this.timeout = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+    this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentNetwork !== prevProps.currentNetwork) {
+      if (this.pollInterval) {
+        clearInterval(this.pollInterval);
+      }
+      this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+    }
   }
 
   componentWillUnmount() {
-    if (this.timeout) {
-      clearInterval(this.timeout);
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
     }
   }
 
