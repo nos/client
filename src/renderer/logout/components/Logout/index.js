@@ -1,10 +1,10 @@
 import { compose, withProps } from 'recompose';
 import { withActions } from 'spunky';
 import { connect } from 'react-redux';
-import { ipcRenderer } from 'electron';
 
 import accountActions from 'shared/actions/accountActions';
 import blockActions from 'shared/actions/blockActions';
+import withWebviewIPC from 'browser/hocs/withWebviewIPC';
 import { resetTabs } from 'browser/actions/browserActions';
 import { emptyAll } from 'browser/actions/requestsActions';
 
@@ -24,13 +24,14 @@ export default compose(
   withActions(accountActions, mapAccountActionsToProps),
   withActions(blockActions, mapBlockActionsToProps),
   withLogout((state, { history }) => history.push('/login')),
-  withProps(({ emptyAllRequests, resetAllTabs, resetAuth, resetBlock }) => ({
+  withWebviewIPC,
+  withProps(({ emptyAllRequests, resetAllTabs, resetAuth, resetBlock, onFocus }) => ({
     logout: () => {
       resetAuth();
       resetBlock();
       resetAllTabs();
       emptyAllRequests();
-      ipcRenderer.send('webview:focus', null);
+      onFocus(null);
     }
   }))
 )(Logout);
