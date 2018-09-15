@@ -2,6 +2,7 @@ import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
 import Invoke from './Invoke';
 import TestInvoke from './TestInvoke';
+import GetLastBlock from './GetLastBlock';
 import GetStorage from './GetStorage';
 import Send from './Send';
 import ClaimGas from './ClaimGas';
@@ -17,6 +18,7 @@ const COMPONENT_MAP = {
   getBalance: GetBalance,
   getStorage: GetStorage,
   testInvoke: TestInvoke,
+  getLastBlock: GetLastBlock,
   invoke: Invoke,
   send: Send,
   claimGas: ClaimGas

@@ -20,6 +20,10 @@
       &.disconnected {
         background-color: #ff6a4a;
       }
+
+      &.connecting {
+        background-color: $light-text-color;
+      }
     }
 
     .name {

@@ -2,6 +2,7 @@ import { compose, withState } from 'recompose';
 import { withActions, progressValues } from 'spunky';
 
 import balancesActions from 'shared/actions/balancesActions';
+import blockActions from 'shared/actions/blockActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withAllNetworkData from 'shared/hocs/withAllNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
@@ -16,6 +17,11 @@ const { LOADED, FAILED } = progressValues;
 
 const mapBalancesActionsToProps = (actions) => ({
   resetAccountData: actions.reset
+});
+
+const mapBlockActionsToProps = (actions) => ({
+  resetBlockData: actions.reset,
+  getBlockData: actions.call
 });
 
 const mapCurrentNetworkActionsToProps = (actions) => ({
@@ -40,6 +46,7 @@ export default compose(
   withActions(setNetworks, mapNetworksActionsToProps),
   withActions(addNetwork, mapAddNetworksActionsToProps),
   withActions(clearNetworks, mapClearNetworksActionsToProps),
+  withActions(blockActions, mapBlockActionsToProps),
 
   // Get network settings data
   withAllNetworkData(),
@@ -47,8 +54,10 @@ export default compose(
 
   // Load balance data whenever the network is assigned or changed
   withActions(balancesActions, mapBalancesActionsToProps),
-  withProgressChange(currentNetworkActions, [LOADED, FAILED], (state, { resetAccountData }) => {
-    resetAccountData();
+  withProgressChange(currentNetworkActions, [LOADED, FAILED], (state, props) => {
+    props.resetAccountData();
+    props.resetBlockData();
+    props.getBlockData({ net: props.currentNetwork });
   }),
 
   // Dialog

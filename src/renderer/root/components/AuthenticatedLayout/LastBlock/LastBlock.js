@@ -24,7 +24,7 @@ export default class LastBlock extends React.PureComponent {
     return (
       <div className={styles.lastBlock}>
         <div className={styles.network}>
-          <span className={this.getIconClassName()} />
+          <span className={classNames(styles.icon, this.getIconClassName())} />
           <span className={styles.name}>{currentNetwork}</span>
         </div>
         {this.renderDetails()}
@@ -33,7 +33,11 @@ export default class LastBlock extends React.PureComponent {
   }
 
   renderDetails = () => {
-    const { block } = this.props;
+    const { block, error } = this.props;
+
+    if (!block && !error) {
+      return <div className={styles.block}>Connecting...</div>;
+    }
 
     if (!block) {
       return <div className={styles.block}>Disconnected</div>;
@@ -57,7 +61,13 @@ export default class LastBlock extends React.PureComponent {
   }
 
   getIconClassName = () => {
-    return classNames(styles.icon, this.props.error ? styles.disconnected : styles.connected);
+    if (this.props.error) {
+      return styles.disconnected;
+    } else if (this.props.block) {
+      return styles.connected;
+    } else {
+      return styles.connecting;
+    }
   }
 
   getTimestamp = (block) => {
@@ -65,6 +75,6 @@ export default class LastBlock extends React.PureComponent {
       return null;
     }
 
-    return new Date(block.time).toLocaleTimeString();
+    return new Date(block.time * 1000).toLocaleTimeString();
   }
 }
