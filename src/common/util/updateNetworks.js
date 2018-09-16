@@ -19,7 +19,7 @@ const nosTestnetConfig = {
   }
 };
 
-export default function updateNetworks(userNetworks) {
+export default function updateNetworks(userNetworks = []) {
   keys(networks).forEach((name) => {
     if (!PREDEFINED_NETWORKS.includes(name)) {
       settings.removeNetwork(name);
