@@ -1,7 +1,7 @@
 import { rpc, settings } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
-import { NOS_LOCAL, NOS_TESTNET, PREDEFINED_NETWORKS } from 'settings/values/networks';
+import { NOS_LOCAL, NOS_TESTNET, PREDEFINED_NETWORKS } from '../values/networks';
 
 const { networks } = settings;
 

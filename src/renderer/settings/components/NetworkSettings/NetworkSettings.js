@@ -3,6 +3,8 @@ import { func, string, object, arrayOf } from 'prop-types';
 import { settings } from '@cityofzion/neon-js';
 import { map, isEmpty } from 'lodash';
 
+import { PREDEFINED_NETWORKS, DEFAULT_NET } from 'values/networks';
+
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import Button from 'shared/components/Forms/Button';
@@ -11,7 +13,6 @@ import NetworkIcon from 'shared/images/settings/network.svg';
 
 import SectionTitle from '../SectionTitle';
 import SectionContent from '../SectionContent';
-import { PREDEFINED_NETWORKS, DEFAULT_NET } from '../../values/networks';
 import styles from './NetworkSettings.scss';
 
 export default class NetworkSettings extends React.PureComponent {
