@@ -34,14 +34,12 @@ export default class AuthenticatedLayout extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.props.getLastBlock();
-    this.createPoll();
+    this.fetchAndPoll();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentNetwork !== prevProps.currentNetwork) {
-      this.clearPoll();
-      this.createPoll();
+      this.fetchAndPoll();
     }
   }
 
@@ -120,6 +118,12 @@ export default class AuthenticatedLayout extends React.PureComponent {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
+  }
+
+  fetchAndPoll = () => {
+    this.clearPoll();
+    this.props.getLastBlock();
+    this.createPoll();
   }
 
   createPoll = () => {

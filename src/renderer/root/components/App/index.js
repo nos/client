@@ -25,7 +25,7 @@ export default compose(
   withInitialCall(currentNetworkActions),
   withInitialCall(getAllNetworks),
   withData(getAllNetworks, mapNetworksToProps),
-  withProgressChange(getAllNetworks, LOADED, (state, { networks }) => updateNetworks(networks)),
+  withProgressChange(getAllNetworks, LOADED, (state, props) => updateNetworks(props.networks)),
 
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([currencyActions, currentNetworkActions], { ... })
