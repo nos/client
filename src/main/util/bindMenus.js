@@ -180,10 +180,10 @@ export default function bindMenu(browserWindow) {
     webview.removeListener('devtools-closed', replaceMenu);
   }
 
-  localShortcut.register(browserWindow, 'CmdOrCtrl+Left', () => {
+  localShortcut.register(browserWindow, isMac ? 'Cmd+Left' : 'Alt+Left', () => {
     webview.goBack();
   });
-  localShortcut.register(browserWindow, 'CmdOrCtrl+Right', () => {
+  localShortcut.register(browserWindow, isMac ? 'Cmd+Right' : 'Alt+Right', () => {
     webview.goForward();
   });
 
