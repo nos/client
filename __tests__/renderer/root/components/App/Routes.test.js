@@ -3,9 +3,8 @@ import createRouterContext from 'react-router-test-context';
 import { mount } from 'enzyme';
 import { object } from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { progressValues } from 'spunky';
 
-import { provideState } from 'testHelpers';
+import { provideState, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import Routes from 'root/components/App/Routes';
 import { Login } from 'login';
@@ -13,16 +12,15 @@ import { Logout } from 'logout';
 import { Browser } from 'browser';
 import { EXTERNAL } from 'browser/values/browserValues';
 
-const { LOADED } = progressValues;
-
 const childContextTypes = { router: object };
 
-const authenticatedState = {
-  progress: LOADED,
-  data: { wif: 'abc123', address: 'def456' }
-};
+const currentNetworkState = mockSpunkyLoaded('TestNet');
+const authenticatedState = mockSpunkyLoaded({ wif: 'abc123', address: 'def456' });
 
 const initialState = {
+  [spunkyKey]: {
+    currentNetwork: currentNetworkState
+  },
   browser: {
     activeSessionId: 'tab-1',
     tabs: {
@@ -71,7 +69,12 @@ describe('<Routes />', () => {
     itBehavesLikeAuthenticatedRoute('/logout');
 
     it('does not redirect when authenticated', () => {
-      const wrapper = mountPath('/logout', { spunky: { auth: authenticatedState } });
+      const wrapper = mountPath('/logout', {
+        [spunkyKey]: {
+          currentNetwork: currentNetworkState,
+          auth: authenticatedState
+        }
+      });
       expect(wrapper.find(Logout).exists()).toBe(true);
     });
   });
@@ -80,7 +83,12 @@ describe('<Routes />', () => {
     itBehavesLikeAuthenticatedRoute('/browser');
 
     it('renders when authenticated', () => {
-      const wrapper = mountPath('/browser', { spunky: { auth: authenticatedState } });
+      const wrapper = mountPath('/browser', {
+        [spunkyKey]: {
+          currentNetwork: currentNetworkState,
+          auth: authenticatedState
+        }
+      });
       expect(wrapper.find(Browser).exists()).toBe(true);
     });
   });

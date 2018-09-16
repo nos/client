@@ -16,5 +16,9 @@ module.exports = {
         isMaximized: noop
       })
     }
+  },
+
+  ipcRenderer: {
+    send: noop
   }
 };

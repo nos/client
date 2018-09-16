@@ -1,7 +1,8 @@
 import path from 'path';
 import React from 'react';
 import classNames from 'classnames';
-import { string, func } from 'prop-types';
+import { bool, string, func } from 'prop-types';
+import { noop } from 'lodash';
 
 import getStaticPath from '../../../util/getStaticPath';
 import bindContextMenu from '../../util/bindContextMenu';
@@ -14,6 +15,7 @@ export default class DAppContainer extends React.PureComponent {
   static propTypes = {
     className: string,
     sessionId: string.isRequired,
+    active: bool,
     tab: tabShape.isRequired,
     setTabError: func.isRequired,
     setTabTitle: func.isRequired,
@@ -23,17 +25,20 @@ export default class DAppContainer extends React.PureComponent {
     dequeue: func.isRequired,
     empty: func.isRequired,
     openTab: func.isRequired,
-    closeTab: func.isRequired
+    closeTab: func.isRequired,
+    onFocus: func // eslint-disable-line react/no-unused-prop-types
   }
 
   static defaultProps = {
-    className: null
+    className: null,
+    active: false,
+    onFocus: noop
   }
 
   async componentDidMount() {
-    window.addEventListener('focus', this.handleFocus);
+    window.addEventListener('focus', this.handleWindowFocus);
 
-    this.webview.addEventListener('dom-ready', this.handleFocus);
+    this.webview.addEventListener('dom-ready', this.handleDomReady);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -56,12 +61,16 @@ export default class DAppContainer extends React.PureComponent {
     if (nextTab.addressBarEntry && nextTab.requestCount !== this.props.tab.requestCount) {
       this.webview.loadURL(nextTab.target);
     }
+
+    if (nextProps.active && !this.props.active) {
+      this.focusAndNotify();
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('focus', this.handleFocus);
+    window.removeEventListener('focus', this.handleWindowFocus);
 
-    this.webview.removeEventListener('dom-ready', this.handleFocus);
+    this.webview.removeEventListener('dom-ready', this.handleDomReady);
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
@@ -128,8 +137,12 @@ export default class DAppContainer extends React.PureComponent {
     );
   }
 
-  handleFocus = () => {
+  handleWindowFocus = () => {
     this.webview.focus();
+  }
+
+  handleDomReady = () => {
+    this.focusAndNotify();
   }
 
   handleIPCMessage = (event) => {
@@ -202,5 +215,10 @@ export default class DAppContainer extends React.PureComponent {
 
   isHidden = () => {
     return this.props.tab.errorCode !== null;
+  }
+
+  focusAndNotify = () => {
+    this.webview.focus();
+    this.props.onFocus(this.webview.getWebContents().getId());
   }
 }
