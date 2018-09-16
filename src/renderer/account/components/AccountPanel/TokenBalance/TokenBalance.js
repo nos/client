@@ -2,9 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, number } from 'prop-types';
 
-import NeoIcon from 'shared/images/tokens/neo.svg';
-import GasIcon from 'shared/images/tokens/gas.svg';
-import { NEO, GAS } from 'shared/values/assets';
+import TokenIcon from 'shared/components/TokenIcon';
 
 import balanceShape from '../../../shapes/balanceShape';
 import formatCurrency from '../../../util/formatCurrency';
@@ -46,19 +44,13 @@ export default class TokenBalance extends React.PureComponent {
   renderImage = () => {
     const { token } = this.props;
 
-    if (token.image) {
-      return <img className={styles.icon} src={token.image} alt={token.symbol} />;
-    }
-
-    if (token.scriptHash === NEO) {
-      return <NeoIcon className={styles.icon} />;
-    }
-
-    if (token.scriptHash === GAS) {
-      return <GasIcon className={styles.icon} />;
-    }
-
-    // TODO: generic token design
-    return <NeoIcon className={styles.icon} />;
+    return (
+      <TokenIcon
+        className={styles.icon}
+        image={token.image}
+        symbol={token.symbol}
+        scriptHash={token.scriptHash}
+      />
+    );
   }
 }

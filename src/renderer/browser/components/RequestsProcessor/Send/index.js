@@ -1,3 +1,4 @@
+import React from 'react';
 import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
@@ -39,8 +40,13 @@ export default function makeSend(sendActions) {
 
     // Prompt user
     withPrompt(({ amount, asset, receiver }) => (
-      `Would you like to send ${amount} ${getAssetName(asset)} to ${receiver}?`
-    )),
+      <span>
+        Would you like to transfer {amount} ${getAssetName(asset)} to address{' '}
+        <strong>&ldquo;{receiver}&rdquo;</strong>?
+      </span>
+    ), {
+      title: 'Transfer'
+    }),
 
     // Get the current network & account data
     withNetworkData(),

@@ -9,6 +9,7 @@ import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
+import TokenItem from './TokenItem';
 import isNumeric from '../../../util/isNumeric';
 import balanceShape from '../../../shapes/balanceShape';
 import styles from './Send.scss';
@@ -49,11 +50,12 @@ export default class Send extends React.PureComponent {
           className={styles.asset}
           id="asset"
           label="Token to send"
+          placeholder="Select token"
           value={asset}
+          items={this.getAssetItems()}
+          renderItem={TokenItem}
           onChange={this.handleChangeAsset}
-        >
-          {this.renderAssets()}
-        </LabeledSelect>
+        />
         <LabeledInput
           className={styles.amount}
           id="amount"
@@ -85,18 +87,17 @@ export default class Send extends React.PureComponent {
     );
   }
 
-  renderAssets = () => {
-    return map(this.props.balances, ({ symbol, scriptHash }) => (
-      <option key={scriptHash} value={scriptHash}>{symbol}</option>
-    ));
-  }
-
   handleTransfer = () => {
     const { confirm, receiver } = this.props;
     const symbol = this.getSymbol();
 
-    confirm(`Would you like to transfer ${this.getAmount()} ${symbol} to ${receiver}?`, {
-      title: 'Confirm fund transfer',
+    confirm((
+      <span>
+        Would you like to transfer {this.getAmount()} {symbol} to address{' '}
+        <strong>&ldquo;{receiver}&rdquo;</strong>?
+      </span>
+    ), {
+      title: 'Transfer',
       onConfirm: this.handleConfirm,
       onCancel: noop
     });
@@ -109,8 +110,8 @@ export default class Send extends React.PureComponent {
     onSend({ asset, amount, receiver });
   };
 
-  handleChangeAsset = (event) => {
-    this.props.setAsset(event.target.value);
+  handleChangeAsset = (value) => {
+    this.props.setAsset(value);
   };
 
   handleChangeAmount = (event) => {
@@ -120,6 +121,14 @@ export default class Send extends React.PureComponent {
   handleChangeRecipient = (event) => {
     this.props.setReceiver(event.target.value);
   };
+
+  getAssetItems = () => {
+    return map(this.props.balances, ({ symbol, scriptHash, image }) => ({
+      label: symbol,
+      value: scriptHash,
+      icon: image
+    }));
+  }
 
   getSymbol = () => {
     return this.getAsset(this.props.asset).symbol;

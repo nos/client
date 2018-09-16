@@ -18,6 +18,7 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
     display: flex;
     justify-content: stretch;
     align-items: stretch;
+    -webkit-app-region: drag;
 
     .sidebar {
       @include sidebar;
@@ -53,6 +54,7 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         margin: -12px 0 12px;
         padding: 3px 16px;
         box-sizing: content-box;
+        -webkit-app-region: drag;
       }
 
       .navigation {
@@ -76,16 +78,6 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         overflow-y: auto;
         user-select: auto;
         cursor: auto;
-      }
-
-      .footer {
-        flex: 0 0 auto;
-        background-color: darken($content-bg-color, 5%);
-        opacity: 0.5;
-        padding: 0.2rem;
-        font-size: 0.8rem;
-        font-weight: 300;
-        border-top: $primary-border-style;
       }
     }
   }

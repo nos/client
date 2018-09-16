@@ -8,14 +8,16 @@ import withNetworkData from 'shared/hocs/withNetworkData';
 
 import Invoke from './Invoke';
 import withClean from '../../../hocs/withClean';
-import withPrompt from '../../../hocs/withPrompt';
+import withInvocationPrompt from '../../../hocs/withInvocationPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
+import withValidation from '../../../hocs/withValidation';
+import validateInvokeArgs from '../../../util/validateInvokeArgs';
+
+const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapInvokeDataToProps = (txid) => ({ txid });
-
-const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
 
 export default function makeInvoke(invokeActions) {
   return compose(
@@ -25,10 +27,11 @@ export default function makeInvoke(invokeActions) {
     // Rename arguments given by the user
     withProps(({ args }) => pick(args[0], CONFIG_KEYS)),
 
+    // Ensure the arguments provided are valid
+    withValidation(validateInvokeArgs),
+
     // Prompt user
-    withPrompt(({ operation, scriptHash }) => (
-      `Would you like to perform operation "${operation}" on contract with address "${scriptHash}"?`
-    )),
+    withInvocationPrompt,
 
     // Get the current network and account data
     withNetworkData(),
@@ -42,6 +45,7 @@ export default function makeInvoke(invokeActions) {
       scriptHash,
       operation,
       args,
+      assets,
       encodeArgs
     }) => ({
       net,
@@ -50,6 +54,7 @@ export default function makeInvoke(invokeActions) {
       scriptHash,
       operation,
       args,
+      assets,
       encodeArgs
     })),
     withNullLoader(invokeActions),

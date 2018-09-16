@@ -1,61 +1,38 @@
 .alert {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  width: 900px;
+  width: 450px;
+  max-height: 540px;
+  text-align: center;
+  padding: 20px 40px;
 
-  .media {
+  .title {
     flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 300px;
-    padding: 40px 0px;
+    margin-bottom: 25px;
+    color: #1e1b53;
+    font-size: 28px;
+    font-weight: 500;
   }
 
-  .content {
+  .body {
     flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    padding: 60px 70px;
-    font-weight: 300;
-    background: url("../../images/modal-gradient-vertical.png") no-repeat center left;
-    background-size: auto 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    line-height: 25px;
+    font-size: 14px;
 
-    .title {
-      flex: 0 0 auto;
-      margin: 0 0 1.5rem;
-      color: #047bf8;
-      line-height: 1.2;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 500;
+    p {
+      margin-bottom: 10px;
     }
+  }
 
-    .body {
-      flex: 1 1 auto;
-      overflow-x: hidden;
-      overflow-y: auto;
+  .actions {
+    flex: 0 0 auto;
+    margin: 1.5rem 0 0;
 
-      p {
-        margin-bottom: 10px;
-      }
-    }
+    .action {
+      margin-right: 10px;
 
-    .actions {
-      flex: 0 0 auto;
-      margin: 1.5rem 0 0;
-      text-align: center;
-
-      .action {
-        margin-right: 10px;
-
-        &:last-child {
-          margin-right: 0;
-        }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }

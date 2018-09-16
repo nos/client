@@ -1,18 +1,51 @@
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { withActions, withData, progressValues } from 'spunky';
+import { isEqual } from 'lodash';
 
+import authActions from 'login/actions/authActions';
+import balancesActions from 'shared/actions/balancesActions';
+import blockActions from 'shared/actions/blockActions';
 import withAuthState from 'login/hocs/withAuthState';
 import withNetworkData from 'shared/hocs/withNetworkData';
+import withProgressChange from 'shared/hocs/withProgressChange';
+import notifyWebviews from 'shared/util/notifyWebviews';
 
 import AuthenticatedLayout from './AuthenticatedLayout';
+
+const { LOADED } = progressValues;
 
 const mapStateToProps = (state) => {
   const { tabs, activeSessionId } = state.browser;
   return { tabs, activeSessionId };
 };
 
+const mapAuthDataToProps = ({ address }) => ({ address });
+
+const mapBlockActionsToProps = (actions, props) => ({
+  getLastBlock: () => actions.call({ net: props.currentNetwork })
+});
+
+const mapBalancesDataToProps = (actions, props) => ({
+  getBalances: () => actions.call({ net: props.currentNetwork, address: props.address })
+});
+
+const mapBlockDataToProps = (block) => ({ block });
+
 export default compose(
   connect(mapStateToProps),
   withAuthState(),
-  withNetworkData('currentNetwork')
+  withNetworkData('currentNetwork'),
+  withActions(blockActions, mapBlockActionsToProps),
+
+  // Whenever a new block is received, notify all dApps & update account balances.
+  withData(authActions, mapAuthDataToProps),
+  withData(blockActions, mapBlockDataToProps),
+  withActions(balancesActions, mapBalancesDataToProps),
+  withProgressChange(blockActions, LOADED, (state, props, prevProps) => {
+    if (!isEqual(props.block, prevProps.block)) {
+      notifyWebviews('event', 'block', props.block);
+      props.getBalances();
+    }
+  })
 )(AuthenticatedLayout);

@@ -11,7 +11,7 @@ export default class TabLink extends React.PureComponent {
   static propTypes = {
     className: string,
     type: oneOf([INTERNAL, EXTERNAL]),
-    target: string.isRequired,
+    target: string,
     active: bool,
     disabled: bool,
     children: node,
@@ -21,6 +21,7 @@ export default class TabLink extends React.PureComponent {
   static defaultProps = {
     className: null,
     type: INTERNAL,
+    target: null,
     active: false,
     disabled: false,
     children: null,
@@ -48,7 +49,7 @@ export default class TabLink extends React.PureComponent {
   handleClick = () => {
     const { disabled, type, target } = this.props;
 
-    if (!disabled) {
+    if (target && !disabled) {
       this.props.openTab({ type, target });
     }
   }

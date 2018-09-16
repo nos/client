@@ -8,7 +8,8 @@
         "./src/renderer"
       ],
       "alias": {
-        "testHelpers": "./__tests__/testHelpers"
+        "testHelpers": "./__tests__/testHelpers",
+        "fixtures": "./__tests__/fixtures"
       }
     }]
   ],
