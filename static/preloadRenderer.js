@@ -10,16 +10,17 @@ function createDelegate(channel) {
     const successChannel = `${channel}-success-${id}`;
     const failureChannel = `${channel}-failure-${id}`;
 
-    try {
-      ipcRenderer.once(successChannel, (event, ...successArgs) => resolve(...successArgs));
-      ipcRenderer.once(failureChannel, (event, message) => reject(new Error(message)));
-      ipcRenderer.sendToHost(channel, id, ...args);
-    } catch (err) {
-      reject(err);
-    } finally {
-      ipcRenderer.removeAllListeners(successChannel);
+    ipcRenderer.once(successChannel, (event, ...successArgs) => {
       ipcRenderer.removeAllListeners(failureChannel);
-    }
+      resolve(...successArgs);
+    });
+
+    ipcRenderer.once(failureChannel, (event, message) => {
+      ipcRenderer.removeAllListeners(successChannel);
+      reject(new Error(message));
+    });
+
+    ipcRenderer.sendToHost(channel, id, ...args);
   });
 }
 
