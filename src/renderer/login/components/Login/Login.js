@@ -3,7 +3,7 @@ import { bool, func } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
-import logo from 'shared/images/logo.svg';
+import Logo from 'shared/images/logo.svg';
 
 import LoginFormPassphrase from '../LoginFormPassphrase';
 import LoginFormWIF from '../LoginFormWIF';
@@ -23,7 +23,7 @@ const TABS = {
   [TAB_FILE]: 'Wallet File'
 };
 
-export default class Login extends React.Component {
+export default class Login extends React.PureComponent {
   static propTypes = {
     loading: bool,
     login: func.isRequired
@@ -40,8 +40,9 @@ export default class Login extends React.Component {
   render() {
     return (
       <Panel className={styles.login}>
-        <img className={styles.logo} src={logo} alt="nOS" />
+        <Logo className={styles.logo} />
         <Tabs
+          className={styles.tabs}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}

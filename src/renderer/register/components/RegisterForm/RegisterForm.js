@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './RegisterForm.scss';
 
-export default class RegisterForm extends React.Component {
+export default class RegisterForm extends React.PureComponent {
   static propTypes = {
-    disabled: bool,
+    loading: bool,
     passphrase: string,
     passphraseConfirmation: string,
     setPassphrase: func,
@@ -19,7 +19,7 @@ export default class RegisterForm extends React.Component {
   };
 
   static defaultProps = {
-    disabled: false,
+    loading: false,
     passphrase: '',
     passphraseConfirmation: '',
     setPassphrase: noop,
@@ -28,31 +28,37 @@ export default class RegisterForm extends React.Component {
   };
 
   render = () => {
-    const { passphrase, passphraseConfirmation, disabled } = this.props;
+    const { passphrase, passphraseConfirmation, loading } = this.props;
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
-        <Input
+        <LabeledInput
           id="passphrase"
           type="password"
           label="Passphrase"
           placeholder="Enter passphrase"
           value={passphrase}
-          disabled={disabled}
+          disabled={loading}
           onChange={this.handleChangePassphrase}
         />
-        <Input
+        <LabeledInput
           id="passphraseConfirmation"
           type="password"
           label="Confirm Passphrase"
           placeholder="Enter passphrase again"
           value={passphraseConfirmation}
-          disabled={disabled}
+          disabled={loading}
           onChange={this.handleChangePassphraseConfirmation}
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Register</Button>
+          <PrimaryButton
+            className={styles.register}
+            type="submit"
+            disabled={loading || !this.isValid()}
+          >
+            Register
+          </PrimaryButton>
           <span className={styles.login}>
             Already have an account?{' '}
             <Link to="/login">Login</Link>

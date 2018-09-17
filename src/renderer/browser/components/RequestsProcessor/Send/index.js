@@ -1,3 +1,4 @@
+import React from 'react';
 import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
@@ -27,7 +28,7 @@ const getAssetName = (assetId) => {
   }
 };
 
-const CONFIG_KEYS = ['asset', 'amount', 'receiver'];
+const CONFIG_KEYS = ['asset', 'amount', 'receiver', 'remark'];
 
 export default function makeSend(sendActions) {
   return compose(
@@ -39,21 +40,27 @@ export default function makeSend(sendActions) {
 
     // Prompt user
     withPrompt(({ amount, asset, receiver }) => (
-      `Would you like to send ${amount} ${getAssetName(asset)} to ${receiver}?`
-    )),
+      <span>
+        Would you like to transfer {amount} ${getAssetName(asset)} to address{' '}
+        <strong>&ldquo;{receiver}&rdquo;</strong>?
+      </span>
+    ), {
+      title: 'Transfer'
+    }),
 
     // Get the current network & account data
     withNetworkData(),
     withData(authActions, mapAuthDataToProps),
 
     // Send assets & wait for success or failure
-    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif }) => ({
+    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif, remark }) => ({
       net,
       amount,
       asset,
       receiver,
       address,
-      wif
+      wif,
+      remark
     })),
     withNullLoader(sendActions),
     withRejectMessage(sendActions, ({ amount, asset, receiver, error }) => (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { isValidElementType } from 'react-is';
 import { string, func } from 'prop-types';
 import { isFunction } from 'lodash';
 
@@ -6,9 +7,9 @@ import withConfirm from 'shared/hocs/withConfirm';
 
 import styles from './styles.scss';
 
-export default function withPrompt(message) {
+export default function withPrompt(message, { title = 'Permission Request' } = {}) {
   return (Component) => {
-    class PromptComponent extends React.Component {
+    class PromptComponent extends React.PureComponent {
       static propTypes = {
         confirm: func.isRequired,
         src: string.isRequired,
@@ -22,13 +23,14 @@ export default function withPrompt(message) {
       componentDidMount() {
         this.props.confirm((
           <div className={styles.prompt}>
-            <p>{isFunction(message) ? message(this.props) : message}</p>
-            <p className={styles.source}>Triggered by <strong>{this.props.src}</strong>.</p>
+            {this.renderMessage()}
           </div>
         ), {
-          title: 'Account Action Permission Request',
+          title,
+          confirmLabel: 'Confirm',
           onConfirm: this.handleConfirm,
-          onCancel: this.handleCancel
+          onCancel: this.handleCancel,
+          origin: this.props.src
         });
       }
 
@@ -38,6 +40,17 @@ export default function withPrompt(message) {
         }
 
         return <Component {...this.props} />;
+      }
+
+      renderMessage = () => {
+        if (isValidElementType(message)) {
+          const Message = message;
+          return <Message {...this.props} />;
+        } else if (isFunction(message)) {
+          return message(this.props);
+        } else {
+          return message;
+        }
       }
 
       handleConfirm = () => {

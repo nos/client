@@ -2,12 +2,12 @@ import React from 'react';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormWIF.scss';
 
-export default class LoginFormWIF extends React.Component {
+export default class LoginFormWIF extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     wif: string,
@@ -27,7 +27,7 @@ export default class LoginFormWIF extends React.Component {
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <Input
+        <LabeledInput
           id="wif"
           type="password"
           label="WIF"
@@ -38,7 +38,7 @@ export default class LoginFormWIF extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
+          <PrimaryButton type="submit" disabled={disabled || !this.isValid()}>Login</PrimaryButton>
         </div>
       </form>
     );

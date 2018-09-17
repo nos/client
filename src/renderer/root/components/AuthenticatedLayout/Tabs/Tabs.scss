@@ -1,0 +1,31 @@
+.tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 30px;
+  background: #edeef2;
+  box-shadow: inset 0 -4px 8px rgba(53, 52, 69, 0.05);
+  -webkit-app-region: drag;
+
+  * {
+    -webkit-app-region: no-drag;
+  }
+
+  .tab {
+    flex: 0 1 330px;
+  }
+
+  .newTab {
+    align-self: center;
+    min-width: 16px;
+    margin: 0 8px 0 8px;
+    color: rgba($primary-text-color, 0.75);
+    stroke: currentColor;
+    transition: color 0.15s ease;
+
+    &:focus,
+    &:hover {
+      color: $primary-text-color;
+    }
+  }
+}

@@ -1,16 +1,17 @@
 import React from 'react';
 import { remote } from 'electron';
 import { bool, string, func, object, arrayOf } from 'prop-types';
-import { noop, map } from 'lodash';
+import { isEmpty, noop, map } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
-import Select from 'shared/components/Forms/Select';
-import Input from 'shared/components/Forms/Input/Input';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
 import styles from './LoginFormWalletFile.scss';
 
-export default class LoginFormWalletFile extends React.Component {
+export default class LoginFormWalletFile extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     encryptedWIF: string,
@@ -20,7 +21,7 @@ export default class LoginFormWalletFile extends React.Component {
     accounts: arrayOf(object),
     setAccounts: func,
     onLogin: func,
-    alert: func
+    showErrorToast: func
   };
 
   static defaultProps = {
@@ -32,7 +33,7 @@ export default class LoginFormWalletFile extends React.Component {
     accounts: [],
     setAccounts: noop,
     onLogin: noop,
-    alert: noop
+    showErrorToast: noop
   };
 
   render() {
@@ -47,7 +48,7 @@ export default class LoginFormWalletFile extends React.Component {
         {this.renderDescription()}
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
+          <PrimaryButton type="submit" disabled={disabled || !this.isValid()}>Login</PrimaryButton>
         </div>
       </form>
     );
@@ -56,34 +57,32 @@ export default class LoginFormWalletFile extends React.Component {
   renderAccounts = () => {
     const { accounts, encryptedWIF, disabled } = this.props;
 
-    if (accounts.length === 0) {
+    if (isEmpty(accounts)) {
       return null;
     }
 
     return (
-      <Select
-        className={styles.accounts}
+      <LabeledSelect
+        id="account"
+        label="Select an account"
+        labelClass={styles.accounts}
         value={encryptedWIF}
-        onChange={this.handleSelect}
+        items={this.getAccountItems()}
         disabled={disabled}
-      >
-        <option value="">Select an account</option>
-        {map(this.props.accounts, (account, index) => (
-          <option value={account.encrypted} key={`account${index}`}>{account.label}</option>
-        ))}
-      </Select>
+        onChange={this.handleSelect}
+      />
     );
-  }
+  };
 
   renderPassphraseInput = () => {
     const { encryptedWIF, passphrase, disabled } = this.props;
 
-    if (encryptedWIF === '' || wallet.isPrivateKey(encryptedWIF)) {
+    if (isEmpty(encryptedWIF) || wallet.isPrivateKey(encryptedWIF)) {
       return null;
     }
 
     return (
-      <Input
+      <LabeledInput
         id="passphrase"
         type="password"
         label="Passphrase"
@@ -93,12 +92,12 @@ export default class LoginFormWalletFile extends React.Component {
         disabled={disabled}
       />
     );
-  }
+  };
 
   renderDescription = () => {
     const { encryptedWIF } = this.props;
 
-    if (encryptedWIF === '') {
+    if (isEmpty(encryptedWIF)) {
       return null;
     }
 
@@ -107,10 +106,10 @@ export default class LoginFormWalletFile extends React.Component {
     } else {
       return 'Encrypted key detected, please type passphrase.';
     }
-  }
+  };
 
   handleLoadWallet = () => {
-    const filenames = remote.dialog.showOpenDialog({
+    const filenames = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
       title: 'Select Wallet file',
       filters: [{ name: 'Wallet file', extensions: ['json'] }]
     });
@@ -118,7 +117,7 @@ export default class LoginFormWalletFile extends React.Component {
     if (filenames) {
       this.load(filenames[0]);
     }
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -131,35 +130,39 @@ export default class LoginFormWalletFile extends React.Component {
     };
 
     onLogin(loginCredentials);
-  }
+  };
 
-  handleSelect = (event) => {
+  handleSelect = (value) => {
     this.props.setPassphrase('');
-    this.props.setEncryptedWIF(event.target.value);
-  }
+    this.props.setEncryptedWIF(value);
+  };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
+  };
+
+  getAccountItems = () => {
+    return map(this.props.accounts, ({ label, encrypted }) => ({ label, value: encrypted }));
   }
 
   isValid = () => {
     return this.props.encryptedWIF !== '';
-  }
+  };
 
   load = (filename) => {
-    const { setAccounts, setEncryptedWIF, alert } = this.props;
+    const { setAccounts, setEncryptedWIF, showErrorToast } = this.props;
 
     try {
       const walletFile = wallet.Wallet.readFile(filename);
 
-      if (walletFile.accounts.length === 0) {
+      if (isEmpty(walletFile.accounts)) {
         throw new Error('This wallet file contains no accounts.');
       }
 
       setAccounts(walletFile.accounts);
       setEncryptedWIF('');
     } catch (err) {
-      alert(`Error loading wallet file: ${err.message}`);
+      showErrorToast(`Error loading wallet file: ${err.message}`);
     }
   }
 }

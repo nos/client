@@ -1,13 +1,13 @@
-import fs from 'fs';
 import React from 'react';
+import fs from 'fs';
 import { string, func } from 'prop-types';
 import { remote } from 'electron';
 import { promisify } from 'es6-promisify';
 import { noop, isEmpty } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
-import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import accountShape from '../../../shapes/accountShape';
 import styles from './SaveAccount.scss';
@@ -18,7 +18,7 @@ const FILE_FILTERS = [
   { name: 'NEP6 Wallet File', extensions: ['json'] }
 ];
 
-export default class SaveAccount extends React.Component {
+export default class SaveAccount extends React.PureComponent {
   static propTypes = {
     account: accountShape.isRequired,
     label: string,
@@ -35,7 +35,7 @@ export default class SaveAccount extends React.Component {
   render() {
     return (
       <div className={styles.saveAccount}>
-        <Input
+        <LabeledInput
           className={styles.label}
           id="label"
           label="Account Label"
@@ -43,20 +43,20 @@ export default class SaveAccount extends React.Component {
           onChange={this.handleChangeLabel}
         />
         <div className={styles.saveButtons}>
-          <Button
+          <PrimaryButton
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleSaveNewWallet}
           >
             Save as new NEP6 Wallet
-          </Button>
-          <Button
+          </PrimaryButton>
+          <PrimaryButton
             className={styles.button}
             disabled={isEmpty(this.props.label)}
             onClick={this.handleAddToWallet}
           >
             Add account to NEP6 Wallet
-          </Button>
+          </PrimaryButton>
         </div>
       </div>
     );
@@ -69,7 +69,7 @@ export default class SaveAccount extends React.Component {
   handleAddToWallet = async () => {
     const { account, label } = this.props;
 
-    const filenames = remote.dialog.showOpenDialog({
+    const filenames = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
       title: 'Add account to a NEP6 Wallet',
       message: 'Add account to a NEP6 Wallet',
       filters: FILE_FILTERS

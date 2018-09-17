@@ -1,66 +1,93 @@
 /* eslint-disable consistent-return */
 
 import React from 'react';
+import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import { string } from 'prop-types';
 
-import Icon from 'shared/components/Icon';
+import { DAPPS, ACCOUNT, EXCHANGE, SETTINGS } from 'browser/values/browserValues';
+import DAppsIcon from 'shared/images/icons/dapps.svg';
+import AccountIcon from 'shared/images/icons/account.svg';
+import ExchangeIcon from 'shared/images/icons/exchange.svg';
+import SettingsIcon from 'shared/images/icons/settings.svg';
+import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
 
+import TabLink from '../TabLink';
+import ExplorerLink from '../ExplorerLink';
+import LastBlock from '../LastBlock';
+import StatusIcon from '../StatusIcon';
 import styles from './Navigation.scss';
 
-export default class Navigation extends React.Component {
+export default class Navigation extends React.PureComponent {
+  static propTypes = {
+    className: string
+  };
+
+  static defaultProps = {
+    className: null
+  };
+
   render() {
     return (
-      <nav className={styles.navigation}>
-        <ul className={styles.group}>
+      <nav className={classNames(styles.navigation, this.props.className)}>
+        <ul>
           <li>
-            <NavLink to="/browser">
-              <Tooltip id="browser" overlay="Browser">
-                <Icon name="browser" aria-label="Browser" />
-              </Tooltip>
-            </NavLink>
+            <Tooltip overlay="dApps">
+              <div>
+                <TabLink id="dapps" target={DAPPS} disabled>
+                  <DAppsIcon aria-label="dapps" />
+                </TabLink>
+              </div>
+            </Tooltip>
           </li>
           <li>
-            <NavLink exact to="/favorites" className={styles.disabled} onClick={this.handleDisabled}>
-              <Tooltip id="favorites" overlay="Favorites (coming soon!)">
-                <Icon name="favorite" aria-label="Favorites" />
-              </Tooltip>
-            </NavLink>
+            <Tooltip overlay="Exchange">
+              <div>
+                <TabLink id="exchange" target={EXCHANGE} disabled>
+                  <ExchangeIcon aria-label="exchange" />
+                </TabLink>
+              </div>
+            </Tooltip>
           </li>
           <li>
-            <NavLink exact to="/exchange" className={styles.disabled} onClick={this.handleDisabled}>
-              <Tooltip id="exchange" overlay="Exchange (coming soon!)">
-                <Icon name="exchange" aria-label="Exchange" />
-              </Tooltip>
-            </NavLink>
+            <Tooltip overlay="Account">
+              <div>
+                <TabLink id="account" target={ACCOUNT}>
+                  <AccountIcon aria-label="account" />
+                </TabLink>
+              </div>
+            </Tooltip>
           </li>
           <li>
-            <NavLink id="account" exact to="/account">
-              <Tooltip id="account" overlay="Account">
-                <Icon name="account" aria-label="Account" />
-              </Tooltip>
-            </NavLink>
+            <Tooltip overlay="Settings">
+              <div>
+                <TabLink id="settings" target={SETTINGS}>
+                  <SettingsIcon aria-label="settings" />
+                </TabLink>
+              </div>
+            </Tooltip>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <Tooltip overlay={<LastBlock />}>
+              <div className={styles.link}>
+                <ExplorerLink id="status">
+                  <StatusIcon aria-label="status" />
+                </ExplorerLink>
+              </div>
+            </Tooltip>
           </li>
           <li>
-            <NavLink exact to="/settings">
-              <Tooltip id="settings" overlay="Settings">
-                <Icon name="settings" aria-label="Settings" />
-              </Tooltip>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/logout">
-              <Tooltip id="logout" overlay="Logout">
-                <Icon name="logout" aria-label="Logout" />
-              </Tooltip>
-            </NavLink>
+            <Tooltip overlay="Logout">
+              <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
+                <LogoutIcon aria-label="logout" />
+              </NavLink>
+            </Tooltip>
           </li>
         </ul>
       </nav>
     );
-  }
-
-  handleDisabled = (event) => {
-    event.preventDefault();
   }
 }

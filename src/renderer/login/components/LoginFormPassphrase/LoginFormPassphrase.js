@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
-import Input from 'shared/components/Forms/Input';
-import Button from 'shared/components/Forms/Button';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormPassphrase.scss';
 
-export default class LoginFormWIF extends React.Component {
+export default class LoginFormWIF extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,
@@ -32,7 +32,7 @@ export default class LoginFormWIF extends React.Component {
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <Input
+        <LabeledInput
           id="encryptedWIF"
           type="password"
           label="Encrypted WIF"
@@ -41,7 +41,7 @@ export default class LoginFormWIF extends React.Component {
           disabled={disabled}
           onChange={this.handleChangeEncryptedWIF}
         />
-        <Input
+        <LabeledInput
           id="passphrase"
           type="password"
           label="Passphrase"
@@ -52,7 +52,13 @@ export default class LoginFormWIF extends React.Component {
         />
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={disabled || !this.isValid()}>Login</Button>
+          <PrimaryButton
+            className={styles.login}
+            type="submit"
+            disabled={disabled || !this.isValid()}
+          >
+            Login
+          </PrimaryButton>
           <span className={styles.register}>
             New to NEO?{' '}
             <Link to="/register">Create an account</Link>

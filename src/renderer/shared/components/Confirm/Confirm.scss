@@ -1,39 +1,20 @@
 .confirm {
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  width: 900px;
-
-  .media {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 300px;
-    padding: 40px 0px;
-  }
+  flex-direction: column;
+  width: 450px;
+  max-height: 540px;
+  text-align: center;
+  overflow: hidden;
 
   .content {
     flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    padding: 60px 70px;
-    font-weight: 300;
-    background-image: url(../../images/modal-gradient-vertical.png);
-    background-size: auto 100%;
-    background-position: center left;
-    background-repeat: no-repeat;
+    padding: 20px 40px;
 
     .title {
       flex: 0 0 auto;
-      margin: 0 0 1.5rem;
-      color: #047bf8;
-      line-height: 1.2;
-      text-align: center;
-      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #1e1b53;
+      font-size: 28px;
       font-weight: 500;
     }
 
@@ -41,6 +22,8 @@
       flex: 1 1 auto;
       overflow-x: hidden;
       overflow-y: auto;
+      line-height: 25px;
+      font-size: 14px;
 
       p {
         margin-bottom: 10px;
@@ -50,7 +33,6 @@
     .actions {
       flex: 0 0 auto;
       margin: 1.5rem 0 0;
-      text-align: center;
 
       .action {
         margin-right: 10px;
@@ -59,26 +41,16 @@
           margin-right: 0;
         }
       }
-
-      .cancel {
-        color: #fff;
-        background-color: #292b2c;
-        border-color: #292b2c;
-
-        &:focus {
-          box-shadow: none;
-        }
-
-        &:not([disabled]) {
-          cursor: pointer;
-
-          &:active,
-          &:hover {
-            background-color: #101112;
-            border-color: #0a0b0b;
-          }
-        }
-      }
     }
+  }
+
+  .origin {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    color: #fff;
+    background: #353445;
+    line-height: 13px;
+    font-size: 11px;
+    font-weight: 500;
   }
 }

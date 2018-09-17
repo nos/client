@@ -1,46 +1,139 @@
 import React from 'react';
-import { string, node } from 'prop-types';
 import classNames from 'classnames';
+import { string, func, node, objectOf } from 'prop-types';
+import { noop } from 'lodash';
 
-import logo from 'shared/images/logo.svg';
+import Logo from 'shared/images/logo.svg';
+import ScrollContainer from 'shared/components/ScrollContainer';
+import isInternalPage from 'shared/util/isInternalPage';
+import tabShape from 'browser/shapes/tabShape';
 
+import Tabs from './Tabs';
 import Navigation from './Navigation';
+import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
-export default function AuthenticatedLayout(props) {
-  const className = classNames(styles.authenticatedLayout, {
-    [styles[process.platform]]: true
-  });
+const POLL_FREQUENCY = 10000; // 10 seconds
 
-  return (
-    <div className={className}>
-      <div className={styles.menu}>
+export default class AuthenticatedLayout extends React.PureComponent {
+  static propTypes = {
+    activeSessionId: string.isRequired,
+    tabs: objectOf(tabShape).isRequired,
+    currentNetwork: string.isRequired,
+    children: node,
+    getLastBlock: func
+  };
+
+  static defaultProps = {
+    children: null,
+    getLastBlock: noop
+  };
+
+  state = {
+    showSidebar: true
+  };
+
+  componentDidMount() {
+    this.props.getLastBlock();
+    this.createPoll();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentNetwork !== prevProps.currentNetwork) {
+      this.clearPoll();
+      this.createPoll();
+    }
+  }
+
+  componentWillUnmount() {
+    this.clearPoll();
+  }
+
+  render() {
+    const { tabs, activeSessionId } = this.props;
+
+    const className = classNames(styles.authenticatedLayout, {
+      [styles[process.platform]]: true
+    });
+
+    return (
+      <div className={className}>
         <header>
-          <img src={logo} alt="nOS Logo" width="36" height="36" />
+          {this.renderTrafficLights()}
+          <Tabs
+            className={styles.tabs}
+            tabs={tabs}
+            activeSessionId={activeSessionId}
+          />
         </header>
-        <Navigation />
+
+        <main>
+          {this.renderSidebar()}
+          {this.renderContent()}
+        </main>
       </div>
-      <main className={styles.main}>
-        <div className={styles.content}>
-          {props.children}
-        </div>
-        <footer className={styles.footer}>
-          <div className={styles.status}>
-            Network: {props.currentNetwork}
-          </div>
-        </footer>
-      </main>
-    </div>
-  );
+    );
+  }
+
+  renderTrafficLights = () => {
+    if (!this.state.showSidebar && process.platform !== 'darwin') {
+      return null;
+    }
+
+    const className = classNames(styles.sidebar, {
+      [styles.expanded]: this.state.showSidebar
+    });
+
+    return <div className={className} />;
+  }
+
+  renderSidebar = () => {
+    if (!this.state.showSidebar) {
+      return null;
+    }
+
+    return (
+      <div className={styles.sidebar}>
+        <Logo className={styles.logo} />
+        <Navigation className={styles.navigation} />
+      </div>
+    );
+  }
+
+  renderContent = () => {
+    return (
+      <div className={styles.container}>
+        <AddressBar
+          className={styles.addressBar}
+          disabled={this.isInternalPage()}
+          sidebarOpen={this.state.showSidebar}
+          onToggleSidebar={this.handleToggleSidebar}
+        />
+        <ScrollContainer className={styles.content}>
+          {this.props.children}
+        </ScrollContainer>
+      </div>
+    );
+  }
+
+  handleToggleSidebar = () => {
+    this.setState((prevState) => ({
+      showSidebar: !prevState.showSidebar
+    }));
+  }
+
+  createPoll = () => {
+    this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+  }
+
+  clearPoll = () => {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
+  }
+
+  isInternalPage = () => {
+    const tab = this.props.tabs[this.props.activeSessionId];
+    return isInternalPage(tab.type);
+  }
 }
-
-AuthenticatedLayout.displayName = 'AuthenticatedLayout';
-
-AuthenticatedLayout.propTypes = {
-  children: node,
-  currentNetwork: string.isRequired
-};
-
-AuthenticatedLayout.defaultProps = {
-  children: null
-};

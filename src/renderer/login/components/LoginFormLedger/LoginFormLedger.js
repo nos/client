@@ -3,7 +3,7 @@ import { bool, string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 import { progressValues } from 'spunky';
 
-import Button from 'shared/components/Forms/Button';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormLedger.scss';
 
@@ -16,7 +16,7 @@ const deviceInfoShape = shape({
   product: string.isRequired
 });
 
-export default class LoginFormLedger extends React.Component {
+export default class LoginFormLedger extends React.PureComponent {
   static propTypes = {
     poll: func.isRequired,
     publicKey: string,
@@ -65,7 +65,7 @@ export default class LoginFormLedger extends React.Component {
 
     return (
       <div className={styles.actions}>
-        <Button type="button" disabled={disabled} onClick={onClick}>Login</Button>
+        <PrimaryButton type="button" disabled={disabled} onClick={onClick}>Login</PrimaryButton>
       </div>
     );
   }

@@ -1,9 +1,8 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
-import logo from 'shared/images/logo.svg';
+import Logo from 'shared/images/logo.svg';
 
 import RegisterForm from '../RegisterForm';
 import AccountDetails from '../AccountDetails';
@@ -16,15 +15,12 @@ const TABS = {
   [TAB_CREATE]: 'Create Account'
 };
 
-export default class Register extends React.Component {
+export default class Register extends React.PureComponent {
   static propTypes = {
-    loading: bool,
-    account: accountShape,
-    register: func.isRequired
+    account: accountShape
   };
 
   static defaultProps = {
-    loading: false,
     account: null
   };
 
@@ -35,8 +31,9 @@ export default class Register extends React.Component {
   render() {
     return (
       <Panel className={styles.register}>
-        <img className={styles.logo} src={logo} alt="nOS" />
+        <Logo className={styles.logo} />
         <Tabs
+          className={styles.tabs}
           tabs={TABS}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}
@@ -56,12 +53,12 @@ export default class Register extends React.Component {
   }
 
   renderCreateTab = () => {
-    const { loading, account, register } = this.props;
+    const { account } = this.props;
 
     if (account) {
       return <AccountDetails account={account} />;
     } else {
-      return <RegisterForm disabled={loading} onRegister={register} />;
+      return <RegisterForm />;
     }
   }
 

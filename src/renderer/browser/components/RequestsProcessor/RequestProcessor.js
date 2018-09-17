@@ -5,7 +5,7 @@ import { isEqual } from 'lodash';
 import { getComponent, getActions } from './mappings';
 import requestShape from '../../shapes/requestShape';
 
-export default class RequestProcessor extends React.Component {
+export default class RequestProcessor extends React.PureComponent {
   static propTypes = {
     sessionId: string.isRequired,
     src: string.isRequired,

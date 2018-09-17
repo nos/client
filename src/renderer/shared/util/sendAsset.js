@@ -1,11 +1,16 @@
-import { api, wallet, u } from '@cityofzion/neon-js';
+import { api, wallet, u, tx } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
 import createScript from 'shared/util/createScript';
+import validateRemark from 'shared/util/validateRemark';
 
 import { ASSETS } from '../values/assets';
 
-export default async function sendAsset({ net, asset, amount, receiver, address, wif }) {
+export default async function sendAsset(
+  { net, asset, amount, receiver, address, wif, remark },
+  getBalance = api.neoscan.getBalance,
+  call = api.sendAsset
+) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
   }
@@ -14,14 +19,28 @@ export default async function sendAsset({ net, asset, amount, receiver, address,
     throw new Error(`Invalid amount: "${amount}"`);
   }
 
-  const send = () => {
+  if (remark !== undefined) {
+    validateRemark(remark);
+  }
+
+  const send = async () => {
     const config = { net, address, privateKey: wif };
 
     if (keys(ASSETS).includes(asset)) {
-      const selectedAsset = ASSETS[asset];
+      const selectedAsset = ASSETS[asset].symbol;
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
+      const balance = await getBalance(net, address);
+      const transaction = tx.Transaction.createContractTx(balance, intents);
 
-      return api.sendAsset({ ...config, intents }, api.neoscan);
+      if (typeof remark === 'string') {
+        transaction.addRemark(remark);
+      } else if (Array.isArray(remark)) {
+        for (let i = 0; i < remark.length; i += 1) {
+          transaction.addAttribute(tx.TxAttrUsage.Remark + i, remark[i]);
+        }
+      }
+
+      return call({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
       const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
 

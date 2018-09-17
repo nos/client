@@ -1,12 +1,13 @@
-import { app, protocol, session, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow } from 'electron';
 import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
 
 import getStaticPath from './util/getStaticPath';
-import bindContextMenu from './util/bindContextMenu';
+import bindMenus from './util/bindMenus';
+import injectHeaders from './util/injectHeaders';
+import installExtensions from './util/installExtensions';
 import registerNosProtocol from './util/registerNosProtocol';
-import pkg from '../../package.json';
 
 // This wouldn't be necessary if we could call `electron-webpack` directly.  But since we have to
 // use webpack-cli (as a result of using a custom webpack config), we are faking this env var
@@ -17,28 +18,6 @@ if (isDev) {
 
 protocol.registerStandardSchemes(['nos']);
 
-function injectHeaders() {
-  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    const requestHeaders = {
-      ...details.requestHeaders,
-      'X-nOS-Version': pkg.version
-    };
-    callback({ cancel: false, requestHeaders });
-  });
-}
-
-function installExtensions() {
-  const {
-    default: installer,
-    REACT_DEVELOPER_TOOLS,
-    REDUX_DEVTOOLS
-  } = require('electron-devtools-installer'); // eslint-disable-line global-require
-
-  const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
-
-  return Promise.all(extensions.map((extension) => installer(extension)));
-}
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -47,9 +26,14 @@ let splashWindow;
 const isMac = process.platform === 'darwin';
 
 function getWindowPath(productionPath, filename) {
-  return isDev
+  const windowPath = isDev
     ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${filename}`
     : url.format({ pathname: path.join(productionPath, filename), protocol: 'file:', slashes: true });
+
+  // There is a peculiar bug that is causing the window location to redirect to the current URL, but
+  // with an empty query string appended. By loading that URL initially instead, no redirect occurs.
+  // REF: https://github.com/nos/client/issues/340#issuecomment-414095942
+  return windowPath.includes('?') ? windowPath : `${windowPath}?`;
 }
 
 function createWindow() {
@@ -61,7 +45,7 @@ function createWindow() {
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
 
-  bindContextMenu(mainWindow);
+  bindMenus(mainWindow);
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
@@ -97,15 +81,15 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
+app.on('ready', async () => {
   registerNosProtocol();
   injectHeaders();
 
   if (isDev) {
-    installExtensions().then(createWindow);
-  } else {
-    createWindow();
+    await installExtensions();
   }
+
+  createWindow();
 });
 
 // Quit when all windows are closed.

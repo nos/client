@@ -1,0 +1,25 @@
+.networkSettings {
+  .input {
+    display: flex;
+    align-items: center;
+
+    .label {
+      flex: 0 1 230px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+
+    .action {
+      @include webComponent;
+      flex-grow: 1;
+      margin-right: 2px;
+
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+}

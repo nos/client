@@ -3,27 +3,48 @@ import createRouterContext from 'react-router-test-context';
 import { mount } from 'enzyme';
 import { object } from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { progressValues } from 'spunky';
+
+import { provideState, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import Routes from 'root/components/App/Routes';
-import { Account } from 'account';
 import { Login } from 'login';
 import { Logout } from 'logout';
 import { Browser } from 'browser';
-import { provideState } from 'testHelpers';
-
-const { LOADED } = progressValues;
+import { EXTERNAL } from 'browser/values/browserValues';
 
 const childContextTypes = { router: object };
 
-const authenticatedState = {
-  progress: LOADED,
-  data: { wif: 'abc123', address: 'def456' }
+const currentNetworkState = mockSpunkyLoaded('TestNet');
+const authenticatedState = mockSpunkyLoaded({ wif: 'abc123', address: 'def456' });
+
+const initialState = {
+  [spunkyKey]: {
+    currentNetwork: currentNetworkState
+  },
+  browser: {
+    activeSessionId: 'tab-1',
+    tabs: {
+      'tab-1': {
+        type: EXTERNAL,
+        target: 'nos://nos.neo',
+        title: 'Welcome to nOS',
+        addressBarEntry: true,
+        loading: false,
+        requestCount: 1,
+        errorCode: null,
+        errorDescription: null
+      }
+    }
+  }
 };
 
 const mountPath = (pathname, state = {}) => {
   const context = createRouterContext({ location: { pathname } });
-  return mount(provideState(<Routes />, state), { context, childContextTypes });
+
+  return mount(provideState(<Routes />, { ...initialState, ...state }), {
+    context,
+    childContextTypes
+  });
 };
 
 function itBehavesLikeAuthenticatedRoute(pathname) {
@@ -44,20 +65,16 @@ describe('<Routes />', () => {
     expect(wrapper.find(Redirect).prop('to')).toEqual('/browser');
   });
 
-  describe('account route', () => {
-    itBehavesLikeAuthenticatedRoute('/account');
-
-    it('renders when authenticated', () => {
-      const wrapper = mountPath('/account', { spunky: { auth: authenticatedState } });
-      expect(wrapper.find(Account).exists()).toBe(true);
-    });
-  });
-
   describe('logout route', () => {
     itBehavesLikeAuthenticatedRoute('/logout');
 
     it('does not redirect when authenticated', () => {
-      const wrapper = mountPath('/logout', { spunky: { auth: authenticatedState } });
+      const wrapper = mountPath('/logout', {
+        [spunkyKey]: {
+          currentNetwork: currentNetworkState,
+          auth: authenticatedState
+        }
+      });
       expect(wrapper.find(Logout).exists()).toBe(true);
     });
   });
@@ -67,18 +84,9 @@ describe('<Routes />', () => {
 
     it('renders when authenticated', () => {
       const wrapper = mountPath('/browser', {
-        spunky: { auth: authenticatedState },
-        browser: {
-          activeSessionId: '1',
-          tabs: {
-            1: {
-              title: 'My nOS',
-              target: 'https://my.nos.app',
-              loading: false,
-              requestCount: 1,
-              addressBarEntry: true
-            }
-          }
+        [spunkyKey]: {
+          currentNetwork: currentNetworkState,
+          auth: authenticatedState
         }
       });
       expect(wrapper.find(Browser).exists()).toBe(true);

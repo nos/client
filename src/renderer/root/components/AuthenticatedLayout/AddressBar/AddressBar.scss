@@ -1,0 +1,66 @@
+@mixin button($color) {
+  color: $color;
+  stroke: currentColor;
+  transition: color 0.15s ease;
+
+  &.disabled {
+    color: lighten($color, 20%);
+  }
+
+  &:not(.disabled):focus,
+  &:not(.disabled):hover {
+    color: darken($color, 15%);
+    stroke: currentColor;
+  }
+
+  &:not(.disabled):active {
+    color: darken($color, 15%);
+    stroke: currentColor;
+  }
+}
+
+.addressBar {
+  $shadow-size: 6px;
+
+  display: flex;
+  align-items: center;
+  height: 42px;
+  background: #fff;
+  box-shadow: 0 2px $shadow-size rgba(30, 27, 82, 0.12);
+  clip-path: inset(0px (-$shadow-size) (-$shadow-size) (-$shadow-size));
+
+  input {
+    flex: 1 1 auto;
+    padding: 6px;
+    margin: 0 8px;
+    border: 1px solid #e3e4ea;
+    border-radius: 4px;
+    background: #f7f8fa;
+    color: $primary-text-color;
+    font-family: $primary-font-stack;
+    font-size: 12px;
+
+    &:disabled {
+      color: lighten($primary-text-color, 50%);
+    }
+  }
+
+  .buttonGroup {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+
+    .button {
+      @include button($light-text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 4px;
+
+      &.selected {
+        @include button(#8bc83c);
+      }
+    }
+  }
+}
