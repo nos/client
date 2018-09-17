@@ -10,6 +10,7 @@ const NULL_WEBVIEW = {
   isDevToolsOpened: () => false,
   goBack: noop,
   goForward: noop,
+  reload: noop,
   on: noop,
   addListener: noop,
   removeListener: noop
