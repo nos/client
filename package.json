@@ -66,6 +66,7 @@
     "pretest": "yarn run lint && yarn run stylelint",
     "test": "jest",
     "test:debug": "node inspect ./node_modules/.bin/jest --runInBand",
+    "test:e2e": "ava __e2e__/*.e2e.js --timeout=120s -s",
     "stylelint": "stylelint src/**/*.scss",
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
@@ -73,6 +74,7 @@
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.4.2",
     "babel-plugin-dynamic-import-node": "2.1.0",
@@ -113,6 +115,7 @@
     "redux-mock-store": "1.5.3",
     "rimraf": "2.6.2",
     "sass-loader": "7.1.0",
+    "spectron": "^4.0.0",
     "style-loader": "0.23.0",
     "stylelint": "9.5.0",
     "stylelint-config-recommended-scss": "3.2.0",
