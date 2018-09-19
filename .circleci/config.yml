@@ -47,6 +47,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: greenkeeper-lockfile-upload
+
   test:
     <<: *container_config
     steps:
@@ -62,6 +63,24 @@ jobs:
       - run: sudo yarn global add yarn@1.9.4
       - run: yarn test
       - run: yarn codecov
+    store_artifacts:
+      - path: artifacts
+      - destination: yarnpkg
+
+  e2e:
+    <<: *container_config
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
+      - run: sudo yarn global add yarn@1.9.4
+      - run: yarn test:e2e
     store_artifacts:
       - path: artifacts
       - destination: yarnpkg
@@ -135,6 +154,9 @@ workflows:
     jobs:
       - build
       - test:
+          requires:
+            - build
+      - e2e:
           requires:
             - build
   deploy:
