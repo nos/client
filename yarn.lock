@@ -6855,8 +6855,8 @@ nock@10.0.0:
     semver "^5.5.0"
 
 node-abi@^2.0.0, node-abi@^2.2.0:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/node-abi/-/node-abi-2.4.1.tgz#7628c4d4ec4e9cd3764ceb3652f36b2e7f8d4923"
+  version "2.4.4"
+  resolved "https://registry.npmjs.org/node-abi/-/node-abi-2.4.4.tgz#410d8968809fe616dc078a181c44a370912f12fd"
   dependencies:
     semver "^5.4.1"
 
