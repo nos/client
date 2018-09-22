@@ -2,8 +2,10 @@ import LedgerNode from '@ledgerhq/hw-transport-node-hid';
 import { tx, wallet, u } from '@cityofzion/neon-js';
 
 const VALID_STATUS = 0x9000;
-const MSG_TOO_BIG = 0x6D08;
+const MSG_TOO_BIG = 0x6d08;
 const APP_CLOSED = 0x6e00;
+const TX_DENIED = 0x6985;
+const TX_PARSE_ERR = 0x6d07;
 
 const evalTransportError = (err) => {
   switch (err.statusCode) {
@@ -11,6 +13,10 @@ const evalTransportError = (err) => {
       return new Error('Please open the NEO app on your Ledger device.');
     case MSG_TOO_BIG:
       return new Error('Your transaction is too large for Ledger to sign.');
+    case TX_DENIED:
+      return new Error('You have denied the transaction on your ledger.');
+    case TX_PARSE_ERR:
+      return new Error('Error parsing transaction. Ensure your NEO Ledger app is up to date.');
     default:
       return err;
   }
