@@ -8,6 +8,7 @@ export const SET_ACTIVE_TAB = 'SET_ACTIVE_TAB';
 export const SET_TAB_ERROR = 'SET_TAB_ERROR';
 export const SET_TAB_TARGET = 'SET_TAB_TARGET';
 export const SET_TAB_TITLE = 'SET_TAB_TITLE';
+export const SET_TAB_ICON = 'SET_TAB_ICON';
 export const SET_TAB_LOADED = 'SET_TAB_LOADED';
 
 const DEFAULT_TARGET = 'nos://nos.neo';
@@ -49,6 +50,11 @@ export const setTabTarget = (sessionId, target) => ({
 export const setTabTitle = (sessionId, title) => ({
   type: SET_TAB_TITLE,
   payload: { sessionId, title }
+});
+
+export const setTabIcon = (sessionId, url) => ({
+  type: SET_TAB_ICON,
+  payload: { sessionId, url }
 });
 
 export const setTabLoaded = (sessionId, loaded) => ({

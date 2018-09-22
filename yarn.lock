@@ -3292,7 +3292,7 @@ electron-json-storage@4.1.2:
     mkdirp "^0.5.1"
     rimraf "^2.5.1"
 
-electron-localshortcut@^3.1.0:
+electron-localshortcut@3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/electron-localshortcut/-/electron-localshortcut-3.1.0.tgz#10c1ffd537b8d39170aaf6e1551341f7780dd2ce"
   dependencies:
@@ -4156,6 +4156,10 @@ file-loader@^1.1.7:
   dependencies:
     loader-utils "^1.0.2"
     schema-utils "^0.4.5"
+
+file-type@9.0.0:
+  version "9.0.0"
+  resolved "https://registry.npmjs.org/file-type/-/file-type-9.0.0.tgz#a68d5ad07f486414dfb2c8866f73161946714a18"
 
 filename-regex@^2.0.0:
   version "2.0.1"
@@ -8545,7 +8549,7 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-click-outside@^3.0.1:
+react-click-outside@3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/react-click-outside/-/react-click-outside-3.0.1.tgz#6e77e84d2f17afaaac26dbad743cbbf909f5e24c"
   dependencies:
@@ -9568,7 +9572,7 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npmjs.org/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
-sifter@^0.5.3:
+sifter@0.5.3:
   version "0.5.3"
   resolved "https://registry.npmjs.org/sifter/-/sifter-0.5.3.tgz#5e6507fe8c114b2b28d90b6bf4e5b636e611e48b"
   dependencies:

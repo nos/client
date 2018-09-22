@@ -12,6 +12,7 @@ import {
   SET_TAB_ERROR,
   SET_TAB_TITLE,
   SET_TAB_TARGET,
+  SET_TAB_ICON,
   SET_TAB_LOADED
 } from '../actions/browserActions';
 
@@ -19,6 +20,7 @@ const initialTabState = {
   type: EXTERNAL,
   target: 'https://my.nos.app',
   title: 'My nOS',
+  icon: null,
   addressBarEntry: true, // differentiates between link clicks and address bar entries
   loading: false,
   requestCount: 1,
@@ -78,25 +80,25 @@ function getSessionId(tabs, callback) {
   return findKey(tabs, callback);
 }
 
-function focus(state, action) {
-  if (!tabExists(state.tabs, action.sessionId)) {
+function focus(state, data) {
+  if (!tabExists(state.tabs, data.sessionId)) {
     return state;
   }
 
   return {
     ...state,
-    activeSessionId: action.sessionId
+    activeSessionId: data.sessionId
   };
 }
 
-function open(state, action) {
+function open(state, data) {
   const sessionId = generateSessionId();
   const { tabs } = state;
-  const { type, target } = action;
+  const { type, target } = data;
   const internal = type === INTERNAL;
 
   const existingSessionId = getSessionId(tabs, (tab) => {
-    return tab.type === action.type && tab.target === action.target;
+    return tab.type === data.type && tab.target === data.target;
   });
 
   if (internal && existingSessionId) {
@@ -118,8 +120,8 @@ function open(state, action) {
   };
 }
 
-function close(state, action) {
-  if (!tabExists(state.tabs, action.sessionId)) {
+function close(state, data) {
+  if (!tabExists(state.tabs, data.sessionId)) {
     return state;
   }
 
@@ -128,47 +130,54 @@ function close(state, action) {
     return generateInitialState();
   }
 
-  const tabIndex = keys(state.tabs).indexOf(action.sessionId);
-  const tabs = omit(state.tabs, action.sessionId);
+  const tabIndex = keys(state.tabs).indexOf(data.sessionId);
+  const tabs = omit(state.tabs, data.sessionId);
 
-  const activeSessionId = state.activeSessionId === action.sessionId
+  const activeSessionId = state.activeSessionId === data.sessionId
     ? keys(tabs)[Math.max(tabIndex - 1, 0)]
     : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
 }
 
-function setTitle(state, action) {
-  return updateTab(state, action.sessionId, { title: action.title });
+function setTitle(state, data) {
+  return updateTab(state, data.sessionId, { title: data.title });
 }
 
-function setError(state, action) {
-  return updateTab(state, action.sessionId, {
+function setError(state, data) {
+  return updateTab(state, data.sessionId, {
     loading: false,
-    errorCode: action.code,
-    errorDescription: action.description
+    errorCode: data.code,
+    errorDescription: data.description
   });
 }
 
-function setTarget(state, action) {
-  return updateTab(state, action.sessionId, {
-    target: action.target,
+function setTarget(state, data) {
+  return updateTab(state, data.sessionId, {
+    target: data.target,
     addressBarEntry: false
   });
 }
 
-function navigate(state, action) {
-  const tab = state.tabs[action.sessionId];
+function setIcon(state, data) {
+  return updateTab(state, data.sessionId, {
+    icon: data.url
+  });
+}
+
+function navigate(state, data) {
+  const tab = state.tabs[data.sessionId];
 
   if (!tab) {
     return state;
   }
 
-  const target = parse(action.target);
+  const target = parse(data.target);
 
-  return updateTab(state, action.sessionId, {
+  return updateTab(state, data.sessionId, {
     target,
     title: target,
+    icon: null,
     addressBarEntry: true,
     requestCount: tab.requestCount + 1,
     errorCode: null,
@@ -198,6 +207,8 @@ export default function browserReducer(state = generateInitialState(), action = 
       return setTitle(state, action.payload);
     case SET_TAB_TARGET:
       return setTarget(state, action.payload);
+    case SET_TAB_ICON:
+      return setIcon(state, action.payload);
     case SET_TAB_LOADED:
       return setLoaded(state, action.payload);
     default:
