@@ -1,7 +1,7 @@
 import { wallet } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
-// import { ledgerNanoSCreateSignatureAsync } from '../ledger/ledgerNanoS';
+import { signWithLedger } from '../util/ledger';
 
 export const ID = 'auth';
 
@@ -35,9 +35,8 @@ const nep2Authenticate = async (passphrase, encryptedWIF) => {
 const ledgerAuthenticate = (publicKey) => {
   const publicKeyEncoded = wallet.getPublicKeyEncoded(publicKey);
   const account = new wallet.Account(publicKeyEncoded);
-  const signingFunction = null; // ledgerNanoSCreateSignatureAsync
 
-  return { publicKey, address: account.address, signingFunction };
+  return { publicKey, address: account.address, signingFunction: signWithLedger };
 };
 
 export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
