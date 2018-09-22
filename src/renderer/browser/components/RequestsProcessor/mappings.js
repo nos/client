@@ -28,7 +28,7 @@ const ACTIONS_MAP = {
   getStorage: makeStorageActions,
   getBalance: makeBalancesActions,
   testInvoke: makeTestInvokeActions,
-  invoke: makeInvokeActions,
+  invoke: [makeInvokeActions, makeBalancesActions],
   send: makeSendActions,
   claimGas: makeClaimActions
 };

@@ -20,7 +20,7 @@ const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 const mapAuthDataToProps = (data) => data;
 const mapInvokeDataToProps = (txid) => ({ txid });
 
-export default function makeInvoke(invokeActions) {
+export default function makeInvoke(invokeActions, balancesActions) {
   return compose(
     // Clean redux store when done
     withClean(invokeActions),
@@ -32,7 +32,7 @@ export default function makeInvoke(invokeActions) {
     withValidation(validateInvokeArgs),
 
     // Prompt user
-    withInvocationPrompt,
+    withInvocationPrompt(balancesActions),
 
     // Get the current network and account data
     withNetworkData(),
