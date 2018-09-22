@@ -7,7 +7,7 @@ const APP_CLOSED = 0x6e00;
 const TX_DENIED = 0x6985;
 const TX_PARSE_ERR = 0x6d07;
 
-const evalTransportError = (err) => {
+function evalTransportError(err) {
   switch (err.statusCode) {
     case APP_CLOSED:
       return new Error('Please open the NEO app on your Ledger device.');
@@ -20,9 +20,9 @@ const evalTransportError = (err) => {
     default:
       return err;
   }
-};
+}
 
-const BIP44 = (acct = 0) => {
+function BIP44(acct) {
   const acctNumber = acct.toString(16);
 
   return [
@@ -33,9 +33,13 @@ const BIP44 = (acct = 0) => {
     '0'.repeat(8 - acctNumber.length),
     acctNumber
   ].join('');
-};
+}
 
-const assembleSignature = (response) => {
+/**
+ * The signature is returned from the ledger in a DER format.
+ * @param {string} response Signature in DER format.
+ */
+function assembleSignature(response) {
   const ss = new u.StringStream(response);
   // The first byte is format. It is usually 0x30 (SEQ) or 0x31 (SET)
   // The second byte represents the total length of the DER module.
@@ -59,13 +63,18 @@ const assembleSignature = (response) => {
   });
 
   return integers.join('');
-};
+}
 
 export default class NeonLedger {
   constructor(path) {
     this.path = path;
   }
 
+  /**
+   * Initialises by listing devices and trying to find a ledger device connected.
+   * Throws an error if no ledgers detected or unable to connect.
+   * @return {Promise<NeonLedger>}
+   */
   static async init() {
     const supported = await LedgerNode.isSupported();
     if (!supported) throw new Error('Your system does not support Ledger.');
@@ -79,6 +88,10 @@ export default class NeonLedger {
     return LedgerNode.list();
   }
 
+  /**
+   * Opens an connection with the selected ledger.
+   * @return {Promise<NeonLedger>} this
+   */
   async open() {
     try {
       this.device = await LedgerNode.open(this.path);
@@ -88,6 +101,10 @@ export default class NeonLedger {
     }
   }
 
+  /**
+   * Closes the connection with the opened Ledger.
+   * @return {Promise<void>}
+   */
   close() {
     if (this.device) {
       return this.device.close();
@@ -96,6 +113,11 @@ export default class NeonLedger {
     }
   }
 
+  /**
+   * Retrieves the public key of an account from the Ledger.
+   * @param {number} [acct] Account that you want to retrieve the public key from.
+   * @return {string} Public key (unencoded)
+   */
   async getPublicKey(acct) {
     const res = await this.send('80040000', BIP44(acct), [VALID_STATUS]);
     return res.toString('hex').substring(0, 130);
@@ -109,7 +131,14 @@ export default class NeonLedger {
     }
   }
 
-  async send(params, msg, statusList) {
+  /**
+   * Sends an message with parameters to the Ledger.
+   * @param {string} params Parameters as a hexstring.
+   * @param {string} data Data as a hexstring.
+   * @param {number[]} statusList Statuses to return.
+   * @return {Promise<Buffer>} Return value decoded to ASCII string.
+   */
+  async send(params, data, statusList) {
     if (params.length !== 8) {
       throw new Error('`params` must be 4 bytes');
     }
@@ -117,12 +146,18 @@ export default class NeonLedger {
     const [cla, ins, p1, p2] = params.match(/.{1,2}/g).map((i) => parseInt(i, 16));
 
     try {
-      return await this.device.send(cla, ins, p1, p2, Buffer.from(msg, 'hex'), statusList);
+      return await this.device.send(cla, ins, p1, p2, Buffer.from(data, 'hex'), statusList);
     } catch (err) {
       throw evalTransportError(err);
     }
   }
 
+  /**
+   * Gets the ECDH signature of the data from Ledger using acct.
+   * @param {string} data
+   * @param {number} [acct]
+   * @return {Promise<string>}
+   */
   async getSignature(data, acct) {
     const formattedData = data + BIP44(acct);
     let response = null;
@@ -138,7 +173,8 @@ export default class NeonLedger {
       const params = `8002${p}00`;
 
       try {
-        response = this.send(params, chunk, [VALID_STATUS]);
+        // eslint-disable-next-line no-await-in-loop
+        response = await this.send(params, chunk, [VALID_STATUS]);
       } catch (err) {
         throw evalTransportError(err);
       }
@@ -152,7 +188,7 @@ export default class NeonLedger {
   }
 }
 
-export const getPublicKey = async (acct) => {
+export const getPublicKey = async (acct = 0) => {
   const ledger = await NeonLedger.init();
 
   try {
@@ -172,14 +208,13 @@ export const getDeviceInfo = async () => {
   }
 };
 
-export const signWithLedger = async (unsignedTx, acct) => {
+export const signWithLedger = async (unsignedTx, publicKey, acct = 0) => {
   const ledger = await NeonLedger.init();
 
   try {
     const data = typeof unsignedTx !== 'string'
       ? tx.serializeTransaction(unsignedTx, false)
       : unsignedTx;
-    const publicKey = await ledger.getPublicKey(acct);
     const invocationScript = `40${await ledger.getSignature(data, acct)}`;
     const verificationScript = wallet.getVerificationScriptFromPublicKey(publicKey);
     const txObj = tx.deserializeTransaction(data);
@@ -189,20 +224,3 @@ export const signWithLedger = async (unsignedTx, acct) => {
     await ledger.close();
   }
 };
-
-// export const legacySignWithLedger = async (unsignedTx, publicKeyEncoded, acct) => {
-//   const ledger = await NeonLedger.init();
-//
-//   try {
-//     const data = typeof unsignedTx !== 'string' ?
-//       tx.serializeTransaction(unsignedTx, false) :
-//       unsignedTx;
-//     const invocationScript = `40${await ledger.getSignature(data, acct)}`;
-//     const verificationScript = wallet.getVerificationScriptFromPublicKey(publicKeyEncoded);
-//     const txObj = tx.deserializeTransaction(data);
-//     txObj.scripts.push({ invocationScript, verificationScript });
-//     return tx.serializeTransaction(txObj);
-//   } finally {
-//     await ledger.close();
-//   }
-// };
