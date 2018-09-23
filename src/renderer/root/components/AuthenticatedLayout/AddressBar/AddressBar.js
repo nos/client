@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { func, string, bool } from 'prop-types';
-import { noop } from 'lodash';
+import { noop, isEmpty } from 'lodash';
 
 import SidebarIcon from 'shared/images/icons/sidebar.svg';
 import SidebarActiveIcon from 'shared/images/icons/sidebar-active.svg';
@@ -46,6 +46,24 @@ export default class AddressBar extends React.PureComponent {
     }
   }
 
+  handleSelect = (e) => {
+
+    if (isEmpty(window.getSelection().toString())) {
+      this.input.select();
+    } else {
+      const sel = window.getSelection ? window.getSelection() : document.selection;
+
+      if (sel) {
+        if (sel.removeAllRanges) {
+          sel.removeAllRanges();
+        } else if (sel.empty) {
+          sel.empty();
+        }
+      }
+      this.input.select();
+    }
+  };
+
   render() {
     const { className, disabled, query, onBack, onForward, onReload } = this.props;
 
@@ -66,6 +84,7 @@ export default class AddressBar extends React.PureComponent {
           disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
+          onFocus={(e) => this.handleSelect(e)}
           defaultValue={query}
         />
 
