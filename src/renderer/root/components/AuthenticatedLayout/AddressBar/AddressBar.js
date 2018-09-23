@@ -66,7 +66,7 @@ export default class AddressBar extends React.PureComponent {
           disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
-          onFocus={() => this.handleSelect()}
+          onFocus={this.handleSelect}
           defaultValue={query}
         />
 
