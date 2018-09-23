@@ -46,24 +46,6 @@ export default class AddressBar extends React.PureComponent {
     }
   }
 
-  handleSelect = (e) => {
-
-    if (isEmpty(window.getSelection().toString())) {
-      this.input.select();
-    } else {
-      const sel = window.getSelection ? window.getSelection() : document.selection;
-
-      if (sel) {
-        if (sel.removeAllRanges) {
-          sel.removeAllRanges();
-        } else if (sel.empty) {
-          sel.empty();
-        }
-      }
-      this.input.select();
-    }
-  };
-
   render() {
     const { className, disabled, query, onBack, onForward, onReload } = this.props;
 
@@ -84,7 +66,7 @@ export default class AddressBar extends React.PureComponent {
           disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
-          onFocus={(e) => this.handleSelect(e)}
+          onFocus={() => this.handleSelect()}
           defaultValue={query}
         />
 
@@ -111,11 +93,21 @@ export default class AddressBar extends React.PureComponent {
         onClick={this.props.onToggleSidebar}
       />
     );
-  }
+  };
 
   handleKeyDown = (event) => {
     if (event.which === RETURN_KEY) {
       this.props.onQuery(event.target.value);
+    }
+  }
+
+  handleSelect = () => {
+    const selection = window.getSelection ? window.getSelection() : null;
+    if (isEmpty(selection.toString())) {
+      this.input.select();
+    } else {
+      selection.empty();
+      this.input.select();
     }
   }
 
