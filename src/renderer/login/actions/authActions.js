@@ -5,8 +5,6 @@ import { signWithLedger } from '../util/ledger';
 
 export const ID = 'auth';
 
-const MIN_PASSPHRASE_LEN = 4;
-
 const wifAuthenticate = (wif) => {
   if (!wallet.isWIF(wif) && !wallet.isPrivateKey(wif)) {
     throw new Error('That is not a valid private key.');
@@ -18,10 +16,6 @@ const wifAuthenticate = (wif) => {
 };
 
 const nep2Authenticate = async (passphrase, encryptedWIF) => {
-  if (passphrase.length < MIN_PASSPHRASE_LEN) {
-    throw new Error('Passphrase is too short.');
-  }
-
   if (!wallet.isNEP2(encryptedWIF)) {
     throw new Error('That is not a valid encrypted key.');
   }
