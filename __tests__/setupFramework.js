@@ -1,4 +1,13 @@
+import nock from 'nock';
 import { getDisplayName } from 'recompose';
+
+beforeAll(() => {
+  nock.disableNetConnect();
+});
+
+afterEach(() => {
+  nock.cleanAll();
+});
 
 expect.extend({
   toContainObject(received, argument) {

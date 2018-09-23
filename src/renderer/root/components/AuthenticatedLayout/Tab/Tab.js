@@ -4,6 +4,7 @@ import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import Icon from 'shared/components/Icon';
+import FavIcon from 'shared/images/browser/favicon.svg';
 
 import styles from './Tab.scss';
 
@@ -12,6 +13,7 @@ export default class Tab extends React.PureComponent {
     className: string,
     active: bool,
     title: string.isRequired,
+    icon: string,
     loading: bool,
     onClick: func,
     onClose: func
@@ -20,6 +22,7 @@ export default class Tab extends React.PureComponent {
   static defaultProps = {
     className: null,
     active: false,
+    icon: null,
     loading: false,
     onClick: noop,
     onClose: noop
@@ -35,7 +38,7 @@ export default class Tab extends React.PureComponent {
         tabIndex={0}
         onClick={onClick}
       >
-        {this.renderLoading()}
+        {this.renderIcon()}
         <span className={styles.title}>{title}</span>
         <button type="button" className={styles.close} onClick={this.handleClose}>
           <span className={styles.closeContent}>
@@ -46,12 +49,16 @@ export default class Tab extends React.PureComponent {
     );
   }
 
-  renderLoading = () => {
-    if (!this.props.loading) {
-      return null;
-    }
+  renderIcon = () => {
+    const { loading, icon, title } = this.props;
 
-    return <Icon className={styles.loading} name="spin" />;
+    if (loading) {
+      return <Icon className={styles.loading} name="spin" />;
+    } else if (icon) {
+      return <img className={styles.icon} src={icon} alt={title} />;
+    } else {
+      return <FavIcon className={styles.icon} />;
+    }
   }
 
   handleClose = (event) => {

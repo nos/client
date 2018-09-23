@@ -44,7 +44,7 @@ export default class Tabs extends React.PureComponent {
   }
 
   renderTab = (tab, sessionId) => {
-    const { target, title, loading } = tab;
+    const { target, title, icon, loading } = tab;
 
     return (
       <Tab
@@ -52,6 +52,7 @@ export default class Tabs extends React.PureComponent {
         className={styles.tab}
         target={target}
         title={title}
+        icon={icon}
         loading={loading}
         active={sessionId === this.props.activeSessionId}
         onClick={this.handleClick(sessionId)}

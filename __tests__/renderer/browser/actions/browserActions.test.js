@@ -7,6 +7,7 @@ import {
   setTabError,
   setTabTarget,
   setTabTitle,
+  setTabIcon,
   setTabLoaded,
   NAVIGATE,
   OPEN_TAB,
@@ -16,6 +17,7 @@ import {
   SET_TAB_ERROR,
   SET_TAB_TARGET,
   SET_TAB_TITLE,
+  SET_TAB_ICON,
   SET_TAB_LOADED
 } from 'browser/actions/browserActions';
 
@@ -105,6 +107,18 @@ describe('browserActions', () => {
       expect(setTabTitle(sessionId, title)).toEqual({
         type: SET_TAB_TITLE,
         payload: { sessionId, title }
+      });
+    });
+  });
+
+  describe('setTabIcon', () => {
+    it('returns action object', () => {
+      const sessionId = 'abc123';
+      const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+
+      expect(setTabIcon(sessionId, url)).toEqual({
+        type: SET_TAB_ICON,
+        payload: { sessionId, url }
       });
     });
   });

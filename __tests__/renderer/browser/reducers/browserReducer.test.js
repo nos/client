@@ -11,6 +11,7 @@ import {
   SET_TAB_ERROR,
   SET_TAB_TARGET,
   SET_TAB_TITLE,
+  SET_TAB_ICON,
   SET_TAB_LOADED
 } from 'browser/actions/browserActions';
 
@@ -189,6 +190,22 @@ describe('browserReducer', () => {
 
     it('updates the title on the tab', () => {
       expect(updatedTab).toEqual({ ...originalTab, title });
+    });
+  });
+
+  describe('action type SET_TAB_ICON', () => {
+    const sessionId = initialState.activeSessionId;
+    const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+    const state = browserReducer(initialState, {
+      type: SET_TAB_ICON,
+      payload: { sessionId, url }
+    });
+
+    const originalTab = getActiveTab(initialState);
+    const updatedTab = getActiveTab(state);
+
+    it('updates the icon on the tab', () => {
+      expect(updatedTab).toEqual({ ...originalTab, icon: url });
     });
   });
 
