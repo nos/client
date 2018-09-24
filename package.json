@@ -65,7 +65,7 @@
     "dist": "yarn run clean && yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "pack": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "pretest": "yarn run lint && yarn run stylelint",
-    "test": "jest",
+    "test": "jest --maxWorkers=4",
     "test:debug": "node inspect ./node_modules/.bin/jest --runInBand",
     "stylelint": "stylelint src/**/*.scss",
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
