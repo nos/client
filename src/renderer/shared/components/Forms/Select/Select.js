@@ -191,7 +191,9 @@ export default class Select extends React.PureComponent {
   }
 
   handleShow = () => {
-    this.setOpen(true);
+    if (!this.props.disabled) {
+      this.setOpen(true);
+    }
   }
 
   handleHide = () => {
