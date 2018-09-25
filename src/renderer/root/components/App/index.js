@@ -7,6 +7,7 @@ import updateNetworks from 'util/updateNetworks';
 import Loading from 'shared/components/Loading';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withProgressChange from 'shared/hocs/withProgressChange';
+import feeActions from 'settings/actions/feeActions';
 import currencyActions from 'settings/actions/currencyActions';
 import currentNetworkActions from 'settings/actions/currentNetworkActions';
 import getAllNetworks from 'settings/actions/networksActions';
@@ -19,6 +20,7 @@ const mapNetworksToProps = (networks) => ({ networks });
 
 export default compose(
   withRouter,
+  withInitialCall(feeActions),
   withInitialCall(currencyActions),
   withInitialCall(currentNetworkActions),
   withInitialCall(getAllNetworks),
@@ -27,14 +29,11 @@ export default compose(
 
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([currencyActions, currentNetworkActions], { ... })
-  withProgressComponents(currencyActions, {
-    [LOADING]: Loading
-  }, {
-    strategy: alreadyLoadedStrategy
-  }),
-  withProgressComponents(currentNetworkActions, {
-    [LOADING]: Loading
-  }, {
-    strategy: alreadyLoadedStrategy
-  })
+  ...([feeActions, currencyActions, currentNetworkActions, getAllNetworks].map((actions) => {
+    return withProgressComponents(actions, {
+      [LOADING]: Loading
+    }, {
+      strategy: alreadyLoadedStrategy
+    });
+  }))
 )(App);
