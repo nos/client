@@ -4,6 +4,7 @@ import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import { NEO, GAS } from 'shared/values/assets';
@@ -14,6 +15,7 @@ import withPrompt from '../../../hocs/withPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
+const mapFeeDataToProps = (fee) => ({ fee });
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
 
@@ -48,19 +50,21 @@ export default function makeSend(sendActions) {
       title: 'Transfer'
     }),
 
-    // Get the current network & account data
+    // Get the current network, fee settings data, & account data
     withNetworkData(),
+    withData(feeActions, mapFeeDataToProps),
     withData(authActions, mapAuthDataToProps),
 
     // Send assets & wait for success or failure
-    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif, remark }) => ({
+    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif, remark, fee }) => ({
       net,
       amount,
       asset,
       receiver,
       address,
       wif,
-      remark
+      remark,
+      fee
     })),
     withNullLoader(sendActions),
     withRejectMessage(sendActions, ({ amount, asset, receiver, error }) => (

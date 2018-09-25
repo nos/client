@@ -7,9 +7,10 @@ import validateRemark from 'shared/util/validateRemark';
 import { ASSETS } from '../values/assets';
 
 export default async function sendAsset(
-  { net, asset, amount, receiver, address, wif, remark },
+  { net, asset, amount, receiver, address, wif, remark, fee = 0 },
   getBalance = api.neoscan.getBalance,
-  call = api.sendAsset
+  doSendAsset = api.sendAsset,
+  doInvoke = api.doInvoke
 ) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
@@ -24,13 +25,13 @@ export default async function sendAsset(
   }
 
   const send = async () => {
-    const config = { net, address, privateKey: wif };
+    const config = { net, address, privateKey: wif, fees: fee };
 
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset].symbol;
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
       const balance = await getBalance(net, address);
-      const transaction = tx.Transaction.createContractTx(balance, intents);
+      const transaction = tx.Transaction.createContractTx(balance, intents, {}, fee);
 
       if (typeof remark === 'string') {
         transaction.addRemark(remark);
@@ -40,18 +41,18 @@ export default async function sendAsset(
         }
       }
 
-      return call({ ...config, balance, tx: transaction }, api.neoscan);
+      return doSendAsset({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
       const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
 
-      return api.doInvoke({ ...config, script, gas: 0 }, api.neoscan);
+      return doInvoke({ ...config, script, gas: 0 }, api.neoscan);
     }
   };
 
   const { response: { result, txid } } = await send();
 
   if (!result) {
-    throw new Error('Invocation failed.');
+    throw new Error('Transaction rejected by blockchain');
   }
 
   return txid;

@@ -3,6 +3,7 @@ import { compose, withProps, withState, withHandlers } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
 
 import authActions from 'login/actions/authActions';
+import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
@@ -21,12 +22,14 @@ const mapSendActionsToProps = (actions, props) => ({
     net: props.net,
     address: props.address,
     wif: props.wif,
+    fee: props.fee,
     asset,
     amount,
     receiver
   })
 });
 
+const mapFeeDataToProps = (fee) => ({ fee });
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
 export default compose(
@@ -43,6 +46,7 @@ export default compose(
   }),
 
   withNetworkData(),
+  withData(feeActions, mapFeeDataToProps),
   withData(authActions, mapAuthDataToProps),
   withActions(sendActions, mapSendActionsToProps),
 
