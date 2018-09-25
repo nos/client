@@ -47,7 +47,6 @@ export default class Send extends React.PureComponent {
     return (
       <form className={classNames(styles.send, className)}>
         <LabeledSelect
-          className={styles.asset}
           id="asset"
           label="Token to send"
           placeholder="Select token"
@@ -57,7 +56,6 @@ export default class Send extends React.PureComponent {
           onChange={this.handleChangeAsset}
         />
         <LabeledInput
-          className={styles.amount}
           id="amount"
           type="number"
           label="Sending amount"
@@ -68,7 +66,6 @@ export default class Send extends React.PureComponent {
           onChange={this.handleChangeAmount}
         />
         <LabeledInput
-          className={styles.recipient}
           id="recipient"
           label="Recipient"
           placeholder="Wallet address"
