@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Sifter from 'sifter';
 import classNames from 'classnames';
-import { string, func, arrayOf } from 'prop-types';
+import { bool, string, func, arrayOf } from 'prop-types';
 import { noop, map, partial, find } from 'lodash';
 
 import refShape from 'shared/shapes/refShape';
@@ -20,6 +20,7 @@ export default class Select extends React.PureComponent {
   static propTypes = {
     forwardedRef: refShape,
     className: string,
+    disabled: bool,
     id: string.isRequired,
     placeholder: string,
     items: arrayOf(selectItemShape),
@@ -29,8 +30,9 @@ export default class Select extends React.PureComponent {
   };
 
   static defaultProps = {
-    className: null,
     forwardedRef: null,
+    className: null,
+    disabled: false,
     placeholder: '',
     items: [],
     value: null,
@@ -55,9 +57,13 @@ export default class Select extends React.PureComponent {
   }
 
   render() {
+    const className = classNames(styles.select, this.props.className, {
+      [styles.disabled]: this.props.disabled
+    });
+
     return (
       <Dropdown
-        className={classNames(styles.select, this.props.className)}
+        className={className}
         ref={this.dropdown}
         id={this.props.id}
         open={this.state.open}

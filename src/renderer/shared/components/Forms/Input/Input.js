@@ -2,7 +2,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { string, func } from 'prop-types';
+import { bool, string, func } from 'prop-types';
 import { noop, omit } from 'lodash';
 
 import refShape from 'shared/shapes/refShape';
@@ -11,8 +11,9 @@ import styles from './Input.scss';
 
 export default class Input extends React.PureComponent {
   static propTypes = {
-    className: string,
     forwardedRef: refShape,
+    className: string,
+    disabled: bool,
     renderBefore: func,
     renderAfter: func,
     onFocus: func,
@@ -21,6 +22,7 @@ export default class Input extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    disabled: false,
     forwardedRef: null,
     renderBefore: null,
     renderAfter: null,
@@ -36,7 +38,8 @@ export default class Input extends React.PureComponent {
 
   render() {
     const className = classNames(styles.container, this.props.className, {
-      [styles.focus]: this.state.focus
+      [styles.focus]: this.state.focus,
+      [styles.disabled]: this.props.disabled
     });
 
     const passDownProps = omit(this.props, 'className', 'forwardedRef', 'renderBefore',
