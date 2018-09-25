@@ -7,7 +7,7 @@ import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
-import withAlert from 'shared/hocs/withAlert';
+import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
@@ -54,15 +54,16 @@ export default compose(
   withProps((props) => ({ loading: props.progress === LOADING })),
 
   withConfirm(),
-  withAlert(),
+  withSuccessToast(),
+  withErrorToast(),
 
   withLoadingProp(sendActions, { strategy: pureStrategy }),
   withProgressChange(sendActions, LOADED, (state, props) => {
-    props.alert('Transaction complete');
+    props.showSuccessToast('Transaction added to blockchain');
     props.setAmount('0');
     props.setReceiver('');
   }),
   withProgressChange(sendActions, FAILED, (state, props) => {
-    props.alert(`Error: ${state.error}`);
+    props.showErrorToast(`Transaction failed. ${state.error}`);
   })
 )(Send);
