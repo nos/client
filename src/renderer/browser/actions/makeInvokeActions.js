@@ -10,7 +10,9 @@ import generateDAppActionId from './generateDAppActionId';
 
 export const ID = 'invoke';
 
-async function doInvoke({ net, address, wif, scriptHash, operation, args, encodeArgs, assets }) {
+async function doInvoke({
+  net, address, wif, scriptHash, operation, assets, args, encodeArgs = true, fee = 0
+}) {
   if (!wallet.isScriptHash(scriptHash)) {
     throw new Error(`Invalid script hash: "${scriptHash}"`);
   }
@@ -28,7 +30,8 @@ async function doInvoke({ net, address, wif, scriptHash, operation, args, encode
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
-    gas: 0
+    gas: 0,
+    fees: fee
   };
 
   if (assets) {
@@ -48,17 +51,5 @@ async function doInvoke({ net, address, wif, scriptHash, operation, args, encode
 
 export default function makeInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
-
-  return createActions(id, ({
-    net,
-    address,
-    wif,
-    scriptHash,
-    operation,
-    args,
-    assets,
-    encodeArgs = true
-  }) => () => {
-    return doInvoke({ net, address, wif, scriptHash, operation, args, assets, encodeArgs });
-  });
+  return createActions(id, (options) => () => doInvoke(options));
 }

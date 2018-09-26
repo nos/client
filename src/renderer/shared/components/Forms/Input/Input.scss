@@ -1,4 +1,7 @@
 .container {
+  $disabled-background: #f1f1f5;
+  $disabled-color: #9595a1;
+
   display: flex;
   align-items: center;
   flex-flow: nowrap;
@@ -40,6 +43,19 @@
 
     .input {
       outline: none;
+    }
+  }
+
+  &.disabled {
+    background: $disabled-background;
+    box-shadow: none;
+
+    .input {
+      color: $disabled-color;
+
+      &::placeholder {
+        color: $disabled-color;
+      }
     }
   }
 }
