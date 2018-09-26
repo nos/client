@@ -103,12 +103,11 @@ export default class AddressBar extends React.PureComponent {
 
   handleSelect = () => {
     const selection = window.getSelection ? window.getSelection() : null;
-    if (isEmpty(selection.toString())) {
-      this.input.select();
-    } else {
+    if (!isEmpty(selection.toString())) {
       selection.empty();
-      this.input.select();
     }
+
+    this.input.select();
   }
 
   registerRef = (el) => {
