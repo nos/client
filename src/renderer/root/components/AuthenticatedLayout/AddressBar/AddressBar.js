@@ -66,7 +66,8 @@ export default class AddressBar extends React.PureComponent {
           disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
-          onFocus={this.handleSelect}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
           defaultValue={query}
         />
 
@@ -101,13 +102,16 @@ export default class AddressBar extends React.PureComponent {
     }
   }
 
-  handleSelect = () => {
+  handleMouseDown = () => {
     const selection = window.getSelection ? window.getSelection() : null;
-    if (!isEmpty(selection.toString())) {
-      selection.empty();
-    }
+    selection.empty();
+  };
 
-    this.input.select();
+  handleMouseUp = () => {
+    const selection = window.getSelection ? window.getSelection() : null;
+    if (isEmpty(selection.toString())) {
+      this.input.select();
+    }
   }
 
   registerRef = (el) => {
