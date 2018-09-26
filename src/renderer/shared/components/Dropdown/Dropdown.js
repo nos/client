@@ -23,6 +23,7 @@ export default class Dropdown extends React.PureComponent {
   static propTypes = {
     forwardedRef: refShape,
     className: string,
+    dropdownClass: string,
     children: node,
     content: node,
     open: bool,
@@ -34,6 +35,7 @@ export default class Dropdown extends React.PureComponent {
   static defaultProps = {
     forwardedRef: null,
     className: null,
+    dropdownClass: null,
     children: null,
     content: null,
     open: false,
@@ -74,7 +76,7 @@ export default class Dropdown extends React.PureComponent {
 
   render() {
     return (
-      <div className={styles.dropdown}>
+      <div className={classNames(styles.dropdown, this.props.dropdownClass)}>
         {this.renderContainer()}
         {this.renderPortal()}
       </div>
@@ -103,8 +105,8 @@ export default class Dropdown extends React.PureComponent {
   renderPortal = () => {
     const portalProps = pick(this.props, 'onClickOutside');
     const contentProps = omit(
-      this.props, 'forwardedRef', 'className', 'children', 'content', 'open', 'overlap',
-      'onClick', 'onClickOutside'
+      this.props, 'forwardedRef', 'className', 'dropdownClass', 'children', 'content', 'open',
+      'overlap', 'onClick', 'onClickOutside'
     );
 
     return (

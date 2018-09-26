@@ -20,7 +20,8 @@ const receiverAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 const getStore = () => createStore({
   [spunkyKey]: {
     currentNetwork: mockSpunkyLoaded(currentNetwork),
-    auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif })
+    auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif }),
+    fee: mockSpunkyLoaded('0.00000000')
   }
 });
 

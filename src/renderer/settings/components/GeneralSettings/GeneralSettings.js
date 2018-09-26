@@ -2,6 +2,8 @@ import React from 'react';
 import { string, func } from 'prop-types';
 import { map } from 'lodash';
 
+import Label from 'shared/components/Forms/Label';
+import LiveUpdateInput from 'shared/components/Forms/LiveUpdateInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import GeneralIcon from 'shared/images/settings/general.svg';
 import CURRENCIES from 'shared/values/currencies';
@@ -13,7 +15,9 @@ import styles from './GeneralSettings.scss';
 export default class GeneralSettings extends React.PureComponent {
   static propTypes = {
     currency: string.isRequired,
-    setCurrency: func.isRequired
+    fee: string.isRequired,
+    setCurrency: func.isRequired,
+    setFee: func.isRequired
   };
 
   render() {
@@ -33,13 +37,22 @@ export default class GeneralSettings extends React.PureComponent {
             items={this.getCurrencyItems()}
             onChange={this.handleChangeCurrency}
           />
+
+          <Label className={styles.label} htmlFor="fee" label="Default GAS Priority Fee">
+            <LiveUpdateInput
+              id="fee"
+              className={styles.input}
+              defaultValue={this.props.fee}
+              onChange={this.props.setFee}
+            />
+          </Label>
         </SectionContent>
       </div>
     );
   }
 
-  handleChangeCurrency = (value) => {
-    this.props.setCurrency(value);
+  handleChangeCurrency = (event) => {
+    this.props.setCurrency(event.target.value);
   }
 
   getCurrencyItems = () => {

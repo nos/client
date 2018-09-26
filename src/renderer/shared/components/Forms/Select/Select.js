@@ -57,13 +57,14 @@ export default class Select extends React.PureComponent {
   }
 
   render() {
-    const className = classNames(styles.select, this.props.className, {
+    const className = classNames(styles.select, {
       [styles.disabled]: this.props.disabled
     });
 
     return (
       <Dropdown
         className={className}
+        dropdownClass={this.props.className}
         ref={this.dropdown}
         id={this.props.id}
         open={this.state.open}
