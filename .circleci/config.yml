@@ -77,7 +77,7 @@ jobs:
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libusb-1.0-0-dev
       - run: yarn install
-      - run: yarn dist -w --x64
+      - run: yarn dist --win --x64
       - store_artifacts:
           path: dist
           destination: build
@@ -93,7 +93,7 @@ jobs:
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libusb-1.0-0-dev
       - run: yarn install
-      - run: yarn dist --ia32
+      - run: yarn dist --win --ia32
       - store_artifacts:
           path: dist
           destination: build
@@ -108,7 +108,7 @@ jobs:
           - v1-dependencies-
       - run: sudo yarn global add yarn@1.9.4
       - run: yarn install
-      - run: yarn dist
+      - run: yarn dist --linux
       - store_artifacts:
           path: dist
           destination: build
@@ -124,7 +124,7 @@ jobs:
       - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       - run: brew install yarn
       - run: yarn install
-      - run: yarn dist
+      - run: yarn dist --mac
       - store_artifacts:
           path: dist
           destination: build
