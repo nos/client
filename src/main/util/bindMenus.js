@@ -53,7 +53,7 @@ function bindAppMenu(webview) {
         },
         {
           label: 'Reload',
-          accelorator: 'CmdOrCtrl+R',
+          accelerator: 'CmdOrCtrl+R',
           enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
           click: () => webview.reload()
         },
