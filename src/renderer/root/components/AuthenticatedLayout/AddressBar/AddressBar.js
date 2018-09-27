@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { func, string, bool } from 'prop-types';
-import { noop } from 'lodash';
+import { noop, isEmpty } from 'lodash';
 
 import SidebarIcon from 'shared/images/icons/sidebar.svg';
 import SidebarActiveIcon from 'shared/images/icons/sidebar-active.svg';
@@ -66,6 +66,8 @@ export default class AddressBar extends React.PureComponent {
           disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
           defaultValue={query}
         />
 
@@ -92,11 +94,23 @@ export default class AddressBar extends React.PureComponent {
         onClick={this.props.onToggleSidebar}
       />
     );
-  }
+  };
 
   handleKeyDown = (event) => {
     if (event.which === RETURN_KEY) {
       this.props.onQuery(event.target.value);
+    }
+  }
+
+  handleMouseDown = () => {
+    const selection = window.getSelection ? window.getSelection() : null;
+    selection.empty();
+  };
+
+  handleMouseUp = () => {
+    const selection = window.getSelection ? window.getSelection() : null;
+    if (isEmpty(selection.toString())) {
+      this.input.select();
     }
   }
 
