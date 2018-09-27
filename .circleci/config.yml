@@ -139,6 +139,15 @@ workflows:
       - test:
           requires:
             - build
+      - deploy_win32:
+          requires:
+            - build
+      - deploy_win64:
+          requires:
+            - build
+      - deploy_linux:
+          requires:
+            - build
   deploy:
     jobs:
       - deploy_win64:
