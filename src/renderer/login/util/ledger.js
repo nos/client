@@ -1,5 +1,12 @@
-import LedgerNode from '@ledgerhq/hw-transport-node-hid';
 import { tx, wallet, u } from '@cityofzion/neon-js';
+
+let LedgerNode;
+
+try {
+  LedgerNode = require('@ledgerhq/hw-transport-node-hid'); // eslint-disable-line global-require
+} catch (err) {
+  LedgerNode = null;
+}
 
 const VALID_STATUS = 0x9000;
 const MSG_TOO_BIG = 0x6d08;
@@ -70,13 +77,17 @@ export default class NeonLedger {
     this.path = path;
   }
 
+  static isSupported() {
+    return !!LedgerNode;
+  }
+
   /**
    * Initialises by listing devices and trying to find a ledger device connected.
    * Throws an error if no ledgers detected or unable to connect.
    * @return {Promise<NeonLedger>}
    */
   static async init() {
-    const supported = await LedgerNode.isSupported();
+    const supported = NeonLedger.isSupported() && await LedgerNode.isSupported();
     if (!supported) throw new Error('Your system does not support Ledger.');
     const paths = await NeonLedger.list();
     if (paths.length === 0) throw new Error('No USB device found.');
