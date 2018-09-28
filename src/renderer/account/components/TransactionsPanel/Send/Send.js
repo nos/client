@@ -1,14 +1,15 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import classNames from 'classnames';
 import { func, string, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
-import { BigNumber } from 'bignumber.js';
 import { map, noop } from 'lodash';
 
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
+import PriorityFee from './PriorityFee';
 import TokenItem from './TokenItem';
 import isNumeric from '../../../util/isNumeric';
 import balanceShape from '../../../shapes/balanceShape';
@@ -23,6 +24,7 @@ export default class Send extends React.PureComponent {
     asset: string.isRequired,
     amount: string,
     receiver: string,
+    fee: string,
     setAmount: func,
     setReceiver: func,
     setAsset: func,
@@ -34,6 +36,7 @@ export default class Send extends React.PureComponent {
     className: null,
     amount: '',
     receiver: '',
+    fee: '0',
     setAmount: noop,
     setReceiver: noop,
     setAsset: noop,
@@ -47,7 +50,6 @@ export default class Send extends React.PureComponent {
     return (
       <form className={classNames(styles.send, className)}>
         <LabeledSelect
-          className={styles.asset}
           id="asset"
           label="Token to send"
           placeholder="Select token"
@@ -57,7 +59,6 @@ export default class Send extends React.PureComponent {
           onChange={this.handleChangeAsset}
         />
         <LabeledInput
-          className={styles.amount}
           id="amount"
           type="number"
           label="Sending amount"
@@ -68,12 +69,15 @@ export default class Send extends React.PureComponent {
           onChange={this.handleChangeAmount}
         />
         <LabeledInput
-          className={styles.recipient}
           id="recipient"
           label="Recipient"
           placeholder="Wallet address"
           value={receiver}
           onChange={this.handleChangeRecipient}
+        />
+        <PriorityFee
+          className={styles.fee}
+          fee={this.props.fee}
         />
         <PrimaryButton
           className={styles.next}

@@ -24,6 +24,7 @@ describe('<DAppContainer />', () => {
     setTabError: noop,
     setTabTitle: noop,
     setTabTarget: noop,
+    setTabIcon: noop,
     setTabLoaded: noop,
     enqueue: noop,
     dequeue: noop,

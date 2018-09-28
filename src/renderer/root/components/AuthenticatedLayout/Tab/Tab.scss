@@ -41,6 +41,16 @@
     background: #fff;
   }
 
+  .loading {
+    @include spin;
+  }
+
+  .loading,
+  .icon {
+    flex: 0 0 auto;
+    margin-right: 8px;
+  }
+
   .title {
     flex: 0 1 auto;
     max-width: 100px;
@@ -75,11 +85,5 @@
       flex: 0 0 auto;
       display: inline-flex;
     }
-  }
-
-  .loading {
-    @include spin;
-    flex: 0 0 auto;
-    margin-right: 8px;
   }
 }

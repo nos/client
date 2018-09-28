@@ -3,10 +3,11 @@ import { compose, withProps, withState, withHandlers } from 'recompose';
 import { withData, withActions, withProgress, progressValues } from 'spunky';
 
 import authActions from 'login/actions/authActions';
+import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
-import withAlert from 'shared/hocs/withAlert';
+import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
@@ -21,12 +22,14 @@ const mapSendActionsToProps = (actions, props) => ({
     net: props.net,
     address: props.address,
     wif: props.wif,
+    fee: props.fee,
     asset,
     amount,
     receiver
   })
 });
 
+const mapFeeDataToProps = (fee) => ({ fee });
 const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 
 export default compose(
@@ -43,6 +46,7 @@ export default compose(
   }),
 
   withNetworkData(),
+  withData(feeActions, mapFeeDataToProps),
   withData(authActions, mapAuthDataToProps),
   withActions(sendActions, mapSendActionsToProps),
 
@@ -50,15 +54,16 @@ export default compose(
   withProps((props) => ({ loading: props.progress === LOADING })),
 
   withConfirm(),
-  withAlert(),
+  withSuccessToast(),
+  withErrorToast(),
 
   withLoadingProp(sendActions, { strategy: pureStrategy }),
   withProgressChange(sendActions, LOADED, (state, props) => {
-    props.alert('Transaction complete');
+    props.showSuccessToast('Transaction added to blockchain');
     props.setAmount('0');
     props.setReceiver('');
   }),
   withProgressChange(sendActions, FAILED, (state, props) => {
-    props.alert(`Error: ${state.error}`);
+    props.showErrorToast(`Transaction failed. ${state.error}`);
   })
 )(Send);

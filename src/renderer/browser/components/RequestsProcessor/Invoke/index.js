@@ -11,15 +11,16 @@ import withClean from '../../../hocs/withClean';
 import withInvocationPrompt from '../../../hocs/withInvocationPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
+import withSignTransactionToast from '../../../hocs/withSignTransactionToast';
 import withValidation from '../../../hocs/withValidation';
 import validateInvokeArgs from '../../../util/validateInvokeArgs';
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 
-const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
+const mapAuthDataToProps = (data) => data;
 const mapInvokeDataToProps = (txid) => ({ txid });
 
-export default function makeInvoke(invokeActions) {
+export default function makeInvoke(invokeActions, balancesActions) {
   return compose(
     // Clean redux store when done
     withClean(invokeActions),
@@ -31,7 +32,7 @@ export default function makeInvoke(invokeActions) {
     withValidation(validateInvokeArgs),
 
     // Prompt user
-    withInvocationPrompt,
+    withInvocationPrompt(balancesActions),
 
     // Get the current network and account data
     withNetworkData(),
@@ -42,6 +43,8 @@ export default function makeInvoke(invokeActions) {
       net,
       address,
       wif,
+      publicKey,
+      signingFunction,
       scriptHash,
       operation,
       args,
@@ -51,12 +54,15 @@ export default function makeInvoke(invokeActions) {
       net,
       address,
       wif,
+      publicKey,
+      signingFunction,
       scriptHash,
       operation,
       args,
       assets,
       encodeArgs
     })),
+    withSignTransactionToast,
     withNullLoader(invokeActions),
     withRejectMessage(invokeActions, ({ operation, scriptHash, error }) => (
       `Could not perform operation '${operation}' on contract with address '${scriptHash}': ${error}`

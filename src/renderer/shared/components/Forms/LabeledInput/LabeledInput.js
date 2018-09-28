@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, node } from 'prop-types';
+import { bool, string, node } from 'prop-types';
 
 import refShape from 'shared/shapes/refShape';
 
@@ -13,20 +13,23 @@ export default class LabeledInput extends React.PureComponent {
     forwardedRef: refShape,
     id: string.isRequired,
     label: node.isRequired,
-    labelClass: string
+    labelClass: string,
+    disabled: bool
   };
 
   static defaultProps = {
     forwardedRef: null,
-    labelClass: null
+    labelClass: null,
+    disabled: false
   };
 
   render() {
-    const { id, label, labelClass, forwardedRef, ...passDownProps } = this.props;
+    const { id, label, labelClass, disabled, forwardedRef, ...passDownProps } = this.props;
+    const className = classNames(styles.labeledInput, labelClass);
 
     return (
-      <Label htmlFor={id} label={label} className={classNames(styles.labeledInput, labelClass)}>
-        <Input id={id} ref={forwardedRef} {...passDownProps} />
+      <Label htmlFor={id} label={label} disabled={disabled} className={className}>
+        <Input id={id} ref={forwardedRef} disabled={disabled} {...passDownProps} />
       </Label>
     );
   }

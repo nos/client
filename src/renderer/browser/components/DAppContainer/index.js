@@ -8,6 +8,7 @@ import {
   setTabError,
   setTabTitle,
   setTabTarget,
+  setTabIcon,
   setTabLoaded,
   openTab,
   closeTab
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   setTabError,
   setTabTitle,
   setTabTarget,
+  setTabIcon,
   setTabLoaded,
   openTab,
   closeTab,

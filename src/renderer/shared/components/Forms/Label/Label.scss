@@ -1,4 +1,6 @@
 .wrapper {
+  $disabled-color: #9595a1;
+
   display: block;
 
   .label {
@@ -10,5 +12,9 @@
     font-size: 14px;
     font-weight: 500;
     -webkit-font-smoothing: antialiased;
+  }
+
+  &.disabled .label {
+    color: $disabled-color;
   }
 }

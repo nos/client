@@ -44,7 +44,6 @@ export default class Browser extends React.PureComponent {
     return (
       <InternalPage
         key={sessionId}
-        className={styles.internalPage}
         active={this.isActive(sessionId)}
         tab={tab}
       />

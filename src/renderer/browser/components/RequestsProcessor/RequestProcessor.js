@@ -1,6 +1,6 @@
 import React from 'react';
 import { string, func } from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual, castArray } from 'lodash';
 
 import { getComponent, getActions } from './mappings';
 import requestShape from '../../shapes/requestShape';
@@ -54,8 +54,8 @@ export default class RequestProcessor extends React.PureComponent {
   getComponent = ({ sessionId, request }) => {
     const makeComponent = getComponent(request.channel);
     const makeActions = getActions(request.channel);
-    const actions = makeActions(sessionId, request.id);
+    const actions = castArray(makeActions).map((makeAction) => makeAction(sessionId, request.id));
 
-    return makeComponent(actions);
+    return makeComponent(...actions);
   }
 }

@@ -1,34 +1,40 @@
 import { createActions } from 'spunky';
 import { wallet, api } from '@cityofzion/neon-js';
-import { isArray, mapKeys } from 'lodash';
+import { mapKeys } from 'lodash';
 
 import createScript from 'shared/util/createScript';
 import formatAssets from 'shared/util/formatAssets';
 import { ASSETS } from 'shared/values/assets';
 
 import generateDAppActionId from './generateDAppActionId';
+import validateInvokeArgs from '../util/validateInvokeArgs';
 
 export const ID = 'invoke';
 
-async function doInvoke({ net, address, wif, scriptHash, operation, args, encodeArgs, assets }) {
-  if (!wallet.isScriptHash(scriptHash)) {
-    throw new Error(`Invalid script hash: "${scriptHash}"`);
-  }
-
-  if (typeof operation !== 'string') {
-    throw new Error(`Invalid operation: "${operation}"`);
-  }
-
-  if (!isArray(args)) {
-    throw new Error(`Invalid arguments: "${args}"`);
-  }
+async function doInvoke({
+  net,
+  address,
+  wif,
+  publicKey,
+  signingFunction,
+  scriptHash,
+  operation,
+  assets,
+  args,
+  encodeArgs = true,
+  fee = 0
+}) {
+  validateInvokeArgs({ scriptHash, operation, args, assets });
 
   const config = {
     net,
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
-    gas: 0
+    publicKey,
+    signingFunction,
+    gas: 0,
+    fees: fee
   };
 
   if (assets) {
@@ -37,7 +43,7 @@ async function doInvoke({ net, address, wif, scriptHash, operation, args, encode
     config.intents = api.makeIntent(intentConfig, scAddress);
   }
 
-  const { response: { result, txid } } = await api.doInvoke(config);
+  const { response: { result, txid } } = await api.doInvoke(config, api.neoscan);
 
   if (!result) {
     throw new Error('Invocation failed.');
@@ -48,17 +54,5 @@ async function doInvoke({ net, address, wif, scriptHash, operation, args, encode
 
 export default function makeInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
-
-  return createActions(id, ({
-    net,
-    address,
-    wif,
-    scriptHash,
-    operation,
-    args,
-    assets,
-    encodeArgs = true
-  }) => () => {
-    return doInvoke({ net, address, wif, scriptHash, operation, args, assets, encodeArgs });
-  });
+  return createActions(id, (options) => () => doInvoke(options));
 }

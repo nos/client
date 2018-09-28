@@ -6,6 +6,7 @@ import { noop } from 'lodash';
 
 import getStaticPath from '../../../util/getStaticPath';
 import bindContextMenu from '../../util/bindContextMenu';
+import fetchBestIcon from '../../util/fetchBestIcon';
 import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
@@ -20,6 +21,7 @@ export default class DAppContainer extends React.PureComponent {
     setTabError: func.isRequired,
     setTabTitle: func.isRequired,
     setTabTarget: func.isRequired,
+    setTabIcon: func.isRequired,
     setTabLoaded: func.isRequired,
     enqueue: func.isRequired,
     dequeue: func.isRequired,
@@ -42,6 +44,7 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
     this.webview.addEventListener('new-window', this.handleNewWindow);
     this.webview.addEventListener('page-title-updated', this.handlePageTitleUpdated);
+    this.webview.addEventListener('page-favicon-updated', this.handlePageIconUpdated);
     this.webview.addEventListener('will-navigate', this.handleNavigatingToPage);
     this.webview.addEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.addEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
@@ -74,6 +77,7 @@ export default class DAppContainer extends React.PureComponent {
     this.webview.removeEventListener('ipc-message', this.handleIPCMessage);
     this.webview.removeEventListener('new-window', this.handleNewWindow);
     this.webview.removeEventListener('page-title-updated', this.handlePageTitleUpdated);
+    this.webview.removeEventListener('page-favicon-updated', this.handlePageIconUpdated);
     this.webview.removeEventListener('will-navigate', this.handleNavigatingToPage);
     this.webview.removeEventListener('did-navigate', this.handleNavigatedToPage);
     this.webview.removeEventListener('did-navigate-in-page', this.handleNavigatedToAnchor);
@@ -155,6 +159,10 @@ export default class DAppContainer extends React.PureComponent {
 
   handlePageTitleUpdated = (event) => {
     this.props.setTabTitle(this.props.sessionId, event.title);
+  }
+
+  handlePageIconUpdated = async (event) => {
+    this.props.setTabIcon(this.props.sessionId, await fetchBestIcon(event.favicons));
   }
 
   handleNavigatingToPage = (event) => {

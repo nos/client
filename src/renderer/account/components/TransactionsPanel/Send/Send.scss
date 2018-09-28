@@ -1,6 +1,10 @@
 .send {
   margin: 20px 0 0;
 
+  .fee {
+    text-align: center;
+  }
+
   .next {
     @include webComponent;
     display: block;
