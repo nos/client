@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import { bool, string, func } from 'prop-types';
+import { bool, string, func, oneOf } from 'prop-types';
 import { noop } from 'lodash';
 
 import Icon from 'shared/components/Icon';
-import FavIcon from 'shared/images/browser/favicon.svg';
+import { INTERNAL, EXTERNAL } from 'browser/values/browserValues';
 
+import FavIcon from '../FavIcon';
 import styles from './Tab.scss';
 
 export default class Tab extends React.PureComponent {
@@ -13,6 +14,7 @@ export default class Tab extends React.PureComponent {
     className: string,
     active: bool,
     title: string.isRequired,
+    type: oneOf([INTERNAL, EXTERNAL]).isRequired,
     icon: string,
     loading: bool,
     onClick: func,
@@ -50,14 +52,12 @@ export default class Tab extends React.PureComponent {
   }
 
   renderIcon = () => {
-    const { loading, icon, title } = this.props;
+    const { loading, icon, title, type } = this.props;
 
     if (loading) {
       return <Icon className={styles.loading} name="spin" />;
-    } else if (icon) {
-      return <img className={styles.icon} src={icon} alt={title} />;
     } else {
-      return <FavIcon className={styles.icon} />;
+      return <FavIcon className={styles.icon} icon={icon} type={type} title={title} />;
     }
   }
 

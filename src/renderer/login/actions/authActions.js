@@ -1,11 +1,9 @@
 import { wallet } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
-// import { ledgerNanoSCreateSignatureAsync } from '../ledger/ledgerNanoS';
+import { signWithLedger } from '../util/ledger';
 
 export const ID = 'auth';
-
-const MIN_PASSPHRASE_LEN = 4;
 
 const wifAuthenticate = (wif) => {
   if (!wallet.isWIF(wif) && !wallet.isPrivateKey(wif)) {
@@ -18,10 +16,6 @@ const wifAuthenticate = (wif) => {
 };
 
 const nep2Authenticate = async (passphrase, encryptedWIF) => {
-  if (passphrase.length < MIN_PASSPHRASE_LEN) {
-    throw new Error('Passphrase is too short.');
-  }
-
   if (!wallet.isNEP2(encryptedWIF)) {
     throw new Error('That is not a valid encrypted key.');
   }
@@ -35,9 +29,8 @@ const nep2Authenticate = async (passphrase, encryptedWIF) => {
 const ledgerAuthenticate = (publicKey) => {
   const publicKeyEncoded = wallet.getPublicKeyEncoded(publicKey);
   const account = new wallet.Account(publicKeyEncoded);
-  const signingFunction = null; // ledgerNanoSCreateSignatureAsync
 
-  return { publicKey, address: account.address, signingFunction };
+  return { publicKey, address: account.address, signingFunction: signWithLedger };
 };
 
 export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
