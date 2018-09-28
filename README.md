@@ -37,35 +37,31 @@
 
 # Getting Started with nOS
 
-The standalone client installers can be found 
-[here](https://github.com/nos/client/releases).
-To build manually, the client can be cloned from GitHub and run using the development steps below.
+The standalone client installers can be found [here](https://github.com/nos/client/releases). To build manually, the client can be cloned from GitHub and run using the development steps below.
 
 ### Commands
-```c
-// Cloning from Github
+```bash
+# Cloning from Github
 git clone https://github.com/nos/client.git
 
-// Install dependencies and launch the nOS client
-// This is used to start developing on the nOS client
+# Install dependencies and launch the nOS client
+# This is used to start developing on the nOS client
 yarn install && yarn start
 
-// Testing command
+# Testing command
 yarn test
 
-// Testing with debug (repl) command
+# Testing with debug (repl) command
 yarn test:debug
 
-// Distribution command
+# Distribution command
 yarn dist
 ```
 
 
 
 ## Getting started with nOS Development
-Need some help with building nOS dApps? Check out our dedicated 
-[documentation website](https://docs.nos.io/) 
-containing useful info for the following topics:
+Need some help with building nOS dApps? Check out our dedicated [documentation website](https://docs.nos.io/) containing useful info for the following topics:
 - [**nOS Client API Documentation**](https://docs.nos.io/docs/nos-client/api.html)
 - [Create nOS dApp Usage](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html)
 - [nOS Local Setup and usage](https://docs.nos.io/docs/nos-local/installation-usage.html)
@@ -79,9 +75,7 @@ Future resources:
 
 
 # Contribute to this repository
-We welcome contributions to the code base. If you are interested in becoming a contributor, please read the 
-[contributing guide](/.github/CONTRIBUTING.md) 
-that covers the following:
+We welcome contributions to the code base. If you are interested in becoming a contributor, please read the [contributing guide](/.github/CONTRIBUTING.md) that covers the following:
 
 - [Reporting bugs](/.github/CONTRIBUTING.md#reporting-bugs)
 - [Suggesting enhancements](/.github/CONTRIBUTING.md#Suggesting-Enhancements)
@@ -93,9 +87,7 @@ There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Disc
 
 
 # Contribute by building a dApp on nOS
-**Check out the documentation of the 
-[Create nOS dApp CLI tool](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html) 
-to get going quickly.**
+**Check out the documentation of the [Create nOS dApp CLI tool](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html) to get going quickly.**
 
 Resources:
 
@@ -107,9 +99,7 @@ Resources:
 
 # Releasing
 ## Windows & Linux
-We use 
-[CircleCI](https://circleci.com/gh/nos/client) 
-to automatically create builds based upon git tags.
+We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create builds based upon git tags.
 
 1. Create a tag, e.g. `1.0.0`.
   a. `git tag -a 1.0.0`
