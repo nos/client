@@ -2,7 +2,7 @@
   "name": "nOS",
   "description": "nOS: NEO Operating System",
   "author": "nOS",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "main": "dist/main/main.js",
   "license": "MIT",
