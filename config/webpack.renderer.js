@@ -61,8 +61,11 @@ function replaceSvgLoader(config) {
   return merge.smart({}, updatedConfig, {
     module: {
       rules: [{
-        test: /\.(svg)$/,
-        loader: 'svg-react-loader'
+        test: /\.svg$/,
+        use: [
+          { loader: 'file-loader' },
+          { loader: 'svgo-loader' }
+        ]
       }]
     }
   });
