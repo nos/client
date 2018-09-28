@@ -37,25 +37,24 @@
 
 # Getting Started with nOS
 
-The standalone client installers can be found [here](https://github.com/nos/client/releases).
-To build manually, the client can be cloned from GitHub and run using the development steps below.
+The standalone client installers can be found [here](https://github.com/nos/client/releases). To build manually, the client can be cloned from GitHub and run using the development steps below.
 
 ### Commands
-```
-// Cloning from Github
+```bash
+# Cloning from Github
 git clone https://github.com/nos/client.git
 
-// Install dependencies and launch the nOS client
-// This is used to start developing on the nOS client
+# Install dependencies and launch the nOS client
+# This is used to start developing on the nOS client
 yarn install && yarn start
 
-// Testing command
+# Testing command
 yarn test
 
-// Testing with debug (repl) command
+# Testing with debug (repl) command
 yarn test:debug
 
-// Distribution command
+# Distribution command
 yarn dist
 ```
 
