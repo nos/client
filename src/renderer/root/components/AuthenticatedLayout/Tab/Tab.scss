@@ -45,12 +45,6 @@
     @include spin;
   }
 
-  .icon {
-    width: 16px;
-    height: 16px;
-    color: $light-text-color;
-  }
-
   .loading,
   .icon {
     flex: 0 0 auto;
