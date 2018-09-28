@@ -11,18 +11,11 @@ references:
       - image: circleci/node:8.11.3
     working_directory: *workspace
 
-  win64_config: &win64_config
+  win_config: &win_config
     docker:
       - image: electronuserland/builder:wine
         environment:
           TARGET_ARCH: x64
-    working_directory: *workspace
-
-  win32_config: &win32_config
-    docker:
-      - image: electronuserland/builder:wine
-        environment:
-          TARGET_ARCH: ia32
     working_directory: *workspace
 
   mac_config: &mac_config
@@ -66,34 +59,19 @@ jobs:
       - path: artifacts
       - destination: yarnpkg
 
-  deploy_win64:
-    <<: *win64_config
+  deploy_win:
+    <<: *win_config
     steps:
       - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
+      - run: dpkg --add-architecture i386
       - run: apt-get -y update
-      - run: apt-get -y install libudev-dev libusb-1.0-0-dev
+      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
       - run: yarn install
-      - run: yarn dist --win --x64
-      - store_artifacts:
-          path: dist
-          destination: build
-
-  deploy_win32:
-    <<: *win32_config
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: apt-get -y update
-      - run: apt-get -y install libudev-dev libusb-1.0-0-dev
-      - run: yarn install
-      - run: yarn dist --win --ia32
+      - run: yarn dist --win --x64 --ia32
       - store_artifacts:
           path: dist
           destination: build
@@ -139,13 +117,7 @@ workflows:
             - build
   deploy:
     jobs:
-      - deploy_win64:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[0-9]+(\.[0-9]+)+.*/
-      - deploy_win32:
+      - deploy_win:
           filters:
             branches:
               ignore: /.*/
