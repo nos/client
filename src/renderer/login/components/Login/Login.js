@@ -1,5 +1,6 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
+import { omit } from 'lodash';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
@@ -9,6 +10,7 @@ import LoginFormPassphrase from '../LoginFormPassphrase';
 import LoginFormWIF from '../LoginFormWIF';
 import LoginFormLedger from '../LoginFormLedger';
 import LoginFormWalletFile from '../LoginFormWalletFile';
+import Ledger from '../../util/ledger';
 import styles from './Login.scss';
 
 const TAB_WIF = 'wif';
@@ -43,7 +45,7 @@ export default class Login extends React.PureComponent {
         <Logo className={styles.logo} />
         <Tabs
           className={styles.tabs}
-          tabs={TABS}
+          tabs={this.getTabs()}
           selectedTab={this.state.tab}
           renderTab={this.renderTab}
           onSelect={this.handleSelectTab}
@@ -71,5 +73,13 @@ export default class Login extends React.PureComponent {
 
   handleSelectTab = (tab) => {
     this.setState({ tab });
+  }
+
+  getTabs = () => {
+    if (Ledger.isSupported()) {
+      return TABS;
+    } else {
+      return omit(TABS, TAB_LEDGER);
+    }
   }
 }
