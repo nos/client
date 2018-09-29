@@ -71,7 +71,9 @@ export default class Input extends React.PureComponent {
   }
 
   handleClick = () => {
-    this.ref.current.focus();
+    if (this.ref.current) {
+      this.ref.current.focus();
+    }
   }
 
   handleFocus = (event) => {
