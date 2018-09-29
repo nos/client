@@ -13,8 +13,6 @@ import NotificationsIcon from 'shared/images/icons/notifications.svg';
 
 import styles from './AddressBar.scss';
 
-const RETURN_KEY = 13;
-
 export default class AddressBar extends React.PureComponent {
   static propTypes = {
     className: string,
@@ -106,8 +104,11 @@ export default class AddressBar extends React.PureComponent {
   };
 
   handleKeyDown = (event) => {
-    if (event.which === RETURN_KEY) {
+    if (event.key === 'Enter') {
       this.props.onQuery(event.target.value);
+    } else if (event.key === 'Escape') {
+      this.input.value = this.props.query;
+      this.input.select();
     }
   }
 
