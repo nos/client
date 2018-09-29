@@ -35,7 +35,10 @@ function bindAppMenu(browserWindow, webview) {
         {
           label: 'New Tab',
           accelerator: 'CmdOrCtrl+T',
-          click: () => browserWindow.webContents.send('file:new-tab')
+          click: () => {
+            console.log('New tab opened');
+            browserWindow.webContents.send('file:new-tab');
+          }
         },
         {
           label: 'Open Location',
