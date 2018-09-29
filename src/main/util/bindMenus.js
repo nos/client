@@ -33,9 +33,20 @@ function bindAppMenu(browserWindow, webview) {
       label: 'File',
       submenu: [
         {
+          label: 'New Tab',
+          accelerator: 'CmdOrCtrl+T',
+          click: () => browserWindow.webContents.send('file:new-tab')
+        },
+        {
           label: 'Open Location',
           accelerator: 'CmdOrCtrl+L',
           click: () => browserWindow.webContents.send('file:open-location')
+        },
+        { type: 'separator' },
+        {
+          label: 'Close Tab',
+          accelerator: 'CmdOrCtrl+W',
+          click: () => browserWindow.webContents.send('file:close-tab')
         }
       ]
     },
@@ -110,8 +121,7 @@ function bindAppMenu(browserWindow, webview) {
     {
       role: 'window',
       submenu: [
-        { role: 'minimize' },
-        { role: 'close' }
+        { role: 'minimize' }
       ]
     },
     {
@@ -156,7 +166,6 @@ function bindAppMenu(browserWindow, webview) {
 
     // Window menu
     find(template, { role: 'window' }).submenu = [
-      { role: 'close' },
       { role: 'minimize' },
       { role: 'zoom' },
       { type: 'separator' },

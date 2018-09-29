@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop } from 'lodash';
+import { ipcRenderer } from 'electron';
 
 import PlusIcon from 'shared/images/browser/plus.svg';
 import tabShape from 'browser/shapes/tabShape';
@@ -27,11 +28,13 @@ export default class Tabs extends React.PureComponent {
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', this.handleShortcuts, true);
+    ipcRenderer.on('file:new-tab', this.props.onOpen);
+    ipcRenderer.on('file:close-tab', () => this.props.onClose(this.props.activeSessionId));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleShortcuts);
+    ipcRenderer.removeAllListeners('file:new-tab');
+    ipcRenderer.removeAllListeners('file:close-tab');
   }
 
   render() {
@@ -72,25 +75,5 @@ export default class Tabs extends React.PureComponent {
     return () => {
       this.props.onClose(sessionId);
     };
-  }
-
-  handleShortcuts = (event) => {
-    const combinationKeyIsPressed = process.platform === 'darwin' ? event.metaKey : event.ctrlKey;
-
-    // Command + w (close current tab or client)
-    if (combinationKeyIsPressed && event.key === 'w') {
-      if (Object.keys(this.props.tabs).length > 1) {
-        // Prevent client to quit (default behavior)
-        event.preventDefault();
-        // Only close active tab if there is more than 1 tab added
-        this.props.onClose(this.props.activeSessionId);
-      }
-    }
-
-    // Command + t (open new tab)
-    if (combinationKeyIsPressed && event.key === 't') {
-      event.preventDefault();
-      this.props.onOpen();
-    }
   }
 }
