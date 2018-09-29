@@ -169,6 +169,17 @@ function bindAppMenu(browserWindow, webview) {
       { role: 'minimize' },
       { role: 'zoom' },
       { type: 'separator' },
+      {
+        label: 'Select Next Tab',
+        accelerator: 'Ctrl+Tab',
+        click: () => browserWindow.webContents.send('window:next-tab')
+      },
+      {
+        label: 'Select Previous Tab',
+        accelerator: 'Shift+Ctrl+Tab',
+        click: () => browserWindow.webContents.send('window:previous-tab')
+      },
+      { type: 'separator' },
       { role: 'front' }
     ];
   }

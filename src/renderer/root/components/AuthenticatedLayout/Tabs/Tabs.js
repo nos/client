@@ -31,12 +31,16 @@ export default class Tabs extends React.PureComponent {
     ipcRenderer.on('file:new-tab', this.props.onOpen);
     ipcRenderer.on('file:close-tab', this.handleCloseActiveTab);
     ipcRenderer.on('window:goto-tab', this.handleGotoTab);
+    ipcRenderer.on('window:next-tab', this.handleNextTab);
+    ipcRenderer.on('window:previous-tab', this.handlePreviousTab);
   }
 
   componentWillUnmount() {
     ipcRenderer.removeAllListeners('file:new-tab');
     ipcRenderer.removeAllListeners('file:close-tab');
     ipcRenderer.removeAllListeners('window:goto-tab');
+    ipcRenderer.removeAllListeners('window:next-tab');
+    ipcRenderer.removeAllListeners('window:previous-tab');
   }
 
   render() {
@@ -89,6 +93,24 @@ export default class Tabs extends React.PureComponent {
 
     if (sessionId) {
       this.props.setActiveTab(sessionId);
+    }
+  }
+
+  handleNextTab = () => {
+    this.incrementTab(1);
+  }
+
+  handlePreviousTab = () => {
+    this.incrementTab(-1);
+  }
+
+  incrementTab = (offset) => {
+    const sessionIds = keys(this.props.tabs);
+    const currentIndex = sessionIds.indexOf(this.props.activeSessionId);
+
+    if (currentIndex !== -1) {
+      const newIndex = ((currentIndex + offset) + sessionIds.length) % sessionIds.length;
+      this.props.setActiveTab(sessionIds[newIndex]);
     }
   }
 }
