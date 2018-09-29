@@ -22,3 +22,8 @@ const getSelection = () => ({
 
 window.getSelection = getSelection;
 document.getSelection = getSelection;
+
+process.on('unhandledRejection', (error) => {
+  // eslint-disable-next-line no-console
+  console.error('Unhandled promise rejection:', error.stack);
+});
