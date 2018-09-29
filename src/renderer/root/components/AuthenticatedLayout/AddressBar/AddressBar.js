@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { func, string, bool } from 'prop-types';
 import { noop, isEmpty } from 'lodash';
+import { ipcRenderer } from 'electron';
 
 import SidebarIcon from 'shared/images/icons/sidebar.svg';
 import SidebarActiveIcon from 'shared/images/icons/sidebar-active.svg';
@@ -39,11 +40,19 @@ export default class AddressBar extends React.PureComponent {
     disabled: false
   };
 
+  componentDidMount() {
+    ipcRenderer.on('file:open-location', this.handleOpenLocation);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.query !== prevProps.query) {
       this.input.value = this.props.query;
       this.input.blur();
     }
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners('file:open-location');
   }
 
   render() {
@@ -112,6 +121,11 @@ export default class AddressBar extends React.PureComponent {
     if (isEmpty(selection.toString())) {
       this.input.select();
     }
+  }
+
+  handleOpenLocation = () => {
+    this.input.select();
+    this.input.focus();
   }
 
   registerRef = (el) => {

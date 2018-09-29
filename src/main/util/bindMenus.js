@@ -8,6 +8,7 @@ const NULL_WEBVIEW = {
   canGoBack: () => false,
   canGoForward: () => false,
   isDevToolsOpened: () => false,
+  send: noop,
   goBack: noop,
   goForward: noop,
   reload: noop,
@@ -26,8 +27,18 @@ function getWebview(id) {
   return find(allWebContents, (wc) => wc.getId() === id) || NULL_WEBVIEW;
 }
 
-function bindAppMenu(webview) {
+function bindAppMenu(browserWindow, webview) {
   const template = [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Open Location',
+          accelerator: 'CmdOrCtrl+L',
+          click: () => browserWindow.webContents.send('file:open-location')
+        }
+      ]
+    },
     {
       label: 'Edit',
       submenu: [
@@ -163,7 +174,7 @@ export default function bindMenu(browserWindow) {
 
   function replaceMenu() {
     const oldMenu = menu;
-    menu = bindAppMenu(webview);
+    menu = bindAppMenu(browserWindow, webview);
     if (oldMenu) oldMenu.destroy();
   }
 
