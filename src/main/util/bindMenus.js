@@ -197,6 +197,17 @@ function registerShortcuts(browserWindow, getActiveWebview) {
   localShortcut.register(browserWindow, 'CmdOrCtrl+9', () => {
     browserWindow.webContents.send('window:goto-tab', 'last');
   });
+
+  // mouse buttons (Windows only)
+  browserWindow.on('app-command', (event, command) => {
+    if (command === 'browser-backward') {
+      getActiveWebview().goBack();
+    } else if (command === 'browser-forward') {
+      getActiveWebview().goForward();
+    } else if (command === 'close') {
+      browserWindow.webContents.send('file:close-tab');
+    }
+  });
 }
 
 export default function bindMenu(browserWindow) {
