@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
-import { map, noop } from 'lodash';
+import { map, noop, keys } from 'lodash';
 import { ipcRenderer } from 'electron';
 
 import PlusIcon from 'shared/images/browser/plus.svg';
@@ -29,12 +29,14 @@ export default class Tabs extends React.PureComponent {
 
   componentDidMount() {
     ipcRenderer.on('file:new-tab', this.props.onOpen);
-    ipcRenderer.on('file:close-tab', () => this.props.onClose(this.props.activeSessionId));
+    ipcRenderer.on('file:close-tab', this.handleCloseActiveTab);
+    ipcRenderer.on('window:goto-tab', this.handleGotoTab);
   }
 
   componentWillUnmount() {
     ipcRenderer.removeAllListeners('file:new-tab');
     ipcRenderer.removeAllListeners('file:close-tab');
+    ipcRenderer.removeAllListeners('window:goto-tab');
   }
 
   render() {
@@ -75,5 +77,18 @@ export default class Tabs extends React.PureComponent {
     return () => {
       this.props.onClose(sessionId);
     };
+  }
+
+  handleCloseActiveTab = () => {
+    this.props.onClose(this.props.activeSessionId);
+  }
+
+  handleGotoTab = (event, i) => {
+    const sessionIds = keys(this.props.tabs);
+    const sessionId = i === 'last' ? sessionIds[sessionIds.length - 1] : sessionIds[i - 1];
+
+    if (sessionId) {
+      this.props.setActiveTab(sessionId);
+    }
   }
 }

@@ -1,6 +1,6 @@
 import localShortcut from 'electron-localshortcut';
 import { app, shell, webContents, ipcMain, Menu } from 'electron';
-import { noop, find } from 'lodash';
+import { noop, find, times } from 'lodash';
 
 const isMac = process.platform === 'darwin';
 
@@ -177,6 +177,28 @@ function bindAppMenu(browserWindow, webview) {
   Menu.setApplicationMenu(menu);
 }
 
+function registerShortcuts(browserWindow, getActiveWebview) {
+  // navigation
+  localShortcut.register(browserWindow, isMac ? 'Cmd+Left' : 'Alt+Left', () => {
+    getActiveWebview().goBack();
+  });
+
+  localShortcut.register(browserWindow, isMac ? 'Cmd+Right' : 'Alt+Right', () => {
+    getActiveWebview().goForward();
+  });
+
+  // tab switching
+  times(8, (i) => {
+    localShortcut.register(browserWindow, `CmdOrCtrl+${i + 1}`, () => {
+      browserWindow.webContents.send('window:goto-tab', i + 1);
+    });
+  });
+
+  localShortcut.register(browserWindow, 'CmdOrCtrl+9', () => {
+    browserWindow.webContents.send('window:goto-tab', 'last');
+  });
+}
+
 export default function bindMenu(browserWindow) {
   let menu = null;
   let webview = NULL_WEBVIEW;
@@ -201,13 +223,7 @@ export default function bindMenu(browserWindow) {
     webview.removeListener('devtools-closed', replaceMenu);
   }
 
-  localShortcut.register(browserWindow, isMac ? 'Cmd+Left' : 'Alt+Left', () => {
-    webview.goBack();
-  });
-  localShortcut.register(browserWindow, isMac ? 'Cmd+Right' : 'Alt+Right', () => {
-    webview.goForward();
-  });
-
+  registerShortcuts(browserWindow, () => webview);
   replaceMenu(webview);
 
   ipcMain.on('webview:focus', (event, id) => {
