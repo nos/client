@@ -227,11 +227,6 @@ export default class DAppContainer extends React.PureComponent {
 
   focusAndNotify = () => {
     this.webview.focus();
-
-    const webContents = this.webview.getWebContents && this.webview.getWebContents();
-
-    if (webContents) {
-      this.props.onFocus(webContents.getId());
-    }
+    this.props.onFocus(this.webview.getWebContents().getId());
   }
 }
