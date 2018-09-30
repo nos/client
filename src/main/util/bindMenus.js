@@ -1,6 +1,6 @@
 import localShortcut from 'electron-localshortcut';
 import { app, shell, webContents, ipcMain, Menu } from 'electron';
-import { noop, find } from 'lodash';
+import { noop, find, times } from 'lodash';
 
 const isMac = process.platform === 'darwin';
 
@@ -8,6 +8,7 @@ const NULL_WEBVIEW = {
   canGoBack: () => false,
   canGoForward: () => false,
   isDevToolsOpened: () => false,
+  send: noop,
   goBack: noop,
   goForward: noop,
   reload: noop,
@@ -26,8 +27,29 @@ function getWebview(id) {
   return find(allWebContents, (wc) => wc.getId() === id) || NULL_WEBVIEW;
 }
 
-function bindAppMenu(webview) {
+function bindAppMenu(browserWindow, webview) {
   const template = [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'New Tab',
+          accelerator: 'CmdOrCtrl+T',
+          click: () => browserWindow.webContents.send('file:new-tab')
+        },
+        {
+          label: 'Open Location',
+          accelerator: 'CmdOrCtrl+L',
+          click: () => browserWindow.webContents.send('file:open-location')
+        },
+        { type: 'separator' },
+        {
+          label: 'Close Tab',
+          accelerator: 'CmdOrCtrl+W',
+          click: () => browserWindow.webContents.send('file:close-tab')
+        }
+      ]
+    },
     {
       label: 'Edit',
       submenu: [
@@ -99,8 +121,7 @@ function bindAppMenu(webview) {
     {
       role: 'window',
       submenu: [
-        { role: 'minimize' },
-        { role: 'close' }
+        { role: 'minimize' }
       ]
     },
     {
@@ -145,9 +166,19 @@ function bindAppMenu(webview) {
 
     // Window menu
     find(template, { role: 'window' }).submenu = [
-      { role: 'close' },
       { role: 'minimize' },
       { role: 'zoom' },
+      { type: 'separator' },
+      {
+        label: 'Select Next Tab',
+        accelerator: 'Ctrl+Tab',
+        click: () => browserWindow.webContents.send('window:next-tab')
+      },
+      {
+        label: 'Select Previous Tab',
+        accelerator: 'Shift+Ctrl+Tab',
+        click: () => browserWindow.webContents.send('window:previous-tab')
+      },
       { type: 'separator' },
       { role: 'front' }
     ];
@@ -157,13 +188,46 @@ function bindAppMenu(webview) {
   Menu.setApplicationMenu(menu);
 }
 
+function registerShortcuts(browserWindow, getActiveWebview) {
+  // navigation
+  localShortcut.register(browserWindow, isMac ? 'Cmd+Left' : 'Alt+Left', () => {
+    getActiveWebview().goBack();
+  });
+
+  localShortcut.register(browserWindow, isMac ? 'Cmd+Right' : 'Alt+Right', () => {
+    getActiveWebview().goForward();
+  });
+
+  // tab switching
+  times(8, (i) => {
+    localShortcut.register(browserWindow, `CmdOrCtrl+${i + 1}`, () => {
+      browserWindow.webContents.send('window:goto-tab', i + 1);
+    });
+  });
+
+  localShortcut.register(browserWindow, 'CmdOrCtrl+9', () => {
+    browserWindow.webContents.send('window:goto-tab', 'last');
+  });
+
+  // mouse buttons (Windows only)
+  browserWindow.on('app-command', (event, command) => {
+    if (command === 'browser-backward') {
+      getActiveWebview().goBack();
+    } else if (command === 'browser-forward') {
+      getActiveWebview().goForward();
+    } else if (command === 'close') {
+      browserWindow.webContents.send('file:close-tab');
+    }
+  });
+}
+
 export default function bindMenu(browserWindow) {
   let menu = null;
   let webview = NULL_WEBVIEW;
 
   function replaceMenu() {
     const oldMenu = menu;
-    menu = bindAppMenu(webview);
+    menu = bindAppMenu(browserWindow, webview);
     if (oldMenu) oldMenu.destroy();
   }
 
@@ -181,13 +245,7 @@ export default function bindMenu(browserWindow) {
     webview.removeListener('devtools-closed', replaceMenu);
   }
 
-  localShortcut.register(browserWindow, isMac ? 'Cmd+Left' : 'Alt+Left', () => {
-    webview.goBack();
-  });
-  localShortcut.register(browserWindow, isMac ? 'Cmd+Right' : 'Alt+Right', () => {
-    webview.goForward();
-  });
-
+  registerShortcuts(browserWindow, () => webview);
   replaceMenu(webview);
 
   ipcMain.on('webview:focus', (event, id) => {
