@@ -28,7 +28,7 @@ export default class Tabs extends React.PureComponent {
   };
 
   componentDidMount() {
-    ipcRenderer.on('file:new-tab', this.props.onOpen);
+    ipcRenderer.on('file:new-tab', this.handleOpenTab);
     ipcRenderer.on('file:close-tab', this.handleCloseActiveTab);
     ipcRenderer.on('window:goto-tab', this.handleGotoTab);
     ipcRenderer.on('window:next-tab', this.handleNextTab);
@@ -47,7 +47,7 @@ export default class Tabs extends React.PureComponent {
     return (
       <div className={classNames(styles.tabs, this.props.className)}>
         {map(this.props.tabs, this.renderTab)}
-        <PlusIcon className={styles.newTab} onClick={this.props.onOpen} />
+        <PlusIcon className={styles.newTab} onClick={this.handleNewTab} />
       </div>
     );
   }
@@ -81,6 +81,14 @@ export default class Tabs extends React.PureComponent {
     return () => {
       this.props.onClose(sessionId);
     };
+  }
+
+  handleNewTab = () => {
+    this.props.onOpen();
+  }
+
+  handleOpenTab = (event, target) => {
+    this.props.onOpen(target);
   }
 
   handleCloseActiveTab = () => {
