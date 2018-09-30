@@ -3,10 +3,9 @@ import { mount } from 'enzyme';
 
 import Tab from 'root/components/AuthenticatedLayout/Tab';
 import FavIcon from 'shared/images/browser/favicon.svg';
-import { EXTERNAL } from 'browser/values/browserValues';
 
 describe('<Tab />', () => {
-  const props = { title: 'nOS', type: EXTERNAL };
+  const props = { title: 'nOS' };
 
   describe('active prop', () => {
     it('renders active class', () => {
