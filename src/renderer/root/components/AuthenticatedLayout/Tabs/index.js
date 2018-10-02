@@ -6,7 +6,7 @@ import { openTab, closeTab, setActiveTab } from 'browser/actions/browserActions'
 import Tabs from './Tabs';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onOpen: () => openTab(),
+  onOpen: (target) => openTab(target && { target }),
   onClose: (sessionId) => closeTab(sessionId),
   setActiveTab
 }, dispatch);
