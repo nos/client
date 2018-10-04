@@ -5,6 +5,7 @@ import url from 'url';
 
 import getStaticPath from './util/getStaticPath';
 import bindMenus from './util/bindMenus';
+import bindContextMenu from './util/bindContextMenu';
 import injectHeaders from './util/injectHeaders';
 import installExtensions from './util/installExtensions';
 import registerNosProtocol from './util/registerNosProtocol';
@@ -46,6 +47,7 @@ function createWindow() {
   );
 
   bindMenus(mainWindow);
+  bindContextMenu(mainWindow);
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
