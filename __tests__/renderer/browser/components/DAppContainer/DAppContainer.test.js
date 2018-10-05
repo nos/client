@@ -13,15 +13,12 @@ describe('<DAppContainer />', () => {
     title: 'My nOS',
     addressBarEntry: true,
     loading: false,
-    requestCount: 1,
-    errorCode: null,
-    errorDescription: null
+    requestCount: 1
   };
 
   const defaultProps = {
     sessionId: uuid(),
     tab: defaultTab,
-    setTabError: noop,
     setTabTitle: noop,
     setTabTarget: noop,
     setTabIcon: noop,

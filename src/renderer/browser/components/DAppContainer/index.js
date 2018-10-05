@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import DAppContainer from './DAppContainer';
 import { enqueue, dequeue, empty } from '../../actions/requestsActions';
 import {
-  setTabError,
   setTabTitle,
   setTabTarget,
   setTabIcon,
@@ -16,7 +15,6 @@ import {
 import withWebviewIPC from '../../hocs/withWebviewIPC';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  setTabError,
   setTabTitle,
   setTabTarget,
   setTabIcon,

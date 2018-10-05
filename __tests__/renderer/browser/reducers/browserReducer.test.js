@@ -8,7 +8,6 @@ import {
   // CLOSE_TAB,
   RESET_TABS,
   SET_ACTIVE_TAB,
-  SET_TAB_ERROR,
   SET_TAB_TARGET,
   SET_TAB_TITLE,
   SET_TAB_ICON,
@@ -132,28 +131,6 @@ describe('browserReducer', () => {
 
     it('increments the request count', () => {
       expect(updatedTab.requestCount).toEqual(originalTab.requestCount + 1);
-    });
-
-    it('resets any errors', () => {
-      expect(updatedTab.errorCode).toBe(null);
-      expect(updatedTab.errorDescription).toBe(null);
-    });
-  });
-
-  describe('action type SET_TAB_ERROR', () => {
-    const sessionId = initialState.activeSessionId;
-    const errorCode = '-2';
-    const errorDescription = 'Something happened';
-    const state = browserReducer(initialState, {
-      type: SET_TAB_ERROR,
-      payload: { sessionId, code: errorCode, description: errorDescription }
-    });
-
-    const originalTab = getActiveTab(initialState);
-    const updatedTab = getActiveTab(state);
-
-    it('updates the target and addressBarEntry on the tab', () => {
-      expect(updatedTab).toEqual({ ...originalTab, errorCode, errorDescription });
     });
   });
 

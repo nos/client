@@ -4,7 +4,6 @@ import {
   closeTab,
   resetTabs,
   setActiveTab,
-  setTabError,
   setTabTarget,
   setTabTitle,
   setTabIcon,
@@ -14,7 +13,6 @@ import {
   CLOSE_TAB,
   RESET_TABS,
   SET_ACTIVE_TAB,
-  SET_TAB_ERROR,
   SET_TAB_TARGET,
   SET_TAB_TITLE,
   SET_TAB_ICON,
@@ -70,19 +68,6 @@ describe('browserActions', () => {
       expect(navigate(sessionId, target)).toEqual({
         type: NAVIGATE,
         payload: { sessionId, target }
-      });
-    });
-  });
-
-  describe('setTabError', () => {
-    it('returns action object', () => {
-      const sessionId = 'abc123';
-      const code = '-1';
-      const description = 'Uh oh...';
-
-      expect(setTabError(sessionId, code, description)).toEqual({
-        type: SET_TAB_ERROR,
-        payload: { sessionId, code, description }
       });
     });
   });

@@ -1,8 +1,16 @@
 const electron = require('electron');
 const uuid = require('uuid/v1');
+const path = require('path');
+const ejs = require('ejs');
+const fs = require('fs');
+const { URL } = require('whatwg-url');
 const { each, isEmpty, isUndefined } = require('lodash');
 
 const { ipcRenderer } = electron;
+
+ejs.fileLoader = (filePath) => {
+  return fs.readFileSync(path.join(__dirname, filePath));
+};
 
 function createDelegate(channel) {
   return (...args) => new Promise((resolve, reject) => {
@@ -59,6 +67,22 @@ function once(eventName, callback) {
 
 ipcRenderer.on('event', (event, eventName, ...args) => {
   each(subscriptions[eventName], (callback) => callback(...args));
+});
+
+ipcRenderer.on('did-fail-load', (event, validatedURL, errorCode, errorDescription) => {
+  const url = new URL(validatedURL);
+  const data = { host: url.hostname, errorCode, errorDescription };
+
+  ejs.renderFile('error.ejs', data, (err, content) => {
+    if (err) {
+      // TODO
+      return;
+    }
+
+    document.open('text/html', 'replace');
+    document.write(content);
+    document.close();
+  });
 });
 
 const ASSETS = {
