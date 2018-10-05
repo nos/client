@@ -6,17 +6,17 @@
   text-align: center;
   overflow: hidden;
 
+  .title {
+    flex: 0 0 auto;
+    margin: 20px 0 5px;
+    color: #1e1b53;
+    font-weight: 500;
+    font-size: 28px;
+  }
+
   .content {
     flex: 1 1 auto;
     padding: 20px 40px;
-
-    .title {
-      flex: 0 0 auto;
-      margin-bottom: 25px;
-      color: #1e1b53;
-      font-size: 28px;
-      font-weight: 500;
-    }
 
     .body {
       flex: 1 1 auto;
