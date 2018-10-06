@@ -28,6 +28,8 @@ function getWebview(id) {
 }
 
 function bindAppMenu(browserWindow, webview) {
+  const webviewLoaded = webview !== NULL_WEBVIEW && !webview.isLoading();
+
   const template = [
     {
       label: 'File',
@@ -70,20 +72,43 @@ function bindAppMenu(browserWindow, webview) {
         {
           label: 'Stop',
           accelerator: isMac ? 'Cmd+.' : 'Esc',
-          enabled: webview !== NULL_WEBVIEW && webview.isLoading(),
+          enabled: webviewLoaded,
           click: () => webview.stop()
         },
         {
           label: 'Reload',
           accelerator: 'CmdOrCtrl+R',
-          enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
+          enabled: webviewLoaded,
           click: () => webview.reload()
         },
-        // { type: 'separator' },
-        // { role: 'togglefullscreen' },
-        // { role: 'resetzoom' },
-        // { role: 'zoomin' },
-        // { role: 'zoomout' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' },
+        {
+          label: 'Actual Size',
+          accelerator: 'CommandOrControl+0',
+          enabled: webviewLoaded,
+          click: () => webview.setZoomLevel(0)
+        },
+        {
+          label: 'Zoom In',
+          accelerator: 'CommandOrControl+Plus',
+          enabled: webviewLoaded,
+          click: () => {
+            webview.getZoomLevel((zoomLevel) => {
+              webview.setZoomLevel(zoomLevel + 0.5);
+            });
+          }
+        },
+        {
+          label: 'Zoom Out',
+          accelerator: 'CommandOrControl+-',
+          enabled: webviewLoaded,
+          click: () => {
+            webview.getZoomLevel((zoomLevel) => {
+              webview.setZoomLevel(zoomLevel - 0.5);
+            });
+          }
+        },
         { type: 'separator' },
         {
           label: 'Toggle Developer Tools',
