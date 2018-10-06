@@ -14,7 +14,8 @@ module.exports = function handleErrors(document) {
   function renderErrorPage(data) {
     ejs.renderFile('error.ejs', data, (err, content) => {
       if (err) {
-        // TODO
+        // eslint-disable-next-line no-console
+        console.error(`Failed to render error page. Error code "${data.errorDescription}".`);
         return;
       }
 
