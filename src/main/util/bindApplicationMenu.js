@@ -27,138 +27,143 @@ function getWebview(id) {
   return find(allWebContents, (wc) => wc.getId() === id) || NULL_WEBVIEW;
 }
 
-function bindAppMenu(browserWindow, webview) {
-  const webviewLoaded = webview !== NULL_WEBVIEW && !webview.isLoading();
-
-  const template = [
+const file = (browserWindow) => ({
+  label: 'File',
+  submenu: [
     {
-      label: 'File',
-      submenu: [
-        {
-          label: 'New Tab',
-          accelerator: 'CmdOrCtrl+T',
-          click: () => browserWindow.webContents.send('file:new-tab')
-        },
-        {
-          label: 'Open Location',
-          accelerator: 'CmdOrCtrl+L',
-          click: () => browserWindow.webContents.send('file:open-location')
-        },
-        { type: 'separator' },
-        {
-          label: 'Close Tab',
-          accelerator: 'CmdOrCtrl+W',
-          click: () => browserWindow.webContents.send('file:close-tab')
-        }
-      ]
+      label: 'New Tab',
+      accelerator: 'CmdOrCtrl+T',
+      click: () => browserWindow.webContents.send('file:new-tab')
     },
     {
-      label: 'Edit',
-      submenu: [
-        { role: 'undo' },
-        { role: 'redo' },
-        { type: 'separator' },
-        { role: 'cut' },
-        { role: 'copy' },
-        { role: 'paste' },
-        { role: 'pasteandmatchstyle' },
-        { role: 'delete' },
-        { role: 'selectall' }
-      ]
+      label: 'Open Location',
+      accelerator: 'CmdOrCtrl+L',
+      click: () => browserWindow.webContents.send('file:open-location')
     },
+    { type: 'separator' },
     {
-      label: 'View',
-      submenu: [
-        {
-          label: 'Stop',
-          accelerator: isMac ? 'Cmd+.' : 'Esc',
-          enabled: webviewLoaded,
-          click: () => webview.stop()
-        },
-        {
-          label: 'Reload',
-          accelerator: 'CmdOrCtrl+R',
-          enabled: webviewLoaded,
-          click: () => webview.reload()
-        },
-        { type: 'separator' },
-        { role: 'togglefullscreen' },
-        {
-          label: 'Actual Size',
-          accelerator: 'CommandOrControl+0',
-          enabled: webviewLoaded,
-          click: () => webview.setZoomLevel(0)
-        },
-        {
-          label: 'Zoom In',
-          accelerator: 'CommandOrControl+Plus',
-          enabled: webviewLoaded,
-          click: () => {
-            webview.getZoomLevel((zoomLevel) => {
-              webview.setZoomLevel(zoomLevel + 0.5);
-            });
-          }
-        },
-        {
-          label: 'Zoom Out',
-          accelerator: 'CommandOrControl+-',
-          enabled: webviewLoaded,
-          click: () => {
-            webview.getZoomLevel((zoomLevel) => {
-              webview.setZoomLevel(zoomLevel - 0.5);
-            });
-          }
-        },
-        { type: 'separator' },
-        {
-          label: 'Toggle Developer Tools',
-          type: 'checkbox',
-          accelerator: isMac ? 'Alt+Command+I' : 'Ctrl+Shift+I',
-          enabled: webview !== NULL_WEBVIEW,
-          checked: webview.isDevToolsOpened(),
-          click: () => {
-            if (webview.isDevToolsOpened()) {
-              webview.closeDevTools();
-            } else {
-              webview.openDevTools();
-            }
-          }
-        }
-      ]
-    },
-    {
-      label: 'History',
-      submenu: [
-        {
-          label: 'Back',
-          accelerator: 'CmdOrCtrl+[',
-          enabled: webview.canGoBack(),
-          click: () => webview.goBack()
-        },
-        {
-          label: 'Forward',
-          accelerator: 'CmdOrCtrl+]',
-          enabled: webview.canGoForward(),
-          click: () => webview.goForward()
-        }
-      ]
-    },
-    {
-      role: 'window',
-      submenu: [
-        { role: 'minimize' }
-      ]
-    },
-    {
-      role: 'help',
-      submenu: [
-        {
-          label: 'Learn More',
-          click: () => browserWindow.webContents.send('file:new-tab', 'https://nos.io')
-        }
-      ]
+      label: 'Close Tab',
+      accelerator: 'CmdOrCtrl+W',
+      click: () => browserWindow.webContents.send('file:close-tab')
     }
-  ];
+  ]
+});
+
+const edit = () => ({
+  label: 'Edit',
+  submenu: [
+    { role: 'undo' },
+    { role: 'redo' },
+    { type: 'separator' },
+    { role: 'cut' },
+    { role: 'copy' },
+    { role: 'paste' },
+    { role: 'pasteandmatchstyle' },
+    { role: 'delete' },
+    { role: 'selectall' }
+  ]
+});
+
+const view = (browserWindow, webview) => ({
+  label: 'View',
+  submenu: [
+    {
+      label: 'Stop',
+      accelerator: isMac ? 'Cmd+.' : 'Esc',
+      enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
+      click: () => webview.stop()
+    },
+    {
+      label: 'Reload',
+      accelerator: 'CmdOrCtrl+R',
+      enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
+      click: () => webview.reload()
+    },
+    { type: 'separator' },
+    { role: 'togglefullscreen' },
+    {
+      label: 'Actual Size',
+      accelerator: 'CommandOrControl+0',
+      enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
+      click: () => webview.setZoomLevel(0)
+    },
+    {
+      label: 'Zoom In',
+      accelerator: 'CommandOrControl+Plus',
+      enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
+      click: () => {
+        webview.getZoomLevel((zoomLevel) => {
+          webview.setZoomLevel(zoomLevel + 0.5);
+        });
+      }
+    },
+    {
+      label: 'Zoom Out',
+      accelerator: 'CommandOrControl+-',
+      enabled: webview !== NULL_WEBVIEW && !webview.isLoading(),
+      click: () => {
+        webview.getZoomLevel((zoomLevel) => {
+          webview.setZoomLevel(zoomLevel - 0.5);
+        });
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Toggle Developer Tools',
+      type: 'checkbox',
+      accelerator: isMac ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+      enabled: webview !== NULL_WEBVIEW,
+      checked: webview.isDevToolsOpened(),
+      click: () => {
+        if (webview.isDevToolsOpened()) {
+          webview.closeDevTools();
+        } else {
+          webview.openDevTools();
+        }
+      }
+    }
+  ]
+});
+
+const history = (browserWindow, webview) => ({
+  label: 'History',
+  submenu: [
+    {
+      label: 'Back',
+      accelerator: 'CmdOrCtrl+[',
+      enabled: webview.canGoBack(),
+      click: () => webview.goBack()
+    },
+    {
+      label: 'Forward',
+      accelerator: 'CmdOrCtrl+]',
+      enabled: webview.canGoForward(),
+      click: () => webview.goForward()
+    }
+  ]
+});
+
+const window = () => ({
+  role: 'window',
+  submenu: [
+    { role: 'minimize' }
+  ]
+});
+
+const help = (browserWindow) => ({
+  role: 'help',
+  submenu: [
+    {
+      label: 'Learn More',
+      click: () => browserWindow.webContents.send('file:new-tab', 'https://nos.io')
+    }
+  ]
+});
+
+function bindAppMenu(browserWindow, webview) {
+  const template = [file, edit, view, history, window, help].map((builder) => {
+    return builder(browserWindow, webview);
+  });
 
   if (process.platform === 'darwin') {
     // nOS menu
