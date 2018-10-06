@@ -27,7 +27,30 @@ function getWebview(id) {
   return find(allWebContents, (wc) => wc.getId() === id) || NULL_WEBVIEW;
 }
 
-const file = (browserWindow) => ({
+function ifMac(menuItem) {
+  return isMac ? menuItem : null;
+}
+
+function filterItems(menuItems) {
+  return menuItems.filter((item) => item);
+}
+
+const appMenu = () => ifMac({
+  label: app.getName(),
+  submenu: [
+    { role: 'about' },
+    { type: 'separator' },
+    { role: 'services', submenu: [] },
+    { type: 'separator' },
+    { role: 'hide' },
+    { role: 'hideothers' },
+    { role: 'unhide' },
+    { type: 'separator' },
+    { role: 'quit' }
+  ]
+});
+
+const fileMenu = (browserWindow) => ({
   label: 'File',
   submenu: [
     {
@@ -49,7 +72,7 @@ const file = (browserWindow) => ({
   ]
 });
 
-const edit = () => ({
+const editMenu = () => ({
   label: 'Edit',
   submenu: [
     { role: 'undo' },
@@ -60,11 +83,19 @@ const edit = () => ({
     { role: 'paste' },
     { role: 'pasteandmatchstyle' },
     { role: 'delete' },
-    { role: 'selectall' }
+    { role: 'selectall' },
+    ifMac({ type: 'separator' }),
+    ifMac({
+      label: 'Speech',
+      submenu: [
+        { role: 'startspeaking' },
+        { role: 'stopspeaking' }
+      ]
+    })
   ]
 });
 
-const view = (browserWindow, webview) => ({
+const viewMenu = (browserWindow, webview) => ({
   label: 'View',
   submenu: [
     {
@@ -125,7 +156,7 @@ const view = (browserWindow, webview) => ({
   ]
 });
 
-const history = (browserWindow, webview) => ({
+const historyMenu = (browserWindow, webview) => ({
   label: 'History',
   submenu: [
     {
@@ -143,14 +174,28 @@ const history = (browserWindow, webview) => ({
   ]
 });
 
-const window = () => ({
+const windowMenu = (browserWindow) => ({
   role: 'window',
-  submenu: [
-    { role: 'minimize' }
-  ]
+  submenu: filterItems([
+    { role: 'minimize' },
+    ifMac({ role: 'zoom' }),
+    { type: 'separator' },
+    {
+      label: 'Select Next Tab',
+      accelerator: 'Ctrl+Tab',
+      click: () => browserWindow.webContents.send('window:next-tab')
+    },
+    {
+      label: 'Select Previous Tab',
+      accelerator: 'Shift+Ctrl+Tab',
+      click: () => browserWindow.webContents.send('window:previous-tab')
+    },
+    ifMac({ type: 'separator' }),
+    ifMac({ role: 'front' })
+  ])
 });
 
-const help = (browserWindow) => ({
+const helpMenu = (browserWindow) => ({
   role: 'help',
   submenu: [
     {
@@ -161,58 +206,11 @@ const help = (browserWindow) => ({
 });
 
 function bindAppMenu(browserWindow, webview) {
-  const template = [file, edit, view, history, window, help].map((builder) => {
+  const menus = [appMenu, fileMenu, editMenu, viewMenu, historyMenu, windowMenu, helpMenu];
+
+  const template = menus.map((builder) => {
     return builder(browserWindow, webview);
   });
-
-  if (process.platform === 'darwin') {
-    // nOS menu
-    template.unshift({
-      label: app.getName(),
-      submenu: [
-        { role: 'about' },
-        { type: 'separator' },
-        { role: 'services', submenu: [] },
-        { type: 'separator' },
-        { role: 'hide' },
-        { role: 'hideothers' },
-        { role: 'unhide' },
-        { type: 'separator' },
-        { role: 'quit' }
-      ]
-    });
-
-    // Edit menu
-    find(template, { label: 'Edit' }).submenu.push(
-      { type: 'separator' },
-      {
-        label: 'Speech',
-        submenu: [
-          { role: 'startspeaking' },
-          { role: 'stopspeaking' }
-        ]
-      }
-    );
-
-    // Window menu
-    find(template, { role: 'window' }).submenu = [
-      { role: 'minimize' },
-      { role: 'zoom' },
-      { type: 'separator' },
-      {
-        label: 'Select Next Tab',
-        accelerator: 'Ctrl+Tab',
-        click: () => browserWindow.webContents.send('window:next-tab')
-      },
-      {
-        label: 'Select Previous Tab',
-        accelerator: 'Shift+Ctrl+Tab',
-        click: () => browserWindow.webContents.send('window:previous-tab')
-      },
-      { type: 'separator' },
-      { role: 'front' }
-    ];
-  }
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
