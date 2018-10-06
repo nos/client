@@ -51,8 +51,8 @@ export default class GeneralSettings extends React.PureComponent {
     );
   }
 
-  handleChangeCurrency = (event) => {
-    this.props.setCurrency(event.target.value);
+  handleChangeCurrency = (currency) => {
+    this.props.setCurrency(currency);
   }
 
   getCurrencyItems = () => {
