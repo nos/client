@@ -5,11 +5,11 @@ import { isEmpty, noop, map } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
 import Button from 'shared/components/Forms/Button';
-import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
 import styles from './LoginFormWalletFile.scss';
+import LoginButton from '../LoginButton';
 
 export default class LoginFormWalletFile extends React.PureComponent {
   static propTypes = {
@@ -47,9 +47,7 @@ export default class LoginFormWalletFile extends React.PureComponent {
         {this.renderPassphraseInput()}
         {this.renderDescription()}
 
-        <div className={styles.actions}>
-          <PrimaryButton type="submit" disabled={disabled || !this.isValid()}>Login</PrimaryButton>
-        </div>
+        <LoginButton disabled={disabled || !this.isValid()} />
       </form>
     );
   }
@@ -146,7 +144,8 @@ export default class LoginFormWalletFile extends React.PureComponent {
   }
 
   isValid = () => {
-    return this.props.encryptedWIF !== '';
+    const { encryptedWIF, passphrase } = this.props;
+    return !(isEmpty(encryptedWIF) || (!wallet.isPrivateKey(encryptedWIF) && isEmpty(passphrase)));
   };
 
   load = (filename) => {

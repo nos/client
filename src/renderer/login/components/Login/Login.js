@@ -18,7 +18,7 @@ const TAB_FILE = 'file';
 
 const TABS = {
   [TAB_PASSPHRASE]: 'Passphrase',
-  [TAB_WIF]: 'WIF',
+  [TAB_WIF]: 'Private Key',
   [TAB_LEDGER]: 'Ledger',
   [TAB_FILE]: 'Wallet File'
 };
