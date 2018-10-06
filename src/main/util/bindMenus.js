@@ -1,5 +1,5 @@
 import localShortcut from 'electron-localshortcut';
-import { app, shell, webContents, ipcMain, Menu } from 'electron';
+import { app, webContents, ipcMain, Menu } from 'electron';
 import { noop, find, times } from 'lodash';
 
 const isMac = process.platform === 'darwin';
@@ -129,7 +129,7 @@ function bindAppMenu(browserWindow, webview) {
       submenu: [
         {
           label: 'Learn More',
-          click() { shell.openExternal('https://nos.io'); }
+          click: () => browserWindow.webContents.send('file:new-tab', 'https://nos.io')
         }
       ]
     }
