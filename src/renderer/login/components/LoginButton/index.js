@@ -7,7 +7,7 @@ import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import styles from './LoginButton.scss';
 
 const LoginButton = ({ disabled }) => (
-  <div className={styles.actions}>
+  <div className={styles.loginButton}>
     <PrimaryButton
       type="submit"
       disabled={disabled}

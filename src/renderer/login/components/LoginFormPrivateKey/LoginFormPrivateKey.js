@@ -4,10 +4,10 @@ import { noop } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 
-import styles from './LoginFormWIF.scss';
+import styles from './LoginFormPrivateKey.scss';
 import LoginButton from '../LoginButton';
 
-export default class LoginFormWIF extends React.PureComponent {
+export default class LoginFormPrivateKey extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     wif: string,

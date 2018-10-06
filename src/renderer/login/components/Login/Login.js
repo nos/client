@@ -6,19 +6,19 @@ import Tabs from 'shared/components/Tabs';
 import Logo from 'shared/images/logo.svg';
 
 import LoginFormPassphrase from '../LoginFormPassphrase';
-import LoginFormWIF from '../LoginFormWIF';
+import LoginFormPrivateKey from '../LoginFormPrivateKey';
 import LoginFormLedger from '../LoginFormLedger';
 import LoginFormWalletFile from '../LoginFormWalletFile';
 import styles from './Login.scss';
 
-const TAB_WIF = 'wif';
+const TAB_PRIVATE_KEY = 'privatekey';
 const TAB_PASSPHRASE = 'passphrase';
 const TAB_LEDGER = 'ledger';
 const TAB_FILE = 'file';
 
 const TABS = {
   [TAB_PASSPHRASE]: 'Passphrase',
-  [TAB_WIF]: 'Private Key',
+  [TAB_PRIVATE_KEY]: 'Private Key',
   [TAB_LEDGER]: 'Ledger',
   [TAB_FILE]: 'Wallet File'
 };
@@ -56,8 +56,8 @@ export default class Login extends React.PureComponent {
     const { loading, login } = this.props;
 
     switch (id) {
-      case TAB_WIF:
-        return <LoginFormWIF disabled={loading} onLogin={login} />;
+      case TAB_PRIVATE_KEY:
+        return <LoginFormPrivateKey disabled={loading} onLogin={login} />;
       case TAB_PASSPHRASE:
         return <LoginFormPassphrase disabled={loading} onLogin={login} />;
       case TAB_LEDGER:
