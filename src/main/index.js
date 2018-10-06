@@ -4,7 +4,7 @@ import path from 'path';
 import url from 'url';
 
 import getStaticPath from './util/getStaticPath';
-import bindMenus from './util/bindMenus';
+import bindApplicationMenu from './util/bindApplicationMenu';
 import bindContextMenu from './util/bindContextMenu';
 import injectHeaders from './util/injectHeaders';
 import installExtensions from './util/installExtensions';
@@ -46,7 +46,7 @@ function createWindow() {
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
 
-  bindMenus(mainWindow);
+  bindApplicationMenu(mainWindow);
   bindContextMenu(mainWindow);
 
   if (isDev) {

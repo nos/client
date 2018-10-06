@@ -221,7 +221,7 @@ function registerShortcuts(browserWindow, getActiveWebview) {
   });
 }
 
-export default function bindMenu(browserWindow) {
+export default function bindApplicationMenu(browserWindow) {
   let menu = null;
   let webview = NULL_WEBVIEW;
 
