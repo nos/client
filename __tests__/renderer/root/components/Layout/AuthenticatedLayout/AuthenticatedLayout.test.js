@@ -22,9 +22,7 @@ const initialState = {
         target: 'https://my.nos.app',
         loading: false,
         requestCount: 1,
-        addressBarEntry: true,
-        errorCode: null,
-        errorDescription: null
+        addressBarEntry: true
       }
     }
   }

@@ -30,9 +30,7 @@ const initialState = {
         title: 'Welcome to nOS',
         addressBarEntry: true,
         loading: false,
-        requestCount: 1,
-        errorCode: null,
-        errorDescription: null
+        requestCount: 1
       }
     }
   }

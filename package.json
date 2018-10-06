@@ -19,6 +19,7 @@
     "bignumber.js": "7.2.1",
     "classnames": "2.2.6",
     "connected-react-router": "4.5.0",
+    "ejs": "2.6.1",
     "electron-context-menu": "0.10.0",
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.3",

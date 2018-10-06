@@ -9,7 +9,6 @@ import {
   CLOSE_TAB,
   RESET_TABS,
   SET_ACTIVE_TAB,
-  SET_TAB_ERROR,
   SET_TAB_TITLE,
   SET_TAB_TARGET,
   SET_TAB_ICON,
@@ -23,9 +22,7 @@ const initialTabState = {
   icon: null,
   addressBarEntry: true, // differentiates between link clicks and address bar entries
   loading: false,
-  requestCount: 1,
-  errorCode: null,
-  errorDescription: null
+  requestCount: 1
 };
 
 const newTabState = {
@@ -144,14 +141,6 @@ function setTitle(state, data) {
   return updateTab(state, data.sessionId, { title: data.title });
 }
 
-function setError(state, data) {
-  return updateTab(state, data.sessionId, {
-    loading: false,
-    errorCode: data.code,
-    errorDescription: data.description
-  });
-}
-
 function setTarget(state, data) {
   return updateTab(state, data.sessionId, {
     target: data.target,
@@ -179,9 +168,7 @@ function navigate(state, data) {
     title: target,
     icon: null,
     addressBarEntry: true,
-    requestCount: tab.requestCount + 1,
-    errorCode: null,
-    errorDescription: null
+    requestCount: tab.requestCount + 1
   });
 }
 
@@ -201,8 +188,6 @@ export default function browserReducer(state = generateInitialState(), action = 
       return navigate(state, action.payload);
     case SET_ACTIVE_TAB:
       return focus(state, action.payload);
-    case SET_TAB_ERROR:
-      return setError(state, action.payload);
     case SET_TAB_TITLE:
       return setTitle(state, action.payload);
     case SET_TAB_TARGET:
