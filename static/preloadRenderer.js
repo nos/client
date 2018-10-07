@@ -1,8 +1,10 @@
 const api = require('./preloads/api');
 const events = require('./preloads/events');
 const handleErrors = require('./preloads/handleErrors');
+const handleZoom = require('./preloads/handleZoom');
 
 handleErrors(document);
+handleZoom(document);
 
 const ASSETS = {
   NEO: 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b',

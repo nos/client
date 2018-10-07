@@ -131,6 +131,24 @@ export default class DAppContainer extends React.PureComponent {
   }
 
   handleIPCMessage = (event) => {
+    switch (event.channel) {
+      case 'view:zoom':
+        this.handleIPCZoom(event);
+        break;
+      default:
+        this.handleIPCAPI(event);
+    }
+  }
+
+  handleIPCZoom = (event) => {
+    const difference = event.args[0] > 0 ? -0.5 : 0.5;
+
+    this.webview.getZoomLevel((zoomLevel) => {
+      this.webview.setZoomLevel(zoomLevel + difference);
+    });
+  }
+
+  handleIPCAPI = (event) => {
     const { channel } = event;
     const id = event.args[0];
     const args = event.args.slice(1);
