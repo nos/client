@@ -74,7 +74,7 @@ const fileMenu = (browserWindow) => ({
 
 const editMenu = () => ({
   label: 'Edit',
-  submenu: [
+  submenu: filterItems([
     { role: 'undo' },
     { role: 'redo' },
     { type: 'separator' },
@@ -92,7 +92,7 @@ const editMenu = () => ({
         { role: 'stopspeaking' }
       ]
     })
-  ]
+  ])
 });
 
 const viewMenu = (browserWindow, webview) => ({
@@ -208,9 +208,9 @@ const helpMenu = (browserWindow) => ({
 function bindAppMenu(browserWindow, webview) {
   const menus = [appMenu, fileMenu, editMenu, viewMenu, historyMenu, windowMenu, helpMenu];
 
-  const template = menus.map((builder) => {
+  const template = filterItems(menus.map((builder) => {
     return builder(browserWindow, webview);
-  });
+  }));
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
