@@ -3,6 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
+import scroller from 'electron-scroller';
 
 import getStaticPath from '../../../util/getStaticPath';
 import bindContextMenu from '../../util/bindContextMenu';
@@ -37,6 +38,9 @@ export default class DAppContainer extends React.PureComponent {
 
   async componentDidMount() {
     window.addEventListener('focus', this.handleWindowFocus);
+
+    // preserve scroll position when using back/forward
+    scroller.add(this.webview);
 
     this.webview.addEventListener('dom-ready', this.handleDomReady);
     this.webview.addEventListener('ipc-message', this.handleIPCMessage);
