@@ -7,7 +7,8 @@ import authActions from 'login/actions/authActions';
 import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import { NEO, GAS } from 'shared/values/assets';
+import PriorityFee from 'account/components/TransactionsPanel/Send/PriorityFee';
+import { ASSETS } from 'shared/values/assets';
 
 import Send from './Send';
 import withClean from '../../../hocs/withClean';
@@ -20,14 +21,8 @@ const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
 const mapSendDataToProps = (txid) => ({ txid });
 
 const getAssetName = (assetId) => {
-  switch (`${assetId}`.toLowerCase()) {
-    case NEO:
-      return 'NEO';
-    case GAS:
-      return 'GAS';
-    default:
-      return assetId;
-  }
+  const asset = ASSETS[`${assetId}`.toLowerCase()];
+  return asset ? asset.symbol : assetId;
 };
 
 const CONFIG_KEYS = ['asset', 'amount', 'receiver', 'remark'];
@@ -40,20 +35,21 @@ export default function makeSend(sendActions) {
     // Rename arguments given by the user
     withProps(({ args }) => pick(args[0], CONFIG_KEYS)),
 
+    // Get the current network, fee settings data, & account data
+    withNetworkData(),
+    withData(feeActions, mapFeeDataToProps),
+    withData(authActions, mapAuthDataToProps),
+
     // Prompt user
     withPrompt(({ amount, asset, receiver }) => (
       <span>
         Would you like to transfer {amount} {getAssetName(asset)} to address{' '}
         <strong>&ldquo;{receiver}&rdquo;</strong>?
       </span>
-    ), {
-      title: 'Transfer'
-    }),
-
-    // Get the current network, fee settings data, & account data
-    withNetworkData(),
-    withData(feeActions, mapFeeDataToProps),
-    withData(authActions, mapAuthDataToProps),
+    ), (props) => ({
+      title: 'Transfer',
+      renderFooter: () => <PriorityFee {...props} editable={false} />
+    })),
 
     // Send assets & wait for success or failure
     withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif, remark, fee }) => ({
