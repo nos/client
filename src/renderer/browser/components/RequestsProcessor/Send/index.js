@@ -43,7 +43,7 @@ export default function makeSend(sendActions) {
     // Prompt user
     withPrompt(({ amount, asset, receiver }) => (
       <span>
-        Would you like to transfer {amount} ${getAssetName(asset)} to address{' '}
+        Would you like to transfer {amount} {getAssetName(asset)} to address{' '}
         <strong>&ldquo;{receiver}&rdquo;</strong>?
       </span>
     ), {
