@@ -1,0 +1,45 @@
+.transaction {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px;
+  background-color: #F8F9FA;
+
+  .asset {
+    flex-basis: 14vh; // TODO find another way
+    color: #353445;
+    line-height: 21px;
+    text-align: right;
+    font-size: 14px;
+    justify-content: right;
+  }
+
+  .type {
+    color: #353445;
+    font-weight: bold;
+    line-height: 23px;
+    text-align: left;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .label {
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 9px;
+    line-height: 13px;
+    background-color: #5EBB46;
+    color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .transactionId {
+    color: #5EBB46;
+    line-height: 23px;
+    text-align: left;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -9,16 +9,19 @@ import ReceiveIcon from 'shared/images/account/receive.svg';
 
 import Send from './Send';
 import Receive from './Receive';
+import Transactions from './Transactions';
 import IconTab from './IconTab';
 import balanceShape from '../../shapes/balanceShape';
 import styles from './TransactionsPanel.scss';
 
 const TAB_SEND = 'send';
 const TAB_RECEIVE = 'receive';
+const TAB_TRANSACTIONS = 'transactions';
 
 const TABS = {
   [TAB_SEND]: <IconTab renderIcon={SendIcon}>Send</IconTab>,
-  [TAB_RECEIVE]: <IconTab renderIcon={ReceiveIcon}>Receive</IconTab>
+  [TAB_RECEIVE]: <IconTab renderIcon={ReceiveIcon}>Receive</IconTab>,
+  [TAB_TRANSACTIONS]: <IconTab renderIcon={ReceiveIcon}>Transactions</IconTab>
 };
 
 export default class TransactionsPanel extends React.PureComponent {
@@ -56,6 +59,8 @@ export default class TransactionsPanel extends React.PureComponent {
         return <Send balances={this.props.balances} />;
       case TAB_RECEIVE:
         return <Receive />;
+      case TAB_TRANSACTIONS:
+        return <Transactions />;
       default:
         throw new Error('Invalid tab.');
     }

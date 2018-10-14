@@ -1,9 +1,10 @@
 .tabs {
   .header {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     list-style: none;
     margin: 0;
+    justify-content: space-evenly;
 
     .tab {
       display: block;
