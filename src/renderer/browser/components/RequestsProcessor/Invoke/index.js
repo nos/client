@@ -33,13 +33,13 @@ export default function makeInvoke(invokeActions, balancesActions) {
     // Ensure the arguments provided are valid
     withValidation(validateInvokeArgs),
 
-    // Prompt user
-    withInvocationPrompt(balancesActions),
-
     // Get the current network, account data, and priority fee data
     withNetworkData(),
     withData(authActions, mapAuthDataToProps),
     withData(feeActions, mapFeeDataToProps),
+
+    // Prompt user
+    withInvocationPrompt(balancesActions),
 
     // Run the invoke & wait for success or failure
     withInitialCall(invokeActions, ({
