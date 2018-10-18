@@ -1,12 +1,13 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import classNames from 'classnames';
 import { string, number } from 'prop-types';
 
 import TokenIcon from 'shared/components/TokenIcon';
-import Button from 'shared/components/Forms/Button';
 
 import balanceShape from '../../../shapes/balanceShape';
 import formatCurrency from '../../../util/formatCurrency';
+import ClaimButton from '../ClaimButton';
 import styles from './TokenBalance.scss';
 
 export default class TokenBalance extends React.PureComponent {
@@ -54,16 +55,18 @@ export default class TokenBalance extends React.PureComponent {
   }
 
   renderClaim = () => {
-    const { claimable } = this.props;
+    const { claimable, token } = this.props;
 
-    if (!claimable) {
+    if (!claimable || new BigNumber(claimable).eq(0)) {
       return null;
     }
 
     return (
-      <Button className={styles.claim} onClick={this.handleClaim}>
-        Claim {claimable} GAS
-      </Button>
+      <ClaimButton
+        className={styles.claim}
+        amount={claimable}
+        symbol={token.symbol}
+      />
     );
   }
 
@@ -78,10 +81,5 @@ export default class TokenBalance extends React.PureComponent {
         scriptHash={token.scriptHash}
       />
     );
-  }
-
-  handleClaim = (_event) => {
-    // TODO
-    alert('TODO: claim gas here!');
   }
 }
