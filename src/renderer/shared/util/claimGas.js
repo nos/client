@@ -10,7 +10,7 @@ export default async function claimGas({ net, address, wif }) {
   const { response: { result, txid } } = await api.claimGas(config, api.neoscan);
 
   if (!result) {
-    throw new Error('Claim failed.');
+    throw new Error('Transaction rejected by blockchain');
   }
 
   return txid;
