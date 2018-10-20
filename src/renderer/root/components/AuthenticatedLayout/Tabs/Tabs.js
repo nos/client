@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop, keys } from 'lodash';
 import { ipcRenderer } from 'electron';
@@ -9,6 +10,8 @@ import tabShape from 'browser/shapes/tabShape';
 
 import Tab from '../Tab';
 import styles from './Tabs.scss';
+
+// const DRAGGABLE_TYPE_TAB = 'TAB';
 
 export default class Tabs extends React.PureComponent {
   static propTypes = {
@@ -44,25 +47,43 @@ export default class Tabs extends React.PureComponent {
   }
 
   render() {
+    const { tabs } = this.props;
+    const sessionIds = keys(tabs);
+
     return (
-      <div className={classNames(styles.tabs, this.props.className)}>
-        {map(this.props.tabs, this.renderTab)}
-        <PlusIcon className={styles.newTab} onClick={this.handleNewTab} />
-      </div>
+      <DragDropContext>
+        <Droppable droppableId="tabs" direction="horizontal">
+          {/* type={DRAGGABLE_TYPE_TAB} */}
+          {(provided, _snapshot) => (
+            <div
+              ref={provided.innerRef}
+              className={classNames(styles.tabs, this.props.className)}
+              {...provided.droppableProps}
+            >
+              {map(sessionIds, this.renderTab)}
+              {provided.placeholder}
+              <PlusIcon className={styles.newTab} onClick={this.handleNewTab} />
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     );
   }
 
-  renderTab = (tab, sessionId) => {
+  renderTab = (sessionId, index) => {
+    const tab = this.props.tabs[sessionId];
     const { target, title, type, icon, loading } = tab;
 
     return (
       <Tab
         key={sessionId}
         className={styles.tab}
+        sessionId={sessionId}
         target={target}
         title={title}
         type={type}
         icon={icon}
+        position={index}
         loading={loading}
         active={sessionId === this.props.activeSessionId}
         onClick={this.handleClick(sessionId)}

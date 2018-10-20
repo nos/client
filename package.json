@@ -35,6 +35,7 @@
     "qrcode.react": "0.8.0",
     "rc-tooltip": "3.7.3",
     "react": "16.5.2",
+    "react-beautiful-dnd": "^9.0.2",
     "react-click-outside": "3.0.1",
     "react-copy-to-clipboard": "5.0.1",
     "react-dom": "16.5.2",
