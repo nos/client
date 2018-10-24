@@ -5,6 +5,7 @@ import { pickBy, keys } from 'lodash';
 import Loading from 'shared/components/Loading';
 import Failed from 'shared/components/Failed';
 import balancesActions from 'shared/actions/balancesActions';
+import claimableActions from 'shared/actions/claimableActions';
 import currencyActions from 'settings/actions/currencyActions';
 import authActions from 'login/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
@@ -26,30 +27,29 @@ const mapBalancesDataToProps = (balances) => ({
   })
 });
 
+const mapClaimableDataToProps = (claimable) => ({ claimable });
 const mapPricesDataToProps = (prices) => ({ prices });
 
 export default compose(
   withData(authActions, mapAuthDataToProps),
   withData(currencyActions, mapCurrencyDataToProps),
   withNetworkData(),
+  withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
   withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
   withInitialCall(pricesActions, ({ currency }) => ({ currency })),
 
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([balancesActions, pricesActions], { ... })
-  withProgressComponents(balancesActions, {
-    [LOADING]: Loading,
-    [FAILED]: Failed
-  }, {
-    strategy: alreadyLoadedStrategy
-  }),
-  withProgressComponents(pricesActions, {
-    [LOADING]: Loading,
-    [FAILED]: Failed
-  }, {
-    strategy: alreadyLoadedStrategy
-  }),
+  ...([claimableActions, balancesActions, pricesActions].map((actions) => {
+    return withProgressComponents(actions, {
+      [LOADING]: Loading,
+      [FAILED]: Failed
+    }, {
+      strategy: alreadyLoadedStrategy
+    });
+  })),
 
+  withData(claimableActions, mapClaimableDataToProps),
   withData(balancesActions, mapBalancesDataToProps),
   withData(pricesActions, mapPricesDataToProps),
 )(Account);
