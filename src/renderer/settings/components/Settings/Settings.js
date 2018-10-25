@@ -9,6 +9,7 @@ import ScrollContainer from '../ScrollContainer';
 import GeneralSettings from '../GeneralSettings';
 import NetworkSettings from '../NetworkSettings';
 import SidebarLink from '../SidebarLink';
+import Version from '../Version';
 import styles from './Settings.scss';
 
 // eslint-disable-next-line react/no-multi-comp
@@ -26,6 +27,10 @@ export default class Settings extends React.PureComponent {
     return (
       <ScrollContainer id="settingsContainer" ref={this.registerRef} className={styles.settings}>
         <Page className={styles.page}>
+          <Panel className={styles.panel}>
+            <Version className={styles.version} />
+          </Panel>
+
           <Panel className={styles.panel}>
             <div className={styles.sidebar}>
               <Sticky relative topOffset={this.state.offset}>
