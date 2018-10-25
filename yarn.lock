@@ -2713,10 +2713,9 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.npmjs.org/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-copy-to-clipboard@^3:
+"copy-to-clipboard@https://github.com/nos/copy-to-clipboard":
   version "3.0.8"
-  resolved "https://registry.npmjs.org/copy-to-clipboard/-/copy-to-clipboard-3.0.8.tgz#f4e82f4a8830dce4666b7eb8ded0c9bcc313aba9"
-  integrity sha512-c3GdeY8qxCHGezVb1EFQfHYK/8NZRemgcTIzPq7PuxjHAf/raKibn2QdhHPb/y6q74PMgH6yizaDZlRmw6QyKw==
+  resolved "https://github.com/nos/copy-to-clipboard#36317d449d4c536e9f795ac65fb7bd0b475fe3bb"
   dependencies:
     toggle-selection "^1.0.3"
 
@@ -9965,12 +9964,11 @@ react-click-outside@3.0.1:
   dependencies:
     hoist-non-react-statics "^2.1.1"
 
-react-copy-to-clipboard@5.0.1:
+"react-copy-to-clipboard@https://github.com/nos/react-copy-to-clipboard":
   version "5.0.1"
-  resolved "https://registry.npmjs.org/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.1.tgz#8eae107bb400be73132ed3b6a7b4fb156090208e"
-  integrity sha512-ELKq31/E3zjFs5rDWNCfFL4NvNFQvGRoJdAKReD/rUPA+xxiLPQmZBZBvy2vgH7V0GE9isIQpT9WXbwIVErYdA==
+  resolved "https://github.com/nos/react-copy-to-clipboard#0e45b9fba0542dd5db72b12e07769bbc66129e9d"
   dependencies:
-    copy-to-clipboard "^3"
+    copy-to-clipboard "https://github.com/nos/copy-to-clipboard"
     prop-types "^15.5.8"
 
 react-dom@16.5.2:

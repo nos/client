@@ -36,7 +36,7 @@
     "rc-tooltip": "3.7.3",
     "react": "16.5.2",
     "react-click-outside": "3.0.1",
-    "react-copy-to-clipboard": "5.0.1",
+    "react-copy-to-clipboard": "https://github.com/nos/react-copy-to-clipboard",
     "react-dom": "16.5.2",
     "react-is": "16.5.2",
     "react-redux": "5.0.7",
@@ -63,6 +63,7 @@
     "build": "yarn build:main && yarn build:renderer",
     "build:main": "electron-webpack main",
     "build:renderer": "cross-env NODE_ENV=production webpack --config config/webpack.renderer.js",
+    "build:react-copy-to-clipboard": "cd node_modules/react-copy-to-clipboard && yarn && yarn build && cd ../..",
     "dist": "yarn run clean && yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "pack": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "pretest": "yarn run lint && yarn run stylelint",
@@ -72,7 +73,7 @@
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist coverage",
-    "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
+    "postinstall": "yarn build:react-copy-to-clipboard && electron-builder install-app-deps && electron-rebuild --force"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
