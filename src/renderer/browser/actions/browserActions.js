@@ -5,7 +5,6 @@ export const OPEN_TAB = 'OPEN_TAB';
 export const CLOSE_TAB = 'CLOSE_TAB';
 export const RESET_TABS = 'RESET_TABS';
 export const SET_ACTIVE_TAB = 'SET_ACTIVE_TAB';
-export const SET_TAB_ERROR = 'SET_TAB_ERROR';
 export const SET_TAB_TARGET = 'SET_TAB_TARGET';
 export const SET_TAB_TITLE = 'SET_TAB_TITLE';
 export const SET_TAB_ICON = 'SET_TAB_ICON';
@@ -35,11 +34,6 @@ export const setActiveTab = (sessionId) => ({
 export const navigate = (sessionId, target) => ({
   type: NAVIGATE,
   payload: { sessionId, target }
-});
-
-export const setTabError = (sessionId, code, description) => ({
-  type: SET_TAB_ERROR,
-  payload: { sessionId, code, description }
 });
 
 export const setTabTarget = (sessionId, target) => ({

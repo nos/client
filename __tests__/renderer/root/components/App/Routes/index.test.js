@@ -26,9 +26,7 @@ const initialState = {
         title: 'Welcome to nOS',
         addressBarEntry: true,
         loading: false,
-        requestCount: 1,
-        errorCode: null,
-        errorDescription: null
+        requestCount: 1
       },
       'tab-2': {
         type: EXTERNAL,
@@ -36,9 +34,7 @@ const initialState = {
         title: 'nOS Splash',
         addressBarEntry: true,
         loading: false,
-        requestCount: 1,
-        errorCode: null,
-        errorDescription: null
+        requestCount: 1
       }
     }
   }

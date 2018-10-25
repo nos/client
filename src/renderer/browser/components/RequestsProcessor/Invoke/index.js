@@ -3,6 +3,7 @@ import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
@@ -18,6 +19,7 @@ import validateInvokeArgs from '../../../util/validateInvokeArgs';
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 
 const mapAuthDataToProps = (data) => data;
+const mapFeeDataToProps = (fee) => ({ fee });
 const mapInvokeDataToProps = (txid) => ({ txid });
 
 export default function makeInvoke(invokeActions, balancesActions) {
@@ -31,12 +33,13 @@ export default function makeInvoke(invokeActions, balancesActions) {
     // Ensure the arguments provided are valid
     withValidation(validateInvokeArgs),
 
-    // Prompt user
-    withInvocationPrompt(balancesActions),
-
-    // Get the current network and account data
+    // Get the current network, account data, and priority fee data
     withNetworkData(),
     withData(authActions, mapAuthDataToProps),
+    withData(feeActions, mapFeeDataToProps),
+
+    // Prompt user
+    withInvocationPrompt(balancesActions),
 
     // Run the invoke & wait for success or failure
     withInitialCall(invokeActions, ({
@@ -48,6 +51,7 @@ export default function makeInvoke(invokeActions, balancesActions) {
       scriptHash,
       operation,
       args,
+      fee,
       assets,
       encodeArgs
     }) => ({
@@ -59,6 +63,7 @@ export default function makeInvoke(invokeActions, balancesActions) {
       scriptHash,
       operation,
       args,
+      fee,
       assets,
       encodeArgs
     })),

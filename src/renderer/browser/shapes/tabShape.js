@@ -6,7 +6,5 @@ export default shape({
   type: oneOf([INTERNAL, EXTERNAL]).isRequired,
   target: string.isRequired,
   addressBarEntry: bool.isRequired,
-  requestCount: number.isRequired,
-  errorCode: number,
-  errorDescription: string
+  requestCount: number.isRequired
 });

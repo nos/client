@@ -17,7 +17,8 @@ export default class Confirm extends React.PureComponent {
     confirmLabel: string,
     cancelLabel: string,
     onConfirm: func,
-    onCancel: func
+    onCancel: func,
+    renderFooter: func
   };
 
   static defaultProps = {
@@ -28,7 +29,8 @@ export default class Confirm extends React.PureComponent {
     confirmLabel: 'OK',
     cancelLabel: 'Cancel',
     onConfirm: noop,
-    onCancel: noop
+    onCancel: noop,
+    renderFooter: noop
   };
 
   confirm = React.createRef();
@@ -48,9 +50,12 @@ export default class Confirm extends React.PureComponent {
     } = this.props;
 
     return (
-      <Modal className={classNames(styles.confirm, className)}>
+      <Modal
+        className={classNames(styles.confirm, className)}
+        renderHeader={this.renderTitle}
+        renderFooter={this.renderFooter}
+      >
         <div className={styles.content}>
-          {this.renderTitle()}
           <div className={styles.body}>
             {children}
           </div>
@@ -70,7 +75,6 @@ export default class Confirm extends React.PureComponent {
             </PrimaryButton>
           </div>
         </div>
-        {this.renderOrigin()}
       </Modal>
     );
   }
@@ -86,6 +90,15 @@ export default class Confirm extends React.PureComponent {
       <div className={styles.title}>
         {title}
       </div>
+    );
+  }
+
+  renderFooter = () => {
+    return (
+      <React.Fragment>
+        {this.props.renderFooter()}
+        {this.renderOrigin()}
+      </React.Fragment>
     );
   }
 

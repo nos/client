@@ -11,7 +11,7 @@ import balanceShape from '../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
 
 export default function AccountPanel(props) {
-  const { className, address, balances, prices, currency } = props;
+  const { className, address, claimable, balances, prices, currency } = props;
 
   return (
     <Panel className={classNames(styles.accountPanel, className)}>
@@ -29,6 +29,7 @@ export default function AccountPanel(props) {
       </div>
       <Holdings
         className={styles.holdings}
+        claimable={claimable}
         balances={balances}
         prices={prices}
         currency={currency}
@@ -40,6 +41,7 @@ export default function AccountPanel(props) {
 AccountPanel.propTypes = {
   className: string,
   address: string.isRequired,
+  claimable: string.isRequired,
   balances: arrayOf(balanceShape).isRequired,
   prices: objectOf(number).isRequired,
   currency: string.isRequired

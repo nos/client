@@ -19,6 +19,8 @@ module.exports = {
   },
 
   ipcRenderer: {
-    send: noop
+    send: noop,
+    on: noop,
+    removeListener: noop
   }
 };

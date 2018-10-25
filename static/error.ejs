@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    * {
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      padding: 20px;
+      background: #fff;
+    }
+
+    h1 {
+      margin: 0 0 15px;
+      color: #333;
+      font-size: 22.5px;
+      line-height: 28.125px;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .content {
+      margin-bottom: 40px;
+    }
+
+    .description {
+      color: #646464;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    dl {
+      display: block;
+      margin: 0;
+      color: #696969;
+      font-size: 15px;
+    }
+
+    dt {
+      margin: 10px 0 0;
+      font-weight: bold;
+    }
+
+    dd {
+      margin: 0;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      display: inline-block;
+      height: 36px;
+      padding: 0 24px;
+      background: #fff;
+      border: 0;
+      border-radius: 4px;
+      color: rgba(139, 200, 60, 0.9);
+      font-weight: 500;
+      font-size: 14px;
+      text-align: center;
+      box-shadow: inset 0 0 0 2px rgba(139, 200, 60, 0.9);
+      cursor: pointer;
+      -webkit-font-smoothing: antialiased;
+      transition: all 0.2s ease;
+    }
+
+    button:not([disabled]):hover {
+      color: darken(139, 200, 60, 0.05);
+      box-shadow: inset 0 0 0 2px darken(139, 200, 60, 0.05);
+    }
+
+    button.primary {
+      background: radial-gradient(150px at 50% 50%, #5bba47 0%, #8bcd38 100%);
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(53, 52, 69, 0.1);
+      text-shadow: 0 1px 2px rgba(53, 52, 69, 0.45);
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+    }
+
+    button.primary:not([disabled]):hover {
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(53, 52, 69, 0.2);
+    }
+  </style>
+  <script type="text/javascript">
+    function toggleDetails() {
+      const error = document.getElementById("error");
+      const details = document.getElementById("details");
+
+      if (error.style.display === 'none') {
+        details.style.display = 'none';
+        error.style.display = 'block';
+      } else {
+        error.style.display = 'none';
+        details.style.display = 'block';
+      }
+    }
+  </script>
+  <title><%= host %></title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <div id="error">
+        <h1>Error <%= errorCode %></h1>
+        <p>
+          <strong><%= host %></strong> could not be reached.
+        </p>
+        <p class="description">
+          <%= errorDescription %>
+        </p>
+      </div>
+
+      <dl id="details" style="display:none">
+        <dt>Check your Internet connection</dt>
+        <dd>Check any cables and reboot any routers, modems, or other network devices you may be using.</dd>
+
+        <dt>Allow nOS to access the network in your firewall or antivirus settings</dt>
+        <dd>If it is already listed as a program allowed to access the network, try removing it from the list and adding it again.</dd>
+
+        <dt>Check the proxy settings</dt>
+        <dd>If using a proxy server, ensure it is working as expected.</dd>
+      </dl>
+    </div>
+
+    <div class="actions">
+      <button type="button" onclick="toggleDetails()">Details</button>
+      <button type="button" class="primary" onclick="window.location.reload()">Reload</button>
+    </div>
+  </div>
+</body>
+</html>

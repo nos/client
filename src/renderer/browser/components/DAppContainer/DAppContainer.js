@@ -7,7 +7,6 @@ import { noop } from 'lodash';
 import getStaticPath from '../../../util/getStaticPath';
 import bindContextMenu from '../../util/bindContextMenu';
 import fetchBestIcon from '../../util/fetchBestIcon';
-import Error from '../Error';
 import RequestsProcessor from '../RequestsProcessor';
 import tabShape from '../../shapes/tabShape';
 import styles from './DAppContainer.scss';
@@ -18,7 +17,6 @@ export default class DAppContainer extends React.PureComponent {
     sessionId: string.isRequired,
     active: bool,
     tab: tabShape.isRequired,
-    setTabError: func.isRequired,
     setTabTitle: func.isRequired,
     setTabTarget: func.isRequired,
     setTabIcon: func.isRequired,
@@ -96,25 +94,8 @@ export default class DAppContainer extends React.PureComponent {
     return (
       <div className={classNames(styles.dAppContainer, className)}>
         {this.renderWebView()}
-        {this.renderError()}
         {this.renderRequestProcessor()}
       </div>
-    );
-  }
-
-  renderError() {
-    const { target, errorCode, errorDescription } = this.props.tab;
-
-    if (errorCode === null) {
-      return null;
-    }
-
-    return (
-      <Error
-        target={target}
-        code={errorCode}
-        description={errorDescription}
-      />
     );
   }
 
@@ -123,7 +104,7 @@ export default class DAppContainer extends React.PureComponent {
       <webview
         ref={this.registerRef}
         preload={this.getPreloadPath()}
-        className={classNames(styles.webview, { [styles.hidden]: this.isHidden() })}
+        className={styles.webview}
       />
     );
   }
@@ -150,6 +131,24 @@ export default class DAppContainer extends React.PureComponent {
   }
 
   handleIPCMessage = (event) => {
+    switch (event.channel) {
+      case 'view:zoom':
+        this.handleIPCZoom(event);
+        break;
+      default:
+        this.handleIPCAPI(event);
+    }
+  }
+
+  handleIPCZoom = (event) => {
+    const difference = event.args[0] > 0 ? -0.5 : 0.5;
+
+    this.webview.getZoomLevel((zoomLevel) => {
+      this.webview.setZoomLevel(zoomLevel + difference);
+    });
+  }
+
+  handleIPCAPI = (event) => {
     const { channel } = event;
     const id = event.args[0];
     const args = event.args.slice(1);
@@ -181,7 +180,7 @@ export default class DAppContainer extends React.PureComponent {
 
   handleNavigateFailed = (event) => {
     if (event.isMainFrame) {
-      this.props.setTabError(this.props.sessionId, event.errorCode, event.errorDescription);
+      this.webview.send('did-fail-load', event.validatedURL, event.errorCode, event.errorDescription);
     }
   }
 
@@ -219,10 +218,6 @@ export default class DAppContainer extends React.PureComponent {
 
   getPreloadPath = () => {
     return `file:${path.join(getStaticPath(), 'preloadRenderer.js')}`;
-  }
-
-  isHidden = () => {
-    return this.props.tab.errorCode !== null;
   }
 
   focusAndNotify = () => {
