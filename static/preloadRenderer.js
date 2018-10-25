@@ -1,3 +1,4 @@
+const { version } = require('../package.json');
 const api = require('./preloads/api');
 const events = require('./preloads/events');
 const handleErrors = require('./preloads/handleErrors');
@@ -16,5 +17,5 @@ const V1 = { ...api, ...events };
 process.once('loaded', () => {
   // Be careful not to expose any functionality or APIs that could compromise the user's system.
   // For example, don't directly expose core Electron (even IPC) or node.js modules.
-  window.NOS = { ASSETS, V1 };
+  window.NOS = { version, ASSETS, V1 };
 });
