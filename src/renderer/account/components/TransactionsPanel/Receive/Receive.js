@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from 'qrcode.react';
 import classNames from 'classnames';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
 import { string, func } from 'prop-types';
 import { noop } from 'lodash';
 

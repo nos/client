@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 
-import LoginFormWIF from './LoginFormWIF';
+import LoginFormPrivateKey from './LoginFormPrivateKey';
 import withLogin from '../../hocs/withLogin';
 
 export default compose(
@@ -10,4 +10,4 @@ export default compose(
   // redirect on login
   withRouter,
   withLogin((state, { history }) => history.push('/browser'))
-)(LoginFormWIF);
+)(LoginFormPrivateKey);

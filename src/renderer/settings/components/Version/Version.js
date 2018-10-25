@@ -29,7 +29,7 @@ export default class Version extends React.PureComponent {
   render() {
     return (
       <div className={classNames(styles.version, this.props.className)}>
-        <Logo className={styles.logo} />
+        <Logo className={styles.logo} width="36" height="36" />
         <div className={styles.current}>
           <div className={styles.appName}>nOS Client</div>
           Version {this.props.current}
