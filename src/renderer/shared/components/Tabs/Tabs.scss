@@ -4,15 +4,12 @@
     flex-wrap: wrap;
     list-style: none;
     margin: 0;
+    justify-content: space-evenly;
 
     .tab {
       display: block;
       cursor: default;
       -webkit-font-smoothing: antialiased;
-
-      &:not(:last-child) {
-        margin-right: 24px;
-      }
     }
 
     .label {

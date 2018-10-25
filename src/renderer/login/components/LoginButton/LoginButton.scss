@@ -1,0 +1,13 @@
+.loginButton {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(#000, 0.1);
+
+  .register {
+    flex: 0 0 auto;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+}
