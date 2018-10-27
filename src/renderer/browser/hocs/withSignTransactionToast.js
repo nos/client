@@ -13,7 +13,7 @@ const withSignTransactionToast = compose(
   withInfoToast(),
   lifecycle({
     componentDidMount() {
-      this.props.showInfoToast('Please sign the transaction on your Ledger.');
+      this.props.showInfoToast('Please sign the transaction(s) on your Ledger.');
     }
   })
 );
