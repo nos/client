@@ -38,7 +38,7 @@ export default class Breakdown extends React.PureComponent {
             dataKey="value"
             nameKey="label"
             innerRadius="50%"
-            outerRadius="80%"
+            outerRadius="65%"
             startAngle={90}
             endAngle={-270}
             label={SectionLabel}
