@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Label } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { string } from 'prop-types';
 import { times, reduce } from 'lodash';
 
@@ -52,12 +52,6 @@ export default class BreakdownChart extends React.PureComponent {
                 stroke={COLORS[index]}
               />
             ))}
-            <Label
-              id="totalValue"
-              position="center"
-              fontSize={28}
-              value={this.getTotalValue()}
-            />
           </Pie>
           <Tooltip formatter={this.formatValue} />
         </PieChart>
@@ -76,10 +70,6 @@ export default class BreakdownChart extends React.PureComponent {
       ...data.splice(0, 2),
       { symbol: 'OTHERS', value: reduceSum(data) }
     ];
-  }
-
-  getTotalValue = () => {
-    return this.formatValue(reduceSum(this.props.data));
   }
 
   formatValue = (value) => {

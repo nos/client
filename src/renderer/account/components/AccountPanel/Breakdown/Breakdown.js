@@ -5,6 +5,7 @@ import { number, string, arrayOf, objectOf } from 'prop-types';
 import TokenIcon from 'shared/components/TokenIcon';
 
 import balanceShape from '../../../shapes/balanceShape';
+import TotalValue from './TotalValue';
 import BreakdownChart from './BreakdownChart';
 import styles from './Breakdown.scss';
 
@@ -25,13 +26,20 @@ export default class Breakdown extends React.PureComponent {
 
     return (
       <div className={classNames(styles.breakdown, className)}>
-        <BreakdownChart
-          className={styles.chart}
+        <TotalValue
+          className={styles.totalValue}
           balances={balances}
           prices={prices}
           currency={currency}
         />
-        {this.renderIcon()}
+        <div className={styles.chart}>
+          <BreakdownChart
+            balances={balances}
+            prices={prices}
+            currency={currency}
+          />
+          {this.renderIcon()}
+        </div>
       </div>
     );
   }

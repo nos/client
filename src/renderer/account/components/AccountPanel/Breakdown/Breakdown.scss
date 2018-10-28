@@ -1,12 +1,23 @@
 .breakdown {
-  position: relative;
+  display: flex;
+  flex-direction: column;
 
-  .icon {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 25%;
-    height: 25%;
-    transform: translate(-50%, -50%);
+  .totalValue {
+    flex: 0 0 auto;
+    margin: 20px;
+  }
+
+  .chart {
+    flex: 1 1 100%;
+    position: relative;
+
+    .icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 25%;
+      height: 25%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
