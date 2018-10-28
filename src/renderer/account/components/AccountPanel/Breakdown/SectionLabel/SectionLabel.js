@@ -18,11 +18,11 @@ export default function SectionLabel(props) {
 
   return (
     <g className={styles.sectionLabel}>
-      <text x={x} y={y - 10} className={styles.label} textAnchor="start" dominantBaseline="central">
-        {label}
-      </text>
-      <text x={x} y={y + 10} className={styles.percent} textAnchor="start" dominantBaseline="central">
+      <text x={x} y={y - 10} className={styles.percent} textAnchor="start" dominantBaseline="central">
         {`${(percent * 100).toFixed(0)}%`}
+      </text>
+      <text x={x} y={y + 10} className={styles.label} textAnchor="start" dominantBaseline="central">
+        {label}
       </text>
     </g>
   );
