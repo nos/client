@@ -1,5 +1,6 @@
 import { compose } from 'recompose';
 import { withData, withActions, progressValues } from 'spunky';
+import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
 import claimActions from 'shared/actions/claimActions';
@@ -7,16 +8,16 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
+import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import ClaimButton from './ClaimButton';
 
-const { LOADED, FAILED } = progressValues;
+const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapAuthDataToProps = (data) => (data);
 
 const mapClaimActionsToProps = (actions, props) => ({
-  onClick: () => actions.call({ net: props.net, address: props.address, wif: props.wif })
+  onClick: () => actions.call(pick(props, 'net', 'address', 'wif', 'publicKey', 'signingFunction'))
 });
 
 export default compose(
@@ -24,6 +25,15 @@ export default compose(
   withData(authActions, mapAuthDataToProps),
   withActions(claimActions, mapClaimActionsToProps),
   withLoadingProp(claimActions, { strategy: pureStrategy }),
+
+  withInfoToast(),
+  withProgressChange(claimActions, LOADING, (state, props) => {
+    if (props.signingFunction) {
+      props.showInfoToast('Please sign the transaction(s) on your Ledger.');
+    }
+  }, {
+    strategy: pureStrategy
+  }),
 
   withSuccessToast(),
   withProgressChange(claimActions, LOADED, (state, props) => {

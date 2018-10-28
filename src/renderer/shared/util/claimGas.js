@@ -9,7 +9,8 @@ const POLL_FREQUENCY = 10000;
 
 async function fetchBalance({ net, address }) {
   const response = await api.getBalanceFrom({ net, address }, api.neoscan);
-  return response.balance.assets.NEO.balance || new BigNumber(0);
+  const { NEO } = response.balance.assets;
+  return NEO ? NEO.balance : new BigNumber(0);
 }
 
 async function fetchClaims({ net, address }) {
@@ -72,7 +73,7 @@ async function getUpdatedClaimableAmount({
 }
 
 export default async function claimGas({ net, address, wif, publicKey, signingFunction }) {
-  const { privateKey } = new wallet.Account(wif);
+  const privateKey = wif && new wallet.Account(wif).privateKey;
 
   const balance = await fetchBalance({ net, address });
 

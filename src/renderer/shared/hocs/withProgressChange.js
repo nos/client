@@ -7,7 +7,7 @@ const DATA_PROP = '__authData__';
 const ERROR_PROP = '__authError__';
 const PROGRESS_PROP = '__authProgress__';
 
-export default function withProgressChange(actions, progress, callback) {
+export default function withProgressChange(actions, progress, callback, options = {}) {
   const progresses = castArray(progress);
 
   const mapDataToProps = (data) => ({
@@ -46,7 +46,7 @@ export default function withProgressChange(actions, progress, callback) {
     }
 
     return compose(
-      withProgress(actions, { propName: PROGRESS_PROP }),
+      withProgress(actions, { ...options, propName: PROGRESS_PROP }),
       withData(actions, mapDataToProps),
       withError(actions, mapErrorToProps)
     )(WrappedComponent);
