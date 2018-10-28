@@ -1,20 +1,11 @@
-import BigNumber from 'bignumber.js';
-import { mapProps } from 'recompose';
-import { map, omit, orderBy } from 'lodash';
+import { withProps } from 'recompose';
+import { sortBy } from 'lodash';
 
 import Breakdown from './Breakdown';
+import calculateTokenValue from '../../../util/calculateTokenValue';
 
-const calculateTokenValues = ({ balances, prices }) => map(balances, (token) => ({
-  label: token.symbol,
-  value: parseFloat(
-    new BigNumber(token.balance).times(prices[token.symbol] || 0).toFixed(token.decimals),
-    10
-  )
-}));
-
-const mapBalancesToProps = (props) => ({
-  ...omit(props, 'balances'),
-  data: orderBy(calculateTokenValues(props), ['value'], ['desc'])
+const mapSortedBalances = (props) => ({
+  balances: sortBy(props.balances, (token) => -calculateTokenValue(token, props.prices))
 });
 
-export default mapProps(mapBalancesToProps)(Breakdown);
+export default withProps(mapSortedBalances)(Breakdown);

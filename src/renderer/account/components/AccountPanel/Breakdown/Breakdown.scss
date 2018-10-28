@@ -1,11 +1,12 @@
 .breakdown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  position: relative;
 
-  text {
-    fill: #494759;
-    font-family: $primary-font-stack;
+  .icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 25%;
+    height: 25%;
+    transform: translate(-50%, -50%);
   }
 }

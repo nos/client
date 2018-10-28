@@ -1,14 +1,10 @@
 import React from 'react';
-import { number, string, shape } from 'prop-types';
+import { number } from 'prop-types';
 
+import chartDataShape from '../../../../shapes/chartDataShape';
 import styles from './SectionLabel.scss';
 
 const RADIAN = Math.PI / 180;
-
-const payloadShape = shape({
-  label: string.isRequired,
-  value: number.isRequired
-});
 
 export default function SectionLabel(props) {
   const { cx, cy, midAngle, outerRadius, percent, payload: { label } } = props;
@@ -34,5 +30,5 @@ SectionLabel.propTypes = {
   midAngle: number.isRequired,
   outerRadius: number.isRequired,
   percent: number.isRequired,
-  payload: payloadShape.isRequired
+  payload: chartDataShape.isRequired
 };
