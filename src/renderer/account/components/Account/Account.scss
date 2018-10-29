@@ -1,25 +1,30 @@
 .account {
-  display: flex;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  height: 100%;
+  overflow-y: auto;
 
-  .panel {
-    flex: 1 1 auto;
-
-    &:not(:last-child) {
-      margin-right: 20px;
-    }
-  }
-
-  @media only screen and (max-width: $responsive-width) {
-    flex-wrap: wrap;
+  .content {
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 24px;
 
     .panel {
-      flex-basis: 100%;
+      flex: 1 1 auto;
 
       &:not(:last-child) {
-        margin-right: 0;
-        margin-bottom: 20px;
+        margin-right: 20px;
+      }
+    }
+
+    @media only screen and (max-width: $responsive-width) {
+      flex-wrap: wrap;
+
+      .panel {
+        flex-basis: 100%;
+
+        &:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
       }
     }
   }
