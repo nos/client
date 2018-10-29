@@ -1,10 +1,12 @@
 @mixin button($color) {
   color: $color;
   stroke: currentColor;
+  cursor: pointer;
   transition: color 0.15s ease;
 
   &.disabled {
     color: lighten($color, 20%);
+    cursor: not-allowed;
   }
 
   &:not(.disabled):focus,
