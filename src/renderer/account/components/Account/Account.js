@@ -13,18 +13,20 @@ export default function Account(props) {
   const { claimable, balances, prices } = props;
 
   return (
-    <Page className={styles.account}>
-      <AccountPanel
-        className={styles.panel}
-        claimable={claimable}
-        balances={values(balances)}
-        prices={prices}
-      />
-      <TransactionsPanel
-        className={styles.panel}
-        balances={balances}
-      />
-    </Page>
+    <div className={styles.account}>
+      <Page className={styles.content}>
+        <AccountPanel
+          className={styles.panel}
+          claimable={claimable}
+          balances={values(balances)}
+          prices={prices}
+        />
+        <TransactionsPanel
+          className={styles.panel}
+          balances={balances}
+        />
+      </Page>
+    </div>
   );
 }
 
