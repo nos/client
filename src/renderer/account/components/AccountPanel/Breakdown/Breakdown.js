@@ -1,25 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Label } from 'recharts';
-import { string } from 'prop-types';
-import { times, reduce } from 'lodash';
+import { number, string, arrayOf, objectOf } from 'prop-types';
 
-import formatCurrency from 'account/util/formatCurrency';
+import TokenIcon from 'shared/components/TokenIcon';
 
-import SectionLabel from './SectionLabel';
-import chartDataShape from '../../../shapes/chartDataShape';
+import balanceShape from '../../../shapes/balanceShape';
+import TotalValue from './TotalValue';
+import BreakdownChart from './BreakdownChart';
 import styles from './Breakdown.scss';
-
-const COLORS = ['#5ebb46', '#b5d433', '#0b99e3'];
-
-function reduceSum(data) {
-  return reduce(data, (sum, datum) => sum + datum.value, 0);
-}
 
 export default class Breakdown extends React.PureComponent {
   static propTypes = {
     className: string,
-    data: chartDataShape.isRequired,
+    balances: arrayOf(balanceShape).isRequired,
+    prices: objectOf(number).isRequired,
     currency: string.isRequired
   };
 
@@ -28,61 +22,35 @@ export default class Breakdown extends React.PureComponent {
   };
 
   render() {
-    const data = this.getData();
+    const { className, balances, prices, currency } = this.props;
 
     return (
-      <ResponsiveContainer width="100%" className={classNames(styles.breakdown, this.props.className)}>
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="label"
-            innerRadius="50%"
-            outerRadius="80%"
-            startAngle={90}
-            endAngle={-270}
-            label={SectionLabel}
-            labelLine={false}
-            isAnimationActive={false}
-          >
-            {times(data.length, (index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-                stroke={COLORS[index]}
-              />
-            ))}
-            <Label
-              id="totalValue"
-              position="center"
-              fontSize={28}
-              value={this.getTotalValue()}
-            />
-          </Pie>
-          <Tooltip formatter={this.formatValue} />
-        </PieChart>
-      </ResponsiveContainer>
+      <div className={classNames(styles.breakdown, className)}>
+        <TotalValue
+          className={styles.totalValue}
+          balances={balances}
+          prices={prices}
+          currency={currency}
+        />
+        <div className={styles.chart}>
+          <BreakdownChart
+            balances={balances}
+            prices={prices}
+            currency={currency}
+          />
+          {this.renderIcon()}
+        </div>
+      </div>
     );
   }
 
-  getData = () => {
-    const data = [...this.props.data];
+  renderIcon = () => {
+    const token = this.props.balances[0];
 
-    if (data.length <= 3) {
-      return data;
+    if (!token) {
+      return null;
     }
 
-    return [
-      ...data.splice(0, 2),
-      { label: 'OTHERS', value: reduceSum(data) }
-    ];
-  }
-
-  getTotalValue = () => {
-    return this.formatValue(reduceSum(this.props.data));
-  }
-
-  formatValue = (value) => {
-    return formatCurrency(value, this.props.currency);
+    return <TokenIcon className={styles.icon} {...token} />;
   }
 }
