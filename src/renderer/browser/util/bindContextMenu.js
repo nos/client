@@ -34,6 +34,10 @@ function bindOnce(emitter, event, callback) {
 
 export default function bindContextMenu(browserWindowOrWebview) {
   bindOnce(browserWindowOrWebview, 'dom-ready', () => {
-    contextMenu({ window: browserWindowOrWebview, prepend });
+    contextMenu({
+      window: browserWindowOrWebview,
+      showInspectElement: true,
+      prepend
+    });
   });
 }
