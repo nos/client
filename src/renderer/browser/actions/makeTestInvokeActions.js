@@ -1,6 +1,8 @@
 import { createActions } from 'spunky';
-import { api, rpc, wallet } from '@cityofzion/neon-js';
+import { rpc, wallet } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
+
+import getRPCEndpoint from 'util/getRPCEndpoint';
 
 import createScript from 'shared/util/createScript';
 
@@ -21,7 +23,7 @@ const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs }) => {
     throw new Error(`Invalid arguments: "${args}"`);
   }
 
-  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
+  const endpoint = await getRPCEndpoint(net);
   const script = createScript(scriptHash, operation, args, encodeArgs);
   const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
 
