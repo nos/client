@@ -7,7 +7,7 @@ import validateRemark from 'shared/util/validateRemark';
 import { ASSETS } from '../values/assets';
 
 export default async function sendAsset(
-  { net, asset, amount, receiver, address, wif, remark, fee = 0 },
+  { net, asset, amount, receiver, address, wif, publicKey, signingFunction, remark, fee = 0 },
   getBalance = api.neoscan.getBalance,
   doSendAsset = api.sendAsset,
   doInvoke = api.doInvoke
@@ -25,7 +25,7 @@ export default async function sendAsset(
   }
 
   const send = async () => {
-    const config = { net, address, privateKey: wif, fees: fee };
+    const config = { net, address, privateKey: wif, publicKey, signingFunction, fees: fee };
 
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset].symbol;

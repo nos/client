@@ -1,0 +1,13 @@
+.breakdownChart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  min-height: 400px;
+
+  text {
+    fill: #494759;
+    font-family: $primary-font-stack;
+  }
+}

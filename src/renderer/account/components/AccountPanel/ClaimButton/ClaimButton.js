@@ -31,7 +31,7 @@ export default class ClaimButton extends React.PureComponent {
         disabled={loading}
         onClick={onClick}
       >
-        Claim {amount} {symbol}
+        {loading ? 'Claiming GAS...' : `Claim ${amount} ${symbol}`}
       </Button>
     );
   }

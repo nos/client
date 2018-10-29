@@ -10,11 +10,12 @@
   padding: 8px 0;
   color: $link-color;
   text-decoration: none;
-  cursor: default;
+  cursor: pointer;
   transition: all 0.2s ease;
 
   &.disabled {
     color: lighten($link-color, 20%);
+    cursor: not-allowed;
   }
 
   &:not(.disabled):focus,
