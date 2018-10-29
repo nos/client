@@ -4,6 +4,7 @@
 
   position: relative;
   width: 100%;
+  cursor: pointer;
 
   .input {
     display: flex;
@@ -29,10 +30,14 @@
     }
   }
 
-  &.disabled .input {
-    background: $disabled-background;
-    color: $disabled-color;
-    box-shadow: none;
+  &.disabled {
+    cursor: not-allowed;
+
+    .input {
+      background: $disabled-background;
+      color: $disabled-color;
+      box-shadow: none;
+    }
   }
 
   .caret {
@@ -89,6 +94,7 @@
     .item {
       color: #494759;
       font-size: 14px;
+      cursor: pointer;
 
       &.focus {
         background: rgba(#edeef2, 0.5);
