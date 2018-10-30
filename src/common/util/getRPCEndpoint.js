@@ -66,7 +66,7 @@ export default async function getRPCEndpoint(net) {
     throw new Error('No eligible nodes found!');
   }
 
-  const heightThreshold = nodes[0].height - 1;
+  const heightThreshold = goodNodes[0].height - 1;
   const highestNodes = goodNodes.filter((n) => n.height >= heightThreshold);
   const urls = highestNodes.map((n) => n.url);
 
