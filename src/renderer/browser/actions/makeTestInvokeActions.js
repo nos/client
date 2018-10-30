@@ -1,5 +1,5 @@
 import { createActions } from 'spunky';
-import { rpc, wallet } from '@cityofzion/neon-js';
+import { rpc } from '@cityofzion/neon-js';
 import { isArray } from 'lodash';
 
 import getRPCEndpoint from 'util/getRPCEndpoint';
@@ -7,25 +7,34 @@ import getRPCEndpoint from 'util/getRPCEndpoint';
 import createScript from 'shared/util/createScript';
 
 import generateDAppActionId from './generateDAppActionId';
+import createArrayScript from '../util/createArrayScript';
+import validateScriptArgs from '../util/validateScriptArgs';
 
 export const ID = 'testInvoke';
 
-const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs }) => {
-  if (!wallet.isScriptHash(scriptHash)) {
-    throw new Error(`Invalid script hash: "${scriptHash}"`);
-  }
+const testInvoke = async ({ net, scriptHash, operation, args, script, encodeArgs }) => {
+  let invokeScript;
 
-  if (typeof operation !== 'string') {
-    throw new Error(`Invalid operation: "${operation}"`);
-  }
+  if (scriptHash && operation && args) {
+    validateScriptArgs({ scriptHash, operation, args });
+    invokeScript = createScript(scriptHash, operation, args, encodeArgs);
+  } else if (script) {
+    if (typeof script !== 'string' && !isArray(script)) {
+      throw new Error(`Invalid script: "${script}"`);
+    }
 
-  if (!isArray(args)) {
-    throw new Error(`Invalid arguments: "${args}"`);
+    if (typeof script === 'string') {
+      invokeScript = script;
+    } else if (isArray(script)) {
+      script.forEach(validateScriptArgs);
+      invokeScript = createArrayScript(script, encodeArgs);
+    }
+  } else {
+    throw new Error('Invalid config!');
   }
 
   const endpoint = await getRPCEndpoint(net);
-  const script = createScript(scriptHash, operation, args, encodeArgs);
-  const { result } = await rpc.Query.invokeScript(script).execute(endpoint);
+  const { result } = await rpc.Query.invokeScript(invokeScript).execute(endpoint);
 
   return result;
 };
@@ -33,7 +42,10 @@ const testInvoke = async ({ net, scriptHash, operation, args, encodeArgs }) => {
 export default function makeTestInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
 
-  return createActions(id, ({ net, scriptHash, operation, args, encodeArgs = true }) => () => {
-    return testInvoke({ net, scriptHash, operation, args, encodeArgs });
-  });
+  return createActions(
+    id,
+    ({ net, scriptHash, operation, args, script, encodeArgs = true }) => () => {
+      return testInvoke({ net, scriptHash, operation, args, script, encodeArgs });
+    }
+  );
 }
