@@ -19,15 +19,15 @@ const testInvoke = async ({ net, scriptHash, operation, args, script, encodeArgs
     validateScriptArgs({ scriptHash, operation, args });
     invokeScript = createScript(scriptHash, operation, args, encodeArgs);
   } else if (script) {
-    if (typeof script !== 'string' || !isArray(script)) {
+    if (typeof script !== 'string' && !isArray(script)) {
       throw new Error(`Invalid script: "${script}"`);
     }
 
-    if (isArray(script)) {
+    if (typeof script === 'string') {
+      invokeScript = script;
+    } else if (isArray(script)) {
       script.forEach((s) => validateScriptArgs(s));
       invokeScript = createArrayScript(script, encodeArgs);
-    } else {
-      invokeScript = script;
     }
   } else {
     throw new Error('Invalid config!');
