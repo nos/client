@@ -40,7 +40,9 @@ export default class TokenBalance extends React.PureComponent {
       <div className={styles.token}>
         {this.renderImage()}
         <div className={styles.detail}>
-          <div className={styles.balance}>{token.balance} {token.symbol}</div>
+          <div className={styles.balance}>
+            {new BigNumber(token.balance).toFormat(token.decimals)} {token.symbol}
+          </div>
           <div className={styles.currency}>
             <span className={styles.tokenValue}>
               {formatCurrency(price, currency)}
