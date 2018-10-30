@@ -26,7 +26,7 @@ const testInvoke = async ({ net, scriptHash, operation, args, script, encodeArgs
     if (typeof script === 'string') {
       invokeScript = script;
     } else if (isArray(script)) {
-      script.forEach((s) => validateScriptArgs(s));
+      script.forEach(validateScriptArgs);
       invokeScript = createArrayScript(script, encodeArgs);
     }
   } else {
