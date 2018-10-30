@@ -10,7 +10,7 @@ import currencyActions from 'settings/actions/currencyActions';
 import authActions from 'login/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import { ASSETS } from 'shared/values/assets';
+import { ASSETS, NOS } from 'shared/values/assets';
 
 import Account from './Account';
 import pricesActions from '../../actions/pricesActions';
@@ -23,7 +23,7 @@ const mapCurrencyDataToProps = (currency) => ({ currency });
 
 const mapBalancesDataToProps = (balances) => ({
   balances: pickBy(balances, ({ scriptHash, balance }) => {
-    return keys(ASSETS).includes(scriptHash) || balance !== '0';
+    return keys(ASSETS).includes(scriptHash) || scriptHash === NOS || balance !== '0';
   })
 });
 

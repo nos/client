@@ -7,6 +7,7 @@ import TokenIcon from 'shared/components/TokenIcon';
 
 import balanceShape from '../../../shapes/balanceShape';
 import formatCurrency from '../../../util/formatCurrency';
+import formatBalance from '../../../util/formatBalance';
 import ClaimButton from '../ClaimButton';
 import styles from './TokenBalance.scss';
 
@@ -40,7 +41,9 @@ export default class TokenBalance extends React.PureComponent {
       <div className={styles.token}>
         {this.renderImage()}
         <div className={styles.detail}>
-          <div className={styles.balance}>{token.balance} {token.symbol}</div>
+          <div className={styles.balance}>
+            {formatBalance(token.balance, token.decimals)} {token.symbol}
+          </div>
           <div className={styles.currency}>
             <span className={styles.tokenValue}>
               {formatCurrency(price, currency)}
