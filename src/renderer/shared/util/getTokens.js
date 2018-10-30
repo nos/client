@@ -11,7 +11,7 @@ function normalizeImage(src) {
   return trim(src) === '' ? null : src;
 }
 
-export default async function getTokens(net) {
+export default async function getTokens(net = 'MainNet') {
   const networkKey = NETWORK_MAP[net];
 
   const response = await fetch(TOKENS_URL);
