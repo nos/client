@@ -1,6 +1,8 @@
 import { extend, get, find } from 'lodash';
 import { api, rpc, wallet } from '@cityofzion/neon-js';
 
+import getRPCEndpoint from 'util/getRPCEndpoint';
+
 import getTokens from './getTokens';
 import { GAS, NEO, ASSETS } from '../values/assets';
 
@@ -32,7 +34,7 @@ async function getAssetBalances(endpoint, address) {
 }
 
 export default async function getBalances({ net, address }) {
-  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
+  const endpoint = await getRPCEndpoint(net);
 
   if (!wallet.isAddress(address)) {
     throw new Error(`Invalid address: "${address}"`);
