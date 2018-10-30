@@ -1,7 +1,10 @@
 import fetch from 'node-fetch';
 import { rpc, settings } from '@cityofzion/neon-js';
 
+const BLACKLIST_URL = 'https://raw.githubusercontent.com/nos/rpc-status/master/blacklist.json';
+
 let cachedRPC = null;
+let cachedBlacklist = null;
 
 function getAPIEndpoint(net) {
   if (settings.networks[net]) {
@@ -11,12 +14,23 @@ function getAPIEndpoint(net) {
   return net;
 }
 
-function isUnreliableNode(url) {
-  return url.match(/redpulse\.com/i) ||
-    url.match(/ddns\.net/i) ||
-    url.match(/neeeo\.org/i) ||
-    url.match(/otcgo\.cn/i) ||
-    url.match(/seed1\.aphelion-neo\.com/i);
+async function fetchBlacklist() {
+  if (cachedBlacklist) {
+    return cachedBlacklist;
+  }
+
+  try {
+    const response = await fetch(BLACKLIST_URL);
+    cachedBlacklist = await response.json();
+    return cachedBlacklist;
+  } catch (err) {
+    console.error('Unable to fetch RPC blacklist:', err); // eslint-disable-line no-console
+    return [];
+  }
+}
+
+function isUnreliableNode(url, blacklist) {
+  return blacklist.some((item) => url.includes(item));
 }
 
 function raceToSuccess(promises) {
@@ -45,13 +59,16 @@ export default async function getRPCEndpoint(net) {
     nodes = nodes.filter((n) => n.url.includes('https://'));
   }
 
-  if (nodes.length === 0) {
+  const blacklist = await fetchBlacklist();
+  const goodNodes = nodes.filter((n) => !isUnreliableNode(n.url, blacklist));
+
+  if (goodNodes.length === 0) {
     throw new Error('No eligible nodes found!');
   }
 
   const heightThreshold = nodes[0].height - 1;
-  const goodNodes = nodes.filter((n) => n.height >= heightThreshold);
-  const urls = goodNodes.map((n) => n.url).filter((url) => !isUnreliableNode(url));
+  const highestNodes = goodNodes.filter((n) => n.height >= heightThreshold);
+  const urls = highestNodes.map((n) => n.url);
 
   if (urls.length === 0) {
     throw new Error('No eligible nodes found!');
