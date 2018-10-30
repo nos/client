@@ -19,8 +19,8 @@ export default async function getTokens(net = 'MainNet') {
   const networkTokens = filter(tokens, (token) => token.networks[networkKey]);
   const sortedTokens = sortBy(networkTokens, 'symbol');
 
-  return sortedTokens.map(({ image, networks }) => {
+  return sortedTokens.map(({ image, symbol, networks }) => {
     const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
-    return { name, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
+    return { name, symbol, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
   });
 }
