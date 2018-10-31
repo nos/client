@@ -1,6 +1,8 @@
 import { api, wallet, u, tx } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
+import getRPCEndpoint from 'util/getRPCEndpoint';
+
 import createScript from 'shared/util/createScript';
 import validateRemark from 'shared/util/validateRemark';
 
@@ -25,7 +27,8 @@ export default async function sendAsset(
   }
 
   const send = async () => {
-    const config = { net, address, privateKey: wif, publicKey, signingFunction, fees: fee };
+    const url = await getRPCEndpoint(net);
+    const config = { net, url, address, privateKey: wif, publicKey, signingFunction, fees: fee };
 
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset].symbol;
