@@ -2,6 +2,8 @@ import { createActions } from 'spunky';
 import { wallet, api } from '@cityofzion/neon-js';
 import { mapKeys } from 'lodash';
 
+import getRPCEndpoint from 'util/getRPCEndpoint';
+
 import createScript from 'shared/util/createScript';
 import formatAssets from 'shared/util/formatAssets';
 import { ASSETS } from 'shared/values/assets';
@@ -26,8 +28,10 @@ async function doInvoke({
 }) {
   validateInvokeArgs({ scriptHash, operation, args, assets });
 
+  const url = await getRPCEndpoint(net);
   const config = {
     net,
+    url,
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
