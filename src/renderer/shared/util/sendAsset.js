@@ -12,7 +12,8 @@ export default async function sendAsset(
   { net, asset, amount, receiver, address, wif, publicKey, signingFunction, remark, fee = 0 },
   getBalance = api.neoscan.getBalance,
   doSendAsset = api.sendAsset,
-  doInvoke = api.doInvoke
+  doInvoke = api.doInvoke,
+  doGetRPCEndpoint = getRPCEndpoint
 ) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
@@ -27,7 +28,7 @@ export default async function sendAsset(
   }
 
   const send = async () => {
-    const url = await getRPCEndpoint(net);
+    const url = await doGetRPCEndpoint(net);
     const config = { net, url, address, privateKey: wif, publicKey, signingFunction, fees: fee };
 
     if (keys(ASSETS).includes(asset)) {
