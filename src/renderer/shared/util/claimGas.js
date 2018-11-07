@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js';
 import { api, wallet } from '@cityofzion/neon-js';
 import { map, reduce } from 'lodash';
 
+import getRPCEndpoint from 'util/getRPCEndpoint';
+
 import poll from './poll';
 
 const POLL_ATTEMPTS = 30;
@@ -31,8 +33,11 @@ async function getClaimableAmount({ net, address }) {
 async function updateClaimableAmount({
   net, balance, address, publicKey, privateKey, signingFunction
 }) {
+  const url = await getRPCEndpoint(net);
+
   const { response: { result } } = await api.sendAsset({
     net,
+    url,
     address,
     publicKey,
     privateKey,

@@ -6,7 +6,7 @@ import generateDAppActionId from './generateDAppActionId';
 
 export const ID = 'send';
 
-export default function makeSendActions(sessionId, requestId, getBalance, call) {
+export default function makeSendActions(sessionId, requestId, ...args) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
-  return createActions(id, (options) => () => sendAsset(options, getBalance, call));
+  return createActions(id, (options) => () => sendAsset(options, ...args));
 }

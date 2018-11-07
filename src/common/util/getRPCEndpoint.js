@@ -6,12 +6,21 @@ const BLACKLIST_URL = 'https://raw.githubusercontent.com/nos/rpc-status/master/b
 let cachedRPC = null;
 let cachedBlacklist = null;
 
-function getAPIEndpoint(net) {
+function getNeoscanAPIEndpoint(net) {
   if (settings.networks[net]) {
     return settings.networks[net].extra.neoscan;
   }
 
   return net;
+}
+
+function getAPIEndpoint(net) {
+  if (net === 'MainNet') {
+    return 'https://nos-node-proxy.edgeapp.net';
+  }
+
+  const endpoint = getNeoscanAPIEndpoint(net);
+  return `${endpoint}/v1/get_all_nodes`;
 }
 
 async function fetchBlacklist() {
@@ -51,7 +60,7 @@ function raceToSuccess(promises) {
 
 export default async function getRPCEndpoint(net) {
   const apiEndpoint = getAPIEndpoint(net);
-  const response = await fetch(`${apiEndpoint}/v1/get_all_nodes`);
+  const response = await fetch(apiEndpoint);
   const data = await response.json();
   let nodes = data.sort((a, b) => b.height - a.height);
 
