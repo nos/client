@@ -10,8 +10,9 @@ import withClean from '../../../hocs/withClean';
 import withPrompt from '../../../hocs/withPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
+import withSignTransactionToast from '../../../hocs/withSignTransactionToast';
 
-const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
+const mapAuthDataToProps = (data) => (data);
 const mapSendDataToProps = (txid) => ({ txid });
 
 export default function makeClaimGas(claimActions) {
@@ -29,7 +30,14 @@ export default function makeClaimGas(claimActions) {
     withData(authActions, mapAuthDataToProps),
 
     // Do invoke if user accepts
-    withInitialCall(claimActions, ({ net, address, wif }) => ({ net, address, wif })),
+    withInitialCall(claimActions, ({ net, address, wif, publicKey, signingFunction }) => ({
+      net,
+      address,
+      wif,
+      publicKey,
+      signingFunction
+    })),
+    withSignTransactionToast,
     withNullLoader(claimActions),
     withRejectMessage(claimActions, ({ error }) => (`Could not claim GAS: ${error}`)),
     withData(claimActions, mapSendDataToProps)

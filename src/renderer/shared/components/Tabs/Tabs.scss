@@ -8,12 +8,8 @@
 
     .tab {
       display: block;
-      cursor: default;
+      cursor: pointer;
       -webkit-font-smoothing: antialiased;
-
-      &:not(:last-child) {
-        margin-right: 24px;
-      }
     }
 
     .label {

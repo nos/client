@@ -1,5 +1,5 @@
 import React from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
 import { string, func } from 'prop-types';
 import { noop, toLower, startCase } from 'lodash';
 

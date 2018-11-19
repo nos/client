@@ -12,7 +12,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapInvokeDataToProps = (result) => ({ result });
 
-const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs'];
+const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'script', 'encodeArgs'];
 
 export default function makeTestInvoke(testInvokeActions) {
   return compose(
@@ -26,13 +26,17 @@ export default function makeTestInvoke(testInvokeActions) {
     withNetworkData(),
 
     // Run the test invoke & wait for success or failure
-    withInitialCall(testInvokeActions, ({ net, scriptHash, operation, args, encodeArgs }) => ({
-      net,
-      scriptHash,
-      operation,
-      args,
-      encodeArgs
-    })),
+    withInitialCall(
+      testInvokeActions,
+      ({ net, scriptHash, operation, args, script, encodeArgs }) => ({
+        net,
+        scriptHash,
+        operation,
+        args,
+        script,
+        encodeArgs
+      })
+    ),
     withNullLoader(testInvokeActions),
     withRejectMessage(testInvokeActions, ({ operation, scriptHash, error }) => (
       `Invocation failed for operation "${operation}" on "${scriptHash}": ${error}`

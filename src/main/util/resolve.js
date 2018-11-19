@@ -1,9 +1,10 @@
 import isDev from 'electron-is-dev';
 import path from 'path';
 import { resolve as resolveURL, format as formatURL } from 'url';
-import { api, rpc, u } from '@cityofzion/neon-js';
+import { rpc, u } from '@cityofzion/neon-js';
 
 import updateNetworks from 'util/updateNetworks';
+import getRPCEndpoint from 'util/getRPCEndpoint';
 
 // TODO: Configurable network
 import { NOS_TESTNET } from 'values/networks';
@@ -46,7 +47,7 @@ function resolveLocal(url) {
 async function resolveNameService(url) {
   const { host, pathname } = url;
 
-  const endpoint = await api.getRPCEndpointFrom({ net: NOS_TESTNET }, api.neoscan);
+  const endpoint = await getRPCEndpoint(NOS_TESTNET);
   const client = new rpc.RPCClient(endpoint);
   const storageKey = u.str2hexstring(`${host}.target`);
   const response = await client.getStorage(NS_SCRIPT_HASH, storageKey);

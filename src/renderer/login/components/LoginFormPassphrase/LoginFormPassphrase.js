@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
-import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormPassphrase.scss';
+import LoginButton from '../LoginButton';
 
 export default class LoginFormWIF extends React.PureComponent {
   static propTypes = {
@@ -35,8 +34,8 @@ export default class LoginFormWIF extends React.PureComponent {
         <LabeledInput
           id="encryptedWIF"
           type="password"
-          label="Encrypted WIF"
-          placeholder="Enter encrypted WIF"
+          label="Encrypted key"
+          placeholder="Enter encrypted key"
           value={encryptedWIF}
           disabled={disabled}
           onChange={this.handleChangeEncryptedWIF}
@@ -51,19 +50,8 @@ export default class LoginFormWIF extends React.PureComponent {
           onChange={this.handleChangePassphrase}
         />
 
-        <div className={styles.actions}>
-          <PrimaryButton
-            className={styles.login}
-            type="submit"
-            disabled={disabled || !this.isValid()}
-          >
-            Login
-          </PrimaryButton>
-          <span className={styles.register}>
-            New to NEO?{' '}
-            <Link to="/register">Create an account</Link>
-          </span>
-        </div>
+
+        <LoginButton disabled={disabled || !this.isValid()} />
       </form>
     );
   }

@@ -1,8 +1,10 @@
+import React from 'react';
 import { compose } from 'recompose';
 import { withCall, withData } from 'spunky';
 
 import authActions from 'login/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
+import PriorityFee from 'account/components/TransactionsPanel/Send/PriorityFee';
 
 import InvocationPrompt from './InvocationPrompt';
 import withNullLoader from '../withNullLoader';
@@ -18,6 +20,9 @@ export default function withInvocationPrompt(balancesActions) {
     withCall(balancesActions),
     withNullLoader(balancesActions),
     withData(balancesActions, mapBalancesDataToProps),
-    withPrompt(InvocationPrompt, { title: null })
+    withPrompt(InvocationPrompt, (props) => ({
+      title: null,
+      renderFooter: () => <PriorityFee {...props} editable={false} />
+    }))
   );
 }

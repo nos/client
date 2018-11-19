@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string, func, node } from 'prop-types';
+import { noop } from 'lodash';
 
 import Portal from '../Portal';
 import styles from './Modal.scss';
@@ -16,8 +17,8 @@ export default class Modal extends React.PureComponent {
   static defaultProps = {
     className: null,
     children: null,
-    renderHeader: null,
-    renderFooter: null
+    renderHeader: noop,
+    renderFooter: noop
   };
 
   render() {
@@ -25,27 +26,11 @@ export default class Modal extends React.PureComponent {
       <Portal className={styles.portal}>
         <div className={styles.backdrop} />
         <div className={classNames(styles.modal, this.props.className)}>
-          {this.renderHeader()}
+          {this.props.renderHeader()}
           {this.props.children}
-          {this.renderFooter()}
+          {this.props.renderFooter()}
         </div>
       </Portal>
     );
-  }
-
-  renderHeader = () => {
-    if (!this.props.renderHeader) {
-      return null;
-    }
-
-    return this.props.renderHeader();
-  }
-
-  renderFooter = () => {
-    if (!this.props.renderFooter) {
-      return null;
-    }
-
-    return this.props.renderFooter();
   }
 }

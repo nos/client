@@ -56,7 +56,18 @@ describe('<Send />', () => {
     return { response: { result: false } };
   });
 
-  const sendActions = makeSendActions(sessionId, requestId, mockGetBalance, mockSendAsset);
+  const mockInvoke = jest.fn(() => ({ response: { result: false } }));
+
+  const mockGetRPCEndpoint = jest.fn((_net) => Promise.resolve('https://seed1.neo.org:443'));
+
+  const sendActions = makeSendActions(
+    sessionId,
+    requestId,
+    mockGetBalance,
+    mockSendAsset,
+    mockInvoke,
+    mockGetRPCEndpoint
+  );
   const Send = makeSend(sendActions);
 
   let callSpy;

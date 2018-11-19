@@ -3,11 +3,11 @@ import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
-import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
-import styles from './LoginFormWIF.scss';
+import styles from './LoginFormPrivateKey.scss';
+import LoginButton from '../LoginButton';
 
-export default class LoginFormWIF extends React.PureComponent {
+export default class LoginFormPrivateKey extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     wif: string,
@@ -30,16 +30,14 @@ export default class LoginFormWIF extends React.PureComponent {
         <LabeledInput
           id="wif"
           type="password"
-          label="WIF"
-          placeholder="Enter WIF"
+          label="Private Key"
+          placeholder="Enter private key"
           value={wif}
           disabled={disabled}
           onChange={this.handleChange}
         />
 
-        <div className={styles.actions}>
-          <PrimaryButton type="submit" disabled={disabled || !this.isValid()}>Login</PrimaryButton>
-        </div>
+        <LoginButton disabled={disabled || !this.isValid()} />
       </form>
     );
   }

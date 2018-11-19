@@ -3,9 +3,8 @@ import { bool, string, func, shape } from 'prop-types';
 import { noop } from 'lodash';
 import { progressValues } from 'spunky';
 
-import PrimaryButton from 'shared/components/Forms/PrimaryButton';
-
 import styles from './LoginFormLedger.scss';
+import LoginButton from '../LoginButton';
 
 const POLL_FREQUENCY = 1000;
 
@@ -61,12 +60,9 @@ export default class LoginFormLedger extends React.PureComponent {
 
   renderActions = () => {
     const disabled = this.props.disabled || this.props.progress !== LOADED;
-    const onClick = disabled ? null : this.handleLogin;
 
     return (
-      <div className={styles.actions}>
-        <PrimaryButton type="button" disabled={disabled} onClick={onClick}>Login</PrimaryButton>
-      </div>
+      <LoginButton disabled={disabled} />
     );
   }
 

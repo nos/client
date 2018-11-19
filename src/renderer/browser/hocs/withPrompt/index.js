@@ -1,13 +1,13 @@
 import React from 'react';
 import { isValidElementType } from 'react-is';
 import { string, func } from 'prop-types';
-import { isFunction } from 'lodash';
+import { get, isFunction } from 'lodash';
 
 import withConfirm from 'shared/hocs/withConfirm';
 
 import styles from './styles.scss';
 
-export default function withPrompt(message, { title = 'Permission Request' } = {}) {
+export default function withPrompt(message, optionsOrFn = {}) {
   return (Component) => {
     class PromptComponent extends React.PureComponent {
       static propTypes = {
@@ -21,12 +21,15 @@ export default function withPrompt(message, { title = 'Permission Request' } = {
       };
 
       componentDidMount() {
+        const options = isFunction(optionsOrFn) ? optionsOrFn(this.props) : optionsOrFn;
+
         this.props.confirm((
           <div className={styles.prompt}>
             {this.renderMessage()}
           </div>
         ), {
-          title,
+          ...options,
+          title: get(options, 'title', 'Permission Request'),
           confirmLabel: 'Confirm',
           onConfirm: this.handleConfirm,
           onCancel: this.handleCancel,

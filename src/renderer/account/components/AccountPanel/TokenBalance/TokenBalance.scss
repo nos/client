@@ -1,6 +1,4 @@
 .tokenBalance {
-  display: flex;
-  align-items: center;
   padding: 10px;
   background: #f8f9fa;
   border-radius: 4px;
@@ -9,31 +7,40 @@
     margin-bottom: 12px;
   }
 
-  .icon {
-    flex: 0 0 auto;
-    max-width: 28px;
-    max-height: 28px;
-    margin-right: 10px;
+  .token {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      flex: 0 0 auto;
+      max-width: 28px;
+      max-height: 28px;
+      margin-right: 10px;
+    }
+
+    .detail {
+      flex: 1 1 auto;
+      flex-direction: column;
+      align-items: stretch;
+
+      .balance {
+        color: #000;
+        line-height: 21px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .currency {
+        display: flex;
+        justify-content: space-between;
+        color: #8887a5;
+        line-height: 21px;
+        font-size: 12px;
+      }
+    }
   }
 
-  .detail {
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: stretch;
-
-    .balance {
-      color: #000;
-      line-height: 21px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .currency {
-      display: flex;
-      justify-content: space-between;
-      color: #8887a5;
-      line-height: 21px;
-      font-size: 12px;
-    }
+  .claim {
+    margin-top: 4px;
   }
 }

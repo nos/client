@@ -79,7 +79,7 @@ export default class AddressBar extends React.PureComponent {
         />
 
         <div className={styles.buttonGroup}>
-          <NotificationsIcon className={buttonClass} />
+          <NotificationsIcon className={classNames(buttonClass, { [styles.disabled]: true })} />
         </div>
       </div>
     );
