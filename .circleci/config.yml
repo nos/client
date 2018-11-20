@@ -3,8 +3,7 @@
 version: 2
 
 references:
-  workspace: &workspace
-    ~/repo
+  workspace: &workspace ~/repo
 
   container_config: &container_config
     docker:
@@ -32,7 +31,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: sudo yarn global add yarn@1.9.4 greenkeeper-lockfile@1
+      - run: sudo yarn global add yarn@1.12.3 greenkeeper-lockfile@1
       - run: yarn install
       - run: greenkeeper-lockfile-update
       - save_cache:
@@ -50,9 +49,9 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
-      - run: sudo yarn global add yarn@1.9.4
+      # - run: sudo apt-get -y update
+      # - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
+      - run: sudo yarn global add yarn@1.12.3
       - run: yarn test
       - run: yarn codecov
     store_artifacts:
@@ -84,7 +83,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: sudo yarn global add yarn@1.9.4
+      - run: sudo yarn global add yarn@1.12.3
       - run: yarn install
       - run: yarn dist --linux
       - store_artifacts:
