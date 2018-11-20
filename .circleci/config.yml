@@ -32,7 +32,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libudev-dev
+      - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
       - run: sudo yarn global add yarn@1.12.3 greenkeeper-lockfile@1
       - run: yarn install
       - run: greenkeeper-lockfile-update
