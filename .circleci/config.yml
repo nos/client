@@ -31,6 +31,8 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install libudev-dev
       - run: sudo yarn global add yarn@1.12.3 greenkeeper-lockfile@1
       - run: yarn install
       - run: greenkeeper-lockfile-update
@@ -50,7 +52,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2 libudev-dev libusb-1.0-0-dev
+      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
       - run: sudo yarn global add yarn@1.12.3
       - run: yarn test
       - run: yarn codecov
