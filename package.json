@@ -112,7 +112,7 @@
     "postcss-loader": "3.0.0",
     "react-hot-loader": "4.3.11",
     "react-router-test-context": "0.1.0",
-    "redux-devtools-extension": "2.13.5",
+    "redux-devtools-extension": "2.13.6",
     "redux-mock-store": "1.5.3",
     "rimraf": "2.6.2",
     "sass-loader": "7.1.0",
