@@ -9,13 +9,13 @@ import { get } from 'lodash';
 import createHistory from 'history/createHashHistory';
 import { routerMiddleware } from 'connected-react-router';
 
-import reducers from 'root/reducers';
+import createRootReducer from 'root/reducers';
 
 export const createStore = (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
   const history = createHistory();
   const store = createReduxStore(
-    reducers(history),
+    createRootReducer(history),
     initialState,
     compose(applyMiddleware(routerMiddleware(history), thunk, sagaMiddleware))
   );
