@@ -27,7 +27,7 @@
   </a>
 </p>
 <p align="center">
-  <strong>nOS</strong> is a NEO-powered virtual operating system that serves as the gateway to the Blockchain-powered Smart Economy.
+  <strong>nOS</strong> is a blockchain powered virtual operating system that serves as the gateway to Decentralized Applications.
 </p>
 <p align="center">
   The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with Smart Contracts in the back-end.
