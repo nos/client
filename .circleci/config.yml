@@ -3,12 +3,11 @@
 version: 2
 
 references:
-  workspace: &workspace
-    ~/repo
+  workspace: &workspace ~/repo
 
   container_config: &container_config
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:8.12.0
     working_directory: *workspace
 
   win_config: &win_config
@@ -30,9 +29,11 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: sudo yarn global add yarn@1.9.4 greenkeeper-lockfile@1
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
+      - run: sudo yarn global add yarn@1.12.3 greenkeeper-lockfile@1
       - run: yarn install
       - run: greenkeeper-lockfile-update
       - save_cache:
@@ -47,12 +48,12 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
-      - run: sudo yarn global add yarn@1.9.4
+      - run: sudo yarn global add yarn@1.12.3
       - run: yarn test
       - run: yarn codecov
     store_artifacts:
@@ -65,8 +66,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run: dpkg --add-architecture i386
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
@@ -82,9 +83,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: sudo yarn global add yarn@1.9.4
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: sudo yarn global add yarn@1.12.3
       - run: yarn install
       - run: yarn dist --linux
       - store_artifacts:
@@ -97,8 +98,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       - run: brew install yarn
       - run: yarn install
