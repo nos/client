@@ -1,0 +1,35 @@
+{
+  "extends": [":base"],
+  "schedule": ["on monday"],
+  "ignoreDeps": ["redux"],
+  "labels": ["Renovate 🌴"],
+  "packageRules": [
+    {
+      "packageNames": ["electron-webpack"],
+      "allowedVersions": "< 2"
+    },
+    {
+      "packageNames": ["webpack"],
+      "allowedVersions": "< 4"
+    }
+    },
+    {
+      "packageNames": ["webpack-dev-server"],
+      "allowedVersions": "< 3"
+    },
+    {
+        "packagePatterns": ["eslint"],
+        "groupName": "eslint"
+    }
+    },
+    {
+        "packagePatterns": ["fortawesome"],
+        "groupName": "fortawesome"
+    }
+    },
+    {
+        "packagePatterns": ["babel"],
+        "groupName": "babel"
+    }
+  ]
+}

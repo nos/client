@@ -139,15 +139,6 @@
       "static/**/*"
     ]
   },
-  "greenkeeper": {
-    "ignore": [
-      "electron-webpack",
-      "redux",
-      "webpack",
-      "webpack-dev-server",
-      "electron-is-dev"
-    ]
-  },
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.test.js"
