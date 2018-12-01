@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "statusCheckVerify": true,
+  "ignoreDeps": [
+    "electron-webpack",
+    "redux",
+    "webpack",
+    "webpack-dev-server",
+    "electron-is-dev"
+  ]
+}
