@@ -10,6 +10,10 @@
       "allowedVersions": "< 2"
     },
     {
+      "packageNames": ["electron"],
+      "allowedVersions": "< 3"
+    },
+    {
       "packageNames": ["webpack"],
       "allowedVersions": "< 4"
     },
