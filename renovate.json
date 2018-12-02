@@ -1,5 +1,5 @@
 {
-  "extends": [":base"],
+  "extends": ["config:base"],
   "schedule": ["on monday"],
   "ignoreDeps": ["redux"],
   "labels": ["Renovate 🌴"],
