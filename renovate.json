@@ -1,12 +1,21 @@
 {
-  "extends": [":base"],
+  "extends": ["config:base"],
   "schedule": ["on monday"],
-  "ignoreDeps": ["redux"],
+  "ignoreDeps": ["@ledgerhq/hw-transport-node-hid"],
   "labels": ["Renovate 🌴"],
+  "statusCheckVerify": true,
   "packageRules": [
+    {
+      "packageNames": ["@cityofzion/neon-js"],
+      "allowedVersions": "< 4"
+    },
     {
       "packageNames": ["electron-webpack"],
       "allowedVersions": "< 2"
+    },
+    {
+      "packageNames": ["electron"],
+      "allowedVersions": "< 3"
     },
     {
       "packageNames": ["webpack"],
