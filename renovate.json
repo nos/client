@@ -6,6 +6,10 @@
   "statusCheckVerify": true,
   "packageRules": [
     {
+      "packageNames": ["@cityofzion/neon-js"],
+      "allowedVersions": "< 4"
+    },
+    {
       "packageNames": ["electron-webpack"],
       "allowedVersions": "< 2"
     },
