@@ -1,6 +1,5 @@
 import { compose, withState } from 'recompose';
 import { withActions, progressValues } from 'spunky';
-import { map, difference } from 'lodash';
 
 import balancesActions from 'shared/actions/balancesActions';
 import blockActions from 'shared/actions/blockActions';
@@ -12,7 +11,7 @@ import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import NetworkSettings from './NetworkSettings';
 import currentNetworkActions, { setCurrentNetwork } from '../../actions/currentNetworkActions';
-import getAllNetworks, { addNetwork, clearNetworks } from '../../actions/networksActions';
+import { addNetwork, clearNetworks } from '../../actions/networksActions';
 
 const { LOADED, FAILED } = progressValues;
 
@@ -52,17 +51,6 @@ export default compose(
   withProgressChange(currentNetworkActions, [LOADED, FAILED], (state, props) => {
     props.resetBalancesData();
     props.resetBlockData();
-  }),
-
-  // Change to new network whenever a new one is added
-  withProgressChange(getAllNetworks, LOADED, (state, props, prevProps) => {
-    const originalNetworkNames = map(prevProps.networks, 'name');
-    const updatedNetworkNames = map(props.networks, 'name');
-    const newNetworks = difference(updatedNetworkNames, originalNetworkNames);
-
-    if (newNetworks.length > 0) {
-      props.setCurrentNetwork(newNetworks[0]);
-    }
   }),
 
   // Dialog
