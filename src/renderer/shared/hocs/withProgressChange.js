@@ -1,5 +1,4 @@
-import React from 'react';
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 import { withData, withError, withProgress } from 'spunky';
 import { omit, castArray, uniqueId } from 'lodash';
 
@@ -22,37 +21,29 @@ export default function withProgressChange(actions, progress, callback, options 
     [errorProp]: error
   });
 
-  return (Component) => {
-    class WrappedComponent extends React.PureComponent {
+  const getCallbackState = (props) => {
+    return { data: props[dataProp], error: props[errorProp] };
+  };
+
+  const getCallbackProps = (props) => {
+    return omit(props, dataProp, errorProp, progressProp);
+  };
+
+  return compose(
+    withProgress(actions, { ...options, propName: progressProp }),
+    withData(actions, mapDataToProps),
+    withError(actions, mapErrorToProps),
+    lifecycle({
       componentWillReceiveProps(nextProps) {
         if (!progresses.includes(this.props[progressProp]) &&
             progresses.includes(nextProps[progressProp])) {
           callback(
-            this.getCallbackState(nextProps),
-            this.getCallbackProps(nextProps),
-            this.getCallbackProps(this.props)
+            getCallbackState(nextProps),
+            getCallbackProps(nextProps),
+            getCallbackProps(this.props)
           );
         }
       }
-
-      render() {
-        const passDownProps = omit(this.props, dataProp, errorProp, progressProp);
-        return <Component {...passDownProps} />;
-      }
-
-      getCallbackState = (props) => {
-        return { data: props[dataProp], error: props[errorProp] };
-      }
-
-      getCallbackProps = (props) => {
-        return omit(props, dataProp, errorProp, progressProp);
-      }
-    }
-
-    return compose(
-      withProgress(actions, { ...options, propName: progressProp }),
-      withData(actions, mapDataToProps),
-      withError(actions, mapErrorToProps)
-    )(WrappedComponent);
-  };
+    })
+  );
 }
