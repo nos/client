@@ -18,7 +18,7 @@ import styles from './Send.scss';
 export default class Send extends React.PureComponent {
   static propTypes = {
     className: string,
-    loading: bool.isRequired,
+    sending: bool,
     confirm: func.isRequired,
     step: string.isRequired,
     asset: string.isRequired,
@@ -34,6 +34,7 @@ export default class Send extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    sending: false,
     amount: '',
     receiver: '',
     fee: '0',
@@ -44,7 +45,7 @@ export default class Send extends React.PureComponent {
   };
 
   render() {
-    const { className, loading, amount, receiver, asset, step } = this.props;
+    const { className, sending, amount, receiver, asset, step } = this.props;
     const symbol = this.getSymbol();
 
     return (
@@ -82,7 +83,7 @@ export default class Send extends React.PureComponent {
         <PrimaryButton
           className={styles.next}
           type="submit"
-          disabled={loading || !this.isValid()}
+          disabled={sending || !this.isValid()}
           onClick={this.handleTransfer}
         >
           Next
