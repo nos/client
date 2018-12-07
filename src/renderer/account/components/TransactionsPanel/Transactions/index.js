@@ -1,5 +1,11 @@
 import { compose } from 'recompose';
-import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
+import {
+  withData,
+  withCall,
+  withProgressComponents,
+  progressValues,
+  alreadyLoadedStrategy
+} from 'spunky';
 
 import Failed from 'shared/components/Failed';
 import Loading from 'shared/components/Loading';
@@ -24,15 +30,18 @@ const mapTransactionHistoryActions = (transactions) => transactions;
 export default compose(
   withNetworkData(),
   withData(authActions, mapAuthDataToProps),
+
+  withCall(transactionHistoryActions),
+  withProgressComponents(
+    transactionHistoryActions,
+    {
+      [LOADING]: Loading
+    },
+    {
+      strategy: alreadyLoadedStrategy
+    }
+  ),
   withData(transactionHistoryActions, mapTransactionHistoryActions),
-  // withProgressComponents(
-  //   transactionHistoryActions,
-  //   {
-  //     [LOADING]: Loading
-  //   },
-  //   {
-  //     strategy: alreadyLoadedStrategy
-  //   }
-  // ),
+
   withInfoToast()
 )(Transactions);
