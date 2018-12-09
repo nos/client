@@ -1,5 +1,5 @@
 import localShortcut from 'electron-localshortcut';
-import { app, webContents, ipcMain, Menu } from 'electron';
+import { app, webContents, ipcMain, Menu, BrowserWindow } from 'electron';
 import { noop, find, times } from 'lodash';
 
 const isMac = process.platform === 'darwin';
@@ -67,7 +67,15 @@ const fileMenu = (browserWindow) => ({
     {
       label: 'Close Tab',
       accelerator: 'CmdOrCtrl+W',
-      click: () => browserWindow.webContents.send('file:close-tab')
+      click: () => {
+        const focusedWindow = BrowserWindow.getFocusedWindow();
+
+        if (browserWindow.isFocused()) {
+          browserWindow.webContents.send('file:close-tab');
+        } else if (focusedWindow) {
+          focusedWindow.close();
+        }
+      }
     }
   ]
 });
