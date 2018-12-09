@@ -57,7 +57,7 @@ export default compose(
   withSuccessToast(),
   withErrorToast(),
 
-  withLoadingProp(sendActions, { strategy: pureStrategy }),
+  withLoadingProp(sendActions, { propName: 'sending', strategy: pureStrategy }),
   withProgressChange(sendActions, LOADING, (state, props) => {
     if (props.signingFunction) {
       props.showInfoToast('Please sign the transaction on your Ledger');
