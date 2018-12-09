@@ -4,5 +4,6 @@ export const GAS = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee796928
 
 export const ASSETS = {
   [NEO]: { name: 'NEO', symbol: 'NEO', decimals: 0 },
-  [GAS]: { name: 'GAS', symbol: 'GAS', decimals: 8 }
+  [GAS]: { name: 'GAS', symbol: 'GAS', decimals: 8 },
+  [NOS]: { name: 'nOS', symbol: 'NOS', decimals: 8 }
 };

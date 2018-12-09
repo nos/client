@@ -7,9 +7,11 @@ const handleZoom = require('./preloads/handleZoom');
 handleErrors(document);
 handleZoom(document);
 
+// TODO discuss way to retrieve assets from 1 single point
 const ASSETS = {
   NEO: 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b',
-  GAS: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7'
+  GAS: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7',
+  NOS: 'c9c0fc5a2b66a29d6b14601e752e6e1a445e088d'
 };
 
 const V1 = { ...api, ...events };
