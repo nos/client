@@ -1,9 +1,12 @@
 .transaction {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   padding: 8px;
-  background-color: #F8F9FA;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
 
   .asset {
     flex-basis: 14vh; // TODO find another way
@@ -21,25 +24,42 @@
     text-align: left;
     font-size: 14px;
     margin-left: 10px;
+    align-self: flex-start;
   }
 
-  .label {
+  // TODO avoid dupalicate code
+  .labelIn {
     border-radius: 2px;
     font-weight: bold;
     font-size: 9px;
     line-height: 13px;
-    background-color: #5EBB46;
     color: white;
     padding-left: 8px;
     padding-right: 8px;
+    background-color: #5ebb46;
+  }
+  .labelOut {
+    max-width: 25px;
+
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 9px;
+    line-height: 13px;
+    color: white;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: red;
   }
 
   .transactionId {
-    color: #5EBB46;
+    color: #5ebb46;
     line-height: 23px;
     text-align: left;
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+    &:hover {
+      background: none;
+    }
   }
 }

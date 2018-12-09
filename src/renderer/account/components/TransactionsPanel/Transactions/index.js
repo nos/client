@@ -10,8 +10,6 @@ import {
 import Failed from 'shared/components/Failed';
 import Loading from 'shared/components/Loading';
 
-import withInitialCall from 'shared/hocs/withInitialCall';
-
 import authActions from 'login/actions/authActions';
 
 import { withInfoToast } from 'shared/hocs/withToast';
@@ -22,10 +20,10 @@ import transactionHistoryActions from '../../../actions/transactionHistoryAction
 
 import Transactions from './Transactions';
 
-const { LOADING } = progressValues;
+const { LOADING, FAILED } = progressValues;
 
 const mapAuthDataToProps = ({ address }) => ({ address });
-const mapTransactionHistoryActions = (transactions) => transactions;
+const mapTransactionHistoryActions = (transactionHistory) => ({ transactionHistory });
 
 export default compose(
   withNetworkData(),
@@ -35,7 +33,8 @@ export default compose(
   withProgressComponents(
     transactionHistoryActions,
     {
-      [LOADING]: Loading
+      [LOADING]: Loading,
+      [FAILED]: Failed
     },
     {
       strategy: alreadyLoadedStrategy

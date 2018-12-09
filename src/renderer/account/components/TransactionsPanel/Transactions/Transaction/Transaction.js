@@ -1,12 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string } from 'prop-types';
+import { string, objectOf } from 'prop-types';
+
+import ExplorerLink from 'root/components/AuthenticatedLayout/ExplorerLink';
+
+import transactionShape from '../../../../shapes/transactionShape';
 
 import styles from './Transaction.scss';
 
-export default class TokenItem extends React.Component {
+export default class TokenItem extends React.PureComponent {
   static propTypes = {
-    className: string
+    className: string,
+    address: string.isRequired,
+    transaction: objectOf(transactionShape).isRequired
   };
 
   static defaultProps = {
@@ -14,21 +20,25 @@ export default class TokenItem extends React.Component {
   };
 
   render() {
-    const { className } = this.props;
+    const {
+      className,
+      address,
+      transaction: { to, amount, label, asset, txId, type }
+    } = this.props;
+
+    const labelStyle = to === address ? styles.labelIn : styles.labelOut;
 
     return (
       <div className={classNames(styles.transaction, className)}>
-        <div className={styles.label}> IN </div>
-        <div className={styles.type}> Invocation </div>
-        <div className={styles.asset}> 3000 ONT </div>
-        <span className={styles.transactionId} onClick={this.handleClick}>
-          joefjseoifhseiodajwdiphawdohowaifhaowifhoawfhwa
-        </span>
+        <div className={labelStyle}> {label} </div>
+        <div className={styles.type}> {type} </div>
+        <div className={styles.asset}>
+          {amount} {asset.symbol}
+        </div>
+        <ExplorerLink endpoint={`transaction/${txId}`} className={styles.transactionId}>
+          {txId}
+        </ExplorerLink>
       </div>
     );
-  }
-
-  handleClick = () => {
-    // this.props.onOpen('www.google.be');
   }
 }
