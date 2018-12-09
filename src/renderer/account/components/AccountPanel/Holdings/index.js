@@ -1,9 +1,26 @@
-import { withProps } from 'recompose';
-import { sortBy } from 'lodash';
+import { compose, withProps } from 'recompose';
+import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
+import { sortBy, pickBy, keys } from 'lodash';
 
-import { NOS, NEO, GAS } from 'shared/values/assets';
+import balancesActions from 'shared/actions/balancesActions';
+import claimableActions from 'shared/actions/claimableActions';
+import pricesActions from 'account/actions/pricesActions';
+import Failed from 'shared/components/Failed';
+import { ASSETS, NOS, NEO, GAS } from 'shared/values/assets';
 
 import Holdings from './Holdings';
+import HoldingsLoading from './HoldingsLoading';
+
+const { LOADING, LOADED, FAILED } = progressValues;
+
+const mapBalancesDataToProps = (balances) => ({
+  balances: pickBy(balances, ({ scriptHash, balance }) => {
+    return keys(ASSETS).includes(scriptHash) || scriptHash === NOS || balance !== '0';
+  })
+});
+
+const mapClaimableDataToProps = (claimable) => ({ claimable });
+const mapPricesDataToProps = (prices) => ({ prices });
 
 /**
  * Sort by:
@@ -25,4 +42,22 @@ const sortBalances = ({ balances }) => ({
   balances: customSort(balances, [NOS, NEO, GAS])
 });
 
-export default withProps(sortBalances)(Holdings);
+export default compose(
+  // TODO: update spunky to permit combining actions without creating a batch, i.e.:
+  //       withProgressComponents([balancesActions, pricesActions], { ... })
+  ...([claimableActions, balancesActions, pricesActions].map((actions) => {
+    return withProgressComponents(actions, {
+      [LOADING]: HoldingsLoading,
+      [LOADED]: HoldingsLoading,
+      [FAILED]: Failed
+    }, {
+      strategy: alreadyLoadedStrategy
+    });
+  })),
+
+  withData(claimableActions, mapClaimableDataToProps),
+  withData(balancesActions, mapBalancesDataToProps),
+  withData(pricesActions, mapPricesDataToProps),
+
+  withProps(sortBalances)
+)(Holdings);

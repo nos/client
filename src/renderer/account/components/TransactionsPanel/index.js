@@ -1,1 +1,24 @@
-export { default } from './TransactionsPanel';
+import { compose } from 'recompose';
+import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
+
+import balancesActions from 'shared/actions/balancesActions';
+import Failed from 'shared/components/Failed';
+
+import TransactionPanel from './TransactionsPanel';
+import TransactionsLoading from './TransactionsLoading';
+
+const { LOADING, LOADED, FAILED } = progressValues;
+
+const mapBalancesDataToProps = (balances) => ({ balances });
+
+export default compose(
+  withProgressComponents(balancesActions, {
+    [LOADING]: TransactionsLoading,
+    [LOADED]: TransactionsLoading,
+    [FAILED]: Failed
+  }, {
+    strategy: alreadyLoadedStrategy
+  }),
+
+  withData(balancesActions, mapBalancesDataToProps),
+)(TransactionPanel);
