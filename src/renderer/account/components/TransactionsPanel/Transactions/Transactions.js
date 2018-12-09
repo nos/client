@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, objectOf, arrayOf } from 'prop-types';
-import { noop } from 'lodash';
+import { string, arrayOf } from 'prop-types';
 
 import transactionShape from '../../../shapes/transactionShape';
 import Transaction from './Transaction';
@@ -19,11 +18,6 @@ export default class Receive extends React.PureComponent {
     className: null
   };
 
-  componentDidMount() {
-    console.log('Test');
-    console.log(this.props);
-  }
-
   render() {
     const { className, transactionHistory, address } = this.props;
 
@@ -34,5 +28,7 @@ export default class Receive extends React.PureComponent {
     );
   }
 
-  renderTransactions = (transactionHistory, address) => transactionHistory.map((tx) => <Transaction transaction={tx} address={address} />);
+  renderTransactions = (transactionHistory, address) => {
+    return transactionHistory.map((tx) => <Transaction transaction={tx} address={address} />);
+  };
 }

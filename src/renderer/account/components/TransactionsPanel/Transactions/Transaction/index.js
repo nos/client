@@ -5,8 +5,14 @@ import { openTab } from 'browser/actions/browserActions';
 
 import Transaction from './Transaction';
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onOpen: (target) => openTab(target && { target }),
-}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  {
+    onOpen: (target) => openTab(target && { target })
+  },
+  dispatch
+);
 
-export default connect(null, mapDispatchToProps)(Transaction);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Transaction);
