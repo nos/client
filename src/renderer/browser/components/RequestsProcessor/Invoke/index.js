@@ -42,36 +42,40 @@ export default function makeInvoke(invokeActions, balancesActions) {
     withInvocationPrompt(balancesActions),
 
     // Run the invoke & wait for success or failure
-    withInitialCall(invokeActions, ({
-      net,
-      address,
-      wif,
-      publicKey,
-      signingFunction,
-      scriptHash,
-      operation,
-      args,
-      fee,
-      assets,
-      encodeArgs
-    }) => ({
-      net,
-      address,
-      wif,
-      publicKey,
-      signingFunction,
-      scriptHash,
-      operation,
-      args,
-      fee,
-      assets,
-      encodeArgs
-    })),
+    withInitialCall(
+      invokeActions,
+      ({
+        net,
+        address,
+        wif,
+        publicKey,
+        signingFunction,
+        scriptHash,
+        operation,
+        args,
+        fee,
+        assets,
+        encodeArgs
+      }) => ({
+        net,
+        address,
+        wif,
+        publicKey,
+        signingFunction,
+        scriptHash,
+        operation,
+        args,
+        fee,
+        assets,
+        encodeArgs
+      })
+    ),
     withSignTransactionToast,
     withNullLoader(invokeActions),
-    withRejectMessage(invokeActions, ({ operation, scriptHash, error }) => (
-      `Could not perform operation '${operation}' on contract with address '${scriptHash}': ${error}`
-    )),
+    withRejectMessage(
+      invokeActions,
+      ({ operation, scriptHash, error }) => `Could not perform operation "${operation}" on contract with address ${scriptHash}: ${error}`
+    ),
     withData(invokeActions, mapInvokeDataToProps)
   )(Invoke);
 }
