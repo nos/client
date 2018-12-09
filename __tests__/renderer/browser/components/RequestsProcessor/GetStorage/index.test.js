@@ -2,7 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded,
+  addLoadedListener
+} from 'testHelpers';
 
 import makeGetStorage from 'browser/components/RequestsProcessor/GetStorage';
 import makeStorageActions from 'browser/actions/makeStorageActions';
@@ -114,7 +120,7 @@ describe('<GetStorage />', () => {
       it('rejects', () => {
         wrapper.update();
         expect(onReject).toHaveBeenCalledWith(
-          `Retrieving storage failed for key "foo" on "${mockScriptHash}": Fake test error`
+          `Retrieving storage failed for key "foo" on ${mockScriptHash}: Fake test error`
         );
         expect(onResolve).not.toHaveBeenCalled();
       });
