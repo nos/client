@@ -52,8 +52,9 @@
   }
 
   .title {
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     max-width: 100px;
+    margin-right: auto;
     color: #1e1b52;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -62,18 +63,16 @@
   }
 
   .close {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 50%;
-    right: 10px;
     width: 15px;
     height: 15px;
+    margin-left: 8px;
     color: $light-text-color;
     background: transparent;
     border: none;
-    transform: translateY(-50%);
 
     &:hover {
       color: #fff;
