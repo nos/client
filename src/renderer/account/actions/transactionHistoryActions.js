@@ -14,17 +14,12 @@ const TX_TYPES = {
   CLAIM: 'CLAIM'
 };
 
-export const NEO_ID =
-  'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
-export const GAS_ID =
-  '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
+export const NEO_ID = 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b';
+export const GAS_ID = '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7';
 
 function parseAbstractData(data, currentUserAddress, tokens) {
   const parsedTxType = (abstract) => {
-    if (
-      abstract.address_to === currentUserAddress &&
-      abstract.address_from !== 'claim'
-    ) {
+    if (abstract.address_to === currentUserAddress && abstract.address_from !== 'claim') {
       return TX_TYPES.RECEIVE;
     }
     if (abstract.address_from === 'claim') return TX_TYPES.CLAIM;
@@ -59,9 +54,9 @@ function parseAbstractData(data, currentUserAddress, tokens) {
   };
 
   return data.map((abstract) => {
-    console.log('abstract', abstract);
     const asset = parsedAsset(abstract);
     const type = parsedTxType(abstract);
+    console.log('abstract', { ...abstract, asset });
     const summary = {
       to: parsedTo(abstract),
       isNetworkFee: abstract.address_to === 'fees',
@@ -79,20 +74,6 @@ function parseAbstractData(data, currentUserAddress, tokens) {
 
     return summary;
   });
-}
-
-function sum(txns, address, asset) {
-  const matchingTxns = filter(txns, (txn) => {
-    return txn.asset === asset && txn.address_hash === address;
-  });
-
-  return reduce(
-    matchingTxns,
-    (sum, txn) => {
-      return sum.plus(txn.value);
-    },
-    0
-  ); // TODO --> toBigNumber
 }
 
 async function getTransactionHistory({ net, address }) {
