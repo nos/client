@@ -20,14 +20,16 @@ export default class ConversionInput extends React.PureComponent {
     currency: string.isRequired,
     price: number,
     amount: string,
-    onChange: func
+    onChange: func,
+    onBlur: func
   }
 
   static defaultProps = {
     className: null,
     amount: '',
     price: 0,
-    onChange: noop
+    onChange: noop,
+    onBlur: noop
   }
 
   state = {
@@ -64,6 +66,7 @@ export default class ConversionInput extends React.PureComponent {
             value={amount}
             renderBefore={this.renderAssetIcon}
             onChange={this.handleChangeAsset}
+            onBlur={this.props.onBlur}
           />
           <Input
             ref={this.currencyInput}
@@ -113,7 +116,9 @@ export default class ConversionInput extends React.PureComponent {
     this.setState({ currencyFocus: true });
   }
 
-  handleBlur = () => {
+  handleBlur = (event) => {
+    this.props.onBlur(event);
+
     this.setState({ currencyFocus: false }, () => {
       this.updateCurrencyFromAsset();
     });
@@ -125,18 +130,22 @@ export default class ConversionInput extends React.PureComponent {
   }
 
   updateCurrencyFromAsset = (inputValue = this.assetInput.current.value) => {
-    const currencyValue = parseFloat(inputValue, 10) * this.props.price;
+    const currencyValue = new BigNumber(
+      parseFloat(inputValue, 10) * this.props.price
+    ).toFixed(2, BigNumber.ROUND_DOWN);
 
-    this.setState({ currencyValue: currencyValue.toFixed(2) }, () => {
+    this.setState({ currencyValue }, () => {
       this.props.onChange(inputValue);
     });
   }
 
   updateAssetFromCurrency = (inputValue = this.currencyInput.current.value) => {
-    const assetValue = parseFloat(inputValue, 10) / this.props.price;
+    const assetValue = new BigNumber(
+      parseFloat(inputValue, 10) / this.props.price
+    ).toFixed(this.props.asset.decimals, BigNumber.ROUND_DOWN);
 
     this.setState({ currencyValue: inputValue }, () => {
-      this.props.onChange(assetValue.toFixed(this.props.asset.decimals));
+      this.props.onChange(assetValue);
     });
   }
 }

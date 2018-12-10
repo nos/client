@@ -65,6 +65,7 @@ export default class Send extends React.PureComponent {
           price={prices[assetBalance.symbol]}
           amount={amount}
           onChange={this.handleChangeAmount}
+          onBlur={this.handleBlurAmount}
         />
         <LabeledInput
           id="recipient"
@@ -112,8 +113,15 @@ export default class Send extends React.PureComponent {
     onSend({ asset, amount, receiver });
   };
 
+  handleBlurAmount = () => {
+    const { decimals } = this.getAsset();
+    this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
+  }
+
   handleChangeAsset = (value) => {
+    const { decimals } = this.getAsset(value);
     this.props.setAsset(value);
+    this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
   };
 
   handleChangeAmount = (value) => {
@@ -137,7 +145,7 @@ export default class Send extends React.PureComponent {
   }
 
   getAmount = () => {
-    return new BigNumber(this.props.amount).toFixed(this.getAsset().decimals);
+    return new BigNumber(this.props.amount).toFixed(this.getAsset().decimals, BigNumber.ROUND_DOWN);
   };
 
   getAsset = (scriptHash = this.props.asset) => {

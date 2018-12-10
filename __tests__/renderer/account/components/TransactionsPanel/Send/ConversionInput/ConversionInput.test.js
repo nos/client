@@ -64,7 +64,7 @@ describe('<ConversionInput />', () => {
       const onChangeSpy = jest.fn();
       const wrapper = mountContainer({ onChange: onChangeSpy, price: 0.051 });
       wrapper.find('.currencyInput input').simulate('change', { target: { value: '0.48' } });
-      expect(onChangeSpy).toHaveBeenCalledWith('9.41176471');
+      expect(onChangeSpy).toHaveBeenCalledWith('9.41176470');
     });
 
     it('updates the currency amount on blur', () => {
