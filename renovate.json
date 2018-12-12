@@ -26,8 +26,8 @@
       "allowedVersions": "< 3"
     },
     {
-      "packagePatterns": ["eslint"],
-      "groupName": "eslint"
+      "packagePatterns": ["eslint", "stylelint"],
+      "groupName": "lint"
     },
     {
       "packagePatterns": ["fortawesome"],
@@ -36,6 +36,10 @@
     {
       "packagePatterns": ["babel"],
       "groupName": "babel"
+    },
+    {
+      "packagePatterns": ["enzyme"],
+      "groupName": "enzyme"
     }
   ]
 }
