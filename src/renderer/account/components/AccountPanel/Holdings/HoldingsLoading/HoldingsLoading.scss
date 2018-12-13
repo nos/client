@@ -6,7 +6,15 @@
     align-items: center;
     padding: 12px;
     border-radius: 4px;
-    background: #F8F9FA;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: loadingShimmer;
+    animation-timing-function: linear;
+    background: $content-bg-color;
+    background-image: linear-gradient(to right, $content-bg-color 0%, #E3E4EA 20%, $content-bg-color 40%, $content-bg-color 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 104px;
 
     .icon {
       flex: 0 0 auto;
@@ -47,4 +55,9 @@
       margin-bottom: 12px;
     }
   }
+}
+
+@keyframes loadingShimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
 }

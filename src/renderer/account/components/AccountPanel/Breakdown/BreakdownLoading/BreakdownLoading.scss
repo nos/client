@@ -16,4 +16,13 @@
     font-weight: 500;
     color: #9a99a5;
   }
+
+  svg {
+    animation: rotateGraph 6s linear infinite;
+  }
+}
+
+@keyframes rotateGraph {
+    0% { transform: rotate(0deg) }
+  100% { transform: rotate(359deg) }
 }
