@@ -5,11 +5,6 @@ import { getStorage, setStorage } from 'shared/lib/storage';
 export const NETWORKS_ID = 'networks';
 
 // Setters
-export const setNetworks = createActions(NETWORKS_ID, (networks) => async () => {
-  await setStorage(NETWORKS_ID, networks);
-  return networks;
-});
-
 export const addNetwork = createActions(NETWORKS_ID, (network) => async () => {
   const networks = await getStorage(NETWORKS_ID);
   const newNetworks = [...networks, network];
