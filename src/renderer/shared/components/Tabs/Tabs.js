@@ -13,8 +13,7 @@ export default class Tabs extends React.Component {
     tabs: objectOf(node).isRequired,
     selectedTab: string.isRequired,
     renderTab: func.isRequired,
-    onSelect: func.isRequired,
-    onScroll: func.isRequired
+    onSelect: func.isRequired
   };
 
   static defaultProps = {
@@ -24,10 +23,10 @@ export default class Tabs extends React.Component {
   };
 
   render() {
-    const { className, tabsClass, tabs, onScroll } = this.props;
+    const { className, tabsClass, tabs } = this.props;
 
     return (
-      <div className={classNames(styles.tabs, className)} onScroll={onScroll}>
+      <div className={classNames(styles.tabs, className)}>
         <ul className={classNames(styles.header, tabsClass)}>{map(tabs, this.renderHeader)}</ul>
         {this.renderSelectedTab()}
       </div>

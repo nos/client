@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, arrayOf } from 'prop-types';
+import { string, arrayOf, func } from 'prop-types';
 
 import transactionShape from '../../../shapes/transactionShape';
 import Transaction from './Transaction';
@@ -11,7 +11,8 @@ export default class Receive extends React.PureComponent {
   static propTypes = {
     className: string,
     address: string.isRequired,
-    transactionHistory: arrayOf(transactionShape).isRequired
+    transactionHistory: arrayOf(transactionShape).isRequired,
+    handleFetchAdditionalTxData: func.isRequired
   };
 
   static defaultProps = {
@@ -22,13 +23,21 @@ export default class Receive extends React.PureComponent {
     const { className, transactionHistory, address } = this.props;
 
     return (
-      <div className={classNames(styles.transactions, className)}>
+      <div className={classNames(styles.transactions, className)} onScroll={this.handleScroll}>
         {this.renderTransactions(transactionHistory, address)}
       </div>
     );
   }
 
-  renderTransactions = (transactionHistory, address) => {
-    return transactionHistory.map((tx) => <Transaction transaction={tx} address={address} />);
+  renderTransactions = ({ entries }, address) => {
+    return entries.map((tx) => <Transaction transaction={tx} address={address} />);
+  };
+
+  handleScroll = ({ target }) => {
+    const { handleFetchAdditionalTxData, transactionHistory } = this.props;
+    const bottom = target.scrollHeight - target.scrollTop === target.clientHeight;
+    if (bottom) {
+      handleFetchAdditionalTxData(transactionHistory);
+    }
   };
 }

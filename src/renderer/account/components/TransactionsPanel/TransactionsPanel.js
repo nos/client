@@ -72,13 +72,5 @@ export default class TransactionsPanel extends React.PureComponent {
     this.setState({ tab });
   };
 
-  handleScroll = (e) => {
-    console.log('ieofisjefoiesjfoisej');
-    // const { handleFetchAddtionalTxData } = this.props;
-    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-    if (bottom) {
-      console.log('BOTTOM!');
-      // handleFetchAddtionalTxData();
-    }
-  };
+  handleScroll = (e) => {};
 }

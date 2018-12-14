@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import uuid from 'uuid/v4';
 import { createActions } from 'spunky';
+import { omit } from 'lodash';
 
 import { api } from '@cityofzion/neon-js';
 
@@ -63,18 +64,24 @@ function parseAbstractData(data, currentUserAddress, tokens) {
   });
 }
 
-async function getTransactionHistory({ net, address }) {
+async function getTransactionHistory({ net, address, previousCall = {} }) {
+  const { page_number: pageNumber = 0, total_pages: totalPages = 1, entries = [] } = previousCall;
+  const pageCount = pageNumber + 1;
+  if (pageCount > totalPages) return previousCall;
+
   const tokens = await getTokens();
-
   const endpoint = api.neoscan.getAPIEndpoint(net);
-  const data = await fetch(`${endpoint}/v1/get_address_abstracts/${address}/1`);
-  const response = await data.json();
 
-  return parseAbstractData(response.entries, address, tokens);
+  const data = await fetch(`${endpoint}/v1/get_address_abstracts/${address}/${pageCount}`);
+  const response = await data.json();
+  return {
+    ...omit(response, 'entries'),
+    entries: [...entries, ...parseAbstractData(response.entries, address, tokens)]
+  };
 }
 
 export const ID = 'transaction_history';
 
-export default createActions(ID, ({ net, address }) => async () => {
-  return getTransactionHistory({ net, address });
+export default createActions(ID, ({ net, address, previousCall }) => async () => {
+  return getTransactionHistory({ net, address, previousCall });
 });

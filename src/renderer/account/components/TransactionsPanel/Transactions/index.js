@@ -4,7 +4,8 @@ import {
   withCall,
   withProgressComponents,
   progressValues,
-  alreadyLoadedStrategy
+  alreadyLoadedStrategy,
+  withActions
 } from 'spunky';
 
 import Failed from 'shared/components/Failed';
@@ -23,11 +24,19 @@ import Transactions from './Transactions';
 const { LOADING, FAILED } = progressValues;
 
 const mapAuthDataToProps = ({ address }) => ({ address });
-const mapTransactionHistoryActions = (transactionHistory) => ({ transactionHistory });
+const mapTransactionHistoryDataToProps = (transactionHistory) => ({ transactionHistory });
+const mapTransactionHistoryActionsToProps = (actions, props) => ({
+  handleFetchAdditionalTxData: (previousCall) => actions.call({
+    net: props.net,
+    address: props.address,
+    previousCall
+  })
+});
 
 export default compose(
   withNetworkData(),
   withData(authActions, mapAuthDataToProps),
+  withActions(transactionHistoryActions, mapTransactionHistoryActionsToProps),
 
   withCall(transactionHistoryActions),
   withProgressComponents(
@@ -40,7 +49,7 @@ export default compose(
       strategy: alreadyLoadedStrategy
     }
   ),
-  withData(transactionHistoryActions, mapTransactionHistoryActions),
+  withData(transactionHistoryActions, mapTransactionHistoryDataToProps),
 
   withInfoToast()
 )(Transactions);
