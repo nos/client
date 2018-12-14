@@ -71,6 +71,4 @@ export default class TransactionsPanel extends React.PureComponent {
   handleSelectTab = (tab) => {
     this.setState({ tab });
   };
-
-  handleScroll = (e) => {};
 }
