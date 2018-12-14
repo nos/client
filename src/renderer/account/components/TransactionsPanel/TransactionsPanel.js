@@ -49,6 +49,7 @@ export default class TransactionsPanel extends React.PureComponent {
           selectedTab={this.state.tab}
           renderTab={this.renderTab}
           onSelect={this.handleSelectTab}
+          onScroll={this.handleScroll}
         />
       </Panel>
     );
@@ -69,5 +70,15 @@ export default class TransactionsPanel extends React.PureComponent {
 
   handleSelectTab = (tab) => {
     this.setState({ tab });
+  };
+
+  handleScroll = (e) => {
+    console.log('ieofisjefoiesjfoisej');
+    // const { handleFetchAddtionalTxData } = this.props;
+    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (bottom) {
+      console.log('BOTTOM!');
+      // handleFetchAddtionalTxData();
+    }
   };
 }

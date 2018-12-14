@@ -13,7 +13,8 @@ export default class Tabs extends React.Component {
     tabs: objectOf(node).isRequired,
     selectedTab: string.isRequired,
     renderTab: func.isRequired,
-    onSelect: func.isRequired
+    onSelect: func.isRequired,
+    onScroll: func.isRequired
   };
 
   static defaultProps = {
@@ -23,14 +24,11 @@ export default class Tabs extends React.Component {
   };
 
   render() {
-    const { className, tabsClass, tabs } = this.props;
+    const { className, tabsClass, tabs, onScroll } = this.props;
 
     return (
-      <div className={classNames(styles.tabs, className)}>
-        <ul className={classNames(styles.header, tabsClass)}>
-          {map(tabs, this.renderHeader)}
-        </ul>
-
+      <div className={classNames(styles.tabs, className)} onScroll={onScroll}>
+        <ul className={classNames(styles.header, tabsClass)}>{map(tabs, this.renderHeader)}</ul>
         {this.renderSelectedTab()}
       </div>
     );
@@ -52,17 +50,17 @@ export default class Tabs extends React.Component {
         </span>
       </li>
     );
-  }
+  };
 
   renderSelectedTab = () => {
     return this.props.renderTab(this.props.selectedTab);
-  }
+  };
 
   handleClick = (id) => {
     return () => {
       this.selectTab(id);
     };
-  }
+  };
 
   handleKeyPress = (id) => {
     return (event) => {
@@ -70,9 +68,9 @@ export default class Tabs extends React.Component {
         this.selectTab(id);
       }
     };
-  }
+  };
 
   selectTab = (id) => {
     this.props.onSelect(id);
-  }
+  };
 }
