@@ -116,17 +116,17 @@ workflows:
   deploy:
     jobs:
       - deploy_win:
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /[0-9]+(\.[0-9]+)+.*/
+      # filters:
+      #   branches:
+      #     ignore: /.*/
+      #   tags:
+      #     only: /[0-9]+(\.[0-9]+)+.*/
       - deploy_linux:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[0-9]+(\.[0-9]+)+.*/
+          # filters:
+          #   branches:
+          #     ignore: /.*/
+          #   tags:
+          #     only: /[0-9]+(\.[0-9]+)+.*/
       # - deploy_mac:
       #     filters:
       #       branches:
