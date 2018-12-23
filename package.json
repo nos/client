@@ -2,7 +2,7 @@
   "name": "nOS",
   "description": "nOS: NEO Operating System",
   "author": "nOS",
-  "version": "0.4.6",
+  "version": "0.4.6-1",
   "private": true,
   "main": "dist/main/main.js",
   "license": "MIT",
@@ -25,6 +25,7 @@
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.5",
     "electron-localshortcut": "3.1.0",
+    "electron-updater": "4.0.6",
     "es6-promisify": "6.0.1",
     "file-type": "10.6.0",
     "format-currency": "1.0.0",
@@ -72,7 +73,8 @@
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist coverage",
-    "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
+    "postinstall": "electron-builder install-app-deps && electron-rebuild --force",
+    "release": "build -p always"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",

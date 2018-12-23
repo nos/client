@@ -1,4 +1,5 @@
 import { app, protocol, BrowserWindow } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
@@ -14,7 +15,8 @@ import registerNosProtocol from './util/registerNosProtocol';
 // use webpack-cli (as a result of using a custom webpack config), we are faking this env var
 // already being assigned.
 if (isDev) {
-  process.env.ELECTRON_WEBPACK_WDS_PORT = process.env.ELECTRON_WEBPACK_WDS_PORT || 9080;
+  process.env.ELECTRON_WEBPACK_WDS_PORT =
+    process.env.ELECTRON_WEBPACK_WDS_PORT || 9080;
 }
 
 protocol.registerStandardSchemes(['nos']);
@@ -29,7 +31,11 @@ const isMac = process.platform === 'darwin';
 function getWindowPath(productionPath, filename) {
   const windowPath = isDev
     ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${filename}`
-    : url.format({ pathname: path.join(productionPath, filename), protocol: 'file:', slashes: true });
+    : url.format({
+      pathname: path.join(productionPath, filename),
+      protocol: 'file:',
+      slashes: true
+    });
 
   // There is a peculiar bug that is causing the window location to redirect to the current URL, but
   // with an empty query string appended. By loading that URL initially instead, no redirect occurs.
@@ -38,12 +44,17 @@ function getWindowPath(productionPath, filename) {
 }
 
 function createWindow() {
-  const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
+  const framelessConfig = isMac
+    ? { titleBarStyle: 'hidden' }
+    : { frame: false };
 
   const iconPath = path.join(getStaticPath(), 'icons', 'icon1024x1024.png');
 
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
+    Object.assign(
+      { width: 1250, height: 700, show: false, icon: iconPath },
+      framelessConfig
+    )
   );
 
   bindApplicationMenu(mainWindow);
@@ -84,6 +95,7 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  autoUpdater.checkForUpdatesAndNotify();
   registerNosProtocol();
   injectHeaders();
 
