@@ -9419,10 +9419,10 @@ qr.js@0.0.0:
   resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
   integrity sha1-ys6GOG9ZoNuAUPqQ2baw6IoeNk8=
 
-qrcode.react@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-0.8.0.tgz#413b31cc3b62910e39513f7bead945e01c4c34fb"
-  integrity sha512-16wKpuFvLwciIq2YAsfmPUCnSR8GrYPsXRK5KVdcIuX0+W/MKZbBkFhl44ttRx4TWZHqRjfztoWOxdPF0Hb9JA==
+qrcode.react@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-0.9.0.tgz#66ecd0dbf7c62cbc820085bc422e22e2cdf8ac4d"
+  integrity sha512-8LudE0+yShE4p5kxljkInD1c0ePTwoF+4pglcNAhqd9wDFeeiVVJxVENJhJDLfRnXqXviz+lVHqHptDrfr+o9w==
   dependencies:
     prop-types "^15.6.0"
     qr.js "0.0.0"
@@ -9879,10 +9879,10 @@ recharts-scale@^0.4.2:
   dependencies:
     decimal.js-light "^2.4.1"
 
-recharts@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.4.1.tgz#92df29090b457c34c58beec263dc766c2b9ea300"
-  integrity sha512-HtI3B4xGPn591kNDU5MaCcJeUtlSqOH3cOBtHuhXGxDU2MDkS6abaQtgZD1J4mQiUCUZT3LCziTz5+wD7k+pvw==
+recharts@1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.4.2.tgz#76975bc77e964ff68dd8bd68151d9f735852dc01"
+  integrity sha512-HHsy7tB591T/2cOeQEXAbRpc+YMLikTX/s9GTGW1n7kRUljFBDu2oNecrPaTKodrMikFxa9qavDE6wSEFaY48Q==
   dependencies:
     classnames "~2.2.5"
     core-js "~2.5.1"
