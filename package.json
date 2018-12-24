@@ -95,7 +95,7 @@
     "electron-webpack": "1.13.0",
     "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "1.7.1",
-    "eslint": "5.10.0",
+    "eslint": "5.11.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-import-resolver-babel-module": "4.0.0",
     "eslint-plugin-import": "2.14.0",
