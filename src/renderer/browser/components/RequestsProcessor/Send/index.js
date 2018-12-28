@@ -53,7 +53,8 @@ export default function makeSend(sendActions) {
 
     // Send assets & wait for success or failure
     withInitialCall(sendActions,
-      ({ net,
+      ({
+        net,
         amount,
         publicKey,
         asset,
@@ -62,7 +63,8 @@ export default function makeSend(sendActions) {
         wif,
         remark,
         signingFunction,
-        fee }) => ({
+        fee
+      }) => ({
         net,
         amount,
         publicKey,
