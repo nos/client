@@ -52,18 +52,28 @@ export default function makeSend(sendActions) {
     })),
 
     // Send assets & wait for success or failure
-    withInitialCall(sendActions, ({ net, amount, publicKey, asset, receiver, address, wif, remark, signingFunction, fee }) => ({
-      net,
-      amount,
-      publicKey,
-      asset,
-      receiver,
-      address,
-      wif,
-      remark,
-      signingFunction,
-      fee
-    })),
+    withInitialCall(sendActions,
+      ({ net,
+        amount,
+        publicKey,
+        asset,
+        receiver,
+        address,
+        wif,
+        remark,
+        signingFunction,
+        fee }) => ({
+        net,
+        amount,
+        publicKey,
+        asset,
+        receiver,
+        address,
+        wif,
+        remark,
+        signingFunction,
+        fee
+      })),
     withNullLoader(sendActions),
     withRejectMessage(sendActions, ({ amount, asset, receiver, error }) => (
       `Could not send ${amount} ${asset} to ${receiver}: ${error}`
