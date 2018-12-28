@@ -15,6 +15,7 @@ import withClean from '../../../hocs/withClean';
 import withPrompt from '../../../hocs/withPrompt';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
+import withSignTransactionToast from '../../../hocs/withSignTransactionToast';
 
 const mapFeeDataToProps = (fee) => ({ fee });
 const mapAuthDataToProps = (data) => (data);
@@ -76,6 +77,7 @@ export default function makeSend(sendActions) {
         signingFunction,
         fee
       })),
+    withSignTransactionToast,
     withNullLoader(sendActions),
     withRejectMessage(sendActions, ({ amount, asset, receiver, error }) => (
       `Could not send ${amount} ${asset} to ${receiver}: ${error}`
