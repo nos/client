@@ -30,16 +30,19 @@ export default function makeGetBalance(balancesActions) {
     // Get the 2nd optional parameter (default = address)
     withProps(({ args, address }) => {
       const { asset, address: fromArgsAddress } = pick(args[0], CONFIG_KEYS);
-      return ({
+      return {
         asset,
         address: fromArgsAddress || address
-      });
+      };
     }),
 
     // Get the balance & wait for success or failure
     withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
     withNullLoader(balancesActions),
-    withRejectMessage(balancesActions, ({ error }) => (`Your account balance could not be retrieved: ${error}`)),
+    withRejectMessage(
+      balancesActions,
+      ({ address, error }) => `Balance for account ${address} could not be retrieved: ${error}`
+    ),
     withData(balancesActions, mapBalancesDataToProps)
   )(GetBalance);
 }

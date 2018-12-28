@@ -1,53 +1,62 @@
 import { createActions } from 'spunky';
 import { wallet, api } from '@cityofzion/neon-js';
-import { isArray } from 'lodash';
+import { mapKeys } from 'lodash';
+
+import getRPCEndpoint from 'util/getRPCEndpoint';
 
 import createScript from 'shared/util/createScript';
+import formatAssets from 'shared/util/formatAssets';
+import { ASSETS } from 'shared/values/assets';
 
 import generateDAppActionId from './generateDAppActionId';
+import validateInvokeArgs from '../util/validateInvokeArgs';
 
 export const ID = 'invoke';
 
-const doInvoke = async ({ net, address, wif, scriptHash, operation, args, encodeArgs }) => {
-  if (!wallet.isScriptHash(scriptHash)) {
-    throw new Error(`Invalid script hash: "${scriptHash}"`);
-  }
+async function doInvoke({
+  net,
+  address,
+  wif,
+  publicKey,
+  signingFunction,
+  scriptHash,
+  operation,
+  assets,
+  args,
+  encodeArgs = true,
+  fee = 0
+}) {
+  validateInvokeArgs({ scriptHash, operation, args, assets });
 
-  if (typeof operation !== 'string') {
-    throw new Error(`Invalid operation: "${operation}"`);
-  }
-
-  if (!isArray(args)) {
-    throw new Error(`Invalid arguments: "${args}"`);
-  }
-
-  const { response: { result, txid } } = await api.doInvoke({
+  const url = await getRPCEndpoint(net);
+  const config = {
     net,
+    url,
     address,
     script: createScript(scriptHash, operation, args, encodeArgs),
     privateKey: wif,
-    gas: 0
-  });
+    publicKey,
+    signingFunction,
+    gas: 0,
+    fees: fee
+  };
+
+  if (assets) {
+    const scAddress = wallet.getAddressFromScriptHash(scriptHash);
+    const intentConfig = mapKeys(formatAssets(assets), (value, key) => ASSETS[key].symbol);
+    config.intents = api.makeIntent(intentConfig, scAddress);
+  }
+
+  const { response: { result, txid } } = await api.doInvoke(config, api.neoscan);
 
   if (!result) {
     throw new Error('Invocation failed.');
   }
 
   return txid;
-};
+}
 
 export default function makeInvokeActions(sessionId, requestId) {
   const id = generateDAppActionId(sessionId, `${ID}-${requestId}`);
-
-  return createActions(id, ({
-    net,
-    address,
-    wif,
-    scriptHash,
-    operation,
-    args,
-    encodeArgs = true
-  }) => () => {
-    return doInvoke({ net, address, wif, scriptHash, operation, args, encodeArgs });
-  });
+  return createActions(id, (options) => () => doInvoke(options));
 }

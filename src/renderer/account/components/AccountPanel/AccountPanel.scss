@@ -3,6 +3,7 @@
   $border-width: 1px;
 
   display: flex;
+  align-items: flex-start;
 
   .summary {
     flex: 1 1 auto;
@@ -12,7 +13,6 @@
 
     .breakdown {
       flex: 1 1 auto;
-      min-height: 300px;
     }
 
     .address {

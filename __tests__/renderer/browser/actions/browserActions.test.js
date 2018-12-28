@@ -1,19 +1,21 @@
 import {
+  navigate,
   openTab,
   closeTab,
   resetTabs,
   setActiveTab,
-  setTabError,
   setTabTarget,
   setTabTitle,
+  setTabIcon,
   setTabLoaded,
+  NAVIGATE,
   OPEN_TAB,
   CLOSE_TAB,
   RESET_TABS,
   SET_ACTIVE_TAB,
-  SET_TAB_ERROR,
   SET_TAB_TARGET,
   SET_TAB_TITLE,
+  SET_TAB_ICON,
   SET_TAB_LOADED
 } from 'browser/actions/browserActions';
 
@@ -58,15 +60,14 @@ describe('browserActions', () => {
     });
   });
 
-  describe('setTabError', () => {
-    it('returns action object', () => {
-      const sessionId = 'abc123';
-      const code = '-1';
-      const description = 'Uh oh...';
+  describe('navigate', () => {
+    const sessionId = 'abc123';
+    const target = 'nos://nos.neo';
 
-      expect(setTabError(sessionId, code, description)).toEqual({
-        type: SET_TAB_ERROR,
-        payload: { sessionId, code, description }
+    it('returns action object', () => {
+      expect(navigate(sessionId, target)).toEqual({
+        type: NAVIGATE,
+        payload: { sessionId, target }
       });
     });
   });
@@ -75,23 +76,10 @@ describe('browserActions', () => {
     const sessionId = 'abc123';
     const target = 'nos://nos.neo';
 
-    describe('without options', () => {
-      it('returns action object', () => {
-        expect(setTabTarget(sessionId, target)).toEqual({
-          type: SET_TAB_TARGET,
-          payload: { sessionId, target, addressBarEntry: false }
-        });
-      });
-    });
-
-    describe('with options', () => {
-      it('returns action object', () => {
-        const addressBarEntry = true;
-
-        expect(setTabTarget(sessionId, target, { addressBarEntry })).toEqual({
-          type: SET_TAB_TARGET,
-          payload: { sessionId, target, addressBarEntry }
-        });
+    it('returns action object', () => {
+      expect(setTabTarget(sessionId, target)).toEqual({
+        type: SET_TAB_TARGET,
+        payload: { sessionId, target }
       });
     });
   });
@@ -104,6 +92,18 @@ describe('browserActions', () => {
       expect(setTabTitle(sessionId, title)).toEqual({
         type: SET_TAB_TITLE,
         payload: { sessionId, title }
+      });
+    });
+  });
+
+  describe('setTabIcon', () => {
+    it('returns action object', () => {
+      const sessionId = 'abc123';
+      const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+
+      expect(setTabIcon(sessionId, url)).toEqual({
+        type: SET_TAB_ICON,
+        payload: { sessionId, url }
       });
     });
   });

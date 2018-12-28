@@ -1,77 +1,78 @@
-import fetch from 'node-fetch';
-import { values, sortBy, filter, extend, replace, trim } from 'lodash';
-import { api, wallet } from '@cityofzion/neon-js';
+import { get, find, map, mapValues, chunk, filter, extend } from 'lodash';
+import { u, sc, rpc, wallet } from '@cityofzion/neon-js';
 
-import { GAS, NEO } from '../values/assets';
+import getRPCEndpoint from 'util/getRPCEndpoint';
 
-const TOKENS_URL = 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/tokenList.json';
+import getTokens from './getTokens';
+import { GAS, NEO, ASSETS } from '../values/assets';
 
-const NETWORK_MAP = {
-  MainNet: '1'
-};
+const CHUNK_SIZE = 18;
 
-function normalizeImage(str) {
-  const src = replace(str, 'raw.githubusercontent.com', 'rawgit.com');
-  return trim(src) === '' ? null : src;
+function parseHexNum(hex) {
+  return hex ? parseInt(u.reverseHex(hex), 16) : 0;
 }
 
-async function getTokens(net) {
-  const networkKey = NETWORK_MAP[net];
+function getRawTokenBalances(url, tokens, address) {
+  const addrScriptHash = u.reverseHex(wallet.getScriptHashFromAddress(address));
+  const sb = new sc.ScriptBuilder();
 
-  const response = await fetch(TOKENS_URL);
-  const tokens = values(await response.json());
-  const networkTokens = filter(tokens, (token) => token.networks[networkKey]);
-  const sortedTokens = sortBy(networkTokens, 'symbol');
-
-  return sortedTokens.map(({ image, networks }) => {
-    const { name, hash: scriptHash, decimals, totalSupply } = networks[networkKey];
-    return { name, scriptHash, decimals, totalSupply, image: normalizeImage(image) };
+  tokens.forEach(({ scriptHash }) => {
+    sb.emitAppCall(scriptHash, 'balanceOf', [addrScriptHash]);
   });
+
+  return rpc.Query.invokeScript(sb.str, false)
+    .execute(url)
+    .then((res) => {
+      const tokenList = {};
+
+      if (res && res.result && res.result.stack && res.result.stack.length >= 1) {
+        for (let i = 0; i < res.result.stack.length; i += 1) {
+          const { scriptHash, decimals } = tokens[i];
+          const value = parseHexNum(res.result.stack[i].value);
+          tokenList[scriptHash] = new u.Fixed8(value).div(10 ** decimals).toString();
+        }
+      }
+      return tokenList;
+    });
 }
 
-async function getTokenBalance(endpoint, token, address) {
-  try {
-    const response = await api.nep5.getToken(endpoint, token.scriptHash, address);
-    const balance = (response.balance || 0).toString();
+async function getTokenBalances(endpoint, address) {
+  const tokens = await getTokens();
+  const chunks = chunk(map(tokens, 'scriptHash'), CHUNK_SIZE);
 
-    return {
-      [token.scriptHash]: { ...token, ...response, balance }
-    };
-  } catch (err) {
-    // invalid scriptHash
-    return {};
-  }
+  const balances = extend({}, ...await Promise.all(chunks.map((scriptHashes) => {
+    const filteredTokens = filter(tokens, (token) => scriptHashes.includes(token.scriptHash));
+    return getRawTokenBalances(endpoint, filteredTokens, address);
+  })));
+
+  return mapValues(balances, (balance, scriptHash) => ({
+    ...find(tokens, { scriptHash }),
+    balance
+  }));
 }
 
-async function getAssetBalances(net, address) {
-  const assetBalances = await api.getBalanceFrom({ net, address }, api.neoscan);
+async function getAssetBalances(endpoint, address) {
+  const client = new rpc.RPCClient(endpoint);
+  const { balances } = await client.getAccountState(address);
 
-  const { assets } = assetBalances.balance;
-
-  // The API doesn't always return NEO or GAS keys if, for example, the address only has one asset
-  const neoBalance = assets.NEO ? assets.NEO.balance.toString() : '0';
-  const gasBalance = assets.GAS ? assets.GAS.balance.round(8).toString() : '0';
+  const neoBalance = get(find(balances, { asset: `0x${NEO}` }), 'value', '0');
+  const gasBalance = get(find(balances, { asset: `0x${GAS}` }), 'value', '0');
 
   return {
-    [NEO]: { name: 'NEO', symbol: 'NEO', scriptHash: NEO, balance: neoBalance, decimals: 0 },
-    [GAS]: { name: 'GAS', symbol: 'GAS', scriptHash: GAS, balance: gasBalance, decimals: 8 }
+    [NEO]: { ...ASSETS[NEO], scriptHash: NEO, balance: neoBalance },
+    [GAS]: { ...ASSETS[GAS], scriptHash: GAS, balance: gasBalance }
   };
 }
 
 export default async function getBalances({ net, address }) {
-  const endpoint = await api.getRPCEndpointFrom({ net }, api.neoscan);
+  const endpoint = await getRPCEndpoint(net);
 
   if (!wallet.isAddress(address)) {
-    throw new Error(`Invalid script hash: "${address}"`);
+    throw new Error(`Invalid address: "${address}"`);
   }
 
-  // token balances
-  const promises = (await getTokens(net)).map((token) => {
-    return getTokenBalance(endpoint, token, address);
-  });
+  const assets = await getAssetBalances(endpoint, address);
+  const tokens = await getTokenBalances(endpoint, address);
 
-  // asset balances
-  promises.unshift(getAssetBalances(net, address));
-
-  return extend({}, ...await Promise.all(promises));
+  return { ...assets, ...tokens };
 }

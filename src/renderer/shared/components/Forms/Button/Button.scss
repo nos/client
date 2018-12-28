@@ -2,24 +2,27 @@
   display: inline-block;
   height: 36px;
   padding: 0 24px;
-  background: linear-gradient(90deg, #b9d532 0%, #5bba47 100%);
+  background: #fff;
   border: 0;
   border-radius: 4px;
-  color: #fff;
-  font-weight: bold;
+  color: #8bc83c;
+  font-weight: 500;
   font-size: 14px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(#353445, 0.15),
-              0 3px 6px rgba(#8bc83c, 0.3);
+  box-shadow: inset 0 0 0 2px rgba(#8bc83c, 0.9);
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
-
-  &:focus {
-    // box-shadow: 0 0 0 0.2rem rgba(#047bf8, 0.5);
-  }
+  transition: all 0.2s ease;
 
   &[disabled] {
-    // opacity: 0.8;
+    opacity: 0.7;
     cursor: not-allowed;
+  }
+
+  &:not([disabled]) {
+    &:hover {
+      color: #5bba47;
+      box-shadow: inset 0 0 0 2px #5bba47,
+    }
   }
 }

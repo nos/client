@@ -4,7 +4,8 @@ import path from 'path';
 import url from 'url';
 
 import getStaticPath from './util/getStaticPath';
-import bindMenus from './util/bindMenus';
+import bindApplicationMenu from './util/bindApplicationMenu';
+import bindContextMenu from './util/bindContextMenu';
 import injectHeaders from './util/injectHeaders';
 import installExtensions from './util/installExtensions';
 import registerNosProtocol from './util/registerNosProtocol';
@@ -26,9 +27,14 @@ let splashWindow;
 const isMac = process.platform === 'darwin';
 
 function getWindowPath(productionPath, filename) {
-  return isDev
+  const windowPath = isDev
     ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${filename}`
     : url.format({ pathname: path.join(productionPath, filename), protocol: 'file:', slashes: true });
+
+  // There is a peculiar bug that is causing the window location to redirect to the current URL, but
+  // with an empty query string appended. By loading that URL initially instead, no redirect occurs.
+  // REF: https://github.com/nos/client/issues/340#issuecomment-414095942
+  return windowPath.includes('?') ? windowPath : `${windowPath}?`;
 }
 
 function createWindow() {
@@ -40,7 +46,8 @@ function createWindow() {
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
 
-  bindMenus(mainWindow);
+  bindApplicationMenu(mainWindow);
+  bindContextMenu(mainWindow);
 
   if (isDev) {
     mainWindow.webContents.openDevTools();

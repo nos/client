@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { number, string, arrayOf, objectOf } from 'prop-types';
 
+import { GAS } from 'shared/values/assets';
+
 import TokenBalance from '../TokenBalance';
 import balanceShape from '../../../shapes/balanceShape';
 import styles from './Holdings.scss';
@@ -9,6 +11,7 @@ import styles from './Holdings.scss';
 export default class Holdings extends React.PureComponent {
   static propTypes = {
     className: string,
+    claimable: string.isRequired,
     balances: arrayOf(balanceShape).isRequired,
     prices: objectOf(number).isRequired,
     currency: string.isRequired
@@ -28,7 +31,7 @@ export default class Holdings extends React.PureComponent {
   }
 
   renderBalances = () => {
-    const { balances, prices, currency } = this.props;
+    const { claimable, balances, prices, currency } = this.props;
 
     return balances.map((token) => (
       <TokenBalance
@@ -36,6 +39,7 @@ export default class Holdings extends React.PureComponent {
         token={token}
         price={prices[token.symbol] || 0}
         currency={currency}
+        claimable={token.scriptHash === GAS ? claimable : null}
       />
     ));
   }

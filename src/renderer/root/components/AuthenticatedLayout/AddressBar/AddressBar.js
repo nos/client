@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import { func, string, bool } from 'prop-types';
-import { noop } from 'lodash';
+import { noop, isEmpty } from 'lodash';
+import { ipcRenderer } from 'electron';
 
 import SidebarIcon from 'shared/images/icons/sidebar.svg';
 import SidebarActiveIcon from 'shared/images/icons/sidebar-active.svg';
@@ -11,8 +12,6 @@ import ReloadIcon from 'shared/images/icons/reload.svg';
 import NotificationsIcon from 'shared/images/icons/notifications.svg';
 
 import styles from './AddressBar.scss';
-
-const RETURN_KEY = 13;
 
 export default class AddressBar extends React.PureComponent {
   static propTypes = {
@@ -39,11 +38,19 @@ export default class AddressBar extends React.PureComponent {
     disabled: false
   };
 
+  componentDidMount() {
+    ipcRenderer.on('file:open-location', this.handleOpenLocation);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.query !== prevProps.query) {
       this.input.value = this.props.query;
       this.input.blur();
     }
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners('file:open-location');
   }
 
   render() {
@@ -66,11 +73,13 @@ export default class AddressBar extends React.PureComponent {
           disabled={disabled}
           placeholder="Search or enter address"
           onKeyDown={this.handleKeyDown}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
           defaultValue={query}
         />
 
         <div className={styles.buttonGroup}>
-          <NotificationsIcon className={buttonClass} />
+          <NotificationsIcon className={classNames(buttonClass, { [styles.disabled]: true })} />
         </div>
       </div>
     );
@@ -92,12 +101,32 @@ export default class AddressBar extends React.PureComponent {
         onClick={this.props.onToggleSidebar}
       />
     );
-  }
+  };
 
   handleKeyDown = (event) => {
-    if (event.which === RETURN_KEY) {
+    if (event.key === 'Enter') {
       this.props.onQuery(event.target.value);
+    } else if (event.key === 'Escape') {
+      this.input.value = this.props.query;
+      this.input.select();
     }
+  }
+
+  handleMouseDown = () => {
+    const selection = window.getSelection ? window.getSelection() : null;
+    selection.empty();
+  };
+
+  handleMouseUp = () => {
+    const selection = window.getSelection ? window.getSelection() : null;
+    if (isEmpty(selection.toString())) {
+      this.input.select();
+    }
+  }
+
+  handleOpenLocation = () => {
+    this.input.select();
+    this.input.focus();
   }
 
   registerRef = (el) => {

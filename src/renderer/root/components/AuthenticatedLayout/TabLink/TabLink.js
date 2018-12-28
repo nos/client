@@ -11,7 +11,8 @@ export default class TabLink extends React.PureComponent {
   static propTypes = {
     className: string,
     type: oneOf([INTERNAL, EXTERNAL]),
-    target: string.isRequired,
+    target: string,
+    active: bool,
     disabled: bool,
     children: node,
     openTab: func
@@ -20,15 +21,22 @@ export default class TabLink extends React.PureComponent {
   static defaultProps = {
     className: null,
     type: INTERNAL,
+    target: null,
+    active: false,
     disabled: false,
     children: null,
     openTab: noop
   };
 
   render() {
+    const className = classNames(this.props.className, styles.tabLink, {
+      [styles.active]: this.props.active,
+      [styles.disabled]: this.props.disabled
+    });
+
     return (
       <span
-        className={classNames(this.props.className, styles.tabLink)}
+        className={className}
         role="button"
         tabIndex="0"
         onClick={this.handleClick}
@@ -41,7 +49,7 @@ export default class TabLink extends React.PureComponent {
   handleClick = () => {
     const { disabled, type, target } = this.props;
 
-    if (!disabled) {
+    if (target && !disabled) {
       this.props.openTab({ type, target });
     }
   }

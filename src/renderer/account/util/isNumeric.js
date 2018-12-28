@@ -1,4 +1,4 @@
-import { BigNumber } from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import { isEmpty } from 'lodash';
 
 export default function isNumeric(value) {

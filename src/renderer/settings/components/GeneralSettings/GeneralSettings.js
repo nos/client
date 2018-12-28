@@ -2,7 +2,9 @@ import React from 'react';
 import { string, func } from 'prop-types';
 import { map } from 'lodash';
 
-import Select from 'shared/components/Forms/Select';
+import Label from 'shared/components/Forms/Label';
+import LiveUpdateInput from 'shared/components/Forms/LiveUpdateInput';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import GeneralIcon from 'shared/images/settings/general.svg';
 import CURRENCIES from 'shared/values/currencies';
 
@@ -13,14 +15,10 @@ import styles from './GeneralSettings.scss';
 export default class GeneralSettings extends React.PureComponent {
   static propTypes = {
     currency: string.isRequired,
-    setCurrency: func.isRequired
+    fee: string.isRequired,
+    setCurrency: func.isRequired,
+    setFee: func.isRequired
   };
-
-  componentWillUnmount() {
-    if (this.saveTimeout) {
-      clearTimeout(this.saveTimeout);
-    }
-  }
 
   render() {
     return (
@@ -30,30 +28,34 @@ export default class GeneralSettings extends React.PureComponent {
         </SectionTitle>
 
         <SectionContent>
-          <Select
+          <LabeledSelect
             className={styles.input}
             labelClass={styles.label}
             id="currency"
             label="Local Currency"
             value={this.props.currency}
+            items={this.getCurrencyItems()}
             onChange={this.handleChangeCurrency}
-          >
-            {map(CURRENCIES, this.renderCurrencyOption)}
-          </Select>
+          />
+
+          <Label className={styles.label} htmlFor="fee" label="Default GAS Priority Fee">
+            <LiveUpdateInput
+              id="fee"
+              className={styles.input}
+              defaultValue={this.props.fee}
+              onChange={this.props.setFee}
+            />
+          </Label>
         </SectionContent>
       </div>
     );
   }
 
-  renderCurrencyOption = (label, value) => {
-    return (
-      <option key={value} value={value}>
-        {label} ({value})
-      </option>
-    );
-  };
+  handleChangeCurrency = (currency) => {
+    this.props.setCurrency(currency);
+  }
 
-  handleChangeCurrency = (event) => {
-    this.props.setCurrency(event.target.value);
-  };
+  getCurrencyItems = () => {
+    return map(CURRENCIES, (label, value) => ({ label: `${label} (${value})`, value }));
+  }
 }

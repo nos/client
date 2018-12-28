@@ -1,5 +1,6 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { bool, string, func } from 'prop-types';
+import { noop } from 'lodash';
 
 import tabShape from 'browser/shapes/tabShape';
 import getInternalPageComponent from 'shared/util/getInternalPageComponent';
@@ -7,11 +8,15 @@ import getInternalPageComponent from 'shared/util/getInternalPageComponent';
 export default class InternalPage extends React.PureComponent {
   static propTypes = {
     className: string,
-    tab: tabShape.isRequired
+    tab: tabShape.isRequired,
+    active: bool,
+    onFocus: func
   };
 
   static defaultProps = {
-    className: null
+    className: null,
+    active: false,
+    onFocus: noop
   };
 
   state = {
@@ -20,6 +25,18 @@ export default class InternalPage extends React.PureComponent {
 
   async componentWillMount() {
     this.setState({ component: await getInternalPageComponent(this.props.tab.target) });
+  }
+
+  componentDidMount() {
+    if (this.props.active) {
+      this.props.onFocus();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.active && !prevProps.active) {
+      this.props.onFocus();
+    }
   }
 
   render() {

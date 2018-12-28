@@ -1,50 +1,49 @@
-import React from 'react';
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 import { withData, withError, withProgress } from 'spunky';
-import { omit, castArray } from 'lodash';
+import { omit, castArray, uniqueId } from 'lodash';
 
 const DATA_PROP = '__authData__';
 const ERROR_PROP = '__authError__';
 const PROGRESS_PROP = '__authProgress__';
 
-export default function withProgressChange(actions, progress, callback) {
+export default function withProgressChange(actions, progress, callback, options = {}) {
   const progresses = castArray(progress);
 
+  const dataProp = uniqueId(DATA_PROP);
+  const errorProp = uniqueId(ERROR_PROP);
+  const progressProp = uniqueId(PROGRESS_PROP);
+
   const mapDataToProps = (data) => ({
-    [DATA_PROP]: data
+    [dataProp]: data
   });
 
   const mapErrorToProps = (error) => ({
-    [ERROR_PROP]: error
+    [errorProp]: error
   });
 
-  return (Component) => {
-    class WrappedComponent extends React.PureComponent {
+  const getCallbackState = (props) => {
+    return { data: props[dataProp], error: props[errorProp] };
+  };
+
+  const getCallbackProps = (props) => {
+    return omit(props, dataProp, errorProp, progressProp);
+  };
+
+  return compose(
+    withProgress(actions, { ...options, propName: progressProp }),
+    withData(actions, mapDataToProps),
+    withError(actions, mapErrorToProps),
+    lifecycle({
       componentWillReceiveProps(nextProps) {
-        if (!progresses.includes(this.props[PROGRESS_PROP]) &&
-            progresses.includes(nextProps[PROGRESS_PROP])) {
-          callback(this.getCallbackState(nextProps), this.getCallbackProps(nextProps));
+        if (!progresses.includes(this.props[progressProp]) &&
+            progresses.includes(nextProps[progressProp])) {
+          callback(
+            getCallbackState(nextProps),
+            getCallbackProps(nextProps),
+            getCallbackProps(this.props)
+          );
         }
       }
-
-      render() {
-        const passDownProps = omit(this.props, DATA_PROP, PROGRESS_PROP);
-        return <Component {...passDownProps} />;
-      }
-
-      getCallbackState = (props) => {
-        return { data: props[DATA_PROP], error: props[ERROR_PROP] };
-      }
-
-      getCallbackProps = (props) => {
-        return omit(props, DATA_PROP, ERROR_PROP, PROGRESS_PROP);
-      }
-    }
-
-    return compose(
-      withProgress(actions, { propName: PROGRESS_PROP }),
-      withData(actions, mapDataToProps),
-      withError(actions, mapErrorToProps)
-    )(WrappedComponent);
-  };
+    })
+  );
 }

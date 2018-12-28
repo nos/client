@@ -4,8 +4,7 @@ import { string, func, node } from 'prop-types';
 import { noop } from 'lodash';
 
 import Modal from '../Modal';
-import Button from '../Forms/Button';
-import defaultImage from '../../images/modal-request-icon.png';
+import PrimaryButton from '../Forms/PrimaryButton';
 import styles from './Alert.scss';
 
 export default class Alert extends React.PureComponent {
@@ -13,7 +12,6 @@ export default class Alert extends React.PureComponent {
     className: string,
     children: node,
     title: string,
-    image: string,
     confirmLabel: string,
     onConfirm: func
   };
@@ -22,7 +20,6 @@ export default class Alert extends React.PureComponent {
     className: null,
     children: null,
     title: null,
-    image: defaultImage,
     confirmLabel: 'OK',
     onConfirm: noop
   };
@@ -32,23 +29,22 @@ export default class Alert extends React.PureComponent {
   }
 
   render() {
-    const { className, image, confirmLabel, onConfirm, children } = this.props;
+    const { className, confirmLabel, onConfirm, children } = this.props;
 
     return (
       <Modal className={classNames(styles.alert, className)}>
-        <div className={styles.media}>
-          <img src={image} width="200" alt="Icon" />
+        {this.renderTitle()}
+        <div className={styles.body}>
+          {children}
         </div>
-        <div className={styles.content}>
-          {this.renderTitle()}
-          <div className={styles.body}>
-            {children}
-          </div>
-          <div className={styles.actions}>
-            <Button className={styles.action} ref={this.registerRef('confirm')} onClick={onConfirm}>
-              {confirmLabel}
-            </Button>
-          </div>
+        <div className={styles.actions}>
+          <PrimaryButton
+            className={styles.action}
+            ref={this.registerRef('confirm')}
+            onClick={onConfirm}
+          >
+            {confirmLabel}
+          </PrimaryButton>
         </div>
       </Modal>
     );

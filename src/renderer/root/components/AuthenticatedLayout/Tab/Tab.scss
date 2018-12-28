@@ -1,4 +1,7 @@
 .tab {
+  $tab-inactive-border-color: rgba($light-text-color, 0.4);
+
+  cursor: default;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -10,18 +13,42 @@
   background: rgba(#fff, 0.4);
   font-size: 12px;
   transition: all 0.2s ease;
+  box-shadow: inset 1px 0 0 $tab-inactive-border-color;
+
+  &:first-of-type {
+    box-shadow: none;
+  }
+
+  &:last-of-type {
+    &:not(.active) {
+      box-shadow: inset 1px 0 0 $tab-inactive-border-color,
+      inset -1px 0 0 $tab-inactive-border-color;
+    }
+  }
 
   &.active,
-  &:hover {
-    z-index: 1; // stay on top of `AddressBar` box-shadow
+  &.active + & {
+    box-shadow: none;
+  }
+  &:not(.active):hover {
+    background: rgba(#fff, 0.6);
+  }
+  &.active + &:last-of-type {
+    box-shadow: inset -1px 0 0 $tab-inactive-border-color;
   }
 
   &.active {
     background: #fff;
   }
 
-  &:not(.active):hover {
-    background: rgba(#fff, 0.6);
+  .loading {
+    @include spin;
+  }
+
+  .loading,
+  .icon {
+    flex: 0 0 auto;
+    margin-right: 8px;
   }
 
   .title {
@@ -58,11 +85,5 @@
       flex: 0 0 auto;
       display: inline-flex;
     }
-  }
-
-  .loading {
-    @include spin;
-    flex: 0 0 auto;
-    margin-right: 8px;
   }
 }

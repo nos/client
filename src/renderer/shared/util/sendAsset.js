@@ -1,15 +1,19 @@
 import { api, wallet, u, tx } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
+import getRPCEndpoint from 'util/getRPCEndpoint';
+
 import createScript from 'shared/util/createScript';
 import validateRemark from 'shared/util/validateRemark';
 
 import { ASSETS } from '../values/assets';
 
 export default async function sendAsset(
-  { net, asset, amount, receiver, address, wif, remark },
+  { net, asset, amount, receiver, address, wif, publicKey, signingFunction, remark, fee = 0 },
   getBalance = api.neoscan.getBalance,
-  call = api.sendAsset
+  doSendAsset = api.sendAsset,
+  doInvoke = api.doInvoke,
+  doGetRPCEndpoint = getRPCEndpoint
 ) {
   if (!wallet.isAddress(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
@@ -24,13 +28,15 @@ export default async function sendAsset(
   }
 
   const send = async () => {
-    const config = { net, address, privateKey: wif };
+    const url = await doGetRPCEndpoint(net);
+    const config = { net, url, address, privateKey: wif, publicKey, signingFunction, fees: fee };
 
     if (keys(ASSETS).includes(asset)) {
-      const selectedAsset = ASSETS[asset];
+      const selectedAsset = ASSETS[asset].symbol;
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
       const balance = await getBalance(net, address);
-      const transaction = tx.Transaction.createContractTx(balance, intents);
+      const transaction = tx.Transaction.createContractTx(balance, intents, {}, fee);
+
       if (typeof remark === 'string') {
         transaction.addRemark(remark);
       } else if (Array.isArray(remark)) {
@@ -39,18 +45,18 @@ export default async function sendAsset(
         }
       }
 
-      return call({ ...config, balance, tx: transaction }, api.neoscan);
+      return doSendAsset({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
       const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
 
-      return api.doInvoke({ ...config, script, gas: 0 }, api.neoscan);
+      return doInvoke({ ...config, script, gas: 0 }, api.neoscan);
     }
   };
 
   const { response: { result, txid } } = await send();
 
   if (!result) {
-    throw new Error('Invocation failed.');
+    throw new Error('Transaction rejected by blockchain');
   }
 
   return txid;

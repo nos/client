@@ -1,7 +1,8 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpackRenderer = require('electron-webpack/webpack.renderer.config.js');
-const { extend, find, flow } = require('lodash');
+const cssnano = require('cssnano');
+const { extend, find, flow, has } = require('lodash');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -18,6 +19,15 @@ function replaceLoader(config, test, callback) {
 // Since we want to uses SCSS modules, we need to replace the
 // default SCSS loader config that ships with electron-webpack.
 function replaceSassLoader(config) {
+  const minimize = isProd ? [{
+    loader: 'postcss-loader',
+    options: {
+      plugins: [
+        cssnano({ preset: 'default' })
+      ]
+    }
+  }] : [];
+
   return replaceLoader(config, /\.scss/, () => ({
     use: [
       'style-loader',
@@ -26,11 +36,11 @@ function replaceSassLoader(config) {
         options: {
           modules: true,
           sourceMap: !isProd,
-          minimize: isProd,
           importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]'
         }
       },
+      ...minimize,
       {
         loader: 'sass-loader',
         options: {
@@ -58,11 +68,24 @@ function replaceSvgLoader(config) {
   });
 }
 
+function replaceUglifyPlugin(config) {
+  const uglify = find(config.plugins, (plugin) => plugin.constructor.name === 'UglifyJsPlugin');
+
+  // Don't inline single-use functions.  Prevents `TypeError: Assignment to constant variable`.
+  // REF: https://github.com/mishoo/UglifyJS2/issues/2842
+  if (has(uglify, 'options.uglifyOptions.compress')) {
+    uglify.options.uglifyOptions.compress.inline = 1;
+  }
+
+  return config;
+}
+
 module.exports = async (env) => {
   const config = await webpackRenderer(env);
 
   return flow(
     replaceSassLoader,
-    replaceSvgLoader
+    replaceSvgLoader,
+    replaceUglifyPlugin
   )(config);
 };

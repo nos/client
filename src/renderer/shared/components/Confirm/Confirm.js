@@ -5,7 +5,7 @@ import { noop } from 'lodash';
 
 import Modal from '../Modal';
 import Button from '../Forms/Button';
-import defaultImage from '../../images/modal-request-icon.png';
+import PrimaryButton from '../Forms/PrimaryButton';
 import styles from './Confirm.scss';
 
 export default class Confirm extends React.PureComponent {
@@ -13,32 +13,35 @@ export default class Confirm extends React.PureComponent {
     className: string,
     children: node,
     title: string,
-    image: string,
+    origin: string,
     confirmLabel: string,
     cancelLabel: string,
     onConfirm: func,
-    onCancel: func
+    onCancel: func,
+    renderFooter: func
   };
 
   static defaultProps = {
     className: null,
     children: null,
     title: null,
-    image: defaultImage,
+    origin: null,
     confirmLabel: 'OK',
     cancelLabel: 'Cancel',
     onConfirm: noop,
-    onCancel: noop
+    onCancel: noop,
+    renderFooter: noop
   };
 
+  confirm = React.createRef();
+
   componentDidMount() {
-    this.confirm.focus();
+    this.confirm.current.focus();
   }
 
   render() {
     const {
       className,
-      image,
       confirmLabel,
       cancelLabel,
       onConfirm,
@@ -47,22 +50,29 @@ export default class Confirm extends React.PureComponent {
     } = this.props;
 
     return (
-      <Modal className={classNames(styles.confirm, className)}>
-        <div className={styles.media}>
-          <img src={image} width="200" alt="Icon" />
-        </div>
+      <Modal
+        className={classNames(styles.confirm, className)}
+        renderHeader={this.renderTitle}
+        renderFooter={this.renderFooter}
+      >
         <div className={styles.content}>
-          {this.renderTitle()}
           <div className={styles.body}>
             {children}
           </div>
           <div className={styles.actions}>
-            <Button className={styles.action} ref={this.registerRef('confirm')} onClick={onConfirm}>
-              {confirmLabel}
-            </Button>
-            <Button className={classNames(styles.action, styles.cancel)} onClick={onCancel}>
+            <Button
+              className={classNames(styles.action, styles.cancel)}
+              onClick={onCancel}
+            >
               {cancelLabel}
             </Button>
+            <PrimaryButton
+              ref={this.confirm}
+              className={styles.action}
+              onClick={onConfirm}
+            >
+              {confirmLabel}
+            </PrimaryButton>
           </div>
         </div>
       </Modal>
@@ -79,6 +89,29 @@ export default class Confirm extends React.PureComponent {
     return (
       <div className={styles.title}>
         {title}
+      </div>
+    );
+  }
+
+  renderFooter = () => {
+    return (
+      <React.Fragment>
+        {this.props.renderFooter()}
+        {this.renderOrigin()}
+      </React.Fragment>
+    );
+  }
+
+  renderOrigin = () => {
+    const { origin } = this.props;
+
+    if (!origin) {
+      return null;
+    }
+
+    return (
+      <div className={styles.origin}>
+        Triggered by {origin}
       </div>
     );
   }

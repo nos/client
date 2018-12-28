@@ -20,7 +20,8 @@ const receiverAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 const getStore = () => createStore({
   [spunkyKey]: {
     currentNetwork: mockSpunkyLoaded(currentNetwork),
-    auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif })
+    auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif }),
+    fee: mockSpunkyLoaded('0.00000000')
   }
 });
 
@@ -35,14 +36,16 @@ describe('<Send />', () => {
     net,
     address,
     assets: {
-      [ASSETS[NEO]]: { balance: new u.Fixed8(1),
-        unspent: [{ index: 0,
-          txid:
-         '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
-          value: new u.Fixed8(1) }
-        ],
+      [ASSETS[NEO].symbol]: {
+        balance: new u.Fixed8(1),
+        unspent: [{
+          index: 0,
+          txid: '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
+          value: new u.Fixed8(1)
+        }],
         spent: [],
-        unconfirmed: [] }
+        unconfirmed: []
+      }
     }
   }));
 
@@ -53,7 +56,18 @@ describe('<Send />', () => {
     return { response: { result: false } };
   });
 
-  const sendActions = makeSendActions(sessionId, requestId, mockGetBalance, mockSendAsset);
+  const mockInvoke = jest.fn(() => ({ response: { result: false } }));
+
+  const mockGetRPCEndpoint = jest.fn((_net) => Promise.resolve('https://seed1.neo.org:443'));
+
+  const sendActions = makeSendActions(
+    sessionId,
+    requestId,
+    mockGetBalance,
+    mockSendAsset,
+    mockInvoke,
+    mockGetRPCEndpoint
+  );
   const Send = makeSend(sendActions);
 
   let callSpy;

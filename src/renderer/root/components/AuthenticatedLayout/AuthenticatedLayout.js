@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, node, objectOf } from 'prop-types';
+import { string, func, node, objectOf } from 'prop-types';
+import { noop } from 'lodash';
 
 import Logo from 'shared/images/logo.svg';
+import ScrollContainer from 'shared/components/ScrollContainer';
 import isInternalPage from 'shared/util/isInternalPage';
 import tabShape from 'browser/shapes/tabShape';
 
@@ -11,21 +13,39 @@ import Navigation from './Navigation';
 import AddressBar from './AddressBar';
 import styles from './AuthenticatedLayout.scss';
 
+const POLL_FREQUENCY = 14000; // milliseconds
+
 export default class AuthenticatedLayout extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
     tabs: objectOf(tabShape).isRequired,
     currentNetwork: string.isRequired,
-    children: node
+    children: node,
+    getLastBlock: func
   };
 
   static defaultProps = {
-    children: null
+    children: null,
+    getLastBlock: noop
   };
 
   state = {
     showSidebar: true
   };
+
+  componentDidMount() {
+    this.fetchAndPoll();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentNetwork !== prevProps.currentNetwork) {
+      this.fetchAndPoll();
+    }
+  }
+
+  componentWillUnmount() {
+    this.clearPoll();
+  }
 
   render() {
     const { tabs, activeSessionId } = this.props;
@@ -79,8 +99,6 @@ export default class AuthenticatedLayout extends React.PureComponent {
   }
 
   renderContent = () => {
-    const { currentNetwork, children } = this.props;
-
     return (
       <div className={styles.container}>
         <AddressBar
@@ -89,12 +107,9 @@ export default class AuthenticatedLayout extends React.PureComponent {
           sidebarOpen={this.state.showSidebar}
           onToggleSidebar={this.handleToggleSidebar}
         />
-        <div className={styles.content}>
-          {children}
-        </div>
-        <footer className={styles.footer}>
-          Network: {currentNetwork}
-        </footer>
+        <ScrollContainer className={styles.content}>
+          {this.props.children}
+        </ScrollContainer>
       </div>
     );
   }
@@ -103,6 +118,22 @@ export default class AuthenticatedLayout extends React.PureComponent {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
+  }
+
+  fetchAndPoll = () => {
+    this.clearPoll();
+    this.props.getLastBlock();
+    this.createPoll();
+  }
+
+  createPoll = () => {
+    this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
+  }
+
+  clearPoll = () => {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
   }
 
   isInternalPage = () => {

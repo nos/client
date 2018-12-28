@@ -3,5 +3,5 @@ import ReactTooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 
 export default function Tooltip(props) {
-  return <ReactTooltip {...props} />;
+  return <ReactTooltip mouseLeaveDelay={0} {...props} />;
 }

@@ -4,6 +4,8 @@ import { mount } from 'enzyme';
 import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import { Account } from 'account';
+import AccountPanel from 'account/components/AccountPanel';
+import TransactionsPanel from 'account/components/TransactionsPanel';
 import { NEO, GAS } from 'shared/values/assets';
 import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 
@@ -34,23 +36,24 @@ const initialState = {
     prices: mockSpunkyLoaded({
       NEO: 31.50,
       GAS: 10.25
-    })
+    }),
+    claimable: mockSpunkyLoaded('0.00000000')
   }
 };
 
-const mountAccount = (state = initialState) => {
+const mountContainer = (state = initialState) => {
   const store = createStore(state);
   return mount(provideStore(<Account />, store));
 };
 
 describe('<Account />', () => {
   it('renders the account panel', () => {
-    const wrapper = mountAccount();
-    expect(wrapper.find('AccountPanel').exists()).toBe(true);
+    const wrapper = mountContainer();
+    expect(wrapper.find(AccountPanel).exists()).toBe(true);
   });
 
-  it('renders the send panel', () => {
-    const wrapper = mountAccount();
-    expect(wrapper.find('SendPanel').exists()).toBe(true);
+  it('renders the transactions panel', () => {
+    const wrapper = mountContainer();
+    expect(wrapper.find(TransactionsPanel).exists()).toBe(true);
   });
 });

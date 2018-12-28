@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
-import { map, noop } from 'lodash';
+import { map, noop, keys } from 'lodash';
+import { ipcRenderer } from 'electron';
 
-import Icon from 'shared/components/Icon';
+import PlusIcon from 'shared/images/browser/plus.svg';
 import tabShape from 'browser/shapes/tabShape';
 
 import Tab from '../Tab';
@@ -27,24 +28,32 @@ export default class Tabs extends React.PureComponent {
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', this.handleShortcuts, true);
+    ipcRenderer.on('file:new-tab', this.handleOpenTab);
+    ipcRenderer.on('file:close-tab', this.handleCloseActiveTab);
+    ipcRenderer.on('window:goto-tab', this.handleGotoTab);
+    ipcRenderer.on('window:next-tab', this.handleNextTab);
+    ipcRenderer.on('window:previous-tab', this.handlePreviousTab);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleShortcuts);
+    ipcRenderer.removeAllListeners('file:new-tab');
+    ipcRenderer.removeAllListeners('file:close-tab');
+    ipcRenderer.removeAllListeners('window:goto-tab');
+    ipcRenderer.removeAllListeners('window:next-tab');
+    ipcRenderer.removeAllListeners('window:previous-tab');
   }
 
   render() {
     return (
       <div className={classNames(styles.tabs, this.props.className)}>
         {map(this.props.tabs, this.renderTab)}
-        <Icon className={styles.newTab} name="add" onClick={this.props.onOpen} />
+        <PlusIcon className={styles.newTab} onClick={this.handleNewTab} />
       </div>
     );
   }
 
   renderTab = (tab, sessionId) => {
-    const { target, title, loading } = tab;
+    const { target, title, type, icon, loading } = tab;
 
     return (
       <Tab
@@ -52,6 +61,8 @@ export default class Tabs extends React.PureComponent {
         className={styles.tab}
         target={target}
         title={title}
+        type={type}
+        icon={icon}
         loading={loading}
         active={sessionId === this.props.activeSessionId}
         onClick={this.handleClick(sessionId)}
@@ -72,23 +83,42 @@ export default class Tabs extends React.PureComponent {
     };
   }
 
-  handleShortcuts = (event) => {
-    const combinationKeyIsPressed = process.platform === 'darwin' ? event.metaKey : event.ctrlKey;
+  handleNewTab = () => {
+    this.props.onOpen();
+  }
 
-    // Command + w (close current tab or client)
-    if (combinationKeyIsPressed && event.key === 'w') {
-      if (Object.keys(this.props.tabs).length > 1) {
-        // Prevent client to quit (default behavior)
-        event.preventDefault();
-        // Only close active tab if there is more than 1 tab added
-        this.props.onClose(this.props.activeSessionId);
-      }
+  handleOpenTab = (event, target) => {
+    this.props.onOpen(target);
+  }
+
+  handleCloseActiveTab = () => {
+    this.props.onClose(this.props.activeSessionId);
+  }
+
+  handleGotoTab = (event, i) => {
+    const sessionIds = keys(this.props.tabs);
+    const sessionId = i === 'last' ? sessionIds[sessionIds.length - 1] : sessionIds[i - 1];
+
+    if (sessionId) {
+      this.props.setActiveTab(sessionId);
     }
+  }
 
-    // Command + t (open new tab)
-    if (combinationKeyIsPressed && event.key === 't') {
-      event.preventDefault();
-      this.props.onOpen();
+  handleNextTab = () => {
+    this.incrementTab(1);
+  }
+
+  handlePreviousTab = () => {
+    this.incrementTab(-1);
+  }
+
+  incrementTab = (offset) => {
+    const sessionIds = keys(this.props.tabs);
+    const currentIndex = sessionIds.indexOf(this.props.activeSessionId);
+
+    if (currentIndex !== -1) {
+      const newIndex = ((currentIndex + offset) + sessionIds.length) % sessionIds.length;
+      this.props.setActiveTab(sessionIds[newIndex]);
     }
   }
 }

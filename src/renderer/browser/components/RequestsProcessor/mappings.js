@@ -2,6 +2,7 @@ import GetAddress from './GetAddress';
 import GetBalance from './GetBalance';
 import Invoke from './Invoke';
 import TestInvoke from './TestInvoke';
+import GetLastBlock from './GetLastBlock';
 import GetStorage from './GetStorage';
 import Send from './Send';
 import ClaimGas from './ClaimGas';
@@ -26,6 +27,7 @@ const COMPONENT_MAP = {
   getPublicKey: GetPublicKey,
   encrypt: Encrypt,
   decrypt: Decrypt,
+  getLastBlock: GetLastBlock,
   invoke: Invoke,
   send: Send,
   claimGas: ClaimGas
@@ -35,7 +37,7 @@ const ACTIONS_MAP = {
   getStorage: makeStorageActions,
   getBalance: makeBalancesActions,
   testInvoke: makeTestInvokeActions,
-  invoke: makeInvokeActions,
+  invoke: [makeInvokeActions, makeBalancesActions],
   send: makeSendActions,
   claimGas: makeClaimActions,
   getPublicKey: makePublicKeyActions,

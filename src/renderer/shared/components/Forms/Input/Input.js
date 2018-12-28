@@ -1,46 +1,88 @@
+/* eslint-disable jsx-a11y/label-has-for */
+
 import React from 'react';
 import classNames from 'classnames';
-import { string } from 'prop-types';
-import { omit } from 'lodash';
+import { bool, string, func } from 'prop-types';
+import { noop, omit } from 'lodash';
+
+import refShape from 'shared/shapes/refShape';
 
 import styles from './Input.scss';
 
 export default class Input extends React.PureComponent {
   static propTypes = {
+    forwardedRef: refShape,
     className: string,
-    id: string.isRequired,
-    label: string,
-    labelClass: string
+    disabled: bool,
+    renderBefore: func,
+    renderAfter: func,
+    onFocus: func,
+    onBlur: func
   };
 
   static defaultProps = {
     className: null,
-    label: null,
-    labelClass: null
+    disabled: false,
+    forwardedRef: null,
+    renderBefore: null,
+    renderAfter: null,
+    onFocus: noop,
+    onBlur: noop
   };
 
+  state = {
+    focus: false
+  };
+
+  ref = this.props.forwardedRef || React.createRef();
+
   render() {
-    const { id, className } = this.props;
+    const className = classNames(styles.container, this.props.className, {
+      [styles.focus]: this.state.focus,
+      [styles.disabled]: this.props.disabled
+    });
+
+    const passDownProps = omit(this.props, 'className', 'forwardedRef', 'renderBefore',
+      'renderAfter', 'onFocus', 'onBlur');
 
     return (
-      <label htmlFor={id} className={classNames(styles.input, className)}>
-        {this.renderLabel()}
-        <input id={id} {...omit(this.props, 'className', 'label', 'labelClass')} />
-      </label>
+      <div className={className} role="textbox" tabIndex={-1} onClick={this.handleClick}>
+        {this.renderBefore()}
+        <input
+          {...passDownProps}
+          className={styles.input}
+          ref={this.ref}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+        />
+        {this.renderAfter()}
+      </div>
     );
   }
 
-  renderLabel = () => {
-    const { label, labelClass } = this.props;
+  renderBefore = () => {
+    const { renderBefore } = this.props;
+    return renderBefore && renderBefore();
+  }
 
-    if (!label) {
-      return null;
+  renderAfter = () => {
+    const { renderAfter } = this.props;
+    return renderAfter && renderAfter();
+  }
+
+  handleClick = () => {
+    if (this.ref.current) {
+      this.ref.current.focus();
     }
+  }
 
-    return (
-      <span className={classNames(styles.label, labelClass)}>
-        {label}
-      </span>
-    );
+  handleFocus = (event) => {
+    this.setState({ focus: true });
+    this.props.onFocus(event);
+  }
+
+  handleBlur = (event) => {
+    this.setState({ focus: false });
+    this.props.onBlur(event);
   }
 }

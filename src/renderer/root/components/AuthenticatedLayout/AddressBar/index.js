@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, withHandlers } from 'recompose';
+import { ipcRenderer } from 'electron';
 
-import { setTabTarget } from 'browser/actions/browserActions';
+import { navigate } from 'browser/actions/browserActions';
 
 import AddressBar from './AddressBar';
 
@@ -18,13 +19,16 @@ const mapStateToProps = (state) => {
   return { activeSessionId, query };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ setTabTarget }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ navigate }, dispatch);
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
-    onQuery: (ownProps) => (target) => {
-      ownProps.setTabTarget(ownProps.activeSessionId, target, { addressBarEntry: true });
-    }
+    onQuery: (props) => (target) => {
+      props.navigate(props.activeSessionId, target);
+    },
+    onBack: (_props) => () => ipcRenderer.send('history:back'),
+    onForward: (_props) => () => ipcRenderer.send('history:forward'),
+    onReload: (_props) => () => ipcRenderer.send('view:reload')
   })
 )(AddressBar);

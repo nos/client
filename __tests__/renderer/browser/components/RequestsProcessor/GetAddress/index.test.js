@@ -28,7 +28,7 @@ describe('<GetBalance />', () => {
   beforeEach(() => {
     onResolve = jest.fn();
     onReject = jest.fn();
-    mountContainer({ ...defaultProps, onResolve });
+    mountContainer({ ...defaultProps, onResolve, onReject });
   });
 
   it('resolves with the currently authenticated address', () => {
