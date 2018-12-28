@@ -17,7 +17,7 @@ import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
 const mapFeeDataToProps = (fee) => ({ fee });
-const mapAuthDataToProps = ({ address, wif }) => ({ address, wif });
+const mapAuthDataToProps = (data) => (data);
 const mapSendDataToProps = (txid) => ({ txid });
 
 const getAssetName = (assetId) => {
@@ -52,14 +52,16 @@ export default function makeSend(sendActions) {
     })),
 
     // Send assets & wait for success or failure
-    withInitialCall(sendActions, ({ net, amount, asset, receiver, address, wif, remark, fee }) => ({
+    withInitialCall(sendActions, ({ net, amount, publicKey, asset, receiver, address, wif, remark, signingFunction, fee }) => ({
       net,
       amount,
+      publicKey,
       asset,
       receiver,
       address,
       wif,
       remark,
+      signingFunction,
       fee
     })),
     withNullLoader(sendActions),
