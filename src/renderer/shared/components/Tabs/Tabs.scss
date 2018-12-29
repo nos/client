@@ -38,7 +38,7 @@
 
       &.selected {
         color: #353445;
-        font-weight: bold;
+        font-weight: 600;
 
         &::after {
           width: 100%;
@@ -47,7 +47,7 @@
 
       &:hover {
         color: #353445;
-        font-weight: bold;
+        font-weight: 600;
       }
     }
   }
