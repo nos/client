@@ -36,12 +36,12 @@ export default class Tab extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.setState({ width: document.getElementById('tab').offsetWidth });
+    this.setState({ width: this.tab.offsetWidth });
   }
 
   componentDidUpdate() {
     // eslint-disable-next-line
-    this.setState({ width: document.getElementById('tab').offsetWidth });
+    this.setState({ width: this.tab.offsetWidth });
   }
 
   render() {
@@ -50,7 +50,7 @@ export default class Tab extends React.PureComponent {
 
     return (
       <div
-        id="tab"
+        ref={this.registerRef}
         className={classNames(className, styles.tab, { [styles.active]: active })}
         role="button"
         tabIndex={0}
@@ -96,5 +96,9 @@ export default class Tab extends React.PureComponent {
   handleClose = (event) => {
     event.stopPropagation();
     this.props.onClose();
+  };
+
+  registerRef = (el) => {
+    this.tab = el;
   };
 }
