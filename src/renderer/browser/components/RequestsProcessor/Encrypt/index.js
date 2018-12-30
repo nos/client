@@ -1,8 +1,9 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 
 import Encrypt from './Encrypt';
 import withClean from '../../../hocs/withClean';
@@ -22,7 +23,7 @@ export default function makeEncrypt(encryptActions) {
 
     withData(authActions, mapAuthDataToProps),
 
-    withCall(encryptActions, ({ recipientPublicKey, wif, data }) => ({
+    withInitialCall(encryptActions, ({ recipientPublicKey, wif, data }) => ({
       recipientPublicKey,
       wif,
       data
