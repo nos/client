@@ -1,7 +1,5 @@
 .transaction {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
   padding: 8px;
   margin-top: 10px;
@@ -10,13 +8,20 @@
   user-select: none;
   cursor: default;
 
+  .transactionInfoWrap {
+    display: flex;
+    align-items: flex-start;
+    align-items: center;
+    width: 100%;
+  }
+
   .asset {
-    flex-basis: 14vh; // TODO find another way
     color: #353445;
     line-height: 21px;
     text-align: right;
     font-size: 14px;
-    justify-content: right;
+    flex: 1 1 auto;
+    margin-left: auto;
   }
 
   .type {
@@ -26,7 +31,7 @@
     text-align: left;
     font-size: 14px;
     margin-left: 10px;
-    align-self: flex-start;
+    flex: 0 1 auto;
   }
 
   .label {
@@ -52,9 +57,10 @@
 
   .transactionId {
     color: #5ebb46;
-    line-height: 23px;
+    padding: 2px 0 0 0 ;
+    line-height: 18px;
     text-align: left;
-    font-size: 14px;
+    font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
     user-select: text;
