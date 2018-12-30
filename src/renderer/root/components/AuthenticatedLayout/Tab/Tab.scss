@@ -5,11 +5,11 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: end;
   align-items: center;
-  justify-content: center;
   position: relative;
-  min-width: 0;
-  padding: 8px 14px;
+  min-width: 32px;
+  padding: 8px;
   background: rgba(#fff, 0.4);
   font-size: 12px;
   transition: all 0.2s ease;
@@ -48,7 +48,6 @@
   .loading,
   .icon {
     flex: 0 0 auto;
-    margin-right: 8px;
   }
 
   .title {
@@ -60,23 +59,26 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     line-height: 1.25em;
+    margin-right: 15px;
+    margin-left: 4px;
   }
 
   .close {
     flex: 0 0 auto;
     display: flex;
+    position: absolute;
+    right: 8px;
     align-items: center;
     justify-content: center;
     width: 15px;
     height: 15px;
-    margin-left: 8px;
     color: $light-text-color;
     background: transparent;
     border: none;
 
     &:hover {
       color: #fff;
-      background: #e45b46;
+      background: rgba(228, 91, 70, 0.6);
       border-radius: 50%;
     }
 
