@@ -30,11 +30,27 @@ export default class Tab extends React.PureComponent {
     onClose: noop
   };
 
+  state = {
+    width: 330,
+    show: false
+  };
+
+  componentDidMount() {
+    this.setState({ width: document.getElementById('tab').offsetWidth });
+  }
+
+  componentDidUpdate() {
+    // eslint-disable-next-line
+    this.setState({ width: document.getElementById('tab').offsetWidth });
+  }
+
   render() {
     const { className, active, title, onClick } = this.props;
+    const { width, show } = this.state;
 
     return (
       <div
+        id="tab"
         className={classNames(className, styles.tab, { [styles.active]: active })}
         role="button"
         tabIndex={0}
@@ -42,10 +58,18 @@ export default class Tab extends React.PureComponent {
       >
         {this.renderIcon()}
         <span className={styles.title}>{title}</span>
-        <button type="button" className={styles.close} onClick={this.handleClose}>
-          <span className={styles.closeContent}>
-            <Icon name="close" />
-          </span>
+        <button
+          type="button"
+          className={styles.close}
+          onClick={this.handleClose}
+          onMouseEnter={this.handleEnter}
+          onMouseLeave={this.handleLeave}
+        >
+          {!(width < 75 && !show) && (
+            <span className={styles.closeContent}>
+              <Icon name="close" />
+            </span>
+          )}
         </button>
       </div>
     );
@@ -59,10 +83,18 @@ export default class Tab extends React.PureComponent {
     } else {
       return <FavIcon className={styles.icon} icon={icon} type={type} title={title} />;
     }
-  }
+  };
+
+  handleEnter = () => {
+    this.setState({ show: true });
+  };
+
+  handleLeave = () => {
+    this.setState({ show: false });
+  };
 
   handleClose = (event) => {
     event.stopPropagation();
     this.props.onClose();
-  }
+  };
 }
