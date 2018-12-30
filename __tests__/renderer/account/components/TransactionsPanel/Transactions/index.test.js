@@ -18,8 +18,8 @@ const mountContainer = (props = {}) => {
 };
 
 describe('<Transactions />', () => {
-  it('passes props to the component the address', () => {
+  it('renders the transactions panel', () => {
     const wrapper = mountContainer();
-    expect(wrapper.find('Transactions').prop('address')).toEqual(address);
+    expect(wrapper.find(Transactions).exists()).toBe(true);
   });
 });
