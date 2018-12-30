@@ -1,8 +1,9 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 
 import Decrypt from './Decrypt';
 import withClean from '../../../hocs/withClean';
@@ -22,7 +23,7 @@ export default function makeDecrypt(decryptActions) {
 
     withData(authActions, mapAuthDataToProps),
 
-    withCall(decryptActions, ({ senderPublicKey, wif, iv, mac, data }) => ({
+    withInitialCall(decryptActions, ({ senderPublicKey, wif, iv, mac, data }) => ({
       senderPublicKey,
       wif,
       iv,

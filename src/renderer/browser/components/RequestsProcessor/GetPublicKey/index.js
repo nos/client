@@ -1,7 +1,8 @@
-import { withCall, withData } from 'spunky';
+import { withData } from 'spunky';
 import { compose } from 'recompose';
 
 import authActions from 'login/actions/authActions';
+import withInitialCall from 'shared/hocs/withInitialCall';
 
 import GetPublicKey from './GetPublicKey';
 import withClean from '../../../hocs/withClean';
@@ -16,7 +17,7 @@ export default function makeGetPublicKey(publicKeyActions) {
 
     withData(authActions, mapAuthDataToProps),
 
-    withCall(publicKeyActions, ({ wif }) => ({ wif })),
+    withInitialCall(publicKeyActions, ({ wif }) => ({ wif })),
     withNullLoader(publicKeyActions),
     withData(publicKeyActions, mapPublicKeyDataToProps)
   )(GetPublicKey);
