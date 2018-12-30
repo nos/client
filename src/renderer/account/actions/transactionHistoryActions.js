@@ -28,7 +28,7 @@ function parseAbstractData(data, currentUserAddress, tokens) {
     const tokensResult = tokens.find(({ scriptHash }) => scriptHash === abstract.asset);
     if (tokensResult) return tokensResult;
     if (abstract.asset === NEO || abstract.asset === GAS) {
-      return ASSETS[abstract.asset];
+      return { ...ASSETS[abstract.asset], scriptHash: abstract.asset };
     }
     return { symbol: '' };
   };

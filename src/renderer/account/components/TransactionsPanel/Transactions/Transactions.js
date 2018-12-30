@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, arrayOf, func, any } from 'prop-types';
+import { string, func } from 'prop-types';
 import { isEmpty } from 'lodash';
 
-import transactionShape from '../../../shapes/transactionShape';
 import Transaction from './Transaction';
+import transactionHistoryShape from '../../../shapes/transactionHistoryShape';
 
 import styles from './Transactions.scss';
 
@@ -12,7 +12,7 @@ export default class Transactions extends React.PureComponent {
   static propTypes = {
     className: string,
     address: string.isRequired,
-    transactionHistory: any.isRequired,
+    transactionHistory: transactionHistoryShape.isRequired,
     handleFetchAdditionalTxData: func.isRequired
   };
 
