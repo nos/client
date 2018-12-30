@@ -30,10 +30,12 @@ export default class Transaction extends React.PureComponent {
 
     return (
       <div className={classNames(styles.transaction, className)}>
-        <div className={labelStyle}> {label} </div>
-        <div className={styles.type}> {type} </div>
-        <div className={styles.asset}>
-          {amount} {asset.symbol}
+        <div className={styles.transactionInfoWrap}>
+          <div className={classNames(labelStyle, styles.label)}> {label} </div>
+          <div className={styles.type}> {type} </div>
+          <div className={styles.asset}>
+            {amount} {asset.symbol}
+          </div>
         </div>
         <ExplorerLink endpoint={`transaction/${txId}`} className={styles.transactionId}>
           {txId}
