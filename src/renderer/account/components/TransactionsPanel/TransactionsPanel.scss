@@ -7,7 +7,7 @@
 
     .tab {
       @include webComponent;
-      flex: 1 0 auto;
+      width: calc(100% / 3);
     }
   }
 

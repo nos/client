@@ -20,11 +20,7 @@ export default function configureStore(history) {
       : require('redux-devtools-extension').composeWithDevTools;
 
   const enhancers = composeEnhancers(applyMiddleware(...middleware));
-  const store = createStore(
-    createRootReducer(history),
-    initialState,
-    enhancers
-  );
+  const store = createStore(createRootReducer(history), initialState, enhancers);
 
   if (module.hot) {
     module.hot.accept('../reducers', () => {
