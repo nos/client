@@ -1,6 +1,10 @@
+import path from 'path';
+import openAboutWindow from 'about-window';
 import localShortcut from 'electron-localshortcut';
-import { app, webContents, ipcMain, Menu } from 'electron';
+import { app, webContents, ipcMain, Menu, BrowserWindow } from 'electron';
 import { noop, find, times } from 'lodash';
+
+import getStaticPath from './getStaticPath';
 
 const isMac = process.platform === 'darwin';
 
@@ -38,7 +42,15 @@ function filterItems(menuItems) {
 const appMenu = () => ifMac({
   label: app.getName(),
   submenu: [
-    { role: 'about' },
+    {
+      label: 'About',
+      click: () => openAboutWindow({
+        icon_path: path.join(getStaticPath(), 'icons', 'icon1024x1024.png'),
+        package_json_dir: path.join('..', '..', '..'),
+        bug_link_text: 'Report a bug',
+        bug_report_url: 'https://github.com/nos/client/issues/new/choose'
+      })
+    },
     { type: 'separator' },
     { role: 'services', submenu: [] },
     { type: 'separator' },
@@ -67,7 +79,15 @@ const fileMenu = (browserWindow) => ({
     {
       label: 'Close Tab',
       accelerator: 'CmdOrCtrl+W',
-      click: () => browserWindow.webContents.send('file:close-tab')
+      click: () => {
+        const focusedWindow = BrowserWindow.getFocusedWindow();
+
+        if (browserWindow.isFocused()) {
+          browserWindow.webContents.send('file:close-tab');
+        } else if (focusedWindow) {
+          focusedWindow.close();
+        }
+      }
     }
   ]
 });
