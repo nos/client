@@ -1,17 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, arrayOf, func } from 'prop-types';
+import { string, arrayOf, func, any } from 'prop-types';
+import { isEmpty } from 'lodash';
 
 import transactionShape from '../../../shapes/transactionShape';
 import Transaction from './Transaction';
 
 import styles from './Transactions.scss';
 
-export default class Receive extends React.PureComponent {
+export default class Transactions extends React.PureComponent {
   static propTypes = {
     className: string,
     address: string.isRequired,
-    transactionHistory: arrayOf(transactionShape).isRequired,
+    transactionHistory: any.isRequired,
     handleFetchAdditionalTxData: func.isRequired
   };
 
@@ -30,7 +31,10 @@ export default class Receive extends React.PureComponent {
   }
 
   renderTransactions = ({ entries }, address) => {
-    return entries.map((tx) => <Transaction transaction={tx} address={address} />);
+    if (isEmpty(entries)) {
+      return <div> No transaction history found. </div>;
+    }
+    return entries.map((tx) => <Transaction key={tx.id} transaction={tx} address={address} />);
   };
 
   handleScroll = ({ target }) => {

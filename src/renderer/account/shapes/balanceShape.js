@@ -4,7 +4,8 @@ export default shape({
   scriptHash: string.isRequired,
   name: string.isRequired,
   symbol: string.isRequired,
-  balance: string.isRequired,
   decimals: number.isRequired,
-  image: string
+  balance: string,
+  image: string,
+  totalSupply: number
 });

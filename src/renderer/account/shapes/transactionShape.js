@@ -1,4 +1,4 @@
-import { string, shape, objectOf } from 'prop-types';
+import { string, shape } from 'prop-types';
 
 import balanceShape from './balanceShape';
 
@@ -7,6 +7,6 @@ export default shape({
   from: string.isRequired,
   amount: string.isRequired,
   label: string.isRequired,
-  asset: objectOf(balanceShape).isRequired,
+  asset: balanceShape.isRequired,
   txId: string.isRequired
 });

@@ -7,6 +7,8 @@
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: #f8f9fa;
+  user-select: none;
+  cursor: default;
 
   .asset {
     flex-basis: 14vh; // TODO find another way
@@ -58,6 +60,7 @@
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: text;
     &:hover {
       background: none;
     }

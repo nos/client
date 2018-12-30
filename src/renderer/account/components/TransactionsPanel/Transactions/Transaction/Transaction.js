@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, objectOf } from 'prop-types';
+import { string } from 'prop-types';
 
 import ExplorerLink from 'root/components/AuthenticatedLayout/ExplorerLink';
 
@@ -8,11 +8,11 @@ import transactionShape from '../../../../shapes/transactionShape';
 
 import styles from './Transaction.scss';
 
-export default class TokenItem extends React.PureComponent {
+export default class Transaction extends React.PureComponent {
   static propTypes = {
     className: string,
     address: string.isRequired,
-    transaction: objectOf(transactionShape).isRequired
+    transaction: transactionShape.isRequired
   };
 
   static defaultProps = {
