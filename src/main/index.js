@@ -53,7 +53,7 @@ function createWindow() {
     width: 320,
     height: 320,
     titleBarStyle: 'customButtonsOnHover',
-    show: true,
+    show: false,
     frame: false,
     icon: iconPath
   });
@@ -64,6 +64,12 @@ function createWindow() {
   mainWindow = new BrowserWindow(
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
+
+
+  splashWindow.once('ready-to-show', () => {
+    splashWindow.show();
+  });
+
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
   bindApplicationMenu(mainWindow);
