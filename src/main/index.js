@@ -59,27 +59,18 @@ function createWindow() {
   });
 
   splashWindow.loadURL(getWindowPath(getStaticPath(), 'splash.html'));
+  splashWindow.once('ready-to-show', () => {
+    splashWindow.show();
+  });
 
   // Main Window
   mainWindow = new BrowserWindow(
     Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
   );
-
-
-  splashWindow.once('ready-to-show', () => {
-    splashWindow.show();
-  });
-
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
   bindApplicationMenu(mainWindow);
   bindContextMenu(mainWindow);
-  autoUpdater.allowPrerelease = false;
-  autoUpdater.checkForUpdates();
-  autoUpdater.on('update-downloaded', () => {
-    mainWindow.destroy();
-    autoUpdater.quitAndInstall();
-  });
 
   if (isDev) {
     mainWindow.webContents.once('dom-ready', () => {
@@ -102,6 +93,12 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  autoUpdater.allowPrerelease = false;
+  autoUpdater.checkForUpdates();
+  autoUpdater.on('update-downloaded', () => {
+    autoUpdater.quitAndInstall();
+  });
+
   registerNosProtocol();
   injectHeaders();
 
