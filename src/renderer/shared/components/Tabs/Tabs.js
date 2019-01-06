@@ -27,10 +27,7 @@ export default class Tabs extends React.Component {
 
     return (
       <div className={classNames(styles.tabs, className)}>
-        <ul className={classNames(styles.header, tabsClass)}>
-          {map(tabs, this.renderHeader)}
-        </ul>
-
+        <ul className={classNames(styles.header, tabsClass)}>{map(tabs, this.renderHeader)}</ul>
         {this.renderSelectedTab()}
       </div>
     );
@@ -52,17 +49,17 @@ export default class Tabs extends React.Component {
         </span>
       </li>
     );
-  }
+  };
 
   renderSelectedTab = () => {
     return this.props.renderTab(this.props.selectedTab);
-  }
+  };
 
   handleClick = (id) => {
     return () => {
       this.selectTab(id);
     };
-  }
+  };
 
   handleKeyPress = (id) => {
     return (event) => {
@@ -70,9 +67,9 @@ export default class Tabs extends React.Component {
         this.selectTab(id);
       }
     };
-  }
+  };
 
   selectTab = (id) => {
     this.props.onSelect(id);
-  }
+  };
 }

@@ -274,6 +274,11 @@ abbrev@1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
+about-window@1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/about-window/-/about-window-1.12.1.tgz#b81c10f6de58d38bce2aa5f31f61a82e6c3d6c2b"
+  integrity sha512-P/fJACq7RBFpv5Ql0kIqpOYgFqQ8WdoZoB7wrKmDvwTSKVOMbUZMYnQYtnOW6dHmMCYuNrmQFf+MxvuhE+KrzQ==
+
 accepts@~1.3.4, accepts@~1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.5.tgz#eb777df6011723a3b14e8a72c0805c8e86746bd2"
@@ -9440,10 +9445,10 @@ qr.js@0.0.0:
   resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
   integrity sha1-ys6GOG9ZoNuAUPqQ2baw6IoeNk8=
 
-qrcode.react@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-0.9.0.tgz#66ecd0dbf7c62cbc820085bc422e22e2cdf8ac4d"
-  integrity sha512-8LudE0+yShE4p5kxljkInD1c0ePTwoF+4pglcNAhqd9wDFeeiVVJxVENJhJDLfRnXqXviz+lVHqHptDrfr+o9w==
+qrcode.react@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-0.9.1.tgz#53620ba4ae9c8db03cc83f724c3778c323369262"
+  integrity sha512-Fbkj/kAzqv75RlAzd8AnPc3fpCLROSoRWvLGmZfWdQz0FAYwanRBN2gkl39bH68FTDLhcWtWNdjkgFBEvnOCew==
   dependencies:
     prop-types "^15.6.0"
     qr.js "0.0.0"
