@@ -15,8 +15,7 @@ import registerNosProtocol from './util/registerNosProtocol';
 // use webpack-cli (as a result of using a custom webpack config), we are faking this env var
 // already being assigned.
 if (isDev) {
-  process.env.ELECTRON_WEBPACK_WDS_PORT =
-    process.env.ELECTRON_WEBPACK_WDS_PORT || 9080;
+  process.env.ELECTRON_WEBPACK_WDS_PORT = process.env.ELECTRON_WEBPACK_WDS_PORT || 9080;
 }
 
 protocol.registerStandardSchemes(['nos']);
@@ -44,42 +43,44 @@ function getWindowPath(productionPath, filename) {
 }
 
 function createWindow() {
-  const framelessConfig = isMac
-    ? { titleBarStyle: 'hidden' }
-    : { frame: false };
+  const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
   const iconPath = path.join(getStaticPath(), 'icons', 'icon1024x1024.png');
-
-  mainWindow = new BrowserWindow(
-    Object.assign(
-      { width: 1250, height: 700, show: false, icon: iconPath },
-      framelessConfig
-    )
-  );
-
-  bindApplicationMenu(mainWindow);
-  bindContextMenu(mainWindow);
-
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
 
   // splashWindow is shown while mainWindow is loading hidden
   // As it is light weight it will load almost instantly and before mainWindow
   splashWindow = new BrowserWindow({
-    width: 275,
-    height: 330,
-    show: true,
+    width: 320,
+    height: 320,
     titleBarStyle: 'customButtonsOnHover',
+    show: true,
     frame: false,
     icon: iconPath
   });
 
   splashWindow.loadURL(getWindowPath(getStaticPath(), 'splash.html'));
+
+  // Main Window
+  mainWindow = new BrowserWindow(
+    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
+  );
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
-  // When mainWindow finishes loading, then show
-  // the mainWindow and destroy the splashWindow.
+  bindApplicationMenu(mainWindow);
+  bindContextMenu(mainWindow);
+  autoUpdater.allowPrerelease = false;
+  autoUpdater.checkForUpdates();
+  autoUpdater.on('update-downloaded', () => {
+    mainWindow.destroy();
+    autoUpdater.quitAndInstall();
+  });
+
+  if (isDev) {
+    mainWindow.webContents.once('dom-ready', () => {
+      mainWindow.webContents.openDevTools();
+    });
+  }
+
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.maximize();
     mainWindow.show();
@@ -95,7 +96,6 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  autoUpdater.checkForUpdatesAndNotify();
   registerNosProtocol();
   injectHeaders();
 

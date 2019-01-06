@@ -1,6 +1,7 @@
 {
   "name": "nOS",
   "description": "nOS: NEO Operating System",
+  "repository": "https://www.github.com/nos/client",
   "author": "nOS",
   "version": "0.4.6",
   "private": true,
@@ -74,7 +75,7 @@
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist coverage",
     "postinstall": "electron-builder install-app-deps && electron-rebuild --force",
-    "release": "build -p always"
+    "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
@@ -131,6 +132,7 @@
   },
   "build": {
     "appId": "io.nos.desktop",
+    "forceCodeSigning": true,
     "win": {
       "icon": "./static/icons/icon1024x1024.ico"
     },
@@ -139,7 +141,10 @@
     },
     "files": [
       "static/**/*"
-    ]
+    ],
+    "publish": {
+      "provider": "github"
+    }
   },
   "jest": {
     "testMatch": [
