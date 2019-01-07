@@ -18,7 +18,8 @@ const LoginButton = ({ disabled }) => (
             New to nOS?{' '}
       <Link to="/register">Create an account</Link>
     </span>
-  </div>);
+  </div>
+);
 
 LoginButton.propTypes = {
   disabled: bool
