@@ -58,13 +58,19 @@ function createWindow() {
   splashWindow = new BrowserWindow({
     width: 275,
     height: 330,
-    show: true,
+    show: false,
     titleBarStyle: 'customButtonsOnHover',
     frame: false,
     icon: iconPath
   });
 
   splashWindow.loadURL(getWindowPath(getStaticPath(), 'splash.html'));
+
+
+  splashWindow.once('ready-to-show', () => {
+    splashWindow.show();
+  });
+
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
   // When mainWindow finishes loading, then show
