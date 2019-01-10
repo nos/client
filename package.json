@@ -94,7 +94,7 @@
     "css-loader": "1.0.1",
     "cssnano": "4.1.8",
     "electron": "2.0.16",
-    "electron-builder": "20.33.0",
+    "electron-builder": "20.32.0",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.2",
     "electron-webpack": "1.13.0",
