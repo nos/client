@@ -113,6 +113,12 @@ workflows:
       - test:
           requires:
             - build
+      - deploy_win:
+          requires:
+            - build
+      - deploy_linux:
+          requires:
+            - build
   deploy:
     jobs:
       - deploy_win:
