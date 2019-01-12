@@ -10,6 +10,7 @@ import { ASSETS, NOS, NEO, GAS } from 'shared/values/assets';
 
 import Holdings from './Holdings';
 import HoldingsLoading from './HoldingsLoading';
+import loaded from '../../Account';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
@@ -31,10 +32,7 @@ const customSort = (balances, preferredOrder) => {
   return sortBy(balances, (token) => {
     const precidence = preferredOrder.findIndex((v) => v === token.scriptHash);
 
-    return [
-      precidence < 0 ? Infinity : precidence,
-      token.symbol
-    ];
+    return [precidence < 0 ? Infinity : precidence, token.symbol];
   });
 };
 
@@ -45,15 +43,19 @@ const sortBalances = ({ balances }) => ({
 export default compose(
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([balancesActions, pricesActions], { ... })
-  ...([claimableActions, balancesActions, pricesActions].map((actions) => {
-    return withProgressComponents(actions, {
-      [LOADING]: HoldingsLoading,
-      [LOADED]: HoldingsLoading,
-      [FAILED]: Failed
-    }, {
-      strategy: alreadyLoadedStrategy
-    });
-  })),
+  ...[claimableActions, balancesActions, pricesActions].map((actions) => {
+    return withProgressComponents(
+      actions,
+      {
+        [LOADING]: HoldingsLoading,
+        [LOADED]: loaded,
+        [FAILED]: Failed
+      },
+      {
+        strategy: alreadyLoadedStrategy
+      }
+    );
+  }),
 
   withData(claimableActions, mapClaimableDataToProps),
   withData(balancesActions, mapBalancesDataToProps),

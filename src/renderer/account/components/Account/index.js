@@ -20,6 +20,6 @@ export default compose(
   withData(currencyActions, mapCurrencyDataToProps),
   withNetworkData(),
   withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
-  withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
-  withInitialCall(pricesActions, ({ currency }) => ({ currency }))
+  withInitialCall(balancesActions, ({ net, address }) => ({ net, address }))
+  // withInitialCall(pricesActions, ({ currency }) => ({ currency }))
 )(Account);
