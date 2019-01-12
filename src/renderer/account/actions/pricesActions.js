@@ -1,17 +1,15 @@
-import fetch from 'node-fetch';
 import { createActions } from 'spunky';
-import { reduce, map } from 'lodash';
-import qs from 'qs';
+import { reduce } from 'lodash';
 import CoinGecko from 'coingecko-api';
 
 const coinGeckoClient = new CoinGecko();
 
-function mapPrices(tickers, currency) {
+function mapPrices(tickers) {
   return reduce(
     tickers,
     (mapping, ticker) => ({
       ...mapping,
-      [ticker.symbol]: parseFloat(ticker[`price_${currency.toLowerCase()}`])
+      [ticker.symbol.toUpperCase()]: ticker.current_price
     }),
     {}
   );
@@ -23,28 +21,23 @@ async function getPrices(currency, balances) {
     throw new Error(coinListResult.message);
   }
 
-  try {
-    const balancesArray = Object.keys(balances).map((key) => balances[key]);
-    const ids = coinListResult.data.reduce((accum, coin) => {
-      if (balancesArray.find((balance) => balance.name.toLowerCase() === coin.name.toLowerCase())) {
-        console.log(coin.id);
-        accum.push(coin.id);
-      }
-      return accum;
-    }, []);
-
-    const coinPricesResult = await coinGeckoClient.coins.markets({
-      vs_currency: currency.toLowerCase(),
-      ids
-    });
-    if (!coinPricesResult.success) {
-      throw new Error(coinPricesResult.message);
+  const balancesArray = Object.keys(balances).map((key) => balances[key]);
+  const ids = coinListResult.data.reduce((accum, coin) => {
+    if (balancesArray.find((balance) => balance.name.toLowerCase() === coin.name.toLowerCase())) {
+      accum.push(coin.id);
     }
+    return accum;
+  }, []);
 
-    return mapPrices(coinPricesResult, currency);
-  } catch (e) {
-    console.log(e);
+  const coinPricesResult = await coinGeckoClient.coins.markets({
+    vs_currency: currency.toLowerCase(),
+    ids
+  });
+  if (!coinPricesResult.success) {
+    throw new Error(coinPricesResult.message);
   }
+
+  return mapPrices(coinPricesResult.data, currency);
 }
 
 export const ID = 'prices';
