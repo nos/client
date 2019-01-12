@@ -37,7 +37,7 @@ async function getPrices(currency, balances) {
     throw new Error(coinPricesResult.message);
   }
 
-  return mapPrices(coinPricesResult.data, currency);
+  return mapPrices(coinPricesResult.data);
 }
 
 export const ID = 'prices';
