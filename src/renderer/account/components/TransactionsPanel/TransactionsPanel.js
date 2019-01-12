@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, objectOf } from 'prop-types';
+import { number, string, objectOf } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
@@ -28,7 +28,8 @@ const TABS = {
 export default class TransactionsPanel extends React.PureComponent {
   static propTypes = {
     className: string,
-    balances: objectOf(balanceShape).isRequired
+    balances: objectOf(balanceShape).isRequired,
+    prices: objectOf(number).isRequired
   };
 
   static defaultProps = {
@@ -58,7 +59,7 @@ export default class TransactionsPanel extends React.PureComponent {
   renderTab = (id) => {
     switch (id) {
       case TAB_SEND:
-        return <Send balances={this.props.balances} />;
+        return <Send balances={this.props.balances} prices={this.props.prices} />;
       case TAB_RECEIVE:
         return <Receive />;
       case TAB_TRANSACTIONS:
