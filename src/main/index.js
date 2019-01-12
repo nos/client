@@ -93,11 +93,13 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  autoUpdater.allowPrerelease = false;
-  autoUpdater.checkForUpdates();
-  autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall();
-  });
+  if (!isDev) {
+    autoUpdater.allowPrerelease = false;
+    autoUpdater.checkForUpdates();
+    autoUpdater.on('update-downloaded', () => {
+      autoUpdater.quitAndInstall();
+    });
+  }
 
   registerNosProtocol();
   injectHeaders();

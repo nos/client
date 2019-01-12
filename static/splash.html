@@ -24,7 +24,7 @@
     <style>
       html,
       body {
-        background-color: #121043;
+        background-color: #000;
         width: 100%;
         height: 100%;
         margin: 0;
@@ -53,7 +53,7 @@
         right: 0;
         bottom: 0;
         left: 0;
-        background: linear-gradient(180deg, #302a88 0%, #121043 99.79%);
+        background: radial-gradient(#fff, #fafafa);
         background-size: contain;
         mix-blend-mode: normal;
         opacity: 0.8;
@@ -73,9 +73,10 @@
         height: 17px;
         left: -0.27%;
         right: 0.04%;
+        font-weight: 600;
         top: calc(50% - 17px / 2 + 82.5px);
 
-        color: #edeef4;
+        color: #000;
       }
 
       .subtitle {
@@ -92,8 +93,8 @@
   <body>
     <div class="bg cn">
       <div id="animation"></div>
-      <div class="title">Decentralized Overdrive.</div>
-      <div class="subtitle" id="info">LOADING</div>
+      <div class="title">Decentralized Overdrive</div>
+      <div class="subtitle" id="info">LOADING...</div>
     </div>
 
     <script src="animations/loader.js"></script>
