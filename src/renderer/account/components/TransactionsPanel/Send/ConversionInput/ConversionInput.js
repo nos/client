@@ -34,7 +34,6 @@ export default class ConversionInput extends React.PureComponent {
 
   state = {
     currencyFocus: false,
-    showDisclaimer: false,
     currencyValue: ''
   };
 
@@ -85,11 +84,9 @@ export default class ConversionInput extends React.PureComponent {
             onBlur={this.handleBlur}
           />
         </div>
-        {this.state.showDisclaimer && (
           <div className={styles.disclaimer}>
             <span>Fiat values are estimate. Powered by CoinGecko API</span>
           </div>
-        )}
       </Label>
     );
   }
@@ -107,7 +104,6 @@ export default class ConversionInput extends React.PureComponent {
   };
 
   handleChangeAsset = (event) => {
-    this.setState({ showDisclaimer: true });
     this.updateCurrencyFromAsset(event.target.value);
   };
 
