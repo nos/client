@@ -12,8 +12,6 @@
       }
     </script>
 
-    <script src="animations/bodymovin_light_4_13.min.js"></script>
-
     <script>
       if (window.module) {
         // set module - allow script imports in electron
@@ -29,36 +27,29 @@
         height: 100%;
         margin: 0;
         overflow: hidden;
-
-        font-family: "Inter UI", sans-serif;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        font-size: 14px;
-        text-align: center;
-        letter-spacing: 1.16667px;
-        text-transform: uppercase;
+        font-family: "Rubik", sans-serif;
       }
 
       #animation {
         width: 50%;
         height: 50%;
-        margin-bottom: 50px;
+        background: url("animations/nos-loader@2x.gif") no-repeat center center;
+        background-size: contain;
+        max-width: 180px;
+        max-height: 180px;
+        margin-bottom: 24px;
       }
 
       .bg {
         -webkit-app-region: drag;
         position: absolute;
+        background: white;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
-        background: radial-gradient(#fff, #fafafa);
         background-size: contain;
-        mix-blend-mode: normal;
-        opacity: 0.8;
-        backdrop-filter: blur(16.3097px); /* Note: backdrop-filter has minimal browser support */
-        border-radius: 4px;
+        border-radius: 6px;
       }
 
       .cn {
@@ -71,8 +62,6 @@
       .title {
         position: absolute;
         height: 17px;
-        left: -0.27%;
-        right: 0.04%;
         font-weight: 600;
         top: calc(50% - 17px / 2 + 82.5px);
 
@@ -82,8 +71,6 @@
       .subtitle {
         position: absolute;
         height: 17px;
-        left: 36.72%;
-        right: 41.41%;
         top: calc(50% - 17px / 2 + 110.5px);
 
         color: #8887a5;
@@ -96,7 +83,5 @@
       <div class="title">Decentralized Overdrive</div>
       <div class="subtitle" id="info">LOADING...</div>
     </div>
-
-    <script src="animations/loader.js"></script>
   </body>
 </html>
