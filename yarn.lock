@@ -2332,6 +2332,11 @@ codecov@3.1.0:
     request "^2.87.0"
     urlgrey "^0.4.4"
 
+coingecko-api@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.2.tgz#bc69ed2db4e7a768c624d88233f50dc6362de1b7"
+  integrity sha512-ectb217gUJ3VUuvPGNbVazLgmcKEziTbq75bfHH22xlQbp7uuaeNk0oEMCS1P5JDYz2+tsCoT5F8aqN8t5K+tg==
+
 collapse-white-space@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/collapse-white-space/-/collapse-white-space-1.0.4.tgz#ce05cf49e54c3277ae573036a26851ba430a0091"

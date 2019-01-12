@@ -36,20 +36,36 @@ export default compose(
   withNetworkData(),
   withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
   withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
-  withInitialCall(pricesActions, ({ currency }) => ({ currency })),
 
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([balancesActions, pricesActions], { ... })
-  ...([claimableActions, balancesActions, pricesActions].map((actions) => {
-    return withProgressComponents(actions, {
-      [LOADING]: Loading,
-      [FAILED]: Failed
-    }, {
-      strategy: alreadyLoadedStrategy
-    });
-  })),
+  ...[claimableActions, balancesActions].map((actions) => {
+    return withProgressComponents(
+      actions,
+      {
+        [LOADING]: Loading,
+        [FAILED]: Failed
+      },
+      {
+        strategy: alreadyLoadedStrategy
+      }
+    );
+  }),
 
   withData(claimableActions, mapClaimableDataToProps),
   withData(balancesActions, mapBalancesDataToProps),
-  withData(pricesActions, mapPricesDataToProps),
+
+  withInitialCall(pricesActions, ({ currency, balances }) => ({ currency, balances })),
+  withProgressComponents(
+    pricesActions,
+    {
+      [LOADING]: Loading,
+      [FAILED]: Failed
+    },
+    {
+      strategy: alreadyLoadedStrategy
+    }
+  ),
+
+  withData(pricesActions, mapPricesDataToProps)
 )(Account);
