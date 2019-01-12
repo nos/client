@@ -37,6 +37,15 @@
       vertical-align: middle;
     }
   }
+
+  .disclaimer {
+    margin: 5px 0 16px;
+    font-size: 9px;
+    font-weight: 500;
+    color: $light-text-color;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+  }
 }
 
 // In order to allow the `:focus` box-shadow highlighting to work, we need to give this CSS

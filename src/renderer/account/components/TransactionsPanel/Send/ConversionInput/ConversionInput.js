@@ -22,7 +22,7 @@ export default class ConversionInput extends React.PureComponent {
     amount: string,
     onChange: func,
     onBlur: func
-  }
+  };
 
   static defaultProps = {
     className: null,
@@ -30,12 +30,13 @@ export default class ConversionInput extends React.PureComponent {
     price: 0,
     onChange: noop,
     onBlur: noop
-  }
+  };
 
   state = {
     currencyFocus: false,
+    showDisclaimer: false,
     currencyValue: ''
-  }
+  };
 
   assetInput = React.createRef();
 
@@ -84,6 +85,11 @@ export default class ConversionInput extends React.PureComponent {
             onBlur={this.handleBlur}
           />
         </div>
+        {this.state.showDisclaimer && (
+          <div className={styles.disclaimer}>
+            <span>Fiat values are estimate. Powered by CoinGecko API</span>
+          </div>
+        )}
       </Label>
     );
   }
@@ -94,27 +100,24 @@ export default class ConversionInput extends React.PureComponent {
         <TokenIcon className={styles.tokenIcon} {...this.props.asset} />
       </div>
     );
-  }
+  };
 
   renderCurrencyIcon = () => {
-    return (
-      <div className={styles.icon}>
-        {SYMBOLS[this.props.currency]}
-      </div>
-    );
-  }
+    return <div className={styles.icon}>{SYMBOLS[this.props.currency]}</div>;
+  };
 
   handleChangeAsset = (event) => {
+    this.setState({ showDisclaimer: true });
     this.updateCurrencyFromAsset(event.target.value);
-  }
+  };
 
   handleChangeCurrency = (event) => {
     this.updateAssetFromCurrency(event.target.value);
-  }
+  };
 
   handleFocus = () => {
     this.setState({ currencyFocus: true });
-  }
+  };
 
   handleBlur = (event) => {
     this.props.onBlur(event);
@@ -122,12 +125,12 @@ export default class ConversionInput extends React.PureComponent {
     this.setState({ currencyFocus: false }, () => {
       this.updateCurrencyFromAsset();
     });
-  }
+  };
 
   getStep = () => {
     const { decimals } = this.props.asset;
     return new BigNumber(10).pow(-decimals).toFixed(decimals);
-  }
+  };
 
   updateCurrencyFromAsset = (inputValue = this.assetInput.current.value) => {
     const currencyValue = new BigNumber(
@@ -137,7 +140,7 @@ export default class ConversionInput extends React.PureComponent {
     this.setState({ currencyValue }, () => {
       this.props.onChange(inputValue);
     });
-  }
+  };
 
   updateAssetFromCurrency = (inputValue = this.currencyInput.current.value) => {
     const assetValue = new BigNumber(
@@ -147,5 +150,5 @@ export default class ConversionInput extends React.PureComponent {
     this.setState({ currencyValue: inputValue }, () => {
       this.props.onChange(assetValue);
     });
-  }
+  };
 }
