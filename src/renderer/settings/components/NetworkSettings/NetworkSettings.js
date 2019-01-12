@@ -19,7 +19,7 @@ export default class NetworkSettings extends React.PureComponent {
   static propTypes = {
     currentNetwork: string.isRequired,
     setCurrentNetwork: func.isRequired,
-    allNetworks: arrayOf(object).isRequired,
+    networks: arrayOf(object).isRequired,
     setNetworkName: func.isRequired,
     setNetworkUrl: func.isRequired,
     networkName: string.isRequired,
@@ -108,7 +108,7 @@ export default class NetworkSettings extends React.PureComponent {
   }
 
   handleConfirmAddNetwork = () => {
-    const network = this.props.allNetworks.find((element) => {
+    const network = this.props.networks.find((element) => {
       return element.name === this.props.networkName;
     });
 
@@ -132,7 +132,6 @@ export default class NetworkSettings extends React.PureComponent {
     };
 
     this.props.addNetwork(newNetwork);
-    this.props.setCurrentNetwork(this.props.networkName);
   }
 
   handleChangeNetworkName = (event) => {

@@ -1,9 +1,11 @@
+import React from 'react';
 import { withData } from 'spunky';
 import { compose } from 'recompose';
 
 import authActions from 'login/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
+import PriorityFee from 'account/components/TransactionsPanel/Send/PriorityFee';
 
 import ClaimGas from './ClaimGas';
 import withClean from '../../../hocs/withClean';
@@ -12,8 +14,8 @@ import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 import withSignTransactionToast from '../../../hocs/withSignTransactionToast';
 
-const mapAuthDataToProps = (data) => (data);
-const mapSendDataToProps = (txid) => ({ txid });
+const mapAuthDataToProps = (data) => data;
+const mapClaimDataToProps = (txid) => ({ txid });
 
 export default function makeClaimGas(claimActions) {
   return compose(
@@ -24,7 +26,13 @@ export default function makeClaimGas(claimActions) {
     withNetworkData(),
 
     // Prompt user
-    withPrompt('Would you like to claim GAS?'),
+    withPrompt(
+      () => <span>Would you like to claim GAS?</span>,
+      (props) => ({
+        title: 'Claim',
+        renderFooter: () => <PriorityFee {...props} editable={false} />
+      })
+    ),
 
     // Getting account data
     withData(authActions, mapAuthDataToProps),
@@ -37,9 +45,10 @@ export default function makeClaimGas(claimActions) {
       publicKey,
       signingFunction
     })),
+
     withSignTransactionToast,
     withNullLoader(claimActions),
-    withRejectMessage(claimActions, ({ error }) => (`Could not claim GAS: ${error}`)),
-    withData(claimActions, mapSendDataToProps)
+    withRejectMessage(claimActions, ({ error }) => `Could not claim GAS: ${error}`),
+    withData(claimActions, mapClaimDataToProps)
   )(ClaimGas);
 }

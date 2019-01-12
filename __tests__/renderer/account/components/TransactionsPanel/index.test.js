@@ -28,6 +28,9 @@ const defaultProps = {
       decimals: 0,
       balance: '0'
     }
+  },
+  prices: {
+    [NEO]: 7.65
   }
 };
 

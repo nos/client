@@ -1,4 +1,5 @@
 import { app, protocol, BrowserWindow } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
@@ -29,7 +30,11 @@ const isMac = process.platform === 'darwin';
 function getWindowPath(productionPath, filename) {
   const windowPath = isDev
     ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${filename}`
-    : url.format({ pathname: path.join(productionPath, filename), protocol: 'file:', slashes: true });
+    : url.format({
+      pathname: path.join(productionPath, filename),
+      protocol: 'file:',
+      slashes: true
+    });
 
   // There is a peculiar bug that is causing the window location to redirect to the current URL, but
   // with an empty query string appended. By loading that URL initially instead, no redirect occurs.
@@ -42,33 +47,37 @@ function createWindow() {
 
   const iconPath = path.join(getStaticPath(), 'icons', 'icon1024x1024.png');
 
-  mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
-  );
-
-  bindApplicationMenu(mainWindow);
-  bindContextMenu(mainWindow);
-
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
-
   // splashWindow is shown while mainWindow is loading hidden
   // As it is light weight it will load almost instantly and before mainWindow
   splashWindow = new BrowserWindow({
-    width: 275,
-    height: 330,
-    show: true,
+    width: 320,
+    height: 320,
     titleBarStyle: 'customButtonsOnHover',
+    show: false,
     frame: false,
     icon: iconPath
   });
 
   splashWindow.loadURL(getWindowPath(getStaticPath(), 'splash.html'));
+  splashWindow.once('ready-to-show', () => {
+    splashWindow.show();
+  });
+
+  // Main Window
+  mainWindow = new BrowserWindow(
+    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
+  );
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
-  // When mainWindow finishes loading, then show
-  // the mainWindow and destroy the splashWindow.
+  bindApplicationMenu(mainWindow);
+  bindContextMenu(mainWindow);
+
+  if (isDev) {
+    mainWindow.webContents.once('dom-ready', () => {
+      mainWindow.webContents.openDevTools();
+    });
+  }
+
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.maximize();
     mainWindow.show();
@@ -84,6 +93,14 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  if (!isDev) {
+    autoUpdater.allowPrerelease = false;
+    autoUpdater.checkForUpdates();
+    autoUpdater.on('update-downloaded', () => {
+      autoUpdater.quitAndInstall();
+    });
+  }
+
   registerNosProtocol();
   injectHeaders();
 

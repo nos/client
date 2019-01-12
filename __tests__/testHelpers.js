@@ -2,16 +2,23 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import { createStore as createReduxStore, applyMiddleware } from 'redux';
+import { createStore as createReduxStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { saga, progressValues } from 'spunky';
 import { get } from 'lodash';
+import createHistory from 'history/createHashHistory';
+import { routerMiddleware } from 'connected-react-router';
 
-import reducers from 'root/reducers';
+import createRootReducer from 'root/reducers';
 
 export const createStore = (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
-  const store = createReduxStore(reducers, initialState, applyMiddleware(sagaMiddleware, thunk));
+  const history = createHistory();
+  const store = createReduxStore(
+    createRootReducer(history),
+    initialState,
+    compose(applyMiddleware(routerMiddleware(history), thunk, sagaMiddleware))
+  );
   sagaMiddleware.run(saga);
   return store;
 };

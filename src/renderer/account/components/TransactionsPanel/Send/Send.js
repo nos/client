@@ -1,7 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import classNames from 'classnames';
-import { func, string, bool, objectOf } from 'prop-types';
+import { func, string, number, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { map, noop } from 'lodash';
 
@@ -9,6 +9,7 @@ import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
+import ConversionInput from './ConversionInput';
 import PriorityFee from './PriorityFee';
 import TokenItem from './TokenItem';
 import isNumeric from '../../../util/isNumeric';
@@ -18,9 +19,8 @@ import styles from './Send.scss';
 export default class Send extends React.PureComponent {
   static propTypes = {
     className: string,
-    loading: bool.isRequired,
+    sending: bool,
     confirm: func.isRequired,
-    step: string.isRequired,
     asset: string.isRequired,
     amount: string,
     receiver: string,
@@ -29,11 +29,13 @@ export default class Send extends React.PureComponent {
     setReceiver: func,
     setAsset: func,
     onSend: func,
-    balances: objectOf(balanceShape).isRequired
+    balances: objectOf(balanceShape).isRequired,
+    prices: objectOf(number).isRequired
   };
 
   static defaultProps = {
     className: null,
+    sending: false,
     amount: '',
     receiver: '',
     fee: '0',
@@ -44,8 +46,8 @@ export default class Send extends React.PureComponent {
   };
 
   render() {
-    const { className, loading, amount, receiver, asset, step } = this.props;
-    const symbol = this.getSymbol();
+    const { className, sending, amount, receiver, asset, prices } = this.props;
+    const assetBalance = this.getAsset();
 
     return (
       <form className={classNames(styles.send, className)}>
@@ -58,15 +60,12 @@ export default class Send extends React.PureComponent {
           renderItem={TokenItem}
           onChange={this.handleChangeAsset}
         />
-        <LabeledInput
-          id="amount"
-          type="number"
-          label="Sending amount"
-          placeholder={`Enter ${symbol} amount`}
-          min="0"
-          step={step}
-          value={amount}
+        <ConversionInput
+          asset={assetBalance}
+          price={prices[assetBalance.symbol]}
+          amount={amount}
           onChange={this.handleChangeAmount}
+          onBlur={this.handleBlurAmount}
         />
         <LabeledInput
           id="recipient"
@@ -82,7 +81,7 @@ export default class Send extends React.PureComponent {
         <PrimaryButton
           className={styles.next}
           type="submit"
-          disabled={loading || !this.isValid()}
+          disabled={sending || !this.isValid()}
           onClick={this.handleTransfer}
         >
           Next
@@ -114,12 +113,19 @@ export default class Send extends React.PureComponent {
     onSend({ asset, amount, receiver });
   };
 
+  handleBlurAmount = () => {
+    const { decimals } = this.getAsset();
+    this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
+  }
+
   handleChangeAsset = (value) => {
+    const { decimals } = this.getAsset(value);
     this.props.setAsset(value);
+    this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
   };
 
-  handleChangeAmount = (event) => {
-    this.props.setAmount(event.target.value);
+  handleChangeAmount = (value) => {
+    this.props.setAmount(value);
   };
 
   handleChangeRecipient = (event) => {
@@ -135,15 +141,14 @@ export default class Send extends React.PureComponent {
   }
 
   getSymbol = () => {
-    return this.getAsset(this.props.asset).symbol;
+    return this.getAsset().symbol;
   }
 
   getAmount = () => {
-    const { asset, amount } = this.props;
-    return new BigNumber(amount).toFixed(this.getAsset(asset).decimals);
+    return new BigNumber(this.props.amount).toFixed(this.getAsset().decimals, BigNumber.ROUND_DOWN);
   };
 
-  getAsset = (scriptHash) => {
+  getAsset = (scriptHash = this.props.asset) => {
     return this.props.balances[scriptHash];
   }
 

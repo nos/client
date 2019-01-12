@@ -5,6 +5,13 @@ export const USD = 'USD';
 
 export const DEFAULT_CURRENCY = USD;
 
+export const SYMBOLS = {
+  [CAD]: '$',
+  [EUR]: '€',
+  [GBP]: '£',
+  [USD]: '$'
+};
+
 export default {
   [CAD]: 'Canadian Dollar',
   [EUR]: 'Euro',
