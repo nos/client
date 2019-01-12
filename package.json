@@ -1,6 +1,7 @@
 {
   "name": "nOS",
   "description": "Discover & build the web of the future.",
+  "repository": "https://www.github.com/nos/client",
   "author": "nOS",
   "homepage": "https://nos.io",
   "version": "0.4.6",
@@ -28,6 +29,7 @@
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.5",
     "electron-localshortcut": "3.1.0",
+    "electron-updater": "3.2.3",
     "es6-promisify": "6.0.1",
     "file-type": "10.7.0",
     "format-currency": "1.0.0",
@@ -75,7 +77,8 @@
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist coverage",
-    "postinstall": "electron-builder install-app-deps && electron-rebuild --force"
+    "postinstall": "electron-builder install-app-deps && electron-rebuild --force",
+    "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
@@ -92,7 +95,7 @@
     "css-loader": "1.0.1",
     "cssnano": "4.1.8",
     "electron": "2.0.16",
-    "electron-builder": "20.34.0",
+    "electron-builder": "20.32.0",
     "electron-devtools-installer": "2.2.4",
     "electron-rebuild": "1.8.2",
     "electron-webpack": "1.13.0",
@@ -132,6 +135,7 @@
   },
   "build": {
     "appId": "io.nos.desktop",
+    "forceCodeSigning": true,
     "win": {
       "icon": "./static/icons/icon1024x1024.ico"
     },
@@ -140,7 +144,10 @@
     },
     "files": [
       "static/**/*"
-    ]
+    ],
+    "publish": {
+      "provider": "github"
+    }
   },
   "jest": {
     "testMatch": [

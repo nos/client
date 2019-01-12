@@ -30,6 +30,14 @@
       "allowedVersions": "< 3"
     },
     {
+      "packageNames": ["electron-updater"],
+      "allowedVersions": "< 4"
+    },
+    {
+      "packageNames": ["electron-builder"],
+      "allowedVersions": "<= 20.32.0"
+    },
+    {
       "packagePatterns": ["eslint", "stylelint"],
       "groupName": "lint"
     },
