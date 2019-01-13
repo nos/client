@@ -72,7 +72,7 @@ export default class BreakdownChart extends React.PureComponent {
     const spliced = [...data.splice(0, 2)];
     const main = reduceSum(spliced);
     const others = { symbol: 'OTHERS', value: reduceSum(data) };
-    if (others.value / main < 0.025) {
+    if (others.value / main < 0.02) {
       return [...spliced];
     } else {
       return [...spliced, others];
