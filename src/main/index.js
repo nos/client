@@ -55,6 +55,7 @@ function createWindow() {
     titleBarStyle: 'customButtonsOnHover',
     show: false,
     frame: false,
+    transparent: true,
     icon: iconPath
   });
 
