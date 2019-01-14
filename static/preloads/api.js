@@ -26,8 +26,11 @@ const api = {
   getAddress: createDelegate('getAddress'),
   getBalance: createDelegate('getBalance'),
   getStorage: createDelegate('getStorage'),
-  testInvoke: createDelegate('testInvoke'),
   getLastBlock: createDelegate('getLastBlock'),
+  getPublicKey: createDelegate('getPublicKey'),
+  testInvoke: createDelegate('testInvoke'),
+  encrypt: createDelegate('encrypt'),
+  decrypt: createDelegate('decrypt'),
 
   // Permissions required
   invoke: createDelegate('invoke'),
