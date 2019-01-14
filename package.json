@@ -140,6 +140,9 @@
     "win": {
       "icon": "./static/icons/icon1024x1024.ico"
     },
+    "linux": {
+      "icon": "./static/icons/icon1024x1024.png"
+    },
     "directories": {
       "buildResources": "static"
     },
