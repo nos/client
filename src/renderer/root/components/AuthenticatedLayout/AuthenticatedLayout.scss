@@ -12,6 +12,7 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
   flex-direction: column;
   height: 100vh;
   background-color: $content-bg-color;
+  overflow-y: hidden;
 
   header {
     flex: 0 0 auto;
@@ -77,6 +78,7 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
         box-sizing: border-box;
         user-select: auto;
         cursor: auto;
+        overflow-y: scroll;
       }
     }
   }
