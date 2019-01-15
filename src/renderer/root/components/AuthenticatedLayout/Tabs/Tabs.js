@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, objectOf, func } from 'prop-types';
 import { map, noop, keys } from 'lodash';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 
 import PlusIcon from 'shared/images/browser/plus.svg';
 import tabShape from 'browser/shapes/tabShape';
@@ -69,31 +69,34 @@ export default class Tabs extends React.PureComponent {
         onClose={this.handleClose(sessionId)}
       />
     );
-  }
+  };
 
   handleClick = (sessionId) => {
     return () => {
       this.props.setActiveTab(sessionId);
     };
-  }
+  };
 
   handleClose = (sessionId) => {
     return () => {
       this.props.onClose(sessionId);
+      if (Object.keys(this.props.tabs).length === 1) {
+        remote.getCurrentWindow().close();
+      }
     };
-  }
+  };
 
   handleNewTab = () => {
     this.props.onOpen();
-  }
+  };
 
   handleOpenTab = (event, target) => {
     this.props.onOpen(target);
-  }
+  };
 
   handleCloseActiveTab = () => {
     this.props.onClose(this.props.activeSessionId);
-  }
+  };
 
   handleGotoTab = (event, i) => {
     const sessionIds = keys(this.props.tabs);
@@ -102,23 +105,23 @@ export default class Tabs extends React.PureComponent {
     if (sessionId) {
       this.props.setActiveTab(sessionId);
     }
-  }
+  };
 
   handleNextTab = () => {
     this.incrementTab(1);
-  }
+  };
 
   handlePreviousTab = () => {
     this.incrementTab(-1);
-  }
+  };
 
   incrementTab = (offset) => {
     const sessionIds = keys(this.props.tabs);
     const currentIndex = sessionIds.indexOf(this.props.activeSessionId);
 
     if (currentIndex !== -1) {
-      const newIndex = ((currentIndex + offset) + sessionIds.length) % sessionIds.length;
+      const newIndex = (currentIndex + offset + sessionIds.length) % sessionIds.length;
       this.props.setActiveTab(sessionIds[newIndex]);
     }
-  }
+  };
 }
