@@ -67,7 +67,7 @@ function createWindow() {
   // Main Window
   mainWindow = new BrowserWindow(
     Object.assign(
-      { width: 1250, height: 700, minWidth: 1250, minHeight: 700, show: false, icon: iconPath },
+      { width: 1250, height: 720, minWidth: 1250, minHeight: 720, show: false, icon: iconPath },
       framelessConfig
     )
   );
