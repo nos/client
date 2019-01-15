@@ -66,7 +66,10 @@ function createWindow() {
 
   // Main Window
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
+    Object.assign(
+      { width: 1250, height: 700, minWidth: 1250, minHeight: 700, show: false, icon: iconPath },
+      framelessConfig
+    )
   );
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
