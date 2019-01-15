@@ -6,7 +6,8 @@ import { debounce } from 'lodash';
 
 import CloseIcon from 'shared/images/icons/close.svg';
 import MinimizeIcon from 'shared/images/icons/minimize.svg';
-import MaximizeIcon from 'shared/images/icons/maximize.svg';
+import WindowRestoreIcon from 'shared/images/icons/windowRestore.svg';
+import WindowMaximizeIcon from 'shared/images/icons/windowMaximize.svg';
 
 import styles from './ButtonBar.scss';
 
@@ -20,7 +21,7 @@ export default class ButtonBar extends React.PureComponent {
   };
 
   state = {
-    isMaximized: false
+    isMaximized: true
   };
 
   componentDidMount() {
@@ -43,7 +44,11 @@ export default class ButtonBar extends React.PureComponent {
           <MinimizeIcon name="windowMin" />
         </button>
         <button type="button" onClick={this.handleMaximizeWindow}>
-          <MaximizeIcon name={this.state.isMaximized ? 'windowRestore' : 'windowMax'} />
+          {this.state.isMaximized ? (
+            <WindowRestoreIcon name="windowRestore" />
+          ) : (
+            <WindowMaximizeIcon name="windowMaximize" />
+          )}
         </button>
         <button className={styles.closeButton} type="button" onClick={this.handleCloseWindow}>
           <CloseIcon name="windowClose" />
