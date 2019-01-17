@@ -67,8 +67,16 @@ export default class Tabs extends React.PureComponent {
         active={sessionId === this.props.activeSessionId}
         onClick={this.handleClick(sessionId)}
         onClose={this.handleClose(sessionId)}
+        onMouseUp={(e) => this.handleMouseUp(sessionId, e)}
       />
     );
+  };
+
+  handleMouseUp = (sessionId, event) => {
+    // Handle close tab using middle mouse click
+    if (event.button === 1) {
+      this.props.onClose(sessionId);
+    }
   };
 
   handleClick = (sessionId) => {

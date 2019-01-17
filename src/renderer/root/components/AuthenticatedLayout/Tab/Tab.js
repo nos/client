@@ -18,7 +18,8 @@ export default class Tab extends React.PureComponent {
     icon: string,
     loading: bool,
     onClick: func,
-    onClose: func
+    onClose: func,
+    onMouseUp: func
   };
 
   static defaultProps = {
@@ -27,7 +28,8 @@ export default class Tab extends React.PureComponent {
     icon: null,
     loading: false,
     onClick: noop,
-    onClose: noop
+    onClose: noop,
+    onMouseUp: noop
   };
 
   state = {
@@ -45,7 +47,7 @@ export default class Tab extends React.PureComponent {
   }
 
   render() {
-    const { className, active, title, onClick } = this.props;
+    const { className, active, title, onClick, onMouseUp } = this.props;
     const { width, show } = this.state;
 
     return (
@@ -55,6 +57,7 @@ export default class Tab extends React.PureComponent {
         role="button"
         tabIndex={0}
         onClick={onClick}
+        onMouseUp={onMouseUp}
       >
         {this.renderIcon()}
         <span className={styles.title}>{title}</span>
