@@ -76,6 +76,9 @@ export default class Tabs extends React.PureComponent {
     // Handle close tab using middle mouse click
     if (event.button === 1) {
       this.props.onClose(sessionId);
+      if (Object.keys(this.props.tabs).length === 1) {
+        remote.getCurrentWindow().close();
+      }
     }
   };
 
