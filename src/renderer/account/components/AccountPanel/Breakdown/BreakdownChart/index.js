@@ -10,7 +10,8 @@ const calculateTokenValues = ({ balances, prices }) => map(balances, (token) => 
 }));
 
 const mapBalancesToProps = (props) => ({
-  data: calculateTokenValues(props)
+  data: calculateTokenValues(props),
+  threshold: 0.03
 });
 
 export default withProps(mapBalancesToProps)(BreakdownChart);
