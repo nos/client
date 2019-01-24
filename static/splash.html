@@ -83,9 +83,9 @@
 
     <script>
       const { ipcRenderer } = require('electron');
-      ipcRenderer.once('message', function(event, text) {
+      ipcRenderer.once('updaterMsg', function(event, msg) {
         document.getElementById('info').style.fontSize = '12px';
-        document.getElementById('info').innerHTML = text;
+        document.getElementById('info').innerHTML = msg;
       });
     </script>
   </body>
