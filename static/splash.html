@@ -5,20 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <script>
-      if (typeof module === "object") {
+      if (typeof module === 'object') {
         // unset module
         window.module = module;
         module = undefined;
       }
-    </script>
 
-    <script>
       if (window.module) {
         // set module - allow script imports in electron
         module = window.module;
       }
     </script>
-
     <style>
       html,
       body {
@@ -27,13 +24,13 @@
         height: 98%;
         margin: 0;
         overflow: hidden;
-        font-family: "Rubik", sans-serif;
+        font-family: 'Rubik', sans-serif;
       }
 
       #animation {
         width: 50%;
         height: 50%;
-        background: url("animations/nos-loader@2x.gif") no-repeat center center;
+        background: url('animations/nos-loader@2x.gif') no-repeat center center;
         background-size: contain;
         max-width: 180px;
         max-height: 180px;
@@ -83,5 +80,13 @@
       <div class="title">Decentralized Overdrive</div>
       <div class="subtitle" id="info">Loading</div>
     </div>
+
+    <script>
+      const { ipcRenderer } = require('electron');
+      ipcRenderer.once('updaterMsg', function(event, msg) {
+        document.getElementById('info').style.fontSize = '12px';
+        document.getElementById('info').innerHTML = msg;
+      });
+    </script>
   </body>
 </html>
