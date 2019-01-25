@@ -55,24 +55,9 @@ yarn test
 # Testing with debug (repl) command
 yarn test:debug
 
-# Distribution command
+# Distribution command (code signing certificates are required to make this work)
 yarn dist
 ```
-
-## Getting started with nOS Development
-
-Need some help with building nOS dApps? Check out our dedicated [documentation website](https://docs.nos.io/) containing useful info for the following topics:
-
-- [**nOS Client API Documentation**](https://docs.nos.io/docs/nos-client/api.html)
-- [Create nOS dApp Usage](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html)
-- [nOS Local Setup and usage](https://docs.nos.io/docs/nos-local/installation-usage.html)
-- [Contribution Guidelines](https://docs.nos.io/docs/contributing.html)
-
-Future resources:
-
-- Tutorials
-- List of known bugs
-- List of coming features
 
 # Contribute to this repository
 
@@ -86,13 +71,18 @@ There is a [specific channel called develop](https://discord.gg/CXZb3BS) on Disc
 
 # Contribute by building a dApp on nOS
 
+Need some help with building nOS dApps? Check out our dedicated [documentation website](https://docs.nos.io/) containing useful info for the following topics:
+
+- [**nOS Client API Documentation**](https://docs.nos.io/docs/nos-client/api.html)
+- [Create nOS dApp Usage](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html)
+- [nOS Local Setup and usage](https://docs.nos.io/docs/nos-local/installation-usage.html)
+
 **Check out the documentation of the [Create nOS dApp CLI tool](https://docs.nos.io/docs/create-nos-dapp/installation-usage.html) to get going quickly.**
 
 Resources:
 
 - [Create nOS dApp repository](https://github.com/nos/create-nos-dapp)
 - [Create nOS dApp example (NeoBlog implementation)](https://github.com/nos/dapp-neoblog)
-- [nOS Client API Documentation](https://docs.nos.io/docs/nos-client/api.html)
 
 # Releasing
 
@@ -100,13 +90,20 @@ Resources:
 
 We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create builds based upon git tags.
 
-1. Create a tag, e.g. `1.0.0`.
-   a. `git tag -a 1.0.0`
-   b. `git push origin 1.0.0`
-2. Wait for `deploy_win64` and `deploy_linux` jobs to finish on CircleCI.
-3. Open "Artifacts" tab & download executable files.
+1. Create a tag, e.g. `v1.0.0`.
+   1. `git tag -a v1.0.0 -m "release"` - the `v`-prefix is required for auto updates to work
+   2. `git push origin v1.0.0`
+2. Wait for `deploy_win64` and `deploy_linux` jobs to upload the artifacts to Github Release page as a draft.
 
 ## macOS
 
-1. Create the distributable, i.e. `yarn dist`.
-2. Locate executable file `dist/nOS-1.0.0.dmg`.
+1. Export the following variables:
+   1. `CSC_LINK` - This is the path to the .p12 certificate file
+   2. `CSC_KEY_PASSWORD` - This is the password of the .p12 certificate file
+   3. `CSC_IDENTITY_AUTO_DISCOVERY` - Set to `false` to disable usage of local keychain (By default it looks in your `login` keychain)
+2. Create the distributable, i.e. `yarn dist`.
+3. Locate and upload the following files as these are required for the auto-updater to work:
+   1. `dist/nOS-1.0.0-mac.zip`
+   2. `dist/nOS-1.0.0-mac.dmg`
+   3. `dist/nOS-1.0.0-mac.dmg.blockmap`
+   4. `dist/latest-mac.yml`

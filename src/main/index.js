@@ -26,6 +26,7 @@ let mainWindow;
 let splashWindow;
 
 const isMac = process.platform === 'darwin';
+const iconPath = path.join(getStaticPath(), 'icons', 'icon1024x1024.png');
 
 function getWindowPath(productionPath, filename) {
   const windowPath = isDev
@@ -42,30 +43,15 @@ function getWindowPath(productionPath, filename) {
   return windowPath.includes('?') ? windowPath : `${windowPath}?`;
 }
 
-function createWindow() {
+function createMainWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
-
-  const iconPath = path.join(getStaticPath(), 'icons', 'icon1024x1024.png');
-
-  // splashWindow is shown while mainWindow is loading hidden
-  // As it is light weight it will load almost instantly and before mainWindow
-  splashWindow = new BrowserWindow({
-    width: 320,
-    height: 320,
-    titleBarStyle: 'customButtonsOnHover',
-    show: false,
-    frame: false,
-    icon: iconPath
-  });
-
-  splashWindow.loadURL(getWindowPath(getStaticPath(), 'splash.html'));
-  splashWindow.once('ready-to-show', () => {
-    splashWindow.show();
-  });
 
   // Main Window
   mainWindow = new BrowserWindow(
-    Object.assign({ width: 1250, height: 700, show: false, icon: iconPath }, framelessConfig)
+    Object.assign(
+      { width: 1250, height: 720, minWidth: 1250, minHeight: 720, show: false, icon: iconPath },
+      framelessConfig
+    )
   );
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
@@ -89,18 +75,41 @@ function createWindow() {
   });
 }
 
+function createSplashWindow() {
+  // splashWindow is shown while mainWindow is loading hidden
+  // As it is light weight it will load almost instantly and before mainWindow
+  splashWindow = new BrowserWindow({
+    width: 320,
+    height: 320,
+    titleBarStyle: 'customButtonsOnHover',
+    show: false,
+    frame: false,
+    transparent: true,
+    icon: iconPath
+  });
+
+  splashWindow.loadURL(getWindowPath(getStaticPath(), 'splash.html'));
+  splashWindow.once('ready-to-show', () => {
+    splashWindow.show();
+
+    autoUpdater.allowPrerelease = false;
+    autoUpdater.checkForUpdates();
+    autoUpdater.on('update-available', (info) => {
+      splashWindow.webContents.send('updaterMsg', `Updating nOS client to version ${info.version}`);
+    });
+    autoUpdater.on('update-not-available', () => {
+      createMainWindow();
+    });
+    autoUpdater.on('update-downloaded', () => {
+      autoUpdater.quitAndInstall();
+    });
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  if (!isDev) {
-    autoUpdater.allowPrerelease = false;
-    autoUpdater.checkForUpdates();
-    autoUpdater.on('update-downloaded', () => {
-      autoUpdater.quitAndInstall();
-    });
-  }
-
   registerNosProtocol();
   injectHeaders();
 
@@ -108,7 +117,7 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  createWindow();
+  createSplashWindow();
 });
 
 // Quit when all windows are closed.
@@ -120,6 +129,6 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow();
+    createMainWindow();
   }
 });

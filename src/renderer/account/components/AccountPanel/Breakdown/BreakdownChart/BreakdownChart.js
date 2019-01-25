@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 import { times, reduce } from 'lodash';
 
 import formatCurrency from 'account/util/formatCurrency';
@@ -20,7 +20,8 @@ export default class BreakdownChart extends React.PureComponent {
   static propTypes = {
     className: string,
     data: chartDataShape.isRequired,
-    currency: string.isRequired
+    currency: string.isRequired,
+    threshold: number.isRequired
   };
 
   static defaultProps = {
@@ -31,7 +32,10 @@ export default class BreakdownChart extends React.PureComponent {
     const data = this.getData();
 
     return (
-      <ResponsiveContainer width="100%" className={classNames(styles.breakdownChart, this.props.className)}>
+      <ResponsiveContainer
+        width="100%"
+        className={classNames(styles.breakdownChart, this.props.className)}
+      >
         <PieChart>
           <Pie
             data={data}
@@ -60,19 +64,22 @@ export default class BreakdownChart extends React.PureComponent {
   }
 
   getData = () => {
+    const { threshold } = this.props;
     const data = [...this.props.data];
 
-    if (data.length <= 3) {
-      return data;
-    }
+    const totalSum = reduceSum(data);
+    const filteredData = data.filter((item) => item.value / totalSum >= threshold);
+    const restData = data.filter((item) => item.value / totalSum < threshold);
 
-    return [
-      ...data.splice(0, 2),
-      { symbol: 'OTHERS', value: reduceSum(data) }
-    ];
-  }
+    const others = { symbol: 'OTHERS', value: reduceSum(restData) };
+    if (others.value / totalSum < threshold) {
+      return [...filteredData];
+    } else {
+      return [...filteredData, restData];
+    }
+  };
 
   formatValue = (value) => {
     return formatCurrency(value, this.props.currency);
-  }
+  };
 }

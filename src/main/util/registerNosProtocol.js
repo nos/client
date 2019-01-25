@@ -39,7 +39,6 @@ export default function registerNosProtocol() {
 
       await stream(uri, callback);
     } catch (error) {
-      // console.error(error);
       callback({ error });
     }
   });
