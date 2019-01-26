@@ -2,26 +2,26 @@ import { compose, withProps } from 'recompose';
 import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
 import { sortBy, pickBy, keys } from 'lodash';
 
-import balancesActions from 'shared/actions/balancesActions';
 import claimableActions from 'shared/actions/claimableActions';
-import pricesActions from 'account/actions/pricesActions';
 import Failed from 'shared/components/Failed';
 import { ASSETS, NOS, NEO, GAS } from 'shared/values/assets';
 
+import loaded from '../../Account';
+
 import Holdings from './Holdings';
 import HoldingsLoading from './HoldingsLoading';
-import loaded from '../../Account';
+import balanceWithPricesActions from '../../../actions/balanceWithPricesActions';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapBalancesDataToProps = (balances) => ({
+const mapBalanceWithPricesToProps = ({ balances, prices }) => ({
   balances: pickBy(balances, ({ scriptHash, balance }) => {
     return keys(ASSETS).includes(scriptHash) || scriptHash === NOS || balance !== '0';
-  })
+  }),
+  prices
 });
 
 const mapClaimableDataToProps = (claimable) => ({ claimable });
-const mapPricesDataToProps = (prices) => ({ prices });
 
 /**
  * Sort by:
@@ -43,7 +43,7 @@ const sortBalances = ({ balances }) => ({
 export default compose(
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([balancesActions, pricesActions], { ... })
-  ...[claimableActions, balancesActions, pricesActions].map((actions) => {
+  ...[claimableActions, balanceWithPricesActions].map((actions) => {
     return withProgressComponents(
       actions,
       {
@@ -58,8 +58,7 @@ export default compose(
   }),
 
   withData(claimableActions, mapClaimableDataToProps),
-  withData(balancesActions, mapBalancesDataToProps),
-  withData(pricesActions, mapPricesDataToProps),
+  withData(balanceWithPricesActions, mapBalanceWithPricesToProps),
 
   withProps(sortBalances)
 )(Holdings);

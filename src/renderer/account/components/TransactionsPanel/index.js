@@ -1,23 +1,23 @@
 import { compose } from 'recompose';
 import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
 
-import balancesActions from 'shared/actions/balancesActions';
 import Failed from 'shared/components/Failed';
 
 import TransactionPanel from './TransactionsPanel';
-import TransactionsLoading from './TransactionsLoading';
 import loaded from '../Account';
+import TransactionsLoading from './TransactionsLoading';
+import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapBalancesDataToProps = (balances) => ({ balances });
+const mapBalancesWithPricesToProps = ({ balances, prices }) => ({ balances, prices });
 
 export default compose(
   withProgressComponents(
-    balancesActions,
+    balanceWithPricesActions,
     {
       [LOADING]: TransactionsLoading,
-      [LOADED]: TransactionsLoading,
+      [LOADED]: loaded,
       [FAILED]: Failed
     },
     {
@@ -25,5 +25,5 @@ export default compose(
     }
   ),
 
-  withData(balancesActions, mapBalancesDataToProps)
+  withData(balanceWithPricesActions, mapBalancesWithPricesToProps)
 )(TransactionPanel);

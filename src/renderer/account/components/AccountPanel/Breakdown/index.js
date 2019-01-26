@@ -4,20 +4,16 @@ import { sortBy } from 'lodash';
 
 import Failed from 'shared/components/Failed';
 
-import withInitialCall from 'shared/hocs/withInitialCall';
-import balancesActions from 'shared/actions/balancesActions';
-import pricesActions from 'account/actions/pricesActions';
-
 import Breakdown from './Breakdown';
 import BreakdownLoading from './BreakdownLoading';
 import calculateTokenValue from '../../../util/calculateTokenValue';
 
 import loaded from '../../Account';
+import balanceWithPricesActions from '../../../actions/balanceWithPricesActions';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapBalancesDataToProps = (balances) => ({ balances });
-const mapPricesDataToProps = (prices) => ({ prices });
+const mapBalanceWithPricesToProps = ({ balances, prices }) => ({ balances, prices });
 
 const mapSortedBalances = (props) => ({
   balances: sortBy(props.balances, (token) => -calculateTokenValue(token, props.prices))
@@ -27,7 +23,7 @@ export default compose(
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([balancesActions, pricesActions], { ... })
   withProgressComponents(
-    balancesActions,
+    balanceWithPricesActions,
     {
       [LOADING]: BreakdownLoading,
       [LOADED]: loaded,
@@ -38,22 +34,7 @@ export default compose(
     }
   ),
 
-  withData(balancesActions, mapBalancesDataToProps),
-
-  withInitialCall(pricesActions, ({ currency, balances }) => ({ currency, balances })),
-  withProgressComponents(
-    pricesActions,
-    {
-      [LOADING]: BreakdownLoading,
-      [LOADED]: loaded,
-      [FAILED]: Failed
-    },
-    {
-      strategy: alreadyLoadedStrategy
-    }
-  ),
-
-  withData(pricesActions, mapPricesDataToProps),
+  withData(balanceWithPricesActions, mapBalanceWithPricesToProps),
 
   withProps(mapSortedBalances)
 )(Breakdown);
