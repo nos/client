@@ -92,17 +92,21 @@ function createSplashWindow() {
   splashWindow.once('ready-to-show', () => {
     splashWindow.show();
 
-    autoUpdater.allowPrerelease = false;
-    autoUpdater.checkForUpdates();
-    autoUpdater.on('update-available', (info) => {
-      splashWindow.webContents.send('updaterMsg', `Updating nOS client to version ${info.version}`);
-    });
-    autoUpdater.on('update-not-available', () => {
+    if (isDev) {
       createMainWindow();
-    });
-    autoUpdater.on('update-downloaded', () => {
-      autoUpdater.quitAndInstall();
-    });
+    } else {
+      autoUpdater.allowPrerelease = false;
+      autoUpdater.checkForUpdates();
+      autoUpdater.on('update-available', ({ version }) => {
+        splashWindow.webContents.send('updaterMsg', `Updating nOS client to version ${version}`);
+      });
+      autoUpdater.on('update-not-available', () => {
+        createMainWindow();
+      });
+      autoUpdater.on('update-downloaded', () => {
+        autoUpdater.quitAndInstall();
+      });
+    }
   });
 }
 
