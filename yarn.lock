@@ -2428,10 +2428,10 @@ codecov@3.1.0:
     request "^2.87.0"
     urlgrey "^0.4.4"
 
-coingecko-api@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.2.tgz#bc69ed2db4e7a768c624d88233f50dc6362de1b7"
-  integrity sha512-ectb217gUJ3VUuvPGNbVazLgmcKEziTbq75bfHH22xlQbp7uuaeNk0oEMCS1P5JDYz2+tsCoT5F8aqN8t5K+tg==
+coingecko-api@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.3.tgz#f12521b88c35827faabb1767fef575385b351623"
+  integrity sha512-Zk8/V0fDWhZzkg7+QR85VnH1+y28TPMpIHhaqHybLzIU1aNwvBtvaRL0sGtBeeu1Jp8su9s4doitxmHu366DAQ==
 
 collapse-white-space@^1.0.2:
   version "1.0.4"
@@ -3674,10 +3674,10 @@ electron-builder@20.32.0:
     update-notifier "^2.5.0"
     yargs "^12.0.2"
 
-electron-context-menu@0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/electron-context-menu/-/electron-context-menu-0.10.1.tgz#9e202f1f65c0972cca8c0ef2047a13a100770368"
-  integrity sha512-KFkKwFbT6iJUgarEknYuXQlJAT+naJZtSWFBtHf9RiSb70wscWdDNpYoUERzF7FgqYE1Mil4npfRWsjqGLwtog==
+electron-context-menu@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/electron-context-menu/-/electron-context-menu-0.11.0.tgz#3ecefb0231151add474c9b0df2fb66fde3ad5731"
+  integrity sha512-sgDIGqjgazUQ5fbfz0ObRkmODAsw00eylQprp5q4jyuL6dskd27yslhoJTrjLbFGErfVVYzRXPW2rQPJxARKmg==
   dependencies:
     electron-dl "^1.2.0"
     electron-is-dev "^1.0.1"
