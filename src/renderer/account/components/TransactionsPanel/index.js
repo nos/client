@@ -4,7 +4,7 @@ import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy
 import Failed from 'shared/components/Failed';
 
 import TransactionPanel from './TransactionsPanel';
-import loaded from '../Account';
+import loaded from '../index';
 import TransactionsLoading from './TransactionsLoading';
 import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
 

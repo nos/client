@@ -6,7 +6,7 @@ import claimableActions from 'shared/actions/claimableActions';
 import Failed from 'shared/components/Failed';
 import { ASSETS, NOS, NEO, GAS } from 'shared/values/assets';
 
-import loaded from '../../Account';
+import loaded from '../index';
 
 import Holdings from './Holdings';
 import HoldingsLoading from './HoldingsLoading';

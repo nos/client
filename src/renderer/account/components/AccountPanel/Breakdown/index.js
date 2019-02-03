@@ -8,7 +8,7 @@ import Breakdown from './Breakdown';
 import BreakdownLoading from './BreakdownLoading';
 import calculateTokenValue from '../../../util/calculateTokenValue';
 
-import loaded from '../../Account';
+import loaded from '../index';
 import balanceWithPricesActions from '../../../actions/balanceWithPricesActions';
 
 const { LOADING, LOADED, FAILED } = progressValues;
