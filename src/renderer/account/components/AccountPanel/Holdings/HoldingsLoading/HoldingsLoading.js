@@ -8,15 +8,16 @@ import styles from './HoldingsLoading.scss';
 export default class HoldingsLoading extends React.PureComponent {
   static propTypes = {
     className: string
-  }
+  };
 
   static defaultProps = {
     className: null
-  }
+  };
 
   render() {
     return (
       <div className={classNames(styles.holdingsLoading, this.props.className)}>
+        <h2>My Holdings</h2>
         {times(5, this.renderHolding)}
       </div>
     );
@@ -33,5 +34,5 @@ export default class HoldingsLoading extends React.PureComponent {
         <div className={styles.balance} />
       </div>
     );
-  }
+  };
 }

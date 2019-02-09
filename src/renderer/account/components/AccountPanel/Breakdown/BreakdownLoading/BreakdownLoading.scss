@@ -1,9 +1,11 @@
 .breakdownLoading {
   text-align: center;
   margin-bottom: 24px;
+  min-height: 400px;
 
   .heading {
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 90px;
   }
 
   .title {
@@ -20,10 +22,15 @@
 
   svg {
     animation: rotateGraph 6s linear infinite;
+    margin-bottom: 70px;
   }
 }
 
 @keyframes rotateGraph {
-    0% { transform: rotate(0deg) }
-  100% { transform: rotate(359deg) }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }
