@@ -8,7 +8,7 @@ import AccountPanel from '../AccountPanel';
 import TransactionsPanel from '../TransactionsPanel';
 import styles from './Account.scss';
 
-export default class Holdings extends React.PureComponent {
+export default class Account extends React.PureComponent {
   static propTypes = {
     __progress__: string.isRequired,
     showErrorToast: func.isRequired
