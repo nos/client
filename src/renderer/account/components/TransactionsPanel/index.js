@@ -1,8 +1,6 @@
 import { compose } from 'recompose';
 import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
 
-import Failed from 'shared/components/Failed';
-
 import TransactionPanel from './TransactionsPanel';
 import loaded from '../index';
 import TransactionsLoading from './TransactionsLoading';
@@ -18,7 +16,7 @@ export default compose(
     {
       [LOADING]: TransactionsLoading,
       [LOADED]: loaded,
-      [FAILED]: Failed
+      [FAILED]: TransactionsLoading
     },
     {
       strategy: alreadyLoadedStrategy

@@ -2,8 +2,6 @@ import { compose, withProps } from 'recompose';
 import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
 import { sortBy } from 'lodash';
 
-import Failed from 'shared/components/Failed';
-
 import Breakdown from './Breakdown';
 import BreakdownLoading from './BreakdownLoading';
 import calculateTokenValue from '../../../util/calculateTokenValue';
@@ -27,7 +25,7 @@ export default compose(
     {
       [LOADING]: BreakdownLoading,
       [LOADED]: loaded,
-      [FAILED]: Failed
+      [FAILED]: BreakdownLoading
     },
     {
       strategy: alreadyLoadedStrategy

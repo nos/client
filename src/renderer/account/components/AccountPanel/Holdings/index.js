@@ -3,7 +3,6 @@ import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy
 import { sortBy, pickBy, keys } from 'lodash';
 
 import claimableActions from 'shared/actions/claimableActions';
-import Failed from 'shared/components/Failed';
 import { ASSETS, NOS, NEO, GAS } from 'shared/values/assets';
 
 import loaded from '../index';
@@ -49,7 +48,7 @@ export default compose(
       {
         [LOADING]: HoldingsLoading,
         [LOADED]: loaded,
-        [FAILED]: Failed
+        [FAILED]: HoldingsLoading
       },
       {
         strategy: alreadyLoadedStrategy
