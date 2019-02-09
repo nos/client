@@ -1,7 +1,7 @@
 import { compose } from 'recompose';
 import { withActions, withData, withReset, progressValues } from 'spunky';
 
-import balancesAndPricesActions from 'account/actions/balanceWithPricesActions';
+import balanceWithPricesActions from 'account/actions/balanceWithPricesActions';
 
 import withProgressChange from 'shared/hocs/withProgressChange';
 import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
@@ -30,7 +30,7 @@ export default compose(
   withActions(setFee, mapFeeActionsToProps),
   withData(feeActions, mapFeeDataToProps),
 
-  withReset(balancesAndPricesActions, 'currency'),
+  withReset(balanceWithPricesActions, 'currency'),
 
   withSuccessToast(),
   withProgressChange(setCurrency, LOADED, (state, props) => {
