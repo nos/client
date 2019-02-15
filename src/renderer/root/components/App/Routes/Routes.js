@@ -17,9 +17,13 @@ const withAuthLayout = withLayout(AuthenticatedLayout);
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/login" component={withLoginLayout(Login)} />
-      <Route exact path="/register" component={withLoginLayout(Register)} />
       <PrivateRoute exact path="/browser" component={withAuthLayout(Browser)} />
+      <PrivateRoute exact path="/login" component={withAuthLayout(Login)} />
+      <PrivateRoute
+        exact
+        path="/register"
+        component={withAuthLayout(Register)}
+      />
       <PrivateRoute exact path="/logout" component={withAuthLayout(Logout)} />
       <Redirect to="/browser" />
     </Switch>

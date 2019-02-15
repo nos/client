@@ -17,7 +17,7 @@ import {
 
 const initialTabState = {
   type: EXTERNAL,
-  target: 'https://my.nos.app',
+  target: 'nos://nos.neo', // 'https://my.nos.app',
   title: 'My nOS',
   icon: null,
   addressBarEntry: true, // differentiates between link clicks and address bar entries
@@ -130,9 +130,10 @@ function close(state, data) {
   const tabIndex = keys(state.tabs).indexOf(data.sessionId);
   const tabs = omit(state.tabs, data.sessionId);
 
-  const activeSessionId = state.activeSessionId === data.sessionId
-    ? keys(tabs)[Math.max(tabIndex - 1, 0)]
-    : state.activeSessionId;
+  const activeSessionId =
+    state.activeSessionId === data.sessionId
+      ? keys(tabs)[Math.max(tabIndex - 1, 0)]
+      : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
 }
@@ -176,7 +177,10 @@ function setLoaded(state, action) {
   return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
-export default function browserReducer(state = generateInitialState(), action = {}) {
+export default function browserReducer(
+  state = generateInitialState(),
+  action = {}
+) {
   switch (action.type) {
     case OPEN_TAB:
       return open(state, action.payload);

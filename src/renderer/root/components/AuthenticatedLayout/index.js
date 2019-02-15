@@ -21,7 +21,10 @@ const mapStateToProps = (state) => {
   return { tabs, activeSessionId };
 };
 
-const mapAuthDataToProps = ({ address }) => ({ address });
+const mapAuthDataToProps = (props) => ({
+  ...props,
+  address: 'kek'
+});
 
 const mapBlockActionsToProps = (actions, props) => ({
   getLastBlock: () => actions.call({ net: props.currentNetwork })

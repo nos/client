@@ -9,6 +9,9 @@ const { LOADED } = progressValues;
 export default function withAuthState(propName = 'authenticated') {
   return compose(
     withProgress(authActions),
-    mapProps((props) => ({ ...omit(props, 'progress'), [propName]: props.progress === LOADED }))
+    mapProps((props) => ({
+      ...omit(props, 'progress'),
+      [propName]: props.progress === LOADED
+    }))
   );
 }

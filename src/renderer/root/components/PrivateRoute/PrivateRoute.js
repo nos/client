@@ -15,19 +15,16 @@ export default class PrivateRoute extends React.PureComponent {
 
   render() {
     return (
-      <Route
-        {...omit(this.props, 'authenticated', 'component')}
-        render={this.renderRoute}
-      />
+      <Route {...omit(this.props, 'component')} render={this.renderRoute} />
     );
   }
 
   renderRoute = (props) => {
-    if (this.props.authenticated) {
-      const Component = this.props.component;
-      return <Component {...props} />;
-    } else {
-      return <Redirect to="/login" />;
-    }
-  }
+    // if (this.props.authenticated) {
+    const Component = this.props.component;
+    return <Component {...props} />;
+    // } else {
+    //   return <Redirect to="/login" />;
+    // }
+  };
 }
