@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import { noop } from 'lodash';
 
-import { LoginModal } from 'Login';
+import { Login } from 'login';
 
 import Alert from 'shared/components/Alert';
 import Confirm from 'shared/components/Confirm';
@@ -61,7 +61,7 @@ export default class AlertPresenter extends React.PureComponent {
 
   renderLogin = (props) => {
     return (
-      <LoginModal
+      <Login
         {...props}
         onConfirm={this.handleClose(props.onConfirm)}
         onCancel={this.handleClose(props.onCancel)}
