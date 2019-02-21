@@ -14,6 +14,7 @@ import currentNetworkActions, { setCurrentNetwork } from 'settings/actions/curre
 import getAllNetworks from 'settings/actions/networksActions';
 
 import App from './App';
+import authActions from '../../../login/actions/authActions';
 
 const { LOADING, LOADED } = progressValues;
 
@@ -25,6 +26,7 @@ const mapCurrentNetworkActionsToProps = (actions) => ({
 
 export default compose(
   withRouter,
+  // withInitialCall(authActions),
   withInitialCall(feeActions),
   withInitialCall(currencyActions),
   withInitialCall(currentNetworkActions),

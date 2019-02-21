@@ -26,11 +26,12 @@ const TABS = {
 export default class Login extends React.PureComponent {
   static propTypes = {
     loading: bool,
-    login: func.isRequired
+    login: func
   };
 
   static defaultProps = {
-    loading: false
+    loading: false,
+    login: undefined
   };
 
   state = {
@@ -67,9 +68,9 @@ export default class Login extends React.PureComponent {
       default:
         throw new Error('Invalid tab.');
     }
-  }
+  };
 
   handleSelectTab = (tab) => {
     this.setState({ tab });
-  }
+  };
 }

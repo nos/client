@@ -1,6 +1,6 @@
 import { string, func, oneOf, oneOfType, any, shape } from 'prop-types';
 
-import { TYPE_ALERT, TYPE_CONFIRM } from '../values/dialogs';
+import { TYPE_ALERT, TYPE_CONFIRM, TYPE_LOGIN } from '../values/dialogs';
 
 const alertShape = shape({
   title: string,
@@ -21,6 +21,6 @@ const confirmShape = shape({
 });
 
 export default shape({
-  type: oneOf([TYPE_ALERT, TYPE_CONFIRM]).isRequired,
+  type: oneOf([TYPE_ALERT, TYPE_CONFIRM, TYPE_LOGIN]).isRequired,
   props: oneOfType([alertShape, confirmShape]).isRequired
 });

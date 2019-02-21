@@ -19,11 +19,7 @@ export default function Routes() {
     <Switch>
       <PrivateRoute exact path="/browser" component={withAuthLayout(Browser)} />
       <PrivateRoute exact path="/login" component={withAuthLayout(Login)} />
-      <PrivateRoute
-        exact
-        path="/register"
-        component={withAuthLayout(Register)}
-      />
+      <PrivateRoute exact path="/register" component={withAuthLayout(Register)} />
       <PrivateRoute exact path="/logout" component={withAuthLayout(Logout)} />
       <Redirect to="/browser" />
     </Switch>

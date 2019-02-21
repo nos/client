@@ -5,6 +5,10 @@ import { signWithLedger } from '../util/ledger';
 
 export const ID = 'auth';
 
+const defaultState = {
+  authenticated: false
+};
+
 const wifAuthenticate = (wif) => {
   if (!wallet.isWIF(wif) && !wallet.isPrivateKey(wif)) {
     throw new Error('That is not a valid private key.');
@@ -12,7 +16,7 @@ const wifAuthenticate = (wif) => {
 
   const account = new wallet.Account(wif);
 
-  return { wif: account.WIF, address: account.address };
+  return { wif: account.WIF, address: account.address, ...defaultState };
 };
 
 const nep2Authenticate = async (passphrase, encryptedWIF) => {
@@ -23,7 +27,7 @@ const nep2Authenticate = async (passphrase, encryptedWIF) => {
   const wif = await wallet.decryptAsync(encryptedWIF, passphrase);
   const account = new wallet.Account(wif);
 
-  return { wif: account.WIF, address: account.address };
+  return { wif: account.WIF, address: account.address, ...defaultState };
 };
 
 const ledgerAuthenticate = (publicKey) => {
@@ -33,21 +37,19 @@ const ledgerAuthenticate = (publicKey) => {
   return {
     publicKey,
     address: account.address,
-    signingFunction: signWithLedger
+    signingFunction: signWithLedger,
+    ...defaultState
   };
 };
 
-export default createActions(
-  ID,
-  ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
-    if (wif) {
-      return wifAuthenticate(wif);
-    } else if (passphrase || encryptedWIF) {
-      return nep2Authenticate(passphrase, encryptedWIF);
-    } else if (publicKey) {
-      return ledgerAuthenticate(publicKey);
-    } else {
-      throw new Error('Invalid login attempt.');
-    }
+export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
+  if (wif) {
+    return wifAuthenticate(wif);
+  } else if (passphrase || encryptedWIF) {
+    return nep2Authenticate(passphrase, encryptedWIF);
+  } else if (publicKey) {
+    return ledgerAuthenticate(publicKey);
+  } else {
+    throw new Error('Invalid login attempt.');
   }
-);
+});

@@ -1,0 +1,56 @@
+.confirm {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  max-height: 540px;
+  text-align: center;
+  overflow: hidden;
+
+  .title {
+    flex: 0 0 auto;
+    margin: 20px 0 5px;
+    color: #1e1b53;
+    font-weight: 500;
+    font-size: 28px;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    padding: 20px 40px;
+
+    .body {
+      flex: 1 1 auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      line-height: 25px;
+      font-size: 14px;
+
+      p {
+        margin-bottom: 10px;
+      }
+    }
+
+    .actions {
+      flex: 0 0 auto;
+      margin: 1.5rem 0 0;
+
+      .action {
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .origin {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    color: #fff;
+    background: #353445;
+    line-height: 13px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}

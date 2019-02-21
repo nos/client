@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { bool, func } from 'prop-types';
 import { omit } from 'lodash';
 
+import { Login } from 'login';
+
 export default class PrivateRoute extends React.PureComponent {
   static propTypes = {
     authenticated: bool,
@@ -14,17 +16,24 @@ export default class PrivateRoute extends React.PureComponent {
   };
 
   render() {
-    return (
-      <Route {...omit(this.props, 'component')} render={this.renderRoute} />
-    );
+    return <Route {...omit(this.props, 'component')} render={this.renderRoute} />;
   }
 
   renderRoute = (props) => {
-    // if (this.props.authenticated) {
     const Component = this.props.component;
-    return <Component {...props} />;
-    // } else {
-    //   return <Redirect to="/login" />;
-    // }
+
+    if (this.props.authenticated) {
+      return <Component {...props} />;
+    } else {
+      console.log('else');
+      this.props.login(<div />, {
+        title: 'Kek',
+        confirmLabel: 'Confirm'
+        // onConfirm: this.handleConfirm,
+        // onCancel: this.handleCancel
+      });
+
+      return <Component {...props} />;
+    }
   };
 }
