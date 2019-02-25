@@ -6,6 +6,7 @@ import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import LoginModal from './LoginModal';
 import authActions from '../../actions/authActions';
 import withAuthError from '../../hocs/withAuthError';
+import withAuthState from '../../hocs/withAuthState';
 
 const { LOADING } = progressValues;
 
@@ -19,5 +20,6 @@ export default compose(
   withActions(authActions, mapAuthActionsToProps),
   withProgress(authActions, { strategy: pureStrategy }),
   withProps((props) => ({ loading: props.progress === LOADING })),
+  withAuthState(),
   withAuthError
 )(LoginModal);

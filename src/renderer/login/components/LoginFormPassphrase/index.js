@@ -27,11 +27,15 @@ const mapPreviousAuthDataToProps = (data) => ({
 
 export default compose(
   withInitialCall(previousAuthActions),
-  withProgressComponents(previousAuthActions, {
-    [LOADING]: Loading
-  }, {
-    strategy: alreadyLoadedStrategy
-  }),
+  withProgressComponents(
+    previousAuthActions,
+    {
+      [LOADING]: Loading
+    },
+    {
+      strategy: alreadyLoadedStrategy
+    }
+  ),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
   withState('encryptedWIF', 'setEncryptedWIF', (props) => props.encryptedWIF || ''),
@@ -39,9 +43,9 @@ export default compose(
 
   // store encryptedWIF on login so we can quickly authenticate again next time the app launches
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
-  withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.encryptedWIF })),
+  withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.encryptedWIF }))
 
   // redirect on login
-  withRouter,
-  withLogin((state, { history }) => history.push('/browser'))
+  // withRouter,
+  // withLogin((state, { history }) => history.push('/browser'))
 )(LoginFormPassphrase);

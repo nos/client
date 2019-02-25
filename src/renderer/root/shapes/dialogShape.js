@@ -20,7 +20,13 @@ const confirmShape = shape({
   onCancel: func
 });
 
+const loginShape = shape({
+  children: any,
+  onConfirm: func,
+  onCancel: func
+});
+
 export default shape({
   type: oneOf([TYPE_ALERT, TYPE_CONFIRM, TYPE_LOGIN]).isRequired,
-  props: oneOfType([alertShape, confirmShape]).isRequired
+  props: oneOfType([alertShape, confirmShape, loginShape]).isRequired
 });

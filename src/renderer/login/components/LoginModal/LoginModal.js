@@ -45,6 +45,13 @@ export default class LoginModal extends React.PureComponent {
 
   render() {
     const { className, confirmLabel, cancelLabel, onConfirm, onCancel, children } = this.props;
+
+    if (this.props.authenticated) {
+      console.log('KWDAJDOIW');
+      // this.props.navigate();
+      this.props.onConfirm();
+    }
+
     return (
       <Modal
         className={classNames(styles.confirm, className)}
