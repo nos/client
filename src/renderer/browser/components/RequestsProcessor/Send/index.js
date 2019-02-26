@@ -7,7 +7,7 @@ import authActions from 'login/actions/authActions';
 import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import PriorityFee from 'account/components/TransactionsPanel/Send/PriorityFee';
+import PriorityFee from 'account/components/Portfolio/TransactionsPanel/Send/PriorityFee';
 import { ASSETS } from 'shared/values/assets';
 
 import Send from './Send';

@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import authActions from 'login/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import PriorityFee from 'account/components/TransactionsPanel/Send/PriorityFee';
+import PriorityFee from 'account/components/Portfolio/TransactionsPanel/Send/PriorityFee';
 
 import ClaimGas from './ClaimGas';
 import withClean from '../../../hocs/withClean';

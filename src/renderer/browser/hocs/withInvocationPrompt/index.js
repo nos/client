@@ -4,7 +4,7 @@ import { withCall, withData } from 'spunky';
 
 import authActions from 'login/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import PriorityFee from 'account/components/TransactionsPanel/Send/PriorityFee';
+import PriorityFee from 'account/components/Portfolio/TransactionsPanel/Send/PriorityFee';
 
 import InvocationPrompt from './InvocationPrompt';
 import withNullLoader from '../withNullLoader';

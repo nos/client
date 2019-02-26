@@ -11,12 +11,13 @@ import ReceiveIcon from 'shared/images/account/keyManagement.svg';
 
 import styles from './Account.scss';
 
-import TransactionsPanel from '../TransactionsPanel';
-import AccountPanel from '../AccountPanel';
+// import TransactionsPanel from '../TransactionsPanel';
+// import AccountPanel from '../AccountPanel';
 
+import Portfolio from '../Portfolio';
 import Management from '../Management';
 
-import IconTab from '../TransactionsPanel/HorizontalIconTab';
+import IconTab from '../Portfolio/TransactionsPanel/HorizontalIconTab';
 
 const TAB_PORTFOLIO = 'portfolio';
 const TAB_KEY_MANAGEMENT = 'keyManagement';
@@ -65,12 +66,14 @@ export default class Account extends React.PureComponent {
     switch (id) {
       case TAB_PORTFOLIO:
         return (
-          <div className={styles.account}>
-            <Page className={styles.content}>
-              <AccountPanel className={styles.panel} />
-              <TransactionsPanel className={styles.panel} />
-            </Page>
-          </div>
+          <Portfolio />
+          // <div className={styles.account}>
+          //   <Page className={styles.content}>
+          //     <Portfolio className={styles.panel} />
+          //     <AccountPanel className={styles.panel} />
+          //     <TransactionsPanel className={styles.panel} />
+          //   </Page>
+          // </div>
         );
       case TAB_KEY_MANAGEMENT:
         return (
