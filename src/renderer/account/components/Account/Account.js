@@ -65,24 +65,9 @@ export default class Account extends React.PureComponent {
   renderTab = (id) => {
     switch (id) {
       case TAB_PORTFOLIO:
-        return (
-          <Portfolio />
-          // <div className={styles.account}>
-          //   <Page className={styles.content}>
-          //     <Portfolio className={styles.panel} />
-          //     <AccountPanel className={styles.panel} />
-          //     <TransactionsPanel className={styles.panel} />
-          //   </Page>
-          // </div>
-        );
+        return <Portfolio />;
       case TAB_KEY_MANAGEMENT:
-        return (
-          <div className={styles.account}>
-            <Page className={styles.content}>
-              <Management />
-            </Page>
-          </div>
-        );
+        return <Management />;
       default:
         throw new Error('Invalid tab.');
     }
