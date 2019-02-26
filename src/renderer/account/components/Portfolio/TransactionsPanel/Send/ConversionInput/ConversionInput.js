@@ -45,7 +45,6 @@ export default class ConversionInput extends React.PureComponent {
     if (anyPropsChanged(prevProps, this.props, ['amount', 'price']) && !this.state.currencyFocus) {
       this.updateCurrencyFromAsset();
     }
-    console.log("KDOESI")
   }
 
   render() {

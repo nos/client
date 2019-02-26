@@ -14,7 +14,6 @@ const defaultState = {
 export const setAuthData = createActions(
   ID,
   ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
-    console.log(wif, passphrase, encryptedWIF, publicKey);
     // await setStorage(ID, { wif, passphrase, encryptedWIF, publicKey });
     return { ...defaultState };
   }

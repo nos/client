@@ -37,8 +37,6 @@ export default class PrivateTabLink extends React.PureComponent {
       [styles.disabled]: this.props.disabled
     });
 
-    console.log('JDOWIajdoiwjadoiajwd');
-
     return (
       <span className={className} role="button" tabIndex="0" onClick={this.handleClick}>
         {this.props.children}
@@ -52,7 +50,6 @@ export default class PrivateTabLink extends React.PureComponent {
     if (authenticated && target && !disabled) {
       this.props.openTab({ type, target });
     } else {
-      console.log('else', this.props);
       this.props.login(<div />, {
         onConfirm: this.handleConfirm,
         onCancel: undefined
@@ -63,12 +60,11 @@ export default class PrivateTabLink extends React.PureComponent {
   };
 
   handleConfirm = () => {
-    console.log('confiremd');
     const { type, target } = this.props;
     this.props.openTab({ type, target });
   };
 
   onCancel = () => {
-    console.log('cancelled');
+    // TODO
   };
 }

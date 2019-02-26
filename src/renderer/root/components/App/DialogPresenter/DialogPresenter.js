@@ -38,7 +38,6 @@ export default class AlertPresenter extends React.PureComponent {
       case TYPE_CONFIRM:
         return this.renderConfirm(props);
       case TYPE_LOGIN:
-        console.log('rendering login');
         return this.renderLogin(props);
       default:
         throw new Error(`Invalid dialog type: "${type}"`);

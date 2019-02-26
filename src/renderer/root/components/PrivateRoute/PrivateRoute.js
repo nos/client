@@ -25,14 +25,7 @@ export default class PrivateRoute extends React.PureComponent {
     if (this.props.authenticated) {
       return <Component {...props} />;
     } else {
-      console.log('else');
-      this.props.login(<div />, {
-        title: 'Kek',
-        confirmLabel: 'Confirm'
-        // onConfirm: this.handleConfirm,
-        // onCancel: this.handleCancel
-      });
-
+      // TODO redirect?
       return <Component {...props} />;
     }
   };
