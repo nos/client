@@ -132,6 +132,7 @@ export default class NetworkSettings extends React.PureComponent {
     };
 
     this.props.addNetwork(newNetwork);
+    this.props.setCurrentNetwork(newNetwork.name);
   }
 
   handleChangeNetworkName = (event) => {
