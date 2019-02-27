@@ -57,33 +57,32 @@ export default class RegisterForm extends React.PureComponent {
             type="submit"
             disabled={loading || !this.isValid()}
           >
-            Register
+            Create Wallet
           </PrimaryButton>
           <span className={styles.login}>
-            Already have an account?{' '}
-            <Link to="/login">Login</Link>
+            Already have a wallet? <Link to="/login">Open Wallet</Link>
           </span>
         </div>
       </form>
     );
-  }
+  };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
-  }
+  };
 
   handleChangePassphraseConfirmation = (event) => {
     this.props.setPassphraseConfirmation(event.target.value);
-  }
+  };
 
   handleRegister = (event) => {
     const { passphrase, passphraseConfirmation, onRegister } = this.props;
 
     event.preventDefault();
     onRegister({ passphrase, passphraseConfirmation });
-  }
+  };
 
   isValid = () => {
     return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
-  }
+  };
 }
