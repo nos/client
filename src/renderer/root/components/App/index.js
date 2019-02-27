@@ -1,7 +1,6 @@
 import { compose } from 'recompose';
-import { withData, withActions, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
+import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
 import { withRouter } from 'react-router-dom';
-import { map, difference } from 'lodash';
 
 import updateNetworks from 'util/updateNetworks';
 
@@ -25,7 +24,7 @@ export default compose(
   withInitialCall(currencyActions),
   withInitialCall(currentNetworkActions),
   withInitialCall(getAllNetworks),
-  
+
   // Used to update default networks in the settings section
   withData(getAllNetworks, mapNetworksToProps),
   withProgressChange(getAllNetworks, LOADED, (state, props) => updateNetworks(props.networks)),
