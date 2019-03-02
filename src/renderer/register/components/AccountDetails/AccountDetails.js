@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import AccountDatum from './AccountDatum';
 import SaveAccount from './SaveAccount';
@@ -11,14 +10,19 @@ export default function AccountDetails(props) {
 
   return (
     <div className={styles.accountDetails}>
-      <SaveAccount account={account} />
       <div>
         <AccountDatum label="Address" value={account.address} />
         <AccountDatum label="Private Key" value={account.key} />
         <AccountDatum label="Encrypted Key" value={account.encryptedKey} />
+        <AccountDatum label="Passphrase" hidden value={account.passphrase} />
       </div>
       <div className={styles.actions}>
-        <Link to="/login">Login</Link>
+        <SaveAccount account={account} />
+      </div>
+      <div className={styles.disclaimer}>
+        Your Address and Encrypted Key will be saved to nOS Client. Make sure you store all of this
+        data securely yourself as well. nOS Client is not responsible for loss of keys or loss of
+        funds.
       </div>
     </div>
   );

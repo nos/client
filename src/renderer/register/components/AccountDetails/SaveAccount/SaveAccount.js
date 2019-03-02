@@ -1,12 +1,11 @@
 import React from 'react';
 import fs from 'fs';
-import { string, func } from 'prop-types';
+import { bool, func } from 'prop-types';
 import { remote } from 'electron';
 import { promisify } from 'es6-promisify';
 import { noop, isEmpty } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
-import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import accountShape from '../../../shapes/accountShape';
@@ -14,129 +13,109 @@ import styles from './SaveAccount.scss';
 
 const writeFile = promisify(fs.writeFile);
 
-const FILE_FILTERS = [
-  { name: 'NEP6 Wallet File', extensions: ['json'] }
-];
+const FILE_FILTERS = [{ name: 'NEP6 Wallet File', extensions: ['json'] }];
 
 export default class SaveAccount extends React.PureComponent {
   static propTypes = {
     account: accountShape.isRequired,
-    label: string,
-    setLabel: func,
+    loading: bool.isRequired,
+    login: func.isRequired,
+    storeProfile: func.isRequired,
     alert: func
   };
 
   static defaultProps = {
-    label: '',
-    setLabel: noop,
     alert: noop
   };
 
   render() {
+    const { loading } = this.props;
+    console.log('load', loading);
+
     return (
       <div className={styles.saveAccount}>
-        <LabeledInput
-          className={styles.label}
-          id="label"
-          label="Account Label"
-          value={this.props.label}
-          onChange={this.handleChangeLabel}
-        />
         <div className={styles.saveButtons}>
           <PrimaryButton
             className={styles.button}
-            disabled={isEmpty(this.props.label)}
-            onClick={this.handleSaveNewWallet}
+            onClick={this.handleSaveAndContinue}
+            disabled={loading}
           >
-            Save as new NEP6 Wallet
-          </PrimaryButton>
-          <PrimaryButton
-            className={styles.button}
-            disabled={isEmpty(this.props.label)}
-            onClick={this.handleAddToWallet}
-          >
-            Add account to NEP6 Wallet
+            Save & Continue
           </PrimaryButton>
         </div>
       </div>
     );
   }
 
-  handleChangeLabel = (event) => {
-    this.props.setLabel(event.target.value);
-  }
+  handleSaveAndContinue = async () => {
+    const { account, login, storeProfile } = this.props;
+    const { walletName, address, passphrase, encryptedKey } = account;
 
-  handleAddToWallet = async () => {
-    const { account, label } = this.props;
+    storeProfile({ walletName, address, encryptedKey });
+    login({ passphrase, encryptedWIF: encryptedKey });
+  };
 
-    const filenames = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
-      title: 'Add account to a NEP6 Wallet',
-      message: 'Add account to a NEP6 Wallet',
-      filters: FILE_FILTERS
-    });
+  // handleAddToWallet = async () => {
+  //   const { account, label } = this.props;
 
-    if (!filenames) {
-      return;
-    }
+  //   const filenames = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
+  //     title: 'Add account to a NEP6 Wallet',
+  //     message: 'Add account to a NEP6 Wallet',
+  //     filters: FILE_FILTERS
+  //   });
 
-    const walletLoaded = this.loadWallet(filenames[0]);
+  //   if (!filenames) {
+  //     return;
+  //   }
 
-    if (!walletLoaded) {
-      return;
-    }
+  //   const walletLoaded = this.loadWallet(filenames[0]);
 
-    const newAccount = new wallet.Account({ ...account, key: account.encryptedKey, label });
-    walletLoaded.addAccount(newAccount);
-    await this.save(filenames[0], walletLoaded);
-  }
+  //   if (!walletLoaded) {
+  //     return;
+  //   }
 
-  handleSaveNewWallet = async () => {
-    const { label, account } = this.props;
+  //   const newAccount = new wallet.Account({ ...account, key: account.encryptedKey, label });
+  //   walletLoaded.addAccount(newAccount);
+  //   await this.save(filenames[0], walletLoaded);
+  // };
 
-    const filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
-      title: 'Save as new NEP6 Wallet',
-      message: 'Save as new NEP6 Wallet',
-      filters: FILE_FILTERS
-    });
+  // handleSaveNewWallet = async () => {
+  //   const { label, account } = this.props;
+  //   console.log('label', label);
 
-    if (!filename) {
-      return;
-    }
+  //   const filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
+  //     title: 'Save as new NEP6 Wallet',
+  //     message: 'Save as new NEP6 Wallet',
+  //     filters: FILE_FILTERS
+  //   });
 
-    const newAccount = new wallet.Account({
-      ...account,
-      key: account.encryptedKey,
-      label,
-      isDefault: true
-    });
-    const newWallet = new wallet.Wallet({ accounts: [newAccount] });
-    await this.save(filename, newWallet);
-  }
+  //   if (!filename) {
+  //     return;
+  //   }
 
-  loadWallet = (filename) => {
-    const { alert } = this.props;
+  //   const newAccount = new wallet.Account({
+  //     ...account,
+  //     key: account.encryptedKey,
+  //     label,
+  //     isDefault: true
+  //   });
+  //   const newWallet = new wallet.Wallet({ accounts: [newAccount] });
+  //   await this.save(filename, newWallet);
+  // };
 
-    try {
-      return wallet.Wallet.readFile(filename);
-    } catch (err) {
-      alert(`Error loading wallet file: ${err.message}`);
-      return null;
-    }
-  }
+  // save = async (filename, walletToSave) => {
+  //   const { alert } = this.props;
+  //   const data = JSON.stringify(walletToSave.export());
 
-  save = async (filename, walletToSave) => {
-    const { alert } = this.props;
-    const data = JSON.stringify(walletToSave.export());
+  //   if (isEmpty(data)) {
+  //     throw new Error('Error saving file.');
+  //   }
 
-    if (isEmpty(data)) {
-      throw new Error('Error saving file.');
-    }
-
-    try {
-      await writeFile(filename, data);
-      alert('Wallet file saved.');
-    } catch (err) {
-      alert(`Error saving wallet file: ${err.message}`);
-    }
-  }
+  //   try {
+  //     await writeFile(filename, data);
+  //     alert('Wallet file saved.');
+  //   } catch (err) {
+  //     alert(`Error saving wallet file: ${err.message}`);
+  //   }
+  // };
 }
