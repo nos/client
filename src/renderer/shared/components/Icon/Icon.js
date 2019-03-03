@@ -14,7 +14,8 @@ import {
   faWindowMaximize,
   faWindowMinimize,
   faWindowRestore,
-  faEye
+  faEye,
+  faEyeSlash
 } from '@fortawesome/free-regular-svg-icons';
 
 import {
@@ -61,7 +62,8 @@ library.add(
   faWindowMaximize,
   faWindowMinimize,
   faWindowRestore,
-  faEye
+  faEye,
+  faEyeSlash
 );
 
 const ICONS = {
@@ -90,7 +92,8 @@ const ICONS = {
   windowMin: ['far', 'window-minimize'],
   windowRestore: ['far', 'window-restore'],
   transfer: ['fas', 'sync'],
-  unhide: ['far', 'eye']
+  unhide: ['far', 'eye'],
+  hide: ['far', 'eye-slash']
 };
 
 // Eventually, we will need icons not supplied by FontAwesome,
