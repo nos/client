@@ -19,7 +19,7 @@ export default createActions(ID, ({ walletName, address, encryptedKey }) => asyn
 
   const exists = some(profiles, (profile) => profile.walletName === walletName);
   if (exists) {
-    throw new Error('Wallet name already exists in storage.');
+    throw new Error(`Wallet name "${walletName}" already exists in storage.`);
   }
 
   const updatedProfiles = {
