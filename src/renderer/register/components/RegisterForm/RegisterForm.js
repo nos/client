@@ -11,8 +11,10 @@ import styles from './RegisterForm.scss';
 export default class RegisterForm extends React.PureComponent {
   static propTypes = {
     loading: bool,
+    walletName: string,
     passphrase: string,
     passphraseConfirmation: string,
+    setWalletName: func,
     setPassphrase: func,
     setPassphraseConfirmation: func,
     onRegister: func
@@ -20,18 +22,29 @@ export default class RegisterForm extends React.PureComponent {
 
   static defaultProps = {
     loading: false,
+    walletName: '',
     passphrase: '',
     passphraseConfirmation: '',
+    setWalletName: noop,
     setPassphrase: noop,
     setPassphraseConfirmation: noop,
     onRegister: noop
   };
 
   render = () => {
-    const { passphrase, passphraseConfirmation, loading } = this.props;
+    const { walletName, passphrase, passphraseConfirmation, loading } = this.props;
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
+        <LabeledInput
+          id="walletName"
+          type="text"
+          label="Wallet Name"
+          placeholder="Enter Wallet Name"
+          value={walletName}
+          disabled={loading}
+          onChange={this.handleChangeWalletName}
+        />
         <LabeledInput
           id="passphrase"
           type="password"
@@ -67,6 +80,10 @@ export default class RegisterForm extends React.PureComponent {
     );
   };
 
+  handleChangeWalletName = (event) => {
+    this.props.setWalletName(event.target.value);
+  };
+
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
   };
@@ -76,10 +93,10 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   handleRegister = (event) => {
-    const { passphrase, passphraseConfirmation, onRegister } = this.props;
+    const { walletName, passphrase, passphraseConfirmation, onRegister } = this.props;
 
     event.preventDefault();
-    onRegister({ passphrase, passphraseConfirmation });
+    onRegister({ walletName, passphrase, passphraseConfirmation });
   };
 
   isValid = () => {

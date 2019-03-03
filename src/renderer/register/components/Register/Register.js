@@ -12,7 +12,7 @@ import styles from './Register.scss';
 const TAB_CREATE = 'create';
 
 const TABS = {
-  [TAB_CREATE]: 'Create Wallet'
+  [TAB_CREATE]: 'Create New Wallet'
 };
 
 export default class Register extends React.PureComponent {

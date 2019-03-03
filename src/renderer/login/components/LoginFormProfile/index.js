@@ -2,20 +2,23 @@ import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import {
   withData,
-  withActions,
-  withProgressComponents,
-  alreadyLoadedStrategy,
-  progressValues
+  withActions
 } from 'spunky';
+import { isEmpty } from 'lodash';
 
-import Loading from 'shared/components/Loading';
 import withInitialCall from 'shared/hocs/withInitialCall';
+import withNullLoader from 'browser/hocs/withNullLoader';
 
-import LoginFormPassphrase from './LoginFormPassphrase';
+import { getProfiles } from 'register/actions/storeProfileActions';
+
+import LoginFormProfile from './LoginFormProfile';
 import previousAuthActions, { writePreviousAuthActions } from '../../actions/previousAuthActions';
 import withLogin from '../../hocs/withLogin';
 
-const { LOADING } = progressValues;
+const mapProfileActionsToProps = ({ profiles }) => ({
+  walletsFound: !isEmpty(profiles),
+  profiles
+});
 
 const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
@@ -26,26 +29,27 @@ const mapPreviousAuthDataToProps = (data) => ({
 });
 
 export default compose(
+  withInitialCall(getProfiles),
   withInitialCall(previousAuthActions),
-  withProgressComponents(
-    previousAuthActions,
-    {
-      [LOADING]: Loading
-    },
-    {
-      strategy: alreadyLoadedStrategy
-    }
-  ),
+
+  withNullLoader(getProfiles),
+  withNullLoader(previousAuthActions),
+
+  withData(getProfiles, mapProfileActionsToProps),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
-  withState('encryptedWIF', 'setEncryptedWIF', (props) => props.encryptedWIF || ''),
+  withState(
+    'currentProfile',
+    'setCurrentProfile',
+    ({ encryptedWIF, profiles }) => encryptedWIF || (profiles && profiles[0].encryptedKey)
+  ),
   withState('passphrase', 'setPassphrase', ''),
 
   // store encryptedWIF on login so we can quickly authenticate again next time the app launches
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
-  withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.encryptedWIF })),
+  withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.currentProfile })),
 
   // redirect on login
   withRouter,
   withLogin((state, { history }) => history.push('/browser'))
-)(LoginFormPassphrase);
+)(LoginFormProfile);

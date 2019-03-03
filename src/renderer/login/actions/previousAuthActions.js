@@ -16,5 +16,5 @@ export const writePreviousAuthActions = createActions(ID, ({ encryptedWIF }) => 
 });
 
 export default createActions(ID, () => async () => {
-  return await getStorage(ID) || {};
+  return (await getStorage(ID)) || {};
 });

@@ -12,8 +12,8 @@ import createAccountActions from '../../actions/createAccountActions';
 const { FAILED } = progressValues;
 
 const mapAccountActionsToProps = (actions) => ({
-  onRegister: ({ passphrase, passphraseConfirmation }) => {
-    return actions.call({ passphrase, passphraseConfirmation });
+  onRegister: ({ walletName, passphrase, passphraseConfirmation }) => {
+    return actions.call({ walletName, passphrase, passphraseConfirmation });
   }
 });
 
@@ -21,6 +21,7 @@ export default compose(
   withActions(createAccountActions, mapAccountActionsToProps),
   withLoadingProp(createAccountActions, { strategy: pureStrategy }),
 
+  withState('walletName', 'setWalletName', ''),
   withState('passphrase', 'setPassphrase', ''),
   withState('passphraseConfirmation', 'setPassphraseConfirmation', ''),
   withErrorToast(),
