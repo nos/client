@@ -2,12 +2,12 @@ import { wallet } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 import { some } from 'lodash';
 
-import { getStorage, setStorage } from 'shared/lib/storage';
+import { getStorage } from 'shared/lib/storage';
+import PROFILE_ID from 'shared/values/profile';
 
 const MIN_PASSPHRASE_LEN = 4;
 
 export const ID = 'createAccount';
-export const profileID = 'profiles_v1';
 
 export default createActions(
   ID,
@@ -20,7 +20,7 @@ export default createActions(
       throw new Error('Passphrase verification does not match.');
     }
 
-    const { profiles } = await getStorage(profileID);
+    const { profiles } = await getStorage(PROFILE_ID);
 
     const exists = some(profiles, (profile) => profile.walletName === walletName);
     if (exists) {

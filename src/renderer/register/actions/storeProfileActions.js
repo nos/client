@@ -3,8 +3,17 @@ import { some, isEmpty } from 'lodash';
 
 import { getStorage, setStorage } from 'shared/lib/storage';
 
-export const ID = 'profiles_v1';
+import PROFILE_ID from 'shared/values/profile';
 
+const ID = PROFILE_ID;
+
+// Getters
+export const getProfiles = createActions(ID, () => async () => {
+  const profiles = await getStorage(ID);
+  return profiles;
+});
+
+// Setter
 export default createActions(ID, ({ walletName, address, encryptedKey }) => async () => {
   const { profiles } = await getStorage(ID);
 

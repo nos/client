@@ -27,11 +27,15 @@ const mapPreviousAuthDataToProps = (data) => ({
 
 export default compose(
   withInitialCall(previousAuthActions),
-  withProgressComponents(previousAuthActions, {
-    [LOADING]: Loading
-  }, {
-    strategy: alreadyLoadedStrategy
-  }),
+  withProgressComponents(
+    previousAuthActions,
+    {
+      [LOADING]: Loading
+    },
+    {
+      strategy: alreadyLoadedStrategy
+    }
+  ),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
   withState('encryptedWIF', 'setEncryptedWIF', (props) => props.encryptedWIF || ''),
