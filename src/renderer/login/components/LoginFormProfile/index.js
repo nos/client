@@ -7,8 +7,10 @@ import {
   progressValues,
   withActions
 } from 'spunky';
+import { isEmpty } from 'lodash';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
+import withNullLoader from 'browser/hocs/withNullLoader';
 import Loading from 'shared/components/Loading';
 
 import { getProfiles } from 'register/actions/storeProfileActions';
@@ -19,7 +21,11 @@ import withLogin from '../../hocs/withLogin';
 
 const { LOADING } = progressValues;
 
-const mapProfileActionsToProps = ({ profiles }) => ({ profiles });
+const mapProfileActionsToProps = ({ profiles }) => ({
+  walletsFound: !isEmpty(profiles),
+  profiles
+});
+
 const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
 });
@@ -32,17 +38,8 @@ export default compose(
   withInitialCall(getProfiles),
   withInitialCall(previousAuthActions),
 
-  ...[getProfiles, previousAuthActions].map((actions) => {
-    return withProgressComponents(
-      actions,
-      {
-        [LOADING]: Loading
-      },
-      {
-        strategy: alreadyLoadedStrategy
-      }
-    );
-  }),
+  withNullLoader(getProfiles),
+  withNullLoader(previousAuthActions),
 
   withData(getProfiles, mapProfileActionsToProps),
   withData(previousAuthActions, mapPreviousAuthDataToProps),

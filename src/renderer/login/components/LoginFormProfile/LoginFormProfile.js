@@ -12,6 +12,7 @@ import LoginButton from '../LoginButton';
 export default class LoginFormProfile extends React.PureComponent {
   static propTypes = {
     disabled: bool,
+    walletsFound: bool.isRequired,
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
@@ -26,12 +27,12 @@ export default class LoginFormProfile extends React.PureComponent {
     onLogin: noop,
     setCurrentProfile: noop,
     setPassphrase: noop,
-    profiles: [{ label: 'No Wallets Found', value: '' }],
+    profiles: undefined,
     currentProfile: ''
   };
 
   render() {
-    const { disabled, currentProfile, passphrase } = this.props;
+    const { disabled, currentProfile, passphrase, walletsFound } = this.props;
 
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
@@ -40,7 +41,7 @@ export default class LoginFormProfile extends React.PureComponent {
           labelClass={styles.label}
           id="profiel"
           label="Select Wallet"
-          placeHolder="jdaow"
+          disabled={!walletsFound}
           value={currentProfile}
           items={this.getProfiles()}
           onChange={this.handleChangeCurrentProfile}
@@ -52,7 +53,7 @@ export default class LoginFormProfile extends React.PureComponent {
           label="Passphrase"
           placeholder="Enter passphrase"
           value={passphrase}
-          disabled={disabled}
+          disabled={disabled || !walletsFound}
           onChange={this.handleChangePassphrase}
         />
 
@@ -77,9 +78,9 @@ export default class LoginFormProfile extends React.PureComponent {
   };
 
   getProfiles = () => {
-    const { profiles } = this.props;
+    const { profiles, currentProfile } = this.props;
 
-    if (profiles[0].value === '') return profiles;
+    if (!profiles) return [{ label: 'No Wallets Found', value: currentProfile }];
 
     return map(profiles, ({ walletName, address, encryptedKey }) => ({
       label: `${walletName} - ${address} `,

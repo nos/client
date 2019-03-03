@@ -11,7 +11,8 @@ export default class SaveAccount extends React.PureComponent {
     account: accountShape.isRequired,
     loading: bool.isRequired,
     login: func.isRequired,
-    storeProfile: func.isRequired
+    storeProfile: func.isRequired,
+    setLastLogin: func.isRequired
   };
 
   render() {
@@ -33,9 +34,11 @@ export default class SaveAccount extends React.PureComponent {
   }
 
   handleSaveAndContinue = async () => {
-    const { account, login, storeProfile } = this.props;
+    const { account, login, storeProfile, setLastLogin } = this.props;
     const { walletName, address, passphrase, encryptedKey } = account;
 
+    // TODO move to index file using 'withLogin'
+    setLastLogin({ encryptedWIF: encryptedKey });
     storeProfile({ walletName, address, encryptedKey });
     login({ passphrase, encryptedWIF: encryptedKey });
   };
