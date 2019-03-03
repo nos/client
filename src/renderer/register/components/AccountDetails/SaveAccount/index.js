@@ -1,13 +1,10 @@
 import { compose, withProps } from 'recompose';
-import { withActions, alreadyLoadedStrategy, withProgress, progressValues } from 'spunky';
+import { withActions, withProgress, progressValues } from 'spunky';
 
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import withInitialCall from 'shared/hocs/withInitialCall';
-import Loading from 'shared/components/Loading';
 import { writePreviousAuthActions } from 'login/actions/previousAuthActions';
 import authActions from 'login/actions/authActions';
 import withAlert from 'shared/hocs/withAlert';
-import withLogin from 'login/hocs/withLogin';
 
 import storeProfileActions from '../../../actions/storeProfileActions';
 import SaveAccount from './SaveAccount';

@@ -2,24 +2,18 @@ import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import {
   withData,
-  withProgressComponents,
-  alreadyLoadedStrategy,
-  progressValues,
   withActions
 } from 'spunky';
 import { isEmpty } from 'lodash';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNullLoader from 'browser/hocs/withNullLoader';
-import Loading from 'shared/components/Loading';
 
 import { getProfiles } from 'register/actions/storeProfileActions';
 
 import LoginFormProfile from './LoginFormProfile';
 import previousAuthActions, { writePreviousAuthActions } from '../../actions/previousAuthActions';
 import withLogin from '../../hocs/withLogin';
-
-const { LOADING } = progressValues;
 
 const mapProfileActionsToProps = ({ profiles }) => ({
   walletsFound: !isEmpty(profiles),

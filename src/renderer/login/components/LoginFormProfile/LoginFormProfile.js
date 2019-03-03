@@ -39,7 +39,7 @@ export default class LoginFormProfile extends React.PureComponent {
       return (
         <form className={styles.loginForm} onSubmit={this.handleLogin}>
           <div className={styles.disclaimer}>
-            Looks like you don't have a wallet yet.
+            Looks like you don&apos;t have a wallet yet.
             <br />
             Click the button below to create one.
           </div>
