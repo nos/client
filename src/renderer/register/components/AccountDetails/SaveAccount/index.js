@@ -15,7 +15,6 @@ const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
 });
 
-
 const mapStoreProfileActionsToProps = (actions) => ({
   storeProfile: ({ walletName, address, encryptedKey }) => {
     return actions.call({ walletName, address, encryptedKey });
