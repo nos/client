@@ -48,7 +48,7 @@ export default class AccountDatum extends React.PureComponent {
         {hidden && !showHidden ? (
           <React.Fragment>
             <div className={styles.value}>
-              {times(value.length, () => '*')}
+              {times(8, () => '*')}
               <Tooltip id={label} overlay={`Show ${toLower(label)}`}>
                 <Icon
                   className={styles.icon}
@@ -62,7 +62,19 @@ export default class AccountDatum extends React.PureComponent {
             </div>
           </React.Fragment>
         ) : (
-          <div className={styles.value}>{value}</div>
+          <div className={styles.value}>
+            {value}
+            {hidden && (
+              <Icon
+                className={styles.icon}
+                name="hide"
+                role="button"
+                tabIndex={0}
+                aria-label={label}
+                onClick={this.handleToggleHidden}
+              />
+            )}
+          </div>
         )}
       </div>
     );

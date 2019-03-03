@@ -12,7 +12,7 @@ export default function AccountDetails(props) {
     <div className={styles.accountDetails}>
       <div>
         <AccountDatum label="Address" value={account.address} />
-        <AccountDatum label="Private Key" value={account.key} />
+        <AccountDatum label="Private Key" hidden value={account.key} />
         <AccountDatum label="Encrypted Key" value={account.encryptedKey} />
         <AccountDatum label="Passphrase" hidden value={account.passphrase} />
       </div>
