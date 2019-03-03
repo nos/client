@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, any, string, func, objectOf } from 'prop-types';
+import { bool, string, func, objectOf } from 'prop-types';
 import { noop, map } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
