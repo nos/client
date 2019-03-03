@@ -1,10 +1,11 @@
 import React from 'react';
 import { bool, string, func, arrayOf } from 'prop-types';
-import { noop, map } from 'lodash';
+import { noop, map, isEmpty } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import accountShape from 'register/shapes/accountShape';
+import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormProfile.scss';
 import LoginButton from '../LoginButton';
@@ -34,32 +35,47 @@ export default class LoginFormProfile extends React.PureComponent {
   render() {
     const { disabled, currentProfile, passphrase, walletsFound } = this.props;
 
-    return (
-      <form className={styles.loginForm} onSubmit={this.handleLogin}>
-        <LabeledSelect
-          className={styles.input}
-          labelClass={styles.label}
-          id="profiel"
-          label="Select Wallet"
-          disabled={!walletsFound}
-          value={currentProfile}
-          items={this.getProfiles()}
-          onChange={this.handleChangeCurrentProfile}
-        />
+    if (isEmpty(currentProfile)) {
+      return (
+        <form className={styles.loginForm} onSubmit={this.handleLogin}>
+          <div className={styles.disclaimer}>
+            Looks like you don't have a wallet yet.
+            <br />
+            Click the button below to create one.
+          </div>
+          <PrimaryButton className={styles.registerBtn} onClick={this.handleRegister}>
+            Create New Wallet
+          </PrimaryButton>
+        </form>
+      );
+    } else {
+      return (
+        <form className={styles.loginForm} onSubmit={this.handleLogin}>
+          <LabeledSelect
+            className={styles.input}
+            labelClass={styles.label}
+            id="profiel"
+            label="Select Wallet"
+            disabled={!walletsFound}
+            value={currentProfile}
+            items={this.getProfiles()}
+            onChange={this.handleChangeCurrentProfile}
+          />
 
-        <LabeledInput
-          id="passphrase"
-          type="password"
-          label="Passphrase"
-          placeholder="Enter passphrase"
-          value={passphrase}
-          disabled={disabled || !walletsFound}
-          onChange={this.handleChangePassphrase}
-        />
+          <LabeledInput
+            id="passphrase"
+            type="password"
+            label="Passphrase"
+            placeholder="Enter passphrase"
+            value={passphrase}
+            disabled={disabled || !walletsFound}
+            onChange={this.handleChangePassphrase}
+          />
 
-        <LoginButton disabled={disabled || !this.isValid()} />
-      </form>
-    );
+          <LoginButton disabled={disabled || !this.isValid()} />
+        </form>
+      );
+    }
   }
 
   handleChangePassphrase = (event) => {
