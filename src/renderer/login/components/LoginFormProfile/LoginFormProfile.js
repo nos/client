@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, string, func, objectOf } from 'prop-types';
+import { bool, string, func, arrayOf } from 'prop-types';
 import { noop, map } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
@@ -15,7 +15,7 @@ export default class LoginFormProfile extends React.PureComponent {
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
-    profiles: objectOf(accountShape),
+    profiles: arrayOf(accountShape),
     currentProfile: string,
     setCurrentProfile: func
   };
@@ -42,7 +42,7 @@ export default class LoginFormProfile extends React.PureComponent {
           label="Select Wallet"
           placeHolder="jdaow"
           value={currentProfile}
-          items={this.props.profiles}
+          items={this.getProfiles()}
           onChange={this.handleChangeCurrentProfile}
         />
 

@@ -18,8 +18,5 @@ export default compose(
 
   // redirect on login
   withRouter,
-  withLogin((state, { history }) => history.push({
-    pathname: '/browser',
-    state: { firstVisit: true }
-  }))
+  withLogin((state, { history }) => history.push('/browser'))
 )(Register);

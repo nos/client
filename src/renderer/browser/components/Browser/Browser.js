@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, objectOf, bool } from 'prop-types';
+import { string, objectOf } from 'prop-types';
 import { map } from 'lodash';
 
 import isInternalPage from 'shared/util/isInternalPage';
@@ -13,12 +13,7 @@ import styles from './Browser.scss';
 export default class Browser extends React.PureComponent {
   static propTypes = {
     activeSessionId: string.isRequired,
-    tabs: objectOf(tabShape).isRequired,
-    firstVisit: bool
-  };
-
-  static defaultProps = {
-    firstVisit: false
+    tabs: objectOf(tabShape).isRequired
   };
 
   render() {
@@ -48,7 +43,6 @@ export default class Browser extends React.PureComponent {
   renderDApp = (tab, sessionId) => {
     const active = this.isActive(sessionId);
     const className = classNames(styles.dapp, { [styles.active]: active });
-    const { firstVisit } = this.props;
 
     return (
       <DAppContainer
@@ -56,8 +50,7 @@ export default class Browser extends React.PureComponent {
         className={className}
         sessionId={sessionId}
         active={active}
-        tab={firstVisit ? { ...tab, target: 'www.google.be' } : tab}
-        firstVisit={firstVisit}
+        tab={tab}
       />
     );
   };
