@@ -4,7 +4,6 @@ import { withActions, progressValues } from 'spunky';
 // import balancesActions from 'shared/actions/balancesActions';
 import balanceWithPricesActions from 'account/actions/balanceWithPricesActions';
 
-
 import blockActions from 'shared/actions/blockActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withAllNetworkData from 'shared/hocs/withAllNetworkData';

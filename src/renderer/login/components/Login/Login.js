@@ -9,14 +9,17 @@ import LoginFormPassphrase from '../LoginFormPassphrase';
 import LoginFormPrivateKey from '../LoginFormPrivateKey';
 import LoginFormLedger from '../LoginFormLedger';
 import LoginFormWalletFile from '../LoginFormWalletFile';
+import LoginFormProfile from '../LoginFormProfile';
 import styles from './Login.scss';
 
+const TAB_PROFILES = 'Profiles';
 const TAB_PRIVATE_KEY = 'privatekey';
 const TAB_PASSPHRASE = 'passphrase';
 const TAB_LEDGER = 'ledger';
 const TAB_FILE = 'file';
 
 const TABS = {
+  [TAB_PROFILES]: 'Saved Wallet',
   [TAB_PASSPHRASE]: 'Passphrase',
   [TAB_PRIVATE_KEY]: 'Private Key',
   [TAB_LEDGER]: 'Ledger',
@@ -35,7 +38,7 @@ export default class Login extends React.PureComponent {
   };
 
   state = {
-    tab: TAB_PASSPHRASE
+    tab: TAB_PROFILES
   };
 
   render() {
@@ -57,6 +60,8 @@ export default class Login extends React.PureComponent {
     const { loading, login } = this.props;
 
     switch (id) {
+      case TAB_PROFILES:
+        return <LoginFormProfile disabled={loading} onLogin={login} />;
       case TAB_PRIVATE_KEY:
         return <LoginFormPrivateKey disabled={loading} onLogin={login} />;
       case TAB_PASSPHRASE:

@@ -17,16 +17,12 @@ export default class Browser extends React.PureComponent {
   };
 
   render() {
-    return (
-      <div className={styles.browser}>
-        {this.renderTabs()}
-      </div>
-    );
+    return <div className={styles.browser}>{this.renderTabs()}</div>;
   }
 
   renderTabs = () => {
     return map(this.props.tabs, this.renderTab);
-  }
+  };
 
   renderTab = (tab, sessionId) => {
     if (isInternalPage(tab.type)) {
@@ -34,21 +30,15 @@ export default class Browser extends React.PureComponent {
     } else {
       return this.renderDApp(tab, sessionId);
     }
-  }
+  };
 
   renderInternalPage = (tab, sessionId) => {
     if (sessionId !== this.props.activeSessionId) {
       return null;
     }
 
-    return (
-      <InternalPage
-        key={sessionId}
-        active={this.isActive(sessionId)}
-        tab={tab}
-      />
-    );
-  }
+    return <InternalPage key={sessionId} active={this.isActive(sessionId)} tab={tab} />;
+  };
 
   renderDApp = (tab, sessionId) => {
     const active = this.isActive(sessionId);
@@ -63,9 +53,9 @@ export default class Browser extends React.PureComponent {
         tab={tab}
       />
     );
-  }
+  };
 
   isActive = (sessionId) => {
     return sessionId === this.props.activeSessionId;
-  }
+  };
 }

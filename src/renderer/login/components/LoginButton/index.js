@@ -8,15 +8,11 @@ import styles from './LoginButton.scss';
 
 const LoginButton = ({ disabled }) => (
   <div className={styles.loginButton}>
-    <PrimaryButton
-      type="submit"
-      disabled={disabled}
-    >
-      Login
+    <PrimaryButton type="submit" disabled={disabled}>
+      Open Wallet
     </PrimaryButton>
     <span className={styles.register}>
-            New to nOS?{' '}
-      <Link to="/register">Create an account</Link>
+      New to nOS? <Link to="/register">Create Wallet</Link>
     </span>
   </div>
 );
