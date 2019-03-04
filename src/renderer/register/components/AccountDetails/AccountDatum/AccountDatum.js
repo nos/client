@@ -45,23 +45,24 @@ export default class AccountDatum extends React.PureComponent {
             </CopyToClipboard>
           </Tooltip>
         </div>
-        <React.Fragment>
-          <div className={styles.value}>
-            {hidden && !showHidden ? times(8, () => '*') : value}
-            {hidden && (
-              <Tooltip id={label} overlay={`${!showHidden ? 'Show ' : 'Hide '} ${toLower(label)}`}>
-                <Icon
-                  className={styles.icon}
-                  name={!showHidden ? 'unhide' : 'hide'}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={label}
-                  onClick={this.handleToggleHidden}
-                />
-              </Tooltip>
-            )}
-          </div>
-        </React.Fragment>
+        <div className={styles.value}>
+          {hidden && !showHidden ? times(8, () => '*') : value}
+          {hidden && (
+            <Tooltip
+              id={label}
+              overlay={`${!showHidden ? 'Show ' : 'Hide '} ${toLower(label)}`}
+            >
+              <Icon
+                className={styles.icon}
+                name={!showHidden ? 'unhide' : 'hide'}
+                role="button"
+                tabIndex={0}
+                aria-label={label}
+                onClick={this.handleToggleHidden}
+              />
+            </Tooltip>
+          )}
+        </div>
       </div>
     );
   }
