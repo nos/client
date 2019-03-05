@@ -1,7 +1,7 @@
 import { compose } from 'recompose';
 import { withData } from 'spunky';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import { withInfoToast } from 'shared/hocs/withToast';
 
 import Receive from './Receive';

@@ -2,7 +2,7 @@ import { compose } from 'recompose';
 import { withData, withActions, progressValues } from 'spunky';
 import { pick } from 'lodash';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import claimActions from 'shared/actions/claimActions';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withNetworkData from 'shared/hocs/withNetworkData';

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withActions, withData, progressValues } from 'spunky';
 import { isEqual } from 'lodash';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import balancesActions from 'shared/actions/balancesActions';
 import claimableActions from 'shared/actions/claimableActions';
 import blockActions from 'shared/actions/blockActions';
-import withAuthState from 'login/hocs/withAuthState';
+import withAuthState from 'auth/hocs/withAuthState';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import notifyWebviews from 'shared/util/notifyWebviews';

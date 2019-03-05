@@ -1,0 +1,34 @@
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withData, withError, withActions, withProgress, recentlyCompletedStrategy } from 'spunky';
+
+import ledgerActions from 'auth/actions/ledgerActions';
+import withLogin from 'auth/hocs/withLogin';
+
+import LoginFormLedger from './LoginFormLedger';
+
+const mapLedgerActionsToProps = (actions) => ({
+  poll: () => actions.call()
+});
+
+const mapLedgerDataToProps = (data) => {
+  const { deviceInfo, publicKey } = data || {};
+  return { deviceInfo, publicKey };
+};
+
+const mapLedgerErrorToProps = (error) => ({
+  deviceError: error
+});
+
+export default compose(
+  withActions(ledgerActions, mapLedgerActionsToProps),
+  withData(ledgerActions, mapLedgerDataToProps),
+  withError(ledgerActions, mapLedgerErrorToProps),
+  withProgress(ledgerActions, {
+    strategy: recentlyCompletedStrategy
+  }),
+
+  // redirect on login
+  withRouter,
+  withLogin((state, { history }) => history.push('/browser'))
+)(LoginFormLedger);

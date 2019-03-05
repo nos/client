@@ -3,7 +3,7 @@ import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';

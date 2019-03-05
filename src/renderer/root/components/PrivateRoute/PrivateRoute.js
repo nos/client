@@ -1,9 +1,7 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { bool, func } from 'prop-types';
 import { omit } from 'lodash';
-
-import { Login } from 'login';
 
 export default class PrivateRoute extends React.PureComponent {
   static propTypes = {
@@ -25,7 +23,7 @@ export default class PrivateRoute extends React.PureComponent {
     if (this.props.authenticated) {
       return <Component {...props} />;
     } else {
-      // TODO redirect?
+      // TODO redirect to Auth (login/Rgister) component?
       return <Component {...props} />;
     }
   };

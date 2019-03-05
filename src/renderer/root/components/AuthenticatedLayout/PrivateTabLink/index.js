@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import withLogin from 'shared/hocs/withLogin';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 
 import { openTab } from 'browser/actions/browserActions';
 

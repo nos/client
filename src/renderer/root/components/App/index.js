@@ -13,7 +13,6 @@ import currentNetworkActions from 'settings/actions/currentNetworkActions';
 import getAllNetworks from 'settings/actions/networksActions';
 
 import App from './App';
-import authActions from '../../../login/actions/authActions';
 
 const { LOADING, LOADED } = progressValues;
 

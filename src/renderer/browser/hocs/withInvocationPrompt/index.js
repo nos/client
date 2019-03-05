@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withCall, withData } from 'spunky';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import PriorityFee from 'account/components/Portfolio/TransactionsPanel/Send/PriorityFee';
 

@@ -1,7 +1,7 @@
 import { compose } from 'recompose';
 import { withData } from 'spunky';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import currencyActions from 'settings/actions/currencyActions';
 
 import AccountPanel from './AccountPanel';

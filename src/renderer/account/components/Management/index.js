@@ -3,7 +3,7 @@ import { withData } from 'spunky';
 
 import claimableActions from 'shared/actions/claimableActions';
 import currencyActions from 'settings/actions/currencyActions';
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import { withErrorToast } from 'shared/hocs/withToast';

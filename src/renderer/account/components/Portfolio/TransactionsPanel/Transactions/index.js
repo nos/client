@@ -11,7 +11,7 @@ import {
 import Failed from 'shared/components/Failed';
 import Loading from 'shared/components/Loading';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 
 import withNetworkData from 'shared/hocs/withNetworkData';
 

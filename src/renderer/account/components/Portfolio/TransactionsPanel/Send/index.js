@@ -1,7 +1,7 @@
 import { compose, withState } from 'recompose';
 import { withData, withActions, progressValues } from 'spunky';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
