@@ -1,7 +1,9 @@
 import { compose, withState } from 'recompose';
 import { withActions, progressValues } from 'spunky';
 
-import balancesActions from 'shared/actions/balancesActions';
+// import balancesActions from 'shared/actions/balancesActions';
+import balanceWithPricesActions from 'account/actions/balanceWithPricesActions';
+
 import blockActions from 'shared/actions/blockActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withAllNetworkData from 'shared/hocs/withAllNetworkData';
@@ -47,7 +49,7 @@ export default compose(
   withNetworkData('currentNetwork'),
 
   // Load balance data whenever the network is assigned or changed
-  withActions(balancesActions, mapBalancesActionsToProps),
+  withActions(balanceWithPricesActions, mapBalancesActionsToProps),
   withProgressChange(currentNetworkActions, [LOADED, FAILED], (state, props) => {
     props.resetBalancesData();
     props.resetBlockData();

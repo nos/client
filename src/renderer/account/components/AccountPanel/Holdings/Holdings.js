@@ -42,5 +42,5 @@ export default class Holdings extends React.PureComponent {
         claimable={token.scriptHash === GAS ? claimable : null}
       />
     ));
-  }
+  };
 }

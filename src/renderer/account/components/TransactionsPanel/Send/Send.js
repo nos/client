@@ -74,10 +74,7 @@ export default class Send extends React.PureComponent {
           value={receiver}
           onChange={this.handleChangeRecipient}
         />
-        <PriorityFee
-          className={styles.fee}
-          fee={this.props.fee}
-        />
+        <PriorityFee className={styles.fee} fee={this.props.fee} />
         <PrimaryButton
           className={styles.next}
           type="submit"
@@ -94,17 +91,18 @@ export default class Send extends React.PureComponent {
     const { confirm, receiver } = this.props;
     const symbol = this.getSymbol();
 
-    confirm((
+    confirm(
       <span>
         Would you like to transfer {this.getAmount()} {symbol} to address{' '}
         <strong>&ldquo;{receiver}&rdquo;</strong>?
-      </span>
-    ), {
-      title: 'Transfer',
-      onConfirm: this.handleConfirm,
-      onCancel: noop
-    });
-  }
+      </span>,
+      {
+        title: 'Transfer',
+        onConfirm: this.handleConfirm,
+        onCancel: noop
+      }
+    );
+  };
 
   handleConfirm = () => {
     const { onSend, asset, receiver } = this.props;
@@ -116,7 +114,7 @@ export default class Send extends React.PureComponent {
   handleBlurAmount = () => {
     const { decimals } = this.getAsset();
     this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
-  }
+  };
 
   handleChangeAsset = (value) => {
     const { decimals } = this.getAsset(value);
@@ -138,11 +136,11 @@ export default class Send extends React.PureComponent {
       value: scriptHash,
       icon: image
     }));
-  }
+  };
 
   getSymbol = () => {
     return this.getAsset().symbol;
-  }
+  };
 
   getAmount = () => {
     return new BigNumber(this.props.amount).toFixed(this.getAsset().decimals, BigNumber.ROUND_DOWN);
@@ -150,7 +148,7 @@ export default class Send extends React.PureComponent {
 
   getAsset = (scriptHash = this.props.asset) => {
     return this.props.balances[scriptHash];
-  }
+  };
 
   isValid = () => {
     return isNumeric(this.props.amount) && wallet.isAddress(this.props.receiver);

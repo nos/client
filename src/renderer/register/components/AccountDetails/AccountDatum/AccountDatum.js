@@ -1,7 +1,7 @@
 import React from 'react';
 import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
-import { string, func } from 'prop-types';
-import { noop, toLower, startCase } from 'lodash';
+import { string, func, bool } from 'prop-types';
+import { noop, toLower, startCase, times } from 'lodash';
 
 import Icon from 'shared/components/Icon';
 import Tooltip from 'shared/components/Tooltip';
@@ -12,15 +12,22 @@ export default class AccountDatum extends React.PureComponent {
   static propTypes = {
     label: string.isRequired,
     value: string.isRequired,
-    showInfoToast: func
+    showInfoToast: func,
+    hidden: bool
   };
 
   static defaultProps = {
-    showInfoToast: noop
-  }
+    showInfoToast: noop,
+    hidden: false
+  };
+
+  state = {
+    showHidden: false
+  };
 
   render() {
-    const { label, value } = this.props;
+    const { label, value, hidden } = this.props;
+    const { showHidden } = this.state;
 
     return (
       <div className={styles.accountDatum}>
@@ -29,7 +36,7 @@ export default class AccountDatum extends React.PureComponent {
           <Tooltip id={label} overlay={`Copy ${toLower(label)}`}>
             <CopyToClipboard text={value} onCopy={this.handleCopy}>
               <Icon
-                className={styles.copy}
+                className={styles.icon}
                 name="copy"
                 role="button"
                 tabIndex={0}
@@ -39,14 +46,34 @@ export default class AccountDatum extends React.PureComponent {
           </Tooltip>
         </div>
         <div className={styles.value}>
-          {value}
+          {hidden && !showHidden ? times(8, () => '*') : value}
+          {hidden && (
+            <Tooltip
+              id={label}
+              overlay={`${!showHidden ? 'Show ' : 'Hide '} ${toLower(label)}`}
+            >
+              <Icon
+                className={styles.icon}
+                name={!showHidden ? 'unhide' : 'hide'}
+                role="button"
+                tabIndex={0}
+                aria-label={label}
+                onClick={this.handleToggleHidden}
+              />
+            </Tooltip>
+          )}
         </div>
       </div>
     );
   }
 
+  handleToggleHidden = () => {
+    const prevState = this.state.showHidden;
+    this.setState({ showHidden: !prevState });
+  };
+
   handleCopy = () => {
     const { showInfoToast, label } = this.props;
     showInfoToast(`${startCase(toLower(label))} copied to clipboard.`);
-  }
+  };
 }

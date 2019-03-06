@@ -13,8 +13,6 @@ import Loading from 'shared/components/Loading';
 
 import authActions from 'login/actions/authActions';
 
-import { withInfoToast } from 'shared/hocs/withToast';
-
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import transactionHistoryActions from '../../../actions/transactionHistoryActions';
@@ -49,7 +47,5 @@ export default compose(
       strategy: alreadyLoadedStrategy
     }
   ),
-  withData(transactionHistoryActions, mapTransactionHistoryDataToProps),
-
-  withInfoToast()
+  withData(transactionHistoryActions, mapTransactionHistoryDataToProps)
 )(Transactions);

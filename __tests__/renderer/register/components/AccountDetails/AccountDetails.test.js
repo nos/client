@@ -33,7 +33,7 @@ describe('<AccountDetails />', () => {
     expect(findDatum('Encrypted Key').prop('value')).toEqual(account.encryptedKey);
   });
 
-  it('does not render passphrase', () => {
-    expect(findDatum('Passphrase')).toHaveLength(0);
+  it('renders passphrase', () => {
+    expect(findDatum('Passphrase').prop('value')).toEqual(account.passphrase);
   });
 });

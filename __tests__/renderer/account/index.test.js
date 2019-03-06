@@ -34,7 +34,7 @@ const initialState = {
       }
     }),
     prices: mockSpunkyLoaded({
-      NEO: 31.50,
+      NEO: 31.5,
       GAS: 10.25
     }),
     claimable: mockSpunkyLoaded('0.00000000')
