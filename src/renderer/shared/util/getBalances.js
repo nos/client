@@ -4,10 +4,11 @@ import { u, sc, rpc, wallet } from '@cityofzion/neon-js';
 import getRPCEndpoint from 'util/getRPCEndpoint';
 
 import getTokens from './getTokens';
-import { GAS, NEO, ASSETS } from '../values/assets';
+import { GAS, NEO, NOS, ASSETS } from '../values/assets';
 
 const CHUNK_SIZE = 18;
 
+// TODO rewrite file when integrating ETH
 function parseHexNum(hex) {
   return hex ? parseInt(u.reverseHex(hex), 16) : 0;
 }
@@ -29,7 +30,9 @@ function getRawTokenBalances(url, tokens, address) {
         for (let i = 0; i < res.result.stack.length; i += 1) {
           const { scriptHash, decimals } = tokens[i];
           const value = parseHexNum(res.result.stack[i].value);
-          tokenList[scriptHash] = new u.Fixed8(value).div(10 ** decimals).toString();
+          if (value !== 0 || scriptHash === NOS) {
+            tokenList[scriptHash] = new u.Fixed8(value).div(10 ** decimals).toString();
+          }
         }
       }
       return tokenList;
@@ -40,10 +43,15 @@ async function getTokenBalances(endpoint, address) {
   const tokens = await getTokens();
   const chunks = chunk(map(tokens, 'scriptHash'), CHUNK_SIZE);
 
-  const balances = extend({}, ...await Promise.all(chunks.map((scriptHashes) => {
-    const filteredTokens = filter(tokens, (token) => scriptHashes.includes(token.scriptHash));
-    return getRawTokenBalances(endpoint, filteredTokens, address);
-  })));
+  const balances = extend(
+    {},
+    ...(await Promise.all(
+      chunks.map((scriptHashes) => {
+        const filteredTokens = filter(tokens, (token) => scriptHashes.includes(token.scriptHash));
+        return getRawTokenBalances(endpoint, filteredTokens, address);
+      })
+    ))
+  );
 
   return mapValues(balances, (balance, scriptHash) => ({
     ...find(tokens, { scriptHash }),

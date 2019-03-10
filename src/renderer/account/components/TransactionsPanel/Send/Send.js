@@ -8,6 +8,7 @@ import { map, noop } from 'lodash';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
+import { NOS } from 'shared/values/assets';
 
 import ConversionInput from './ConversionInput';
 import PriorityFee from './PriorityFee';
@@ -131,11 +132,16 @@ export default class Send extends React.PureComponent {
   };
 
   getAssetItems = () => {
-    return map(this.props.balances, ({ symbol, scriptHash, image }) => ({
+    const balances = map(this.props.balances, ({ symbol, scriptHash, image }) => ({
       label: symbol,
       value: scriptHash,
       icon: image
     }));
+
+    const nos = balances.filter((balance) => balance.value === NOS);
+    const filteredBalances = balances.filter((balance) => balance.value !== NOS);
+
+    return [...nos, ...filteredBalances];
   };
 
   getSymbol = () => {

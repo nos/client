@@ -10,7 +10,7 @@ import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/wit
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { NEO } from 'shared/values/assets';
+import { NOS } from 'shared/values/assets';
 
 import Send from './Send';
 
@@ -36,7 +36,7 @@ const mapAuthDataToProps = (data) => (data);
 export default compose(
   withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
-  withState('asset', 'setAsset', NEO),
+  withState('asset', 'setAsset', NOS),
 
   withNetworkData(),
   withData(feeActions, mapFeeDataToProps),
