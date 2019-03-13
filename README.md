@@ -107,3 +107,6 @@ We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create bu
    2. `dist/nOS-1.0.0-mac.dmg`
    3. `dist/nOS-1.0.0-mac.dmg.blockmap`
    4. `dist/latest-mac.yml`
+   
+## Generating hashes for the artifacts
+MacOS: `shasum -a 256 ./*` - Where the final argument is the location of the artifacts
