@@ -110,6 +110,7 @@ workflows:
   build_test:
     jobs:
       - build
+      - deploy_mac
       - test:
           requires:
             - build
