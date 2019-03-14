@@ -19,7 +19,7 @@ references:
 
   mac_config: &mac_config
     macos:
-      xcode: 10.1
+      xcode: '10.1'
     working_directory: *workspace
 
 jobs:
