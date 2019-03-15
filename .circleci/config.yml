@@ -96,8 +96,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v2-dependencies-{{ checksum "package.json" }}
-            - v2-dependencies-
+            - v3-dependencies-{{ checksum "package.json" }}
+            - v3-dependencies-
       - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       - run: brew install yarn
       - run: yarn install
