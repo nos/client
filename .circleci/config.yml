@@ -83,8 +83,8 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: apt-get -y update
-      - run: apt-get -y install build-essential libudev-dev
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install build-essential libudev-dev
       - run: yarn install
       - run: yarn dist --linux
       - store_artifacts:
