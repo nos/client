@@ -111,15 +111,13 @@ workflows:
   build_test:
     jobs:
       - build
-      - deploy_mac:
-          requires:
-            - build
       - test:
           requires:
             - build
 
   deploy:
     jobs:
+      - deploy_mac
       - deploy_win:
           filters:
             branches:
