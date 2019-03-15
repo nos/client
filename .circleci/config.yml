@@ -101,8 +101,8 @@ jobs:
       - run: yarn install
       - run: yarn dist --mac
       - store_artifacts:
-          path: dist
-          destination: build
+          path: dist/
+          destination: build/
 
 workflows:
   version: 2
