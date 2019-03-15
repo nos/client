@@ -101,8 +101,8 @@ jobs:
       - run: yarn install
       - run: yarn dist --mac
       - store_artifacts:
-          path: dist/
-          destination: build/
+          path: dist
+          destination: build
 
 workflows:
   version: 2
@@ -115,7 +115,6 @@ workflows:
 
   deploy:
     jobs:
-      - deploy_mac
       - deploy_win:
           filters:
             branches:
@@ -128,9 +127,9 @@ workflows:
               ignore: /.*/
             tags:
               only: /[v][0-9]+(\.[0-9]+)+.*/
-      # - deploy_mac:
-      #     filters:
-      #       branches:
-      #         ignore: /.*/
-      #       tags:
-      #         only: /[0-9]+(\.[0-9]+)+.*/
+      - deploy_mac:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[v][0-9]+(\.[0-9]+)+.*/
