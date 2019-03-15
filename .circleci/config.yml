@@ -98,8 +98,6 @@ jobs:
           keys:
             - v3-dependencies-{{ checksum "package.json" }}
             - v3-dependencies-
-      - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      - run: brew install yarn 2>/dev/null
       - run: yarn install
       - run: yarn dist --mac
       - store_artifacts:
