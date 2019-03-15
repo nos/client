@@ -29,8 +29,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v5-dependencies-{{ checksum "package.json" }}
+            - v5-dependencies-
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
       - run: yarn install
@@ -38,7 +38,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v5-dependencies-{{ checksum "package.json" }}
   test:
     <<: *container_config
     steps:
@@ -46,9 +46,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v5-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v5-dependencies-
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
       - run: sudo yarn global add yarn@1.12.3
@@ -64,8 +64,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v5-dependencies-{{ checksum "package.json" }}
+            - v5-dependencies-
       - run: dpkg --add-architecture i386
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
@@ -81,8 +81,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v5-dependencies-{{ checksum "package.json" }}
+            - v5-dependencies-
       - run: sudo yarn global add yarn@1.12.3
       - run: yarn install
       - run: yarn dist --linux
@@ -96,8 +96,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
-            - v3-dependencies-
+            - v5-dependencies-{{ checksum "package.json" }}
+            - v5-dependencies-
       - run: yarn install
       - run: yarn dist --mac
       - store_artifacts:
