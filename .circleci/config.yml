@@ -122,12 +122,12 @@ workflows:
               ignore: /.*/
             tags:
               only: /[v][0-9]+(\.[0-9]+)+.*/
-      - deploy_linux:
-          # filters:
-          #   branches:
-          #     ignore: /.*/
-          #   tags:
-          ##     only: /[v][0-9]+(\.[0-9]+)+.*/
+      - deploy_linux
+        # filters:
+        #   branches:
+        #     ignore: /.*/
+        #   tags:
+        ##     only: /[v][0-9]+(\.[0-9]+)+.*/
       - deploy_mac:
           filters:
             branches:
