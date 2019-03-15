@@ -19,7 +19,7 @@ references:
 
   mac_config: &mac_config
     macos:
-      xcode: '10.1.0'
+      xcode: "10.1.0"
     working_directory: *workspace
 
 jobs:
@@ -111,6 +111,8 @@ workflows:
     jobs:
       - build
       - deploy_mac
+          requires:
+            - build
       - test:
           requires:
             - build
