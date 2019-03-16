@@ -50,7 +50,6 @@ export default class LoginFormWIF extends React.PureComponent {
           onChange={this.handleChangePassphrase}
         />
 
-
         <LoginButton disabled={disabled || !this.isValid()} />
       </form>
     );
@@ -58,20 +57,20 @@ export default class LoginFormWIF extends React.PureComponent {
 
   handleChangeEncryptedWIF = (event) => {
     this.props.setEncryptedWIF(event.target.value);
-  }
+  };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
-  }
+  };
 
   handleLogin = (event) => {
     const { passphrase, encryptedWIF, onLogin } = this.props;
 
     event.preventDefault();
     onLogin({ passphrase, encryptedWIF });
-  }
+  };
 
   isValid = () => {
     return this.props.passphrase !== '' && this.props.encryptedWIF !== '';
-  }
+  };
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, string, func, arrayOf } from 'prop-types';
+import { bool, string, func, shape, object, arrayOf } from 'prop-types';
 import { noop, map, isEmpty } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
@@ -20,7 +20,10 @@ export default class LoginFormProfile extends React.PureComponent {
     profiles: arrayOf(accountShape),
     currentProfile: string,
     setCurrentProfile: func,
-    history: func.isRequired
+    history: shape({
+      location: object.isRequired,
+      push: func.isRequired
+    }).isRequired
   };
 
   static defaultProps = {
@@ -48,12 +51,7 @@ export default class LoginFormProfile extends React.PureComponent {
     }
   }
 
-  renderRegisterForm = ({
-    disabled,
-    currentProfile,
-    passphrase,
-    walletsFound
-  }) => (
+  renderRegisterForm = ({ disabled, currentProfile, passphrase, walletsFound }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
       <LabeledSelect
         className={styles.input}
