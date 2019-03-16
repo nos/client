@@ -1,7 +1,7 @@
 {
   "extends": ["config:base"],
-  "schedule": ["on monday"],
   "ignoreDeps": ["@ledgerhq/hw-transport-node-hid"],
+  "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
   "statusCheckVerify": true,
   "packageRules": [

@@ -1,9 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
-import {
-  withData,
-  withActions
-} from 'spunky';
+import { withData, withActions } from 'spunky';
 import { isEmpty } from 'lodash';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
@@ -12,7 +9,9 @@ import withNullLoader from 'browser/hocs/withNullLoader';
 import { getProfiles } from 'register/actions/storeProfileActions';
 
 import LoginFormProfile from './LoginFormProfile';
-import previousAuthActions, { writePreviousAuthActions } from '../../actions/previousAuthActions';
+import previousAuthActions, {
+  writePreviousAuthActions
+} from '../../actions/previousProfileActions';
 import withLogin from '../../hocs/withLogin';
 
 const mapProfileActionsToProps = ({ profiles }) => ({

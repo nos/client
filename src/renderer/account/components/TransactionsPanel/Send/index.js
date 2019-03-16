@@ -1,5 +1,7 @@
-import { compose, withState } from 'recompose';
+import { compose, withState, withProps } from 'recompose';
 import { withData, withActions, progressValues } from 'spunky';
+
+import { DEFAULT_NET } from 'values/networks';
 
 import authActions from 'login/actions/authActions';
 import feeActions from 'settings/actions/feeActions';
@@ -10,7 +12,7 @@ import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/wit
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { NOS } from 'shared/values/assets';
+import { NOS, NEO } from 'shared/values/assets';
 
 import Send from './Send';
 
@@ -31,12 +33,17 @@ const mapSendActionsToProps = (actions, props) => ({
 });
 
 const mapFeeDataToProps = (fee) => ({ fee });
-const mapAuthDataToProps = (data) => (data);
+const mapAuthDataToProps = (data) => data;
 
 export default compose(
+  withNetworkData(),
+  withProps(({ net }) => ({
+    DEFAULT_TOKEN: net === DEFAULT_NET ? NOS : NEO
+  })),
+
   withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
-  withState('asset', 'setAsset', NOS),
+  withState('asset', 'setAsset', ({ DEFAULT_TOKEN }) => DEFAULT_TOKEN),
 
   withNetworkData(),
   withData(feeActions, mapFeeDataToProps),

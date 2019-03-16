@@ -19,7 +19,7 @@ references:
 
   mac_config: &mac_config
     macos:
-      xcode: 9.2
+      xcode: '10.1.0'
     working_directory: *workspace
 
 jobs:
@@ -34,6 +34,7 @@ jobs:
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
       - run: yarn install
+      - run: chmod -R 777 ~/repo
       - save_cache:
           paths:
             - node_modules
@@ -50,7 +51,6 @@ jobs:
             - v1-dependencies-
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
-      - run: sudo yarn global add yarn@1.12.3
       - run: yarn test
       - run: yarn codecov
     store_artifacts:
@@ -82,7 +82,8 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: sudo yarn global add yarn@1.12.3
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install build-essential libudev-dev
       - run: yarn install
       - run: yarn dist --linux
       - store_artifacts:
@@ -95,10 +96,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      - run: brew install yarn
+            - v3-dependencies-{{ checksum "package.json" }}
+            - v3-dependencies-
       - run: yarn install
       - run: yarn dist --mac
       - store_artifacts:
@@ -128,9 +127,9 @@ workflows:
               ignore: /.*/
             tags:
               only: /[v][0-9]+(\.[0-9]+)+.*/
-      # - deploy_mac:
-      #     filters:
-      #       branches:
-      #         ignore: /.*/
-      #       tags:
-      #         only: /[0-9]+(\.[0-9]+)+.*/
+      - deploy_mac:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[v][0-9]+(\.[0-9]+)+.*/
