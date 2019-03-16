@@ -78,7 +78,7 @@
     "lint": "eslint --env browser,node,server --ext .jsx,.js --color .",
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist coverage",
-    "postinstall": "electron-builder install-app-deps && electron-rebuild --force",
+    "postinstall": "electron-builder install-app-deps",
     "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
   },
   "devDependencies": {
