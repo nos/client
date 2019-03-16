@@ -51,7 +51,6 @@ jobs:
             - v1-dependencies-
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
-      - run: sudo yarn global add yarn@1.12.3
       - run: yarn test
       - run: yarn codecov
     store_artifacts:
@@ -70,7 +69,6 @@ jobs:
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
       - run: yarn install
-      - run: yarn postinstall --platform win32 --arch x64
       - run: yarn dist --win --x64 --ia32
       - store_artifacts:
           path: dist
