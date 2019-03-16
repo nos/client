@@ -58,11 +58,11 @@ function createMainWindow() {
   bindApplicationMenu(mainWindow);
   bindContextMenu(mainWindow);
 
-  // if (isDev) {
+  if (isDev) {
     mainWindow.webContents.once('dom-ready', () => {
       mainWindow.webContents.openDevTools();
     });
-  // }
+  }
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.maximize();

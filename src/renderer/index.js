@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import 'babel-polyfill'; // TODO - remove if possible, only needed for @ledgerhq/hw-transport-node-hid
 
 import React from 'react';
 import ReactDOM from 'react-dom';
