@@ -1,8 +1,8 @@
 .confirm {
   display: flex;
   flex-direction: column;
-  width: 450px;
-  max-height: 540px;
+  width: 600px;
+  // max-height: 540px;
   text-align: center;
   overflow: hidden;
 
@@ -44,7 +44,7 @@
     }
   }
 
-  .origin {
+  .footer {
     flex: 0 0 auto;
     padding: 8px 16px;
     color: #fff;

@@ -11,9 +11,11 @@ import { DEFAULT_FEE } from 'shared/values/fees';
 import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 
-export const ID = 'auth';
+const MIN_PASSPHRASE_LEN = 1;
 
-const authenticate = async (label, passphrase, passphraseConfirmation, secretWord) => {
+export const ID = 'createAccount';
+
+const createProfile = async (label, passphrase, passphraseConfirmation, secretWord) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
@@ -30,15 +32,7 @@ const authenticate = async (label, passphrase, passphraseConfirmation, secretWor
   }
 
   // Generate bip39 Mnemonic - 256-bits entropy (24-word long mnemonic)
-  // const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
-
-  // MNEMONIC Passed or retrieved from getStorage + label
-  const mnemonic = 'x';
-
-  // Validate mnemnoic
-  if (!bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
-    throw new Error('Invalid mnemonic.');
-  }
+  const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
 
   // Deterministically generate a 512 bit seed hex seed
   const seed = bip39.mnemonicToSeed(mnemonic, passphrase);
@@ -53,6 +47,7 @@ const authenticate = async (label, passphrase, passphraseConfirmation, secretWor
   console.log('root', root);
 
   const profile = {
+    label,
     fee: DEFAULT_FEE,
     currency: DEFAULT_CURRENCY,
     net: {
@@ -74,6 +69,6 @@ const authenticate = async (label, passphrase, passphraseConfirmation, secretWor
 export default createActions(
   ID,
   ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
-    return () => authenticate(walletName, passphrase, passphraseConfirmation, secretWord);
+    return () => createProfile(walletName, passphrase, passphraseConfirmation, secretWord);
   }
 );

@@ -17,7 +17,7 @@ export default class PrivateTabLink extends React.PureComponent {
     authenticated: bool,
     children: node,
     openTab: func,
-    login: func.isRequired
+    auth: func.isRequired
   };
 
   static defaultProps = {
@@ -50,7 +50,7 @@ export default class PrivateTabLink extends React.PureComponent {
     if (authenticated && target && !disabled) {
       this.props.openTab({ type, target });
     } else {
-      this.props.login(<div />, {
+      this.props.auth(<div />, {
         onConfirm: this.handleConfirm,
         onCancel: undefined
       });

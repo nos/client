@@ -8,12 +8,12 @@ import accountShape from 'auth/shapes/accountShape';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormProfile.scss';
-import LoginButton from '../LoginButton';
+// import LoginButton from '../LoginButton';
+import AuthButton from '../../AuthButton';
 
 export default class LoginFormProfile extends React.PureComponent {
   static propTypes = {
     disabled: bool,
-    walletsFound: bool.isRequired,
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
@@ -37,7 +37,9 @@ export default class LoginFormProfile extends React.PureComponent {
   };
 
   render() {
-    const { disabled, currentProfile, passphrase, walletsFound } = this.props;
+    const { disabled, currentProfile, passphrase, profiles } = this.props;
+
+    console.log('dakwoida', this.props);
 
     if (isEmpty(currentProfile)) {
       return this.renderNoWallet();
@@ -45,20 +47,20 @@ export default class LoginFormProfile extends React.PureComponent {
       return this.renderRegisterForm({
         disabled,
         currentProfile,
-        passphrase,
-        walletsFound
+        profiles,
+        passphrase
       });
     }
   }
 
-  renderRegisterForm = ({ disabled, currentProfile, passphrase, walletsFound }) => (
+  renderRegisterForm = ({ disabled, currentProfile, profiles, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
         id="profiel"
         label="Select Wallet"
-        disabled={!walletsFound}
+        disabled={isEmpty(profiles)}
         value={currentProfile}
         items={this.getProfiles()}
         onChange={this.handleChangeCurrentProfile}
@@ -70,11 +72,17 @@ export default class LoginFormProfile extends React.PureComponent {
         label="Passphrase"
         placeholder="Enter passphrase"
         value={passphrase}
-        disabled={disabled || !walletsFound}
+        disabled={disabled || isEmpty(profiles)}
         onChange={this.handleChangePassphrase}
       />
 
-      <LoginButton disabled={disabled || !this.isValid()} />
+      <AuthButton
+        buttonText="Unlock Wallet"
+        className={styles.register}
+        type="submit"
+        disabled={disabled || !this.isValid()}
+      />
+      {/* <LoginButton  /> */}
     </form>
   );
 
@@ -117,9 +125,9 @@ export default class LoginFormProfile extends React.PureComponent {
       return [{ label: 'No Wallets Found', value: currentProfile }];
     }
 
-    return map(profiles, ({ walletName, address, encryptedKey }) => ({
-      label: `${walletName} - ${address} `,
-      value: encryptedKey
+    return map(profiles, ({ label, mnemonic }) => ({
+      label,
+      value: mnemonic
     }));
   };
 

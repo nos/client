@@ -6,9 +6,8 @@ import { Auth } from 'auth';
 
 import Alert from 'shared/components/Alert';
 import Confirm from 'shared/components/Confirm';
-
-import dialogShape from '../../../shapes/dialogShape';
-import { TYPE_ALERT, TYPE_CONFIRM, TYPE_LOGIN } from '../../../values/dialogs';
+import { TYPE_ALERT, TYPE_CONFIRM, TYPE_AUTH } from 'root/values/dialogs';
+import dialogShape from 'root/shapes/dialogShape';
 
 export default class AlertPresenter extends React.PureComponent {
   static propTypes = {
@@ -37,8 +36,8 @@ export default class AlertPresenter extends React.PureComponent {
         return this.renderAlert(props);
       case TYPE_CONFIRM:
         return this.renderConfirm(props);
-      case TYPE_LOGIN:
-        return this.renderLogin(props);
+      case TYPE_AUTH:
+        return this.renderAuth(props);
       default:
         throw new Error(`Invalid dialog type: "${type}"`);
     }
@@ -58,7 +57,7 @@ export default class AlertPresenter extends React.PureComponent {
     );
   };
 
-  renderLogin = (props) => {
+  renderAuth = (props) => {
     return (
       <Auth
         {...props}

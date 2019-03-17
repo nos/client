@@ -1,6 +1,6 @@
 import { string, func, oneOf, oneOfType, any, shape } from 'prop-types';
 
-import { TYPE_ALERT, TYPE_CONFIRM, TYPE_LOGIN } from '../values/dialogs';
+import { TYPE_ALERT, TYPE_CONFIRM, TYPE_AUTH } from '../values/dialogs';
 
 const alertShape = shape({
   title: string,
@@ -20,13 +20,13 @@ const confirmShape = shape({
   onCancel: func
 });
 
-const loginShape = shape({
+const authShape = shape({
   children: any,
   onConfirm: func,
   onCancel: func
 });
 
 export default shape({
-  type: oneOf([TYPE_ALERT, TYPE_CONFIRM, TYPE_LOGIN]).isRequired,
-  props: oneOfType([alertShape, confirmShape, loginShape]).isRequired
+  type: oneOf([TYPE_ALERT, TYPE_CONFIRM, TYPE_AUTH]).isRequired,
+  props: oneOfType([alertShape, confirmShape, authShape]).isRequired
 });

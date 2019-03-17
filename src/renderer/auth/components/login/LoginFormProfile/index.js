@@ -6,13 +6,12 @@ import { isEmpty } from 'lodash';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNullLoader from 'browser/hocs/withNullLoader';
 import previousAuthActions, { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
-import { getProfiles } from 'auth/actions/storeProfileActions';
+import { getProfiles } from 'auth/actions/profileActions';
 import withLogin from 'auth/hocs/withLogin';
 
 import LoginFormProfile from './LoginFormProfile';
 
-const mapProfileActionsToProps = ({ profiles }) => ({
-  walletsFound: !isEmpty(profiles),
+const mapProfileActionsToProps = (profiles) => ({
   profiles
 });
 
@@ -37,7 +36,7 @@ export default compose(
   withState(
     'currentProfile',
     'setCurrentProfile',
-    ({ encryptedWIF, profiles }) => encryptedWIF || (profiles && profiles[0].encryptedKey)
+    ({ profiles }) => profiles && Object.values(profiles)[0].mnemonic
   ),
   withState('passphrase', 'setPassphrase', ''),
 

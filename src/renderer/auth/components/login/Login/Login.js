@@ -1,47 +1,62 @@
 import React from 'react';
-import classNames from 'classnames';
-import { string, func, bool } from 'prop-types';
+import { bool, func } from 'prop-types';
 
-import Modal from 'shared/components/Modal';
+import Panel from 'shared/components/Panel';
+import Tabs from 'shared/components/Tabs';
+import Logo from 'shared/images/logo.svg';
 
-import styles from './Confirm.scss';
+import LoginFormProfile from '../LoginFormProfile';
+import styles from './Login.scss';
 
-import LoginPanel from '../LoginPanel';
+const TAB_PROFILES = 'Profiles';
 
-export default class Login extends React.PureComponent {
+const TABS = {
+  [TAB_PROFILES]: 'Saved Profiles'
+};
+
+export default class LoginPanel extends React.PureComponent {
   static propTypes = {
-    className: string,
-    onConfirm: func.isRequired,
-    authenticated: bool.isRequired
+    loading: bool,
+    login: func
   };
 
   static defaultProps = {
-    className: null
+    loading: false,
+    login: undefined
   };
 
-  confirm = React.createRef();
-
-  componentDidMount() {
-    // this.confirm.current.focus();
-  }
+  state = {
+    tab: TAB_PROFILES
+  };
 
   render() {
-    const { className, authenticated, onConfirm } = this.props;
-
-    if (authenticated) {
-      onConfirm();
-    }
-
     return (
-      <Modal className={classNames(styles.confirm, className)}>
-        <LoginPanel />
-      </Modal>
+      <Panel className={styles.login}>
+        <h1>Log In</h1>
+        <div>Secret word: </div>
+        <Tabs
+          className={styles.tabs}
+          tabs={TABS}
+          selectedTab={this.state.tab}
+          renderTab={this.renderTab}
+          onSelect={this.handleSelectTab}
+        />
+      </Panel>
     );
   }
 
-  registerRef = (name) => {
-    return (el) => {
-      this[name] = el;
-    };
+  renderTab = (id) => {
+    const { loading, login } = this.props;
+
+    switch (id) {
+      case TAB_PROFILES:
+        return <LoginFormProfile disabled={loading} onLogin={login} />;
+      default:
+        throw new Error('Invalid tab.');
+    }
+  };
+
+  handleSelectTab = (tab) => {
+    this.setState({ tab });
   };
 }

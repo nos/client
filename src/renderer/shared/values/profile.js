@@ -1,2 +1,1 @@
-const ID = 'profiles_v1';
-export default ID;
+export default 'profiles_v2';

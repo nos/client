@@ -7,6 +7,7 @@ import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './RegisterForm.scss';
+import AuthButton from '../../AuthButton';
 
 export default class RegisterForm extends React.PureComponent {
   static propTypes = {
@@ -14,9 +15,11 @@ export default class RegisterForm extends React.PureComponent {
     walletName: string,
     passphrase: string,
     passphraseConfirmation: string,
+    secretWord: string,
     setWalletName: func,
     setPassphrase: func,
     setPassphraseConfirmation: func,
+    setSecretWord: func,
     onRegister: func
   };
 
@@ -25,14 +28,16 @@ export default class RegisterForm extends React.PureComponent {
     walletName: '',
     passphrase: '',
     passphraseConfirmation: '',
+    secretWord: '',
     setWalletName: noop,
     setPassphrase: noop,
     setPassphraseConfirmation: noop,
+    setSecretWord: noop,
     onRegister: noop
   };
 
   render = () => {
-    const { walletName, passphrase, passphraseConfirmation, loading } = this.props;
+    const { walletName, passphrase, passphraseConfirmation, secretWord, loading } = this.props;
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
@@ -63,8 +68,24 @@ export default class RegisterForm extends React.PureComponent {
           disabled={loading}
           onChange={this.handleChangePassphraseConfirmation}
         />
+        <LabeledInput
+          id="secretWord"
+          type="text"
+          label="Secret Word"
+          placeholder="Enter a simple word that you will recognize later"
+          value={secretWord}
+          disabled={loading}
+          onChange={this.handleChangeSecretWord}
+        />
 
-        <div className={styles.actions}>
+        <AuthButton
+          buttonText="Create Wallet"
+          className={styles.register}
+          type="submit"
+          disabled={loading || !this.isValid()}
+        />
+
+        {/* <div className={styles.actions}>
           <PrimaryButton
             className={styles.register}
             type="submit"
@@ -75,9 +96,13 @@ export default class RegisterForm extends React.PureComponent {
           <span className={styles.login}>
             Already have a wallet? <Link to="/login">Open Wallet</Link>
           </span>
-        </div>
+        </div> */}
       </form>
     );
+  };
+
+  handleChangeSecretWord = (event) => {
+    this.props.setSecretWord(event.target.value);
   };
 
   handleChangeWalletName = (event) => {
@@ -93,10 +118,10 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   handleRegister = (event) => {
-    const { walletName, passphrase, passphraseConfirmation, onRegister } = this.props;
+    const { walletName, passphrase, secretWord, passphraseConfirmation, onRegister } = this.props;
 
     event.preventDefault();
-    onRegister({ walletName, passphrase, passphraseConfirmation });
+    onRegister({ walletName, passphrase, passphraseConfirmation, secretWord });
   };
 
   isValid = () => {

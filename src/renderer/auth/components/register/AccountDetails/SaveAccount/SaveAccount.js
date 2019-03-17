@@ -26,7 +26,7 @@ export default class SaveAccount extends React.PureComponent {
             onClick={this.handleSaveAndContinue}
             disabled={loading}
           >
-            Save & Continue
+            Confirm & Continue
           </PrimaryButton>
         </div>
       </div>

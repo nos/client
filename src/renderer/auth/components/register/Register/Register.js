@@ -2,7 +2,6 @@ import React from 'react';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
-import Logo from 'shared/images/logo.svg';
 import accountShape from 'auth/shapes/accountShape';
 
 import RegisterForm from '../RegisterForm';
@@ -31,7 +30,6 @@ export default class Register extends React.PureComponent {
   render() {
     return (
       <Panel className={styles.register}>
-        <Logo className={styles.logo} />
         <Tabs
           className={styles.tabs}
           tabs={TABS}

@@ -1,6 +1,6 @@
 export const ENQUEUE_ALERT = 'ENQUEUE_ALERT';
 export const ENQUEUE_CONFIRM = 'ENQUEUE_CONFIRM';
-export const ENQUEUE_LOGIN = 'ENQUEUE_LOGIN';
+export const ENQUEUE_AUTH = 'ENQUEUE_AUTH';
 export const DEQUEUE_DIALOG = 'DEQUEUE_DIALOG';
 
 export const alert = (message, props = {}) => ({
@@ -13,8 +13,8 @@ export const confirm = (message, props = {}) => ({
   payload: { ...props, children: message }
 });
 
-export const login = (message, props = {}) => ({
-  type: ENQUEUE_LOGIN,
+export const auth = (message, props = {}) => ({
+  type: ENQUEUE_AUTH,
   payload: { ...props, children: message }
 });
 
