@@ -34,6 +34,7 @@
     "electron-localshortcut": "3.1.0",
     "electron-updater": "3.2.3",
     "es6-promisify": "6.0.1",
+    "ethereumjs-utils": "5.2.5",
     "file-type": "10.9.0",
     "format-currency": "1.0.0",
     "history": "4.7.2",

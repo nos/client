@@ -17,13 +17,17 @@ export default function encrypt({ recipientPublicKey, wif, data, ivProvider }) {
 
   const senderPublicKey = Buffer.from(senderAccount.publicKey, 'hex');
   const sharedKey = ecdh.computeSecret(recipientPublicKey, 'hex');
-  const hash = createHash('sha512').update(sharedKey).digest();
+  const hash = createHash('sha512')
+    .update(sharedKey)
+    .digest();
   const iv = ivProvider();
   const encryptionKey = hash.slice(0, 32);
   const macKey = hash.slice(32);
   const encrypted = aes256CbcEncrypt(iv, encryptionKey, data);
   const dataToMac = Buffer.concat([iv, senderPublicKey, encrypted]);
-  const mac = createHmac('sha256', macKey).update(dataToMac).digest();
+  const mac = createHmac('sha256', macKey)
+    .update(dataToMac)
+    .digest();
 
   return {
     iv: iv.toString('hex'),

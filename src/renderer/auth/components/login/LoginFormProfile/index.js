@@ -34,9 +34,9 @@ export default compose(
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
   withState(
-    'currentProfile',
-    'setCurrentProfile',
-    ({ profiles }) => profiles && Object.values(profiles)[0].mnemonic
+    'currentMnemonic',
+    'setCurrentMnemonic',
+    ({ profiles }) => Object.values(profiles)[0] && Object.values(profiles)[0].label
   ),
   withState('passphrase', 'setPassphrase', ''),
 
