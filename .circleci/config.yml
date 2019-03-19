@@ -100,6 +100,7 @@ jobs:
             - v3-dependencies-
       - run: yarn install
       - run: yarn dist --mac
+      - run: ls -lah ~/repo/dist
       - store_artifacts:
           path: dist
           destination: build
@@ -128,8 +129,8 @@ workflows:
             tags:
               only: /[v][0-9]+(\.[0-9]+)+.*/
       - deploy_mac:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
+          # filters:
+          #   branches:
+          #     ignore: /.*/
+          #   tags:
+          #     only: /[v][0-9]+(\.[0-9]+)+.*/
