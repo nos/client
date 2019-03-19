@@ -101,6 +101,7 @@ jobs:
       - run: yarn install
       - run: yarn dist --mac
       - run: ls -lah ~/repo/dist
+      - run: ls -lah ~/repo/dist/mac
       - store_artifacts:
           path: dist
           destination: build
