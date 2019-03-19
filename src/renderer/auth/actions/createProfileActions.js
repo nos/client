@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import bip39 from 'bip39';
 
 import simpleEncrypt from 'shared/util/simpleEncrypt';
+import simpleDecrypt from 'shared/util/simpleDecrypt';
 import PROFILE_ID from 'shared/values/profile';
 import { getStorage, setStorage } from 'shared/lib/storage';
 import { DEFAULT_NET } from 'values/networks';

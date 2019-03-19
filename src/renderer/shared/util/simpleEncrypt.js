@@ -11,9 +11,8 @@ export default function encrypt(text, password) {
 
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-  let encrypted = cipher.update(text);
+  const encrypted = cipher.update(text);
+  const result = Buffer.concat([encrypted, cipher.final()]);
 
-  encrypted = Buffer.concat([encrypted, cipher.final()]);
-
-  return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
+  return `${iv.toString('hex')}:${result.toString('hex')}`;
 }

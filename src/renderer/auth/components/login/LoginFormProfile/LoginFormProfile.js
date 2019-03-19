@@ -4,22 +4,22 @@ import { noop, map, isEmpty } from 'lodash';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
-import accountShape from 'auth/shapes/accountShape';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
 import styles from './LoginFormProfile.scss';
 // import LoginButton from '../LoginButton';
 import AuthButton from '../../AuthButton';
 
+// TODO fix any prop type
 export default class LoginFormProfile extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
-    profiles: any, // TODO fix
-    currentMnemonic: string,
-    setCurrentMnemonic: func,
+    profiles: any, // eslint-disable-line
+    currentProfile: string,
+    setCurrentProfile: func,
     history: shape({
       location: object.isRequired,
       push: func.isRequired
@@ -30,38 +30,37 @@ export default class LoginFormProfile extends React.PureComponent {
     disabled: false,
     passphrase: '',
     onLogin: noop,
-    setCurrentMnemonic: noop,
+    setCurrentProfile: noop,
     setPassphrase: noop,
     profiles: undefined,
-    currentMnemonic: ''
+    currentProfile: ''
   };
 
   render() {
-    const { disabled, currentMnemonic, passphrase, profiles } = this.props;
+    const { disabled, currentProfile, passphrase, profiles } = this.props;
 
-    console.log('dakwoida', this.props);
-
-    if (isEmpty(currentMnemonic)) {
+    if (isEmpty(currentProfile)) {
       return this.renderNoWallet();
     } else {
       return this.renderRegisterForm({
         disabled,
-        currentMnemonic,
+        currentProfile,
         profiles,
         passphrase
       });
     }
   }
 
-  renderRegisterForm = ({ disabled, currentMnemonic, profiles, passphrase }) => (
+  renderRegisterForm = ({ disabled, currentProfile, profiles, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
+      {/* <div>{profiles[currentProfile].secretWord}</div> */}
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
         id="profiel"
         label="Select Wallet"
         disabled={isEmpty(profiles)}
-        value={currentMnemonic}
+        value={currentProfile}
         items={this.getProfiles()}
         onChange={this.handleChangeCurrentProfile}
       />
@@ -82,7 +81,6 @@ export default class LoginFormProfile extends React.PureComponent {
         type="submit"
         disabled={disabled || !this.isValid()}
       />
-      {/* <LoginButton  /> */}
     </form>
   );
 
@@ -107,23 +105,23 @@ export default class LoginFormProfile extends React.PureComponent {
     this.props.setPassphrase(event.target.value);
   };
 
-  handleChangeCurrentMnemonic = (value) => {
-    this.props.setCurrentMnemonic(value);
+  handleChangeCurrentProfile = (value) => {
+    this.props.setCurrentProfile(value);
   };
 
   handleLogin = (event) => {
-    const { passphrase, currentMnemonic, onLogin, profiles } = this.props;
+    const { passphrase, currentProfile, onLogin, profiles } = this.props;
 
     event.preventDefault();
-    const currentProfile = profiles[currentMnemonic];
-    onLogin({ profile: currentProfile, passphrase });
+    const selectedProfile = profiles[currentProfile];
+    onLogin({ profile: selectedProfile, passphrase });
   };
 
   getProfiles = () => {
-    const { profiles, currentMnemonic } = this.props;
+    const { profiles, currentProfile } = this.props;
 
     if (!profiles) {
-      return [{ label: 'No Wallets Found', value: currentMnemonic }];
+      return [{ label: 'No Wallets Found', value: currentProfile }];
     }
 
     return map(profiles, ({ label }) => ({
