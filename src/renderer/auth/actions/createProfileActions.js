@@ -3,15 +3,15 @@ import { isEmpty } from 'lodash';
 import bip39 from 'bip39';
 
 import simpleEncrypt from 'shared/util/simpleEncrypt';
-import simpleDecrypt from 'shared/util/simpleDecrypt';
-import PROFILE_ID from 'shared/values/profile';
+import PROFILE_ID, { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { getStorage, setStorage } from 'shared/lib/storage';
 import { DEFAULT_NET } from 'values/networks';
 import { DEFAULT_FEE } from 'shared/values/fees';
 import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
+import { DEFAULT_CHAIN } from 'shared/values/chains';
 
-const MIN_PASSPHRASE_LEN = 6;
+const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 
 export const ID = 'createAccount';
 
@@ -39,10 +39,11 @@ const createProfile = async (label, passphrase, passphraseConfirmation, secretWo
     label,
     fee: DEFAULT_FEE,
     currency: DEFAULT_CURRENCY,
-    net: {
-      NEO: DEFAULT_NET,
-      ETH: DEFAULT_NET
+    account: {
+      chainId: DEFAULT_CHAIN,
+      index: DEFAULT_ACC_INDEX
     },
+    net: DEFAULT_NET,
     language: DEFAULT_LANGUAGE,
     mnemonic: encryptedMnemonic,
     secretWord

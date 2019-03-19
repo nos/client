@@ -6,7 +6,8 @@ import AccountPanel from './AccountPanel';
 import TransactionsPanel from './TransactionsPanel';
 import styles from './Portfolio.scss';
 
-export default function Account() {
+export default function Account(props) {
+  console.log('Acc props', props);
   return (
     <div className={styles.account}>
       <Page className={styles.content}>

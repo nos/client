@@ -3,6 +3,7 @@ import ethUtil from 'ethereumjs-utils';
 export default class EthWallet {
   constructor(child) {
     this.child = child;
+    this.type = 'ETH';
   }
 
   getWallet = () => ({

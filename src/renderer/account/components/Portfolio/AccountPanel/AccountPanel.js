@@ -13,6 +13,7 @@ import styles from './AccountPanel.scss';
 export default function AccountPanel(props) {
   const { className, address, claimable, balances, prices, currency } = props;
 
+  // console.log('AccountPanel.js', props);
   return (
     <Panel className={classNames(styles.accountPanel, className)}>
       <div className={styles.summary}>

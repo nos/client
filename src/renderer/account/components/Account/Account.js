@@ -30,8 +30,8 @@ const TABS = {
 export default class Account extends React.PureComponent {
   static propTypes = {
     className: string,
-    __progress__: string.isRequired,
-    showErrorToast: func.isRequired
+    // __progress__: string.isRequired,
+    // showErrorToast: func.isRequired
   };
 
   static defaultProps = {
@@ -45,9 +45,11 @@ export default class Account extends React.PureComponent {
   render() {
     const { __progress__, showErrorToast } = this.props;
 
-    if (__progress__ === 'FAILED') {
-      showErrorToast('Loading is taking longer than expected. Check your nOS Network Settings.');
-    }
+    console.log('Account.js', this.props);
+
+    // if (__progress__ === 'FAILED') {
+    //   showErrorToast('Loading is taking longer than expected. Check your nOS Network Settings.');
+    // }
 
     return (
       <Tabs

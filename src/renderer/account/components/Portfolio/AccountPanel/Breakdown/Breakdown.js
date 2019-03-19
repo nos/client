@@ -24,6 +24,8 @@ export default class Breakdown extends React.PureComponent {
   render() {
     const { className, balances, prices, currency } = this.props;
 
+    console.log('Breakdown.js', this.props);
+
     return (
       <div className={classNames(styles.breakdown, className)}>
         <TotalValue

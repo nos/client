@@ -28,8 +28,9 @@ const authenticate = async (profile, passphrase) => {
   // Create agnostic wallet, able to derive child wallets for each chain
   const wallet = new Wallet(root);
 
-  console.log('{ ...profile, passphrase, wallet }', { ...profile, passphrase, wallet });
-  return { ...profile, wallet };
+  const currentWallet = wallet.deriveWalletFromAccount(profile.account);
+
+  return { ...profile, wallet: currentWallet };
 };
 
 export default createActions(ID, ({ profile, passphrase }) => {

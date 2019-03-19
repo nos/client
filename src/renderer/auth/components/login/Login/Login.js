@@ -30,7 +30,6 @@ export default class LoginPanel extends React.PureComponent {
   };
 
   render() {
-    console.log('daw', this.props);
     return (
       <Panel className={styles.login}>
         <h1>Log In</h1>

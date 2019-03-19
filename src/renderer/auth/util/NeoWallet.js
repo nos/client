@@ -3,6 +3,7 @@ import { wallet } from '@cityofzion/neon-js';
 export default class NeoWallet {
   constructor(child) {
     this.child = child;
+    this.type = 'NEO';
   }
 
   getWallet = () => new wallet.Account(this.getPrivateKey());

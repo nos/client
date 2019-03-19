@@ -7,12 +7,9 @@ export default function decrypt(text, password) {
     .digest();
   const key = hash.slice(0, 32);
 
-  console.log('text', text);
-
   const textParts = text.split(':');
   const iv = Buffer.from(textParts.shift(), 'hex');
   const encryptedText = Buffer.from(textParts.join(':'), 'hex');
-  console.log('iv', iv);
   const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
   const decrypted = decipher.update(encryptedText);
   const result = Buffer.concat([decrypted, decipher.final()]);
