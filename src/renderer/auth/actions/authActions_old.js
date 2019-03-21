@@ -42,14 +42,17 @@ const ledgerAuthenticate = (publicKey) => {
   };
 };
 
-export default createActions(ID, ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
-  if (wif) {
-    return wifAuthenticate(wif);
-  } else if (passphrase || encryptedWIF) {
-    return nep2Authenticate(passphrase, encryptedWIF);
-  } else if (publicKey) {
-    return ledgerAuthenticate(publicKey);
-  } else {
-    throw new Error('Invalid login attempt.');
+export default createActions(
+  ID,
+  ({ wif, passphrase, encryptedWIF, publicKey }) => async () => {
+    if (wif) {
+      return wifAuthenticate(wif);
+    } else if (passphrase || encryptedWIF) {
+      return nep2Authenticate(passphrase, encryptedWIF);
+    } else if (publicKey) {
+      return ledgerAuthenticate(publicKey);
+    } else {
+      throw new Error('Invalid login attempt.');
+    }
   }
-});
+);

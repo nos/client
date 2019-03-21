@@ -17,6 +17,7 @@ export default class Auth extends React.PureComponent {
   static propTypes = {
     className: string,
     onConfirm: func.isRequired,
+    login: func.isRequired,
     authenticated: bool.isRequired
   };
 
@@ -50,11 +51,13 @@ export default class Auth extends React.PureComponent {
   }
 
   renderComponent = () => {
+    const { login } = this.props;
+
     switch (this.state.component) {
       case LOGIN:
-        return <Login />;
+        return <Login login={login} />;
       case REGISTER:
-        return <Register />;
+        return <Register login={login} />;
       default:
         throw new Error('Invalid Component.');
     }

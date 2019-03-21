@@ -40,6 +40,6 @@ export default class SaveAccount extends React.PureComponent {
     // TODO move to index file using 'withLogin'
     setLastLogin({ encryptedWIF: encryptedKey });
     storeProfile({ walletName, address, encryptedKey });
-    login({ passphrase, encryptedWIF: encryptedKey });
+    login({ account, passphrase });
   };
 }

@@ -12,8 +12,8 @@ import Auth from './Auth';
 const { LOADING } = progressValues;
 
 const mapAuthActionsToProps = (actions) => ({
-  login: ({ wif, passphrase, encryptedWIF, publicKey }) => {
-    return actions.call({ wif, passphrase, encryptedWIF, publicKey });
+  login: (data) => {
+    return actions.call(data);
   }
 });
 

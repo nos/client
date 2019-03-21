@@ -12,23 +12,23 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import Account from './Account';
 import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
 
-const mapAuthDataToProps = (profile) => ({ profile });
+const mapAuthDataToProps = ({ address }) => ({ address });
 
 const mapCurrencyDataToProps = (currency) => ({ currency });
 
 // TODO NONE of these are needed here
 export default compose(
-  // withData(authActions, mapAuthDataToProps),
-  // withData(currencyActions, mapCurrencyDataToProps),
-  // withNetworkData(),
-  // withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
-  // withInitialCall(balanceWithPricesActions, ({ currency, net, address }) => ({
-  //   currency,
-  //   net,
-  //   address
-  // })),
+  withData(authActions, mapAuthDataToProps),
+  withData(currencyActions, mapCurrencyDataToProps),
+  withNetworkData(),
+  withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
+  withInitialCall(balanceWithPricesActions, ({ currency, net, address }) => ({
+    currency,
+    net,
+    address
+  })),
 
-  // withLoadingProp(claimableActions),
-  // withLoadingProp(balanceWithPricesActions),
-  // withErrorToast()
+  withLoadingProp(claimableActions),
+  withLoadingProp(balanceWithPricesActions),
+  withErrorToast()
 )(Account);

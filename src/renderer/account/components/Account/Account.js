@@ -6,8 +6,8 @@ import Page from 'shared/components/Page';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
-import SendIcon from 'shared/images/account/portfolio.svg';
-import ReceiveIcon from 'shared/images/account/keyManagement.svg';
+import PortfolioIcon from 'shared/images/account/portfolio.svg';
+import KeyMngmntIcon from 'shared/images/account/keyManagement.svg';
 
 import styles from './Account.scss';
 
@@ -23,13 +23,13 @@ const TAB_PORTFOLIO = 'portfolio';
 const TAB_KEY_MANAGEMENT = 'keyManagement';
 
 const TABS = {
-  [TAB_PORTFOLIO]: <IconTab renderIcon={SendIcon}>Portfolio</IconTab>,
-  [TAB_KEY_MANAGEMENT]: <IconTab renderIcon={ReceiveIcon}>Key Management</IconTab>
+  [TAB_PORTFOLIO]: <IconTab renderIcon={PortfolioIcon}>Portfolio</IconTab>,
+  [TAB_KEY_MANAGEMENT]: <IconTab renderIcon={KeyMngmntIcon}>Key Management</IconTab>
 };
 
 export default class Account extends React.PureComponent {
   static propTypes = {
-    className: string,
+    className: string
     // __progress__: string.isRequired,
     // showErrorToast: func.isRequired
   };

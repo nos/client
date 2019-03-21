@@ -5,8 +5,10 @@ import { isEmpty } from 'lodash';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNullLoader from 'browser/hocs/withNullLoader';
-import previousAuthActions, { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
-import { getProfiles } from 'auth/actions/profileActions';
+import previousAuthActions, {
+  writePreviousAuthActions
+} from 'auth/actions/previousAuthActions';
+import accountActions from 'auth/actions/accountActions';
 import withLogin from 'auth/hocs/withLogin';
 
 import LoginFormProfile from './LoginFormProfile';
@@ -24,13 +26,13 @@ const mapPreviousAuthDataToProps = (data) => ({
 });
 
 export default compose(
-  withInitialCall(getProfiles),
+  withInitialCall(accountActions),
   withInitialCall(previousAuthActions),
 
-  withNullLoader(getProfiles),
+  withNullLoader(accountActions),
   withNullLoader(previousAuthActions),
 
-  withData(getProfiles, mapProfileActionsToProps),
+  withData(accountActions, mapProfileActionsToProps),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
   withState(
@@ -42,7 +44,6 @@ export default compose(
 
   // store encryptedWIF on login so we can quickly authenticate again next time the app launches
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
-  withLogin((data, props) => props.setLastLogin({ encryptedWIF: props.currentProfile })),
 
   // redirect on login
   withRouter,

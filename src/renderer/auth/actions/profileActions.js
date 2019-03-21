@@ -9,31 +9,34 @@ const ID = PROFILE_ID;
 
 // Getters
 export const getProfiles = createActions(ID, () => async () => {
-  const profiles = await getStorage(ID);
+  const profiles = await getStorage('account');
   return profiles;
 });
 
 // Setter
-export default createActions(ID, ({ walletName, address, encryptedKey }) => async () => {
-  const { profiles } = await getStorage(ID);
+export default createActions(
+  ID,
+  ({ walletName, address, encryptedKey }) => async () => {
+    const { profiles } = await getStorage(ID);
 
-  const exists = some(profiles, (profile) => profile.walletName === walletName);
-  if (exists) {
-    throw new Error(`Wallet name "${walletName}" already exists in storage.`);
+    const exists = some(profiles, (profile) => profile.walletName === walletName);
+    if (exists) {
+      throw new Error(`Wallet name "${walletName}" already exists in storage.`);
+    }
+
+    const updatedProfiles = {
+      profiles: [
+        {
+          walletName,
+          address,
+          encryptedKey
+        },
+        ...(!isEmpty(profiles) ? profiles : [])
+      ]
+    };
+
+    await setStorage(ID, updatedProfiles);
+
+    return { walletName, address, encryptedKey };
   }
-
-  const updatedProfiles = {
-    profiles: [
-      {
-        walletName,
-        address,
-        encryptedKey
-      },
-      ...(!isEmpty(profiles) ? profiles : [])
-    ]
-  };
-
-  await setStorage(ID, updatedProfiles);
-
-  return { walletName, address, encryptedKey };
-});
+);

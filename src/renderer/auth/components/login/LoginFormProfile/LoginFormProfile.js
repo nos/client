@@ -53,7 +53,7 @@ export default class LoginFormProfile extends React.PureComponent {
 
   renderRegisterForm = ({ disabled, currentProfile, profiles, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
-      {/* <div>{profiles[currentProfile].secretWord}</div> */}
+      <div>{profiles[currentProfile].secretWord}</div>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
@@ -114,7 +114,7 @@ export default class LoginFormProfile extends React.PureComponent {
 
     event.preventDefault();
     const selectedProfile = profiles[currentProfile];
-    onLogin({ profile: selectedProfile, passphrase });
+    onLogin({ account: selectedProfile, passphrase });
   };
 
   getProfiles = () => {

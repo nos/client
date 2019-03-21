@@ -13,7 +13,6 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import Portfolio from './Portfolio';
 import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
 
-
 const mapCurrencyDataToProps = (currency) => ({ currency });
 
 // TODO NONE of these are needed here

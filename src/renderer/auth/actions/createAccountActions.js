@@ -14,8 +14,14 @@ import { DEFAULT_CHAIN } from 'shared/values/chains';
 const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 
 export const ID = 'createAccount';
+const ACCOUNT_ID = 'account';
 
-const createProfile = async (label, passphrase, passphraseConfirmation, secretWord) => {
+const createAccount = async (
+  label,
+  passphrase,
+  passphraseConfirmation,
+  secretWord
+) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
@@ -24,39 +30,36 @@ const createProfile = async (label, passphrase, passphraseConfirmation, secretWo
     throw new Error('Passphrase verification does not match.');
   }
 
-  const profiles = await getStorage(PROFILE_ID);
-  const newProfile = profiles[label];
+  const accounts = await getStorage(ACCOUNT_ID);
+  const newAccount = accounts[label];
 
-  if (!isEmpty(newProfile)) {
-    throw new Error(`Profile with label ${label} already exists.`);
+  if (!isEmpty(newAccount)) {
+    throw new Error(`Account with label ${label} already exists.`);
   }
 
   // Generate bip39 Mnemonic - 256-bits entropy (24-word long mnemonic)
-  const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
+  const mnemonic = bip39.generateMnemonic(
+    256,
+    null,
+    bip39.wordlists[DEFAULT_LANGUAGE]
+  );
   const encryptedMnemonic = simpleEncrypt(mnemonic, passphrase);
 
-  const profile = {
+  const account = {
     label,
-    fee: DEFAULT_FEE,
-    currency: DEFAULT_CURRENCY,
-    account: {
-      chainId: DEFAULT_CHAIN,
-      index: DEFAULT_ACC_INDEX
-    },
+    chainId: DEFAULT_CHAIN,
+    index: DEFAULT_ACC_INDEX,
     net: DEFAULT_NET,
-    language: DEFAULT_LANGUAGE,
     mnemonic: encryptedMnemonic,
     secretWord
   };
 
-  await setStorage(PROFILE_ID, { ...profiles, [label]: profile });
-
-  return { ...profile, mnemonic, passphrase };
+  return { ...account, passphrase };
 };
 
 export default createActions(
   ID,
   ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
-    return () => createProfile(walletName, passphrase, passphraseConfirmation, secretWord);
+    return () => createAccount(walletName, passphrase, passphraseConfirmation, secretWord);
   }
 );

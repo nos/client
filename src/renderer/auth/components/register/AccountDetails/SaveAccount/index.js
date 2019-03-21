@@ -22,13 +22,14 @@ const mapStoreProfileActionsToProps = (actions) => ({
 });
 
 const mapAuthActionsToProps = (actions) => ({
-  login: ({ wif, passphrase, encryptedWIF, publicKey }) => {
-    return actions.call({ wif, passphrase, encryptedWIF, publicKey });
+  login: (data) => {
+    return actions.call(data);
   }
 });
 
 export default compose(
   withAlert(),
+  withActions(authActions, mapAuthActionsToProps),
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
   withActions(storeProfileActions, mapStoreProfileActionsToProps),
   withActions(authActions, mapAuthActionsToProps),

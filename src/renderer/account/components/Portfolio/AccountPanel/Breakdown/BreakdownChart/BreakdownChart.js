@@ -5,9 +5,10 @@ import { string, number } from 'prop-types';
 import { times, reduce } from 'lodash';
 
 import formatCurrency from 'account/util/formatCurrency';
+import chartDataShape from 'account/shapes/chartDataShape';
 
 import SectionLabel from '../SectionLabel';
-import chartDataShape from '../../../../../shapes/chartDataShape';
+
 import styles from './BreakdownChart.scss';
 
 const COLORS = ['#5ebb46', '#b5d433', '#0b99e3'];
@@ -29,7 +30,9 @@ export default class BreakdownChart extends React.PureComponent {
   };
 
   render() {
+    console.log('BreakdownChart', this.props.data);
     const data = this.getData();
+    console.log('data', data);
 
     return (
       <ResponsiveContainer
@@ -68,7 +71,14 @@ export default class BreakdownChart extends React.PureComponent {
     const data = [...this.props.data];
 
     const totalSum = reduceSum(data);
-    const filteredData = data.filter((item) => item.value / totalSum >= threshold);
+    console.log('totalSum', totalSum);
+    if (totalSum === 0) {
+      return [];
+    }
+
+    const filteredData = data.filter(
+      (item) => item.value / totalSum >= threshold
+    );
     const restData = data.filter((item) => item.value / totalSum < threshold);
 
     const others = { symbol: 'OTHERS', value: reduceSum(restData) };
