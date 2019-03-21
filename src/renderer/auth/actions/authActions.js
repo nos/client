@@ -12,16 +12,11 @@ import Wallet from '../util/Wallet';
 export const ID = 'auth';
 
 const authenticate = async ({ account, passphrase }) => {
-  const mnemonic = attempt(simpleDecrypt, account.mnemonic, passphrase);
+  const mnemonic = attempt(simpleDecrypt, account.encryptedMnemonic, passphrase);
 
   // Validate mnemnoic
-  if (
-    isError(mnemonic) ||
-    !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])
-  ) {
-    throw new Error(
-      'Invalid mnemonic. Please make sure you entered the correct password.'
-    );
+  if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
+    throw new Error('Invalid mnemonic. Please make sure you entered the correct password.');
   }
 
   // Deterministically generate a 512 bit seed hex seed

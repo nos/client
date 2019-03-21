@@ -16,12 +16,7 @@ const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 export const ID = 'createAccount';
 const ACCOUNT_ID = 'account';
 
-const createAccount = async (
-  label,
-  passphrase,
-  passphraseConfirmation,
-  secretWord
-) => {
+const createAccount = async (label, passphrase, passphraseConfirmation, secretWord) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
@@ -38,11 +33,7 @@ const createAccount = async (
   }
 
   // Generate bip39 Mnemonic - 256-bits entropy (24-word long mnemonic)
-  const mnemonic = bip39.generateMnemonic(
-    256,
-    null,
-    bip39.wordlists[DEFAULT_LANGUAGE]
-  );
+  const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
   const encryptedMnemonic = simpleEncrypt(mnemonic, passphrase);
 
   const account = {
@@ -50,16 +41,14 @@ const createAccount = async (
     chainId: DEFAULT_CHAIN,
     index: DEFAULT_ACC_INDEX,
     net: DEFAULT_NET,
-    mnemonic: encryptedMnemonic,
+    mnemonic,
+    encryptedMnemonic,
     secretWord
   };
 
   return { ...account, passphrase };
 };
 
-export default createActions(
-  ID,
-  ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
-    return () => createAccount(walletName, passphrase, passphraseConfirmation, secretWord);
-  }
-);
+export default createActions(ID, ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
+  return () => createAccount(walletName, passphrase, passphraseConfirmation, secretWord);
+});
