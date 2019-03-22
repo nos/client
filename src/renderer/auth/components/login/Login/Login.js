@@ -3,9 +3,8 @@ import { bool, func } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
-import Logo from 'shared/images/logo.svg';
 
-import LoginFormProfile from '../LoginFormProfile';
+import LoginFormAccount from '../LoginFormAccount';
 import styles from './Login.scss';
 
 const TAB_PROFILES = 'Profiles';
@@ -50,7 +49,7 @@ export default class LoginPanel extends React.PureComponent {
 
     switch (id) {
       case TAB_PROFILES:
-        return <LoginFormProfile disabled={loading} onLogin={login} />;
+        return <LoginFormAccount disabled={loading} onLogin={login} />;
       default:
         throw new Error('Invalid tab.');
     }

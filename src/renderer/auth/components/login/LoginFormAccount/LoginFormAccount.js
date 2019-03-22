@@ -6,12 +6,12 @@ import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
-import styles from './LoginFormProfile.scss';
+import styles from './LoginFormAccount.scss';
 // import LoginButton from '../LoginButton';
 import AuthButton from '../../AuthButton';
 
 // TODO fix any prop type
-export default class LoginFormProfile extends React.PureComponent {
+export default class LoginFormAccount extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,

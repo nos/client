@@ -1,7 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import { withData, withActions } from 'spunky';
-import { isEmpty } from 'lodash';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNullLoader from 'browser/hocs/withNullLoader';
@@ -11,19 +10,19 @@ import previousAuthActions, {
 import accountActions from 'auth/actions/accountActions';
 import withLogin from 'auth/hocs/withLogin';
 
-import LoginFormProfile from './LoginFormProfile';
+import LoginFormAccount from './LoginFormAccount';
 
-const mapProfileActionsToProps = (profiles) => ({
-  profiles
+const mapAccountActionsToProps = (accounts) => ({
+  accounts
 });
 
 const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
 });
 
-const mapPreviousAuthDataToProps = (data) => ({
-  encryptedWIF: data && data.encryptedWIF
-});
+const mapPreviousAuthDataToProps = (data) => console.log('Previous out', data) || {
+    label: data && data.label
+  };
 
 export default compose(
   withInitialCall(accountActions),
@@ -32,13 +31,14 @@ export default compose(
   withNullLoader(accountActions),
   withNullLoader(previousAuthActions),
 
-  withData(accountActions, mapProfileActionsToProps),
+  withData(accountActions, mapAccountActionsToProps),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
   withState(
-    'currentProfile',
-    'setCurrentProfile',
-    ({ profiles }) => Object.values(profiles)[0] && Object.values(profiles)[0].label
+    'currentAccount',
+    'setCurrentAccount',
+    ({ accounts, ...rest }) => console.log('rest, ', rest) ||
+      (Object.values(accounts)[0] && Object.values(accounts)[0].label)
   ),
   withState('passphrase', 'setPassphrase', ''),
 
@@ -48,4 +48,4 @@ export default compose(
   // redirect on login
   withRouter,
   withLogin((state, { history }) => history.push('/browser'))
-)(LoginFormProfile);
+)(LoginFormAccount);
