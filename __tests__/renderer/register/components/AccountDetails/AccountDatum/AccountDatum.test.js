@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import AccountDatum from 'register/components/AccountDetails/AccountDatum/AccountDatum';
+import AccountDatum from 'auth/components/Register/AccountDetails/AccountDatum/AccountDatum';
 import Icon from 'shared/components/Icon';
 
 describe('<AccountDatum />', () => {

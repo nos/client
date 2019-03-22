@@ -3,11 +3,9 @@ import { isEmpty } from 'lodash';
 import bip39 from 'bip39';
 
 import simpleEncrypt from 'shared/util/simpleEncrypt';
-import PROFILE_ID, { DEFAULT_ACC_INDEX } from 'shared/values/profile';
-import { getStorage, setStorage } from 'shared/lib/storage';
+import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
+import { getStorage } from 'shared/lib/storage';
 import { DEFAULT_NET } from 'values/networks';
-import { DEFAULT_FEE } from 'shared/values/fees';
-import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import { DEFAULT_CHAIN } from 'shared/values/chains';
 
@@ -16,7 +14,12 @@ const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 export const ID = 'createAccount';
 const ACCOUNT_ID = 'account';
 
-const createAccount = async (label, passphrase, passphraseConfirmation, secretWord) => {
+const createAccount = async (
+  label,
+  passphrase,
+  passphraseConfirmation,
+  secretWord
+) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
@@ -33,7 +36,11 @@ const createAccount = async (label, passphrase, passphraseConfirmation, secretWo
   }
 
   // Generate bip39 Mnemonic - 256-bits entropy (24-word long mnemonic)
-  const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
+  const mnemonic = bip39.generateMnemonic(
+    256,
+    null,
+    bip39.wordlists[DEFAULT_LANGUAGE]
+  );
   const encryptedMnemonic = simpleEncrypt(mnemonic, passphrase);
 
   const account = {
@@ -49,6 +56,9 @@ const createAccount = async (label, passphrase, passphraseConfirmation, secretWo
   return { ...account, passphrase };
 };
 
-export default createActions(ID, ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
-  return () => createAccount(walletName, passphrase, passphraseConfirmation, secretWord);
-});
+export default createActions(
+  ID,
+  ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
+    return () => createAccount(walletName, passphrase, passphraseConfirmation, secretWord);
+  }
+);

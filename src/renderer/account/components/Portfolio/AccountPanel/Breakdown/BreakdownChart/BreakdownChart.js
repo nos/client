@@ -30,9 +30,7 @@ export default class BreakdownChart extends React.PureComponent {
   };
 
   render() {
-    console.log('BreakdownChart', this.props.data);
     const data = this.getData();
-    console.log('data', data);
 
     return (
       <ResponsiveContainer
@@ -71,7 +69,6 @@ export default class BreakdownChart extends React.PureComponent {
     const data = [...this.props.data];
 
     const totalSum = reduceSum(data);
-    console.log('totalSum', totalSum);
     if (totalSum === 0) {
       return [];
     }

@@ -2,9 +2,15 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded,
+  addLoadedListener
+} from 'testHelpers';
 
-import RegisterForm from 'register/components/RegisterForm';
+import RegisterForm from 'auth/components/Register/RegisterForm';
 
 const initialState = {
   [spunkyKey]: {
@@ -20,7 +26,14 @@ describe('<RegisterForm />', () => {
   });
 
   const mountContainer = (props = {}) => {
-    return mount(provideStore(<MemoryRouter><RegisterForm {...props} /></MemoryRouter>, store));
+    return mount(
+      provideStore(
+        <MemoryRouter>
+          <RegisterForm {...props} />
+        </MemoryRouter>,
+        store
+      )
+    );
   };
 
   const addRegisterLoadedListener = (callback) => {
@@ -32,8 +45,12 @@ describe('<RegisterForm />', () => {
       addRegisterLoadedListener(done);
 
       const wrapper = mountContainer();
-      wrapper.find('input#passphrase').simulate('change', { target: { value: 'test' } });
-      wrapper.find('input#passphraseConfirmation').simulate('change', { target: { value: 'test' } });
+      wrapper
+        .find('input#passphrase')
+        .simulate('change', { target: { value: 'test' } });
+      wrapper
+        .find('input#passphraseConfirmation')
+        .simulate('change', { target: { value: 'test' } });
       wrapper.find('form').simulate('submit');
     }, 10000);
   });

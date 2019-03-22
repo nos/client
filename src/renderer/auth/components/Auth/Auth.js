@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string, func, bool } from 'prop-types';
-import { noop } from 'lodash';
 
 import Modal from 'shared/components/Modal';
 

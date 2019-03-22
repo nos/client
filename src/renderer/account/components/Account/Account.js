@@ -1,30 +1,26 @@
-import React from 'react';
-import classNames from 'classnames';
-import { string, func } from 'prop-types';
+import React from "react";
+import classNames from "classnames";
+import { string, func } from "prop-types";
 
-import Page from 'shared/components/Page';
+import Tabs from "shared/components/Tabs";
+import PortfolioIcon from "shared/images/account/portfolio.svg";
+import KeyMngmntIcon from "shared/images/account/keyManagement.svg";
 
-import Panel from 'shared/components/Panel';
-import Tabs from 'shared/components/Tabs';
-import PortfolioIcon from 'shared/images/account/portfolio.svg';
-import KeyMngmntIcon from 'shared/images/account/keyManagement.svg';
+import styles from "./Account.scss";
 
-import styles from './Account.scss';
+import Portfolio from "../Portfolio";
+import Management from "../Management";
 
-// import TransactionsPanel from '../TransactionsPanel';
-// import AccountPanel from '../AccountPanel';
+import IconTab from "../Portfolio/TransactionsPanel/HorizontalIconTab";
 
-import Portfolio from '../Portfolio';
-import Management from '../Management';
-
-import IconTab from '../Portfolio/TransactionsPanel/HorizontalIconTab';
-
-const TAB_PORTFOLIO = 'portfolio';
-const TAB_KEY_MANAGEMENT = 'keyManagement';
+const TAB_PORTFOLIO = "portfolio";
+const TAB_KEY_MANAGEMENT = "keyManagement";
 
 const TABS = {
   [TAB_PORTFOLIO]: <IconTab renderIcon={PortfolioIcon}>Portfolio</IconTab>,
-  [TAB_KEY_MANAGEMENT]: <IconTab renderIcon={KeyMngmntIcon}>Key Management</IconTab>
+  [TAB_KEY_MANAGEMENT]: (
+    <IconTab renderIcon={KeyMngmntIcon}>Key Management</IconTab>
+  )
 };
 
 export default class Account extends React.PureComponent {
@@ -45,8 +41,6 @@ export default class Account extends React.PureComponent {
   render() {
     const { __progress__, showErrorToast } = this.props;
 
-    console.log('Account.js', this.props);
-
     // if (__progress__ === 'FAILED') {
     //   showErrorToast('Loading is taking longer than expected. Check your nOS Network Settings.');
     // }
@@ -64,18 +58,18 @@ export default class Account extends React.PureComponent {
     );
   }
 
-  renderTab = (id) => {
+  renderTab = id => {
     switch (id) {
       case TAB_PORTFOLIO:
         return <Portfolio />;
       case TAB_KEY_MANAGEMENT:
         return <Management />;
       default:
-        throw new Error('Invalid tab.');
+        throw new Error("Invalid tab.");
     }
   };
 
-  handleSelectTab = (tab) => {
+  handleSelectTab = tab => {
     this.setState({ tab });
   };
 }

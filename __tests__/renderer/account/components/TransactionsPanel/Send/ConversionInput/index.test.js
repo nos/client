@@ -1,10 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded
+} from 'testHelpers';
 
-import ConversionInputContainer from 'account/components/TransactionsPanel/Send/ConversionInput';
-import ConversionInput from 'account/components/TransactionsPanel/Send/ConversionInput/ConversionInput';
+import ConversionInputContainer from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput';
+import ConversionInput from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput/ConversionInput';
 
 const initialState = {
   [spunkyKey]: {
@@ -19,16 +24,19 @@ const defaultProps = {
     symbol: 'NOS',
     balance: '100',
     decimals: 8,
-    image: 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/assets/svg/nos.svg'
+    image:
+      'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/assets/svg/nos.svg'
   },
   price: 0.05
 };
 
 const mountContainer = (props = {}) => {
-  return mount(provideStore(
-    <ConversionInputContainer {...defaultProps} {...props} />,
-    createStore(initialState)
-  ));
+  return mount(
+    provideStore(
+      <ConversionInputContainer {...defaultProps} {...props} />,
+      createStore(initialState)
+    )
+  );
 };
 
 describe('<ConversionInput />', () => {

@@ -1,9 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded
+} from 'testHelpers';
 
-import Receive from 'account/components/TransactionsPanel/Receive';
+import Receive from 'account/components/Portfolio/TransactionsPanel/Receive';
 
 const address = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 

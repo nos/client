@@ -5,7 +5,6 @@ import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import authActions from 'auth/actions/authActions';
 import withAlert from 'shared/hocs/withAlert';
-import storeProfileActions from 'auth/actions/profileActions';
 import { appendAccountActions } from 'auth/actions/accountActions';
 
 import SaveAccount from './SaveAccount';
