@@ -35,11 +35,13 @@ export default class SaveAccount extends React.PureComponent {
 
   handleSaveAndContinue = async () => {
     const { account, login, storeProfile, setLastLogin } = this.props;
-    const { walletName, address, passphrase, encryptedKey } = account;
+    const { passphrase, label } = account;
+    delete account.mnemonic;
+    delete account.passphrase;
 
     // TODO move to index file using 'withLogin'
-    setLastLogin({ encryptedWIF: encryptedKey });
-    storeProfile({ walletName, address, encryptedKey });
+    setLastLogin(account);
+    storeProfile({ label, value: account });
     login({ account, passphrase });
   };
 }
