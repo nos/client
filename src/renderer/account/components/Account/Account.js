@@ -1,20 +1,20 @@
-import React from "react";
-import classNames from "classnames";
-import { string, func } from "prop-types";
+import React from 'react';
+import classNames from 'classnames';
+import { string, func } from 'prop-types';
 
-import Tabs from "shared/components/Tabs";
-import PortfolioIcon from "shared/images/account/portfolio.svg";
-import KeyMngmntIcon from "shared/images/account/keyManagement.svg";
+import Tabs from 'shared/components/Tabs';
+import PortfolioIcon from 'shared/images/account/portfolio.svg';
+import KeyMngmntIcon from 'shared/images/account/keyManagement.svg';
 
-import styles from "./Account.scss";
+import styles from './Account.scss';
 
-import Portfolio from "../Portfolio";
-import Management from "../Management";
+import Portfolio from '../Portfolio';
+import Management from '../Management';
 
-import IconTab from "../Portfolio/TransactionsPanel/HorizontalIconTab";
+import IconTab from '../Portfolio/TransactionsPanel/HorizontalIconTab';
 
-const TAB_PORTFOLIO = "portfolio";
-const TAB_KEY_MANAGEMENT = "keyManagement";
+const TAB_PORTFOLIO = 'portfolio';
+const TAB_KEY_MANAGEMENT = 'keyManagement';
 
 const TABS = {
   [TAB_PORTFOLIO]: <IconTab renderIcon={PortfolioIcon}>Portfolio</IconTab>,
@@ -58,18 +58,18 @@ export default class Account extends React.PureComponent {
     );
   }
 
-  renderTab = id => {
+  renderTab = (id) => {
     switch (id) {
       case TAB_PORTFOLIO:
         return <Portfolio />;
       case TAB_KEY_MANAGEMENT:
         return <Management />;
       default:
-        throw new Error("Invalid tab.");
+        throw new Error('Invalid tab.');
     }
   };
 
-  handleSelectTab = tab => {
+  handleSelectTab = (tab) => {
     this.setState({ tab });
   };
 }

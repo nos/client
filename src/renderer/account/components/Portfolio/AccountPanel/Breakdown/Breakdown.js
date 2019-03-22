@@ -1,13 +1,13 @@
-import React from "react";
-import classNames from "classnames";
-import { number, string, arrayOf, objectOf } from "prop-types";
+import React from 'react';
+import classNames from 'classnames';
+import { number, string, arrayOf, objectOf } from 'prop-types';
 
-import TokenIcon from "shared/components/TokenIcon";
+import TokenIcon from 'shared/components/TokenIcon';
 
-import balanceShape from "../../../../shapes/balanceShape";
-import TotalValue from "./TotalValue";
-import BreakdownChart from "./BreakdownChart";
-import styles from "./Breakdown.scss";
+import balanceShape from '../../../../shapes/balanceShape';
+import TotalValue from './TotalValue';
+import BreakdownChart from './BreakdownChart';
+import styles from './Breakdown.scss';
 
 export default class Breakdown extends React.PureComponent {
   static propTypes = {
