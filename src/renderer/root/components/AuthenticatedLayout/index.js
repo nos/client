@@ -22,8 +22,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapAuthDataToProps = (props) => ({
-  ...props,
-  address: 'kek'
+  address: (props && props.address) || undefined
 });
 
 const mapBlockActionsToProps = (actions, props) => ({
