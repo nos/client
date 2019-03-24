@@ -20,9 +20,9 @@ const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
 });
 
-const mapPreviousAuthDataToProps = (data) => console.log('Previous out', data) || {
-    label: data && data.label
-  };
+const mapPreviousAuthDataToProps = (data) => ({
+  previousAuth: data && data.label
+});
 
 export default compose(
   withInitialCall(accountActions),
@@ -37,15 +37,18 @@ export default compose(
   withState(
     'currentAccount',
     'setCurrentAccount',
-    ({ accounts, ...rest }) => console.log('rest, ', rest) ||
+    ({ accounts, previousAuth }) => previousAuth ||
       (Object.values(accounts)[0] && Object.values(accounts)[0].label)
   ),
   withState('passphrase', 'setPassphrase', ''),
 
-  // store encryptedWIF on login so we can quickly authenticate again next time the app launches
+  // store accountLabebl to store previously selected lable
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
 
   // redirect on login
   withRouter,
-  withLogin((state, { history }) => history.push('/browser'))
+  withLogin((state, { history, setLastLogin, currentAccount }) => {
+    setLastLogin({ label: currentAccount });
+    history.push('/browser');
+  })
 )(LoginFormAccount);

@@ -17,9 +17,9 @@ export default class LoginFormAccount extends React.PureComponent {
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
-    profiles: any, // eslint-disable-line
-    currentProfile: string,
-    setCurrentProfile: func,
+    accounts: any, // eslint-disable-line
+    currentAccount: string,
+    setCurrentAccount: func,
     history: shape({
       location: object.isRequired,
       push: func.isRequired
@@ -30,39 +30,39 @@ export default class LoginFormAccount extends React.PureComponent {
     disabled: false,
     passphrase: '',
     onLogin: noop,
-    setCurrentProfile: noop,
+    setCurrentAccount: noop,
     setPassphrase: noop,
-    profiles: undefined,
-    currentProfile: ''
+    accounts: undefined,
+    currentAccount: ''
   };
 
   render() {
-    const { disabled, currentProfile, passphrase, profiles } = this.props;
+    const { disabled, currentAccount, passphrase, accounts } = this.props;
 
-    if (isEmpty(currentProfile)) {
+    if (isEmpty(currentAccount)) {
       return this.renderNoWallet();
     } else {
       return this.renderRegisterForm({
         disabled,
-        currentProfile,
-        profiles,
+        currentAccount,
+        accounts,
         passphrase
       });
     }
   }
 
-  renderRegisterForm = ({ disabled, currentProfile, profiles, passphrase }) => (
+  renderRegisterForm = ({ disabled, currentAccount, accounts, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
-      <div>{profiles[currentProfile].secretWord}</div>
+      <div>{accounts[currentAccount].secretWord}</div>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
         id="profiel"
         label="Select Wallet"
-        disabled={isEmpty(profiles)}
-        value={currentProfile}
+        disabled={isEmpty(accounts)}
+        value={currentAccount}
         items={this.getProfiles()}
-        onChange={this.handleChangeCurrentProfile}
+        onChange={this.handleChangeCurrentAccount}
       />
 
       <LabeledInput
@@ -71,7 +71,7 @@ export default class LoginFormAccount extends React.PureComponent {
         label="Passphrase"
         placeholder="Enter passphrase"
         value={passphrase}
-        disabled={disabled || isEmpty(profiles)}
+        disabled={disabled || isEmpty(accounts)}
         onChange={this.handleChangePassphrase}
       />
 
@@ -105,26 +105,26 @@ export default class LoginFormAccount extends React.PureComponent {
     this.props.setPassphrase(event.target.value);
   };
 
-  handleChangeCurrentProfile = (value) => {
-    this.props.setCurrentProfile(value);
+  handleChangeCurrentAccount = (value) => {
+    this.props.setCurrentAccount(value);
   };
 
   handleLogin = (event) => {
-    const { passphrase, currentProfile, onLogin, profiles } = this.props;
+    const { passphrase, currentAccount, onLogin, accounts } = this.props;
 
     event.preventDefault();
-    const selectedProfile = profiles[currentProfile];
+    const selectedProfile = accounts[currentAccount];
     onLogin({ account: selectedProfile, passphrase });
   };
 
   getProfiles = () => {
-    const { profiles, currentProfile } = this.props;
+    const { accounts, currentAccount } = this.props;
 
-    if (!profiles) {
-      return [{ label: 'No Wallets Found', value: currentProfile }];
+    if (!accounts) {
+      return [{ label: 'No Wallets Found', value: currentAccount }];
     }
 
-    return map(profiles, ({ label }) => ({
+    return map(accounts, ({ label }) => ({
       label,
       value: label
     }));

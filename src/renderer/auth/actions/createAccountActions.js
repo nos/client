@@ -14,12 +14,12 @@ const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 export const ID = 'createAccount';
 const ACCOUNT_ID = 'account';
 
-const createAccount = async (
+const createAccount = async ({
   label,
   passphrase,
   passphraseConfirmation,
   secretWord
-) => {
+}) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
@@ -56,9 +56,6 @@ const createAccount = async (
   return { ...account, passphrase };
 };
 
-export default createActions(
-  ID,
-  ({ walletName, passphrase, passphraseConfirmation, secretWord }) => {
-    return () => createAccount(walletName, passphrase, passphraseConfirmation, secretWord);
-  }
-);
+export default createActions(ID, (data) => {
+  return () => createAccount(data);
+});

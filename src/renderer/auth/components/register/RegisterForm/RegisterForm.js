@@ -12,11 +12,11 @@ import AuthButton from '../../AuthButton';
 export default class RegisterForm extends React.PureComponent {
   static propTypes = {
     loading: bool,
-    walletName: string,
+    label: string,
     passphrase: string,
     passphraseConfirmation: string,
     secretWord: string,
-    setWalletName: func,
+    setLabel: func,
     setPassphrase: func,
     setPassphraseConfirmation: func,
     setSecretWord: func,
@@ -25,11 +25,11 @@ export default class RegisterForm extends React.PureComponent {
 
   static defaultProps = {
     loading: false,
-    walletName: '',
+    label: '',
     passphrase: '',
     passphraseConfirmation: '',
     secretWord: '',
-    setWalletName: noop,
+    setLabel: noop,
     setPassphrase: noop,
     setPassphraseConfirmation: noop,
     setSecretWord: noop,
@@ -37,18 +37,24 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   render = () => {
-    const { walletName, passphrase, passphraseConfirmation, secretWord, loading } = this.props;
+    const {
+      label,
+      passphrase,
+      passphraseConfirmation,
+      secretWord,
+      loading
+    } = this.props;
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
         <LabeledInput
-          id="walletName"
+          id="label"
           type="text"
           label="Wallet Name"
           placeholder="Enter Wallet Name"
-          value={walletName}
+          value={label}
           disabled={loading}
-          onChange={this.handleChangeWalletName}
+          onChange={this.handleChangeLabel}
         />
         <LabeledInput
           id="passphrase"
@@ -105,8 +111,8 @@ export default class RegisterForm extends React.PureComponent {
     this.props.setSecretWord(event.target.value);
   };
 
-  handleChangeWalletName = (event) => {
-    this.props.setWalletName(event.target.value);
+  handleChangeLabel = (event) => {
+    this.props.setLabel(event.target.value);
   };
 
   handleChangePassphrase = (event) => {
@@ -118,13 +124,21 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   handleRegister = (event) => {
-    const { walletName, passphrase, secretWord, passphraseConfirmation, onRegister } = this.props;
+    const {
+      label,
+      passphrase,
+      secretWord,
+      passphraseConfirmation,
+      onRegister
+    } = this.props;
 
     event.preventDefault();
-    onRegister({ walletName, passphrase, passphraseConfirmation, secretWord });
+    onRegister({ label, passphrase, passphraseConfirmation, secretWord });
   };
 
   isValid = () => {
-    return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
+    return (
+      this.props.passphrase !== '' && this.props.passphraseConfirmation !== ''
+    );
   };
 }

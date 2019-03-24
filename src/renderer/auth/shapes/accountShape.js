@@ -1,9 +1,12 @@
 import { string, shape } from 'prop-types';
 
 export default shape({
-  walletName: string.isRequired,
-  encryptedKey: string.isRequired,
-  address: string.isRequired,
-  passphrase: string, // Passphrase not required in the case when signing in
-  key: string // Private key not required in the case when signing in
+  label: string.isRequired,
+  encryptedMnemonic: string.isRequired,
+  chainId: string.isRequired,
+  index: string.isRequired,
+  net: string.isRequired,
+  secretWord: string.isRequired,
+  mnemonic: string, // Unencrypted mnemonic not required for better security
+  passphrase: string // Passphrase not required in the case when signing in
 });

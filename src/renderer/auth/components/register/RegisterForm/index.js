@@ -12,18 +12,8 @@ import RegisterForm from './RegisterForm';
 const { FAILED } = progressValues;
 
 const mapAccountActionsToProps = (actions) => ({
-  onRegister: ({
-    walletName,
-    passphrase,
-    passphraseConfirmation,
-    secretWord
-  }) => {
-    return actions.call({
-      walletName,
-      passphrase,
-      passphraseConfirmation,
-      secretWord
-    });
+  onRegister: (data) => {
+    return actions.call(data);
   }
 });
 
@@ -31,7 +21,7 @@ export default compose(
   withActions(createAccountActions, mapAccountActionsToProps),
   withLoadingProp(createAccountActions, { strategy: pureStrategy }),
 
-  withState('walletName', 'setWalletName', Math.random().toString()),
+  withState('label', 'setLabel', Math.random().toString()),
   withState('passphrase', 'setPassphrase', 'q'),
   withState('passphraseConfirmation', 'setPassphraseConfirmation', 'q'),
   withState('secretWord', 'setSecretWord', 'MySercetWord'),

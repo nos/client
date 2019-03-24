@@ -5,7 +5,6 @@ import { withData } from 'spunky';
 import withUnmountReset from 'shared/hocs/withUnmountReset';
 import withLogin from 'auth/hocs/withLogin';
 import createAccountActions from 'auth/actions/createAccountActions';
-import storeProfileActions from 'auth/actions/profileActions';
 
 import Register from './Register';
 
@@ -13,7 +12,6 @@ const mapAccountDataToProps = (account) => ({ account });
 
 export default compose(
   withUnmountReset(createAccountActions),
-  withUnmountReset(storeProfileActions),
   withData(createAccountActions, mapAccountDataToProps),
 
   // redirect on login
