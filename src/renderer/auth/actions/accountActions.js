@@ -13,6 +13,7 @@ export default createActions(ID, () => async () => {
 export const appendAccountActions = createActions(
   ID,
   ({ label, value }) => async () => {
-    return appendStorage(ID, label, value);
+    await appendStorage(ID, label, value);
+    return getStorage(ID);
   }
 );

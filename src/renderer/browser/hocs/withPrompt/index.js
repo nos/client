@@ -21,20 +21,21 @@ export default function withPrompt(message, optionsOrFn = {}) {
       };
 
       componentDidMount() {
-        const options = isFunction(optionsOrFn) ? optionsOrFn(this.props) : optionsOrFn;
+        const options = isFunction(optionsOrFn)
+          ? optionsOrFn(this.props)
+          : optionsOrFn;
 
-        this.props.confirm((
-          <div className={styles.prompt}>
-            {this.renderMessage()}
-          </div>
-        ), {
-          ...options,
-          title: get(options, 'title', 'Permission Request'),
-          confirmLabel: 'Confirm',
-          onConfirm: this.handleConfirm,
-          onCancel: this.handleCancel,
-          origin: this.props.src
-        });
+        this.props.confirm(
+          <div className={styles.prompt}>{this.renderMessage()}</div>,
+          {
+            ...options,
+            title: get(options, 'title', 'Permission Request'),
+            confirmLabel: 'Confirm',
+            onConfirm: this.handleConfirm,
+            onCancel: this.handleCancel,
+            origin: this.props.src
+          }
+        );
       }
 
       render() {
@@ -54,15 +55,15 @@ export default function withPrompt(message, optionsOrFn = {}) {
         } else {
           return message;
         }
-      }
+      };
 
       handleConfirm = () => {
         this.setState({ confirmed: true });
-      }
+      };
 
       handleCancel = () => {
         this.props.onReject('Cancelled by user.');
-      }
+      };
     }
 
     return withConfirm()(PromptComponent);
