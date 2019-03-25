@@ -23,20 +23,18 @@ import Send from './Send';
 const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapSendActionsToProps = (actions, props) => ({
-  asset,
-  amount,
-  receiver
-}) => actions.call({
-    net: props.net,
-    address: props.auth.address,
-    wif: props.auth.WIF,
-    publicKey: props.auth.publicKey,
-    signingFunction: props.auth.signingFunction,
-    fee: props.fee,
-    asset,
-    amount,
-    receiver
-  });
+  onSend: ({ asset, amount, receiver }) => actions.call({
+      net: props.net,
+      address: props.auth.address,
+      wif: props.auth.WIF,
+      publicKey: props.auth.publicKey,
+      signingFunction: props.auth.signingFunction,
+      fee: props.fee,
+      asset,
+      amount,
+      receiver
+    })
+});
 
 const mapFeeDataToProps = (fee) => ({ fee });
 const mapAuthDataToProps = (auth) => ({ auth });
