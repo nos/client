@@ -8,7 +8,11 @@ import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
-import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
+import {
+  withInfoToast,
+  withSuccessToast,
+  withErrorToast
+} from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
@@ -19,21 +23,23 @@ import Send from './Send';
 const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapSendActionsToProps = (actions, props) => ({
-  onSend: ({ asset, amount, receiver }) => actions.call({
+  asset,
+  amount,
+  receiver
+}) => actions.call({
     net: props.net,
-    address: props.address,
-    wif: props.wif,
-    publicKey: props.publicKey,
-    signingFunction: props.signingFunction,
+    address: props.auth.address,
+    wif: props.auth.WIF,
+    publicKey: props.auth.publicKey,
+    signingFunction: props.auth.signingFunction,
     fee: props.fee,
     asset,
     amount,
     receiver
-  })
-});
+  });
 
 const mapFeeDataToProps = (fee) => ({ fee });
-const mapAuthDataToProps = (data) => data;
+const mapAuthDataToProps = (auth) => ({ auth });
 
 export default compose(
   withNetworkData(),
@@ -56,23 +62,40 @@ export default compose(
   withErrorToast(),
 
   withLoadingProp(sendActions, { propName: 'sending', strategy: pureStrategy }),
-  withProgressChange(sendActions, LOADING, (state, props) => {
-    if (props.signingFunction) {
-      props.showInfoToast('Please sign the transaction on your Ledger');
+  withProgressChange(
+    sendActions,
+    LOADING,
+    (state, props) => {
+      if (props.signingFunction) {
+        props.showInfoToast('Please sign the transaction on your Ledger');
+      }
+    },
+    {
+      strategy: pureStrategy
     }
-  }, {
-    strategy: pureStrategy
-  }),
-  withProgressChange(sendActions, LOADED, (state, props) => {
-    props.showSuccessToast('Transaction added to blockchain, account balances will update shortly');
-    props.setAmount('0');
-    props.setReceiver('');
-  }, {
-    strategy: pureStrategy
-  }),
-  withProgressChange(sendActions, FAILED, (state, props) => {
-    props.showErrorToast(`Transaction failed. ${state.error}`);
-  }, {
-    strategy: pureStrategy
-  })
+  ),
+  withProgressChange(
+    sendActions,
+    LOADED,
+    (state, props) => {
+      props.showSuccessToast(
+        'Transaction added to blockchain, account balances will update shortly'
+      );
+      props.setAmount('0');
+      props.setReceiver('');
+    },
+    {
+      strategy: pureStrategy
+    }
+  ),
+  withProgressChange(
+    sendActions,
+    FAILED,
+    (state, props) => {
+      props.showErrorToast(`Transaction failed. ${state.error}`);
+    },
+    {
+      strategy: pureStrategy
+    }
+  )
 )(Send);

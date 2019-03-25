@@ -9,7 +9,18 @@ import validateRemark from 'shared/util/validateRemark';
 import { ASSETS } from '../values/assets';
 
 export default async function sendAsset(
-  { net, asset, amount, receiver, address, wif, publicKey, signingFunction, remark, fee = 0 },
+  {
+    net,
+    asset,
+    amount,
+    receiver,
+    address,
+    wif,
+    publicKey,
+    signingFunction,
+    remark,
+    fee = 0
+  },
   getBalance = api.neoscan.getBalance,
   doSendAsset = api.sendAsset,
   doInvoke = api.doInvoke,
@@ -29,13 +40,26 @@ export default async function sendAsset(
 
   const send = async () => {
     const url = await doGetRPCEndpoint(net);
-    const config = { net, url, address, privateKey: wif, publicKey, signingFunction, fees: fee };
+    const config = {
+      net,
+      url,
+      address,
+      privateKey: wif,
+      publicKey,
+      signingFunction,
+      fees: fee
+    };
 
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset].symbol;
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
       const balance = await getBalance(net, address);
-      const transaction = tx.Transaction.createContractTx(balance, intents, {}, fee);
+      const transaction = tx.Transaction.createContractTx(
+        balance,
+        intents,
+        {},
+        fee
+      );
 
       if (typeof remark === 'string') {
         transaction.addRemark(remark);
@@ -47,13 +71,20 @@ export default async function sendAsset(
 
       return doSendAsset({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
-      const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
+      const script = createScript(
+        asset,
+        'transfer',
+        [address, receiver, new u.Fixed8(amount)],
+        true
+      );
 
       return doInvoke({ ...config, script, gas: 0 }, api.neoscan);
     }
   };
 
-  const { response: { result, txid } } = await send();
+  const {
+    response: { result, txid }
+  } = await send();
 
   if (!result) {
     throw new Error('Transaction rejected by blockchain');

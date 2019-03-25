@@ -53,7 +53,9 @@ export default class LoginFormAccount extends React.PureComponent {
 
   renderRegisterForm = ({ disabled, currentAccount, accounts, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
-      <div>{accounts[currentAccount].secretWord}</div>
+      <div>
+        {accounts[currentAccount] && accounts[currentAccount].secretWord}
+      </div>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
