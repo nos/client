@@ -3,6 +3,8 @@ import { string, func } from 'prop-types';
 
 import Page from 'shared/components/Page';
 
+import Accounts from './Accounts';
+
 import styles from './Management.scss';
 
 export default class Management extends React.PureComponent {
@@ -18,11 +20,9 @@ export default class Management extends React.PureComponent {
 
   render() {
     return (
-      <div className={styles.account}>
-        <Page className={styles.content}>
-          <div> HEY </div>
-        </Page>
-      </div>
+      <Page className={styles.management}>
+        <Accounts />
+      </Page>
     );
   }
 }
