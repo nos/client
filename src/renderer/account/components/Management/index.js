@@ -12,7 +12,7 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import Management from './Management';
 import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
 
-const mapAuthDataToProps = ({ address }) => ({ address });
+const mapAuthDataToProps = (auth) => ({ auth });
 
 const mapCurrencyDataToProps = (currency) => ({ currency });
 
