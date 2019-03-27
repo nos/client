@@ -34,8 +34,10 @@ const authenticate = async ({ account, passphrase }) => {
   // which can be used to create child keys in the manner specified by bip44.
   const root = bip32.fromSeed(seed);
 
+  const currentAccount = account.accounts[account.activeAccountId];
+
   // Create agnostic wallet, able to derive child wallets for each chain
-  const wallet = new Wallet(root).deriveWalletFromAccount(account);
+  const wallet = new Wallet(root).deriveWalletFromAccount(currentAccount);
 
   return wallet;
 };

@@ -38,7 +38,7 @@ export default compose(
     'currentAccount',
     'setCurrentAccount',
     ({ accounts, previousAuth }) => previousAuth ||
-      (Object.values(accounts)[0] && Object.values(accounts)[0].label)
+      (Object.values(accounts)[0] && Object.values(accounts)[0].accountLabel)
   ),
   withState('passphrase', 'setPassphrase', ''),
 

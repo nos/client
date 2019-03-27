@@ -1,13 +1,14 @@
 import { createActions } from 'spunky';
 import { isEmpty } from 'lodash';
 import bip39 from 'bip39';
+import uuid from 'uuid/v4';
 
 import simpleEncrypt from 'shared/util/simpleEncrypt';
 import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { getStorage } from 'shared/lib/storage';
 import { DEFAULT_NET } from 'values/networks';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-import { DEFAULT_CHAIN } from 'shared/values/chains';
+import CHAINS, { DEFAULT_CHAIN } from 'shared/values/chains';
 
 const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 
@@ -43,17 +44,37 @@ const createAccount = async ({
   );
   const encryptedMnemonic = simpleEncrypt(mnemonic, passphrase);
 
+  const activeAccountId = uuid();
+  const ethAccountId = uuid();
+
   const account = {
-    label,
-    chainId: DEFAULT_CHAIN,
-    index: DEFAULT_ACC_INDEX,
-    net: DEFAULT_NET,
-    mnemonic,
+    accountLabel: label,
     encryptedMnemonic,
-    secretWord
+    secretWord,
+    passphrase, // Will be removed when persisting to storage
+    mnemonic, // Will be removed when persisting to storage
+    activeAccountId,
+    accounts: {
+      [activeAccountId]: {
+        accountId: activeAccountId,
+        chainId: DEFAULT_CHAIN,
+        index: DEFAULT_ACC_INDEX,
+        account: 0,
+        change: 0,
+        net: DEFAULT_NET
+      },
+      [ethAccountId]: {
+        accountId: ethAccountId,
+        chainId: CHAINS.ETH,
+        index: DEFAULT_ACC_INDEX,
+        account: 0,
+        change: 0,
+        net: DEFAULT_NET
+      }
+    }
   };
 
-  return { ...account, passphrase };
+  return account;
 };
 
 export default createActions(ID, (data) => {

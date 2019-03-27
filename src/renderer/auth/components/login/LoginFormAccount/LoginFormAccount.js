@@ -126,9 +126,9 @@ export default class LoginFormAccount extends React.PureComponent {
       return [{ label: 'No Wallets Found', value: currentAccount }];
     }
 
-    return map(accounts, ({ label }) => ({
-      label,
-      value: label
+    return map(accounts, ({ accountLabel }) => ({
+      label: accountLabel,
+      value: accountLabel
     }));
   };
 
