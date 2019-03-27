@@ -23,17 +23,29 @@ export default class Accounts extends React.PureComponent {
       <div className={styles.accounts}>
         <div>
           <div className={styles.title}>My Account</div>
-          <Account />
+          <Account
+            data={{
+              mnemonic:
+                'sddawd jodaiwj dioaw djaowidj aowidj awodjaw oidjawoidjaowid jawiod'
+            }}
+          />
         </div>
         <div>
           <div className={styles.subtitle}>
             Accounts generated from Keychain
           </div>
-          <Account />
-          <Account />
-          <Account />
-          <Account />
-          <Account />
+          <Account
+            data={{
+              privateKey: 'IOFHJAIFHEISUFHISUEFHISEHF',
+              publicKey: 'IOFHJAIFHEISUFHISUEFHISEHF'
+            }}
+          />
+          <Account
+            data={{
+              privateKey: 'IOFHJAIFHEISUFHISUEFHISEHF',
+              publicKey: 'IOFHJAIFHEISUFHISUEFHISEHF'
+            }}
+          />
         </div>
       </div>
     );

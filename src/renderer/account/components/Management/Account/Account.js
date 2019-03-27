@@ -5,7 +5,7 @@ import { string, bool } from 'prop-types';
 import KeyChainIcon from 'shared/images/account/keychain.svg';
 import CopyIcon from 'shared/images/wallet/copy.svg';
 
-import SecretView from '../SecretView';
+import AccountData from '../AccountData';
 import styles from './Account.scss';
 
 export default function AccountAddress(props) {
@@ -20,9 +20,7 @@ export default function AccountAddress(props) {
           <div className={styles.subtitle}>Secret Words</div>
         </div>
       </div>
-      <div className={styles.right}>
-        <SecretView data="DWAOIDJIOWA" />
-      </div>
+      <AccountData data={props.data} />
     </div>
   );
 }
