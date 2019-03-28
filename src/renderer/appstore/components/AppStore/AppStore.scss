@@ -1,0 +1,11 @@
+.appstore {
+  -webkit-font-smoothing: antialiased;
+  padding: 24px;
+
+  .grid {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, 190px);
+    margin-bottom: 32px;
+  }
+}

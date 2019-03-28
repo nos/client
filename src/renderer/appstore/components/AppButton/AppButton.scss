@@ -1,0 +1,44 @@
+.appbutton {
+  background-color: white;
+  box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
+  border-radius: 4px;
+  width: 190px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 2px 4px 6px rgba(30, 27, 82, 0.12);
+  }
+
+  .imgContainer {
+    width: 190px;
+    height: 133px;
+
+    img {
+      max-width: 190px;
+      max-height: 133px;
+      display: block;
+      margin: auto;
+    }
+  }
+
+  .appInfo {
+    padding: 16px;
+
+    h2 {
+      font-family: $primary-font-stack;
+      color: $brand-color;
+      font-size: 16px;
+      margin: 0 0 4px;
+    }
+
+    p {
+      color: $medium-text-color;
+      font-size: 12px;
+      height: 32px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin: 0;
+      font-family: $primary-font-stack;
+    }
+  }
+}
