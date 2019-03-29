@@ -6,8 +6,9 @@ import { ACCOUNT, EXTERNAL, INTERNAL } from 'browser/values/browserValues';
 import AppButton from './AppButton';
 
 const mapDispatchToProps = (dispatch) => ({
-  openAccountApp: () => dispatch(openTab({ type: INTERNAL, target: ACCOUNT })),
-  openExternalApp: (target) => () => dispatch(openTab({ type: EXTERNAL, target }))
+  openApp: (target) => () => dispatch(openTab({
+    type: target === ACCOUNT ? INTERNAL : EXTERNAL, target
+  }))
 });
 
 export default connect(null, mapDispatchToProps)(AppButton);

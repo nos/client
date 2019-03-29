@@ -1,18 +1,18 @@
 import React from 'react';
+import { func } from 'prop-types';
 
 import styles from './AppButton.scss';
+import appShape from '../../shape/appShape';
 
-const AppButton = ({ app, openAccountApp, openExternalApp }) => {
+const AppButton = ({ app, openApp }) => {
   const { title, blurb, url, img_url: imgUrl } = app;
-
-  const action = url === 'Account' ? openAccountApp : openExternalApp(url);
 
   return (
     <div
       className={styles.appbutton}
       role="button"
       tabIndex={-1}
-      onClick={action}
+      onClick={openApp(url)}
     >
       <div className={styles.imgContainer}>
         <img alt={`${title} logo`} src={imgUrl} />
@@ -23,6 +23,11 @@ const AppButton = ({ app, openAccountApp, openExternalApp }) => {
       </div>
     </div>
   );
+};
+
+AppButton.propTypes = {
+  app: appShape.isRequired,
+  openApp: func.isRequired
 };
 
 export default AppButton;
