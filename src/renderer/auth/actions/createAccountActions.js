@@ -15,6 +15,13 @@ const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 export const ID = 'createAccount';
 const ACCOUNT_ID = 'account';
 
+/** // TODO
+ * Password turned into SCrypt SHA256 hash.
+ * Hash turned into bip39 mnemonic
+ * Mnemonic turned into bip39 seed hex
+ * Seed hex is then used to encrypt/decrypt things
+ */
+
 const createAccount = async ({
   label,
   passphrase,
