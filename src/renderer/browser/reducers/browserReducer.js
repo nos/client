@@ -2,7 +2,7 @@ import uuid from 'uuid/v1';
 import { keys, findKey, omit, has, size, isEmpty } from 'lodash';
 
 import parseURL from '../util/parseURL';
-import { INTERNAL, EXTERNAL } from '../values/browserValues';
+import { INTERNAL, APPSTORE } from '../values/browserValues';
 import {
   NAVIGATE,
   OPEN_TAB,
@@ -16,9 +16,9 @@ import {
 } from '../actions/browserActions';
 
 const initialTabState = {
-  type: EXTERNAL,
-  target: 'https://my.nos.app',
-  title: 'My nOS',
+  type: INTERNAL,
+  target: APPSTORE,
+  title: 'App Store',
   icon: null,
   addressBarEntry: true, // differentiates between link clicks and address bar entries
   loading: false,
