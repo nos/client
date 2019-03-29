@@ -26,7 +26,10 @@ const AppStore = ({ __progress__, apps, categories, showErrorToast }) => {
         <React.Fragment>
           <CategoryTitle key={cat}>{cat}</CategoryTitle>
           <div className={styles.grid}>
-            {apps.filter((app) => app.category === cat).map((app) => <AppButton app={app} />)}
+            {apps
+              .filter((app) => app.category === cat)
+              .map((app) => <AppButton key={app.title} app={app} />)
+            }
           </div>
         </React.Fragment>
       ))}
