@@ -11,7 +11,7 @@ const AppButton = ({ app, openApp }) => {
     <div
       className={styles.appbutton}
       role="button"
-      tabIndex={-1}
+      tabIndex={0}
       onClick={openApp(url)}
     >
       <div className={styles.imgContainer}>

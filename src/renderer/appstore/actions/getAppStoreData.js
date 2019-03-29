@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { createActions } from 'spunky';
 
-async function getBalanceWithPrices() {
+async function getAppStoreData() {
   const apps = await (
     await fetch('https://nos.app/api/v1/app/index')
   ).json();
@@ -15,8 +15,8 @@ async function getBalanceWithPrices() {
   return { apps, categories };
 }
 
-export const ID = 'appstoredata';
+export const ID = 'appstore';
 
 export default createActions(ID, () => {
-  return () => getBalanceWithPrices();
+  return () => getAppStoreData();
 });
