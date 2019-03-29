@@ -1,5 +1,10 @@
 import { compose } from 'recompose';
-import { withData, withProgressComponents, progressValues, alreadyLoadedStrategy } from 'spunky';
+import {
+  withData,
+  withProgressComponents,
+  progressValues,
+  alreadyLoadedStrategy
+} from 'spunky';
 import { withRouter } from 'react-router-dom';
 
 import updateNetworks from 'util/updateNetworks';
@@ -32,11 +37,17 @@ export default compose(
 
   // TODO: update spunky to permit combining actions without creating a batch, i.e.:
   //       withProgressComponents([currencyActions, currentNetworkActions], { ... })
-  ...([feeActions, currencyActions, currentNetworkActions, getAllNetworks].map((actions) => {
-    return withProgressComponents(actions, {
-      [LOADING]: Loading
-    }, {
-      strategy: alreadyLoadedStrategy
-    });
-  }))
+  ...[feeActions, currencyActions, currentNetworkActions, getAllNetworks].map(
+    (actions) => {
+      return withProgressComponents(
+        actions,
+        {
+          [LOADING]: Loading
+        },
+        {
+          strategy: alreadyLoadedStrategy
+        }
+      );
+    }
+  )
 )(App);

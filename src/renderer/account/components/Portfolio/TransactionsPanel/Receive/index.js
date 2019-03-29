@@ -1,14 +1,11 @@
 import { compose } from 'recompose';
-import { withData } from 'spunky';
 
-import authActions from 'auth/actions/authActions';
+import withActiveAccount from 'shared/hocs/withActiveAccount';
 import { withInfoToast } from 'shared/hocs/withToast';
 
 import Receive from './Receive';
 
-const mapAuthDataToProps = ({ address }) => ({ address });
-
 export default compose(
-  withData(authActions, mapAuthDataToProps),
+  withActiveAccount(),
   withInfoToast()
 )(Receive);

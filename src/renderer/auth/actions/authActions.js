@@ -1,12 +1,10 @@
 import { createActions } from 'spunky';
 import bip39 from 'bip39';
-import bip32 from 'bip32';
-import { attempt, isError } from 'lodash';
+import { reduce, attempt, isError } from 'lodash';
 
+import Wallet from 'auth/util/Wallet';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-
-import Wallet from '../util/Wallet';
 
 export const ID = 'auth';
 
@@ -29,17 +27,18 @@ const authenticate = async ({ account, passphrase }) => {
 
   // Deterministically generate a 512 bit seed hex seed
   const seed = bip39.mnemonicToSeed(mnemonic, passphrase);
+  const wallet = new Wallet(seed);
 
-  // Deterministically create a bip32 master key
-  // which can be used to create child keys in the manner specified by bip44.
-  const root = bip32.fromSeed(seed);
+  const instances = reduce(
+    account.accounts,
+    (acumm, acc) => ({
+      ...acumm,
+      [acc.accountId]: wallet.deriveWalletFromAccount(acc)
+    }),
+    {}
+  );
 
-  const currentAccount = account.accounts[account.activeAccountId];
-
-  // Create agnostic wallet, able to derive child wallets for each chain
-  const wallet = new Wallet(root).deriveWalletFromAccount(currentAccount);
-
-  return wallet;
+  return { ...account, instances };
 };
 
 export default createActions(ID, (data) => {

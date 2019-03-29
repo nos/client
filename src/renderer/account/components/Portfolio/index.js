@@ -9,6 +9,7 @@ import withAuthData from 'shared/hocs/withAuthData';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import { withErrorToast } from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
+import withActiveAccount from 'shared/hocs/withActiveAccount';
 
 import Portfolio from './Portfolio';
 import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
@@ -20,7 +21,7 @@ export default compose(
   withData(currencyActions, mapCurrencyDataToProps),
   withAuthData(),
   withNetworkData(),
-  withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
+  withActiveAccount(),
   withInitialCall(balanceWithPricesActions, ({ currency, net, address }) => ({
     currency,
     net,

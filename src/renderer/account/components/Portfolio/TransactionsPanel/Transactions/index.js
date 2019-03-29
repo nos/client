@@ -11,8 +11,7 @@ import {
 import Failed from 'shared/components/Failed';
 import Loading from 'shared/components/Loading';
 
-import authActions from 'auth/actions/authActions';
-
+import withActiveAccount from 'shared/hocs/withActiveAccount';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import transactionHistoryActions from '../../../../actions/transactionHistoryActions';
@@ -21,19 +20,20 @@ import Transactions from './Transactions';
 
 const { LOADING, FAILED } = progressValues;
 
-const mapAuthDataToProps = ({ address }) => ({ address });
-const mapTransactionHistoryDataToProps = (transactionHistory) => ({ transactionHistory });
+const mapTransactionHistoryDataToProps = (transactionHistory) => ({
+  transactionHistory
+});
 const mapTransactionHistoryActionsToProps = (actions, props) => ({
   handleFetchAdditionalTxData: (previousCall) => actions.call({
-    net: props.net,
-    address: props.address,
-    previousCall
-  })
+      net: props.net,
+      address: props.address,
+      previousCall
+    })
 });
 
 export default compose(
   withNetworkData(),
-  withData(authActions, mapAuthDataToProps),
+  withActiveAccount(),
   withActions(transactionHistoryActions, mapTransactionHistoryActionsToProps),
 
   withCall(transactionHistoryActions),

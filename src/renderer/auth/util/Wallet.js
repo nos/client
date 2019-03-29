@@ -1,4 +1,5 @@
 import { includes } from 'lodash';
+import bip32 from 'bip32';
 
 import CHAINS from 'shared/values/chains';
 
@@ -6,10 +7,10 @@ import EthWallet from './EthWallet';
 import NeoWallet from './NeoWallet';
 
 export default class Wallet {
-  constructor(root) {
-    this.root = root;
-    this.neoWallet = this.getNeoWallet(0);
-    this.ethWallet = this.getEthWallet(0);
+  constructor(seed) {
+    // Deterministically create a bip32 master key
+    // which can be used to create child keys in the manner specified by bip44.
+    this.root = bip32.fromSeed(seed);
   }
 
   deriveWallet = (chain, index, account = 0, change = 0) => {
