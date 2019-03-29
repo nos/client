@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 
-import { DAPPS, ACCOUNT, EXCHANGE, SETTINGS } from 'browser/values/browserValues';
-import DAppsIcon from 'shared/images/icons/dapps.svg';
+import { APPSTORE, ACCOUNT, EXCHANGE, SETTINGS } from 'browser/values/browserValues';
+import AppStoreIcon from 'shared/images/icons/dapps.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import ExchangeIcon from 'shared/images/icons/exchange.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
@@ -33,10 +33,10 @@ export default class Navigation extends React.PureComponent {
       <nav className={classNames(styles.navigation, this.props.className)}>
         <ul>
           <li>
-            <Tooltip overlay="dApps">
+            <Tooltip overlay="App Store">
               <div>
-                <TabLink id="dapps" target={DAPPS} disabled>
-                  <DAppsIcon aria-label="dapps" />
+                <TabLink id="appstore" target={APPSTORE}>
+                  <AppStoreIcon aria-label="appstore" />
                 </TabLink>
               </div>
             </Tooltip>
