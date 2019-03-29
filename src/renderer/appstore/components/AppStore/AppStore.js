@@ -2,10 +2,12 @@ import React from 'react';
 import { arrayOf, object, func, string } from 'prop-types';
 
 import Loading from 'shared/components/Loading';
+import TopBackground from 'shared/images/appstore/bg-shape-1.svg';
 
-import styles from './AppStore.scss';
 import CategoryTitle from '../CategoryTitle';
 import AppButton from '../AppButton';
+
+import styles from './AppStore.scss';
 
 const AppStore = ({ __progress__, apps, categories, showErrorToast }) => {
   if (__progress__ === 'LOADING') {
@@ -22,8 +24,9 @@ const AppStore = ({ __progress__, apps, categories, showErrorToast }) => {
 
   return (
     <div className={styles.appstore}>
+      <div className={styles.top}><TopBackground /></div>
       {categories.map((cat) => (
-        <React.Fragment>
+        <React.Fragment key={cat}>
           <CategoryTitle key={cat}>{cat}</CategoryTitle>
           <div className={styles.grid}>
             {apps

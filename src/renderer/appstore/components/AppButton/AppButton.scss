@@ -3,6 +3,7 @@
   border-radius: 4px;
   width: 190px;
   cursor: pointer;
+  z-index: 1;
 
   &:hover {
     box-shadow: 2px 4px 6px rgba(30, 27, 82, 0.12);

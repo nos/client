@@ -8,4 +8,14 @@
     grid-template-columns: repeat(auto-fill, 190px);
     margin-bottom: 32px;
   }
+
+  .top {
+    position: absolute;
+
+    svg {
+      max-width: 90%;
+      height: auto;
+      transform: translate(-24px, -24px)
+    }
+  }
 }
