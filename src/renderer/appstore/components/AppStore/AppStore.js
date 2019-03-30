@@ -31,7 +31,7 @@ AppStore.propTypes = {
 };
 
 AppStore.defaultProps = {
-  apps: {},
+  apps: [],
   categories: []
 };
 

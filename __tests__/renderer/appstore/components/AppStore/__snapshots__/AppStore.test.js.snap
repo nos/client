@@ -3,7 +3,7 @@
 exports[`<AppStore /> renders correctly 1`] = `
 ReactWrapper {
   Symbol(enzyme.__unrendered__): <AppStore
-    apps={Object {}}
+    apps={Array []}
     categories={Array []}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -20,7 +20,7 @@ ReactWrapper {
     "key": undefined,
     "nodeType": "function",
     "props": Object {
-      "apps": Object {},
+      "apps": Array [],
       "categories": Array [],
     },
     "ref": null,
@@ -97,7 +97,7 @@ ReactWrapper {
       "key": undefined,
       "nodeType": "function",
       "props": Object {
-        "apps": Object {},
+        "apps": Array [],
         "categories": Array [],
       },
       "ref": null,
