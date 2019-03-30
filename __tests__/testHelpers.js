@@ -6,14 +6,14 @@ import { createStore as createReduxStore, applyMiddleware, compose } from 'redux
 import { Provider } from 'react-redux';
 import { saga, progressValues } from 'spunky';
 import { get } from 'lodash';
-import createHistory from 'history/createHashHistory';
+import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 
 import createRootReducer from 'root/reducers';
 
 export const createStore = (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
-  const history = createHistory();
+  const history = createHashHistory();
   const store = createReduxStore(
     createRootReducer(history),
     initialState,
