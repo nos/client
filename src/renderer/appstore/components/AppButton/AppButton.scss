@@ -1,7 +1,7 @@
 .appbutton {
   box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
   border-radius: 4px;
-  width: 190px;
+  width: 380px;
   cursor: pointer;
   z-index: 1;
 
@@ -10,12 +10,12 @@
   }
 
   .imgContainer {
-    width: 190px;
-    height: 133px;
+    width: 380px;
+    height: 266px;
 
     img {
-      max-width: 190px;
-      max-height: 133px;
+      max-width: 380px;
+      max-height: 266px;
       display: block;
       margin: auto;
       border-top-left-radius: 4px;
@@ -45,6 +45,22 @@
       overflow: hidden;
       margin: 0;
       font-family: $primary-font-stack;
+    }
+  }
+}
+
+@media(max-width: 900px) {
+  .appbutton {
+    width: 190px;
+
+    .imgContainer {
+      width: 190px;
+      height: 133px;
+
+      img {
+        max-width: 190px;
+        max-height: 133px;
+      }
     }
   }
 }
