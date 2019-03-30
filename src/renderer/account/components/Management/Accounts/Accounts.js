@@ -18,10 +18,11 @@ export default class Accounts extends React.PureComponent {
 
     return (
       <div className={styles.accounts}>
-        <div>
+        <div className={styles.heading}>
           <div className={styles.title}>My Account</div>
-          <Account encryptedMnemonic={encryptedMnemonic} />
+          <div className={styles.link}>New address</div>
         </div>
+        <Account encryptedMnemonic={encryptedMnemonic} />
         <div>
           <div className={styles.subtitle}>
             Accounts generated from Keychain
