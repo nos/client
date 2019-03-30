@@ -1,15 +1,15 @@
-import React from "react";
-import classNames from "classnames";
-import { string } from "prop-types";
+import React from 'react';
+import classNames from 'classnames';
+import { string } from 'prop-types';
 
-import instanceShape from "shared/shapes/instanceShape";
+import instanceShape from 'shared/shapes/instanceShape';
 
-import KeyChainIcon from "shared/images/account/keychain.svg";
-import NeoIcon from "shared/images/tokens/neo.svg";
-import EthIcon from "shared/images/tokens/eth.svg";
+import KeyChainIcon from 'shared/images/account/keychain.svg';
+import NeoIcon from 'shared/images/tokens/neo.svg';
+import EthIcon from 'shared/images/tokens/eth.svg';
 
-import AccountData from "../AccountData";
-import styles from "./Account.scss";
+import AccountData from '../AccountData';
+import styles from './Account.scss';
 
 export default class Account extends React.PureComponent {
   static propTypes = {
@@ -21,7 +21,7 @@ export default class Account extends React.PureComponent {
   static defaultProps = {
     className: null,
     instance: null,
-    encryptedMnemonic: ""
+    encryptedMnemonic: ''
   };
 
   render() {
@@ -34,11 +34,11 @@ export default class Account extends React.PureComponent {
           <div className={styles.data}>
             <div className={styles.title}>
               {encryptedMnemonic
-                ? "Keychain"
+                ? 'Keychain'
                 : `${instance.type} Account ${instance.index + 1}`}
             </div>
             <div className={styles.subtitle}>
-              {encryptedMnemonic ? "Secret Words" : "Wallet"}
+              {encryptedMnemonic ? 'Secret Words' : 'Wallet'}
             </div>
           </div>
         </div>
@@ -54,9 +54,9 @@ export default class Account extends React.PureComponent {
     if (this.props.encryptedMnemonic) return <KeyChainIcon />;
 
     switch (this.props.instance.type.toLowerCase()) {
-      case "eth":
+      case 'eth':
         return <EthIcon />;
-      case "neo":
+      case 'neo':
         return <NeoIcon />;
       default:
         return <KeyChainIcon />;

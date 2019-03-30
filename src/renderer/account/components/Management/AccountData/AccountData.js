@@ -38,7 +38,7 @@ export default class AccountData extends React.PureComponent {
   renderSecretView = ({ encryptedMnemonic, instance }) => (
     <div className={styles.secretView}>
       <div className={styles.heading}>
-        <div>Secret Words</div>
+        <div>{encryptedMnemonic ? 'Secret Words' : 'Private Key'}</div>
         <div
           className={styles.toggle}
           onClick={this.handleToggleHidden}
