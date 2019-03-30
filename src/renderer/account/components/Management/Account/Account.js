@@ -1,37 +1,65 @@
-import React from 'react';
-import classNames from 'classnames';
-import { string, bool } from 'prop-types';
+import React from "react";
+import classNames from "classnames";
+import { string } from "prop-types";
 
-import KeyChainIcon from 'shared/images/account/keychain.svg';
-import CopyIcon from 'shared/images/wallet/copy.svg';
+import instanceShape from "shared/shapes/instanceShape";
 
-import AccountData from '../AccountData';
-import styles from './Account.scss';
+import KeyChainIcon from "shared/images/account/keychain.svg";
+import NeoIcon from "shared/images/tokens/neo.svg";
+import EthIcon from "shared/images/tokens/eth.svg";
 
-export default function AccountAddress(props) {
-  return (
-    <div className={classNames(styles.account, props.className)}>
-      <div className={styles.left}>
-        <div className={styles.icon}>
-          <KeyChainIcon />
+import AccountData from "../AccountData";
+import styles from "./Account.scss";
+
+export default class Account extends React.PureComponent {
+  static propTypes = {
+    className: string,
+    instance: instanceShape,
+    encryptedMnemonic: string
+  };
+
+  static defaultProps = {
+    className: null,
+    instance: null,
+    encryptedMnemonic: ""
+  };
+
+  render() {
+    const { className, encryptedMnemonic, instance } = this.props;
+
+    return (
+      <div className={classNames(styles.account, className)}>
+        <div className={styles.left}>
+          <div className={styles.icon}>{this.renderIcon()}</div>
+          <div className={styles.data}>
+            <div className={styles.title}>
+              {encryptedMnemonic
+                ? "Keychain"
+                : `${instance.type} Account ${instance.index + 1}`}
+            </div>
+            <div className={styles.subtitle}>
+              {encryptedMnemonic ? "Secret Words" : "Wallet"}
+            </div>
+          </div>
         </div>
-        <div className={styles.data}>
-          <div className={styles.title}>Keychain</div>
-          <div className={styles.subtitle}>Secret Words</div>
-        </div>
+        <AccountData
+          encryptedMnemonic={encryptedMnemonic}
+          instance={instance}
+        />
       </div>
-      <AccountData data={props.data} />
-    </div>
-  );
+    );
+  }
+
+  renderIcon = () => {
+    if (this.props.encryptedMnemonic) return <KeyChainIcon />;
+
+    switch (this.props.instance.type.toLowerCase()) {
+      case "eth":
+        return <EthIcon />;
+      case "neo":
+        return <NeoIcon />;
+      default:
+        return <KeyChainIcon />;
+    }
+  };
 }
-
-// TODO what if not signed in?
-AccountAddress.propTypes = {
-  className: string,
-  address: string
-};
-
-AccountAddress.defaultProps = {
-  className: null,
-  address: null
-};

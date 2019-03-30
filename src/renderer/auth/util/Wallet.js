@@ -28,9 +28,9 @@ export default class Wallet {
     const derivedWallet = this.deriveWallet(chainId, index, account, change);
     switch (chainId) {
       case CHAINS.NEO:
-        return new NeoWallet(derivedWallet).getWallet();
+        return new NeoWallet(derivedWallet, index).getWallet();
       case CHAINS.ETH:
-        return new EthWallet(derivedWallet).getWallet();
+        return new EthWallet(derivedWallet, index).getWallet();
       default:
         throw new Error('Invalid chainId.');
     }
