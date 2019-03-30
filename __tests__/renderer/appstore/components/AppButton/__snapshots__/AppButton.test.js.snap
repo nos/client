@@ -1,0 +1,435 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppButton /> renders correctly 1`] = `
+ReactWrapper {
+  Symbol(enzyme.__unrendered__): <AppButton
+    app={
+      Object {
+        "blurb": "mockBlurb",
+        "img_url": "mockImgUrl",
+        "title": "mockTitle",
+        "url": "mockUrl",
+      }
+    }
+    openApp={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            "mockUrl",
+          ],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "app": Object {
+        "blurb": "mockBlurb",
+        "img_url": "mockImgUrl",
+        "title": "mockTitle",
+        "url": "mockUrl",
+      },
+      "openApp": [MockFunction] {
+        "calls": Array [
+          Array [
+            "mockUrl",
+          ],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      },
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": <div
+        class="appbutton"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="imgContainer"
+        >
+          <img
+            alt="mockTitle logo"
+            src="mockImgUrl"
+          />
+        </div>
+        <div
+          class="appInfo"
+        >
+          <h2>
+            mockTitle
+          </h2>
+          <p>
+            mockBlurb
+          </p>
+        </div>
+      </div>,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="imgContainer"
+          >
+            <img
+              alt="mockTitle logo"
+              src="mockImgUrl"
+            />
+          </div>,
+          <div
+            className="appInfo"
+          >
+            <h2>
+              mockTitle
+            </h2>
+            <p>
+              mockBlurb
+            </p>
+          </div>,
+        ],
+        "className": "appbutton",
+        "onClick": undefined,
+        "role": "button",
+        "tabIndex": 0,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": <div
+            class="imgContainer"
+          >
+            <img
+              alt="mockTitle logo"
+              src="mockImgUrl"
+            />
+          </div>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <img
+              alt="mockTitle logo"
+              src="mockImgUrl"
+            />,
+            "className": "imgContainer",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": <img
+                alt="mockTitle logo"
+                src="mockImgUrl"
+              />,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "alt": "mockTitle logo",
+                "src": "mockImgUrl",
+              },
+              "ref": null,
+              "rendered": Array [
+                undefined,
+              ],
+              "type": "img",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": <div
+            class="appInfo"
+          >
+            <h2>
+              mockTitle
+            </h2>
+            <p>
+              mockBlurb
+            </p>
+          </div>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h2>
+                mockTitle
+              </h2>,
+              <p>
+                mockBlurb
+              </p>,
+            ],
+            "className": "appInfo",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": <h2>
+                mockTitle
+              </h2>,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "mockTitle",
+              },
+              "ref": null,
+              "rendered": Array [
+                "mockTitle",
+              ],
+              "type": "h2",
+            },
+            Object {
+              "instance": <p>
+                mockBlurb
+              </p>,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "mockBlurb",
+              },
+              "ref": null,
+              "rendered": Array [
+                "mockBlurb",
+              ],
+              "type": "p",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "app": Object {
+          "blurb": "mockBlurb",
+          "img_url": "mockImgUrl",
+          "title": "mockTitle",
+          "url": "mockUrl",
+        },
+        "openApp": [MockFunction] {
+          "calls": Array [
+            Array [
+              "mockUrl",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "isThrow": false,
+              "value": undefined,
+            },
+          ],
+        },
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": <div
+          class="appbutton"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="imgContainer"
+          >
+            <img
+              alt="mockTitle logo"
+              src="mockImgUrl"
+            />
+          </div>
+          <div
+            class="appInfo"
+          >
+            <h2>
+              mockTitle
+            </h2>
+            <p>
+              mockBlurb
+            </p>
+          </div>
+        </div>,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="imgContainer"
+            >
+              <img
+                alt="mockTitle logo"
+                src="mockImgUrl"
+              />
+            </div>,
+            <div
+              className="appInfo"
+            >
+              <h2>
+                mockTitle
+              </h2>
+              <p>
+                mockBlurb
+              </p>
+            </div>,
+          ],
+          "className": "appbutton",
+          "onClick": undefined,
+          "role": "button",
+          "tabIndex": 0,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": <div
+              class="imgContainer"
+            >
+              <img
+                alt="mockTitle logo"
+                src="mockImgUrl"
+              />
+            </div>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <img
+                alt="mockTitle logo"
+                src="mockImgUrl"
+              />,
+              "className": "imgContainer",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": <img
+                  alt="mockTitle logo"
+                  src="mockImgUrl"
+                />,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "mockTitle logo",
+                  "src": "mockImgUrl",
+                },
+                "ref": null,
+                "rendered": Array [
+                  undefined,
+                ],
+                "type": "img",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": <div
+              class="appInfo"
+            >
+              <h2>
+                mockTitle
+              </h2>
+              <p>
+                mockBlurb
+              </p>
+            </div>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <h2>
+                  mockTitle
+                </h2>,
+                <p>
+                  mockBlurb
+                </p>,
+              ],
+              "className": "appInfo",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": <h2>
+                  mockTitle
+                </h2>,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "mockTitle",
+                },
+                "ref": null,
+                "rendered": Array [
+                  "mockTitle",
+                ],
+                "type": "h2",
+              },
+              Object {
+                "instance": <p>
+                  mockBlurb
+                </p>,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "mockBlurb",
+                },
+                "ref": null,
+                "rendered": Array [
+                  "mockBlurb",
+                ],
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
