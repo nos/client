@@ -1,9 +1,10 @@
 .appbutton {
+  background-color: transparent;
   box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
   border-radius: 4px;
   width: 380px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 0;
 
   &:hover {
     box-shadow: 2px 4px 6px rgba(30, 27, 82, 0.12);

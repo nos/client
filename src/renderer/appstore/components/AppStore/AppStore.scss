@@ -10,12 +10,15 @@
   }
 
   .top {
-    position: absolute;
+    position: sticky;
+    height: 0;
+    top: 0;
+    transform: translate(-24px, -24px);
 
     svg {
+      z-index: -1;
       max-width: 90%;
       height: auto;
-      transform: translate(-24px, -24px);
     }
   }
 }
