@@ -7,7 +7,11 @@ import TabLink from './TabLink';
 
 const mapStateToProps = (state, props) => {
   const { tabs, activeSessionId } = state.browser;
-  const active = props.target === tabs[activeSessionId].target;
+
+  const active = props.match !== undefined
+    ? props.match(tabs[activeSessionId].target)
+    : props.target === tabs[activeSessionId].target;
+
   return { active };
 };
 

@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 
-import { APPSTORE, ACCOUNT, EXCHANGE, SETTINGS } from 'browser/values/browserValues';
-import AppStoreIcon from 'shared/images/icons/dapps.svg';
+import { APPSTORE, ACCOUNT, EXCHANGE, EXTERNAL, SETTINGS } from 'browser/values/browserValues';
+import AppStoreIcon from 'shared/images/icons/discover.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import ExchangeIcon from 'shared/images/icons/exchange.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
@@ -29,6 +29,7 @@ export default class Navigation extends React.PureComponent {
   };
 
   render() {
+    const matchExchange = (url) => /https:\/\/exchange\.nash\.io.+/i.test(url);
     return (
       <nav className={classNames(styles.navigation, this.props.className)}>
         <ul>
@@ -42,19 +43,19 @@ export default class Navigation extends React.PureComponent {
             </Tooltip>
           </li>
           <li>
-            <Tooltip overlay="Exchange">
+            <Tooltip overlay="Account">
               <div>
-                <TabLink id="exchange" target={EXCHANGE} disabled>
-                  <ExchangeIcon aria-label="exchange" />
+                <TabLink id="account" target={ACCOUNT}>
+                  <AccountIcon aria-label="account" />
                 </TabLink>
               </div>
             </Tooltip>
           </li>
           <li>
-            <Tooltip overlay="Account">
+            <Tooltip overlay="Exchange">
               <div>
-                <TabLink id="account" target={ACCOUNT}>
-                  <AccountIcon aria-label="account" />
+                <TabLink id="exchange" type={EXTERNAL} target={EXCHANGE} match={matchExchange}>
+                  <ExchangeIcon aria-label="exchange" />
                 </TabLink>
               </div>
             </Tooltip>
