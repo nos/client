@@ -15,12 +15,12 @@
     svg {
       max-width: 90%;
       height: auto;
-      transform: translate(-24px, -24px)
+      transform: translate(-24px, -24px);
     }
   }
 }
 
-@media(max-width: 900px) {
+@media (max-width: 900px) {
   .appstore {
     .grid {
       grid-template-columns: repeat(auto-fill, 190px);
