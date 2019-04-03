@@ -20,7 +20,14 @@ export default class Accounts extends React.PureComponent {
       <div className={styles.accounts}>
         <div className={styles.heading}>
           <div className={styles.title}>My Account</div>
-          <div className={styles.link}>New address</div>
+          <div
+            className={styles.link}
+            role="button"
+            tabIndex={0}
+            onClick={this.handleAddAccount}
+          >
+            New address
+          </div>
         </div>
         <Account encryptedMnemonic={encryptedMnemonic} />
         <div>
@@ -37,4 +44,9 @@ export default class Accounts extends React.PureComponent {
       </div>
     );
   }
+
+  handleAddAccount = () => {
+    console.log('Accounts.js ', this.props);
+    this.props.addAccount({ type: 'ETH' });
+  };
 }
