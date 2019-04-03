@@ -6,18 +6,17 @@ import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
-import styles from './LoginFormAccount.scss';
-// import LoginButton from '../LoginButton';
 import AuthButton from '../../AuthButton';
 
-// TODO fix any prop type
+import styles from './LoginFormAccount.scss';
+
 export default class LoginFormAccount extends React.PureComponent {
   static propTypes = {
     disabled: bool,
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
-    accounts: any, // eslint-disable-line
+    accounts: any,
     currentAccount: string,
     setCurrentAccount: func,
     history: shape({
@@ -53,9 +52,7 @@ export default class LoginFormAccount extends React.PureComponent {
 
   renderRegisterForm = ({ disabled, currentAccount, accounts, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
-      <div>
-        {accounts[currentAccount] && accounts[currentAccount].secretWord}
-      </div>
+      <div>{accounts[currentAccount] && accounts[currentAccount].secretWord}</div>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}

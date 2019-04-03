@@ -1,7 +1,7 @@
 import { compose } from 'recompose';
 import { withData, withActions } from 'spunky';
 
-import addAccount from 'auth/actions/addAccount';
+import addAccount from 'auth/actions/addAccountActions';
 import authActions from 'auth/actions/authActions';
 
 import Accounts from './Accounts';
