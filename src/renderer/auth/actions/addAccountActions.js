@@ -11,7 +11,7 @@ import Wallet from 'auth/util/Wallet';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 
-export const ID = 'addAccount';
+export const ID = 'auth';
 
 const authenticate = async ({ authData, type }) => {
   try {
@@ -34,8 +34,6 @@ const authenticate = async ({ authData, type }) => {
       }
     };
 
-    console.log('AuthData ', authData);
-
     const x = {
       ...omit(authData, 'accounts'),
       accounts: {
@@ -45,7 +43,7 @@ const authenticate = async ({ authData, type }) => {
     };
 
     console.log('x ', x);
-    return;
+    return x;
 
     return { ...account, instances };
   } catch (e) {

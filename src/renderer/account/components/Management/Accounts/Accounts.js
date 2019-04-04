@@ -20,25 +20,15 @@ export default class Accounts extends React.PureComponent {
       <div className={styles.accounts}>
         <div className={styles.heading}>
           <div className={styles.title}>My Account</div>
-          <div
-            className={styles.link}
-            role="button"
-            tabIndex={0}
-            onClick={this.handleAddAccount}
-          >
+          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
             New address
           </div>
         </div>
         <Account encryptedMnemonic={encryptedMnemonic} />
         <div>
-          <div className={styles.subtitle}>
-            Accounts generated from Keychain
-          </div>
+          <div className={styles.subtitle}>Accounts generated from Keychain</div>
           {map(instances, (instance) => (
-            <Account
-              instance={instance}
-              key={`${instance.type}-${instance.index}`}
-            />
+            <Account instance={instance} key={`${instance.type}-${instance.index}`} />
           ))}
         </div>
       </div>
