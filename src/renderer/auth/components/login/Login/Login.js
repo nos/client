@@ -5,12 +5,15 @@ import Panel from 'shared/components/Panel';
 import Tabs from 'shared/components/Tabs';
 
 import LoginFormAccount from '../LoginFormAccount';
+import LoginFormLedger from '../LoginFormLedger';
 import styles from './Login.scss';
 
 const TAB_PROFILES = 'Profiles';
+const TAB_LEDGER = 'Ledger';
 
 const TABS = {
-  [TAB_PROFILES]: 'Saved Profiles'
+  [TAB_PROFILES]: 'Saved Profiles',
+  [TAB_LEDGER]: 'Ledger'
 };
 
 export default class LoginPanel extends React.PureComponent {
@@ -50,6 +53,8 @@ export default class LoginPanel extends React.PureComponent {
     switch (id) {
       case TAB_PROFILES:
         return <LoginFormAccount disabled={loading} onLogin={login} />;
+      case TAB_LEDGER:
+        return <LoginFormLedger disabled={loading} onLogin={login} />;
       default:
         throw new Error('Invalid tab.');
     }

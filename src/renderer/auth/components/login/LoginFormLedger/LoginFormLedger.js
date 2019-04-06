@@ -4,6 +4,7 @@ import { noop } from 'lodash';
 import { progressValues } from 'spunky';
 
 import styles from './LoginFormLedger.scss';
+import AuthButton from '../../AuthButton';
 // import LoginButton from '../LoginButton';
 
 const POLL_FREQUENCY = 1000;
@@ -36,6 +37,9 @@ export default class LoginFormLedger extends React.PureComponent {
   };
 
   componentDidMount() {
+    console.log('LoginFormLedger ', this.props);
+    console.log('LoginFormLedger ', this.props);
+
     this.props.poll();
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
   }
@@ -50,6 +54,13 @@ export default class LoginFormLedger extends React.PureComponent {
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
         <div>{this.renderStatus()}</div>
+
+        <AuthButton
+          buttonText="Unlock Wallet"
+          className={styles.register}
+          type="submit"
+          disabled={this.props.disabled}
+        />
 
         {this.renderActions()}
       </form>
@@ -82,6 +93,9 @@ export default class LoginFormLedger extends React.PureComponent {
 
   handleLogin = (event) => {
     const { publicKey, onLogin } = this.props;
+
+    console.log('LoginFormLedger.js handleLogin ', this.props);
+    return;
 
     event.preventDefault();
     onLogin({ publicKey });
