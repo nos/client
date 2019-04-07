@@ -26,26 +26,20 @@ export default class Account extends React.PureComponent {
 
   render() {
     const { className, encryptedMnemonic, instance } = this.props;
+    const identityColor = instance ? styles[instance.type.toLowerCase()] : styles.neo;
 
     return (
-      <div className={classNames(styles.account, className)}>
+      <div className={classNames(identityColor, styles.account, className)}>
         <div className={styles.left}>
           <div className={styles.icon}>{this.renderIcon()}</div>
           <div className={styles.data}>
             <div className={styles.title}>
-              {encryptedMnemonic
-                ? 'Keychain'
-                : `${instance.type} Account ${instance.index + 1}`}
+              {encryptedMnemonic ? 'Keychain' : `${instance.type} Account ${instance.index + 1}`}
             </div>
-            <div className={styles.subtitle}>
-              {encryptedMnemonic ? 'Secret Words' : 'Wallet'}
-            </div>
+            <div className={styles.subtitle}>{encryptedMnemonic ? 'Secret Words' : 'Wallet'}</div>
           </div>
         </div>
-        <AccountData
-          encryptedMnemonic={encryptedMnemonic}
-          instance={instance}
-        />
+        <AccountData encryptedMnemonic={encryptedMnemonic} instance={instance} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 import bip39 from 'bip39';
-import { reduce, attempt, isError, omit } from 'lodash';
+import { reduce, attempt, isError, omit, filter } from 'lodash';
 import uuid from 'uuid/v4';
 
 import Wallet from 'auth/util/Wallet';
@@ -46,18 +46,23 @@ const addAccount = async ({ authData, type, passphrase }) => {
     throw new Error('Incorrect chain selected.');
   }
 
+  const { accounts } = authData;
+  const latestAccount = reduce(filter(accounts, { chainId: selectedChain }), (max, obj) => {
+    return obj.index > max.index ? obj : max;
+  });
+
   const newAccount = {
     [accountId]: {
       accountId,
       chainId: selectedChain,
-      index: DEFAULT_ACC_INDEX + 1,
+      index: latestAccount.index + 1,
       account: 0,
       change: 0,
       net: DEFAULT_NET
     }
   };
 
-  const x = {
+  const account = {
     ...omit(authData, 'accounts'),
     accounts: {
       ...authData.accounts,
@@ -65,7 +70,8 @@ const addAccount = async ({ authData, type, passphrase }) => {
     }
   };
 
-  return authenticate({ account: x, passphrase: 'q' });
+  // TODO modal to ask password
+  return authenticate({ account, passphrase: 'q' });
 };
 
 export const addAccountActions = createActions(ID, ({ account, passphrase, type }) => {

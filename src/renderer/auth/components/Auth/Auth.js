@@ -30,7 +30,7 @@ export default class Auth extends React.PureComponent {
   confirm = React.createRef();
 
   state = {
-    component: LOGIN // Todo set to login
+    component: LOGIN
   };
 
   componentDidMount() {
@@ -48,7 +48,7 @@ export default class Auth extends React.PureComponent {
       <Modal className={classNames(styles.auth, className)}>
         {this.renderHeader()}
         {this.renderComponent()}
-        <AuthFooter />
+        <AuthFooter onClick={this.handleSelectComponent} />
       </Modal>
     );
   }

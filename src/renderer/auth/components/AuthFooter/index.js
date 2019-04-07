@@ -4,11 +4,9 @@ import { bool, string } from 'prop-types';
 
 import styles from './AuthFooter.scss';
 
-const AuthFooter = ({ buttonText, disabled }) => (
-  <div className={styles.authFooter}>
-    <div className={styles.text}>
-      New to nOS? <Link to="/register">Create Wallet</Link>
-    </div>
+const AuthFooter = ({ onClick }) => (
+  <div className={styles.authFooter} onClick={onClick}>
+    <div className={styles.text}>New to nOS? Create Wallet</div>
   </div>
 );
 
