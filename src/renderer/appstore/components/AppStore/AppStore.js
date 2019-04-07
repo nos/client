@@ -25,8 +25,8 @@ const AppStore = ({ apps, categories }) => (
               // TODO loop through all possible internal pages
               if (app.url === ACCOUNT) {
                 return (
-                  <PrivateTabLink id={app.title} target={app.url}>
-                    <AppCard key={app.title} internal app={app} />
+                  <PrivateTabLink key={app.title} id={app.title} target={app.url}>
+                    <AppCard internal app={app} />
                   </PrivateTabLink>
                 );
               } else {

@@ -6,12 +6,12 @@ import authActions, { addAccountActions } from 'auth/actions/authActions';
 import Accounts from './Accounts';
 
 const mapAuthDataToProps = (auth) => auth;
-const mapAddAccountActionsToProps = (actions, props) => console.log(props) || {
+const mapAddAccountActionsToProps = (actions, props) => ({
   addAccount: ({ type }) => actions.call({
     type,
     account: props
   })
-};
+});
 
 // TODO with error toast
 export default compose(

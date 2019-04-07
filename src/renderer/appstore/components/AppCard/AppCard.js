@@ -25,7 +25,11 @@ const AppCard = ({ app, openApp, internal }) => {
 AppCard.propTypes = {
   app: appShape.isRequired,
   openApp: func.isRequired,
-  internal: bool.isRequired
+  internal: bool
+};
+
+AppCard.defaultProps = {
+  internal: false
 };
 
 export default AppCard;

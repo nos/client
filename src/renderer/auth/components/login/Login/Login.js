@@ -34,8 +34,14 @@ export default class LoginPanel extends React.PureComponent {
   render() {
     return (
       <Panel className={styles.login}>
-        <h1>Log In</h1>
-        <div>Secret word: </div>
+        <div className={styles.title}>Log In</div>
+        <div className={styles.heading}>
+          <div className={styles.pill}>
+            <div className={styles.pillText}>
+              Secret word: <b>Peanuts</b>
+            </div>
+          </div>
+        </div>
         <Tabs
           className={styles.tabs}
           tabs={TABS}

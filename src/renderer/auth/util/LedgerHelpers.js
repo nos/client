@@ -1,3 +1,8 @@
+import LedgerNode from '@ledgerhq/hw-transport-node-hid';
+import { u } from '@cityofzion/neon-js';
+
+import Ledger from './Ledger';
+
 export const VALID_STATUS = 0x9000;
 export const MSG_TOO_BIG = 0x6d08;
 export const APP_CLOSED = 0x6e00;
@@ -60,4 +65,36 @@ export function assembleSignature(response) {
   });
 
   return integers.join('');
+}
+
+export async function initializeDevice() {
+  const paths = await LedgerNode.list();
+  if (paths.length === 0) throw new Error('No USB device found.');
+
+  const supported = await LedgerNode.isSupported();
+  if (!supported) throw new Error('Your system does not support Ledger.');
+
+  return new Promise((resolve, reject) => {
+    const { unsubscribe } = LedgerNode.listen({
+      next: async (e) => {
+        if (e.type === 'add') {
+          unsubscribe();
+
+          // decriptor constains path
+          const ledger = new Ledger(e.descriptor);
+          await ledger.open();
+
+          resolve(ledger);
+        }
+      },
+      error: (error) => {
+        unsubscribe();
+        reject(error);
+      },
+      complete: () => {
+        unsubscribe();
+        resolve('Completed');
+      }
+    });
+  });
 }

@@ -37,9 +37,6 @@ export default class LoginFormLedger extends React.PureComponent {
   };
 
   componentDidMount() {
-    console.log('LoginFormLedger ', this.props);
-    console.log('LoginFormLedger ', this.props);
-
     this.props.poll();
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
   }
@@ -93,9 +90,6 @@ export default class LoginFormLedger extends React.PureComponent {
 
   handleLogin = (event) => {
     const { publicKey, onLogin } = this.props;
-
-    console.log('LoginFormLedger.js handleLogin ', this.props);
-    return;
 
     event.preventDefault();
     onLogin({ publicKey });

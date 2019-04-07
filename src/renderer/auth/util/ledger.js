@@ -5,24 +5,7 @@ import { evalTransportError, BIP44, VALID_STATUS, assembleSignature } from './Le
 export default class NeonLedger {
   constructor(path) {
     this.path = path;
-  }
-
-  /**
-   * Initialises by listing devices and trying to find a ledger device connected.
-   * Throws an error if no ledgers detected or unable to connect.
-   * @return {Promise<NeonLedger>}
-   */
-  static async init() {
-    const supported = await LedgerNode.isSupported();
-    if (!supported) throw new Error('Your system does not support Ledger.');
-    const paths = await NeonLedger.list();
-    if (paths.length === 0) throw new Error('No USB device found.');
-    const ledger = new NeonLedger(paths[0]);
-    return ledger.open();
-  }
-
-  static async list() {
-    return LedgerNode.list();
+    this.device = null;
   }
 
   /**
@@ -81,7 +64,6 @@ export default class NeonLedger {
     }
 
     const [cla, ins, p1, p2] = params.match(/.{1,2}/g).map((i) => parseInt(i, 16));
-
     try {
       return await this.device.send(cla, ins, p1, p2, Buffer.from(data, 'hex'), statusList);
     } catch (err) {
