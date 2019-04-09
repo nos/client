@@ -2,6 +2,10 @@
   -webkit-font-smoothing: antialiased;
   padding: 24px;
 
+  .privateTabLink {
+    padding: 0px;
+  }
+
   .grid {
     display: grid;
     grid-gap: 16px;

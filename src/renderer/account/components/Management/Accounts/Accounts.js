@@ -36,7 +36,6 @@ export default class Accounts extends React.PureComponent {
   }
 
   handleAddAccount = () => {
-    console.log('Accounts.js ', this.props);
     this.props.addAccount({ type: 'ETH' });
   };
 }

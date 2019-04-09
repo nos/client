@@ -4,6 +4,7 @@ import { noop } from 'lodash';
 import { progressValues } from 'spunky';
 
 import styles from './LoginFormLedger.scss';
+import AuthButton from '../../AuthButton';
 // import LoginButton from '../LoginButton';
 
 const POLL_FREQUENCY = 1000;
@@ -50,6 +51,13 @@ export default class LoginFormLedger extends React.PureComponent {
     return (
       <form className={styles.loginForm} onSubmit={this.handleLogin}>
         <div>{this.renderStatus()}</div>
+
+        <AuthButton
+          buttonText="Unlock Wallet"
+          className={styles.register}
+          type="submit"
+          disabled={this.props.disabled}
+        />
 
         {this.renderActions()}
       </form>

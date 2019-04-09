@@ -52,12 +52,11 @@ export default class LoginFormAccount extends React.PureComponent {
 
   renderRegisterForm = ({ disabled, currentAccount, accounts, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
-      <div>{accounts[currentAccount] && accounts[currentAccount].secretWord}</div>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
         id="profiel"
-        label="Select Wallet"
+        label="Account"
         disabled={isEmpty(accounts)}
         value={currentAccount}
         items={this.getProfiles()}
@@ -68,14 +67,14 @@ export default class LoginFormAccount extends React.PureComponent {
         id="passphrase"
         type="password"
         label="Passphrase"
-        placeholder="Enter passphrase"
+        placeholder="Enter your passphrase"
         value={passphrase}
         disabled={disabled || isEmpty(accounts)}
         onChange={this.handleChangePassphrase}
       />
 
       <AuthButton
-        buttonText="Unlock Wallet"
+        buttonText="Log In"
         className={styles.register}
         type="submit"
         disabled={disabled || !this.isValid()}

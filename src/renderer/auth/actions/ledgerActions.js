@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 
-import { getDeviceInfo, getPublicKey } from '../util/ledger';
+import { getDeviceInfo, getPublicKey } from '../util/NEO/NeoLedger';
 
 export const ID = 'ledger';
 

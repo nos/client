@@ -2,12 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, func, bool } from 'prop-types';
 
+import CloseIcon from 'shared/images/icons/close-modal.svg';
 import Modal from 'shared/components/Modal';
 
 import styles from './Auth.scss';
 
 import Login from '../Login';
 import Register from '../Register';
+import AuthFooter from '../AuthFooter';
 
 const LOGIN = 'Login';
 const REGISTER = 'Register';
@@ -16,6 +18,7 @@ export default class Auth extends React.PureComponent {
   static propTypes = {
     className: string,
     onConfirm: func.isRequired,
+    onCancel: func.isRequired,
     login: func.isRequired,
     authenticated: bool.isRequired
   };
@@ -27,7 +30,7 @@ export default class Auth extends React.PureComponent {
   confirm = React.createRef();
 
   state = {
-    component: LOGIN // Todo set to login
+    component: LOGIN
   };
 
   componentDidMount() {
@@ -42,9 +45,10 @@ export default class Auth extends React.PureComponent {
     }
 
     return (
-      <Modal className={classNames(styles.confirm, className)}>
+      <Modal className={classNames(styles.auth, className)}>
+        {this.renderHeader()}
         {this.renderComponent()}
-        {this.renderFooter()}
+        <AuthFooter onClick={this.handleSelectComponent} />
       </Modal>
     );
   }
@@ -62,9 +66,9 @@ export default class Auth extends React.PureComponent {
     }
   };
 
-  renderFooter = () => (
-    <span className={styles.footer}>
-      New to nOS? <a onClick={this.handleSelectComponent}>Create Wallet</a>
+  renderHeader = () => (
+    <span className={styles.closeIcon}>
+      <CloseIcon onClick={this.props.onCancel} />
     </span>
   );
 

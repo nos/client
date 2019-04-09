@@ -1,6 +1,32 @@
 .login {
-  padding: 20px;
+  padding: 0 20px 0 20px;
   -webkit-app-region: no-drag;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+
+    .pill {
+      align-self: center;
+      // TODO dynamic colors
+      // Somehow #6979f8 and 0.1 opacity turn the text white
+      background: #f0f2ff;
+      border-radius: 18px;
+    }
+
+    .pillText {
+      padding: 5px 10px;
+      color: #6979f8;
+      font-size: 12px;
+    }
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 28px;
+    text-align: center;
+  }
 
   .tabs {
     margin: 20px 0 0;
