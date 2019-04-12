@@ -10,7 +10,7 @@ import previousAuthActions, {
 import accountActions from 'auth/actions/accountActions';
 import withLogin from 'auth/hocs/withLogin';
 
-import LoginFormAccount from './LoginFormAccount';
+import LoginForm from './LoginForm';
 
 const mapAccountActionsToProps = (accounts) => ({
   accounts
@@ -51,4 +51,4 @@ export default compose(
     setLastLogin({ label: currentAccount });
     history.push('/browser');
   })
-)(LoginFormAccount);
+)(LoginForm);

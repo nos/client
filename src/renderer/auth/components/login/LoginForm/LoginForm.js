@@ -6,13 +6,11 @@ import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 
-import AuthButton from '../../AuthButton';
+import styles from './LoginForm.scss';
 
-import styles from './LoginFormAccount.scss';
-
-export default class LoginFormAccount extends React.PureComponent {
+export default class LoginForm extends React.PureComponent {
   static propTypes = {
-    disabled: bool,
+    disabled: bool, // TODO adjust all props
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
@@ -73,12 +71,13 @@ export default class LoginFormAccount extends React.PureComponent {
         onChange={this.handleChangePassphrase}
       />
 
-      <AuthButton
-        buttonText="Log In"
-        className={styles.register}
+      <PrimaryButton
+        className={styles.button}
         type="submit"
         disabled={disabled || !this.isValid()}
-      />
+      >
+        Log In
+      </PrimaryButton>
     </form>
   );
 

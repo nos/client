@@ -5,6 +5,7 @@ import Tabs from 'shared/components/Tabs';
 import accountShape from 'auth/shapes/accountShape';
 
 import RegisterForm from '../RegisterForm';
+import SidePanel from '../SidePanel';
 import AccountDetails from '../AccountDetails';
 import styles from './Register.scss';
 
@@ -29,22 +30,27 @@ export default class Register extends React.PureComponent {
 
   render() {
     return (
-      <Panel className={styles.register}>
-        <Tabs
-          className={styles.tabs}
-          tabs={TABS}
-          selectedTab={this.state.tab}
-          renderTab={this.renderTab}
-          onSelect={this.handleSelectTab}
+      <div className={styles.sidePanel}>
+        <SidePanel
+          step="1"
+          title="New Wallet"
+          text="🔗 Connect a wallet to interact with decentralized apps and transfer
+      crypto-currencies."
         />
-      </Panel>
+
+        <div className={styles.component}>
+          {this.renderHeader()}
+          {this.renderCreateTab()}
+          <AuthFooter onClick={this.handleSelectComponent} />
+        </div>
+      </div>
     );
   }
 
   renderTab = (id) => {
     switch (id) {
       case TAB_CREATE:
-        return this.renderCreateTab();
+        return;
       default:
         throw new Error('Invalid tab.');
     }

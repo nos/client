@@ -90,19 +90,6 @@ export default class RegisterForm extends React.PureComponent {
           type="submit"
           disabled={loading || !this.isValid()}
         />
-
-        {/* <div className={styles.actions}>
-          <PrimaryButton
-            className={styles.register}
-            type="submit"
-            disabled={loading || !this.isValid()}
-          >
-            Create Wallet
-          </PrimaryButton>
-          <span className={styles.login}>
-            Already have a wallet? <Link to="/login">Open Wallet</Link>
-          </span>
-        </div> */}
       </form>
     );
   };

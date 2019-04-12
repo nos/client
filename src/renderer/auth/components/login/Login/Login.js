@@ -1,72 +1,43 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
-import Tabs from 'shared/components/Tabs';
+import CloseIcon from 'shared/images/icons/close-modal.svg';
 
-import LoginFormAccount from '../LoginFormAccount';
-import LoginFormLedger from '../LoginFormLedger';
+import LoginFormAccount from '../LoginForm';
 import styles from './Login.scss';
+import AuthFooter from '../../AuthFooter';
 
-const TAB_PROFILES = 'Profiles';
-const TAB_LEDGER = 'Ledger';
+const Login = ({ onCancel, secretWord, loading, login, redirect }) => (
+  <Panel className={styles.login}>
+    <div className={styles.content}>
+      <CloseIcon className={styles.closeIcon} onClick={onCancel} />
 
-const TABS = {
-  [TAB_PROFILES]: 'Saved Profiles',
-  [TAB_LEDGER]: 'Ledger'
-};
-
-export default class LoginPanel extends React.PureComponent {
-  static propTypes = {
-    loading: bool,
-    login: func
-  };
-
-  static defaultProps = {
-    loading: false,
-    login: undefined
-  };
-
-  state = {
-    tab: TAB_PROFILES
-  };
-
-  render() {
-    return (
-      <Panel className={styles.login}>
-        <div className={styles.title}>Log In</div>
-        <div className={styles.heading}>
-          <div className={styles.pill}>
-            <div className={styles.pillText}>
-              Secret word: <b>Peanuts</b>
-            </div>
+      <div className={styles.title}>Log In</div>
+      <div className={styles.heading}>
+        <div className={styles.pill}>
+          <div className={styles.pillText}>
+            Secret word: <b>{secretWord}</b>
           </div>
         </div>
-        <Tabs
-          className={styles.tabs}
-          tabs={TABS}
-          selectedTab={this.state.tab}
-          renderTab={this.renderTab}
-          onSelect={this.handleSelectTab}
-        />
-      </Panel>
-    );
-  }
+      </div>
+      <LoginFormAccount disabled={loading} onLogin={login} />
+    </div>
 
-  renderTab = (id) => {
-    const { loading, login } = this.props;
+    <AuthFooter
+      className={styles.footer}
+      text="New to nOS? Create Wallet"
+      onClick={redirect}
+    />
+  </Panel>
+);
 
-    switch (id) {
-      case TAB_PROFILES:
-        return <LoginFormAccount disabled={loading} onLogin={login} />;
-      case TAB_LEDGER:
-        return <LoginFormLedger disabled={loading} onLogin={login} />;
-      default:
-        throw new Error('Invalid tab.');
-    }
-  };
+Login.propTypes = {
+  onCancel: func.isRequired,
+  secretWord: string.isRequired,
+  loading: bool.isRequired,
+  login: func.isRequired,
+  redirect: func.isRequired
+};
 
-  handleSelectTab = (tab) => {
-    this.setState({ tab });
-  };
-}
+export default Login;

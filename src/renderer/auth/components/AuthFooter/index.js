@@ -1,22 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { bool, string } from 'prop-types';
+import { string, func } from 'prop-types';
 
 import styles from './AuthFooter.scss';
 
-const AuthFooter = ({ onClick }) => (
-  <div className={styles.authFooter} onClick={onClick}>
-    <div className={styles.text}>New to nOS? Create Wallet</div>
+const AuthFooter = ({ text, onClick }) => (
+  <div
+    className={styles.authFooter}
+    onClick={onClick}
+    role="button"
+    tabIndex={0}
+  >
+    <div className={styles.text}>{text}</div>
   </div>
 );
 
 AuthFooter.propTypes = {
-  buttonText: string.isRequired,
-  disabled: bool
+  text: string.isRequired,
+  onClick: func.isRequired
 };
 
-AuthFooter.defaultProps = {
-  disabled: false
-};
+AuthFooter.defaultProps = {};
 
 export default AuthFooter;

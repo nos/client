@@ -1,0 +1,24 @@
+.sidePanel {
+  width: 260px;
+  height: 100%;
+  color: white;
+  text-align: left;
+  font-weight: 500;
+
+  padding-left: 10%;
+  padding-right: 10%;
+
+  background: linear-gradient(-18.13deg, #6979f8 11.42%, #1425ae 98.57%);
+  box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
+
+  .title {
+    font-size: 28px;
+    margin: 6px 0 20px 0;
+  }
+
+  .step {
+    text-align: left;
+    padding-top: 60px;
+    opacity: 0.75;
+  }
+}

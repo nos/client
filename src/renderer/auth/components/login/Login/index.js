@@ -1,25 +1,20 @@
-import { compose, withProps } from 'recompose';
-import { withActions, withProgress, progressValues } from 'spunky';
+import { compose } from 'recompose';
+import { withData } from 'spunky';
 
-import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-
-import authActions, { getAccountsActions } from 'auth/actions/authActions';
-import withAuthError from 'auth/hocs/withAuthError';
-import withAuthState from 'auth/hocs/withAuthState';
+import withInitialCall from 'shared/hocs/withInitialCall';
+import withNullLoader from 'browser/hocs/withNullLoader';
+import accountActions from 'auth/actions/accountActions';
 
 import Login from './Login';
 
-const { LOADING } = progressValues;
-
-const mapAuthActionsToProps = (actions) => ({
-  login: (data) => {
-    return actions.call(data);
-  }
+const mapAccountActionsToProps = (accounts) => ({
+  accounts
 });
 
-export default compose()(Login);
-// withActions(authActions, mapAuthActionsToProps),
-// withProgress(authActions, { strategy: pureStrategy }),
-// withProps((props) => ({ loading: props.progress === LOADING })),
-// withAuthState(),
-// withAuthError
+export default compose(
+  withInitialCall(accountActions),
+
+  withNullLoader(accountActions),
+
+  withData(accountActions, mapAccountActionsToProps)
+)(Login);
