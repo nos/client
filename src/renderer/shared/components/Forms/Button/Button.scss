@@ -5,11 +5,11 @@
   background: #fff;
   border: 0;
   border-radius: 4px;
-  color: #8bc83c;
+  color: $brand-color;
   font-weight: 500;
   font-size: 14px;
   text-align: center;
-  box-shadow: inset 0 0 0 2px rgba(#8bc83c, 0.9);
+  box-shadow: inset 0 0 0 2px $brand-color;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   transition: all 0.2s ease;
@@ -21,8 +21,8 @@
 
   &:not([disabled]) {
     &:hover {
-      color: #5bba47;
-      box-shadow: inset 0 0 0 2px #5bba47,
+      color: $brand-hover-color;
+      box-shadow: inset 0 0 0 2px $brand-hover-color,
     }
   }
 }

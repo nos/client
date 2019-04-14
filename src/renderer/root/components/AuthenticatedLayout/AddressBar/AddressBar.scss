@@ -61,7 +61,7 @@
       margin: 0 4px;
 
       &.selected {
-        @include button(#8bc83c);
+        @include button($brand-color);
       }
     }
   }

@@ -3,7 +3,7 @@
   $focus-background-color: #e9eaee;
   $focus-icon-color: #7b7a86;
   $active-background-color: #e2e3e8;
-  $active-icon-color: #8bc83c;
+  $active-icon-color: $brand-color;
 
   position: relative;
   display: block;
@@ -41,7 +41,7 @@
       bottom: 0;
       left: 0;
       width: 3px;
-      background: linear-gradient(0deg, #b9d532 0%, #5bba47 100%);
+      background: $brand-color;
     }
   }
 

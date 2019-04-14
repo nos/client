@@ -1,5 +1,5 @@
 .primaryButton {
-  background: radial-gradient(#5BBA47 0%, #8BCD38 100%);
+  background-color: $brand-color;
   border-radius: 4px;
   color: rgba(#fff, 0.9);
   font-weight: bold;
@@ -9,20 +9,18 @@
   transition: all 0.2s ease;
 
   &[disabled] {
-    background: radial-gradient(#3DAD25 66.85%, #8BCD38 100%);
     color: rbga(#fff, 0.85);
     opacity: 0.5;
   }
 
   &:not([disabled]) {
     &:hover {
-      background: radial-gradient(#5BBA47 66.85%, #8BCD38 100%);
+      background-color: $brand-hover-color;
       box-shadow: 0 6px 8px rgba(53, 52, 69, 0.1);
       color: #fff;
     }
 
     &:active {
-      background: radial-gradient(#5BBA47 0%, #5BBA47 100%);
       box-shadow: 0 2px 6px rgba(53, 52, 69, 0.1);
       color: rgba(#fff, 0.85);
     }
