@@ -1,0 +1,31 @@
+.mnemonicWord {
+  background: #f7f8fa;
+  border-radius: 4px;
+  margin: 10px 6px;
+
+  display: flex;
+  align-items: center; /* Vertical center alignment */
+
+  .count {
+    width: 18px;
+    height: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #edeef2;
+    color: #9a99a5;
+
+    border-radius: 2px;
+    font-size: 10px;
+    text-align: center;
+    margin: 2px;
+  }
+
+  .word {
+    margin: 3px 12px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+}

@@ -30,6 +30,7 @@ export default compose(
   withNullLoader(accountActions),
   withData(accountActions, mapAccountActionsToProps),
 
+  // Map login action as it's used by both components + add loading state
   withActions(authActions, mapAuthActionsToProps),
   withProgress(authActions, { strategy: pureStrategy }),
   withProps((props) => ({ loading: props.progress === LOADING })),

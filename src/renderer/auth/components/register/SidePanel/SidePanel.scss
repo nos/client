@@ -1,12 +1,14 @@
 .sidePanel {
-  width: 260px;
-  height: 100%;
+  max-width: 260px;
+
   color: white;
   text-align: left;
-  font-weight: 500;
 
-  padding-left: 10%;
-  padding-right: 10%;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  padding: 0 40px;
 
   background: linear-gradient(-18.13deg, #6979f8 11.42%, #1425ae 98.57%);
   box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);

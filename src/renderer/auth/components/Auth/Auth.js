@@ -47,15 +47,20 @@ export default class Auth extends React.PureComponent {
       onConfirm();
     }
 
-    return (
-      <Modal className={classNames(styles.auth, className)}>
-        {this.renderComponent()}
-      </Modal>
-    );
+    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
   }
 
   renderComponent = () => {
     const { login, loading, onCancel } = this.props;
+
+    return (
+      <Register
+        login={login}
+        loading={loading}
+        onCancel={onCancel}
+        redirect={this.handleSelectComponent}
+      />
+    );
 
     switch (this.state.component) {
       case LOGIN:
@@ -68,7 +73,14 @@ export default class Auth extends React.PureComponent {
           />
         );
       case REGISTER:
-        return <Register login={login} />;
+        return (
+          <Register
+            login={login}
+            loading={loading}
+            onCancel={onCancel}
+            redirect={this.handleSelectComponent}
+          />
+        );
       default:
         throw new Error('Invalid Component.');
     }

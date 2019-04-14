@@ -1,0 +1,34 @@
+.registerForm {
+  min-width: 440px;
+  padding: 0 40px;
+
+  .label span {
+    display: inline;
+    font-size: 12px;
+  }
+
+  .checkbox {
+    background: transparent;
+    box-shadow: none;
+    width: auto;
+    margin-right: 10px;
+
+    input {
+      width: auto;
+    }
+  }
+
+  .horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    label:first-of-type {
+      margin-right: 15px;
+    }
+  }
+
+  .bottom {
+    margin-bottom: 40px;
+  }
+}

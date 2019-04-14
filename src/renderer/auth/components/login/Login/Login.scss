@@ -5,9 +5,6 @@
 
   -webkit-app-region: no-drag;
 
-  min-width: 466px;
-  min-height: 435px;
-
   .content {
     display: flex;
     flex-direction: column;
@@ -23,25 +20,25 @@
       font-size: 28px;
       text-align: center;
     }
-  }
-}
 
-.heading {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
+    .heading {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
 
-  .pill {
-    align-self: center;
-    // TODO dynamic colors
-    // Somehow #6979f8 and 0.1 opacity turn the text white
-    background: #f0f2ff;
-    border-radius: 18px;
-  }
+      .pill {
+        align-self: center;
+        // TODO dynamic colors
+        // Somehow #6979f8 and 0.1 opacity turn the text white
+        background: #f0f2ff;
+        border-radius: 18px;
+      }
 
-  .pillText {
-    padding: 5px 10px;
-    color: #6979f8;
-    font-size: 12px;
+      .pillText {
+        padding: 5px 10px;
+        color: #6979f8;
+        font-size: 12px;
+      }
+    }
   }
 }

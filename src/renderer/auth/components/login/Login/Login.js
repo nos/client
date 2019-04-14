@@ -3,10 +3,10 @@ import { bool, func, string } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
 import CloseIcon from 'shared/images/icons/close-modal.svg';
+import AuthFooter from 'auth/components/AuthFooter';
 
-import LoginFormAccount from '../LoginForm';
+import LoginForm from '../LoginForm';
 import styles from './Login.scss';
-import AuthFooter from '../../AuthFooter';
 
 const Login = ({ onCancel, secretWord, loading, login, redirect }) => (
   <Panel className={styles.login}>
@@ -21,14 +21,10 @@ const Login = ({ onCancel, secretWord, loading, login, redirect }) => (
           </div>
         </div>
       </div>
-      <LoginFormAccount disabled={loading} onLogin={login} />
+      <LoginForm disabled={loading} onLogin={login} />
     </div>
 
-    <AuthFooter
-      className={styles.footer}
-      text="New to nOS? Create Wallet"
-      onClick={redirect}
-    />
+    <AuthFooter text="New to nOS? Create Wallet" onClick={redirect} />
   </Panel>
 );
 

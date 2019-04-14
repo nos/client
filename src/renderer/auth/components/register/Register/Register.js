@@ -1,19 +1,12 @@
 import React from 'react';
 
-import Panel from 'shared/components/Panel';
-import Tabs from 'shared/components/Tabs';
 import accountShape from 'auth/shapes/accountShape';
 
-import RegisterForm from '../RegisterForm';
-import SidePanel from '../SidePanel';
-import AccountDetails from '../AccountDetails';
+import CreateAccount from '../CreateAccount';
+import AccountView from '../AccountView';
+
 import styles from './Register.scss';
-
-const TAB_CREATE = 'create';
-
-const TABS = {
-  [TAB_CREATE]: 'Create New Wallet'
-};
+import VerifyAccount from '../VerifyAccount';
 
 export default class Register extends React.PureComponent {
   static propTypes = {
@@ -25,48 +18,44 @@ export default class Register extends React.PureComponent {
   };
 
   state = {
-    tab: TAB_CREATE
+    step: 2
   };
 
   render() {
-    return (
-      <div className={styles.sidePanel}>
-        <SidePanel
-          step="1"
-          title="New Wallet"
-          text="🔗 Connect a wallet to interact with decentralized apps and transfer
-      crypto-currencies."
-        />
+    const { onCancel, redirect, account } = this.props;
 
-        <div className={styles.component}>
-          {this.renderHeader()}
-          {this.renderCreateTab()}
-          <AuthFooter onClick={this.handleSelectComponent} />
-        </div>
-      </div>
-    );
+    return <React.Fragment>{this.renderComponent()}</React.Fragment>;
   }
 
-  renderTab = (id) => {
-    switch (id) {
-      case TAB_CREATE:
-        return;
-      default:
-        throw new Error('Invalid tab.');
-    }
-  };
-
-  renderCreateTab = () => {
+  renderComponent = () => {
     const { account } = this.props;
+    const { step } = this.state;
 
-    if (account) {
-      return <AccountDetails account={account} />;
+    if (account && step === 3) {
+      return this.renderThirdStep();
+    } else if (account && step === 2) {
+      return this.renderSecondStep();
     } else {
-      return <RegisterForm />;
+      return this.renderFirstStep();
     }
   };
 
-  handleSelectTab = (tab) => {
-    this.setState({ tab });
+  renderFirstStep = () => {
+    return <CreateAccount />;
+  };
+
+  renderSecondStep = () => {
+    const { account } = this.props;
+    return <AccountView account={account} reset={this.props.reset} setStep={this.setStep} />;
+  };
+
+  renderThirdStep = () => {
+    const { account } = this.props;
+    return <VerifyAccount account={account} />;
+  };
+
+  setStep = (step) => {
+    console.log('Setting Step ', step);
+    this.setState({ step });
   };
 }

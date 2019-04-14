@@ -71,11 +71,7 @@ export default class LoginForm extends React.PureComponent {
         onChange={this.handleChangePassphrase}
       />
 
-      <PrimaryButton
-        className={styles.button}
-        type="submit"
-        disabled={disabled || !this.isValid()}
-      >
+      <PrimaryButton className={styles.button} type="submit" disabled={disabled || !this.isValid()}>
         Log In
       </PrimaryButton>
     </form>
