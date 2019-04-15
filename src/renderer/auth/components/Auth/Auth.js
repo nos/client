@@ -7,8 +7,8 @@ import Modal from 'shared/components/Modal';
 
 import styles from './Auth.scss';
 
-import Login from '../login';
-import Register from '../register';
+import Login from '../Login';
+import Register from '../Register';
 
 const LOGIN = 'Login';
 const REGISTER = 'Register';
@@ -47,7 +47,11 @@ export default class Auth extends React.PureComponent {
       onConfirm();
     }
 
-    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
+    return (
+      <Modal className={classNames(styles.auth, className)}>
+        {this.renderComponent()}
+      </Modal>
+    );
   }
 
   renderComponent = () => {

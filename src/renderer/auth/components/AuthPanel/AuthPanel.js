@@ -4,7 +4,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, node, bool } from 'prop-types';
 
-import SidePanel from 'auth/components/register/SidePanel';
+import SidePanel from 'auth/components/Register/SidePanel';
 import AuthFooter from 'auth/components/AuthFooter';
 import CloseIcon from 'shared/images/icons/close-modal.svg';
 
@@ -24,7 +24,9 @@ export default function AuthPanel({
 }) {
   return (
     <div className={classNames(styles.authPanel, className)}>
-      {sidePanel && <SidePanel step={step} title="New Wallet" text={sidePanelText} />}
+      {sidePanel && (
+        <SidePanel step={step} title="New Wallet" text={sidePanelText} />
+      )}
 
       <div className={styles.content}>
         <CloseIcon className={styles.closeIcon} onClick={onCancel} />
