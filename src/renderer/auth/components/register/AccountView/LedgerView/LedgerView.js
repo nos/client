@@ -4,13 +4,9 @@ import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
 
-// import LedgerView from './LedgerView';
-import MnemonicView from './MnemonicView';
+import styles from './LedgerView.scss';
 
-import styles from './AccountView.scss';
-import RegisterForm from '../CreateAccount/RegisterForm/RegisterForm';
-
-export default class AccountView extends React.PureComponent {
+export default class LedgerView extends React.PureComponent {
   static propTypes = {
     account: accountShape
   };
@@ -26,11 +22,25 @@ export default class AccountView extends React.PureComponent {
   render() {
     const { onCancel, account, reset } = this.props;
 
-    const sidePanelText = account.isLedger
-      ? 'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.'
-      : '✍ Write down your recovery seed and store it in a safe place. Your recovery seed grants access to all your crypto-currency private keys, so keep it secure!';
+    const sidePanelText =
+      'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
 
-    return <React.Fragment>{this.renderComponent()}</React.Fragment>;
+    return (
+      <AuthPanel
+        sidePanel
+        step="2"
+        onCancel={onCancel}
+        className={styles.register}
+        sidePanelText={sidePanelText}
+      >
+        {this.renderComponent()}
+        <NavigationButtons
+          onPrevious={reset}
+          onNext={this.goNext}
+          buttonText="Next: Verify"
+        />
+      </AuthPanel>
+    );
   }
 
   goNext = () => {

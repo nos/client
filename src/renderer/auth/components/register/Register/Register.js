@@ -46,12 +46,18 @@ export default class Register extends React.PureComponent {
 
   renderSecondStep = () => {
     const { account } = this.props;
-    return <AccountView account={account} reset={this.props.reset} setStep={this.setStep} />;
+    return (
+      <AccountView
+        account={account}
+        reset={this.props.reset}
+        setStep={this.setStep}
+      />
+    );
   };
 
   renderThirdStep = () => {
     const { account } = this.props;
-    return <VerifyAccount account={account} />;
+    return <VerifyAccount account={account} setStep={this.setStep} />;
   };
 
   setStep = (step) => {

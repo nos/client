@@ -1,5 +1,5 @@
 .registerForm {
-  min-width: 440px;
+  min-width: 520px;
   padding: 0 40px;
 
   .label span {
@@ -11,7 +11,7 @@
     background: transparent;
     box-shadow: none;
     width: auto;
-    margin-right: 10px;
+    // margin-right: 10px;
 
     input {
       width: auto;
@@ -22,6 +22,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    label {
+      flex-grow: 2;
+    }
 
     label:first-of-type {
       margin-right: 15px;
