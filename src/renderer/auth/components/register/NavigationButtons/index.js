@@ -1,33 +1,27 @@
 import React from 'react';
-import { string, number } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import Button from 'shared/components/Forms/Button';
 
 import styles from './NavigationButtons.scss';
 
-const NavigationButtons = ({ onPrevious, onNext, buttonText, disabled }) => (
+const NavigationButtons = ({ onBack, onNext, nextBtnText, disabled }) => (
   <div className={styles.navigationButtons}>
-    <Button
-      className={styles.previousBtn}
-      onClick={onPrevious}
-      disabled={disabled}
-    >
+    <Button className={styles.previousBtn} onClick={onBack} disabled={disabled}>
       Back
     </Button>
-    <PrimaryButton
-      className={styles.nextBtn}
-      onClick={onNext}
-      disabled={disabled}
-    >
-      {buttonText}
+    <PrimaryButton className={styles.nextBtn} onClick={onNext} disabled={disabled}>
+      {nextBtnText}
     </PrimaryButton>
   </div>
 );
 
 NavigationButtons.propTypes = {
-  count: number.isRequired,
-  word: string.isRequired
+  onBack: func.isRequired,
+  onNext: func.isRequired,
+  nextBtnText: string.isRequired,
+  disabled: bool.isRequired
 };
 
 NavigationButtons.defaultProps = {};

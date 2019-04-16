@@ -31,12 +31,13 @@ export default class Auth extends React.PureComponent {
   confirm = React.createRef();
 
   state = {
-    component: LOGIN
+    component: REGISTER
   };
 
   componentDidMount() {
     const { accounts } = this.props;
-    this.setState({ component: isEmpty(accounts) ? REGISTER : LOGIN });
+    // TODO uncomment first line
+    // this.setState({ component: isEmpty(accounts) ? REGISTER : LOGIN });
     // this.confirm.current.focus();
   }
 
@@ -47,24 +48,11 @@ export default class Auth extends React.PureComponent {
       onConfirm();
     }
 
-    return (
-      <Modal className={classNames(styles.auth, className)}>
-        {this.renderComponent()}
-      </Modal>
-    );
+    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
   }
 
   renderComponent = () => {
     const { login, loading, onCancel } = this.props;
-
-    return (
-      <Register
-        login={login}
-        loading={loading}
-        onCancel={onCancel}
-        redirect={this.handleSelectComponent}
-      />
-    );
 
     switch (this.state.component) {
       case LOGIN:
@@ -92,6 +80,9 @@ export default class Auth extends React.PureComponent {
 
   handleSelectComponent = () => {
     const { component } = this.state;
+
+    console.log('JAA??');
+
     const newSelectedComponent = component === LOGIN ? REGISTER : LOGIN;
     this.setState({ component: newSelectedComponent });
   };

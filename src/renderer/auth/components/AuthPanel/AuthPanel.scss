@@ -12,4 +12,18 @@
       cursor: pointer;
     }
   }
+
+  .footer {
+    width: 100%;
+    background-color: #f0f2fe;
+    color: #6979f8;
+    padding: 10px 0 10px 0;
+    cursor: pointer;
+    user-select: none;
+
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: normal;
+  }
 }

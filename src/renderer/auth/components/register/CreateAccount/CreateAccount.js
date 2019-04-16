@@ -16,13 +16,9 @@ export default class CreateAccount extends React.PureComponent {
     account: null
   };
 
-  state = {
-    currentStep: 1
-  };
-
   render() {
     const { onCancel, redirect, account, setStep } = this.props;
-    const { currentStep } = this.state;
+
     const sidePanelText =
       '🔗 Create a wallet to interact with decentralized apps and transfer crypto-currencies.';
 
@@ -35,6 +31,7 @@ export default class CreateAccount extends React.PureComponent {
         className={styles.register}
         footerText="New to nOS? Create Account"
         sidePanelText={sidePanelText}
+        redirect={redirect}
       >
         <RegisterForm setStep={setStep} />
       </AuthPanel>
