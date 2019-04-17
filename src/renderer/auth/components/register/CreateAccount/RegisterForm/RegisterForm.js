@@ -17,11 +17,13 @@ export default class RegisterForm extends React.PureComponent {
     passphrase: string,
     passphraseConfirmation: string,
     secretWord: string,
+    useLedger: bool.isRequired,
     setLabel: func,
     setPassphrase: func,
     setPassphraseConfirmation: func,
     setSecretWord: func,
-    onRegister: func
+    onRegister: func,
+    setUseLedger: func
   };
 
   static defaultProps = {
@@ -34,11 +36,19 @@ export default class RegisterForm extends React.PureComponent {
     setPassphrase: noop,
     setPassphraseConfirmation: noop,
     setSecretWord: noop,
-    onRegister: noop
+    onRegister: noop,
+    setUseLedger: noop
   };
 
   render = () => {
-    const { label, passphrase, passphraseConfirmation, secretWord, loading } = this.props;
+    const {
+      label,
+      passphrase,
+      passphraseConfirmation,
+      secretWord,
+      loading,
+      useLedger
+    } = this.props;
 
     return (
       <form className={styles.registerForm} onSubmit={this.handleRegister}>
@@ -87,10 +97,10 @@ export default class RegisterForm extends React.PureComponent {
           <Input
             id="useLedger"
             type="checkbox"
-            value={secretWord}
+            checked={useLedger}
             disabled={loading}
-            onChange={this.handleChangeSecretWord}
-            renderAfter={this.renderSearchIcon}
+            onChange={this.handleChangeUseLedger}
+            renderAfter={this.renderCheckboxLabel}
             className={styles.checkbox}
           />
 
@@ -106,8 +116,18 @@ export default class RegisterForm extends React.PureComponent {
     );
   };
 
-  renderSearchIcon = () => {
-    return <Label htmlFor="useLedger" label="Use Ledger for next step" className={styles.label} />;
+  renderCheckboxLabel = () => {
+    return (
+      <Label
+        htmlFor="useLedger"
+        label="Use Ledger for next step"
+        className={styles.label}
+      />
+    );
+  };
+
+  handleChangeUseLedger = () => {
+    this.props.setUseLedger(!this.props.useLedger);
   };
 
   handleChangeSecretWord = (event) => {
@@ -127,13 +147,28 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   handleRegister = (event) => {
-    const { label, passphrase, secretWord, passphraseConfirmation, onRegister } = this.props;
+    const {
+      label,
+      passphrase,
+      secretWord,
+      passphraseConfirmation,
+      onRegister,
+      useLedger
+    } = this.props;
 
     event.preventDefault();
-    onRegister({ label, passphrase, passphraseConfirmation, secretWord });
+    onRegister({
+      label,
+      passphrase,
+      passphraseConfirmation,
+      secretWord,
+      useLedger
+    });
   };
 
   isValid = () => {
-    return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
+    return (
+      this.props.passphrase !== '' && this.props.passphraseConfirmation !== ''
+    );
   };
 }

@@ -32,24 +32,21 @@ export default class MnemonicView extends React.PureComponent {
             .trim()
             .split(' ')
             .map((word, count) => (
-              <MnemonicWord count={count + 1} word={word} />
+              <MnemonicWord
+                key={`${word + count + 1}`}
+                count={count + 1}
+                word={word}
+              />
             ))}
         </div>
-        <NavigationButtons onBack={onBack} onNext={this.onNext} nextBtnText="Next: Verify" />
+        <NavigationButtons
+          onBack={onBack}
+          onNext={this.onNext}
+          nextBtnText="Next: Verify"
+        />
       </AuthPanel>
     );
   }
-
-  renderComponent = () => {
-    const { account } = this.props;
-
-    if (account.isLedger) {
-      return null;
-      //   return <LedgerView account={account} />;
-    } else {
-      return <MnemonicView account={account} />;
-    }
-  };
 
   onNext = () => {
     this.props.setStep(3);

@@ -4,6 +4,10 @@ import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
 
+import LedgerConnect from 'shared/images/auth/ledgerConnect.svg';
+import LedgerConnected from 'shared/images/auth/ledgerConnected.svg';
+import LedgerComplete from 'shared/images/auth/ledgerComplete.svg';
+
 import styles from './LedgerView.scss';
 
 export default class LedgerView extends React.PureComponent {
@@ -15,12 +19,8 @@ export default class LedgerView extends React.PureComponent {
     account: null
   };
 
-  state = {
-    currentStep: 1
-  };
-
   render() {
-    const { onCancel, account, reset } = this.props;
+    const { onCancel, onBack, account, reset } = this.props;
 
     const sidePanelText =
       'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
@@ -35,31 +35,25 @@ export default class LedgerView extends React.PureComponent {
       >
         {this.renderComponent()}
         <NavigationButtons
-          onPrevious={reset}
-          onNext={this.goNext}
-          buttonText="Next: Verify"
+          onBack={onBack}
+          onNext={this.onNext}
+          nextBtnText="Next: Verify"
         />
       </AuthPanel>
     );
   }
 
-  goNext = () => {
-    this.props.setStep(3);
-  };
-
   renderComponent = () => {
     const { account } = this.props;
 
-    if (account.isLedger) {
-      return null;
-      //   return <LedgerView account={account} />;
-    } else {
-      return <MnemonicView account={account} />;
-    }
+    return (
+      <div className={styles.ledgerView}>
+        <LedgerConnect />
+      </div>
+    );
   };
 
-  renderPrevious = () => {
-    console.log('dojawijdoaiwjdaow');
-    return <RegisterForm />;
+  onNext = () => {
+    this.props.setStep(3);
   };
 }

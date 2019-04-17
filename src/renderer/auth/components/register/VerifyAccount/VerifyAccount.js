@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, bool } from 'prop-types';
 
 import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
@@ -6,11 +7,14 @@ import NavigationButtons from 'auth/components/Register/NavigationButtons';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 
 import styles from './VerifyAccount.scss';
-import RegisterForm from '../CreateAccount/RegisterForm/RegisterForm';
 
 export default class VerifyAccount extends React.PureComponent {
   static propTypes = {
-    account: accountShape
+    account: accountShape,
+    verifyAndLogin: func.isRequired,
+    setStep: func.isRequired,
+    disabled: bool.isRequired,
+    onCancel: func.isRequired
   };
 
   static defaultProps = {
@@ -18,9 +22,7 @@ export default class VerifyAccount extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, account, reset } = this.props;
-
-    console.log(account);
+    const { onCancel } = this.props;
 
     return (
       <AuthPanel
@@ -31,21 +33,13 @@ export default class VerifyAccount extends React.PureComponent {
       >
         {this.renderComponent()}
         <NavigationButtons
-          onPrevious={this.goPrevious}
+          onBack={this.onBack}
           onNext={this.complete}
-          buttonText="Complete"
+          nextBtnText="Complete"
         />
       </AuthPanel>
     );
   }
-
-  goPrevious = () => {
-    this.props.setStep(2);
-  };
-
-  complete = () => {
-    this.props.verifyAndLogin();
-  };
 
   renderComponent = () => {
     const { disabled } = this.props;
@@ -105,8 +99,13 @@ export default class VerifyAccount extends React.PureComponent {
     );
   };
 
-  renderPrevious = () => {
-    console.log('dojawijdoaiwjdaow');
-    return <RegisterForm />;
+  onBack = () => {
+    this.props.setStep(2);
+  };
+
+  complete = () => {
+    const { account } = this.props;
+    // TODO get form values and make it compare
+    this.props.verifyAndLogin(account);
   };
 }

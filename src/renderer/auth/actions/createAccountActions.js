@@ -1,19 +1,19 @@
-import { createActions } from 'spunky';
-import { isEmpty } from 'lodash';
-import bip39 from 'bip39';
-import uuid from 'uuid/v4';
+import { createActions } from "spunky";
+import { isEmpty } from "lodash";
+import bip39 from "bip39";
+import uuid from "uuid/v4";
 
-import simpleEncrypt from 'shared/util/simpleEncrypt';
-import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
-import { getStorage } from 'shared/lib/storage';
-import { DEFAULT_NET } from 'values/networks';
-import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-import CHAINS, { DEFAULT_CHAIN } from 'shared/values/chains';
+import simpleEncrypt from "shared/util/simpleEncrypt";
+import { DEFAULT_ACC_INDEX } from "shared/values/profile";
+import { getStorage } from "shared/lib/storage";
+import { DEFAULT_NET } from "values/networks";
+import { DEFAULT_LANGUAGE } from "shared/values/languages";
+import CHAINS, { DEFAULT_CHAIN } from "shared/values/chains";
 
 const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 
-export const ID = 'createAccount';
-const ACCOUNT_ID = 'account';
+export const ID = "createAccount";
+const ACCOUNT_ID = "account";
 
 /** // TODO
  * Password turned into SCrypt SHA256 hash.
@@ -26,14 +26,15 @@ const createAccount = async ({
   label,
   passphrase,
   passphraseConfirmation,
-  secretWord
+  secretWord,
+  useLedger
 }) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
-    throw new Error('Passphrase is too short.');
+    throw new Error("Passphrase is too short.");
   }
 
   if (passphrase !== passphraseConfirmation) {
-    throw new Error('Passphrase verification does not match.');
+    throw new Error("Passphrase verification does not match.");
   }
 
   const accounts = await getStorage(ACCOUNT_ID);
@@ -55,6 +56,7 @@ const createAccount = async ({
   const ethAccountId = uuid();
 
   const account = {
+    isLedger: useLedger, // TODO move to own "registerWithLedger" function
     accountLabel: label,
     encryptedMnemonic,
     secretWord,
@@ -84,6 +86,6 @@ const createAccount = async ({
   return account;
 };
 
-export default createActions(ID, (data) => {
+export default createActions(ID, data => {
   return () => createAccount(data);
 });
