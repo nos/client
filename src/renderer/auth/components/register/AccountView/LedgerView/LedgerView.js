@@ -1,4 +1,7 @@
 import React from 'react';
+import { bool, string, func, shape, object } from 'prop-types';
+import { noop } from 'lodash';
+import { progressValues } from 'spunky';
 
 import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
@@ -10,17 +13,53 @@ import LedgerComplete from 'shared/images/auth/ledgerComplete.svg';
 
 import styles from './LedgerView.scss';
 
+const POLL_FREQUENCY = 3000;
+
+const { LOADED, FAILED } = progressValues;
+
+const deviceInfoShape = shape({
+  manufacturer: string.isRequired,
+  product: string.isRequired
+});
+
 export default class LedgerView extends React.PureComponent {
   static propTypes = {
-    account: accountShape
+    setStep: func.isRequired,
+    onCancel: func.isRequired,
+    onBack: func.isRequired,
+    account: accountShape,
+    poll: func.isRequired,
+    publicKey: string,
+    deviceInfo: deviceInfoShape,
+    deviceError: object,
+    onLogin: func,
+    progress: string,
+    disabled: bool
   };
 
   static defaultProps = {
-    account: null
+    account: null,
+    publicKey: null,
+    deviceInfo: null,
+    deviceError: null,
+    onLogin: noop,
+    progress: null,
+    disabled: false
   };
 
+  componentDidMount() {
+    this.props.poll();
+    this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
+  }
+
+  componentWillUnmount() {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
+    }
+  }
+
   render() {
-    const { onCancel, onBack, account, reset } = this.props;
+    const { onCancel, onBack } = this.props;
 
     const sidePanelText =
       'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
@@ -33,24 +72,44 @@ export default class LedgerView extends React.PureComponent {
         className={styles.register}
         sidePanelText={sidePanelText}
       >
-        {this.renderComponent()}
-        <NavigationButtons
-          onBack={onBack}
-          onNext={this.onNext}
-          nextBtnText="Next: Verify"
-        />
+        <div className={styles.ledgerView}>{this.renderComponent()}</div>
+
+        <NavigationButtons onBack={onBack} onNext={this.onNext} nextBtnText="Next: Verify" />
       </AuthPanel>
     );
   }
 
   renderComponent = () => {
-    const { account } = this.props;
+    const { deviceError, deviceInfo, progress } = this.props;
 
-    return (
-      <div className={styles.ledgerView}>
-        <LedgerConnect />
-      </div>
-    );
+    console.log('props', this.props);
+
+    if (progress === LOADED) {
+      return (
+        <React.Fragment>
+          <LedgerConnected />
+          <p>
+            {deviceInfo.manufacturer} {deviceInfo.product} Connected.
+          </p>
+        </React.Fragment>
+      );
+    }
+
+    if (progress === FAILED) {
+      return (
+        <React.Fragment>
+          <LedgerConnect />
+          <div className={styles.text}>{deviceError}</div>
+        </React.Fragment>
+      );
+    }
+  };
+
+  handleLogin = (event) => {
+    const { publicKey, onLogin } = this.props;
+
+    event.preventDefault();
+    onLogin({ publicKey });
   };
 
   onNext = () => {

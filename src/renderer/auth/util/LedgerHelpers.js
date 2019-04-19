@@ -1,8 +1,10 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
 import { u } from '@cityofzion/neon-js';
 
+// TODO fix caps
 import Ledger from './Ledger';
 
+export const NOT_CONNECTED = 0x0001;
 export const VALID_STATUS = 0x9000;
 export const MSG_TOO_BIG = 0x6d08;
 export const APP_CLOSED = 0x6e00;
@@ -12,7 +14,7 @@ export const TX_PARSE_ERR = 0x6d07;
 export function evalTransportError(err) {
   switch (err.statusCode) {
     case APP_CLOSED:
-      return new Error('Please open the NEO app on your Ledger device.');
+      return new Error('Launch the NEO app');
     case MSG_TOO_BIG:
       return new Error('Your transaction is too large for Ledger to sign.');
     case TX_DENIED:
@@ -69,7 +71,9 @@ export function assembleSignature(response) {
 
 export async function initializeDevice() {
   const paths = await LedgerNode.list();
-  if (paths.length === 0) throw new Error('No USB device found.');
+  if (paths.length === 0) {
+    throw new Error('Connect and unlock your Ledger device');
+  }
 
   const supported = await LedgerNode.isSupported();
   if (!supported) throw new Error('Your system does not support Ledger.');
