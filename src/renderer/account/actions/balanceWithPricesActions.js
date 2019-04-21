@@ -27,7 +27,11 @@ async function getBalanceWithPrices({ currency, net, address }) {
 
   const balancesArray = Object.keys(balances).map((key) => balances[key]);
   const ids = coinListResult.data.reduce((accum, coin) => {
-    if (balancesArray.find((balance) => balance.name.toLowerCase() === coin.name.toLowerCase())) {
+    if (
+      balancesArray.find(
+        (balance) => balance.name.toLowerCase() === coin.name.toLowerCase()
+      )
+    ) {
       accum.push(coin.id);
     }
     return accum;

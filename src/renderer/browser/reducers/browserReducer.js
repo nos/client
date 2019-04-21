@@ -130,9 +130,10 @@ function close(state, data) {
   const tabIndex = keys(state.tabs).indexOf(data.sessionId);
   const tabs = omit(state.tabs, data.sessionId);
 
-  const activeSessionId = state.activeSessionId === data.sessionId
-    ? keys(tabs)[Math.max(tabIndex - 1, 0)]
-    : state.activeSessionId;
+  const activeSessionId =
+    state.activeSessionId === data.sessionId
+      ? keys(tabs)[Math.max(tabIndex - 1, 0)]
+      : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
 }
@@ -176,7 +177,10 @@ function setLoaded(state, action) {
   return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
-export default function browserReducer(state = generateInitialState(), action = {}) {
+export default function browserReducer(
+  state = generateInitialState(),
+  action = {}
+) {
   switch (action.type) {
     case OPEN_TAB:
       return open(state, action.payload);

@@ -20,18 +20,31 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(
+    null,
+    mapDispatchToProps
+  ),
   withActions(accountActions, mapAccountActionsToProps),
   withActions(blockActions, mapBlockActionsToProps),
-  withLogout((state, { history }) => history.push('/login')),
+  withLogout((state, { history }) => history.push('/browser')),
   withWebviewIPC,
-  withProps(({ emptyAllRequests, resetAllTabs, resetAuth, resetBlock, onFocus }) => ({
-    logout: () => {
-      resetAuth();
-      resetBlock();
-      resetAllTabs();
-      emptyAllRequests();
-      onFocus(null);
-    }
-  }))
+  withProps(
+    ({
+      emptyAllRequests,
+      history,
+      resetAllTabs,
+      resetAuth,
+      resetBlock,
+      onFocus
+    }) => ({
+      logout: () => {
+        resetAuth();
+        resetBlock();
+        resetAllTabs();
+        emptyAllRequests();
+        onFocus(null);
+        history.push('browser');
+      }
+    })
+  )
 )(Logout);

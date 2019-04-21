@@ -25,7 +25,7 @@
       transition: all 0.2s ease;
 
       &::after {
-        content: "";
+        content: '';
         width: 0%;
         height: 2px;
         background: $brand;

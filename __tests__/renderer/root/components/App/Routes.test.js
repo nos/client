@@ -7,7 +7,9 @@ import { Redirect } from 'react-router-dom';
 import { provideState, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import Routes from 'root/components/App/Routes';
-import { Login } from 'login';
+
+import Login from 'auth/components/Login';
+
 import { Logout } from 'logout';
 import { Browser } from 'browser';
 import { EXTERNAL } from 'browser/values/browserValues';
@@ -15,7 +17,10 @@ import { EXTERNAL } from 'browser/values/browserValues';
 const childContextTypes = { router: object };
 
 const currentNetworkState = mockSpunkyLoaded('TestNet');
-const authenticatedState = mockSpunkyLoaded({ wif: 'abc123', address: 'def456' });
+const authenticatedState = mockSpunkyLoaded({
+  wif: 'abc123',
+  address: 'def456'
+});
 
 const initialState = {
   [spunkyKey]: {

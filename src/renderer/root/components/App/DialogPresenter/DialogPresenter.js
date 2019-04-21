@@ -2,11 +2,12 @@ import React from 'react';
 import { func } from 'prop-types';
 import { noop } from 'lodash';
 
+import { Auth } from 'auth';
+
 import Alert from 'shared/components/Alert';
 import Confirm from 'shared/components/Confirm';
-
-import dialogShape from '../../../shapes/dialogShape';
-import { TYPE_ALERT, TYPE_CONFIRM } from '../../../values/dialogs';
+import { TYPE_ALERT, TYPE_CONFIRM, TYPE_AUTH } from 'root/values/dialogs';
+import dialogShape from 'root/shapes/dialogShape';
 
 export default class AlertPresenter extends React.PureComponent {
   static propTypes = {
@@ -35,19 +36,16 @@ export default class AlertPresenter extends React.PureComponent {
         return this.renderAlert(props);
       case TYPE_CONFIRM:
         return this.renderConfirm(props);
+      case TYPE_AUTH:
+        return this.renderAuth(props);
       default:
         throw new Error(`Invalid dialog type: "${type}"`);
     }
-  }
+  };
 
   renderAlert = (props) => {
-    return (
-      <Alert
-        {...props}
-        onConfirm={this.handleClose(props.onConfirm)}
-      />
-    );
-  }
+    return <Alert {...props} onConfirm={this.handleClose(props.onConfirm)} />;
+  };
 
   renderConfirm = (props) => {
     return (
@@ -57,7 +55,17 @@ export default class AlertPresenter extends React.PureComponent {
         onCancel={this.handleClose(props.onCancel)}
       />
     );
-  }
+  };
+
+  renderAuth = (props) => {
+    return (
+      <Auth
+        {...props}
+        onConfirm={this.handleClose(props.onConfirm)}
+        onCancel={this.handleClose(props.onCancel)}
+      />
+    );
+  };
 
   handleClose = (callback) => {
     return () => {
@@ -67,5 +75,5 @@ export default class AlertPresenter extends React.PureComponent {
 
       this.props.onClose();
     };
-  }
+  };
 }

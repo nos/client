@@ -1,0 +1,35 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: 500px;
+  min-height: 350px;
+
+  .title {
+    flex: 0 0 auto;
+    color: #1e1b53;
+    font-weight: 500;
+    font-size: 28px;
+  }
+
+  .closeIcon {
+    margin: 20px;
+    align-self: flex-end;
+    cursor: pointer;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: black;
+    background: #f0f2fe;
+    text-align: center;
+
+    line-height: 13px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}

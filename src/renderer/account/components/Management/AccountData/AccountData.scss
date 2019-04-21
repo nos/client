@@ -1,0 +1,45 @@
+.accountData {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 12px;
+  color: #494759;
+
+  width: 65%;
+
+  .input {
+    height: 13px;
+    background: #f7f8fa;
+    border-radius: 2px;
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .toggle {
+      cursor: pointer;
+      user-select: none;
+      color: #8bc83c;
+    }
+  }
+
+  .secretView {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .publicView {
+    margin-left: 20px;
+    width: 65%;
+  }
+
+  input[type="text"] {
+    font-size: 9px;
+  }
+}

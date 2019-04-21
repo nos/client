@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { bool, func } from 'prop-types';
 import { omit } from 'lodash';
 
@@ -14,20 +14,17 @@ export default class PrivateRoute extends React.PureComponent {
   };
 
   render() {
-    return (
-      <Route
-        {...omit(this.props, 'authenticated', 'component')}
-        render={this.renderRoute}
-      />
-    );
+    return <Route {...omit(this.props, 'component')} render={this.renderRoute} />;
   }
 
   renderRoute = (props) => {
+    const Component = this.props.component;
+
     if (this.props.authenticated) {
-      const Component = this.props.component;
       return <Component {...props} />;
     } else {
-      return <Redirect to="/login" />;
+      // TODO redirect to Auth (login/Rgister) component?
+      return <Component {...props} />;
     }
-  }
+  };
 }

@@ -1,9 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded
+} from 'testHelpers';
 
-import Transactions from 'account/components/TransactionsPanel/Transactions';
+import Transactions from 'account/components/Portfolio/TransactionsPanel/Transactions';
 
 const address = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 
@@ -14,7 +19,9 @@ const initialState = {
 };
 
 const mountContainer = (props = {}) => {
-  return mount(provideStore(<Transactions {...props} />, createStore(initialState)));
+  return mount(
+    provideStore(<Transactions {...props} />, createStore(initialState))
+  );
 };
 
 describe('<Transactions />', () => {

@@ -1,6 +1,6 @@
 import { withData } from 'spunky';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 
 import GetAddress from './GetAddress';
 

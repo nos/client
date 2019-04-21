@@ -1,0 +1,36 @@
+.accounts {
+  .heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 48px 0 10px 0;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: normal;
+
+    color: #494759;
+  }
+
+  .subtitle {
+    margin: 30px 0 10px 0;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #494759;
+  }
+
+  .link {
+    cursor: pointer;
+
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 12px;
+    user-select: none;
+    color: #8bc83c;
+  }
+}

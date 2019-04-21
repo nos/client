@@ -1,5 +1,5 @@
 const { version } = require('../package.json');
-const api = require('./preloads/api');
+const { api, apiV2 } = require('./preloads/api');
 const events = require('./preloads/events');
 const handleErrors = require('./preloads/handleErrors');
 const handleZoom = require('./preloads/handleZoom');
@@ -13,9 +13,11 @@ const ASSETS = {
 };
 
 const V1 = { ...api, ...events };
+const V2 = { ...apiV2, ...events };
 
 process.once('loaded', () => {
   // Be careful not to expose any functionality or APIs that could compromise the user's system.
   // For example, don't directly expose core Electron (even IPC) or node.js modules.
   window.NOS = { version, ASSETS, V1 };
+  window.NOS = { version, ASSETS, V2 };
 });
