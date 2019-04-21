@@ -6,10 +6,10 @@
   align-items: center;
   flex-flow: nowrap;
   width: 100%;
-  color: $primary-text-color;
+  color: $gray-5;
   background: #f9fafb;
   border-radius: 4px;
-  box-shadow: inset 0 0 0 1px $light-text-color;
+  box-shadow: inset 0 0 0 1px $gray-4;
   line-height: 17px;
   font-size: 14px;
   font-weight: 500;
@@ -24,7 +24,7 @@
     display: block;
     width: 100%;
     padding: 6px 12px;
-    color: $primary-text-color;
+    color: $gray-5;
     background: transparent;
     border: 0;
     line-height: 17px;
@@ -33,12 +33,12 @@
     -webkit-font-smoothing: antialiased;
 
     &::placeholder {
-      color: $light-text-color;
+      color: $gray-4;
     }
   }
 
   &.focus {
-    box-shadow: inset 0 0 0 2px $brand-color;
+    box-shadow: inset 0 0 0 2px $brand;
 
     .input {
       outline: none;

@@ -1,9 +1,9 @@
 @mixin navigationLink {
-  $link-color: $light-text-color;
+  $link-color: $gray-4;
   $focus-background-color: #e9eaee;
   $focus-icon-color: #7b7a86;
   $active-background-color: #e2e3e8;
-  $active-icon-color: $brand-color;
+  $active-icon-color: $brand;
 
   position: relative;
   display: block;
@@ -41,7 +41,7 @@
       bottom: 0;
       left: 0;
       width: 3px;
-      background: $brand-color;
+      background: $brand;
     }
   }
 

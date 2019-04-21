@@ -3,7 +3,7 @@
   height: 42px;
   line-height: 42px;
   padding: 0 16px;
-  color: $light-text-color;
+  color: $gray-4;
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
@@ -12,7 +12,7 @@
 
   &.active,
   &:hover {
-    color: $dark-text-color;
+    color: $gray-6;
   }
 
   &.active {
@@ -25,7 +25,7 @@
       bottom: 0;
       left: 0;
       width: 2px;
-      background: $brand-color;
+      background: $brand;
     }
   }
 }

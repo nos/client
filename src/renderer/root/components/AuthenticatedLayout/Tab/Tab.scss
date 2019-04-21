@@ -1,5 +1,5 @@
 .tab {
-  $tab-inactive-border-color: rgba($light-text-color, 0.4);
+  $tab-inactive-border-color: rgba($gray-4, 0.4);
 
   cursor: default;
   display: flex;
@@ -71,7 +71,7 @@
     justify-content: center;
     width: 15px;
     height: 15px;
-    color: $light-text-color;
+    color: $gray-4;
     background: transparent;
     border: none;
 

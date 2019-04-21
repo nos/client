@@ -9,7 +9,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: $content-bg-color;
+  background: $gray-0;
   color: #58585a;
 
   font: {
@@ -31,7 +31,7 @@ ul {
 
 a {
   text-decoration: underline;
-  color: $brand-color;
+  color: $brand;
 }
 
 [data-whatintent="mouse"] :focus {

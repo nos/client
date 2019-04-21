@@ -38,12 +38,12 @@
     border: 1px solid #e3e4ea;
     border-radius: 4px;
     background: #f7f8fa;
-    color: $primary-text-color;
+    color: $gray-5;
     font-family: $primary-font-stack;
     font-size: 12px;
 
     &:disabled {
-      color: lighten($primary-text-color, 50%);
+      color: lighten($gray-5, 50%);
     }
   }
 
@@ -54,14 +54,14 @@
     padding: 0 0.5rem;
 
     .button {
-      @include button($light-text-color);
+      @include button($gray-4);
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 4px;
 
       &.selected {
-        @include button($brand-color);
+        @include button($brand);
       }
     }
   }

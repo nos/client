@@ -20,13 +20,13 @@
     align-self: center;
     min-width: 16px;
     margin: 0 8px 0 8px;
-    color: rgba($primary-text-color, 0.75);
+    color: rgba($gray-5, 0.75);
     stroke: currentColor;
     transition: color 0.15s ease;
 
     &:focus,
     &:hover {
-      color: $primary-text-color;
+      color: $gray-5;
     }
   }
 }

@@ -4,7 +4,7 @@
   align-items: center;
   width: 350px;
   padding: 8px;
-  background: $dark-text-color;
+  background: $gray-6;
   box-shadow: 0 4px 8px rgba(53, 52, 69, 0.1),
               0 2px 4px rgba(53, 52, 69, 0.2);
   border-radius: 4px;
@@ -29,7 +29,7 @@
   .close {
     flex: 0 0 auto;
     margin-left: 24px;
-    color: $light-text-color;
+    color: $gray-4;
     cursor: pointer;
     transition: color 0.2s ease;
 
