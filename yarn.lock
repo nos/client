@@ -2486,10 +2486,10 @@ codecov@3.3.0:
     teeny-request "^3.7.0"
     urlgrey "^0.4.4"
 
-coingecko-api@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.3.tgz#f12521b88c35827faabb1767fef575385b351623"
-  integrity sha512-Zk8/V0fDWhZzkg7+QR85VnH1+y28TPMpIHhaqHybLzIU1aNwvBtvaRL0sGtBeeu1Jp8su9s4doitxmHu366DAQ==
+coingecko-api@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.4.tgz#45e05b463b9a280a0015aca0735de9ea102c431b"
+  integrity sha512-SHR9Ehy1pJLt5HHsf4giLVJ+Gh+hXilHcxPsVHTWK69CUCQ3pEcfV/SV6qs9pmqfJU/PTIUqSfVgfxiIxqdnrQ==
 
 collapse-white-space@^1.0.2:
   version "1.0.4"
