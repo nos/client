@@ -2486,10 +2486,10 @@ codecov@3.3.0:
     teeny-request "^3.7.0"
     urlgrey "^0.4.4"
 
-coingecko-api@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.3.tgz#f12521b88c35827faabb1767fef575385b351623"
-  integrity sha512-Zk8/V0fDWhZzkg7+QR85VnH1+y28TPMpIHhaqHybLzIU1aNwvBtvaRL0sGtBeeu1Jp8su9s4doitxmHu366DAQ==
+coingecko-api@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.4.tgz#45e05b463b9a280a0015aca0735de9ea102c431b"
+  integrity sha512-SHR9Ehy1pJLt5HHsf4giLVJ+Gh+hXilHcxPsVHTWK69CUCQ3pEcfV/SV6qs9pmqfJU/PTIUqSfVgfxiIxqdnrQ==
 
 collapse-white-space@^1.0.2:
   version "1.0.4"
@@ -12633,10 +12633,10 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-cli@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.0.tgz#55c8a74cae1e88117f9dda3a801c7272e93ca318"
-  integrity sha512-t1M7G4z5FhHKJ92WRKwZ1rtvi7rHc0NZoZRbSkol0YKl4HvcC8+DsmGDmK7MmZxHSAetHagiOsjOB6MmzC2TUw==
+webpack-cli@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.1.tgz#98b0499c7138ba9ece8898bd99c4f007db59909d"
+  integrity sha512-c2inFU7SM0IttEgF7fK6AaUsbBnORRzminvbyRKS+NlbQHVZdCtzKBlavRL5359bFsywXGRAItA5di/IruC8mg==
   dependencies:
     chalk "^2.4.1"
     cross-spawn "^6.0.5"
