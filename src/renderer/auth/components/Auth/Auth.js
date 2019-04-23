@@ -81,8 +81,6 @@ export default class Auth extends React.PureComponent {
   handleSelectComponent = () => {
     const { component } = this.state;
 
-    console.log('JAA??');
-
     const newSelectedComponent = component === LOGIN ? REGISTER : LOGIN;
     this.setState({ component: newSelectedComponent });
   };

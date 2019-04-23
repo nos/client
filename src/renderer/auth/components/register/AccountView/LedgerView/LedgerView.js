@@ -9,7 +9,7 @@ import NavigationButtons from 'auth/components/Register/NavigationButtons';
 
 import LedgerConnect from 'shared/images/auth/ledgerConnect.svg';
 import LedgerConnected from 'shared/images/auth/ledgerConnected.svg';
-import LedgerComplete from 'shared/images/auth/ledgerComplete.svg';
+import LedgerCompleted from 'shared/images/auth/ledgerCompleted.svg';
 
 import styles from './LedgerView.scss';
 
@@ -29,27 +29,38 @@ export default class LedgerView extends React.PureComponent {
     onBack: func.isRequired,
     account: accountShape,
     poll: func.isRequired,
-    publicKey: string,
-    deviceInfo: deviceInfoShape,
-    deviceError: object,
+    getPublicKey: func.isRequired,
     onLogin: func,
     progress: string,
-    disabled: bool
+    disabled: bool,
+    deviceInfo: deviceInfoShape,
+    deviceInfoError: string,
+    publicKey: string,
+    publicKeyError: string
   };
 
   static defaultProps = {
     account: null,
-    publicKey: null,
-    deviceInfo: null,
-    deviceError: null,
     onLogin: noop,
     progress: null,
-    disabled: false
+    disabled: false,
+    deviceInfo: null,
+    deviceInfoError: null,
+    publicKey: null,
+    publicKeyError: null
   };
 
   componentDidMount() {
     this.props.poll();
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { deviceInfo, publicKey, getPublicKey } = nextProps;
+
+    if (deviceInfo && !publicKey) {
+      getPublicKey();
+    }
   }
 
   componentWillUnmount() {
@@ -80,11 +91,23 @@ export default class LedgerView extends React.PureComponent {
   }
 
   renderComponent = () => {
-    const { deviceError, deviceInfo, progress } = this.props;
+    const { deviceInfoError, deviceInfo, publicKey, publicKeyError } = this.props;
 
     console.log('props', this.props);
 
-    if (progress === LOADED) {
+    if (deviceInfo && publicKey) {
+      // TODO dropdown
+      return (
+        <React.Fragment>
+          <LedgerCompleted />
+          <p>
+            {deviceInfo.manufacturer} {deviceInfo.product} Connected.
+          </p>
+        </React.Fragment>
+      );
+    }
+
+    if (deviceInfo) {
       return (
         <React.Fragment>
           <LedgerConnected />
@@ -95,14 +118,32 @@ export default class LedgerView extends React.PureComponent {
       );
     }
 
-    if (progress === FAILED) {
+    if (deviceInfoError) {
       return (
         <React.Fragment>
           <LedgerConnect />
-          <div className={styles.text}>{deviceError}</div>
+          <p>{deviceInfoError}</p>
         </React.Fragment>
       );
     }
+
+    if (publicKeyError) {
+      return (
+        <React.Fragment>
+          <LedgerConnect />
+          <p>{publicKeyError}</p>
+        </React.Fragment>
+      );
+    }
+
+    // if (progress === FAILED) {
+    //   return (
+    //     <React.Fragment>
+    //       <LedgerConnect />
+    //       <div className={styles.text}>{deviceError}</div>
+    //     </React.Fragment>
+    //   );
+    // }
   };
 
   handleLogin = (event) => {

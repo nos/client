@@ -70,13 +70,13 @@ export function assembleSignature(response) {
 }
 
 export async function initializeDevice() {
+  const supported = await LedgerNode.isSupported();
+  if (!supported) throw new Error('Your system does not support Ledger.');
+
   const paths = await LedgerNode.list();
   if (paths.length === 0) {
     throw new Error('Connect and unlock your Ledger device');
   }
-
-  const supported = await LedgerNode.isSupported();
-  if (!supported) throw new Error('Your system does not support Ledger.');
 
   return new Promise((resolve, reject) => {
     const { unsubscribe } = LedgerNode.listen({

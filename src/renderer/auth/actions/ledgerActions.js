@@ -1,23 +1,16 @@
 import { createActions } from 'spunky';
 
-import { attempt, isError } from 'lodash';
-
 import { getDeviceInfo, getPublicKey } from '../util/NEO/NeoLedger';
 
-export const ID = 'ledger';
+export const ID = 'ledger-1';
+export const ID_2 = 'ledger-2';
 
 export default createActions(ID, () => async () => {
-  const deviceInfo = attempt(async () => getDeviceInfo());
-  const publicKey = await attempt(getPublicKey());
+  const deviceInfo = await getDeviceInfo();
+  return { deviceInfo };
+});
 
-  if (isError(deviceInfo)) {
-    console.log('KHier ', deviceInfo);
-    throw deviceInfo;
-  }
-
-  if (isError(publicKey)) {
-    return { deviceInfo };
-  }
-
-  return { publicKey, deviceInfo };
+export const ledgerPublicKeyActions = createActions(ID_2, () => async () => {
+  const publicKey = await getPublicKey();
+  return { publicKey };
 });
