@@ -100,9 +100,7 @@ export default class LedgerView extends React.PureComponent {
       return (
         <React.Fragment>
           <LedgerCompleted />
-          <p>
-            {deviceInfo.manufacturer} {deviceInfo.product} Connected.
-          </p>
+          <div>DROPDOWN</div>
         </React.Fragment>
       );
     }
@@ -111,9 +109,13 @@ export default class LedgerView extends React.PureComponent {
       return (
         <React.Fragment>
           <LedgerConnected />
-          <p>
-            {deviceInfo.manufacturer} {deviceInfo.product} Connected.
-          </p>
+
+          <div className={styles.text}>
+            <div className={styles.done}>
+              {deviceInfo.manufacturer} {deviceInfo.product} Connected ✓
+            </div>
+            <div>Launch the NEO App</div>
+          </div>
         </React.Fragment>
       );
     }
@@ -122,7 +124,7 @@ export default class LedgerView extends React.PureComponent {
       return (
         <React.Fragment>
           <LedgerConnect />
-          <p>{deviceInfoError}</p>
+          <div className={styles.text}>{deviceInfoError}</div>
         </React.Fragment>
       );
     }
@@ -131,7 +133,7 @@ export default class LedgerView extends React.PureComponent {
       return (
         <React.Fragment>
           <LedgerConnect />
-          <p>{publicKeyError}</p>
+          <div className={styles.text}>{publicKeyError}</div>
         </React.Fragment>
       );
     }
