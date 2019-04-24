@@ -1,22 +1,11 @@
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import {
-  withData,
-  withError,
-  withActions,
-  progressValues,
-  withProgress,
-  recentlyCompletedStrategy
-} from 'spunky';
+import { withData, withError, withActions, withProgress, recentlyCompletedStrategy } from 'spunky';
 
-import withProgressChange from 'shared/hocs/withProgressChange';
-import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
 import withLogin from 'auth/hocs/withLogin';
 
 import LedgerView from './LedgerView';
-
-const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapLedgerActionsToProps = (actions) => ({
   poll: actions.call
@@ -27,9 +16,9 @@ const mapLedgerDataToProps = (data) => {
   return { deviceInfo };
 };
 
-const mapLedgerErrorToProps = (deviceInfoError) => console.log('deviceInfoError', deviceInfoError) || {
+const mapLedgerErrorToProps = (deviceInfoError) => ({
   deviceInfoError
-};
+});
 
 const mapLedgerPublicKeyActionsToProps = (actions) => ({
   getPublicKey: actions.call
@@ -48,18 +37,20 @@ export default compose(
   withActions(ledgerActions, mapLedgerActionsToProps),
   withActions(ledgerPublicKeyActions, mapLedgerPublicKeyActionsToProps),
 
-  withProgress(ledgerActions, {
-    strategy: recentlyCompletedStrategy
-  }),
-  // withProgress(ledgerPublicKeyActions, {
-  //   strategy: recentlyCompletedStrategy
-  // }),
-
   withData(ledgerActions, mapLedgerDataToProps),
   withData(ledgerPublicKeyActions, mapLedgerPublicKeyDataToProps),
 
   withError(ledgerActions, mapLedgerErrorToProps),
   withError(ledgerPublicKeyActions, mapLedgerPublicKeyErrorToProps),
+
+  withProgress(ledgerActions, {
+    propName: 'deviceInfoProgress',
+    strategy: recentlyCompletedStrategy
+  }),
+  withProgress(ledgerPublicKeyActions, {
+    propName: 'publickeyProgress',
+    strategy: recentlyCompletedStrategy
+  }),
 
   // redirect on login
   withRouter,
