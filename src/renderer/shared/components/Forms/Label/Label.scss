@@ -1,20 +1,20 @@
 .wrapper {
-  $disabled-color: #9595a1;
+  $disabled-color: $gray-4;
 
   display: block;
 
   .label {
+    @extend %labelColor;
     display: block;
     height: 17px;
     line-height: 17px;
     margin-bottom: 6px;
-    color: $gray-5;
     font-size: 14px;
     font-weight: 500;
     -webkit-font-smoothing: antialiased;
   }
 
   &.disabled .label {
-    color: $disabled-color;
+    @extend %disabledColor;
   }
 }

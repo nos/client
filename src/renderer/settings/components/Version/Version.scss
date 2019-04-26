@@ -18,10 +18,10 @@
     color: $gray-4;
 
     .appName {
+      @extend %textColor;
       line-height: 24px;
       font-size: 18px;
       font-weight: normal;
-      color: #1e1b52;
     }
   }
 

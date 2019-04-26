@@ -1,38 +1,23 @@
-@mixin navigationLink {
-  $link-color: $gray-4;
-  $focus-background-color: #e9eaee;
-  $focus-icon-color: #7b7a86;
-  $active-background-color: #e2e3e8;
-  $active-icon-color: $brand;
+@mixin theme($themeName) {
+  html[data-theme=#{$themeName}] & {
+    @content
+  }
+}
 
+@mixin navigationLink {
   position: relative;
   display: block;
   padding: 8px 0;
-  color: $link-color;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 
   &.disabled {
-    color: lighten($link-color, 20%);
     cursor: not-allowed;
-  }
-
-  &:not(.disabled):focus,
-  &:not(.disabled):hover {
-    color: $focus-icon-color;
-    background: $focus-background-color;
-  }
-
-  &:not(.disabled):active {
-    color: $active-icon-color;
-    background: $active-background-color;
   }
 
   &:not(.disabled).active {
     position: relative;
-    color: $active-icon-color;
-    background: $active-background-color;
 
     &::after {
       content: "";
@@ -41,7 +26,6 @@
       bottom: 0;
       left: 0;
       width: 3px;
-      background: $brand;
     }
   }
 
