@@ -55,7 +55,7 @@ export default class GeneralSettings extends React.PureComponent {
 
           <LabeledInput
             type="checkbox"
-            className={styles.switch}
+            className={styles.toggle}
             labelClass={styles.label}
             id="theme"
             label="Enable Dark Theme"

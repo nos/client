@@ -35,6 +35,47 @@
   }
 }
 
+%toggle {
+
+  box-shadow: none;
+  background: transparent;
+  max-width: 52px;
+
+  & > input {
+    position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    height: 24px;
+    background-color: white;
+    border: 1px solid $gray-3;
+    border-radius: 50px;
+    box-shadow: inset -20px 0 0 0 $gray-1;
+    transition-duration: 200ms;
+
+    &:after {
+       content: "";
+       position: absolute;
+       top: 1px;
+       left: 1px;
+       width: 26px;
+       height: 26px;
+       background-color: transparent;
+       border-radius: 50%;
+    }
+
+    &:checked {
+       border-color: $brand;
+       box-shadow: inset 20px 0 0 0 $brand;
+
+       &:after {
+          left: 20px;
+          box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.05);
+       }
+    }
+  }
+}
+
 @mixin webComponent {
   user-select: auto;
   cursor: pointer;
