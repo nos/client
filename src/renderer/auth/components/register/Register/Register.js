@@ -1,22 +1,21 @@
 import React from 'react';
+import { func } from 'prop-types';
 
-import Panel from 'shared/components/Panel';
-import Tabs from 'shared/components/Tabs';
 import accountShape from 'auth/shapes/accountShape';
 
-import RegisterForm from '../RegisterForm';
-import AccountDetails from '../AccountDetails';
+import CreateAccount from '../CreateAccount';
+import AccountView from '../AccountView';
+
+import VerifyAccount from '../VerifyAccount';
+
 import styles from './Register.scss';
-
-const TAB_CREATE = 'create';
-
-const TABS = {
-  [TAB_CREATE]: 'Create New Wallet'
-};
 
 export default class Register extends React.PureComponent {
   static propTypes = {
-    account: accountShape
+    account: accountShape,
+    redirect: func.isRequired,
+    onCancel: func.isRequired,
+    reset: func.isRequired
   };
 
   static defaultProps = {
@@ -24,43 +23,40 @@ export default class Register extends React.PureComponent {
   };
 
   state = {
-    tab: TAB_CREATE
+    step: 2
   };
 
   render() {
-    return (
-      <Panel className={styles.register}>
-        <Tabs
-          className={styles.tabs}
-          tabs={TABS}
-          selectedTab={this.state.tab}
-          renderTab={this.renderTab}
-          onSelect={this.handleSelectTab}
-        />
-      </Panel>
-    );
+    const { account } = this.props;
+    const { step } = this.state;
+
+    if (account && step === 3) {
+      return this.renderThirdStep();
+    } else if (account && step === 2) {
+      return this.renderSecondStep();
+    } else {
+      return this.renderFirstStep();
+    }
   }
 
-  renderTab = (id) => {
-    switch (id) {
-      case TAB_CREATE:
-        return this.renderCreateTab();
-      default:
-        throw new Error('Invalid tab.');
-    }
+  renderFirstStep = () => {
+    const { redirect, onCancel } = this.props;
+    return <CreateAccount redirect={redirect} onCancel={onCancel} />;
   };
 
-  renderCreateTab = () => {
-    const { account } = this.props;
-
-    if (account) {
-      return <AccountDetails account={account} />;
-    } else {
-      return <RegisterForm />;
-    }
+  renderSecondStep = () => {
+    const { account, onCancel, reset } = this.props;
+    return (
+      <AccountView account={account} onCancel={onCancel} setStep={this.setStep} onBack={reset} />
+    );
   };
 
-  handleSelectTab = (tab) => {
-    this.setState({ tab });
+  renderThirdStep = () => {
+    const { account, onCancel } = this.props;
+    return <VerifyAccount account={account} onCancel={onCancel} setStep={this.setStep} />;
+  };
+
+  setStep = (step) => {
+    this.setState({ step });
   };
 }

@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { bool, string, func } from 'prop-types';
 import { noop } from 'lodash';
+import classNames from 'classnames';
 
+import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
+import Label from 'shared/components/Forms/Label';
 
 import styles from './RegisterForm.scss';
-import AuthButton from '../../AuthButton';
 
 export default class RegisterForm extends React.PureComponent {
   static propTypes = {
@@ -16,11 +17,13 @@ export default class RegisterForm extends React.PureComponent {
     passphrase: string,
     passphraseConfirmation: string,
     secretWord: string,
+    useLedger: bool.isRequired,
     setLabel: func,
     setPassphrase: func,
     setPassphraseConfirmation: func,
     setSecretWord: func,
-    onRegister: func
+    onRegister: func,
+    setUseLedger: func
   };
 
   static defaultProps = {
@@ -33,7 +36,8 @@ export default class RegisterForm extends React.PureComponent {
     setPassphrase: noop,
     setPassphraseConfirmation: noop,
     setSecretWord: noop,
-    onRegister: noop
+    onRegister: noop,
+    setUseLedger: noop
   };
 
   render = () => {
@@ -42,7 +46,8 @@ export default class RegisterForm extends React.PureComponent {
       passphrase,
       passphraseConfirmation,
       secretWord,
-      loading
+      loading,
+      useLedger
     } = this.props;
 
     return (
@@ -51,60 +56,78 @@ export default class RegisterForm extends React.PureComponent {
           id="label"
           type="text"
           label="Wallet Name"
-          placeholder="Enter Wallet Name"
+          placeholder="Enter a name for your crypto-currency wallet"
           value={label}
           disabled={loading}
           onChange={this.handleChangeLabel}
         />
-        <LabeledInput
-          id="passphrase"
-          type="password"
-          label="Passphrase"
-          placeholder="Enter passphrase"
-          value={passphrase}
-          disabled={loading}
-          onChange={this.handleChangePassphrase}
-        />
-        <LabeledInput
-          id="passphraseConfirmation"
-          type="password"
-          label="Confirm Passphrase"
-          placeholder="Enter passphrase again"
-          value={passphraseConfirmation}
-          disabled={loading}
-          onChange={this.handleChangePassphraseConfirmation}
-        />
+
+        <div className={styles.horizontal}>
+          <LabeledInput
+            id="passphrase"
+            type="password"
+            label="Passphrase"
+            placeholder="Enter passphrase"
+            value={passphrase}
+            disabled={loading}
+            onChange={this.handleChangePassphrase}
+          />
+          <LabeledInput
+            id="passphraseConfirmation"
+            type="password"
+            label="Confirm Passphrase"
+            placeholder="Enter passphrase again"
+            value={passphraseConfirmation}
+            disabled={loading}
+            onChange={this.handleChangePassphraseConfirmation}
+          />
+        </div>
+
         <LabeledInput
           id="secretWord"
           type="text"
           label="Secret Word"
-          placeholder="Enter a simple word that you will recognize later"
+          placeholder="A simple word you will recognize later"
           value={secretWord}
           disabled={loading}
           onChange={this.handleChangeSecretWord}
         />
 
-        <AuthButton
-          buttonText="Create Wallet"
-          className={styles.register}
-          type="submit"
-          disabled={loading || !this.isValid()}
-        />
+        <div className={classNames(styles.horizontal, styles.bottom)}>
+          <Input
+            id="useLedger"
+            type="checkbox"
+            checked={useLedger}
+            disabled={loading}
+            onChange={this.handleChangeUseLedger}
+            renderAfter={this.renderCheckboxLabel}
+            className={styles.checkbox}
+          />
 
-        {/* <div className={styles.actions}>
           <PrimaryButton
-            className={styles.register}
+            className={styles.button}
             type="submit"
             disabled={loading || !this.isValid()}
           >
-            Create Wallet
+            Next: Recovery Seed
           </PrimaryButton>
-          <span className={styles.login}>
-            Already have a wallet? <Link to="/login">Open Wallet</Link>
-          </span>
-        </div> */}
+        </div>
       </form>
     );
+  };
+
+  renderCheckboxLabel = () => {
+    return (
+      <Label
+        htmlFor="useLedger"
+        label="Use Ledger for next step"
+        className={styles.label}
+      />
+    );
+  };
+
+  handleChangeUseLedger = () => {
+    this.props.setUseLedger(!this.props.useLedger);
   };
 
   handleChangeSecretWord = (event) => {
@@ -129,11 +152,18 @@ export default class RegisterForm extends React.PureComponent {
       passphrase,
       secretWord,
       passphraseConfirmation,
-      onRegister
+      onRegister,
+      useLedger
     } = this.props;
 
     event.preventDefault();
-    onRegister({ label, passphrase, passphraseConfirmation, secretWord });
+    onRegister({
+      label,
+      passphrase,
+      passphraseConfirmation,
+      secretWord,
+      useLedger
+    });
   };
 
   isValid = () => {

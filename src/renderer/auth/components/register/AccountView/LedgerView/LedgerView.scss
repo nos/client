@@ -1,0 +1,27 @@
+.ledgerView {
+  min-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Center content of flex column
+
+  .text {
+    max-width: 250px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+
+    color: #6979f8;
+
+    .done {
+      color: #b4bcfc;
+    }
+  }
+
+  .label {
+    min-width: 100%;
+    padding: 40px 40px 10px 40px;
+  }
+}

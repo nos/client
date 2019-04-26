@@ -1,34 +1,44 @@
 .login {
-  padding: 0 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   -webkit-app-region: no-drag;
 
-  .heading {
+  .content {
     display: flex;
     flex-direction: column;
-    margin: 10px;
 
-    .pill {
-      align-self: center;
-      // TODO dynamic colors
-      // Somehow #6979f8 and 0.1 opacity turn the text white
-      background: #f0f2ff;
-      border-radius: 18px;
+    .closeIcon {
+      margin: 20px;
+      align-self: flex-end;
+      cursor: pointer;
     }
 
-    .pillText {
-      padding: 5px 10px;
-      color: #6979f8;
-      font-size: 12px;
+    .title {
+      font-weight: 500;
+      font-size: 28px;
+      text-align: center;
     }
-  }
 
-  .title {
-    font-weight: 500;
-    font-size: 28px;
-    text-align: center;
-  }
+    .heading {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
 
-  .tabs {
-    margin: 20px 0 0;
+      .pill {
+        align-self: center;
+        // TODO dynamic colors
+        // Somehow #6979f8 and 0.1 opacity turn the text white
+        background: #f0f2ff;
+        border-radius: 18px;
+      }
+
+      .pillText {
+        padding: 5px 10px;
+        color: #6979f8;
+        font-size: 12px;
+      }
+    }
   }
 }

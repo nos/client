@@ -1,15 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, bool } from 'prop-types';
+import { string, func, bool, any } from 'prop-types';
+import { isEmpty } from 'lodash';
 
-import CloseIcon from 'shared/images/icons/close-modal.svg';
 import Modal from 'shared/components/Modal';
 
 import styles from './Auth.scss';
 
 import Login from '../Login';
 import Register from '../Register';
-import AuthFooter from '../AuthFooter';
 
 const LOGIN = 'Login';
 const REGISTER = 'Register';
@@ -17,10 +16,12 @@ const REGISTER = 'Register';
 export default class Auth extends React.PureComponent {
   static propTypes = {
     className: string,
+    loading: bool.isRequired,
     onConfirm: func.isRequired,
     onCancel: func.isRequired,
     login: func.isRequired,
-    authenticated: bool.isRequired
+    authenticated: bool.isRequired,
+    accounts: any.isRequired
   };
 
   static defaultProps = {
@@ -30,10 +31,13 @@ export default class Auth extends React.PureComponent {
   confirm = React.createRef();
 
   state = {
-    component: LOGIN
+    component: REGISTER
   };
 
   componentDidMount() {
+    const { accounts } = this.props;
+    // TODO uncomment first line
+    // this.setState({ component: isEmpty(accounts) ? REGISTER : LOGIN });
     // this.confirm.current.focus();
   }
 
@@ -44,43 +48,40 @@ export default class Auth extends React.PureComponent {
       onConfirm();
     }
 
-    return (
-      <Modal className={classNames(styles.auth, className)}>
-        {this.renderHeader()}
-        {this.renderComponent()}
-        <AuthFooter onClick={this.handleSelectComponent} />
-      </Modal>
-    );
+    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
   }
 
   renderComponent = () => {
-    const { login } = this.props;
+    const { login, loading, onCancel } = this.props;
 
     switch (this.state.component) {
       case LOGIN:
-        return <Login login={login} />;
+        return (
+          <Login
+            login={login}
+            loading={loading}
+            onCancel={onCancel}
+            redirect={this.handleSelectComponent}
+          />
+        );
       case REGISTER:
-        return <Register login={login} />;
+        return (
+          <Register
+            login={login}
+            loading={loading}
+            onCancel={onCancel}
+            redirect={this.handleSelectComponent}
+          />
+        );
       default:
         throw new Error('Invalid Component.');
     }
   };
 
-  renderHeader = () => (
-    <span className={styles.closeIcon}>
-      <CloseIcon onClick={this.props.onCancel} />
-    </span>
-  );
-
   handleSelectComponent = () => {
     const { component } = this.state;
+
     const newSelectedComponent = component === LOGIN ? REGISTER : LOGIN;
     this.setState({ component: newSelectedComponent });
-  };
-
-  registerRef = (name) => {
-    return (el) => {
-      this[name] = el;
-    };
   };
 }
