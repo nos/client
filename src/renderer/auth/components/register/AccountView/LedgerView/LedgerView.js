@@ -141,7 +141,12 @@ export default class LedgerView extends React.PureComponent {
             className={styles.input}
             labelClass={styles.label}
             id="walletAddress"
-            label="Pick a wallet address"
+            label={(
+              <div className={styles.labelWrap}>
+                <div>Pick a wallet address</div>
+                <div className={styles.labelRight}>Fetch additional addresses</div>
+              </div>
+              )}
             disabled={isEmpty(this.props.publicKey)}
             value={this.props.publicKey}
             items={this.getPublicKeyItems()}

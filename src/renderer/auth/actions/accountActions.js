@@ -10,10 +10,7 @@ export default createActions(ID, () => async () => {
 });
 
 // Append
-export const appendAccountActions = createActions(
-  ID,
-  ({ label, value }) => async () => {
-    await appendStorage(ID, label, value);
-    return getStorage(ID);
-  }
-);
+export const appendAccountActions = createActions(ID, ({ label, value }) => async () => {
+  await appendStorage(ID, label, value);
+  return getStorage(ID);
+});
