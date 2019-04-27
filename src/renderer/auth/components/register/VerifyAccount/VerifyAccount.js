@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, bool } from 'prop-types';
+import { func, bool, string, number } from 'prop-types';
 
 import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
@@ -10,15 +10,21 @@ import styles from './VerifyAccount.scss';
 
 export default class VerifyAccount extends React.PureComponent {
   static propTypes = {
-    account: accountShape,
-    verifyAndLogin: func.isRequired,
+    account: accountShape.isRequired,
+    verifyAndAuthenticate: func.isRequired,
     setStep: func.isRequired,
     disabled: bool.isRequired,
-    onCancel: func.isRequired
-  };
-
-  static defaultProps = {
-    account: null
+    onCancel: func.isRequired,
+    passphrase: string.isRequired,
+    secretWord: string.isRequired,
+    firstMnemonicWord: string.isRequired,
+    firstMnemonicWordIndex: number.isRequired,
+    secondMnemonicWord: string.isRequired,
+    secondMnemonicWordIndex: number.isRequired,
+    setPassphrase: func.isRequired,
+    setSecretWord: func.isRequired,
+    setFirstMnemonicWord: func.isRequired,
+    setSecondMnemonicWord: func.isRequired
   };
 
   render() {
@@ -34,7 +40,7 @@ export default class VerifyAccount extends React.PureComponent {
         {this.renderComponent()}
         <NavigationButtons
           onBack={this.onBack}
-          onNext={this.complete}
+          onNext={this.completeRegistration}
           nextBtnText="Complete"
         />
       </AuthPanel>
@@ -42,7 +48,16 @@ export default class VerifyAccount extends React.PureComponent {
   }
 
   renderComponent = () => {
-    const { disabled } = this.props;
+    const {
+      account,
+      disabled,
+      passphrase,
+      secretWord,
+      firstMnemonicWord,
+      secondMnemonicWord,
+      firstMnemonicWordIndex,
+      secondMnemonicWordIndex
+    } = this.props;
 
     return (
       <div className={styles.verifyAccount}>
@@ -51,8 +66,9 @@ export default class VerifyAccount extends React.PureComponent {
           type="text"
           label="Verify Passphrase"
           placeholder="Enter your passphrase"
-          value=""
+          value={passphrase}
           disabled={disabled}
+          onChange={this.handleChangePassphrase}
         />
         <LabeledInput
           className={styles.input}
@@ -60,17 +76,22 @@ export default class VerifyAccount extends React.PureComponent {
           type="text"
           label="Verify Secret Word"
           placeholder="Verify your secret word"
-          value=""
+          value={secretWord}
           disabled={disabled}
+          onChange={this.handleChangeSecretWord}
         />
-        <LabeledInput
-          id="verifyAddress"
-          type="text"
-          label="Verify Your Addres"
-          placeholder="ADJWIODJdjiaojwdOAIJDAWO"
-          value=""
-          disabled={disabled}
-        />
+
+        {/** TODO - LabeledInput --> DisplayInput & address doesn't exist?? */}
+        {account.isLedger && (
+          <LabeledInput
+            id="verifyAddress"
+            type="text"
+            label="Verify Your Addres"
+            placeholder={account.accounts[account.activeAccountId].address}
+            value=""
+            disabled={disabled}
+          />
+        )}
 
         <div className={styles.mnemonicVerify}>
           <span className={styles.title} role="img" aria-label="title">
@@ -80,18 +101,20 @@ export default class VerifyAccount extends React.PureComponent {
             <LabeledInput
               id="firstRandomSecretWord"
               type="text"
-              label="Type word #3"
+              label={`Type word #${firstMnemonicWordIndex}`}
               placeholder="Secret word.."
-              value=""
+              value={firstMnemonicWord}
               disabled={disabled}
+              onChange={this.handleChangeFirstMnemonicWord}
             />
             <LabeledInput
               id="secondRandomSecretWord"
               type="text"
-              label="Type word #17"
+              label={`Type word #${secondMnemonicWordIndex}`}
               placeholder="Secret word.."
-              value=""
+              value={secondMnemonicWord}
               disabled={disabled}
+              onChange={this.handleChangeSecondMnemonicWord}
             />
           </div>
         </div>
@@ -99,13 +122,52 @@ export default class VerifyAccount extends React.PureComponent {
     );
   };
 
+  handleChangePassphrase = (event) => {
+    this.props.setPassphrase(event.target.value);
+  };
+
+  handleChangeSecretWord = (event) => {
+    this.props.setSecretWord(event.target.value);
+  };
+
+  handleChangeFirstMnemonicWord = (event) => {
+    this.props.setFirstMnemonicWord(event.target.value);
+  };
+
+  handleChangeSecondMnemonicWord = (event) => {
+    this.props.setSecondMnemonicWord(event.target.value);
+  };
+
   onBack = () => {
     this.props.setStep(2);
   };
 
-  complete = () => {
-    const { account } = this.props;
+  completeRegistration = () => {
+    const {
+      account,
+      passphrase,
+      secretWord,
+      firstMnemonicWord,
+      secondMnemonicWord,
+      firstMnemonicWordIndex,
+      secondMnemonicWordIndex,
+      storeProfile,
+      setLastLogin
+    } = this.props;
+
     // TODO get form values and make it compare
-    this.props.verifyAndLogin(account);
+    this.props.verifyAndAuthenticate({
+      account,
+      passphrase,
+      secretWord,
+      firstMnemonicWord,
+      firstMnemonicWordIndex,
+      secondMnemonicWord,
+      secondMnemonicWordIndex
+    });
+
+    // TODO - move this where?
+    storeProfile({ label: account.accountLabel, value: account });
+    setLastLogin({ label: account.accountLabel });
   };
 }

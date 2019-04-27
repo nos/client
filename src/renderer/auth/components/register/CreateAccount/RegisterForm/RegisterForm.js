@@ -117,13 +117,7 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   renderCheckboxLabel = () => {
-    return (
-      <Label
-        htmlFor="useLedger"
-        label="Use Ledger for next step"
-        className={styles.label}
-      />
-    );
+    return <Label htmlFor="useLedger" label="Use Ledger for next step" className={styles.label} />;
   };
 
   handleChangeUseLedger = () => {
@@ -167,8 +161,6 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   isValid = () => {
-    return (
-      this.props.passphrase !== '' && this.props.passphraseConfirmation !== ''
-    );
+    return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
   };
 }

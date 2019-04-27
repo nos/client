@@ -29,7 +29,7 @@ export default class CreateAccount extends React.PureComponent {
         step="1"
         onCancel={onCancel}
         className={styles.register}
-        footerText="New to nOS? Create Account"
+        footerText="Already registered? Log In"
         sidePanelText={sidePanelText}
         redirect={redirect}
       >
