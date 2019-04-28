@@ -13,6 +13,7 @@ import { DEFAULT_NET } from 'values/networks';
 
 export const ID = 'auth';
 
+// TODO split up file
 const authenticate = async ({ account, passphrase }) => {
   const mnemonic = attempt(simpleDecrypt, account.encryptedMnemonic, passphrase);
 
@@ -37,10 +38,10 @@ const authenticate = async ({ account, passphrase }) => {
   return { ...account, instances };
 };
 
-const addAccount = async ({ authData, type, passphrase }) => {
+const addAccount = async ({ authData, chainType, passphrase }) => {
   const accountId = uuid();
 
-  const selectedChain = CHAINS[type.toUpperCase()];
+  const selectedChain = CHAINS[chainType.toUpperCase()];
 
   if (!selectedChain) {
     throw new Error('Incorrect chain selected.');
@@ -74,10 +75,53 @@ const addAccount = async ({ authData, type, passphrase }) => {
   return authenticate({ account, passphrase: 'q' });
 };
 
-export const addAccountActions = createActions(ID, ({ account, passphrase, type }) => {
-  return () => addAccount({ authData: account, passphrase, type });
+const verifyAndAuthenticate = ({
+  account,
+  passphrase,
+  secretWord,
+  firstMnemonicWord,
+  firstMnemonicWordIndex,
+  secondMnemonicWord,
+  secondMnemonicWordIndex
+}) => {
+  if (account.isLedger) {
+    // TODO write authenticateLedger
+    // return authenticateLedger();
+  }
+
+  const mnemonicArray = account.mnemonic.trim().split(' ');
+
+  if (account.passphrase !== passphrase) {
+    throw new Error("You've entered a wrong password");
+  }
+
+  if (account.secretWord !== secretWord) {
+    throw new Error("You've entered the wrong secret word");
+  }
+
+  if (mnemonicArray[firstMnemonicWordIndex - 1] !== firstMnemonicWord) {
+    throw new Error(
+      `Word number #${firstMnemonicWordIndex} of your recovery seed does not match the word "${firstMnemonicWord}"`
+    );
+  }
+
+  if (mnemonicArray[secondMnemonicWordIndex - 1] !== secondMnemonicWord) {
+    throw new Error(
+      `Word number #${secondMnemonicWordIndex} of your recovery seed does not match the word "${secondMnemonicWord}"`
+    );
+  }
+
+  return authenticate({ account, passphrase });
+};
+
+export const verifyAndAuthenticateActions = createActions(ID, (data) => {
+  return () => verifyAndAuthenticate(data);
 });
 
-export default createActions(ID, ({ account, passphrase, type }) => {
-  return () => authenticate({ account, passphrase, type });
+export const addAccountActions = createActions(ID, ({ account, passphrase, chainType }) => {
+  return () => addAccount({ authData: account, passphrase, chainType });
+});
+
+export default createActions(ID, ({ account, passphrase }) => {
+  return () => authenticate({ account, passphrase });
 });

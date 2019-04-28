@@ -25,7 +25,7 @@ export default compose(
   withState('passphrase', 'setPassphrase', 'q'),
   withState('passphraseConfirmation', 'setPassphraseConfirmation', 'q'),
   withState('secretWord', 'setSecretWord', 'MySercetWord'),
-  withState('useLedger', 'setUseLedger', true),
+  withState('useLedger', 'setUseLedger', false),
   withErrorToast(),
   withProgressChange(createAccountActions, FAILED, (state, props) => {
     props.showErrorToast(`Account creation failed: ${state.error}`);

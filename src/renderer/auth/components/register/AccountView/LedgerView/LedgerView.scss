@@ -24,4 +24,10 @@
     min-width: 100%;
     padding: 40px 40px 10px 40px;
   }
+
+  .labelWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
