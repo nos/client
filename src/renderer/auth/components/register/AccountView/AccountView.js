@@ -7,21 +7,11 @@ import accountShape from 'auth/shapes/accountShape';
 import MnemonicView from './MnemonicView';
 import LedgerView from './LedgerView';
 
-const AccountView = ({ onCancel, account, onBack, setStep }) => {
+const AccountView = ({ onCancel, account, onBack, setStep, ...rest }) => {
   return account.isLedger ? (
-    <LedgerView
-      account={account}
-      onBack={onBack}
-      setStep={setStep}
-      onCancel={onCancel}
-    />
+    <LedgerView account={account} onBack={onBack} setStep={setStep} onCancel={onCancel} />
   ) : (
-    <MnemonicView
-      account={account}
-      onBack={onBack}
-      setStep={setStep}
-      onCancel={onCancel}
-    />
+    <MnemonicView account={account} onBack={onBack} setStep={setStep} onCancel={onCancel} />
   );
 };
 

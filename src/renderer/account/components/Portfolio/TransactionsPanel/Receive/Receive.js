@@ -41,5 +41,5 @@ export default class Receive extends React.PureComponent {
 
   handleCopy = () => {
     this.props.showInfoToast('Address copied to clipboard.');
-  }
+  };
 }
