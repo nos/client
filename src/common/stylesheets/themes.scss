@@ -151,12 +151,32 @@
   }
 }
 
-
 %panelColor {
   background: white;
 
   @include theme(DARK) {
     background: $gray-7;
+  }
+}
+
+%innerPanelColor {
+  background: $gray-0;
+
+  @include theme(DARK) {
+    background: opacify($gray-8, .5);
+  }
+
+  & .title {
+    @extend %labelColor;
+    background: linear-gradient(360deg,
+    $gray-1 0%,
+    opacify($gray-4, .75) 100%);
+
+    @include theme(DARK) {
+      background: linear-gradient(360deg,
+      $gray-7 0%,
+      opacify($gray-8, .5) 100%);
+    }
   }
 }
 

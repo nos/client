@@ -1,5 +1,6 @@
 .mnemonicWord {
-  background: #f7f8fa;
+  @extend %innerPanelColor;
+  @extend %textColor;
   border-radius: 4px;
   margin: 10px 6px;
 
@@ -7,15 +8,21 @@
   align-items: center; /* Vertical center alignment */
 
   .count {
+
+    background: $gray-1;
+    color: $gray-4;
+
+    @include theme(DARK) {
+      background: opacify($gray-7, .5);
+      color: $gray-4;
+    }
+
     width: 18px;
     height: 18px;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: #edeef2;
-    color: #9a99a5;
 
     border-radius: 2px;
     font-size: 10px;

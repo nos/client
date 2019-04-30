@@ -15,8 +15,8 @@
 
   .footer {
     width: 100%;
-    background-color: #f0f2fe;
-    color: #6979f8;
+    background-color: transparentize($brand, .85);
+    color: $brand;
     padding: 10px 0 10px 0;
     cursor: pointer;
     user-select: none;
