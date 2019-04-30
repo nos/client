@@ -4,14 +4,14 @@
 
   .label {
     margin-bottom: 2px;
-    color: #1e1b53;
+    @extend %labelColor;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
   }
 
   .address {
-    color: #1e1b53;
+    color: $brand;
     font-size: 12px;
     line-height: 17px;
   }

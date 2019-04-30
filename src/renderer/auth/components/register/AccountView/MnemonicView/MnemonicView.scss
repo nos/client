@@ -11,15 +11,7 @@
 
   .button {
     margin: 10px 40px 0 40px;
-    background-color: #f0f2ff;
-    color: #6979f8;
-    box-shadow: none;
-
-    &:hover {
-      background-color: #f0f2ff;
-      color: #6979f8;
-      box-shadow: none;
-    }
+    @extend %tertiaryButtonColor;
 
     svg {
       vertical-align: middle;

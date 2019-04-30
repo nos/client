@@ -1,6 +1,6 @@
 .tokenBalance {
+  @extend %innerPanelColor;
   padding: 10px;
-  background: #f8f9fa;
   border-radius: 4px;
 
   &:not(:last-child) {
@@ -24,7 +24,6 @@
       align-items: stretch;
 
       .balance {
-        color: #000;
         line-height: 21px;
         font-size: 14px;
         font-weight: 500;

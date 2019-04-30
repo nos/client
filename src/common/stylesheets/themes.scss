@@ -25,6 +25,17 @@
     background: $gray-8;
     box-shadow: inset 0 0 0 1px $gray-6;
   }
+
+  &.focus {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px $brand;
+    transition: all .15 ease-in-out;
+
+    @include theme(DARK) {
+      background: darken($gray-8, .25);
+      box-shadow: inset 0 0 0 2px $brand;
+    }
+  }
 }
 
 %disabledColor {
@@ -169,8 +180,8 @@
   & .title {
     @extend %labelColor;
     background: linear-gradient(360deg,
-    $gray-1 0%,
-    opacify($gray-4, .75) 100%);
+    transparentize($gray-3, .75) 0%,
+    $gray-0 100%);
 
     @include theme(DARK) {
       background: linear-gradient(360deg,
@@ -195,4 +206,15 @@
   @include theme(DARK) {
     box-shadow: inset $values $gray-6;
   } 
+}
+
+%tertiaryButtonColor {
+  background: transparentize($brand, .85);
+  box-shadow: none !important;
+  color: $brand;
+
+  &:hover {
+    background: transparentize($brand, .65);
+    box-shadow: none !important;
+  }
 }

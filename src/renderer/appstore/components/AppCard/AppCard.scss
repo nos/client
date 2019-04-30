@@ -30,6 +30,10 @@
     border-bottom-right-radius: 4px;
     padding: 16px;
 
+    @include theme(DARK) {
+      @extend %panelColor;
+    }
+
     h2 {
       font-family: $primary-font-stack;
       color: $brand;
@@ -46,6 +50,10 @@
       overflow: hidden;
       margin: 0;
       font-family: $primary-font-stack;
+
+      @include theme(DARK) {
+        color: $gray-2;
+      }
     }
   }
 }

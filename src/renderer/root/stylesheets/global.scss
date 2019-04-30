@@ -12,6 +12,11 @@ body {
   background: $gray-0;
   color: $gray-5;
 
+  @include theme(DARK) {
+    color: $gray-1;
+    background: $gray-7;
+  }
+
   font: {
     family: $primary-font-stack;
     size: 16px;

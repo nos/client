@@ -7,17 +7,29 @@
   &.disabled {
     color: lighten($color, 20%);
     cursor: not-allowed;
+
+    @include theme(DARK) {
+      color: darken($color, 30%);
+    }
   }
 
   &:not(.disabled):focus,
   &:not(.disabled):hover {
     color: darken($color, 15%);
     stroke: currentColor;
+
+    @include theme(DARK) {
+      color: lighten($color, 15%);
+    }
   }
 
   &:not(.disabled):active {
     color: darken($color, 15%);
     stroke: currentColor;
+  }
+
+  @include theme(DARK) {
+    color: lighten($color, 15%);
   }
 }
 

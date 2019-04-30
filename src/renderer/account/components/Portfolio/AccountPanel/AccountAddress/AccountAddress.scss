@@ -1,5 +1,5 @@
 .accountAddress {
-  color: #1e1b53;
+  @extend %labelColor;
   text-align: center;
   font-size: 14px;
 

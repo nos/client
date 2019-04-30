@@ -15,8 +15,7 @@
 
   .footer {
     width: 100%;
-    background-color: transparentize($brand, .85);
-    color: $brand;
+    @extend %tertiaryButtonColor;
     padding: 10px 0 10px 0;
     cursor: pointer;
     user-select: none;

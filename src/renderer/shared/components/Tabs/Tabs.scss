@@ -16,7 +16,7 @@
       position: relative;
       display: inline-block;
       width: 100%;
-      color: #9a99a5;
+      color: $gray-4;
       border-color: #dee2e6 #dee2e6 transparent;
       padding: 8px 12px;
       font-size: 14px;
@@ -37,7 +37,7 @@
       }
 
       &.selected {
-        color: #353445;
+        color: $brand;
         font-weight: 600;
 
         &::after {
@@ -46,8 +46,12 @@
       }
 
       &:hover {
-        color: #353445;
+        color: $gray-5;
         font-weight: 600;
+
+        @include theme(DARK) {
+          color: $gray-2;
+        }
       }
     }
   }

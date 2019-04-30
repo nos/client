@@ -13,6 +13,10 @@
   &.active,
   &:hover {
     color: $gray-6;
+
+    @include theme(DARK) {
+      color: $gray-2;
+    }
   }
 
   &.active {
