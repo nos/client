@@ -27,7 +27,7 @@ const mapAccountActionsToProps = (accounts) => ({
 export default compose(
   // Data needed - if accounts don't exist, redirect to Register component
   withInitialCall(accountActions),
-  withNullLoader(accountActions),
+  // withNullLoader(accountActions),
   withData(accountActions, mapAccountActionsToProps),
 
   // Map login action as it's used by both components + add loading state

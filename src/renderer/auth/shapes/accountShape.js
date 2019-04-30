@@ -1,6 +1,6 @@
 import { string, number, shape, bool, objectOf } from 'prop-types';
 
-export default shape({
+const oldShape = shape({
   accountLabel: string.isRequired,
   encryptedMnemonic: string.isRequired,
   chainId: number.isRequired,
@@ -24,14 +24,14 @@ const walletShape = shape({
   WIF: string.isRequired
 });
 
-const newShape = shape({
+export default shape({
   isLedger: bool.isRequired,
   accountLabel: string.isRequired,
   encryptedMnemonic: string.isRequired,
   secretWord: string.isRequired,
   passphrase: string, // Will be removed when persisting to storage
   mnemonic: string, // Will be removed when persisting to storage
-  activeWalletId: string.isRequired,
+  activeAccountId: string.isRequired, // TODO rename to activeWalletId
   accounts: objectOf(walletShape)
 });
 

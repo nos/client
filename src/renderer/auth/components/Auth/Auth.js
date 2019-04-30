@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, bool, any } from 'prop-types';
-import { isEmpty } from 'lodash';
+import { string, func, bool, objectOf } from 'prop-types';
 
 import Modal from 'shared/components/Modal';
+import accountShape from 'auth/shapes/accountShape';
 
 import styles from './Auth.scss';
 
@@ -21,17 +21,18 @@ export default class Auth extends React.PureComponent {
     onCancel: func.isRequired,
     login: func.isRequired,
     authenticated: bool.isRequired,
-    accounts: any.isRequired
+    accounts: objectOf(accountShape)
   };
 
   static defaultProps = {
-    className: null
+    className: null,
+    accounts: null
   };
 
   confirm = React.createRef();
 
   state = {
-    component: REGISTER
+    component: LOGIN
   };
 
   componentDidMount() {
@@ -43,21 +44,27 @@ export default class Auth extends React.PureComponent {
 
   render() {
     const { className, authenticated, onConfirm } = this.props;
+    console.log('Auth.js ', this.props);
 
     if (authenticated) {
       onConfirm();
     }
 
-    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
+    return (
+      <Modal className={classNames(styles.auth, className)}>
+        {this.renderComponent()}
+      </Modal>
+    );
   }
 
   renderComponent = () => {
-    const { login, loading, onCancel } = this.props;
+    const { login, loading, onCancel, accounts } = this.props;
 
     switch (this.state.component) {
       case LOGIN:
         return (
           <Login
+            accounts={accounts}
             login={login}
             loading={loading}
             onCancel={onCancel}

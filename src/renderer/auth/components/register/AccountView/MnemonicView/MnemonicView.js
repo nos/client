@@ -14,15 +14,21 @@ import styles from './MnemonicView.scss';
 
 export default class MnemonicView extends React.PureComponent {
   static propTypes = {
-    account: accountShape.isRequired,
+    account: accountShape,
     setStep: func.isRequired,
     onCancel: func.isRequired,
     onBack: func.isRequired,
     showInfoToast: func.isRequired
   };
 
+  static defaultProps = {
+    account: null
+  };
+
   render() {
     const { onCancel, account, onBack, disabled } = this.props;
+
+    console.log('MnemonicView.js props ', this.props);
 
     return (
       <AuthPanel
@@ -37,7 +43,11 @@ export default class MnemonicView extends React.PureComponent {
             .trim()
             .split(' ')
             .map((word, count) => (
-              <MnemonicWord key={`${word + count + 1}`} count={count + 1} word={word} />
+              <MnemonicWord
+                key={`${word + count + 1}`}
+                count={count + 1}
+                word={word}
+              />
             ))}
         </div>
         <CopyToClipboard text={account.mnemonic} onCopy={this.handleOnCopy}>
