@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { string, func, bool, objectOf } from 'prop-types';
 
 import Modal from 'shared/components/Modal';
-import accountShape from 'auth/shapes/accountShape';
+import accountsShape from 'auth/shapes/accountsShape';
 
 import styles from './Auth.scss';
 
@@ -21,7 +21,7 @@ export default class Auth extends React.PureComponent {
     onCancel: func.isRequired,
     login: func.isRequired,
     authenticated: bool.isRequired,
-    accounts: objectOf(accountShape)
+    accounts: accountsShape
   };
 
   static defaultProps = {
@@ -50,11 +50,7 @@ export default class Auth extends React.PureComponent {
       onConfirm();
     }
 
-    return (
-      <Modal className={classNames(styles.auth, className)}>
-        {this.renderComponent()}
-      </Modal>
-    );
+    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
   }
 
   renderComponent = () => {
