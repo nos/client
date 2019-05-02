@@ -8,7 +8,7 @@ import styles from './NavigationButtons.scss';
 
 const NavigationButtons = ({ onBack, onNext, nextBtnText, disabled }) => (
   <div className={styles.navigationButtons}>
-    <Button className={styles.previousBtn} onClick={onBack} disabled={disabled}>
+    <Button className={styles.previousBtn} onClick={onBack}>
       Back
     </Button>
     <PrimaryButton className={styles.nextBtn} onClick={onNext} disabled={disabled}>

@@ -32,7 +32,7 @@ export default class Auth extends React.PureComponent {
   confirm = React.createRef();
 
   state = {
-    component: LOGIN
+    component: REGISTER
   };
 
   componentDidMount() {
@@ -44,7 +44,6 @@ export default class Auth extends React.PureComponent {
 
   render() {
     const { className, authenticated, onConfirm } = this.props;
-    console.log('Auth.js ', this.props);
 
     if (authenticated) {
       onConfirm();

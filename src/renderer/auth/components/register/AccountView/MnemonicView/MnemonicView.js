@@ -26,7 +26,7 @@ export default class MnemonicView extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, account, onBack, disabled } = this.props;
+    const { onCancel, account, onBack, loading } = this.props;
 
     console.log('MnemonicView.js props ', this.props);
 
@@ -43,11 +43,7 @@ export default class MnemonicView extends React.PureComponent {
             .trim()
             .split(' ')
             .map((word, count) => (
-              <MnemonicWord
-                key={`${word + count + 1}`}
-                count={count + 1}
-                word={word}
-              />
+              <MnemonicWord key={`${word + count + 1}`} count={count + 1} word={word} />
             ))}
         </div>
         <CopyToClipboard text={account.mnemonic} onCopy={this.handleOnCopy}>
@@ -58,7 +54,7 @@ export default class MnemonicView extends React.PureComponent {
         <NavigationButtons
           onBack={onBack}
           onNext={this.onNext}
-          disabled={disabled}
+          disabled={loading}
           nextBtnText="Next: Verify"
         />
       </AuthPanel>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { bool, string, func, shape, object, any } from 'prop-types';
-import { noop, map, isEmpty } from 'lodash';
+import { bool, string, func } from 'prop-types';
+import { noop, map } from 'lodash';
 
+import accountsShape from 'auth/shapes/accountsShape';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
@@ -10,17 +11,17 @@ import styles from './LoginForm.scss';
 
 export default class LoginForm extends React.PureComponent {
   static propTypes = {
-    disabled: bool, // TODO adjust all props
+    disabled: bool,
     passphrase: string,
     onLogin: func,
     setPassphrase: func,
-    accounts: any,
+    accounts: accountsShape,
     currentAccount: string,
-    setCurrentAccount: func,
-    history: shape({
-      location: object.isRequired,
-      push: func.isRequired
-    }).isRequired
+    setCurrentAccount: func
+    // history: shape({
+    //   location: object.isRequired,
+    //   push: func.isRequired
+    // }).isRequired
   };
 
   static defaultProps = {
@@ -36,26 +37,22 @@ export default class LoginForm extends React.PureComponent {
   render() {
     const { disabled, currentAccount, passphrase, accounts } = this.props;
 
-    if (isEmpty(currentAccount)) {
-      return this.renderNoWallet();
-    } else {
-      return this.renderRegisterForm({
-        disabled,
-        currentAccount,
-        accounts,
-        passphrase
-      });
-    }
+    return this.renderRegisterForm({
+      disabled,
+      currentAccount,
+      accounts,
+      passphrase
+    });
   }
 
-  renderRegisterForm = ({ disabled, currentAccount, accounts, passphrase }) => (
+  renderRegisterForm = ({ disabled, currentAccount, passphrase }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
         id="profiel"
         label="Account"
-        disabled={isEmpty(accounts)}
+        disabled={disabled}
         value={currentAccount}
         items={this.getProfiles()}
         onChange={this.handleChangeCurrentAccount}
@@ -67,7 +64,7 @@ export default class LoginForm extends React.PureComponent {
         label="Passphrase"
         placeholder="Enter your passphrase"
         value={passphrase}
-        disabled={disabled || isEmpty(accounts)}
+        disabled={disabled}
         onChange={this.handleChangePassphrase}
       />
 
@@ -76,23 +73,6 @@ export default class LoginForm extends React.PureComponent {
       </PrimaryButton>
     </form>
   );
-
-  renderNoWallet = () => (
-    <form className={styles.loginForm} onSubmit={this.handleRedirectRegister}>
-      <div className={styles.disclaimer}>
-        Looks like you don&apos;t have a wallet yet.
-        <br />
-        Click the button below to create one.
-      </div>
-      <PrimaryButton className={styles.registerBtn} type="submit">
-        Create New Wallet
-      </PrimaryButton>
-    </form>
-  );
-
-  handleRedirectRegister = () => {
-    this.props.history.push('/register');
-  };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);

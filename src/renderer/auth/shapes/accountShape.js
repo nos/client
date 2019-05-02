@@ -1,4 +1,4 @@
-import { string, number, shape, bool, objectOf, oneOf } from 'prop-types';
+import { string, number, shape, bool, objectOf, oneOfType } from 'prop-types';
 
 const walletShapeInitialized = shape({
   accountId: string.isRequired,
@@ -30,8 +30,5 @@ export default shape({
   passphrase: string, // Will be removed when persisting to storage
   mnemonic: string, // Will be removed when persisting to storage
   activeAccountId: string.isRequired, // TODO rename to activeWalletId
-  accounts: oneOf(
-    objectOf(walletShapeInitialized),
-    objectOf(walletShapeNotInitialized)
-  )
+  accounts: oneOfType([objectOf(walletShapeInitialized), objectOf(walletShapeNotInitialized)])
 });

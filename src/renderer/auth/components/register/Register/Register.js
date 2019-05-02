@@ -46,9 +46,10 @@ export default class Register extends React.PureComponent {
   };
 
   renderSecondStep = () => {
-    const { account, onCancel, reset } = this.props;
+    const { account, onCancel, reset, loading } = this.props;
     return (
       <AccountView
+        loading={loading}
         account={account}
         onCancel={onCancel}
         setStep={this.setStep}
