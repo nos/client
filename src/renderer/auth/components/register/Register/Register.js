@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 
 import accountShape from 'auth/shapes/accountShape';
 
@@ -15,7 +15,8 @@ export default class Register extends React.PureComponent {
     account: accountShape,
     redirect: func.isRequired,
     onCancel: func.isRequired,
-    reset: func.isRequired
+    reset: func.isRequired,
+    loading: bool.isRequired
   };
 
   static defaultProps = {
@@ -47,13 +48,25 @@ export default class Register extends React.PureComponent {
   renderSecondStep = () => {
     const { account, onCancel, reset } = this.props;
     return (
-      <AccountView account={account} onCancel={onCancel} setStep={this.setStep} onBack={reset} />
+      <AccountView
+        account={account}
+        onCancel={onCancel}
+        setStep={this.setStep}
+        onBack={reset}
+      />
     );
   };
 
   renderThirdStep = () => {
-    const { account, onCancel } = this.props;
-    return <VerifyAccount account={account} onCancel={onCancel} setStep={this.setStep} />;
+    const { account, onCancel, loading } = this.props;
+    return (
+      <VerifyAccount
+        loading={loading}
+        account={account}
+        onCancel={onCancel}
+        setStep={this.setStep}
+      />
+    );
   };
 
   setStep = (step) => {
