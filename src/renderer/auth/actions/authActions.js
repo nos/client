@@ -8,27 +8,17 @@ import simpleDecrypt from 'shared/util/simpleDecrypt';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 
 import CHAINS from 'shared/values/chains';
-import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { DEFAULT_NET } from 'values/networks';
 
 export const ID = 'auth';
 
 // TODO split up file
 const authenticate = async ({ account, passphrase }) => {
-  const mnemonic = attempt(
-    simpleDecrypt,
-    account.encryptedMnemonic,
-    passphrase
-  );
+  const mnemonic = attempt(simpleDecrypt, account.encryptedMnemonic, passphrase);
 
   // Validate mnemnoic
-  if (
-    isError(mnemonic) ||
-    !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])
-  ) {
-    throw new Error(
-      'Invalid mnemonic. Please make sure you entered the correct password.'
-    );
+  if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
+    throw new Error('Invalid mnemonic. Please make sure you entered the correct password.');
   }
 
   // Deterministically generate a 512 bit seed hex seed
@@ -57,12 +47,9 @@ const addAccount = async ({ authData, chainType, passphrase }) => {
   }
 
   const { accounts } = authData;
-  const latestAccount = reduce(
-    filter(accounts, { chainId: selectedChain }),
-    (max, obj) => {
-      return obj.index > max.index ? obj : max;
-    }
-  );
+  const latestAccount = reduce(filter(accounts, { chainId: selectedChain }), (max, obj) => {
+    return obj.index > max.index ? obj : max;
+  });
 
   const newAccount = {
     [accountId]: {
@@ -130,12 +117,9 @@ export const verifyAndAuthenticateActions = createActions(ID, (data) => {
   return () => verifyAndAuthenticate(data);
 });
 
-export const addAccountActions = createActions(
-  ID,
-  ({ account, passphrase, chainType }) => {
-    return () => addAccount({ authData: account, passphrase, chainType });
-  }
-);
+export const addAccountActions = createActions(ID, ({ account, passphrase, chainType }) => {
+  return () => addAccount({ authData: account, passphrase, chainType });
+});
 
 export default createActions(ID, ({ account, passphrase }) => {
   return () => authenticate({ account, passphrase });

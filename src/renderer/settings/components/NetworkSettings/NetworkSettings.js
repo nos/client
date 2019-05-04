@@ -35,9 +35,7 @@ export default class NetworkSettings extends React.PureComponent {
 
     return (
       <div className={styles.networkSettings}>
-        <SectionTitle renderIcon={NetworkIcon}>
-          Network Settings
-        </SectionTitle>
+        <SectionTitle renderIcon={NetworkIcon}>Network Settings</SectionTitle>
 
         <SectionContent>
           <LabeledSelect
@@ -80,10 +78,10 @@ export default class NetworkSettings extends React.PureComponent {
     }
 
     this.props.clearNetworks();
-  }
+  };
 
   handleAddNewNetwork = () => {
-    this.props.confirm((
+    this.props.confirm(
       <div>
         <LabeledInput
           id="networkName"
@@ -99,13 +97,14 @@ export default class NetworkSettings extends React.PureComponent {
           placeholder="Network URL"
           onChange={this.handleChangeNetworkUrl}
         />
-      </div>
-    ), {
-      title: 'New network configuration',
-      onConfirm: this.handleConfirmAddNetwork,
-      onCancel: () => this.clearModal()
-    });
-  }
+      </div>,
+      {
+        title: 'New network configuration',
+        onConfirm: this.handleConfirmAddNetwork,
+        onCancel: () => this.clearModal()
+      }
+    );
+  };
 
   handleConfirmAddNetwork = () => {
     const network = this.props.networks.find((element) => {
@@ -133,31 +132,31 @@ export default class NetworkSettings extends React.PureComponent {
 
     this.props.addNetwork(newNetwork);
     this.props.setCurrentNetwork(newNetwork.name);
-  }
+  };
 
   handleChangeNetworkName = (event) => {
     this.props.setNetworkName(event.target.value);
-  }
+  };
 
   handleChangeNetworkUrl = (event) => {
     this.props.setNetworkUrl(event.target.value);
-  }
+  };
 
   handleChangeSelectedNetwork = (value) => {
     this.props.setCurrentNetwork(value);
-  }
+  };
 
   clearModal = () => {
     this.props.setNetworkName('');
     this.props.setNetworkUrl('');
-  }
+  };
 
   getNetworkItems = () => {
     return map(settings.networks, ({ name }) => ({ label: name, value: name }));
-  }
+  };
 
   getCurrentNetworkUrl = () => {
     const currentNetworkConfig = settings.networks[this.props.currentNetwork];
     return currentNetworkConfig ? currentNetworkConfig.extra.neoscan : '';
-  }
+  };
 }

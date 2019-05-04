@@ -15,7 +15,8 @@ export default class Account extends React.PureComponent {
   static propTypes = {
     className: string,
     instance: instanceShape,
-    encryptedMnemonic: string
+    encryptedMnemonic: string,
+    secretWord: string.isRequired
   };
 
   static defaultProps = {
@@ -25,7 +26,7 @@ export default class Account extends React.PureComponent {
   };
 
   render() {
-    const { className, encryptedMnemonic, instance } = this.props;
+    const { className, encryptedMnemonic, instance, secretWord } = this.props;
     const identityColor = instance ? styles[instance.type.toLowerCase()] : styles.neo;
 
     return (
@@ -39,7 +40,11 @@ export default class Account extends React.PureComponent {
             <div className={styles.subtitle}>{encryptedMnemonic ? 'Secret Words' : 'Wallet'}</div>
           </div>
         </div>
-        <AccountData encryptedMnemonic={encryptedMnemonic} instance={instance} />
+        <AccountData
+          encryptedMnemonic={encryptedMnemonic}
+          instance={instance}
+          secretWord={secretWord}
+        />
       </div>
     );
   }
