@@ -91,7 +91,7 @@ export default class AccountData extends React.PureComponent {
     if (prevState) {
       confirm(
         <div>
-          <Pill>{secretWord}</Pill>
+          <Pill className={styles.pill}>{secretWord}</Pill>
           <LabeledInput
             id="passphrase"
             type="password"
@@ -101,7 +101,7 @@ export default class AccountData extends React.PureComponent {
           />
         </div>,
         {
-          title: 'Show Seed Phrase',
+          title: 'Show Secret Words',
           onConfirm: this.handleShowHiddenConfirm,
           onCancel: () => setPassphrase('')
         }

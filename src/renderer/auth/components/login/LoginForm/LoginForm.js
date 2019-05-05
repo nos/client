@@ -17,7 +17,8 @@ export default class LoginForm extends React.PureComponent {
     setPassphrase: func,
     accounts: accountsShape,
     currentAccount: string,
-    setCurrentAccount: func
+    setCurrentAccount: func,
+    setSelectedSecretWord: func.isRequired
     // history: shape({
     //   location: object.isRequired,
     //   push: func.isRequired
@@ -33,6 +34,11 @@ export default class LoginForm extends React.PureComponent {
     accounts: undefined,
     currentAccount: ''
   };
+
+  componentDidMount() {
+    const { setSelectedSecretWord, accounts, currentAccount } = this.props;
+    setSelectedSecretWord(accounts[currentAccount].secretWord);
+  }
 
   render() {
     const { disabled, currentAccount, passphrase, accounts } = this.props;
@@ -79,7 +85,9 @@ export default class LoginForm extends React.PureComponent {
   };
 
   handleChangeCurrentAccount = (value) => {
-    this.props.setCurrentAccount(value);
+    const { accounts, setSelectedSecretWord, setCurrentAccount } = this.props;
+    setSelectedSecretWord(accounts[value].secretWord);
+    setCurrentAccount(value);
   };
 
   handleLogin = (event) => {
