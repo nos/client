@@ -191,7 +191,7 @@
   }
 }
 
-@mixin lightBorder($position) {
+@mixin border($border-width: 1px, $position: "bottom", $color: "light") {
   $values: "0";
 
   @if $position == "bottom" {
@@ -200,12 +200,25 @@
   @if $position=="right" {
     $values: -1px 0 0;
   }
+  @if $position=="left" {
+    $values: 1px 0 0;
+  }
 
-  box-shadow: inset $values $gray-2;
+  @if $color == "light" {
+    box-shadow: inset $values $gray-2;
 
-  @include theme(DARK) {
-    box-shadow: inset $values $gray-6;
-  } 
+    @include theme(DARK) {
+      box-shadow: inset $values $gray-6;
+    } 
+  }
+
+  @if $color=="medium" {
+    box-shadow: inset $values $gray-3;
+
+    @include theme(DARK) {
+      box-shadow: inset $values $gray-5;
+    }
+  }
 }
 
 %tertiaryButtonColor {

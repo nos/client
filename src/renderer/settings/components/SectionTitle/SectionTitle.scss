@@ -5,7 +5,7 @@
   margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.0001);
   mix-blend-mode: normal;
-  @include lightBorder(bottom);
+  @include border(1px, bottom, light);
 
   .icon {
     flex: 0 0 auto;
