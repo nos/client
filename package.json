@@ -60,7 +60,8 @@
     "switch-tree": "0.2.2",
     "uuid": "3.3.2",
     "what-input": "5.2.1",
-    "whatwg-url": "7.0.0"
+    "whatwg-url": "7.0.0",
+    "snyk": "^1.161.1"
   },
   "scripts": {
     "start": "yarn build:main && run-p -l -n -r start:renderer start:electron",
@@ -79,7 +80,9 @@
     "lint:fix": "yarn run lint --fix",
     "clean": "rimraf build dist coverage",
     "postinstall": "electron-builder install-app-deps",
-    "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
+    "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
@@ -174,5 +177,6 @@
     ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
-  }
+  },
+  "snyk": true
 }
