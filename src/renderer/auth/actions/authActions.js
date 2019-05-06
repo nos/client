@@ -8,7 +8,6 @@ import simpleDecrypt from 'shared/util/simpleDecrypt';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 
 import CHAINS from 'shared/values/chains';
-import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { DEFAULT_NET } from 'values/networks';
 
 export const ID = 'auth';

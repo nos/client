@@ -1,4 +1,5 @@
 import React from 'react';
+import { func } from 'prop-types';
 
 import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
@@ -9,7 +10,9 @@ import styles from './CreateAccount.scss';
 
 export default class CreateAccount extends React.PureComponent {
   static propTypes = {
-    account: accountShape
+    account: accountShape,
+    onCancel: func.isRequired,
+    redirect: func.isRequired
   };
 
   static defaultProps = {
@@ -17,7 +20,7 @@ export default class CreateAccount extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, redirect, account, setStep } = this.props;
+    const { onCancel, redirect, account } = this.props;
 
     const sidePanelText =
       '🔗 Create a wallet to interact with decentralized apps and transfer crypto-currencies.';
@@ -33,7 +36,7 @@ export default class CreateAccount extends React.PureComponent {
         sidePanelText={sidePanelText}
         redirect={redirect}
       >
-        <RegisterForm setStep={setStep} />
+        <RegisterForm />
       </AuthPanel>
     );
   }

@@ -13,7 +13,7 @@ export default class VerifyAccount extends React.PureComponent {
     account: accountShape.isRequired,
     verifyAndAuthenticate: func.isRequired,
     setStep: func.isRequired,
-    disabled: bool.isRequired,
+    loading: bool.isRequired,
     onCancel: func.isRequired,
     passphrase: string.isRequired,
     secretWord: string.isRequired,
@@ -24,11 +24,13 @@ export default class VerifyAccount extends React.PureComponent {
     setPassphrase: func.isRequired,
     setSecretWord: func.isRequired,
     setFirstMnemonicWord: func.isRequired,
-    setSecondMnemonicWord: func.isRequired
+    setSecondMnemonicWord: func.isRequired,
+    storeProfile: func.isRequired,
+    setLastLogin: func.isRequired
   };
 
   render() {
-    const { onCancel } = this.props;
+    const { onCancel, loading } = this.props;
 
     return (
       <AuthPanel
@@ -42,6 +44,7 @@ export default class VerifyAccount extends React.PureComponent {
           onBack={this.onBack}
           onNext={this.completeRegistration}
           nextBtnText="Complete"
+          disabled={loading}
         />
       </AuthPanel>
     );
@@ -50,7 +53,7 @@ export default class VerifyAccount extends React.PureComponent {
   renderComponent = () => {
     const {
       account,
-      disabled,
+      loading,
       passphrase,
       secretWord,
       firstMnemonicWord,
@@ -67,7 +70,7 @@ export default class VerifyAccount extends React.PureComponent {
           label="Verify Passphrase"
           placeholder="Enter your passphrase"
           value={passphrase}
-          disabled={disabled}
+          disabled={loading}
           onChange={this.handleChangePassphrase}
         />
         <LabeledInput
@@ -77,7 +80,7 @@ export default class VerifyAccount extends React.PureComponent {
           label="Verify Secret Word"
           placeholder="Verify your secret word"
           value={secretWord}
-          disabled={disabled}
+          disabled={loading}
           onChange={this.handleChangeSecretWord}
         />
 
@@ -89,7 +92,7 @@ export default class VerifyAccount extends React.PureComponent {
             label="Verify Your Addres"
             placeholder={account.accounts[account.activeAccountId].address}
             value=""
-            disabled={disabled}
+            disabled={loading}
           />
         )}
 
@@ -104,7 +107,7 @@ export default class VerifyAccount extends React.PureComponent {
               label={`Type word #${firstMnemonicWordIndex}`}
               placeholder="Secret word.."
               value={firstMnemonicWord}
-              disabled={disabled}
+              disabled={loading}
               onChange={this.handleChangeFirstMnemonicWord}
             />
             <LabeledInput
@@ -113,7 +116,7 @@ export default class VerifyAccount extends React.PureComponent {
               label={`Type word #${secondMnemonicWordIndex}`}
               placeholder="Secret word.."
               value={secondMnemonicWord}
-              disabled={disabled}
+              disabled={loading}
               onChange={this.handleChangeSecondMnemonicWord}
             />
           </div>

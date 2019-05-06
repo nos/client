@@ -7,8 +7,8 @@ import Accounts from './Accounts';
 
 const mapAuthDataToProps = (auth) => auth;
 const mapAddAccountActionsToProps = (actions, props) => ({
-  addAccount: ({ type }) => actions.call({
-    type,
+  addAccount: (data) => actions.call({
+    ...data,
     account: props
   })
 });

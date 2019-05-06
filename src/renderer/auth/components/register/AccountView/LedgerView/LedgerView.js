@@ -29,13 +29,12 @@ export default class LedgerView extends React.PureComponent {
     setStep: func.isRequired,
     onCancel: func.isRequired,
     onBack: func.isRequired,
-    account: accountShape,
+    account: accountShape.isRequired,
     poll: func.isRequired,
     getPublicKey: func.isRequired,
-    onLogin: func,
     deviceInfoProgress: string,
     publickeyProgress: string,
-    disabled: bool,
+    loading: bool.isRequired,
     deviceInfo: deviceInfoShape,
     deviceInfoError: string,
     publicKey: string,
@@ -43,11 +42,8 @@ export default class LedgerView extends React.PureComponent {
   };
 
   static defaultProps = {
-    account: null,
-    onLogin: noop,
     deviceInfoProgress: null,
     publickeyProgress: null,
-    disabled: false,
     deviceInfo: null,
     deviceInfoError: null,
     publicKey: null,
@@ -73,7 +69,10 @@ export default class LedgerView extends React.PureComponent {
   }
 
   render() {
-    const { onCancel, onBack } = this.props;
+    const { onCancel, onBack, loading } = this.props;
+
+    console.log('loading ', loading);
+    console.log('valid ', this.isValid());
 
     const sidePanelText =
       'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
@@ -89,7 +88,12 @@ export default class LedgerView extends React.PureComponent {
         <div className={styles.ledgerView}>{this.renderComponent()}</div>
 
         {/** TODO onBack or Cancel remove deviceInfo and publicKey data  */}
-        <NavigationButtons onBack={onBack} onNext={this.onNext} nextBtnText="Next: Verify" />
+        <NavigationButtons
+          onBack={onBack}
+          onNext={this.onNext}
+          disabled={loading || !this.isValid()}
+          nextBtnText="Next: Verify"
+        />
       </AuthPanel>
     );
   }
@@ -146,7 +150,7 @@ export default class LedgerView extends React.PureComponent {
                 <div>Pick a wallet address</div>
                 <div className={styles.labelRight}>Fetch additional addresses</div>
               </div>
-              )}
+)}
             disabled={isEmpty(this.props.publicKey)}
             value={this.props.publicKey}
             items={this.getPublicKeyItems()}
@@ -189,5 +193,9 @@ export default class LedgerView extends React.PureComponent {
 
   onNext = () => {
     this.props.setStep(3);
+  };
+
+  isValid = () => {
+    return !isEmpty(this.props.publicKey);
   };
 }

@@ -15,9 +15,7 @@ import Auth from './Auth';
 const { LOADING } = progressValues;
 
 const mapAuthActionsToProps = (actions) => ({
-  login: (data) => {
-    return actions.call(data);
-  }
+  login: (data) => actions.call(data)
 });
 
 const mapAccountActionsToProps = (accounts) => ({

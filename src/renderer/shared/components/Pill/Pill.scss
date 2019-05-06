@@ -1,0 +1,23 @@
+.pill {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  .container {
+    align-self: center;
+    // TODO dynamic colors
+    // Somehow #6979f8 and 0.1 opacity turn the text white
+    background: #f0f2ff;
+    border-radius: 18px;
+  }
+
+  .text {
+    padding: 5px 10px;
+    color: #6979f8;
+    font-size: 12px;
+
+    .bold {
+      font-weight: 600;
+    }
+  }
+}

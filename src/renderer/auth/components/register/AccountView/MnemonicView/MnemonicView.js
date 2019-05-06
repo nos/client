@@ -14,15 +14,21 @@ import styles from './MnemonicView.scss';
 
 export default class MnemonicView extends React.PureComponent {
   static propTypes = {
-    account: accountShape.isRequired,
+    account: accountShape,
     setStep: func.isRequired,
     onCancel: func.isRequired,
     onBack: func.isRequired,
     showInfoToast: func.isRequired
   };
 
+  static defaultProps = {
+    account: null
+  };
+
   render() {
-    const { onCancel, account, onBack, disabled } = this.props;
+    const { onCancel, account, onBack, loading } = this.props;
+
+    console.log('MnemonicView.js props ', this.props);
 
     return (
       <AuthPanel
@@ -48,7 +54,7 @@ export default class MnemonicView extends React.PureComponent {
         <NavigationButtons
           onBack={onBack}
           onNext={this.onNext}
-          disabled={disabled}
+          disabled={loading}
           nextBtnText="Next: Verify"
         />
       </AuthPanel>

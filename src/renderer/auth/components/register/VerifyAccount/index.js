@@ -1,23 +1,16 @@
 import { withRouter } from 'react-router-dom';
-import { compose, withState, withProps } from 'recompose';
-import { withData, withActions, progressValues } from 'spunky';
+import { compose, withState } from 'recompose';
+import { withActions } from 'spunky';
 import { random } from 'lodash';
 
 import withLoadingProp from 'shared/hocs/withLoadingProp';
-import { withErrorToast } from 'shared/hocs/withToast';
-import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import { verifyAndAuthenticateActions } from 'auth/actions/authActions';
 import { appendAccountActions } from 'auth/actions/accountActions';
-import withInitialCall from 'shared/hocs/withInitialCall';
-import withNullLoader from 'browser/hocs/withNullLoader';
-import previousAuthActions, { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
-import accountActions from 'auth/actions/accountActions';
+import { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import withLogin from 'auth/hocs/withLogin';
 
 import VerifyAccount from './VerifyAccount';
-
-const { FAILED } = progressValues;
 
 const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
@@ -67,7 +60,7 @@ export default compose(
 
   // redirect on login
   withRouter,
-  withLogin((state, { history, account, setLastLogin, currentAccount, storeProfile }) => {
+  withLogin((state, { history }) => {
     history.push('/browser');
   })
 )(VerifyAccount);
