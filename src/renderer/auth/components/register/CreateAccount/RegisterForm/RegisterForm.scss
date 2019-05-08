@@ -11,7 +11,11 @@
     background: transparent;
     box-shadow: none;
     width: auto;
-    // margin-right: 10px;
+    
+    @include theme(DARK) {
+      background: transparent;
+      box-shadow: none;
+    }
 
     input {
       width: auto;
