@@ -230,4 +230,20 @@
     background: transparentize($brand, .65);
     box-shadow: none !important;
   }
+
+  @include theme(DARK) {
+    background: transparentize($brand, .65);
+
+    &:hover {
+      background: transparentize($brand, .5);
+    }
+  }
+}
+
+%modalBackdropColor {
+    background: transparentize($gray-8, 0.15);
+
+    @include theme(DARK) {
+      background: transparentize($gray-5, 0.25);
+    }
 }
