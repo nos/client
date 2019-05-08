@@ -36,9 +36,11 @@ export default class LoginForm extends React.PureComponent {
   };
 
   componentDidMount() {
-    // TODO re enabled after Dark Theme PR
-    // const { setSelectedSecretWord, accounts, currentAccount } = this.props;
-    // setSelectedSecretWord(accounts[currentAccount].secretWord);
+    const { setSelectedSecretWord, accounts, currentAccount } = this.props;
+    const selectedAccount = accounts[currentAccount];
+    if (selectedAccount) {
+      setSelectedSecretWord(selectedAccount.secretWord);
+    }
   }
 
   render() {
