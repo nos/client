@@ -3,12 +3,12 @@
   @extend %textColor;
   border-radius: 4px;
   margin: 10px 6px;
+  width: 22%;
 
   display: flex;
   align-items: center; /* Vertical center alignment */
 
   .count {
-
     background: $gray-1;
     color: $gray-4;
 
