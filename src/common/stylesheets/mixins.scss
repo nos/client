@@ -38,7 +38,8 @@
 %toggle {
 
   box-shadow: none;
-  background: transparent;
+  background: transparent !important;
+  box-shadow: none !important;
   max-width: 52px;
 
   & > input {
