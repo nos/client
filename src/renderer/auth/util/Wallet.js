@@ -1,7 +1,7 @@
 import { includes } from 'lodash';
 import bip32 from 'bip32';
 
-import CHAINS from 'shared/values/chains';
+import { NEO, ETH, CHAIN_IDS } from 'shared/values/chains';
 
 import EthWallet from './ETH/EthWallet';
 import NeoWallet from './NEO/NeoWallet';
@@ -14,7 +14,7 @@ export default class Wallet {
   }
 
   deriveWallet = (chain, index, account = 0, change = 0) => {
-    if (!includes(CHAINS, chain)) throw new Error('No valid chain was given.');
+    if (!includes(CHAIN_IDS, chain)) throw new Error('No valid chain was given.');
 
     return this.root
       .deriveHardened(44) // Purpose (bip44)
@@ -27,9 +27,9 @@ export default class Wallet {
   deriveWalletFromAccount = ({ chainId, index, account = 0, change = 0 }) => {
     const derivedWallet = this.deriveWallet(chainId, index, account, change);
     switch (chainId) {
-      case CHAINS.NEO:
+      case NEO:
         return new NeoWallet(derivedWallet, index).getWallet();
-      case CHAINS.ETH:
+      case ETH:
         return new EthWallet(derivedWallet, index).getWallet();
       default:
         throw new Error('Invalid chainId.');
@@ -45,12 +45,12 @@ export default class Wallet {
   };
 
   getEthWallet = (index, account = 0, change = 0) => {
-    const child = this.deriveWallet(CHAINS.ETH, index, account, change);
+    const child = this.deriveWallet(ETH, index, account, change);
     return new EthWallet(child).getWallet();
   };
 
   getNeoWallet = (index, account = 0, change = 0) => {
-    const child = this.deriveWallet(CHAINS.NEO, index, account, change);
+    const child = this.deriveWallet(NEO, index, account, change);
     return new NeoWallet(child).getWallet();
   };
 }

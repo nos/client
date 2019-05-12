@@ -18,7 +18,7 @@ const authenticate = async ({ account, passphrase }) => {
 
   // Validate mnemnoic
   if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
-    throw new Error('Invalid mnemonic. Please make sure you entered the correct password.');
+    throw new Error('Please make sure you entered the correct password.');
   }
 
   // Deterministically generate a 512 bit seed hex seed
@@ -37,24 +37,23 @@ const authenticate = async ({ account, passphrase }) => {
   return { ...account, instances };
 };
 
-const addAccount = async ({ authData, chainType, passphrase }) => {
+const addAccount = async ({ account, chainType, passphrase }) => {
   const accountId = uuid();
 
-  const selectedChain = CHAINS[chainType.toUpperCase()];
+  const { chainId } = CHAINS[chainType] || {};
 
-  if (!selectedChain) {
+  if (!chainId) {
     throw new Error('Incorrect chain selected.');
   }
 
-  const { accounts } = authData;
-  const latestAccount = reduce(filter(accounts, { chainId: selectedChain }), (max, obj) => {
+  const latestAccount = reduce(filter(account.accounts, { chainId }), (max, obj) => {
     return obj.index > max.index ? obj : max;
   });
 
-  const newAccount = {
+  const newWallet = {
     [accountId]: {
       accountId,
-      chainId: selectedChain,
+      chainId,
       index: latestAccount.index + 1,
       account: 0,
       change: 0,
@@ -62,16 +61,15 @@ const addAccount = async ({ authData, chainType, passphrase }) => {
     }
   };
 
-  const account = {
-    ...omit(authData, 'accounts'),
+  const newAccount = {
+    ...omit(account, 'accounts'),
     accounts: {
-      ...authData.accounts,
-      ...newAccount
+      ...account.accounts,
+      ...newWallet
     }
   };
 
-  // TODO modal to ask password
-  return authenticate({ account, passphrase: 'q' });
+  return authenticate({ account: newAccount, passphrase });
 };
 
 const verifyAndAuthenticate = ({
@@ -118,7 +116,7 @@ export const verifyAndAuthenticateActions = createActions(ID, (data) => {
 });
 
 export const addAccountActions = createActions(ID, ({ account, passphrase, chainType }) => {
-  return () => addAccount({ authData: account, passphrase, chainType });
+  return () => addAccount({ account, passphrase, chainType });
 });
 
 export default createActions(ID, ({ account, passphrase }) => {

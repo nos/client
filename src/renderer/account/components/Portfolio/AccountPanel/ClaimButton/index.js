@@ -14,7 +14,7 @@ import ClaimButton from './ClaimButton';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapAuthDataToProps = (data) => (data);
+const mapAuthDataToProps = (data) => data;
 
 const mapClaimActionsToProps = (actions, props) => ({
   onClick: () => actions.call(pick(props, 'net', 'address', 'wif', 'publicKey', 'signingFunction'))
@@ -27,13 +27,18 @@ export default compose(
   withLoadingProp(claimActions, { strategy: pureStrategy }),
 
   withInfoToast(),
-  withProgressChange(claimActions, LOADING, (state, props) => {
-    if (props.signingFunction) {
-      props.showInfoToast('Please sign the transaction(s) on your Ledger.');
+  withProgressChange(
+    claimActions,
+    LOADING,
+    (state, props) => {
+      if (props.signingFunction) {
+        props.showInfoToast('Please sign the transaction(s) on your Ledger.');
+      }
+    },
+    {
+      strategy: pureStrategy
     }
-  }, {
-    strategy: pureStrategy
-  }),
+  ),
 
   withSuccessToast(),
   withProgressChange(claimActions, LOADED, (state, props) => {

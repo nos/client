@@ -122,7 +122,7 @@ export default class AccountData extends React.PureComponent {
       setPassphrase('');
       this.setState({ hidden: !prevState });
     } catch (e) {
-      showErrorToast("Unable to show Secret Words. You've entered a wrong passphrase.");
+      showErrorToast('Wrong passphrase, unable to show Secret Words.');
     }
   };
 
