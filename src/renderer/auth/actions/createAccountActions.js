@@ -8,7 +8,7 @@ import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { getStorage } from 'shared/lib/storage';
 import { DEFAULT_NET } from 'values/networks';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-import CHAINS, { DEFAULT_CHAIN } from 'shared/values/chains';
+import { DEFAULT_CHAIN, ETH } from 'shared/values/chains';
 
 const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 
@@ -70,7 +70,7 @@ const createAccount = async ({
       },
       [ethAccountId]: {
         accountId: ethAccountId,
-        chainId: CHAINS.ETH,
+        chainId: ETH,
         index: DEFAULT_ACC_INDEX,
         account: 0,
         change: 0,

@@ -18,7 +18,8 @@ export default class LoginForm extends React.PureComponent {
     accounts: accountsShape,
     currentAccount: string,
     setCurrentAccount: func,
-    setSelectedSecretWord: func.isRequired
+    setSelectedSecretWord: func.isRequired,
+    resetAccounts: func.isRequired
     // history: shape({
     //   location: object.isRequired,
     //   push: func.isRequired
@@ -41,6 +42,12 @@ export default class LoginForm extends React.PureComponent {
     if (selectedAccount) {
       setSelectedSecretWord(selectedAccount.secretWord);
     }
+  }
+
+  componentWillUnmount() {
+    // TODO remove this and use withCall instead
+    // Figure out why withCall results in an infinite loop
+    this.props.resetAccounts();
   }
 
   render() {
@@ -77,11 +84,7 @@ export default class LoginForm extends React.PureComponent {
         onChange={this.handleChangePassphrase}
       />
 
-      <PrimaryButton
-        className={styles.button}
-        type="submit"
-        disabled={disabled || !this.isValid()}
-      >
+      <PrimaryButton className={styles.button} type="submit" disabled={disabled || !this.isValid()}>
         Log In
       </PrimaryButton>
     </form>

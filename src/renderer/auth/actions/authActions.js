@@ -6,11 +6,13 @@ import uuid from 'uuid/v4';
 import Wallet from 'auth/util/Wallet';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
+import { updateStorage } from 'shared/lib/storage';
 
 import CHAINS from 'shared/values/chains';
 import { DEFAULT_NET } from 'values/networks';
 
 export const ID = 'auth';
+const ACCOUNT_ID = 'account';
 
 // TODO split up file
 const authenticate = async ({ account, passphrase }) => {
@@ -68,6 +70,12 @@ const addAccount = async ({ account, chainType, passphrase }) => {
       ...newWallet
     }
   };
+
+  await updateStorage(
+    ACCOUNT_ID,
+    account.accountLabel,
+    omit(newAccount, ['instances', 'passphrase', 'mnemonic'])
+  );
 
   return authenticate({ account: newAccount, passphrase });
 };

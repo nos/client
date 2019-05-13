@@ -17,3 +17,16 @@ export const appendStorage = async (key, label, value) => {
 
   return set(key, { ...values, [label]: value });
 };
+
+export const updateStorage = async (key, label, value) => {
+  const values = await get(key);
+  const newValue = values[label];
+
+  if (isEmpty(newValue)) {
+    throw new Error(`Item with label ${label} doesn't exists.`);
+  }
+
+  console.log('newValue', value);
+
+  return set(key, { ...values, [label]: value });
+};

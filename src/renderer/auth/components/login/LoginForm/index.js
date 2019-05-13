@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
-import { withData, withActions } from 'spunky';
+import { withData, withActions, withCall } from 'spunky';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNullLoader from 'browser/hocs/withNullLoader';
@@ -9,6 +9,10 @@ import accountActions from 'auth/actions/accountActions';
 import withLogin from 'auth/hocs/withLogin';
 
 import LoginForm from './LoginForm';
+
+const mapAccountActionsToProps = (actions) => ({
+  resetAccounts: actions.reset
+});
 
 const mapAccountActionsDataToProps = (accounts) => ({
   accounts
@@ -23,6 +27,7 @@ const mapPreviousAuthDataToProps = (data) => ({
 });
 
 export default compose(
+  withActions(accountActions, mapAccountActionsToProps),
   withInitialCall(accountActions),
   withInitialCall(previousAuthActions),
 
