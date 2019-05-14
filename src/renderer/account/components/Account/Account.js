@@ -1,6 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
-import { string, func } from 'prop-types';
 
 import Tabs from 'shared/components/Tabs';
 import PortfolioIcon from 'shared/images/account/portfolio.svg';
@@ -18,33 +16,15 @@ const TAB_KEY_MANAGEMENT = 'keyManagement';
 
 const TABS = {
   [TAB_PORTFOLIO]: <IconTab renderIcon={PortfolioIcon}>Portfolio</IconTab>,
-  [TAB_KEY_MANAGEMENT]: (
-    <IconTab renderIcon={KeyMngmntIcon}>Key Management</IconTab>
-  )
+  [TAB_KEY_MANAGEMENT]: <IconTab renderIcon={KeyMngmntIcon}>Key Management</IconTab>
 };
 
 export default class Account extends React.PureComponent {
-  static propTypes = {
-    className: string
-    // __progress__: string.isRequired,
-    // showErrorToast: func.isRequired
-  };
-
-  static defaultProps = {
-    className: null
-  };
-
   state = {
     tab: TAB_PORTFOLIO
   };
 
   render() {
-    const { __progress__, showErrorToast } = this.props;
-
-    // if (__progress__ === 'FAILED') {
-    //   showErrorToast('Loading is taking longer than expected. Check your nOS Network Settings.');
-    // }
-
     return (
       <Tabs
         tabsClass={styles.tabs}

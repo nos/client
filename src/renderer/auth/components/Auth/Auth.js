@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func, bool, objectOf } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 
 import Modal from 'shared/components/Modal';
 import accountsShape from 'auth/shapes/accountsShape';

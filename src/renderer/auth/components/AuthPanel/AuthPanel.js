@@ -2,7 +2,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { string, node, bool } from 'prop-types';
+import { string, node, bool, func, string } from 'prop-types';
 
 import SidePanel from 'auth/components/Register/SidePanel';
 import CloseIcon from 'shared/images/icons/close-modal.svg';
@@ -23,7 +23,7 @@ export default function AuthPanel({
 }) {
   return (
     <div className={classNames(styles.authPanel, className)}>
-      {sidePanel && <SidePanel step={step} title="New Wallet" text={sidePanelText} />}
+      {sidePanel && <SidePanel step={step} title={sidePanelTitle} text={sidePanelText} />}
 
       <div className={styles.content}>
         <CloseIcon className={styles.closeIcon} onClick={onCancel} />
@@ -41,11 +41,23 @@ export default function AuthPanel({
 AuthPanel.propTypes = {
   className: string,
   children: node,
-  sidePanel: bool
+  sidePanel: bool,
+  step: string,
+  sidePanelTitle: string,
+  sidePanelText: string,
+  onCancel: func.isRequired,
+  redirect: func.isRequired, // TODO find better name
+  footer: bool,
+  footerText: string
 };
 
 AuthPanel.defaultProps = {
   className: null,
   children: null,
-  sidePanel: false
+  sidePanel: false,
+  footer: false,
+  footerText: '',
+  sidePanelTitle: 'New Wallet',
+  sidePanelText: '',
+  step: '1'
 };

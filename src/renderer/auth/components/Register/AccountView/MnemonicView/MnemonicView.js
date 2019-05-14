@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 
 import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
 
@@ -18,7 +18,8 @@ export default class MnemonicView extends React.PureComponent {
     setStep: func.isRequired,
     onCancel: func.isRequired,
     onBack: func.isRequired,
-    showInfoToast: func.isRequired
+    showInfoToast: func.isRequired,
+    loading: bool.isRequired
   };
 
   static defaultProps = {
@@ -27,8 +28,6 @@ export default class MnemonicView extends React.PureComponent {
 
   render() {
     const { onCancel, account, onBack, loading } = this.props;
-
-    console.log('MnemonicView.js props ', this.props);
 
     return (
       <AuthPanel

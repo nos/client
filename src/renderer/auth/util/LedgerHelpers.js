@@ -1,7 +1,6 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
 import { u } from '@cityofzion/neon-js';
 
-// TODO fix caps
 import Ledger from './Ledger';
 
 export const NOT_CONNECTED = 0x0001;
@@ -33,8 +32,8 @@ export function BIP44(acct) {
     '8000002C', // BIP44
     '80000378', // Coin Type
     '80000000', //
-    '00000000',
-    '0'.repeat(8 - acctNumber.length),
+    '00000000', //
+    '0'.repeat(8 - acctNumber.length), // Account index
     acctNumber
   ].join('');
 }

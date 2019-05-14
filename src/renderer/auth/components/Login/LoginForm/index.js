@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
-import { withData, withActions, withCall } from 'spunky';
+import { withData, withActions } from 'spunky';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNullLoader from 'browser/hocs/withNullLoader';
@@ -37,11 +37,9 @@ export default compose(
   withData(accountActions, mapAccountActionsDataToProps),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
 
-  withState(
-    'currentAccount',
-    'setCurrentAccount',
-    ({ accounts, previousAuth }) => previousAuth || (Object.values(accounts)[0] && Object.values(accounts)[0].accountLabel)
-  ),
+  withState('currentAccount', 'setCurrentAccount', ({ accounts, previousAuth }) => {
+    return previousAuth || (Object.values(accounts)[0] && Object.values(accounts)[0].accountLabel);
+  }),
   withState('passphrase', 'setPassphrase', ''),
 
   // store accountLabebl to store previously selected lable
