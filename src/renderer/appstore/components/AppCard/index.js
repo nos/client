@@ -6,10 +6,10 @@ import AppCard from './AppCard';
 
 const mapDispatchToProps = (dispatch) => ({
   openApp: (target) => () => dispatch(
-      openTab({
-        target
-      })
-    )
+    openTab({
+      target
+    })
+  )
 });
 
 export default connect(

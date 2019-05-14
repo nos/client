@@ -26,7 +26,5 @@ export const updateStorage = async (key, label, value) => {
     throw new Error(`Item with label ${label} doesn't exists.`);
   }
 
-  console.log('newValue', value);
-
   return set(key, { ...values, [label]: value });
 };

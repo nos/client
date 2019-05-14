@@ -1,6 +1,5 @@
-import { tx, wallet, u } from '@cityofzion/neon-js';
+import { tx, wallet } from '@cityofzion/neon-js';
 
-import NeonLedger from '../Ledger';
 import { initializeDevice } from '../LedgerHelpers';
 
 export const getPublicKey = async (acct = 0) => {

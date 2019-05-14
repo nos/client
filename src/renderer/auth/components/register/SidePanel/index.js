@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, string } from 'prop-types';
+import { string } from 'prop-types';
 
 import styles from './SidePanel.scss';
 

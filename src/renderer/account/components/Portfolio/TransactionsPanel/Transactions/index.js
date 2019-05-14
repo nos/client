@@ -25,10 +25,10 @@ const mapTransactionHistoryDataToProps = (transactionHistory) => ({
 });
 const mapTransactionHistoryActionsToProps = (actions, props) => ({
   handleFetchAdditionalTxData: (previousCall) => actions.call({
-      net: props.net,
-      address: props.address,
-      previousCall
-    })
+    net: props.net,
+    address: props.address,
+    previousCall
+  })
 });
 
 export default compose(

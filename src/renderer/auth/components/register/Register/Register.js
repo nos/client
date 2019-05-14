@@ -8,8 +8,6 @@ import AccountView from '../AccountView';
 
 import VerifyAccount from '../VerifyAccount';
 
-import styles from './Register.scss';
-
 export default class Register extends React.PureComponent {
   static propTypes = {
     account: accountShape,

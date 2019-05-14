@@ -2,6 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
+import RegisterForm from 'auth/components/Register/RegisterForm';
+
 import {
   provideStore,
   createStore,
@@ -10,7 +12,6 @@ import {
   addLoadedListener
 } from 'testHelpers';
 
-import RegisterForm from 'auth/components/Register/RegisterForm';
 
 const initialState = {
   [spunkyKey]: {
