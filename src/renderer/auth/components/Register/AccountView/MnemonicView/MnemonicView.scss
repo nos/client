@@ -1,0 +1,28 @@
+.mnemonicView {
+  .mnemonic {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    width: 520px;
+    padding: 0 40px;
+  }
+
+  .button {
+    margin: 10px 40px 0 40px;
+    background-color: #f0f2ff;
+    color: #6979f8;
+    box-shadow: none;
+
+    &:hover {
+      background-color: #f0f2ff;
+      color: #6979f8;
+      box-shadow: none;
+    }
+
+    svg {
+      vertical-align: middle;
+    }
+  }
+}
