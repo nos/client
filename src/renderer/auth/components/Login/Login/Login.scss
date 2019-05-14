@@ -1,0 +1,25 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 520px;
+
+  -webkit-app-region: no-drag;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+
+    .closeIcon {
+      margin: 20px;
+      align-self: flex-end;
+      cursor: pointer;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 28px;
+      text-align: center;
+    }
+  }
+}

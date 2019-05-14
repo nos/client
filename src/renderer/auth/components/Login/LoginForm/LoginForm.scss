@@ -1,0 +1,11 @@
+.loginForm {
+  margin: 10px 40px;
+  display: flex;
+  flex-direction: column;
+
+  .button {
+    align-items: center;
+    margin: 40px auto;
+    width: 200px;
+  }
+}
