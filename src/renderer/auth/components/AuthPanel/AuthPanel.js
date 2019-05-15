@@ -2,7 +2,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { string, node, bool, func, string } from 'prop-types';
+import { string, node, bool, func } from 'prop-types';
 
 import SidePanel from 'auth/components/Register/SidePanel';
 import CloseIcon from 'shared/images/icons/close-modal.svg';

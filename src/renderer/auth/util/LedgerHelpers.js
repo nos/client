@@ -27,14 +27,13 @@ export function evalTransportError(err) {
 
 export function BIP44(acct) {
   const acctNumber = acct.toString(16);
-
   return [
-    '8000002C', // BIP44
-    '80000378', // Coin Type
-    '80000000', //
-    '00000000', //
-    '0'.repeat(8 - acctNumber.length), // Account index
-    acctNumber
+    '8000002C', // Purpose (bip44)
+    '80000378', // Coin type https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+    '80000000', // Account (different account levels)
+    '00000000', // Change (0 = external/public view, 1 = internal chain/private view)
+    '0'.repeat(8 - acctNumber.length), // Account/Address zero prefixes
+    acctNumber // Actual account number in hex
   ].join('');
 }
 
