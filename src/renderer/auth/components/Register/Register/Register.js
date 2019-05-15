@@ -68,7 +68,23 @@ export default class Register extends React.PureComponent {
     );
   };
 
+  nextStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step + 1
+    });
+  };
+
+  previousStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step - 1
+    });
+  };
+
   setStep = (step) => {
-    this.setState({ step });
+    this.setState({
+      step
+    });
   };
 }

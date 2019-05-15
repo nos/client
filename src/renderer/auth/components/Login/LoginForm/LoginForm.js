@@ -47,7 +47,8 @@ export default class LoginForm extends React.PureComponent {
   componentWillUnmount() {
     // TODO remove this and use withCall instead
     // Figure out why withCall results in an infinite loop
-    this.props.resetAccounts();
+    // TODO seperate account from createAccounts
+    // this.props.resetAccounts();
   }
 
   render() {

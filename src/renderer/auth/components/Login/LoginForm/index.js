@@ -3,7 +3,6 @@ import { compose, withState } from 'recompose';
 import { withData, withActions } from 'spunky';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
-import withNullLoader from 'browser/hocs/withNullLoader';
 import previousAuthActions, { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import accountActions from 'auth/actions/accountActions';
 import withLogin from 'auth/hocs/withLogin';
@@ -30,9 +29,6 @@ export default compose(
   withActions(accountActions, mapAccountActionsToProps),
   withInitialCall(accountActions),
   withInitialCall(previousAuthActions),
-
-  withNullLoader(accountActions),
-  withNullLoader(previousAuthActions),
 
   withData(accountActions, mapAccountActionsDataToProps),
   withData(previousAuthActions, mapPreviousAuthDataToProps),
