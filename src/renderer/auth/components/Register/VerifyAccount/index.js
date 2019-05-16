@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
-import { withActions } from 'spunky';
+import { withActions, withData } from 'spunky';
 import { random } from 'lodash';
 
 import withLoadingProp from 'shared/hocs/withLoadingProp';
@@ -9,6 +9,7 @@ import { verifyAndAuthenticateActions } from 'auth/actions/authActions';
 import { appendAccountActions } from 'auth/actions/accountActions';
 import { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import withLogin from 'auth/hocs/withLogin';
+import registerActions from 'auth/actions/registerActions';
 
 import VerifyAccount from './VerifyAccount';
 
@@ -28,7 +29,10 @@ const mapAuthActionsToProps = (actions) => ({
   }
 });
 
+const mapAccountDataToProps = (account) => ({ account });
+
 export default compose(
+  withData(registerActions, mapAccountDataToProps),
   withActions(verifyAndAuthenticateActions, mapAuthActionsToProps),
   withActions(appendAccountActions, mapAppendAccountActionsToProps),
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
@@ -47,20 +51,12 @@ export default compose(
     'setSecondMnemonicWordIndex',
     ({ secondMnemonicWordIndex }) => secondMnemonicWordIndex || random(13, 24)
   ),
-  withState(
-    'firstMnemonicWord',
-    'setFirstMnemonicWord',
-    ({ firstMnemonicWordIndex, account }) => account.mnemonic.split(' ')[firstMnemonicWordIndex - 1]
-  ),
-  withState(
-    'secondMnemonicWord',
-    'setSecondMnemonicWord',
-    ({ secondMnemonicWordIndex, account }) => account.mnemonic.split(' ')[secondMnemonicWordIndex - 1]
-  ),
+  withState('firstMnemonicWord', 'setFirstMnemonicWord', ({ firstMnemonicWordIndex, account }) => (!account.isLedger ? account.mnemonic.split(' ')[firstMnemonicWordIndex - 1] : '')),
+  withState('secondMnemonicWord', 'setSecondMnemonicWord', ({ secondMnemonicWordIndex, account }) => (!account.isLedger ? account.mnemonic.split(' ')[secondMnemonicWordIndex - 1] : ''))
 
-  // redirect on login
-  withRouter,
-  withLogin((state, { history }) => {
-    history.push('/browser');
-  })
+  // redirect on login TODO remove?
+  // withRouter,
+  // withLogin((state, { history }) => {
+  //   history.push('/browser');
+  // })
 )(VerifyAccount);

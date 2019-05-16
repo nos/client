@@ -12,7 +12,7 @@ export default class VerifyAccount extends React.PureComponent {
   static propTypes = {
     account: accountShape.isRequired,
     verifyAndAuthenticate: func.isRequired,
-    setStep: func.isRequired,
+    previousStep: func.isRequired,
     loading: bool.isRequired,
     onCancel: func.isRequired,
     passphrase: string.isRequired,
@@ -30,7 +30,7 @@ export default class VerifyAccount extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, loading } = this.props;
+    const { onCancel, loading, previousStep } = this.props;
 
     return (
       <AuthPanel
@@ -41,7 +41,7 @@ export default class VerifyAccount extends React.PureComponent {
       >
         {this.renderComponent()}
         <NavigationButtons
-          onBack={this.onBack}
+          onBack={previousStep}
           onNext={this.completeRegistration}
           nextBtnText="Complete"
           disabled={loading}
@@ -96,31 +96,33 @@ export default class VerifyAccount extends React.PureComponent {
           />
         )}
 
-        <div className={styles.mnemonicVerify}>
-          <span className={styles.title} role="img" aria-label="title">
-            ✍️ Verify your recovery seed from the last step
-          </span>
-          <div className={styles.horizontal}>
-            <LabeledInput
-              id="firstRandomSecretWord"
-              type="text"
-              label={`Type word #${firstMnemonicWordIndex}`}
-              placeholder="Secret word.."
-              value={firstMnemonicWord}
-              disabled={loading}
-              onChange={this.handleChangeFirstMnemonicWord}
-            />
-            <LabeledInput
-              id="secondRandomSecretWord"
-              type="text"
-              label={`Type word #${secondMnemonicWordIndex}`}
-              placeholder="Secret word.."
-              value={secondMnemonicWord}
-              disabled={loading}
-              onChange={this.handleChangeSecondMnemonicWord}
-            />
+        {!account.isLedger && (
+          <div className={styles.mnemonicVerify}>
+            <span className={styles.title} role="img" aria-label="title">
+              ✍️ Verify your recovery seed from the last step
+            </span>
+            <div className={styles.horizontal}>
+              <LabeledInput
+                id="firstRandomSecretWord"
+                type="text"
+                label={`Type word #${firstMnemonicWordIndex}`}
+                placeholder="Secret word.."
+                value={firstMnemonicWord}
+                disabled={loading}
+                onChange={this.handleChangeFirstMnemonicWord}
+              />
+              <LabeledInput
+                id="secondRandomSecretWord"
+                type="text"
+                label={`Type word #${secondMnemonicWordIndex}`}
+                placeholder="Secret word.."
+                value={secondMnemonicWord}
+                disabled={loading}
+                onChange={this.handleChangeSecondMnemonicWord}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   };
@@ -139,10 +141,6 @@ export default class VerifyAccount extends React.PureComponent {
 
   handleChangeSecondMnemonicWord = (event) => {
     this.props.setSecondMnemonicWord(event.target.value);
-  };
-
-  onBack = () => {
-    this.props.setStep(2);
   };
 
   completeRegistration = () => {
@@ -169,7 +167,7 @@ export default class VerifyAccount extends React.PureComponent {
       secondMnemonicWordIndex
     });
 
-    // TODO - move this where?
+    // TODO - move this where? batch request?
     storeProfile({ label: account.accountLabel, value: account });
     setLastLogin({ label: account.accountLabel });
   };

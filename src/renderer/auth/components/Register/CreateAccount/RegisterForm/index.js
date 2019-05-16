@@ -5,29 +5,33 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import { withErrorToast } from 'shared/hocs/withToast';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import createAccountActions from 'auth/actions/createAccountActions';
+// import createAccountActions from 'auth/actions/createAccountActions';
+import registerActions from 'auth/actions/registerActions';
 
 import RegisterForm from './RegisterForm';
 
-const { FAILED } = progressValues;
+const { FAILED, LOADED } = progressValues;
 
-const mapAccountActionsToProps = (actions) => ({
-  onRegister: (data) => {
+const mapRegisterActionsToProps = (actions) => ({
+  storeFormData: (data) => {
     return actions.call(data);
   }
 });
 
 export default compose(
-  withActions(createAccountActions, mapAccountActionsToProps),
-  withLoadingProp(createAccountActions, { strategy: pureStrategy }),
+  withActions(registerActions, mapRegisterActionsToProps),
+  withLoadingProp(registerActions, { strategy: pureStrategy }),
 
-  withState('label', 'setLabel', Math.random().toString()),
+  withState('accountLabel', 'setAccountLabel', Math.random().toString()),
   withState('passphrase', 'setPassphrase', 'q'),
   withState('passphraseConfirmation', 'setPassphraseConfirmation', 'q'),
   withState('secretWord', 'setSecretWord', 'MySercetWord'),
-  withState('useLedger', 'setUseLedger', true),
+  withState('isLedger', 'setIsLedger', false),
   withErrorToast(),
-  withProgressChange(createAccountActions, FAILED, (state, props) => {
+  withProgressChange(registerActions, FAILED, (state, props) => {
     props.showErrorToast(`Account creation failed: ${state.error}`);
+  }),
+  withProgressChange(registerActions, LOADED, (state, props) => {
+    props.nextStep();
   })
 )(RegisterForm);

@@ -7,20 +7,20 @@ import accountShape from 'auth/shapes/accountShape';
 import MnemonicView from './MnemonicView';
 import LedgerView from './LedgerView';
 
-const AccountView = ({ onCancel, account, onBack, setStep, loading }) => {
+const AccountView = ({ onCancel, account, previousStep, nextStep, loading }) => {
   return account.isLedger ? (
     <LedgerView
       account={account}
-      onBack={onBack}
-      setStep={setStep}
+      nextStep={nextStep}
+      previousStep={previousStep}
       onCancel={onCancel}
       loading={loading}
     />
   ) : (
     <MnemonicView
       account={account}
-      onBack={onBack}
-      setStep={setStep}
+      nextStep={nextStep}
+      previousStep={previousStep}
       onCancel={onCancel}
       loading={loading}
     />
@@ -30,8 +30,8 @@ const AccountView = ({ onCancel, account, onBack, setStep, loading }) => {
 AccountView.propTypes = {
   onCancel: func.isRequired,
   account: accountShape.isRequired,
-  onBack: func.isRequired,
-  setStep: func.isRequired,
+  previousStep: func.isRequired,
+  nextStep: func.isRequired,
   loading: bool.isRequired
 };
 

@@ -13,53 +13,54 @@ import styles from './RegisterForm.scss';
 export default class RegisterForm extends React.PureComponent {
   static propTypes = {
     loading: bool,
-    label: string,
+    accountLabel: string,
     passphrase: string,
     passphraseConfirmation: string,
     secretWord: string,
-    useLedger: bool.isRequired,
-    setLabel: func,
+    isLedger: bool,
+    setAccountLabel: func,
     setPassphrase: func,
     setPassphraseConfirmation: func,
     setSecretWord: func,
-    onRegister: func,
-    setUseLedger: func
+    storeFormData: func,
+    setIsLedger: func
   };
 
   static defaultProps = {
     loading: false,
-    label: '',
+    accountLabel: '',
     passphrase: '',
     passphraseConfirmation: '',
     secretWord: '',
-    setLabel: noop,
+    setAccountLabel: noop,
     setPassphrase: noop,
     setPassphraseConfirmation: noop,
     setSecretWord: noop,
-    onRegister: noop,
-    setUseLedger: noop
+    storeFormData: noop,
+    setIsLedger: noop,
+    isLedger: false
   };
 
   render = () => {
     const {
-      label,
+      accountLabel,
       passphrase,
       passphraseConfirmation,
       secretWord,
       loading,
-      useLedger
+      isLedger
     } = this.props;
 
     return (
-      <form className={styles.registerForm} onSubmit={this.handleRegister}>
+      <form className={styles.registerForm} onSubmit={this.handleStoreFormData}>
         <LabeledInput
           id="label"
           type="text"
-          label="Wallet Name"
-          placeholder="Enter a name for your crypto-currency wallet"
-          value={label}
+          label="Account Name"
+          placeholder="Enter a name for your crypto-currency account"
+          value={accountLabel}
           disabled={loading}
-          onChange={this.handleChangeLabel}
+          onChange={this.handleChangeAccountLabel}
         />
 
         <div className={styles.horizontal}>
@@ -95,11 +96,11 @@ export default class RegisterForm extends React.PureComponent {
 
         <div className={classNames(styles.horizontal, styles.bottom)}>
           <Input
-            id="useLedger"
+            id="isLedger"
             type="checkbox"
-            checked={useLedger}
+            checked={isLedger}
             disabled={loading}
-            onChange={this.handleChangeUseLedger}
+            onChange={this.handleChangeIsLedger}
             renderAfter={this.renderCheckboxLabel}
             className={styles.checkbox}
           />
@@ -117,19 +118,19 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   renderCheckboxLabel = () => {
-    return <Label htmlFor="useLedger" label="Use Ledger for next step" className={styles.label} />;
+    return <Label htmlFor="isLedger" label="Use Ledger for next step" className={styles.label} />;
   };
 
-  handleChangeUseLedger = () => {
-    this.props.setUseLedger(!this.props.useLedger);
+  handleChangeIsLedger = () => {
+    this.props.setIsLedger(!this.props.isLedger);
   };
 
   handleChangeSecretWord = (event) => {
     this.props.setSecretWord(event.target.value);
   };
 
-  handleChangeLabel = (event) => {
-    this.props.setLabel(event.target.value);
+  handleChangeAccountLabel = (event) => {
+    this.props.setAccountLabel(event.target.value);
   };
 
   handleChangePassphrase = (event) => {
@@ -140,23 +141,23 @@ export default class RegisterForm extends React.PureComponent {
     this.props.setPassphraseConfirmation(event.target.value);
   };
 
-  handleRegister = (event) => {
+  handleStoreFormData = (event) => {
     const {
-      label,
+      accountLabel,
       passphrase,
       secretWord,
       passphraseConfirmation,
-      onRegister,
-      useLedger
+      storeFormData,
+      isLedger
     } = this.props;
 
     event.preventDefault();
-    onRegister({
-      label,
+    storeFormData({
+      accountLabel,
       passphrase,
       passphraseConfirmation,
       secretWord,
-      useLedger
+      isLedger
     });
   };
 

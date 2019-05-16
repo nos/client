@@ -22,25 +22,28 @@ export default class Register extends React.PureComponent {
   };
 
   state = {
-    step: 2
+    step: 1
   };
 
   render() {
     const { account } = this.props;
     const { step } = this.state;
 
-    if (account && step === 3) {
-      return this.renderThirdStep();
-    } else if (account && step === 2) {
-      return this.renderSecondStep();
-    } else {
-      return this.renderFirstStep();
+    switch (step) {
+      case 1:
+        return this.renderFirstStep();
+      case 2:
+        return this.renderSecondStep();
+      case 3:
+        return this.renderThirdStep();
+      default:
+        return this.renderFirstStep();
     }
   }
 
   renderFirstStep = () => {
     const { redirect, onCancel } = this.props;
-    return <CreateAccount redirect={redirect} onCancel={onCancel} />;
+    return <CreateAccount redirect={redirect} onCancel={onCancel} nextStep={this.nextStep} />;
   };
 
   renderSecondStep = () => {
@@ -50,8 +53,9 @@ export default class Register extends React.PureComponent {
         loading={loading}
         account={account}
         onCancel={onCancel}
-        setStep={this.setStep}
         onBack={reset}
+        nextStep={this.nextStep}
+        previousStep={this.previousStep}
       />
     );
   };
@@ -63,7 +67,7 @@ export default class Register extends React.PureComponent {
         loading={loading}
         account={account}
         onCancel={onCancel}
-        setStep={this.setStep}
+        previousStep={this.previousStep}
       />
     );
   };
@@ -79,12 +83,6 @@ export default class Register extends React.PureComponent {
     const { step } = this.state;
     this.setState({
       step: step - 1
-    });
-  };
-
-  setStep = (step) => {
-    this.setState({
-      step
     });
   };
 }

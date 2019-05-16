@@ -20,7 +20,7 @@ export default class CreateAccount extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, redirect, account } = this.props;
+    const { onCancel, redirect, account, nextStep } = this.props;
 
     const sidePanelText =
       '🔗 Create a wallet to interact with decentralized apps and transfer crypto-currencies.';
@@ -36,7 +36,7 @@ export default class CreateAccount extends React.PureComponent {
         sidePanelText={sidePanelText}
         redirect={redirect}
       >
-        <RegisterForm />
+        <RegisterForm nextStep={nextStep} />
       </AuthPanel>
     );
   }

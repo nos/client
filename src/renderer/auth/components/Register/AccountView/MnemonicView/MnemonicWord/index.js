@@ -3,7 +3,7 @@ import { string, number } from 'prop-types';
 
 import styles from './MnemonicWord.scss';
 
-const MnemonicWord = ({ count = 1, word = 'Kek' }) => (
+const MnemonicWord = ({ count, word }) => (
   <div className={styles.mnemonicWord}>
     <div className={styles.count}>{count}</div>
     <div className={styles.word}>{word}</div>

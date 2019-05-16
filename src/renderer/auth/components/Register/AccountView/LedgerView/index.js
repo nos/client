@@ -5,7 +5,10 @@ import { withData, withError, withActions, withProgress, recentlyCompletedStrate
 import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
 import withLogin from 'auth/hocs/withLogin';
 
+import registerLedgerActions from 'auth/actions/registerLedgerActions';
+
 import LedgerView from './LedgerView';
+import registerActions from '../../../../actions/registerActions';
 
 const mapLedgerActionsToProps = (actions) => ({
   poll: actions.call
@@ -33,7 +36,15 @@ const mapLedgerPublicKeyErrorToProps = (publicKeyError) => ({
   publicKeyError
 });
 
+const mapRegisterActionsToProps = (actions) => ({
+  storeFormData: (data) => {
+    return actions.call(data);
+  }
+});
+
 export default compose(
+  withActions(registerActions, mapRegisterActionsToProps),
+
   withActions(ledgerActions, mapLedgerActionsToProps),
   withActions(ledgerPublicKeyActions, mapLedgerPublicKeyActionsToProps),
 
@@ -50,9 +61,9 @@ export default compose(
   withProgress(ledgerPublicKeyActions, {
     propName: 'publickeyProgress',
     strategy: recentlyCompletedStrategy
-  }),
+  })
 
-  // redirect on login
-  withRouter,
-  withLogin((state, { history }) => history.push('/browser'))
+  // redirect on login TODO remove?
+  // withRouter,
+  // withLogin((state, { history }) => history.push('/browser'))
 )(LedgerView);

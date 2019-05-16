@@ -26,9 +26,9 @@ const deviceInfoShape = shape({
 
 export default class LedgerView extends React.PureComponent {
   static propTypes = {
-    setStep: func.isRequired,
     onCancel: func.isRequired,
-    onBack: func.isRequired,
+    nextStep: func.isRequired,
+    previousStep: func.isRequired,
     account: accountShape.isRequired,
     poll: func.isRequired,
     getPublicKey: func.isRequired,
@@ -69,10 +69,7 @@ export default class LedgerView extends React.PureComponent {
   }
 
   render() {
-    const { onCancel, onBack, loading } = this.props;
-
-    console.log('loading ', loading);
-    console.log('valid ', this.isValid());
+    const { onCancel, previousStep, nextStep, loading } = this.props;
 
     const sidePanelText =
       'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
@@ -89,8 +86,8 @@ export default class LedgerView extends React.PureComponent {
 
         {/** TODO onBack or Cancel remove deviceInfo and publicKey data  */}
         <NavigationButtons
-          onBack={onBack}
-          onNext={this.onNext}
+          onBack={previousStep}
+          onNext={this.handleNext}
           disabled={loading || !this.isValid()}
           nextBtnText="Next: Verify"
         />
@@ -161,11 +158,11 @@ export default class LedgerView extends React.PureComponent {
     }
   };
 
-  handleLogin = (event) => {
-    const { publicKey, onLogin } = this.props;
+  handleNext = (event) => {
+    const { account, storeFormData, publicKey } = this.props;
 
-    event.preventDefault();
-    onLogin({ publicKey });
+    storeFormData({ ...account, publicKey });
+    this.props.nextStep();
   };
 
   handleChangePublicKeys = (currentPublicKey) => {
@@ -189,10 +186,6 @@ export default class LedgerView extends React.PureComponent {
     const encodedKey = wallet.getPublicKeyEncoded(publicKey);
 
     return new wallet.Account(encodedKey).address;
-  };
-
-  onNext = () => {
-    this.props.setStep(3);
   };
 
   isValid = () => {

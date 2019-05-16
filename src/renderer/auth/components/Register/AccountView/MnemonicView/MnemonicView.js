@@ -15,9 +15,9 @@ import styles from './MnemonicView.scss';
 export default class MnemonicView extends React.PureComponent {
   static propTypes = {
     account: accountShape,
-    setStep: func.isRequired,
     onCancel: func.isRequired,
-    onBack: func.isRequired,
+    previousStep: func.isRequired,
+    nextStep: func.isRequired,
     showInfoToast: func.isRequired,
     loading: bool.isRequired
   };
@@ -27,7 +27,7 @@ export default class MnemonicView extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, account, onBack, loading } = this.props;
+    const { onCancel, account, loading, nextStep, previousStep } = this.props;
 
     return (
       <AuthPanel
@@ -51,8 +51,8 @@ export default class MnemonicView extends React.PureComponent {
           </Button>
         </CopyToClipboard>
         <NavigationButtons
-          onBack={onBack}
-          onNext={this.onNext}
+          onBack={previousStep}
+          onNext={nextStep}
           disabled={loading}
           nextBtnText="Next: Verify"
         />
@@ -62,9 +62,5 @@ export default class MnemonicView extends React.PureComponent {
 
   handleOnCopy = () => {
     this.props.showInfoToast('Copied recovery seed to clipboard.');
-  };
-
-  onNext = () => {
-    this.props.setStep(3);
   };
 }

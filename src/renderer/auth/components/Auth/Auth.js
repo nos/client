@@ -32,7 +32,7 @@ export default class Auth extends React.PureComponent {
   confirm = React.createRef();
 
   state = {
-    component: LOGIN
+    component: REGISTER
   };
 
   componentDidMount() {
