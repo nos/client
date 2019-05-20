@@ -162,7 +162,6 @@ export default class LedgerView extends React.PureComponent {
     const { account, storeFormData, publicKey } = this.props;
 
     storeFormData({ ...account, publicKey });
-    this.props.nextStep();
   };
 
   handleChangePublicKeys = (currentPublicKey) => {

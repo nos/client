@@ -1,14 +1,24 @@
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import { withData, withError, withActions, withProgress, recentlyCompletedStrategy } from 'spunky';
+import {
+  withData,
+  withError,
+  withActions,
+  withProgress,
+  recentlyCompletedStrategy,
+  progressValues
+} from 'spunky';
 
 import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
+import withProgressChange from 'shared/hocs/withProgressChange';
 import withLogin from 'auth/hocs/withLogin';
 
 import registerLedgerActions from 'auth/actions/registerLedgerActions';
 
 import LedgerView from './LedgerView';
 import registerActions from '../../../../actions/registerActions';
+
+const { FAILED, LOADED } = progressValues;
 
 const mapLedgerActionsToProps = (actions) => ({
   poll: actions.call
@@ -61,6 +71,12 @@ export default compose(
   withProgress(ledgerPublicKeyActions, {
     propName: 'publickeyProgress',
     strategy: recentlyCompletedStrategy
+  }),
+  withProgressChange(registerActions, FAILED, (state, props) => {
+    props.showErrorToast(`Account creation failed: ${state.error}`);
+  }),
+  withProgressChange(registerActions, LOADED, (state, props) => {
+    props.nextStep();
   })
 
   // redirect on login TODO remove?
