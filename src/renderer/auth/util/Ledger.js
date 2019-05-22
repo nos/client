@@ -1,8 +1,11 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
+import { times } from 'lodash';
+
+import { retry } from 'shared/util/promise';
 
 import { evalTransportError, BIP44, VALID_STATUS, assembleSignature } from './LedgerHelpers';
 
-export default class NeonLedger {
+export default class Ledger {
   constructor(path) {
     this.path = path;
     this.device = null;
@@ -10,10 +13,11 @@ export default class NeonLedger {
 
   /**
    * Opens an connection with the selected ledger.
-   * @return {Promise<NeonLedger>} this
+   * @return {Promise<Ledger>} this
    */
   async open() {
     try {
+      // this.device = await retry(() => LedgerNode.open(this.path));
       this.device = await LedgerNode.open(this.path);
       return this;
     } catch (err) {
@@ -39,6 +43,19 @@ export default class NeonLedger {
    * @return {string} Public key (unencoded)
    */
   async getPublicKey(acct) {
+    const res = await this.send('80040000', BIP44(acct), [VALID_STATUS]);
+    return res.toString('hex').substring(0, 130);
+  }
+
+  /**
+   * Retrieves the public key of an account from the Ledger.
+   * @param {number} [acct] Account that you want to retrieve the public key from.
+   * @return {string} Public key (unencoded)
+   */
+  async getPublicKeys(start = 0, range = 10) {
+    const x = times(range, (index) => BIP44(index));
+    console.log('XX', x);
+
     const res = await this.send('80040000', BIP44(acct), [VALID_STATUS]);
     return res.toString('hex').substring(0, 130);
   }

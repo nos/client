@@ -12,6 +12,16 @@ export const getPublicKey = async (acct = 0) => {
   }
 };
 
+export const getPublicKeys = async (acct = 0) => {
+  const ledger = await initializeDevice();
+
+  try {
+    return await ledger.getPublicKeys(acct);
+  } finally {
+    await ledger.close();
+  }
+};
+
 export const getDeviceInfo = async () => {
   const ledger = await initializeDevice();
 
