@@ -7,8 +7,12 @@
   }
 
   .percent {
-    fill: #000;
+    fill: $gray-6;
     font-size: 18px;
     font-weight: 500;
+
+    @include theme(DARK) {
+      fill: $gray-0;
+    }
   }
 }

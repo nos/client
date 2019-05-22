@@ -4,6 +4,7 @@
 
   .mnemonicVerify {
     @extend %innerPanelColor;
+    @extend %textColor;
     border-radius: 4px;
     font-weight: 500;
 

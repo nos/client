@@ -6,6 +6,10 @@
   }
 }
 
+%lightTextColor {
+  color: $gray-4;
+}
+
 %labelColor {
   color: $gray-5;
 
@@ -54,7 +58,7 @@
 
   @include theme(DARK) {
     background: $gray-7;
-    box-shadow: inset -1px 0 0 $gray-5;
+    box-shadow: inset -1px 0 0 $gray-6;
   }
 }
 
@@ -232,7 +236,7 @@
   }
 
   @include theme(DARK) {
-    background: transparentize($brand, .65);
+    background: transparentize($brand, .75);
 
     &:hover {
       background: transparentize($brand, .5);

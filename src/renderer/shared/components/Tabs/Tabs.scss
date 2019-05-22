@@ -3,8 +3,9 @@
     display: flex;
     flex-wrap: nowrap;
     list-style: none;
-    margin: 0;
+    margin: 12px auto 0 !important;
     justify-content: space-evenly;
+    max-width: $containerSize;
 
     .tab {
       display: block;
@@ -19,7 +20,7 @@
       color: $gray-4;
       border-color: #dee2e6 #dee2e6 transparent;
       padding: 8px 12px;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       line-height: 17px;
       transition: all 0.2s ease;
