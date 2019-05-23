@@ -1,5 +1,5 @@
 import { withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import {
   withData,
   withError,
@@ -9,7 +9,7 @@ import {
   progressValues
 } from 'spunky';
 
-import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
+import ledgerActions, { ledgerPublicKeysActions } from 'auth/actions/ledgerActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withLogin from 'auth/hocs/withLogin';
 
@@ -38,8 +38,8 @@ const mapLedgerPublicKeyActionsToProps = (actions) => ({
 });
 
 const mapLedgerPublicKeyDataToProps = (data) => {
-  const { publicKey } = data || {};
-  return { publicKey };
+  const { publicKeys } = data || {};
+  return { publicKeys };
 };
 
 const mapLedgerPublicKeyErrorToProps = (publicKeyError) => ({
@@ -56,19 +56,19 @@ export default compose(
   withActions(registerActions, mapRegisterActionsToProps),
 
   withActions(ledgerActions, mapLedgerActionsToProps),
-  withActions(ledgerPublicKeyActions, mapLedgerPublicKeyActionsToProps),
+  withActions(ledgerPublicKeysActions, mapLedgerPublicKeyActionsToProps),
 
   withData(ledgerActions, mapLedgerDataToProps),
-  withData(ledgerPublicKeyActions, mapLedgerPublicKeyDataToProps),
+  withData(ledgerPublicKeysActions, mapLedgerPublicKeyDataToProps),
 
   withError(ledgerActions, mapLedgerErrorToProps),
-  withError(ledgerPublicKeyActions, mapLedgerPublicKeyErrorToProps),
+  withError(ledgerPublicKeysActions, mapLedgerPublicKeyErrorToProps),
 
   withProgress(ledgerActions, {
     propName: 'deviceInfoProgress',
     strategy: recentlyCompletedStrategy
   }),
-  withProgress(ledgerPublicKeyActions, {
+  withProgress(ledgerPublicKeysActions, {
     propName: 'publickeyProgress',
     strategy: recentlyCompletedStrategy
   }),
@@ -77,7 +77,13 @@ export default compose(
   }),
   withProgressChange(registerActions, LOADED, (state, props) => {
     props.nextStep();
-  })
+  }),
+
+  withState(
+    'selectedPublicKey',
+    'setSelectedPublicKey',
+    ({ publicKeys }) => (publicKeys ? publicKeys[0].path : '')
+  )
 
   // redirect on login TODO remove?
   // withRouter,

@@ -53,11 +53,20 @@ export default class Ledger {
    * @return {string} Public key (unencoded)
    */
   async getPublicKeys(start = 0, range = 10) {
-    const x = times(range, (index) => BIP44(index));
-    console.log('XX', x);
+    const resultArray = [];
+    // eslint-disable-next-line
+    for (let index = start; index < range; index++) {
+      const bip44 = BIP44(start + index);
+      // eslint-disable-next-line
+      const res = await this.send('80040000', bip44, [VALID_STATUS]);
+      const publicKey = res.toString('hex').substring(0, 130);
+      resultArray.push({
+        path: bip44,
+        publicKey
+      });
+    }
 
-    const res = await this.send('80040000', BIP44(acct), [VALID_STATUS]);
-    return res.toString('hex').substring(0, 130);
+    return resultArray;
   }
 
   getDeviceInfo() {

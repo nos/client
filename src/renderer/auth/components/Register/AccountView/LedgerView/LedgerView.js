@@ -148,8 +148,8 @@ export default class LedgerView extends React.PureComponent {
                 {/* <div className={styles.labelRight}>Fetch additional addresses</div> */}
               </div>
 )}
-            disabled={isEmpty(this.props.publicKey)}
-            value={this.props.publicKey}
+            disabled={isEmpty(this.props.publicKeys)}
+            value={this.props.selectedPublicKey || this.props.publicKeys[0].path}
             items={this.getPublicKeyItems()}
             onChange={this.handleChangePublicKeys}
           />
@@ -166,19 +166,14 @@ export default class LedgerView extends React.PureComponent {
 
   handleChangePublicKeys = (currentPublicKey) => {
     // TODO create setCurrentPublicKey
-    // this.props.setCurrentPublicKey(currentPublicKey);
+    this.props.setSelectedPublicKey(currentPublicKey);
   };
 
   getPublicKeyItems = () => {
-    // const balances = map(this.props.publicKey, (publicKeys) => ({
-    // label: symbol,
-    // value: scriptHash,
-    // icon: image
-    // }));
-
-    return [
-      { label: this.unencodedHexToAddress(this.props.publicKey), value: this.props.publicKey }
-    ];
+    return this.props.publicKeys.map(({ path, publicKey }) => ({
+      label: this.unencodedHexToAddress(publicKey),
+      value: path
+    }));
   };
 
   unencodedHexToAddress = (publicKey) => {
