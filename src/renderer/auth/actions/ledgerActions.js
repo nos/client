@@ -16,7 +16,7 @@ export const ledgerPublicKeyActions = createActions(ID_2, () => async () => {
   return { publicKey };
 });
 
-export const ledgerPublicKeysActions = createActions(ID_3, () => async () => {
-  const publicKeys = await getPublicKeys();
+export const ledgerPublicKeysActions = createActions(ID_3, (currentPublicKeys) => async () => {
+  const publicKeys = await getPublicKeys(currentPublicKeys);
   return { publicKeys };
 });

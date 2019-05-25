@@ -34,7 +34,7 @@ const mapLedgerErrorToProps = (deviceInfoError) => ({
 });
 
 const mapLedgerPublicKeyActionsToProps = (actions) => ({
-  getPublicKey: actions.call
+  getPublicKeys: (data) => actions.call(data)
 });
 
 const mapLedgerPublicKeyDataToProps = (data) => {
@@ -47,9 +47,7 @@ const mapLedgerPublicKeyErrorToProps = (publicKeyError) => ({
 });
 
 const mapRegisterActionsToProps = (actions) => ({
-  storeFormData: (data) => {
-    return actions.call(data);
-  }
+  storeFormData: (data) => actions.call(data)
 });
 
 export default compose(
@@ -79,11 +77,7 @@ export default compose(
     props.nextStep();
   }),
 
-  withState(
-    'selectedPublicKey',
-    'setSelectedPublicKey',
-    ({ publicKeys }) => (publicKeys ? publicKeys[0].path : '')
-  )
+  withState('selectedPublicKey', 'setSelectedPublicKey', ({ publicKeys }) => (publicKeys ? publicKeys[0].index : ''))
 
   // redirect on login TODO remove?
   // withRouter,

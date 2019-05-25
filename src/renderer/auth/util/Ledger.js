@@ -52,21 +52,22 @@ export default class Ledger {
    * @param {number} [acct] Account that you want to retrieve the public key from.
    * @return {string} Public key (unencoded)
    */
-  async getPublicKeys(start = 0, range = 10) {
+  async getPublicKeys(currentPublicKeys = [], range = 10) {
+    const start = currentPublicKeys.length;
     const resultArray = [];
     // eslint-disable-next-line
-    for (let index = start; index < range; index++) {
+    for (let index = start; index < start + range; index++) {
       const bip44 = BIP44(start + index);
       // eslint-disable-next-line
       const res = await this.send('80040000', bip44, [VALID_STATUS]);
       const publicKey = res.toString('hex').substring(0, 130);
       resultArray.push({
-        path: bip44,
+        index,
         publicKey
       });
     }
 
-    return resultArray;
+    return [...currentPublicKeys, ...resultArray];
   }
 
   getDeviceInfo() {

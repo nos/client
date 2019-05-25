@@ -12,6 +12,7 @@ import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import LedgerConnect from 'shared/images/auth/ledgerConnect.svg';
 import LedgerConnected from 'shared/images/auth/ledgerConnected.svg';
 import LedgerCompleted from 'shared/images/auth/ledgerCompleted.svg';
+import Loading from 'shared/images/loading.svg';
 
 import styles from './LedgerView.scss';
 
@@ -55,10 +56,10 @@ export default class LedgerView extends React.PureComponent {
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
   }
 
-  componentWillReceiveProps({ deviceInfoProgress, publickeyProgress, getPublicKey }) {
+  componentWillReceiveProps({ deviceInfoProgress, publickeyProgress, getPublicKeys }) {
     // Poll once for performance reasons. Let user fetch manually if required
     if (deviceInfoProgress === LOADED && publickeyProgress !== LOADED) {
-      getPublicKey();
+      getPublicKeys();
     }
   }
 
@@ -145,11 +146,11 @@ export default class LedgerView extends React.PureComponent {
             label={(
               <div className={styles.labelWrap}>
                 <div>Pick a wallet address</div>
-                {/* <div className={styles.labelRight}>Fetch additional addresses</div> */}
+                {/* <div className={styles.labelFetch} role="button" tabIndex={0} onClick={this.handleFetchAddresses} disabled={true}>Fetch additional addresses</div> */}
               </div>
 )}
             disabled={isEmpty(this.props.publicKeys)}
-            value={this.props.selectedPublicKey || this.props.publicKeys[0].path}
+            value={this.props.selectedPublicKey}
             items={this.getPublicKeyItems()}
             onChange={this.handleChangePublicKeys}
           />
@@ -157,6 +158,11 @@ export default class LedgerView extends React.PureComponent {
       );
     }
   };
+
+  handleFetchAddresses = () => {
+    const { getPublicKeys, publicKeys } = this.props;
+    getPublicKeys(publicKeys);
+  }
 
   handleNext = (event) => {
     const { account, storeFormData, publicKey } = this.props;
@@ -170,9 +176,9 @@ export default class LedgerView extends React.PureComponent {
   };
 
   getPublicKeyItems = () => {
-    return this.props.publicKeys.map(({ path, publicKey }) => ({
+    return this.props.publicKeys.map(({ index, publicKey }) => ({
       label: this.unencodedHexToAddress(publicKey),
-      value: path
+      value: index
     }));
   };
 
@@ -183,6 +189,6 @@ export default class LedgerView extends React.PureComponent {
   };
 
   isValid = () => {
-    return !isEmpty(this.props.publicKey);
+    return !isEmpty(this.props.selectedPublicKey);
   };
 }

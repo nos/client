@@ -25,6 +25,13 @@
     padding: 40px 40px 10px 40px;
   }
 
+  .labelFetch {
+    &:hover {
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
   .labelWrap {
     display: flex;
     flex-direction: row;
