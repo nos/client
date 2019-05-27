@@ -10213,10 +10213,10 @@ recharts-scale@^0.4.2:
   dependencies:
     decimal.js-light "^2.4.1"
 
-recharts@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.6.1.tgz#ed505d07ae3ed323443b5387d71254171e62fb2c"
-  integrity sha512-w1rpdE2CCe/0DmtTONaN3wslmGtHsC15aneIMy2GDUqPKldUweEug89Kh9sD/zyq7lGU9zQiXwMPr6dyjQ9JOg==
+recharts@1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.6.2.tgz#4ced884f04b680e8dac5d3e109f99b0e7cfb9b0f"
+  integrity sha512-NqVN8Hq5wrrBthTxQB+iCnZjup1dc+AYRIB6Q9ck9UjdSJTt4PbLepGpudQEYJEN5iIpP/I2vThC4uiTJa7xUQ==
   dependencies:
     classnames "^2.2.5"
     core-js "^2.5.1"
