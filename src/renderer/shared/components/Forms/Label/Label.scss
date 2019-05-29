@@ -16,5 +16,6 @@
 
   &.disabled .label {
     @extend %disabledColor;
+    background: transparent !important;
   }
 }
