@@ -82,7 +82,7 @@
     "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
   },
   "devDependencies": {
-    "babel-eslint": "10.0.1",
+    "babel-eslint": "10.0.2",
     "babel-jest": "23.6.0",
     "babel-plugin-dynamic-import-node": "2.2.0",
     "babel-plugin-module-resolver": "3.2.0",
