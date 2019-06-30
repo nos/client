@@ -22,18 +22,12 @@ const ACCOUNT_ID = 'account';
  * Seed hex is then used to encrypt/decrypt things
  */
 
-const createAccount = async ({
-  label,
-  passphrase,
-  passphraseConfirmation,
-  secretWord,
-  useLedger
-}) => {
+const createAccount = async ({ label, passphrase, passphraseConfirm, secretWord, useLedger }) => {
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
 
-  if (passphrase !== passphraseConfirmation) {
+  if (passphrase !== passphraseConfirm) {
     throw new Error('Passphrase verification does not match.');
   }
 

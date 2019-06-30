@@ -13,9 +13,7 @@ import RegisterForm from './RegisterForm';
 const { FAILED, LOADED } = progressValues;
 
 const mapRegisterActionsToProps = (actions) => ({
-  storeFormData: (data) => {
-    return actions.call(data);
-  }
+  storeFormData: (data) => actions.call(data)
 });
 
 export default compose(
@@ -24,9 +22,9 @@ export default compose(
 
   withState('accountLabel', 'setAccountLabel', Math.random().toString()),
   withState('passphrase', 'setPassphrase', 'q'),
-  withState('passphraseConfirmation', 'setPassphraseConfirmation', 'q'),
+  withState('passphraseConfirm', 'setPassphraseConfirm', 'q'),
   withState('secretWord', 'setSecretWord', 'MySercetWord'),
-  withState('isLedger', 'setIsLedger', false),
+  withState('isHardware', 'setIsHardware', false),
   withErrorToast(),
   withProgressChange(registerActions, FAILED, (state, props) => {
     props.showErrorToast(`Account creation failed: ${state.error}`);

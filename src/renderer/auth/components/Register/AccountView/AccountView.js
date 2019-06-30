@@ -1,14 +1,14 @@
 import React from 'react';
 import { func, bool } from 'prop-types';
 
-import accountShape from 'auth/shapes/accountShape';
+import registerShape from 'auth/shapes/registerShape';
 
 // import LedgerView from './LedgerView';
 import MnemonicView from './MnemonicView';
 import LedgerView from './LedgerView';
 
 const AccountView = ({ onCancel, account, previousStep, nextStep, loading }) => {
-  return account.isLedger ? (
+  return account.isHardware ? (
     <LedgerView
       account={account}
       nextStep={nextStep}
@@ -29,7 +29,7 @@ const AccountView = ({ onCancel, account, previousStep, nextStep, loading }) => 
 
 AccountView.propTypes = {
   onCancel: func.isRequired,
-  account: accountShape.isRequired,
+  account: registerShape.isRequired,
   previousStep: func.isRequired,
   nextStep: func.isRequired,
   loading: bool.isRequired

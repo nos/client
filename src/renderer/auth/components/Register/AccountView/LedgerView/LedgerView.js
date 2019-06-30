@@ -4,15 +4,13 @@ import { noop, isEmpty } from 'lodash';
 import { progressValues } from 'spunky';
 import { wallet } from '@cityofzion/neon-js';
 
-import accountShape from 'auth/shapes/accountShape';
+import registerShape from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
-import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 
 import LedgerConnect from 'shared/images/auth/ledgerConnect.svg';
 import LedgerConnected from 'shared/images/auth/ledgerConnected.svg';
 import LedgerCompleted from 'shared/images/auth/ledgerCompleted.svg';
-import Loading from 'shared/images/loading.svg';
 
 import styles from './LedgerView.scss';
 
@@ -30,7 +28,7 @@ export default class LedgerView extends React.PureComponent {
     onCancel: func.isRequired,
     nextStep: func.isRequired,
     previousStep: func.isRequired,
-    account: accountShape.isRequired,
+    account: registerShape.isRequired,
     poll: func.isRequired,
     getPublicKey: func.isRequired,
     deviceInfoProgress: string,
@@ -56,10 +54,10 @@ export default class LedgerView extends React.PureComponent {
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
   }
 
-  componentWillReceiveProps({ deviceInfoProgress, publickeyProgress, getPublicKeys }) {
+  componentWillReceiveProps({ deviceInfoProgress, publickeyProgress, getPublicKey }) {
     // Poll once for performance reasons. Let user fetch manually if required
     if (deviceInfoProgress === LOADED && publickeyProgress !== LOADED) {
-      getPublicKeys();
+      getPublicKey();
     }
   }
 
@@ -70,7 +68,7 @@ export default class LedgerView extends React.PureComponent {
   }
 
   render() {
-    const { onCancel, previousStep, nextStep, loading } = this.props;
+    const { onCancel, previousStep, loading } = this.props;
 
     const sidePanelText =
       'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
@@ -102,7 +100,8 @@ export default class LedgerView extends React.PureComponent {
       publicKeyError,
       deviceInfo,
       deviceInfoProgress,
-      publickeyProgress
+      publickeyProgress,
+      publicKey
     } = this.props;
 
     // Device not connected or unlocked
@@ -139,30 +138,33 @@ export default class LedgerView extends React.PureComponent {
       return (
         <React.Fragment>
           <LedgerCompleted />
-          <LabeledSelect
+
+          <div className={styles.text}>
+            <div className={styles.done}>
+              {deviceInfo.manufacturer} {deviceInfo.product} Connected ✓
+            </div>
+            <div>Default Addresss</div>
+            <div>{publicKey && this.unencodedHexToAddress(publicKey)}</div>
+          </div>
+          {/* <LabeledSelect
             className={styles.input}
             labelClass={styles.label}
             id="walletAddress"
             label={(
               <div className={styles.labelWrap}>
                 <div>Pick a wallet address</div>
-                {/* <div className={styles.labelFetch} role="button" tabIndex={0} onClick={this.handleFetchAddresses} disabled={true}>Fetch additional addresses</div> */}
+                <div className={styles.labelFetch} role="button" tabIndex={0} onClick={this.handleFetchAddresses} disabled={true}>Fetch additional addresses</div>
               </div>
-)}
+            )}
             disabled={isEmpty(this.props.publicKeys)}
             value={this.props.selectedPublicKey}
             items={this.getPublicKeyItems()}
             onChange={this.handleChangePublicKeys}
-          />
+          /> */}
         </React.Fragment>
       );
     }
   };
-
-  handleFetchAddresses = () => {
-    const { getPublicKeys, publicKeys } = this.props;
-    getPublicKeys(publicKeys);
-  }
 
   handleNext = (event) => {
     const { account, storeFormData, publicKey } = this.props;
@@ -171,7 +173,6 @@ export default class LedgerView extends React.PureComponent {
   };
 
   handleChangePublicKeys = (currentPublicKey) => {
-    // TODO create setCurrentPublicKey
     this.props.setSelectedPublicKey(currentPublicKey);
   };
 
@@ -182,6 +183,7 @@ export default class LedgerView extends React.PureComponent {
     }));
   };
 
+  // TODO move to util
   unencodedHexToAddress = (publicKey) => {
     const encodedKey = wallet.getPublicKeyEncoded(publicKey);
 
@@ -189,6 +191,6 @@ export default class LedgerView extends React.PureComponent {
   };
 
   isValid = () => {
-    return !isEmpty(this.props.selectedPublicKey);
+    return !isEmpty(this.props.publicKey);
   };
 }

@@ -12,7 +12,6 @@ import {
   addLoadedListener
 } from 'testHelpers';
 
-
 const initialState = {
   [spunkyKey]: {
     currentNetwork: mockSpunkyLoaded('MainNet')
@@ -46,12 +45,8 @@ describe('<RegisterForm />', () => {
       addRegisterLoadedListener(done);
 
       const wrapper = mountContainer();
-      wrapper
-        .find('input#passphrase')
-        .simulate('change', { target: { value: 'test' } });
-      wrapper
-        .find('input#passphraseConfirmation')
-        .simulate('change', { target: { value: 'test' } });
+      wrapper.find('input#passphrase').simulate('change', { target: { value: 'test' } });
+      wrapper.find('input#passphraseConfirm').simulate('change', { target: { value: 'test' } });
       wrapper.find('form').simulate('submit');
     }, 10000);
   });

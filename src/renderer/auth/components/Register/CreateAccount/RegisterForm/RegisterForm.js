@@ -15,40 +15,40 @@ export default class RegisterForm extends React.PureComponent {
     loading: bool,
     accountLabel: string,
     passphrase: string,
-    passphraseConfirmation: string,
+    passphraseConfirm: string,
     secretWord: string,
-    isLedger: bool,
+    isHardware: bool,
     setAccountLabel: func,
     setPassphrase: func,
-    setPassphraseConfirmation: func,
+    setPassphraseConfirm: func,
     setSecretWord: func,
     storeFormData: func,
-    setIsLedger: func
+    setIsHardware: func
   };
 
   static defaultProps = {
     loading: false,
     accountLabel: '',
     passphrase: '',
-    passphraseConfirmation: '',
+    passphraseConfirm: '',
     secretWord: '',
     setAccountLabel: noop,
     setPassphrase: noop,
-    setPassphraseConfirmation: noop,
+    setPassphraseConfirm: noop,
     setSecretWord: noop,
     storeFormData: noop,
-    setIsLedger: noop,
-    isLedger: false
+    setIsHardware: noop,
+    isHardware: false
   };
 
   render = () => {
     const {
       accountLabel,
       passphrase,
-      passphraseConfirmation,
+      passphraseConfirm,
       secretWord,
       loading,
-      isLedger
+      isHardware
     } = this.props;
 
     return (
@@ -74,13 +74,13 @@ export default class RegisterForm extends React.PureComponent {
             onChange={this.handleChangePassphrase}
           />
           <LabeledInput
-            id="passphraseConfirmation"
+            id="passphraseConfirm"
             type="password"
             label="Confirm Passphrase"
             placeholder="Enter passphrase again"
-            value={passphraseConfirmation}
+            value={passphraseConfirm}
             disabled={loading}
-            onChange={this.handleChangePassphraseConfirmation}
+            onChange={this.handleChangePassphraseConfirm}
           />
         </div>
 
@@ -96,11 +96,11 @@ export default class RegisterForm extends React.PureComponent {
 
         <div className={classNames(styles.horizontal, styles.bottom)}>
           <Input
-            id="isLedger"
+            id="isHardware"
             type="checkbox"
-            checked={isLedger}
+            checked={isHardware}
             disabled={loading}
-            onChange={this.handleChangeIsLedger}
+            onChange={this.handleChangeIsHardware}
             renderAfter={this.renderCheckboxLabel}
             className={styles.checkbox}
           />
@@ -118,11 +118,11 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   renderCheckboxLabel = () => {
-    return <Label htmlFor="isLedger" label="Use Ledger for next step" className={styles.label} />;
+    return <Label htmlFor="isHardware" label="Use Ledger for next step" className={styles.label} />;
   };
 
-  handleChangeIsLedger = () => {
-    this.props.setIsLedger(!this.props.isLedger);
+  handleChangeIsHardware = () => {
+    this.props.setIsHardware(!this.props.isHardware);
   };
 
   handleChangeSecretWord = (event) => {
@@ -137,8 +137,8 @@ export default class RegisterForm extends React.PureComponent {
     this.props.setPassphrase(event.target.value);
   };
 
-  handleChangePassphraseConfirmation = (event) => {
-    this.props.setPassphraseConfirmation(event.target.value);
+  handleChangePassphraseConfirm = (event) => {
+    this.props.setPassphraseConfirm(event.target.value);
   };
 
   handleStoreFormData = (event) => {
@@ -146,22 +146,22 @@ export default class RegisterForm extends React.PureComponent {
       accountLabel,
       passphrase,
       secretWord,
-      passphraseConfirmation,
+      passphraseConfirm,
       storeFormData,
-      isLedger
+      isHardware
     } = this.props;
 
     event.preventDefault();
     storeFormData({
       accountLabel,
       passphrase,
-      passphraseConfirmation,
+      passphraseConfirm,
       secretWord,
-      isLedger
+      isHardware
     });
   };
 
   isValid = () => {
-    return this.props.passphrase !== '' && this.props.passphraseConfirmation !== '';
+    return this.props.passphrase !== '' && this.props.passphraseConfirm !== '';
   };
 }

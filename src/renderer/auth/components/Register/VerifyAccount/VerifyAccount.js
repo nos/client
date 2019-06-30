@@ -1,7 +1,8 @@
 import React from 'react';
-import { func, bool, string, number } from 'prop-types';
+import { func, bool, string, number, oneOfType } from 'prop-types';
+import { wallet } from '@cityofzion/neon-js';
 
-import accountShape from 'auth/shapes/accountShape';
+import registerShape, { registerLedgerShape } from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
@@ -10,8 +11,8 @@ import styles from './VerifyAccount.scss';
 
 export default class VerifyAccount extends React.PureComponent {
   static propTypes = {
-    account: accountShape.isRequired,
-    verifyAndAuthenticate: func.isRequired,
+    account: oneOfType([registerShape, registerLedgerShape]).isRequired,
+    completeRegistration: func.isRequired,
     previousStep: func.isRequired,
     loading: bool.isRequired,
     onCancel: func.isRequired,
@@ -85,18 +86,18 @@ export default class VerifyAccount extends React.PureComponent {
         />
 
         {/** TODO - LabeledInput --> DisplayInput & address doesn't exist?? */}
-        {account.isLedger && (
+        {account.isHardware && (
           <LabeledInput
             id="verifyAddress"
             type="text"
             label="Verify Your Addres"
-            placeholder={account.accounts[account.activeAccountId].address}
+            placeholder={this.unencodedHexToAddress(account.publicKey)}
             value=""
             disabled={loading}
           />
         )}
 
-        {!account.isLedger && (
+        {!account.isHardware && (
           <div className={styles.mnemonicVerify}>
             <span className={styles.title} role="img" aria-label="title">
               ✍️ Verify your recovery seed from the last step
@@ -143,6 +144,13 @@ export default class VerifyAccount extends React.PureComponent {
     this.props.setSecondMnemonicWord(event.target.value);
   };
 
+  // TODO move to util
+  unencodedHexToAddress = (publicKey) => {
+    const encodedKey = wallet.getPublicKeyEncoded(publicKey);
+
+    return new wallet.Account(encodedKey).address;
+  };
+
   completeRegistration = () => {
     const {
       account,
@@ -152,12 +160,11 @@ export default class VerifyAccount extends React.PureComponent {
       secondMnemonicWord,
       firstMnemonicWordIndex,
       secondMnemonicWordIndex,
-      storeProfile,
-      setLastLogin
+      setLastLogin,
+      completeRegistration
     } = this.props;
 
-    // TODO get form values and make it compare
-    this.props.verifyAndAuthenticate({
+    completeRegistration({
       account,
       passphrase,
       secretWord,
@@ -167,8 +174,7 @@ export default class VerifyAccount extends React.PureComponent {
       secondMnemonicWordIndex
     });
 
-    // TODO - move this where? batch request?
-    storeProfile({ label: account.accountLabel, value: account });
+    // TODO - move setLastLogin inside registerComplete/verifyAndAuthenticate function
     setLastLogin({ label: account.accountLabel });
   };
 }

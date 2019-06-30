@@ -9,11 +9,9 @@ import {
   progressValues
 } from 'spunky';
 
-import ledgerActions, { ledgerPublicKeysActions } from 'auth/actions/ledgerActions';
+import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withLogin from 'auth/hocs/withLogin';
-
-import registerLedgerActions from 'auth/actions/registerLedgerActions';
 
 import LedgerView from './LedgerView';
 import registerActions from '../../../../actions/registerActions';
@@ -34,12 +32,12 @@ const mapLedgerErrorToProps = (deviceInfoError) => ({
 });
 
 const mapLedgerPublicKeyActionsToProps = (actions) => ({
-  getPublicKeys: (data) => actions.call(data)
+  getPublicKey: actions.call
 });
 
 const mapLedgerPublicKeyDataToProps = (data) => {
-  const { publicKeys } = data || {};
-  return { publicKeys };
+  const { publicKey } = data || {};
+  return { publicKey };
 };
 
 const mapLedgerPublicKeyErrorToProps = (publicKeyError) => ({
@@ -54,19 +52,19 @@ export default compose(
   withActions(registerActions, mapRegisterActionsToProps),
 
   withActions(ledgerActions, mapLedgerActionsToProps),
-  withActions(ledgerPublicKeysActions, mapLedgerPublicKeyActionsToProps),
+  withActions(ledgerPublicKeyActions, mapLedgerPublicKeyActionsToProps),
 
   withData(ledgerActions, mapLedgerDataToProps),
-  withData(ledgerPublicKeysActions, mapLedgerPublicKeyDataToProps),
+  withData(ledgerPublicKeyActions, mapLedgerPublicKeyDataToProps),
 
   withError(ledgerActions, mapLedgerErrorToProps),
-  withError(ledgerPublicKeysActions, mapLedgerPublicKeyErrorToProps),
+  withError(ledgerPublicKeyActions, mapLedgerPublicKeyErrorToProps),
 
   withProgress(ledgerActions, {
     propName: 'deviceInfoProgress',
     strategy: recentlyCompletedStrategy
   }),
-  withProgress(ledgerPublicKeysActions, {
+  withProgress(ledgerPublicKeyActions, {
     propName: 'publickeyProgress',
     strategy: recentlyCompletedStrategy
   }),
@@ -78,8 +76,4 @@ export default compose(
   }),
 
   withState('selectedPublicKey', 'setSelectedPublicKey', ({ publicKeys }) => (publicKeys ? publicKeys[0].index : ''))
-
-  // redirect on login TODO remove?
-  // withRouter,
-  // withLogin((state, { history }) => history.push('/browser'))
 )(LedgerView);

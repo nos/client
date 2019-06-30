@@ -23,12 +23,12 @@ const walletShapeNotInitialized = shape({
 });
 
 export default shape({
-  isLedger: bool.isRequired,
+  isHardware: bool.isRequired,
   accountLabel: string.isRequired,
   encryptedMnemonic: string.isRequired,
   secretWord: string.isRequired,
   passphrase: string, // Will be removed when persisting to storage
   mnemonic: string, // Will be removed when persisting to storage
-  activeAccountId: string.isRequired, // TODO rename to activeWalletId
-  accounts: oneOfType([objectOf(walletShapeInitialized), objectOf(walletShapeNotInitialized)])
+  activeWalletAccount: string.isRequired, // TODO rename to activeWalletId
+  wallets: oneOfType([objectOf(walletShapeInitialized), objectOf(walletShapeNotInitialized)])
 });

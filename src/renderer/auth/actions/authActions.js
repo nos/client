@@ -2,19 +2,22 @@ import { createActions } from 'spunky';
 import bip39 from 'bip39';
 import { reduce, attempt, isError, omit, filter } from 'lodash';
 import uuid from 'uuid/v4';
+import { wallet } from '@cityofzion/neon-js';
+
+import { verifyAndCreateWallet } from 'auth/util/WalletStorage';
+import { getActiveWalletForAccount, storeWallet } from 'auth/util/StorageWallet/StorageWallet';
+import newWalletInstance from 'auth/util/HardwareWallet/HardwareWallet';
 
 import Wallet from 'auth/util/Wallet';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import { updateStorage } from 'shared/lib/storage';
-
 import CHAINS from 'shared/values/chains';
 import { DEFAULT_NET } from 'values/networks';
 
 export const ID = 'auth';
 const ACCOUNT_ID = 'account';
 
-// TODO split up file
 const authenticate = async ({ account, passphrase }) => {
   const mnemonic = attempt(simpleDecrypt, account.encryptedMnemonic, passphrase);
 
@@ -23,20 +26,34 @@ const authenticate = async ({ account, passphrase }) => {
     throw new Error('Please make sure you entered the correct password.');
   }
 
-  // Deterministically generate a 512 bit seed hex seed
-  const seed = bip39.mnemonicToSeed(mnemonic, passphrase);
-  const wallet = new Wallet(seed);
+  // Get wallet from storage through activeWalletId and check if isHardware
+  const walletForAccount = await getActiveWalletForAccount(account);
+  if (walletForAccount.isHardware) {
+    const initialzedWallet = newWalletInstance(walletForAccount);
 
-  const instances = reduce(
-    account.accounts,
-    (acumm, acc) => ({
-      ...acumm,
-      [acc.accountId]: wallet.deriveWalletFromAccount(acc)
-    }),
-    {}
-  );
+    return {
+      ...account,
+      wallet: {
+        ...walletForAccount,
+        ...initialzedWallet
+      }
+    };
+  } else {
+    // Deterministically generate a 512 bit seed hex seed
+    // const initialzedWallet = newMnemonicWalletInstance(mnemonic, passphrase)
+    const seed = bip39.mnemonicToSeed(mnemonic, passphrase);
+    // const initializedWallet =
+    // const commonWallet = new Wallet(seed);
+    // const initialzedWallet = commonWallet.deriveWalletFromAccount(walletForAccount);
 
-  return { ...account, instances };
+    return {
+      ...account,
+      wallet: {
+        ...walletForAccount,
+        ...initialzedWallet
+      }
+    };
+  }
 };
 
 const addAccount = async ({ account, chainType, passphrase }) => {
@@ -80,47 +97,14 @@ const addAccount = async ({ account, chainType, passphrase }) => {
   return authenticate({ account: newAccount, passphrase });
 };
 
-const verifyAndAuthenticate = ({
-  account,
-  passphrase,
-  secretWord,
-  firstMnemonicWord,
-  firstMnemonicWordIndex,
-  secondMnemonicWord,
-  secondMnemonicWordIndex
-}) => {
-  if (account.isLedger) {
-    // TODO write authenticateLedger
-    // return authenticateLedger();
-  }
-
-  const mnemonicArray = account.mnemonic.trim().split(' ');
-
-  if (account.passphrase !== passphrase) {
-    throw new Error("You've entered a wrong password");
-  }
-
-  if (account.secretWord !== secretWord) {
-    throw new Error("You've entered the wrong secret word");
-  }
-
-  if (mnemonicArray[firstMnemonicWordIndex - 1] !== firstMnemonicWord) {
-    throw new Error(
-      `Word number #${firstMnemonicWordIndex} of your recovery seed does not match the word "${firstMnemonicWord}"`
-    );
-  }
-
-  if (mnemonicArray[secondMnemonicWordIndex - 1] !== secondMnemonicWord) {
-    throw new Error(
-      `Word number #${secondMnemonicWordIndex} of your recovery seed does not match the word "${secondMnemonicWord}"`
-    );
-  }
-
-  return authenticate({ account, passphrase });
-};
-
 export const verifyAndAuthenticateActions = createActions(ID, (data) => {
-  return () => verifyAndAuthenticate(data);
+  return async () => {
+    // authData requires account and password
+    const { account, passphrase } = await verifyAndCreateWallet(data);
+    const authenticated = authenticate({ account, passphrase });
+    await storeWallet(account.accountLabel, omit(account.wallet, 'WIF', 'privateKey'));
+    return authenticated;
+  };
 });
 
 export const addAccountActions = createActions(ID, ({ account, passphrase, chainType }) => {
