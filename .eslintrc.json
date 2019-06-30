@@ -7,14 +7,12 @@
     "jasmine": true,
     "jest/globals": true
   },
-  "plugins": [
-    "jest"
-  ],
+  "plugins": ["jest"],
   "globals": {
     "__static": true
   },
   "rules": {
-    "linebreak-style":"off",
+    "linebreak-style": "off",
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
@@ -25,63 +23,63 @@
     "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
     "jsx-a11y/anchor-is-valid": ["error", { "components": ["Link"], "specialLink": ["to"] }],
     "jsx-a11y/click-events-have-key-events": ["off"],
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
-        "__mocks__/**/*.js",
-        "__tests__/**/*.js",
-        "config/**/*.js",
-        "scripts/**/*.js"
-      ]
-    }],
-    "import/order": ["error", {
-      "groups": [["external", "builtin"], "internal", ["sibling", "parent"]],
-      "newlines-between": "always-and-inside-groups"
-    }],
+    "import/no-cycle": ["off"],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["__mocks__/**/*.js", "__tests__/**/*.js", "config/**/*.js", "scripts/**/*.js"]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [["external", "builtin"], "internal", ["sibling", "parent"]],
+        "newlines-between": "always-and-inside-groups"
+      }
+    ],
     "react/destructuring-assignment": ["off"],
     "react/no-typos": ["off"],
     "react/jsx-one-expression-per-line": ["off"],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/sort-comp": ["error", {
-      "order": [
-        "static-methods",
-        "type-annotations",
-        "instance-variables",
-        "lifecycle",
-        "renderers",
-        "handlers",
-        "everything-else"
-      ],
-      "groups": {
-        "lifecycle": [
-          "displayName",
-          "propTypes",
-          "contextTypes",
-          "childContextTypes",
-          "mixins",
-          "statics",
-          "defaultProps",
-          "state",
-          "constructor",
-          "getDefaultProps",
-          "getInitialState",
-          "getChildContext",
-          "componentWillMount",
-          "componentDidMount",
-          "componentWillReceiveProps",
-          "shouldComponentUpdate",
-          "componentWillUpdate",
-          "componentDidUpdate",
-          "componentWillUnmount"
+    "react/sort-comp": [
+      "error",
+      {
+        "order": [
+          "static-methods",
+          "type-annotations",
+          "instance-variables",
+          "lifecycle",
+          "renderers",
+          "handlers",
+          "everything-else"
         ],
-        "renderers": [
-          "render",
-          "/^render.+$/"
-        ],
-        "handlers": [
-          "/^handle.+$/"
-        ]
+        "groups": {
+          "lifecycle": [
+            "displayName",
+            "propTypes",
+            "contextTypes",
+            "childContextTypes",
+            "mixins",
+            "statics",
+            "defaultProps",
+            "state",
+            "constructor",
+            "getDefaultProps",
+            "getInitialState",
+            "getChildContext",
+            "componentWillMount",
+            "componentDidMount",
+            "componentWillReceiveProps",
+            "shouldComponentUpdate",
+            "componentWillUpdate",
+            "componentDidUpdate",
+            "componentWillUnmount"
+          ],
+          "renderers": ["render", "/^render.+$/"],
+          "handlers": ["/^handle.+$/"]
+        }
       }
-    }]
+    ]
   },
   "settings": {
     "import/core-modules": ["electron"],
