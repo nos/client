@@ -1,0 +1,253 @@
+%textColor {
+  color: $gray-5;
+
+  @include theme(DARK) {
+    color: $gray-0;
+  }
+}
+
+%lightTextColor {
+  color: $gray-4;
+}
+
+%labelColor {
+  color: $gray-5;
+
+  @include theme(DARK) {
+    color: $gray-4;
+  }
+}
+
+%inputColor {
+  border: 0 none;
+  color: $gray-5;
+  background: $gray-0;
+  box-shadow: inset 0 0 0 1px $gray-3;
+
+  @include theme(DARK) {
+    color: $gray-0;
+    background: $gray-8;
+    box-shadow: inset 0 0 0 1px $gray-6;
+  }
+
+  &.focus {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px $brand;
+    transition: all .15 ease-in-out;
+
+    @include theme(DARK) {
+      background: darken($gray-8, .25);
+      box-shadow: inset 0 0 0 2px $brand;
+    }
+  }
+}
+
+%disabledColor {
+  color: $gray-4;
+  background: $gray-0;
+
+  @include theme(DARK) {
+    color: $gray-4;
+    background: transparentize($gray-8, .25);
+  }
+}
+
+%sidebarColor {
+  background: $gray-1;
+  box-shadow: inset -1px 0 0 $gray-3;
+
+  @include theme(DARK) {
+    background: $gray-7;
+    box-shadow: inset -1px 0 0 $gray-6;
+  }
+}
+
+%sidebarItemColor {
+  color: $gray-4;
+
+  &.disabled {
+    color: lighten($gray-3, 20%);
+    cursor: not-allowed;
+  }
+
+  &:not(.disabled):focus,
+  &:not(.disabled):hover {
+    color: $gray-4;
+    background: rgba($brand, .1);
+
+    @include theme(DARK) {
+      color: $gray-2;
+      background: rgba($brand, .2);
+    }
+  }
+
+  &:not(.disabled):active {
+    color: $brand;
+    background: rgba($brand, .2);
+
+    @include theme(DARK) {
+      color: $brand;
+    }
+  }
+
+  &:not(.disabled).active {
+    color: $brand;
+    background: rgba($brand, .2);
+
+    @include theme(DARK) {
+      color: $brand;
+    }
+
+    &::after {
+      background: $brand;
+    }
+  }
+}
+
+%tabsBarColor {
+  background: $gray-1;
+
+  @include theme(DARK) {
+    background: $gray-8;
+  }
+}
+
+%tabColor {
+  $tab-inactive-border-color: $gray-2;
+
+  box-shadow: inset 1px 0 0 $gray-2;
+  background: $gray-1;
+
+  @include theme(DARK) {
+    background: $gray-8;
+    box-shadow: inset 1px 0 0 $gray-6;
+  }
+
+  &:last-of-type {
+    &:not(.active) {
+      box-shadow: inset 1px 0 0 $tab-inactive-border-color, inset -1px 0 0 $tab-inactive-border-color;
+
+      @include theme(DARK) {
+        box-shadow: inset 1px 0 0 $gray-7, inset -1px 0 0 $gray-7;
+      }
+    }
+  }
+
+  &.active,
+  &.active + & {
+    box-shadow: none;
+  }
+  &:not(.active):hover {
+    background: rgba(#fff, 0.6);
+    
+    @include theme(DARK) {
+      background: darken($gray-7, 3%);
+    }
+  }
+  &.active + &:last-of-type {
+    box-shadow: inset -1px 0 0 $tab-inactive-border-color;
+  }
+  &.active {
+    @extend %panelColor;
+  }
+
+  .title {
+    @extend %textColor;
+  }
+
+  .close {
+    color: $gray-4;
+    background: transparent;
+
+    &:hover {
+      color: #fff;
+      background: rgba(228, 91, 70, 0.6);
+    }
+  }
+}
+
+%panelColor {
+  background: white;
+
+  @include theme(DARK) {
+    background: $gray-7;
+  }
+}
+
+%innerPanelColor {
+  background: $gray-0;
+
+  @include theme(DARK) {
+    background: opacify($gray-8, .5);
+  }
+
+  & .title {
+    @extend %labelColor;
+    background: linear-gradient(360deg,
+    transparentize($gray-3, .75) 0%,
+    $gray-0 100%);
+
+    @include theme(DARK) {
+      background: linear-gradient(360deg,
+      $gray-7 0%,
+      opacify($gray-8, .5) 100%);
+    }
+  }
+}
+
+@mixin border($border-width: 1px, $position: "bottom", $color: "light") {
+  $values: "0";
+
+  @if $position == "bottom" {
+    $values: 0 -1px 0;
+  }
+  @if $position=="right" {
+    $values: -1px 0 0;
+  }
+  @if $position=="left" {
+    $values: 1px 0 0;
+  }
+
+  @if $color == "light" {
+    box-shadow: inset $values $gray-2;
+
+    @include theme(DARK) {
+      box-shadow: inset $values $gray-6;
+    } 
+  }
+
+  @if $color=="medium" {
+    box-shadow: inset $values $gray-3;
+
+    @include theme(DARK) {
+      box-shadow: inset $values $gray-5;
+    }
+  }
+}
+
+%tertiaryButtonColor {
+  background: transparentize($brand, .85);
+  box-shadow: none !important;
+  color: $brand;
+
+  &:hover {
+    background: transparentize($brand, .65);
+    box-shadow: none !important;
+  }
+
+  @include theme(DARK) {
+    background: transparentize($brand, .75);
+
+    &:hover {
+      background: transparentize($brand, .5);
+    }
+  }
+}
+
+%modalBackdropColor {
+    background: transparentize($gray-8, 0.15);
+
+    @include theme(DARK) {
+      background: transparentize($gray-5, 0.25);
+    }
+}

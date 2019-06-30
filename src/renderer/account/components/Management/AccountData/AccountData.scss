@@ -4,15 +4,19 @@
   align-items: center;
 
   font-weight: 500;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 12px;
-  color: #494759;
+  @extend %labelColor;
 
-  width: 65%;
+  width: 80%;
+
+  @media only screen and (max-width: $responsive-width) {
+    width: auto;
+    margin-left: 34px;
+  }
 
   .input {
-    height: 13px;
-    background: #f7f8fa;
+    height: 20px;
     border-radius: 2px;
   }
 
@@ -20,11 +24,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 4px;
 
     .toggle {
       cursor: pointer;
       user-select: none;
-      color: #8bc83c;
+      color: $brand;
     }
   }
 
@@ -40,7 +45,7 @@
   }
 
   input[type='text'] {
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 

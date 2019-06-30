@@ -3,10 +3,14 @@
   flex-direction: row;
   justify-content: space-between;
 
+  @media only screen and (max-width: $responsive-width) {
+    flex-direction: column;
+  }
+
+  @extend %panelColor;
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 7px;
-  background-color: white;
   max-width: 1024px;
   box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
   border-radius: 4px;
@@ -18,7 +22,7 @@
     margin-right: 16px;
 
     .icon {
-      margin-right: 15px;
+      margin-right: 16px;
       order: 1;
     }
 
@@ -28,14 +32,15 @@
   }
 
   .title {
-    color: #1e1b53;
+    @extend %textColor;
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
+    padding-top: 12px;
   }
 
   .subtitle {
-    color: #8886a5;
+    @extend %labelColor;
     font-size: 12px;
     line-height: 18px;
   }

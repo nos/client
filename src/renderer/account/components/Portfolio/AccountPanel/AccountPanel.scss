@@ -25,7 +25,7 @@
     flex: 0 1 auto;
     padding: 20px 20px 40px;
     min-width: $width - $border-width;
-    border-left: $border-width solid #edeef4;
+    @include border(1px, left, light);
   }
 
   @media only screen and (max-width: $responsive-width) {

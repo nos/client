@@ -3,20 +3,15 @@
   min-width: 520px;
 
   .mnemonicVerify {
-    background: #f7f8fa;
+    @extend %innerPanelColor;
+    @extend %textColor;
     border-radius: 4px;
-    color: #494759;
     font-weight: 500;
 
     .title {
       display: flex;
       font-size: 14px;
       padding: 9px 12px;
-      background: linear-gradient(
-        360deg,
-        #edeef2 0%,
-        rgba(237, 238, 242, 0) 75%
-      );
     }
 
     .horizontal {
@@ -30,7 +25,7 @@
       }
 
       input {
-        background-color: white;
+        @extend %inputColor;
       }
 
       label:first-of-type {

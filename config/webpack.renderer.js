@@ -44,7 +44,7 @@ function replaceSassLoader(config) {
       {
         loader: 'sass-loader',
         options: {
-          data: '@import "common/stylesheets/variables"; @import "common/stylesheets/mixins";',
+          data: '@import "common/stylesheets/variables"; @import "common/stylesheets/mixins"; @import "common/stylesheets/themes";',
           includePaths: [path.resolve(__dirname, '..', './src')],
           sourceMap: !isProd
         }

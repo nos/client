@@ -11,8 +11,7 @@
     font-weight: 500;
     font-size: 18px;
     line-height: normal;
-
-    color: #494759;
+    @extend %labelColor;
   }
 
   .subtitle {
@@ -20,18 +19,18 @@
     font-weight: 600;
     font-size: 12px;
     line-height: 16px;
-
-    color: #494759;
+    @extend %labelColor;
   }
 
   .link {
     cursor: pointer;
 
     font-weight: 500;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 12px;
     user-select: none;
-    color: #8bc83c;
+    color: $brand;
+    font-weight: bold;
   }
 }
 

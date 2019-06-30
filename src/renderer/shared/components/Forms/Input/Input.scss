@@ -1,15 +1,10 @@
 .container {
-  $disabled-background: #f1f1f5;
-  $disabled-color: #9595a1;
-
+  @extend %inputColor;
   display: flex;
   align-items: center;
   flex-flow: nowrap;
   width: 100%;
-  color: $primary-text-color;
-  background: #f9fafb;
   border-radius: 4px;
-  box-shadow: inset 0 0 0 1px $light-text-color;
   line-height: 17px;
   font-size: 14px;
   font-weight: 500;
@@ -20,11 +15,11 @@
   }
 
   .input {
+    @extend %textColor;
     flex: 1 1 auto;
     display: block;
     width: 100%;
     padding: 6px 12px;
-    color: $primary-text-color;
     background: transparent;
     border: 0;
     line-height: 17px;
@@ -33,13 +28,12 @@
     -webkit-font-smoothing: antialiased;
 
     &::placeholder {
-      color: $light-text-color;
+      color: $gray-4;
     }
   }
 
   &.focus {
-    // border-image: linear-gradient(to right, #b9d532, #5bba47)
-    box-shadow: inset 0 0 0 2px #b9d532;
+    box-shadow: inset 0 0 0 2px $brand;
 
     .input {
       outline: none;
@@ -47,14 +41,14 @@
   }
 
   &.disabled {
-    background: $disabled-background;
+    @extend %disabledColor;
     box-shadow: none;
 
     .input {
-      color: $disabled-color;
+      @extend %disabledColor;
 
       &::placeholder {
-        color: $disabled-color;
+        @extend %disabledColor;
       }
     }
   }
