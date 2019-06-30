@@ -13,7 +13,7 @@
     color: $gray-4;
 
     @include theme(DARK) {
-      background: opacify($gray-7, .5);
+      background: opacify($gray-7, 0.5);
       color: $gray-4;
     }
 
