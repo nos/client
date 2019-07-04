@@ -3,8 +3,8 @@ import bip32 from 'bip32';
 
 import { NEO, ETH, CHAIN_IDS } from 'shared/values/chains';
 
-import EthWallet from './ETH/EthWallet';
-import NeoWallet from './NEO/NeoWallet';
+import EthWallet from '../ETH/EthWallet';
+import NeoWallet from '../NEO/NeoWallet';
 
 export default class Wallet {
   constructor(seed) {

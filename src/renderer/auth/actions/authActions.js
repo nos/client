@@ -27,33 +27,27 @@ const authenticate = async ({ account, passphrase }) => {
   }
 
   // Get wallet from storage through activeWalletId and check if isHardware
+
+  console.log('Getting account', account);
+
   const walletForAccount = await getActiveWalletForAccount(account);
-  if (walletForAccount.isHardware) {
-    const initialzedWallet = newWalletInstance(walletForAccount);
+  console.log('Wallet for account', walletForAccount);
 
-    return {
-      ...account,
-      wallet: {
-        ...walletForAccount,
-        ...initialzedWallet
-      }
-    };
-  } else {
-    // Deterministically generate a 512 bit seed hex seed
-    // const initialzedWallet = newMnemonicWalletInstance(mnemonic, passphrase)
-    const seed = bip39.mnemonicToSeed(mnemonic, passphrase);
-    // const initializedWallet =
-    // const commonWallet = new Wallet(seed);
-    // const initialzedWallet = commonWallet.deriveWalletFromAccount(walletForAccount);
+  // Deterministically generate a 512 bit seed hex seed
+  const seed = !walletForAccount.isHardware ? bip39.mnemonicToSeed(mnemonic, passphrase) : null;
 
-    return {
-      ...account,
-      wallet: {
-        ...walletForAccount,
-        ...initialzedWallet
-      }
-    };
-  }
+  console.log(`What's the seed ${seed}`);
+
+  // TODO newWalletInstance should ONLY return WIF, address, PrivKey, PubKey in any case
+  const initializedWallet = newWalletInstance(walletForAccount, seed);
+
+  return {
+    ...account,
+    wallet: {
+      ...walletForAccount,
+      ...initializedWallet
+    }
+  };
 };
 
 const addAccount = async ({ account, chainType, passphrase }) => {
