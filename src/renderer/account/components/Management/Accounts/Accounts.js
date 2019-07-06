@@ -24,31 +24,46 @@ export default class Accounts extends React.PureComponent {
 
   render() {
     const {
-      account: { encryptedMnemonic, instances, secretWord }
+      account: { isHardware, encryptedMnemonic, instances, secretWord },
+      wallets
     } = this.props;
+
+
+    console.log('Accounts.js props ', this.props);
 
     return (
       <div className={styles.accounts}>
-        <div className={styles.heading}>
-          <div className={styles.title}>My Account</div>
-          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
-            New Address
-          </div>
-        </div>
-        <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
-        <div>
-          <div className={styles.subtitle}>Accounts generated from Keychain</div>
-          {map(instances, (instance) => (
-            <Account
-              instance={instance}
-              key={`${instance.type}-${instance.index}`}
-              secretWord={secretWord}
-            />
-          ))}
-        </div>
+        {this.renderHeading()}
+        {!isHardware
+          ? <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
+          : null
+        }
+        {this.renderAccounts({ secretWord, wallets })}
       </div>
     );
   }
+
+  renderHeading = () => (
+    <div className={styles.heading}>
+      <div className={styles.title}>My Account</div>
+      <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+        New Address
+      </div>
+    </div>
+  )
+
+  renderAccounts = ({ secretWord, wallets }) => (
+    <React.Fragment>
+      <div className={styles.subtitle}>Accounts generated from Keychain</div>
+      {map(wallets, (wallet) => (
+        <Account
+          wallet={wallet}
+          key={`${wallet.type}-${wallet.index}`}
+          secretWord={secretWord}
+        />
+      ))}
+    </React.Fragment>
+  )
 
   handleAddAccount = () => {
     const {
