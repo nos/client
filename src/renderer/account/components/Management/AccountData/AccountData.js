@@ -15,7 +15,7 @@ import styles from './AccountData.scss';
 export default class AccountData extends React.PureComponent {
   static propTypes = {
     className: string,
-    instance: instanceShape,
+    wallet: instanceShape,
     encryptedMnemonic: string.isRequired,
     secretWord: string.isRequired,
     mnemonic: string.isRequired,
@@ -28,7 +28,7 @@ export default class AccountData extends React.PureComponent {
 
   static defaultProps = {
     className: null,
-    instance: null
+    wallet: null
   };
 
   state = {
@@ -36,31 +36,29 @@ export default class AccountData extends React.PureComponent {
   };
 
   render() {
-    const { className, mnemonic, instance } = this.props;
-
-    console.log('accountData props ', this.props);
+    const { className, mnemonic, wallet } = this.props;
 
     return (
       <div className={classNames(styles.accountData, className)}>
-        {/* {this.renderEncryptedInput({ mnemonic, instance })} */}
-        {this.renderPublicView({ instance })}
+        {this.renderPublicView({ wallet })}
+        {this.renderEncryptedInput({ mnemonic, wallet })}
       </div>
     );
   }
 
-  // renderEncryptedInput = ({ mnemonic, instance }) => (
-  //   <EncryptedInput
-  //     title={mnemonic ? 'Secret words' : 'Private Key'}
-  //     data={mnemonic || instance.privateKey}
-  //   />
-  // );
+  renderEncryptedInput = ({ mnemonic, wallet }) => (
+    <EncryptedInput
+      title={mnemonic ? 'Secret words' : 'Private Key'}
+      data={mnemonic || wallet.privateKey}
+    />
+  );
 
-  renderPublicView = ({ instance }) => (
+  renderPublicView = ({ wallet }) => (
     <React.Fragment>
-      {instance && (
+      {wallet && (
         <div className={styles.publicView}>
           <div className={styles.heading}>Public Address</div>
-          <Input readOnly className={styles.input} type="text" value={instance.address} />
+          <Input readOnly className={styles.input} type="text" value={wallet.address} />
         </div>
       )}
     </React.Fragment>

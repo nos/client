@@ -1,20 +1,22 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
+import bip39 from 'bip39';
 
 import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import instanceShape from 'shared/shapes/instanceShape';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import Pill from 'shared/components/Pill';
+import newWalletInstance from 'auth/util/HardwareWallet/HardwareWallet';
 
 import styles from './EncryptedInput.scss';
 
 export default class EncryptedInput extends React.PureComponent {
   static propTypes = {
     className: string,
-    instance: instanceShape,
-    encryptedMnemonic: string.isRequired,
+    data: string.isRequired,
+    title: string.isRequired,
     secretWord: string.isRequired,
     mnemonic: string.isRequired,
     passphrase: string.isRequired,
@@ -25,8 +27,7 @@ export default class EncryptedInput extends React.PureComponent {
   };
 
   static defaultProps = {
-    className: null,
-    instance: null
+    className: null
   };
 
   state = {
@@ -34,13 +35,13 @@ export default class EncryptedInput extends React.PureComponent {
   };
 
   render() {
-    const { className, title } = this.props;
+    const { className, title, data, decryptedData } = this.props;
 
     return (
       <div className={classNames(styles.accountData, className)}>
         <div className={styles.secretView}>
           {this.renderHeader({ title })}
-          {this.renderInput()}
+          {this.renderInput({ data, decryptedData })}
         </div>
       </div>
     );
@@ -55,18 +56,18 @@ export default class EncryptedInput extends React.PureComponent {
         role="button"
         tabIndex={0}
       >
-  Show & Unlock
+        Show & Unlock
       </div>
     </div>
   );
 
-  renderInput = ({ data }) => (
+  renderInput = ({ data, decryptedData }) => (
     <div className={styles.data}>
       <Input
         readOnly
         className={styles.input}
         type={this.state.hidden ? 'password' : 'text'}
-        value={data}
+        value={decryptedData || data}
       />
     </div>
   )
@@ -74,11 +75,21 @@ export default class EncryptedInput extends React.PureComponent {
 
   handleShowHiddenConfirm = async () => {
     const prevState = this.state.hidden;
-    const { mnemonic, showErrorToast, setMnemonic, setPassphrase, passphrase } = this.props;
+    const { data, wallet, showErrorToast, setData, setPassphrase, passphrase } = this.props;
+
 
     try {
-      const decryptedMnemonic = await simpleDecrypt(mnemonic, passphrase);
-      setMnemonic(decryptedMnemonic);
+      const decryptedData = await simpleDecrypt(data, passphrase);
+
+
+      if (wallet) {
+        const seed = bip39.mnemonicToSeed(decryptedData, passphrase);
+        const walletInstance = newWalletInstance(wallet, seed);
+        setData(walletInstance.privateKey);
+      } else {
+        setData(decryptedData);
+      }
+
       setPassphrase('');
       this.setState({ hidden: !prevState });
     } catch (e) {
@@ -93,7 +104,7 @@ export default class EncryptedInput extends React.PureComponent {
 
   toggleEncrypted = () => {
     const prevState = this.state.hidden;
-    const { secretWord, confirm, setPassphrase, setMnemonic, encryptedMnemonic } = this.props;
+    const { secretWord, confirm, setPassphrase, setData, encryptedData } = this.props;
 
     if (prevState) {
       confirm(
@@ -115,7 +126,7 @@ export default class EncryptedInput extends React.PureComponent {
       );
     } else {
       this.setState({ hidden: !prevState });
-      setMnemonic(encryptedMnemonic);
+      setData(encryptedData);
     }
   };
 }

@@ -3,7 +3,8 @@ import { string, func, any } from 'prop-types';
 
 import Page from 'shared/components/Page';
 
-import Accounts from './Accounts';
+import Wallets from './Wallets';
+import Account from './Account';
 
 import styles from './Management.scss';
 
@@ -20,15 +21,28 @@ export default class Management extends React.PureComponent {
     wallets: {}
   };
 
-  // TODO change to function component
   render() {
-    console.log('daw', this.props);
-    const { wallets, account: { accountLabel } } = this.props;
+    const { wallets, account: { accountLabel, encryptedMnemonic, secretWord } } = this.props;
 
     return (
       <Page className={styles.management}>
-        <Accounts wallets={wallets ? wallets[accountLabel] : null} />
+        {this.renderHeading()}
+        <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
+        <Wallets
+          encryptedMnemonic={encryptedMnemonic}
+          secretWord={secretWord}
+          wallets={wallets ? wallets[accountLabel] : null}
+        />
       </Page>
     );
   }
+
+  renderHeading = () => (
+    <div className={styles.heading}>
+      <div className={styles.title}>My Account</div>
+      <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+        New Address
+      </div>
+    </div>
+  )
 }

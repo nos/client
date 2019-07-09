@@ -29,6 +29,6 @@ export default shape({
   secretWord: string.isRequired,
   passphrase: string, // Will be removed when persisting to storage
   mnemonic: string, // Will be removed when persisting to storage
-  activeWalletAccount: string.isRequired, // TODO rename to activeWalletId
+  activeWalletId: string.isRequired,
   wallets: oneOfType([objectOf(walletShapeInitialized), objectOf(walletShapeNotInitialized)])
 });

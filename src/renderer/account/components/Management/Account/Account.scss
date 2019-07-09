@@ -23,26 +23,20 @@
 
     .icon {
       margin-right: 16px;
-      order: 1;
     }
 
-    .data {
-      order: 2;
+    .title {
+      @extend %textColor;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
     }
-  }
 
-  .title {
-    @extend %textColor;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    padding-top: 12px;
-  }
-
-  .subtitle {
-    @extend %labelColor;
-    font-size: 12px;
-    line-height: 18px;
+    .subtitle {
+      @extend %labelColor;
+      font-size: 12px;
+      line-height: 18px;
+    }
   }
 }
 
