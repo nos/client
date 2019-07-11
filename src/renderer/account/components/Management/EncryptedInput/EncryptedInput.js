@@ -38,16 +38,14 @@ export default class EncryptedInput extends React.PureComponent {
     const { className, title, data, decryptedData } = this.props;
 
     return (
-      <div className={classNames(styles.accountData, className)}>
-        <div className={styles.secretView}>
-          {this.renderHeader({ title })}
-          {this.renderInput({ data, decryptedData })}
-        </div>
+      <div className={classNames(styles.encryptedInput, className)}>
+        {this.renderTitle({ title })}
+        {this.renderInput({ data, decryptedData })}
       </div>
     );
   }
 
-  renderHeader = ({ title }) => (
+  renderTitle = ({ title }) => (
     <div className={styles.heading}>
       <div>{title}</div>
       <div
@@ -62,14 +60,12 @@ export default class EncryptedInput extends React.PureComponent {
   );
 
   renderInput = ({ data, decryptedData }) => (
-    <div className={styles.data}>
-      <Input
-        readOnly
-        className={styles.input}
-        type={this.state.hidden ? 'password' : 'text'}
-        value={decryptedData || data}
-      />
-    </div>
+    <Input
+      readOnly
+      className={styles.input}
+      type={this.state.hidden ? 'password' : 'text'}
+      value={decryptedData || data}
+    />
   )
 
 
