@@ -1,5 +1,6 @@
 import { includes } from 'lodash';
 import bip32 from 'bip32';
+import bip39 from 'bip39';
 
 import { NEO, ETH, CHAIN_IDS } from 'shared/values/chains';
 
@@ -54,3 +55,10 @@ export default class Wallet {
     return new NeoWallet(child).getWallet();
   };
 }
+
+
+export const mnemonicWallet = ({ seed, wallet }) => {
+  const newWallet = new Wallet(seed);
+  const activeWallet = newWallet.deriveWalletFromAccount(wallet);
+  return { ...wallet, ...activeWallet };
+};

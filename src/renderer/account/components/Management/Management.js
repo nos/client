@@ -1,7 +1,14 @@
 import React from 'react';
-import { string, func, any } from 'prop-types';
+import { string, number, func, any } from 'prop-types';
+import { map } from 'lodash';
 
 import Page from 'shared/components/Page';
+
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import LabeledSelect from 'shared/components/Forms/LabeledSelect';
+import Pill from 'shared/components/Pill';
+import CHAINS from 'shared/values/chains';
+import accountShape from 'auth/shapes/accountShape';
 
 import Wallets from './Wallets';
 import Account from './Account';
@@ -11,7 +18,13 @@ import styles from './Management.scss';
 export default class Management extends React.PureComponent {
   static propTypes = {
     className: string,
-    __progress__: string.isRequired,
+    account: accountShape.isRequired, // TODO remove instanceShape (not here currently)
+    confirm: func.isRequired,
+    passphrase: string.isRequired,
+    setPassphrase: func.isRequired,
+    chainType: number.isRequired,
+    setChainType: func.isRequired,
+    addAccount: func.isRequired,
     showErrorToast: func.isRequired,
     wallets: any // TODO any
   };
@@ -22,17 +35,19 @@ export default class Management extends React.PureComponent {
   };
 
   render() {
-    const { wallets, account: { accountLabel, encryptedMnemonic, secretWord } } = this.props;
+    const { wallets, account: { encryptedMnemonic, secretWord } } = this.props;
 
     return (
       <Page className={styles.management}>
         {this.renderHeading()}
         <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
-        <Wallets
-          encryptedMnemonic={encryptedMnemonic}
-          secretWord={secretWord}
-          wallets={wallets ? wallets[accountLabel] : null}
-        />
+        {wallets && (
+          <Wallets
+            encryptedMnemonic={encryptedMnemonic}
+            secretWord={secretWord}
+            wallets={wallets}
+          />
+        )}
       </Page>
     );
   }
@@ -45,4 +60,59 @@ export default class Management extends React.PureComponent {
       </div>
     </div>
   )
+
+
+  handleAddAccount = () => {
+    const {
+      confirm,
+      setPassphrase,
+      account: { secretWord }
+    } = this.props;
+
+    confirm(
+      <div>
+        <Pill className={styles.pill}>{secretWord}</Pill>
+        <LabeledInput
+          id="passphrase"
+          type="password"
+          label="Enter Passphrase"
+          placeholder="Passphrase"
+          onChange={this.handleChangePassphrase}
+        />
+        <LabeledSelect
+          className={styles.input}
+          labelClass={styles.label}
+          id="network"
+          label="Current Network"
+          value={this.props.chainType}
+          items={this.getChainTypes()}
+          onChange={this.handleChangeChainType}
+        />
+      </div>,
+      {
+        title: 'Add a New Account',
+        onConfirm: this.handleAddAccountConfirm,
+        onCancel: () => setPassphrase('')
+      }
+    );
+  };
+
+  handleChangePassphrase = (event) => {
+    this.props.setPassphrase(event.target.value);
+  };
+
+  handleChangeChainType = (event) => {
+    this.props.setChainType(event.target.value);
+  };
+
+  handleAddAccountConfirm = () => {
+    const { account, passphrase, setPassphrase, chainType, addAccount } = this.props;
+
+    addAccount({ account, passphrase, coinType: chainType });
+    setPassphrase('');
+  };
+
+  getChainTypes = () => {
+    return map(CHAINS, ({ name, chainId }) => ({ label: name, value: chainId }));
+  };
 }

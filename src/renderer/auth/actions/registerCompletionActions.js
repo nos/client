@@ -54,7 +54,7 @@ export const verifyAndCreateWallet = async ({
   const wallet = newStorageWallet({
     isHardware,
     canDelete: false,
-    publicKey: account.publicKey
+    publicKey: account.publicKey // exists only with hardware wallet
   });
 
   const initializedWallet = isHardware

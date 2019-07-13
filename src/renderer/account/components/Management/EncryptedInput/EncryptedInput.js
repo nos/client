@@ -5,7 +5,6 @@ import bip39 from 'bip39';
 
 import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
-import instanceShape from 'shared/shapes/instanceShape';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import Pill from 'shared/components/Pill';
 import newWalletInstance from 'auth/util/HardwareWallet/HardwareWallet';
@@ -18,9 +17,7 @@ export default class EncryptedInput extends React.PureComponent {
     data: string.isRequired,
     title: string.isRequired,
     secretWord: string.isRequired,
-    mnemonic: string.isRequired,
     passphrase: string.isRequired,
-    setMnemonic: func.isRequired,
     setPassphrase: func.isRequired,
     confirm: func.isRequired,
     showErrorToast: func.isRequired
@@ -89,7 +86,7 @@ export default class EncryptedInput extends React.PureComponent {
       setPassphrase('');
       this.setState({ hidden: !prevState });
     } catch (e) {
-      showErrorToast('Wrong passphrase, unable to show Secret Words.');
+      showErrorToast('Wrong passphrase, unable to show secrets.');
     }
   };
 

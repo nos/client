@@ -1,16 +1,35 @@
-import { compose } from 'recompose';
-import { withData, withCall } from 'spunky';
+import { compose, withState } from 'recompose';
+import { withCall, withData, withActions, progressValues } from 'spunky';
 
-import walletActions from 'auth/actions/walletActions';
+import withConfirm from 'shared/hocs/withConfirm';
+import { withErrorToast } from 'shared/hocs/withToast';
+import { DEFAULT_CHAIN } from 'shared/values/chains';
+import withProgressChange from 'shared/hocs/withProgressChange';
+
 import authActions from 'auth/actions/authActions';
+import walletActions, { addWalletActions } from 'auth/actions/walletActions';
 
 import Management from './Management';
 
+const { FAILED } = progressValues;
+
 const mapAuthDataToProps = (account) => ({ account });
 const mapWalletDataToProps = (wallets) => ({ wallets });
+const mapAddAccountActionsToProps = (actions) => ({
+  addAccount: (data) => actions.call(data)
+});
 
 export default compose(
-  withCall(walletActions),
   withData(authActions, mapAuthDataToProps),
+  withCall(walletActions, ({ account }) => ({ accountLabel: account.accountLabel })),
   withData(walletActions, mapWalletDataToProps),
+
+  withConfirm(),
+  withErrorToast(),
+  withState('passphrase', 'setPassphrase', ''),
+  withState('chainType', 'setChainType', DEFAULT_CHAIN),
+  withActions(addWalletActions, mapAddAccountActionsToProps),
+  withProgressChange(addWalletActions, FAILED, (state, props) => {
+    props.showErrorToast(state.error);
+  })
 )(Management);

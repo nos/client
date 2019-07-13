@@ -21,6 +21,19 @@ const NewNeoHardwareWallet = (currentWallet) => {
   };
 };
 
+// TODO make generic
+export const hardwareWallet = ({ wallet }) => {
+  const { publicKey } = wallet;
+  const address = publicKeyToAddress(publicKey);
+
+  return {
+    ...wallet,
+    publicKey,
+    address,
+    signingFunction: signWithLedger
+  };
+};
+
 // TODO move this to common wallet
 const newWalletInstance = (wallet, seed) => {
   const { isHardware } = wallet;

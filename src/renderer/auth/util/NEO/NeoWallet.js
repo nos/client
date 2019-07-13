@@ -1,10 +1,8 @@
 import { wallet } from '@cityofzion/neon-js';
 
 export default class NeoWallet {
-  constructor(child, index) {
+  constructor(child) {
     this.child = child;
-    this.index = index;
-    this.type = 'NEO';
   }
 
   getWallet = () => {
@@ -16,9 +14,7 @@ export default class NeoWallet {
       address,
       privateKey,
       WIF,
-      publicKey,
-      type: this.type,
-      index: this.index
+      publicKey
     };
   };
 

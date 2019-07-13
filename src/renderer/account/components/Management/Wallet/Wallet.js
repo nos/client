@@ -29,7 +29,7 @@ export default class Wallet extends React.PureComponent {
   };
 
   render() {
-    const { className, encryptedMnemonic, secretWord, wallet, privateKey } = this.props;
+    const { className, encryptedMnemonic, secretWord, wallet } = this.props;
     const identityColor = styles[CHAINS[wallet.type].symbol.toLowerCase()];
 
     return (
@@ -53,7 +53,7 @@ export default class Wallet extends React.PureComponent {
       <div className={styles.icon}>{this.renderIcon()}</div>
       <div>
         <div className={styles.title}>
-          {CHAINS[wallet.type].name} Account {wallet.index + 1}
+          {CHAINS[wallet.type].name} {wallet.index + 1}
         </div>
         <div className={styles.subtitle}>Wallet</div>
       </div>

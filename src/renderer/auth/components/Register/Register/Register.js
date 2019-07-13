@@ -26,7 +26,6 @@ export default class Register extends React.PureComponent {
   };
 
   render() {
-    const { account } = this.props;
     const { step } = this.state;
 
     switch (step) {
