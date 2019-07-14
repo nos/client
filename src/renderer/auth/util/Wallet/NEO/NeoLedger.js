@@ -1,6 +1,7 @@
 import { tx, wallet } from '@cityofzion/neon-js';
 
 import { initializeDevice } from '../LedgerHelpers';
+import { publicKeyToAddress } from './Utils';
 
 export const getPublicKey = async (acct = 0) => {
   const ledger = await initializeDevice();
@@ -46,4 +47,16 @@ export const signWithLedger = async (unsignedTx, publicKey, acct = 0) => {
   } finally {
     await ledger.close();
   }
+};
+
+const NeoHardwareWallet = ({ wallet }) => {
+  const { publicKey } = wallet;
+  const address = publicKeyToAddress(publicKey);
+
+  return {
+    ...wallet,
+    publicKey,
+    address,
+    signingFunction: signWithLedger
+  };
 };

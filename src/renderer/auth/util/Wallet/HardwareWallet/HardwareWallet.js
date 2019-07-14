@@ -1,9 +1,9 @@
 
 import { NEO, ETH } from 'shared/values/chains';
 
-import { signWithLedger } from '../NEO/NeoLedger';
+import { signWithLedger } from '../../NEO/NeoLedger';
 
-import { publicKeyToAddress } from '../NEO/Utils';
+import { publicKeyToAddress } from '../../NEO/Utils';
 
 // TODO extract to NeoHardwareWallet file
 const NeoHardwareWallet = ({ wallet }) => {

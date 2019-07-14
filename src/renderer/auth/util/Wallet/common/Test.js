@@ -1,3 +1,9 @@
+import { wallet } from '@cityofzion/neon-js';
+import { includes } from 'lodash';
+
+import NeoWallet from 'auth/util/Wallet/NEO';
+import { CHAIN_IDS, NEO, ETH } from 'shared/values/chains';
+
 const deriveWallet = (type, index, account = 0, change = 0) => {
   if (!includes(CHAIN_IDS, type)) throw new Error('No valid chain type was given.');
 
@@ -33,4 +39,11 @@ const getHardwareWallet = ({ type, index, account = 0, change = 0 }) => {
   }
 };
 
-export { getHardwareWallet, getMnemonicWallet, deriveWallet };
+
+const publicKeyToAddress = (publicKey) => {
+  const encodedKey = wallet.getPublicKeyEncoded(publicKey);
+
+  return new wallet.Account(encodedKey).address;
+};
+
+export { publicKeyToAddress, getHardwareWallet, getMnemonicWallet, deriveWallet };

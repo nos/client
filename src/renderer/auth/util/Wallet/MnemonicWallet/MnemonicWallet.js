@@ -5,7 +5,7 @@ import bip39 from 'bip39';
 import { NEO, ETH, CHAIN_IDS } from 'shared/values/chains';
 
 import EthWallet from '../ETH/EthWallet';
-import NeoWallet from '../NEO/NeoWallet';
+import NeoWallet from '../../NEO/NeoWallet';
 
 class MnemonicWallet {
   constructor(seed) {

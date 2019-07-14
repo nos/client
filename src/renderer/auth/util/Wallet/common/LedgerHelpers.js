@@ -1,7 +1,7 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
 import { u } from '@cityofzion/neon-js';
 
-import Ledger from './Ledger';
+import Ledger from '../../Ledger';
 
 export const NOT_CONNECTED = 0x0001;
 export const VALID_STATUS = 0x9000;

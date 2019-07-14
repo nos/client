@@ -1,6 +1,6 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
 
-import { evalTransportError, BIP44, VALID_STATUS, assembleSignature } from './LedgerHelpers';
+import { evalTransportError, BIP44, VALID_STATUS, assembleSignature } from './Wallet/common/LedgerHelpers';
 
 export default class Ledger {
   constructor(path) {
