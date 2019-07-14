@@ -65,12 +65,13 @@ export default class Management extends React.PureComponent {
   handleAddAccount = () => {
     const {
       confirm,
+      chainType,
       setPassphrase,
       account: { secretWord }
     } = this.props;
 
     confirm(
-      <div>
+      <form>
         <Pill className={styles.pill}>{secretWord}</Pill>
         <LabeledInput
           id="passphrase"
@@ -84,11 +85,11 @@ export default class Management extends React.PureComponent {
           labelClass={styles.label}
           id="network"
           label="Current Network"
-          value={this.props.chainType}
+          value={chainType}
           items={this.getChainTypes()}
           onChange={this.handleChangeChainType}
         />
-      </div>,
+      </form>,
       {
         title: 'Add a New Account',
         onConfirm: this.handleAddAccountConfirm,
@@ -101,8 +102,8 @@ export default class Management extends React.PureComponent {
     this.props.setPassphrase(event.target.value);
   };
 
-  handleChangeChainType = (event) => {
-    this.props.setChainType(event.target.value);
+  handleChangeChainType = (chainId) => {
+    this.props.setChainType(chainId);
   };
 
   handleAddAccountConfirm = () => {

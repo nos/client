@@ -21,7 +21,7 @@ export const verifyAndCreateWallet = async ({
   secondMnemonicWord,
   secondMnemonicWordIndex
 }) => {
-  const { accountLabel, isHardware } = account;
+  const { isHardware } = account;
 
   const mnemonicArray = account.mnemonic.trim().split(' ');
 
