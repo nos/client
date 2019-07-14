@@ -1,13 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
-import bip39 from 'bip39';
 
 import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import Pill from 'shared/components/Pill';
-import newWalletInstance from 'auth/util/HardwareWallet/HardwareWallet';
+import Wallet from 'auth/util/Wallet';
 
 import styles from './EncryptedInput.scss';
 
@@ -71,13 +70,11 @@ export default class EncryptedInput extends React.PureComponent {
     const { data, wallet, showErrorToast, setData, setPassphrase, passphrase } = this.props;
 
     try {
-      const decryptedData = await simpleDecrypt(data, passphrase);
-
       if (wallet) {
-        const seed = bip39.mnemonicToSeed(decryptedData, passphrase);
-        const walletInstance = newWalletInstance(wallet, seed);
+        const walletInstance = Wallet({ encryptedMnemonic: data, passphrase, wallet });
         setData(walletInstance.privateKey);
       } else {
+        const decryptedData = await simpleDecrypt(data, passphrase);
         setData(decryptedData);
       }
 

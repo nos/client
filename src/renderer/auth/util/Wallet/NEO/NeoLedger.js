@@ -1,7 +1,7 @@
-import { tx, wallet } from '@cityofzion/neon-js';
+import { tx, wallet as neoWallet } from '@cityofzion/neon-js';
 
-import { initializeDevice } from '../LedgerHelpers';
-import { publicKeyToAddress } from './Utils';
+import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
+import { initializeDevice } from 'auth/util/Wallet/common/LedgerHelpers';
 
 export const getPublicKey = async (acct = 0) => {
   const ledger = await initializeDevice();
@@ -40,7 +40,7 @@ export const signWithLedger = async (unsignedTx, publicKey, acct = 0) => {
     const data =
       typeof unsignedTx !== 'string' ? tx.serializeTransaction(unsignedTx, false) : unsignedTx;
     const invocationScript = `40${await ledger.getSignature(data, acct)}`;
-    const verificationScript = wallet.getVerificationScriptFromPublicKey(publicKey);
+    const verificationScript = neoWallet.getVerificationScriptFromPublicKey(publicKey);
     const txObj = tx.deserializeTransaction(data);
     txObj.scripts.push({ invocationScript, verificationScript });
     return tx.serializeTransaction(txObj);
@@ -60,3 +60,5 @@ const NeoHardwareWallet = ({ wallet }) => {
     signingFunction: signWithLedger
   };
 };
+
+export default NeoHardwareWallet;

@@ -1,5 +1,6 @@
 import { DEFAULT_CHAIN } from 'shared/values/chains';
 
+// TODO merge with /wallets/common/BIP44
 function assertPositiveInteger(input, inputName) {
   if (!Number.isInteger(input) || input < 0) {
     throw new Error(`${input} is an invalid input for ${inputName}`);

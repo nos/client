@@ -15,3 +15,6 @@ export default {
   [NEO]: { name: 'NEO', symbol: 'NEO', decimals: 0, chainId: NEO }
   // [ETH]: { name: 'Ethereum', symbol: 'ETH', decimals: 8, chainId: ETH }
 };
+
+
+// TODO refactor to coinTypes

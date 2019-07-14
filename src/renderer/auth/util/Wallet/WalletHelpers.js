@@ -9,9 +9,12 @@ import { DEFAULT_CHAIN } from 'shared/values/chains';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 
-import HardwareWallet from 'auth/util/HardwareWallet/HardwareWallet';
-import MnemonicWallet from 'auth/util/MnemonicWallet/MnemonicWallet';
+import Wallet from './Wallet';
 
+// import HardwareWallet from 'auth/util/HardwareWallet/HardwareWallet';
+// import MnemonicWallet from 'auth/util/MnemonicWallet/MnemonicWallet';
+
+// TODO CLEANUP!! remove initializeWallets
 export const ID = 'wallets';
 const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
 
@@ -71,18 +74,18 @@ const getActiveWalletForAccount = async ({ accountLabel, activeWalletId }) => {
 };
 
 
-const initializeWallet = ({ encryptedMnemonic, passphrase, wallet }) => {
-  const mnemonic = attempt(simpleDecrypt, encryptedMnemonic, passphrase);
+// const initializeWallet = ({ encryptedMnemonic, passphrase, wallet }) => {
+//   const mnemonic = attempt(simpleDecrypt, encryptedMnemonic, passphrase);
 
-  // Validate mnemnoic
-  if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
-    throw new Error('Please make sure you\'ve entered the correct password.');
-  }
+//   // Validate mnemnoic
+//   if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
+//     throw new Error('Please make sure you\'ve entered the correct password.');
+//   }
 
-  return wallet.isHardware
-    ? HardwareWallet({ wallet })
-    : MnemonicWallet({ seed: bip39.mnemonicToSeed(mnemonic, passphrase), wallet });
-};
+//   return wallet.isHardware
+//     ? HardwareWallet({ wallet })
+//     : MnemonicWallet({ seed: bip39.mnemonicToSeed(mnemonic, passphrase), wallet });
+// };
 
 const addWalletToAccount = async ({ account, passphrase, options }) => {
   const { encryptedMnemonic, accountLabel, isHardware } = account;
@@ -96,7 +99,7 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   const wallet = newStorageWallet({ ...options, isHardware, index: latestAccount.index + 1 });
 
   // Initialize a "dull"/storage wallet for an account
-  const initializedWallet = initializeWallet({ encryptedMnemonic, passphrase, wallet });
+  const initializedWallet = Wallet({ encryptedMnemonic, passphrase, wallet });
 
   // Store either a "dull" or active wallet for an account
   await storeWalletForAccount({ accountLabel, wallet: initializedWallet });
@@ -105,7 +108,7 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
 };
 
 export {
-  initializeWallet,
+  // initializeWallet,
   addWalletToAccount,
   newStorageWallet,
   storeWalletForAccount,

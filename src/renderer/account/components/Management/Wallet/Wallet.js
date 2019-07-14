@@ -1,16 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import { string } from 'prop-types';
-import bip39 from 'bip39';
 
-import CHAINS, { ETH, NEO } from 'shared/values/chains';
+import CHAINS, { ETH, NEO, DEFAULT_CHAIN } from 'shared/values/chains';
 import KeyChainIcon from 'shared/images/account/keychain.svg';
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import EthIcon from 'shared/images/tokens/eth.svg';
 import Input from 'shared/components/Forms/Input';
-
-import simpleDecrypt from 'shared/util/simpleDecrypt';
-import newWalletInstance from 'auth/util/HardwareWallet/HardwareWallet';
 
 import styles from './Wallet.scss';
 
@@ -30,7 +26,9 @@ export default class Wallet extends React.PureComponent {
 
   render() {
     const { className, encryptedMnemonic, secretWord, wallet } = this.props;
-    const identityColor = styles[CHAINS[wallet.type].symbol.toLowerCase()];
+
+    const coinType = CHAINS[wallet.type];
+    const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_CHAIN];
 
     return (
       <div className={classNames(styles.neo, identityColor, styles.wallet, className)}>
@@ -48,17 +46,22 @@ export default class Wallet extends React.PureComponent {
     );
   }
 
-  renderInfo = ({ wallet }) => (
-    <div className={styles.left}>
-      <div className={styles.icon}>{this.renderIcon()}</div>
-      <div>
-        <div className={styles.title}>
-          {CHAINS[wallet.type].name} {wallet.index + 1}
+  renderInfo = ({ wallet }) => {
+    const coinType = CHAINS[wallet.type];
+    const coinName = coinType ? coinType.name : '';
+
+    return (
+      <div className={styles.left}>
+        <div className={styles.icon}>{this.renderIcon()}</div>
+        <div>
+          <div className={styles.title}>
+            {coinName} {wallet.index + 1}
+          </div>
+          <div className={styles.subtitle}>Wallet</div>
         </div>
-        <div className={styles.subtitle}>Wallet</div>
       </div>
-    </div>
-  )
+    );
+  }
 
 
   renderAddress = ({ wallet }) => (

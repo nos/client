@@ -1,6 +1,7 @@
 import { createActions } from 'spunky';
 
-import { getActiveWalletForAccount, initializeWallet } from 'auth/util/Wallet/WalletHelpers';
+import { getActiveWalletForAccount } from 'auth/util/Wallet/WalletHelpers';
+import Wallet from 'auth/util/Wallet';
 
 export const ID = 'auth';
 
@@ -8,7 +9,7 @@ const authenticate = async ({ account, passphrase }) => {
   const { encryptedMnemonic } = account;
 
   const walletForAccount = await getActiveWalletForAccount(account);
-  const initializedWallet = initializeWallet({
+  const initializedWallet = Wallet({
     encryptedMnemonic,
     passphrase,
     wallet: walletForAccount
