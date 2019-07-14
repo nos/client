@@ -5,7 +5,7 @@ import { COIN_TYPES } from 'shared/values/coins';
 
 const deriveChild = ({ wallet, seed }) => {
   const { type, index, account, change } = wallet;
-  if (!includes(COIN_TYPES, type)) throw new Error('No valid chain type was given.');
+  if (!includes(COIN_TYPES, type)) throw new Error('No valid coin type was given.');
 
   const root = bip32.fromSeed(seed);
 

@@ -10,6 +10,7 @@ import Wallet from 'auth/util/Wallet';
 
 import styles from './EncryptedInput.scss';
 
+// TODO props
 export default class EncryptedInput extends React.PureComponent {
   static propTypes = {
     className: string,

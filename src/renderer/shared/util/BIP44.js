@@ -1,4 +1,4 @@
-import { DEFAULT_CHAIN } from 'shared/values/chains';
+import { DEFAULT_COIN } from 'shared/values/coins';
 
 // TODO merge with /wallets/common/BIP44
 function assertPositiveInteger(input, inputName) {
@@ -15,7 +15,7 @@ function to8BitHex(num) {
 /**
  * Returns a BIP44 hex string.
  */
-export function BIP44({ address = 0, change = 0, account = 0, coinType = DEFAULT_CHAIN }) {
+export function BIP44({ address = 0, change = 0, account = 0, coinType = DEFAULT_COIN }) {
   assertPositiveInteger(address, 'address');
   assertPositiveInteger(change, 'change');
   assertPositiveInteger(account, 'account');

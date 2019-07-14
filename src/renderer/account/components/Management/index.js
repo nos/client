@@ -27,7 +27,7 @@ export default compose(
   withConfirm(),
   withErrorToast(),
   withState('passphrase', 'setPassphrase', ''),
-  withState('chainType', 'setChainType', ({ chainType }) => chainType || DEFAULT_COIN),
+  withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
   withActions(addWalletActions, mapAddAccountActionsToProps),
   withProgressChange(addWalletActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);

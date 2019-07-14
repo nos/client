@@ -5,7 +5,6 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import { withErrorToast } from 'shared/hocs/withToast';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-// import createAccountActions from 'auth/actions/createAccountActions';
 import registerActions from 'auth/actions/registerActions';
 
 import RegisterForm from './RegisterForm';

@@ -5,7 +5,7 @@ import NeoWallet from 'auth/util/Wallet/NEO';
 import { COIN_TYPES, NEO, ETH } from 'shared/values/coins';
 
 const deriveWallet = (type, index, account = 0, change = 0) => {
-  if (!includes(COIN_TYPES, type)) throw new Error('No valid chain type was given.');
+  if (!includes(COIN_TYPES, type)) throw new Error('No valid coin type was given.');
 
   return this.root
     .deriveHardened(44) // Purpose (bip44)
@@ -23,7 +23,7 @@ const getMnemonicWallet = ({ type, index, account = 0, change = 0 }) => {
     case ETH:
       return NeoWallet(derivedWallet);
     default:
-      throw new Error('Invalid chain type.');
+      throw new Error('Invalid coin type.');
   }
 };
 
@@ -35,7 +35,7 @@ const getHardwareWallet = ({ type, index, account = 0, change = 0 }) => {
     case ETH:
       return NeoWallet(derivedWallet);
     default:
-      throw new Error('Invalid chain type.');
+      throw new Error('Invalid coin type.');
   }
 };
 

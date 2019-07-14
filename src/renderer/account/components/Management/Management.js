@@ -22,8 +22,8 @@ export default class Management extends React.PureComponent {
     confirm: func.isRequired,
     passphrase: string.isRequired,
     setPassphrase: func.isRequired,
-    chainType: number.isRequired,
-    setChainType: func.isRequired,
+    coinType: number.isRequired,
+    setCoinType: func.isRequired,
     addAccount: func.isRequired,
     showErrorToast: func.isRequired,
     wallets: any // TODO any
@@ -65,7 +65,7 @@ export default class Management extends React.PureComponent {
   handleAddAccount = () => {
     const {
       confirm,
-      chainType,
+      coinType,
       setPassphrase,
       account: { secretWord }
     } = this.props;
@@ -85,9 +85,9 @@ export default class Management extends React.PureComponent {
           labelClass={styles.label}
           id="network"
           label="Current Network"
-          value={chainType}
-          items={this.getChainTypes()}
-          onChange={this.handleChangeChainType}
+          value={coinType}
+          items={this.getCoinTypes()}
+          onChange={this.handleChangeCoinType}
         />
       </form>,
       {
@@ -102,18 +102,18 @@ export default class Management extends React.PureComponent {
     this.props.setPassphrase(event.target.value);
   };
 
-  handleChangeChainType = (chainId) => {
-    this.props.setChainType(chainId);
+  handleChangeCoinType = (coinId) => {
+    this.props.setCoinType(coinId);
   };
 
   handleAddAccountConfirm = () => {
-    const { account, passphrase, setPassphrase, chainType, addAccount } = this.props;
+    const { account, passphrase, setPassphrase, coinType, addAccount } = this.props;
 
-    addAccount({ account, passphrase, coinType: chainType });
+    addAccount({ account, passphrase, coinType });
     setPassphrase('');
   };
 
-  getChainTypes = () => {
-    return map(COINS, ({ name, chainId }) => ({ label: name, value: chainId }));
+  getCoinTypes = () => {
+    return map(COINS, ({ name, coinType }) => ({ label: name, value: coinType }));
   };
 }

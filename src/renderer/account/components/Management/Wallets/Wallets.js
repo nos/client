@@ -5,7 +5,6 @@ import { map } from 'lodash';
 // import LabeledInput from 'shared/components/Forms/LabeledInput';
 // import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 // import Pill from 'shared/components/Pill';
-// import CHAINS from 'shared/values/chains';
 import accountShape from 'auth/shapes/accountShape';
 
 import Wallet from '../Wallet';
@@ -18,8 +17,6 @@ export default class Wallets extends React.PureComponent {
     // confirm: func.isRequired,
     // passphrase: string.isRequired,
     // setPassphrase: func.isRequired,
-    // chainType: number.isRequired,
-    // setChainType: func.isRequired,
     // addAccount: func.isRequired
   };
 

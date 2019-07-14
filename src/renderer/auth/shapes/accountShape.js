@@ -2,7 +2,7 @@ import { string, number, shape, bool, objectOf, oneOfType } from 'prop-types';
 
 const walletShapeInitialized = shape({
   accountId: string.isRequired,
-  chainId: number.isRequired,
+  coinType: number.isRequired,
   index: number.isRequired,
   account: number.isRequired,
   change: number.isRequired,
@@ -15,7 +15,7 @@ const walletShapeInitialized = shape({
 
 const walletShapeNotInitialized = shape({
   accountId: string.isRequired,
-  chainId: number.isRequired,
+  coinType: number.isRequired,
   index: number.isRequired,
   account: number.isRequired,
   change: number.isRequired,
