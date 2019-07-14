@@ -1,8 +1,8 @@
 import { createActions } from 'spunky';
 import { omit } from 'lodash';
 
-import { appendAccountToStorage } from 'auth/util/AccountStorage';
 import { addWalletToAccount } from 'auth/util/StorageWallet/WalletHelpers';
+import { appendStorage } from 'shared/lib/storage';
 
 export const ID = 'registerCompletion';
 
@@ -59,11 +59,8 @@ export const verifyAndCreateWallet = async ({
     activeWalletId: wallet.label
   };
 
-  // Store account - TODO change to appendToStorage
-  await appendAccountToStorage({
-    label: account.accountLabel,
-    value: updatedAccount
-  });
+  // Store account - TODO remove hardcoded value
+  await appendStorage('account', account.accountLabel, updatedAccount);
 
   // TODO - Return data to authenticate - is this needed??
   return { account: updatedAccount, passphrase };
