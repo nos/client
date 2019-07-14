@@ -6,7 +6,7 @@ import { withErrorToast } from 'shared/hocs/withToast';
 import { DEFAULT_CHAIN } from 'shared/values/chains';
 import withProgressChange from 'shared/hocs/withProgressChange';
 
-import authActions, { addAccountActions } from 'auth/actions/authActions';
+import authActions from 'auth/actions/authActions';
 
 import EncryptedInput from './EncryptedInput';
 
@@ -17,6 +17,7 @@ const mapAddAccountActionsToProps = (actions) => ({
   addAccount: (data) => actions.call(data)
 });
 
+// TODO Clean up
 export default compose(
   withConfirm(),
   withErrorToast(),
@@ -24,8 +25,4 @@ export default compose(
   withState('chainType', 'setChainType', DEFAULT_CHAIN),
   withState('data', 'setData', ({ encryptedData }) => encryptedData),
   withData(authActions, mapAuthDataToProps),
-  withActions(addAccountActions, mapAddAccountActionsToProps),
-  withProgressChange(addAccountActions, FAILED, (state, props) => {
-    props.showErrorToast(state.error);
-  })
 )(EncryptedInput);

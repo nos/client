@@ -102,10 +102,11 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   // Store either a "dull" or active wallet for an account
   await storeWalletForAccount({ accountLabel, wallet: initializedWallet });
 
-  return getWalletsForAccount({ accountLabel });
+  return initializedWallet;
 };
 
 export {
+  initializeWallet,
   addWalletToAccount,
   newStorageWallet,
   storeWalletForAccount,

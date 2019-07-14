@@ -1,16 +1,12 @@
 import { createActions } from 'spunky';
 import { omit } from 'lodash';
-import bip39 from 'bip39';
 
-import { newStorageWallet } from 'auth/util/StorageWallet/StorageWallet';
 import { appendAccountToStorage } from 'auth/util/AccountStorage';
-import { appendWalletToStorage } from 'auth/util/WalletStorage';
-import { HardwareWallet, MnemonicWallet } from 'auth/util/Wallet/Wallet';
+import { addWalletToAccount } from 'auth/util/StorageWallet/WalletHelpers';
 
 export const ID = 'registerCompletion';
 
 const accountFilterProps = ['passphrase', 'passphraseConfirm', 'mnemonic', 'publicKey'];
-const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
 
 export const verifyAndCreateWallet = async ({
   account,
@@ -50,16 +46,12 @@ export const verifyAndCreateWallet = async ({
     }
   }
 
-  // Creates and stores a new storage wallet (same for Ledger/MnemonicWallet)
-  const wallet = newStorageWallet({
+  const options = {
     isHardware,
-    canDelete: false,
-    publicKey: account.publicKey // exists only with hardware wallet
-  });
+    canDelete: false
+  };
 
-  const initializedWallet = isHardware
-    ? HardwareWallet(wallet)
-    : MnemonicWallet(wallet, bip39.mnemonicToSeed(account.mnemonic, passphrase));
+  const wallet = await addWalletToAccount({ account, passphrase, options });
 
   // Set last active wallet to this wallet.
   const updatedAccount = {
@@ -67,18 +59,10 @@ export const verifyAndCreateWallet = async ({
     activeWalletId: wallet.label
   };
 
-  // Store account
+  // Store account - TODO change to appendToStorage
   await appendAccountToStorage({
     label: account.accountLabel,
     value: updatedAccount
-  });
-
-  // Store wallet
-  await appendWalletToStorage({
-    label: account.accountLabel,
-    value: {
-      ...omit(initializedWallet, ...walletFilterProps)
-    }
   });
 
   // TODO - Return data to authenticate - is this needed??

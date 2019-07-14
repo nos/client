@@ -70,10 +70,8 @@ export default class EncryptedInput extends React.PureComponent {
     const prevState = this.state.hidden;
     const { data, wallet, showErrorToast, setData, setPassphrase, passphrase } = this.props;
 
-
     try {
       const decryptedData = await simpleDecrypt(data, passphrase);
-
 
       if (wallet) {
         const seed = bip39.mnemonicToSeed(decryptedData, passphrase);
@@ -93,7 +91,6 @@ export default class EncryptedInput extends React.PureComponent {
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
   };
-
 
   toggleEncrypted = () => {
     const prevState = this.state.hidden;
