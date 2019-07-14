@@ -3,7 +3,7 @@ import { withCall, withData, withActions, progressValues } from 'spunky';
 
 import withConfirm from 'shared/hocs/withConfirm';
 import { withErrorToast } from 'shared/hocs/withToast';
-import { DEFAULT_CHAIN } from 'shared/values/chains';
+import { DEFAULT_COIN } from 'shared/values/coins';
 import withProgressChange from 'shared/hocs/withProgressChange';
 
 import authActions from 'auth/actions/authActions';
@@ -27,7 +27,7 @@ export default compose(
   withConfirm(),
   withErrorToast(),
   withState('passphrase', 'setPassphrase', ''),
-  withState('chainType', 'setChainType', ({ chainType }) => chainType || DEFAULT_CHAIN),
+  withState('chainType', 'setChainType', ({ chainType }) => chainType || DEFAULT_COIN),
   withActions(addWalletActions, mapAddAccountActionsToProps),
   withProgressChange(addWalletActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);

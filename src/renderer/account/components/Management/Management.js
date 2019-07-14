@@ -7,7 +7,7 @@ import Page from 'shared/components/Page';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import Pill from 'shared/components/Pill';
-import CHAINS from 'shared/values/chains';
+import COINS from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 
 import Wallets from './Wallets';
@@ -114,6 +114,6 @@ export default class Management extends React.PureComponent {
   };
 
   getChainTypes = () => {
-    return map(CHAINS, ({ name, chainId }) => ({ label: name, value: chainId }));
+    return map(COINS, ({ name, chainId }) => ({ label: name, value: chainId }));
   };
 }

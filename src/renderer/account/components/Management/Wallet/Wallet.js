@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string } from 'prop-types';
 
-import CHAINS, { ETH, NEO, DEFAULT_CHAIN } from 'shared/values/chains';
+import COINS, { ETH, NEO, DEFAULT_COIN } from 'shared/values/coins';
 import KeyChainIcon from 'shared/images/account/keychain.svg';
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import EthIcon from 'shared/images/tokens/eth.svg';
@@ -27,8 +27,8 @@ export default class Wallet extends React.PureComponent {
   render() {
     const { className, encryptedMnemonic, secretWord, wallet } = this.props;
 
-    const coinType = CHAINS[wallet.type];
-    const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_CHAIN];
+    const coinType = COINS[wallet.type];
+    const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_COIN];
 
     return (
       <div className={classNames(styles.neo, identityColor, styles.wallet, className)}>
@@ -47,7 +47,7 @@ export default class Wallet extends React.PureComponent {
   }
 
   renderInfo = ({ wallet }) => {
-    const coinType = CHAINS[wallet.type];
+    const coinType = COINS[wallet.type];
     const coinName = coinType ? coinType.name : '';
 
     return (

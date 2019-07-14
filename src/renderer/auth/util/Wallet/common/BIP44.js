@@ -1,11 +1,11 @@
 import { includes } from 'lodash';
 import bip32 from 'bip32';
 
-import { CHAIN_IDS } from 'shared/values/chains';
+import { COIN_TYPES } from 'shared/values/coins';
 
 const deriveChild = ({ wallet, seed }) => {
   const { type, index, account, change } = wallet;
-  if (!includes(CHAIN_IDS, type)) throw new Error('No valid chain type was given.');
+  if (!includes(COIN_TYPES, type)) throw new Error('No valid chain type was given.');
 
   const root = bip32.fromSeed(seed);
 

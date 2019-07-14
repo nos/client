@@ -8,7 +8,7 @@ import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { getStorage } from 'shared/lib/storage';
 import { DEFAULT_NET } from 'values/networks';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-import { DEFAULT_CHAIN, ETH } from 'shared/values/chains';
+import { DEFAULT_COIN, ETH } from 'shared/values/coins';
 
 const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
 
@@ -56,7 +56,7 @@ const createAccount = async ({ label, passphrase, passphraseConfirm, secretWord,
     accounts: {
       [activeAccountId]: {
         accountId: activeAccountId,
-        chainId: DEFAULT_CHAIN,
+        chainId: DEFAULT_COIN,
         index: DEFAULT_ACC_INDEX,
         account: 0,
         change: 0,

@@ -2,9 +2,9 @@ export const BTC = 0;
 export const NEO = 888;
 export const ETH = 60;
 
-export const DEFAULT_CHAIN = NEO;
+export const DEFAULT_COIN = NEO;
 
-export const CHAIN_IDS = {
+export const COIN_TYPES = {
   // [BTC]: BTC,
   [NEO]: NEO
   // [ETH]: ETH

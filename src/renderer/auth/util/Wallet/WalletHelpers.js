@@ -1,27 +1,20 @@
 import uuid from 'uuid/v4';
-import bip39 from 'bip39';
-import { isEmpty, attempt, isError, omit, reduce, filter } from 'lodash';
+import { isEmpty, omit, reduce, filter } from 'lodash';
 
 import { getStorage, setStorage } from 'shared/lib/storage';
 import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { DEFAULT_NET } from 'values/networks';
-import { DEFAULT_CHAIN } from 'shared/values/chains';
-import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-import simpleDecrypt from 'shared/util/simpleDecrypt';
+import { DEFAULT_COIN } from 'shared/values/coins';
 
 import Wallet from './Wallet';
 
-// import HardwareWallet from 'auth/util/HardwareWallet/HardwareWallet';
-// import MnemonicWallet from 'auth/util/MnemonicWallet/MnemonicWallet';
-
-// TODO CLEANUP!! remove initializeWallets
 export const ID = 'wallets';
 const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
 
 const newStorageWallet = ({
   isHardware,
   canDelete = true,
-  type = DEFAULT_CHAIN,
+  type = DEFAULT_COIN,
   index = DEFAULT_ACC_INDEX,
   net = DEFAULT_NET,
   account = 0,
@@ -73,20 +66,6 @@ const getActiveWalletForAccount = async ({ accountLabel, activeWalletId }) => {
   return activeWalletForAccount;
 };
 
-
-// const initializeWallet = ({ encryptedMnemonic, passphrase, wallet }) => {
-//   const mnemonic = attempt(simpleDecrypt, encryptedMnemonic, passphrase);
-
-//   // Validate mnemnoic
-//   if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
-//     throw new Error('Please make sure you\'ve entered the correct password.');
-//   }
-
-//   return wallet.isHardware
-//     ? HardwareWallet({ wallet })
-//     : MnemonicWallet({ seed: bip39.mnemonicToSeed(mnemonic, passphrase), wallet });
-// };
-
 const addWalletToAccount = async ({ account, passphrase, options }) => {
   const { encryptedMnemonic, accountLabel, isHardware } = account;
 
@@ -108,7 +87,6 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
 };
 
 export {
-  // initializeWallet,
   addWalletToAccount,
   newStorageWallet,
   storeWalletForAccount,

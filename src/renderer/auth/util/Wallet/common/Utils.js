@@ -2,10 +2,10 @@ import { wallet } from '@cityofzion/neon-js';
 import { includes } from 'lodash';
 
 import NeoWallet from 'auth/util/Wallet/NEO';
-import { CHAIN_IDS, NEO, ETH } from 'shared/values/chains';
+import { COIN_TYPES, NEO, ETH } from 'shared/values/coins';
 
 const deriveWallet = (type, index, account = 0, change = 0) => {
-  if (!includes(CHAIN_IDS, type)) throw new Error('No valid chain type was given.');
+  if (!includes(COIN_TYPES, type)) throw new Error('No valid chain type was given.');
 
   return this.root
     .deriveHardened(44) // Purpose (bip44)

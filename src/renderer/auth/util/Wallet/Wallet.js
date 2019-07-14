@@ -5,7 +5,7 @@ import NeoWallet from 'auth/util/Wallet/NEO';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 
-import { NEO, ETH } from 'shared/values/chains';
+import { NEO, ETH } from 'shared/values/coins';
 
 
 const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {
