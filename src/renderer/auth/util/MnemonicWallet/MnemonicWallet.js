@@ -7,7 +7,7 @@ import { NEO, ETH, CHAIN_IDS } from 'shared/values/chains';
 import EthWallet from '../ETH/EthWallet';
 import NeoWallet from '../NEO/NeoWallet';
 
-export default class Wallet {
+class MnemonicWallet {
   constructor(seed) {
     // Deterministically create a bip32 master key
     // which can be used to create child keys in the manner specified by bip44.
@@ -57,8 +57,14 @@ export default class Wallet {
 }
 
 
-export const mnemonicWallet = ({ seed, wallet }) => {
-  const newWallet = new Wallet(seed);
+const Wallet = ({ seed, wallet }) => {
+  const newWallet = new MnemonicWallet(seed);
   const activeWallet = newWallet.deriveWalletFromAccount(wallet);
   return { ...wallet, ...activeWallet };
+};
+
+// TODO extract/clear out wallet file
+export default Wallet;
+export {
+  Wallet
 };

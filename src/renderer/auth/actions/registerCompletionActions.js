@@ -1,7 +1,7 @@
 import { createActions } from 'spunky';
 import { omit } from 'lodash';
 
-import { addWalletToAccount } from 'auth/util/StorageWallet/WalletHelpers';
+import { addWalletToAccount } from 'auth/util/Wallet/WalletHelpers';
 import { appendStorage } from 'shared/lib/storage';
 
 export const ID = 'registerCompletion';

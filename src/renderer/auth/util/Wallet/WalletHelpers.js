@@ -9,11 +9,10 @@ import { DEFAULT_CHAIN } from 'shared/values/chains';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 
-import { hardwareWallet } from 'auth/util/HardwareWallet/HardwareWallet';
-import { mnemonicWallet } from 'auth/util/MnemonicWallet/MnemonicWallet';
+import HardwareWallet from 'auth/util/HardwareWallet/HardwareWallet';
+import MnemonicWallet from 'auth/util/MnemonicWallet/MnemonicWallet';
 
 export const ID = 'wallets';
-const accountFilterProps = ['passphrase', 'passphraseConfirm', 'mnemonic', 'publicKey'];
 const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
 
 const newStorageWallet = ({
@@ -81,8 +80,8 @@ const initializeWallet = ({ encryptedMnemonic, passphrase, wallet }) => {
   }
 
   return wallet.isHardware
-    ? hardwareWallet({ wallet })
-    : mnemonicWallet({ seed: bip39.mnemonicToSeed(mnemonic, passphrase), wallet });
+    ? HardwareWallet({ wallet })
+    : MnemonicWallet({ seed: bip39.mnemonicToSeed(mnemonic, passphrase), wallet });
 };
 
 const addWalletToAccount = async ({ account, passphrase, options }) => {

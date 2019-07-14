@@ -1,7 +1,4 @@
 import LedgerNode from '@ledgerhq/hw-transport-node-hid';
-import { times } from 'lodash';
-
-import { retry } from 'shared/util/promise';
 
 import { evalTransportError, BIP44, VALID_STATUS, assembleSignature } from './LedgerHelpers';
 
