@@ -38,7 +38,7 @@ export default class Wallets extends React.PureComponent {
       {map(wallets, (wallet) => (
         <Wallet
           wallet={wallet}
-          key={`${wallet.type}-${wallet.index}`}
+          key={`${wallet.coinType}-${wallet.index}`}
           secretWord={secretWord}
           encryptedMnemonic={encryptedMnemonic}
         />

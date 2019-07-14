@@ -27,7 +27,7 @@ export default class Wallet extends React.PureComponent {
   render() {
     const { className, encryptedMnemonic, secretWord, wallet } = this.props;
 
-    const coinType = COINS[wallet.type];
+    const coinType = COINS[wallet.coinType];
     const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_COIN];
 
     return (
@@ -47,7 +47,7 @@ export default class Wallet extends React.PureComponent {
   }
 
   renderInfo = ({ wallet }) => {
-    const coinType = COINS[wallet.type];
+    const coinType = COINS[wallet.coinType];
     const coinName = coinType ? coinType.name : '';
 
     return (
@@ -75,7 +75,7 @@ export default class Wallet extends React.PureComponent {
     const { wallet } = this.props;
 
     // TODO refactor ETH NEO to CHAIN_TYPES.ETH, CHAIN_TYPES.NEO
-    switch (wallet.type) {
+    switch (wallet.coinType) {
       case ETH:
         return <EthIcon />;
       case NEO:

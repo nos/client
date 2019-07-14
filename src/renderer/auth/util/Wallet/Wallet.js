@@ -18,9 +18,8 @@ const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {
 
   const seed = bip39.mnemonicToSeed(mnemonic, passphrase);
 
-  // TODO refactor to coinType
-  const { type } = wallet;
-  switch (type) {
+  const { coinType } = wallet;
+  switch (coinType) {
     case NEO:
       return Object.assign({}, wallet, NeoWallet({ wallet, seed }));
     case ETH: // TODO replace with ETH wallets when SDK is implemented

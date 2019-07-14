@@ -1,19 +1,15 @@
 import ethUtil from 'ethereumjs-utils';
 
 export default class EthWallet {
-  constructor(child, index) {
+  constructor(child) {
     this.child = child;
-    this.index = index;
-    this.type = 'ETH';
   }
 
   getWallet = () => ({
     privateKey: this.getPrivateKey(),
     publicKey: this.getPublicKey(),
     address: this.getAddress(),
-    WIF: this.child.toWIF(),
-    type: this.type,
-    index: this.index
+    WIF: this.child.toWIF()
   });
 
   getPrivateKeyRaw = () => this.child.privateKey;

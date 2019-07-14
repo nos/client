@@ -14,7 +14,7 @@ const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
 const newStorageWallet = ({
   isHardware,
   canDelete = true,
-  type = DEFAULT_COIN,
+  coinType = DEFAULT_COIN,
   index = DEFAULT_ACC_INDEX,
   net = DEFAULT_NET,
   account = 0,
@@ -26,7 +26,7 @@ const newStorageWallet = ({
     canDelete,
     isHardware,
     index,
-    type,
+    coinType,
     account,
     change,
     net,
@@ -70,7 +70,7 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   const { encryptedMnemonic, accountLabel, isHardware } = account;
 
   const existingWallets = await getWalletsForAccount({ accountLabel });
-  const latestAccount = reduce(filter(existingWallets, { type: options.coinType }), (max, obj) => {
+  const latestAccount = reduce(filter(existingWallets, { coinType: options.coinType }), (max, obj) => {
     return obj.index > max.index ? obj : max;
   }) || { index: -1 };
 
