@@ -1,6 +1,7 @@
 import React from 'react';
-import { string, number, func, any } from 'prop-types';
+import { string, number, func, objectOf } from 'prop-types';
 import { map } from 'lodash';
+import classnames from 'classnames';
 
 import Page from 'shared/components/Page';
 
@@ -9,6 +10,7 @@ import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import Pill from 'shared/components/Pill';
 import COINS from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
+import walletShape from 'auth/shapes/walletShape';
 
 import Wallets from './Wallets';
 import Account from './Account';
@@ -18,15 +20,14 @@ import styles from './Management.scss';
 export default class Management extends React.PureComponent {
   static propTypes = {
     className: string,
-    account: accountShape.isRequired, // TODO remove instanceShape (not here currently)
+    account: accountShape.isRequired,
     confirm: func.isRequired,
     passphrase: string.isRequired,
     setPassphrase: func.isRequired,
     coinType: number.isRequired,
     setCoinType: func.isRequired,
     addAccount: func.isRequired,
-    showErrorToast: func.isRequired,
-    wallets: any // TODO any
+    wallets: objectOf(walletShape)
   };
 
   static defaultProps = {
@@ -35,10 +36,10 @@ export default class Management extends React.PureComponent {
   };
 
   render() {
-    const { wallets, account: { encryptedMnemonic, secretWord } } = this.props;
+    const { className, wallets, account: { encryptedMnemonic, secretWord } } = this.props;
 
     return (
-      <Page className={styles.management}>
+      <Page className={classnames(className, styles.management)}>
         {this.renderHeading()}
         <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
         {wallets && (

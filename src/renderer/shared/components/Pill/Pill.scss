@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: column;
   margin: 20px;
+  margin-top: 0px;
 
   .container {
     align-self: center;
     border-radius: 18px;
-    background: transparentize($brand, .85);
+    background: transparentize($brand, 0.85);
   }
 
   .text {

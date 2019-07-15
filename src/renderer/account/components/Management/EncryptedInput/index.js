@@ -9,6 +9,7 @@ import EncryptedInput from './EncryptedInput';
 export default compose(
   withConfirm(),
   withErrorToast(),
+  withState('hidden', 'setHidden', true),
   withState('passphrase', 'setPassphrase', ''),
   withState('data', 'setData', ({ encryptedData }) => encryptedData),
 )(EncryptedInput);

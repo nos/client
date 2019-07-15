@@ -1,10 +1,9 @@
 import { string, objectOf, shape } from 'prop-types';
 
-import accountShape from './accountShape';
+import walletShape from './walletShape';
 
-// TODO is this used??
 export default objectOf(
   shape({
-    [string]: accountShape
+    [string]: walletShape
   })
 );

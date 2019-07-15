@@ -1,12 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 
 import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import Pill from 'shared/components/Pill';
 import Wallet from 'auth/util/Wallet';
+import walletShape, { walletShapeNotInitialized } from 'auth/shapes/walletShape';
 
 import styles from './EncryptedInput.scss';
 
@@ -14,30 +15,32 @@ import styles from './EncryptedInput.scss';
 export default class EncryptedInput extends React.PureComponent {
   static propTypes = {
     className: string,
-    data: string.isRequired,
     title: string.isRequired,
+    data: string.isRequired,
+    hidden: bool.isRequired,
+    setHidden: func.isRequired,
+    setData: func.isRequired,
     secretWord: string.isRequired,
     passphrase: string.isRequired,
     setPassphrase: func.isRequired,
     confirm: func.isRequired,
-    showErrorToast: func.isRequired
-  };
+    showErrorToast: func.isRequired,
+    encryptedData: string.isRequired,
+    wallet: walletShape // optional - either encrypted data or encrypted wallet is passed
+  }; // TODO FIX
 
   static defaultProps = {
-    className: null
-  };
-
-  state = {
-    hidden: true
+    className: null,
+    wallet: null
   };
 
   render() {
-    const { className, title, data, decryptedData } = this.props;
+    const { className, hidden, title, data } = this.props;
 
     return (
       <div className={classNames(styles.encryptedInput, className)}>
         {this.renderTitle({ title })}
-        {this.renderInput({ data, decryptedData })}
+        {this.renderInput({ hidden, data })}
       </div>
     );
   }
@@ -56,19 +59,27 @@ export default class EncryptedInput extends React.PureComponent {
     </div>
   );
 
-  renderInput = ({ data, decryptedData }) => (
+  renderInput = ({ hidden, data }) => (
     <Input
       readOnly
       className={styles.input}
-      type={this.state.hidden ? 'password' : 'text'}
-      value={decryptedData || data}
+      type={hidden ? 'password' : 'text'}
+      value={data}
     />
   )
 
 
   handleShowHiddenConfirm = async () => {
-    const prevState = this.state.hidden;
-    const { data, wallet, showErrorToast, setData, setPassphrase, passphrase } = this.props;
+    const {
+      hidden,
+      setHidden,
+      data,
+      wallet,
+      showErrorToast,
+      setData,
+      setPassphrase,
+      passphrase
+    } = this.props;
 
     try {
       if (wallet) {
@@ -80,7 +91,7 @@ export default class EncryptedInput extends React.PureComponent {
       }
 
       setPassphrase('');
-      this.setState({ hidden: !prevState });
+      setHidden(!hidden);
     } catch (e) {
       showErrorToast('Wrong passphrase, unable to show secrets.');
     }
@@ -91,10 +102,9 @@ export default class EncryptedInput extends React.PureComponent {
   };
 
   toggleEncrypted = () => {
-    const prevState = this.state.hidden;
-    const { secretWord, confirm, setPassphrase, setData, encryptedData } = this.props;
+    const { hidden, setHidden, secretWord, confirm, setPassphrase, setData, encryptedData } = this.props;
 
-    if (prevState) {
+    if (hidden) {
       confirm(
         <div>
           <Pill className={styles.pill}>{secretWord}</Pill>
@@ -113,7 +123,7 @@ export default class EncryptedInput extends React.PureComponent {
         }
       );
     } else {
-      this.setState({ hidden: !prevState });
+      setHidden(!hidden);
       setData(encryptedData);
     }
   };

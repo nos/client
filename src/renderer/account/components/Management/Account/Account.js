@@ -32,9 +32,13 @@ const Account = ({ className, encryptedMnemonic, secretWord }) => {
 
 
 Account.propTypes = {
-  className: string.isRequired,
+  className: string,
   encryptedMnemonic: string.isRequired,
   secretWord: string.isRequired
+};
+
+Account.defaultProps = {
+  className: null
 };
 
 export default Account;

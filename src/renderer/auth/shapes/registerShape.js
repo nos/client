@@ -10,6 +10,7 @@ export default shape({
   secretWord: string.isRequired
 });
 
+// TODO cleanup
 export const registerLedgerShape = shape({
   accountLabel: string.isRequired,
   encryptedMnemonic: string.isRequired,

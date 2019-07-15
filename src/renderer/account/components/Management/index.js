@@ -1,10 +1,11 @@
 import { compose, withState } from 'recompose';
-import { withCall, withData, withActions, progressValues } from 'spunky';
+import { withData, withActions, progressValues } from 'spunky';
 
 import withConfirm from 'shared/hocs/withConfirm';
 import { withErrorToast } from 'shared/hocs/withToast';
 import { DEFAULT_COIN } from 'shared/values/coins';
 import withProgressChange from 'shared/hocs/withProgressChange';
+import withInitialCall from 'shared/hocs/withInitialCall';
 
 import authActions from 'auth/actions/authActions';
 import walletActions, { addWalletActions } from 'auth/actions/walletActions';
@@ -21,7 +22,7 @@ const mapAddAccountActionsToProps = (actions) => ({
 
 export default compose(
   withData(authActions, mapAuthDataToProps),
-  withCall(walletActions, ({ account }) => ({ accountLabel: account.accountLabel })),
+  withInitialCall(walletActions, ({ account }) => ({ accountLabel: account.accountLabel })),
   withData(walletActions, mapWalletDataToProps),
 
   withConfirm(),
