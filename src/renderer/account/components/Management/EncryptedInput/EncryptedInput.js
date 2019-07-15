@@ -7,11 +7,10 @@ import LabeledInput from 'shared/components/Forms/LabeledInput';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import Pill from 'shared/components/Pill';
 import Wallet from 'auth/util/Wallet';
-import walletShape, { walletShapeNotInitialized } from 'auth/shapes/walletShape';
+import walletShape from 'auth/shapes/walletShape';
 
 import styles from './EncryptedInput.scss';
 
-// TODO props
 export default class EncryptedInput extends React.PureComponent {
   static propTypes = {
     className: string,
@@ -27,7 +26,7 @@ export default class EncryptedInput extends React.PureComponent {
     showErrorToast: func.isRequired,
     encryptedData: string.isRequired,
     wallet: walletShape // optional - either encrypted data or encrypted wallet is passed
-  }; // TODO FIX
+  };
 
   static defaultProps = {
     className: null,

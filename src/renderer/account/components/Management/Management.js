@@ -38,6 +38,8 @@ export default class Management extends React.PureComponent {
   render() {
     const { className, wallets, account: { encryptedMnemonic, secretWord } } = this.props;
 
+    console.log('DKAOW');
+
     return (
       <Page className={classnames(className, styles.management)}>
         {this.renderHeading()}

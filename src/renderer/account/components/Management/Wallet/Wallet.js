@@ -11,17 +11,18 @@ import Input from 'shared/components/Forms/Input';
 import styles from './Wallet.scss';
 
 import EncryptedInput from '../EncryptedInput';
+import walletShape from '../../../../auth/shapes/walletShape';
 
 export default class Wallet extends React.PureComponent {
   static propTypes = {
     className: string,
-    encryptedMnemonic: string,
-    secretWord: string.isRequired
+    encryptedMnemonic: string.isRequired,
+    secretWord: string.isRequired,
+    wallet: walletShape.isRequired
   };
 
   static defaultProps = {
-    className: null,
-    encryptedMnemonic: ''
+    className: null
   };
 
   render() {
