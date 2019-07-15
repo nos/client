@@ -105,7 +105,7 @@
     "eslint-config-airbnb": "17.1.1",
     "eslint-import-resolver-babel-module": "4.0.0",
     "eslint-plugin-import": "2.18.0",
-    "eslint-plugin-jest": "22.7.2",
+    "eslint-plugin-jest": "22.8.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.2",
     "identity-obj-proxy": "3.0.0",
