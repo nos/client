@@ -3,7 +3,6 @@ import { func, bool } from 'prop-types';
 
 import registerShape from 'auth/shapes/registerShape';
 
-// import LedgerView from './LedgerView';
 import MnemonicView from './MnemonicView';
 import LedgerView from './LedgerView';
 

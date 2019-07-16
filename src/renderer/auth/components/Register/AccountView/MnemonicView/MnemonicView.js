@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, bool } from 'prop-types';
+import { func } from 'prop-types';
 
 import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
 
@@ -18,8 +18,7 @@ export default class MnemonicView extends React.PureComponent {
     onCancel: func.isRequired,
     previousStep: func.isRequired,
     nextStep: func.isRequired,
-    showInfoToast: func.isRequired,
-    loading: bool.isRequired
+    showInfoToast: func.isRequired
   };
 
   static defaultProps = {
@@ -27,7 +26,7 @@ export default class MnemonicView extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, account, loading, nextStep, previousStep } = this.props;
+    const { onCancel, account, nextStep, previousStep } = this.props;
 
     return (
       <AuthPanel
@@ -53,7 +52,6 @@ export default class MnemonicView extends React.PureComponent {
         <NavigationButtons
           onBack={previousStep}
           onNext={nextStep}
-          disabled={loading}
           nextBtnText="Next: Verify"
         />
       </AuthPanel>

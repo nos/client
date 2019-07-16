@@ -10,8 +10,8 @@ import styles from './Auth.scss';
 import Login from '../Login';
 import Register from '../Register';
 
-const LOGIN = 'Login';
-const REGISTER = 'Register';
+export const LOGIN = 'Login';
+export const REGISTER = 'Register';
 
 export default class Auth extends React.PureComponent {
   static propTypes = {
@@ -21,7 +21,9 @@ export default class Auth extends React.PureComponent {
     onCancel: func.isRequired,
     login: func.isRequired,
     authenticated: bool.isRequired,
-    accounts: accountsShape
+    accounts: accountsShape,
+    component: string.isRequired,
+    setComponent: func.isRequired
   };
 
   static defaultProps = {
@@ -30,17 +32,6 @@ export default class Auth extends React.PureComponent {
   };
 
   confirm = React.createRef();
-
-  state = {
-    component: REGISTER
-  };
-
-  componentDidMount() {
-    const { accounts } = this.props;
-    // TODO uncomment first line
-    // this.setState({ component: isEmpty(accounts) ? REGISTER : LOGIN });
-    // this.confirm.current.focus();
-  }
 
   render() {
     const { className, authenticated, onConfirm } = this.props;
@@ -53,9 +44,9 @@ export default class Auth extends React.PureComponent {
   }
 
   renderComponent = () => {
-    const { login, loading, onCancel, accounts } = this.props;
+    const { component, login, loading, onCancel, accounts } = this.props;
 
-    switch (this.state.component) {
+    switch (component) {
       case LOGIN:
         return (
           <Login
@@ -81,9 +72,9 @@ export default class Auth extends React.PureComponent {
   };
 
   handleSelectComponent = () => {
-    const { component } = this.state;
+    const { component, setComponent } = this.props;
 
     const newSelectedComponent = component === LOGIN ? REGISTER : LOGIN;
-    this.setState({ component: newSelectedComponent });
+    setComponent(newSelectedComponent);
   };
 }

@@ -26,14 +26,12 @@ const deviceInfoShape = shape({
 export default class LedgerView extends React.PureComponent {
   static propTypes = {
     onCancel: func.isRequired,
-    nextStep: func.isRequired,
     previousStep: func.isRequired,
     account: registerShape.isRequired,
     poll: func.isRequired,
     getPublicKey: func.isRequired,
     deviceInfoProgress: string,
     publickeyProgress: string,
-    loading: bool.isRequired,
     deviceInfo: deviceInfoShape,
     deviceInfoError: string,
     publicKey: string,
@@ -68,7 +66,7 @@ export default class LedgerView extends React.PureComponent {
   }
 
   render() {
-    const { onCancel, previousStep, loading } = this.props;
+    const { onCancel, previousStep } = this.props;
 
     const sidePanelText =
       'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
@@ -87,7 +85,7 @@ export default class LedgerView extends React.PureComponent {
         <NavigationButtons
           onBack={previousStep}
           onNext={this.handleNext}
-          disabled={loading || !this.isValid()}
+          disabled={!this.isValid()}
           nextBtnText="Next: Verify"
         />
       </AuthPanel>
@@ -166,7 +164,7 @@ export default class LedgerView extends React.PureComponent {
     }
   };
 
-  handleNext = (event) => {
+  handleNext = () => {
     const { account, storeFormData, publicKey } = this.props;
 
     storeFormData({ ...account, publicKey });

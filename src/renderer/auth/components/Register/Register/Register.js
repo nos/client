@@ -1,7 +1,5 @@
 import React from 'react';
-import { func, bool } from 'prop-types';
-
-import accountShape from 'auth/shapes/accountShape';
+import { func, number } from 'prop-types';
 
 import CreateAccount from '../CreateAccount';
 import AccountView from '../AccountView';
@@ -10,23 +8,14 @@ import VerifyAccount from '../VerifyAccount';
 
 export default class Register extends React.PureComponent {
   static propTypes = {
-    account: accountShape,
     redirect: func.isRequired,
     onCancel: func.isRequired,
-    reset: func.isRequired,
-    loading: bool.isRequired
-  };
-
-  static defaultProps = {
-    account: null
-  };
-
-  state = {
-    step: 1
+    step: number.isRequired,
+    setStep: number.isRequired
   };
 
   render() {
-    const { step } = this.state;
+    const { step } = this.props;
 
     switch (step) {
       case 1:
@@ -46,13 +35,11 @@ export default class Register extends React.PureComponent {
   };
 
   renderSecondStep = () => {
-    const { account, onCancel, reset, loading } = this.props;
+    const { onCancel } = this.props;
+
     return (
       <AccountView
-        loading={loading}
-        account={account}
         onCancel={onCancel}
-        onBack={reset}
         nextStep={this.nextStep}
         previousStep={this.previousStep}
       />
@@ -60,11 +47,9 @@ export default class Register extends React.PureComponent {
   };
 
   renderThirdStep = () => {
-    const { account, onCancel, loading } = this.props;
+    const { onCancel } = this.props;
     return (
       <VerifyAccount
-        loading={loading}
-        account={account}
         onCancel={onCancel}
         previousStep={this.previousStep}
       />
@@ -72,16 +57,12 @@ export default class Register extends React.PureComponent {
   };
 
   nextStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step + 1
-    });
+    const { step, setStep } = this.props;
+    setStep(step + 1);
   };
 
   previousStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1
-    });
+    const { step, setStep } = this.props;
+    setStep(step - 1);
   };
 }
