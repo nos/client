@@ -8,7 +8,5 @@ export default shape({
   isHardware: bool.isRequired,
   encryptedMnemonic: string.isRequired,
   activeWalletId: string.isRequired,
-  wallet: walletShape.isRequired,
-  passphrase: string, // Will be removed when persisting to storage
-  mnemonic: string // Will be removed when persisting to storage
+  wallet: walletShape.isRequired
 });

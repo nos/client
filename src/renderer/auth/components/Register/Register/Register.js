@@ -11,7 +11,7 @@ export default class Register extends React.PureComponent {
     redirect: func.isRequired,
     onCancel: func.isRequired,
     step: number.isRequired,
-    setStep: number.isRequired
+    setStep: func.isRequired
   };
 
   render() {

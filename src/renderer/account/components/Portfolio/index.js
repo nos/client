@@ -21,6 +21,7 @@ export default compose(
   withAuthData(),
   withNetworkData(),
   withActiveAccount(),
+  withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
   withInitialCall(balanceWithPricesActions, ({ currency, net, address }) => ({
     currency,
     net,

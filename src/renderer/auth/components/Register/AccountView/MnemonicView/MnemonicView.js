@@ -3,27 +3,24 @@ import { func } from 'prop-types';
 
 import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
 
-import accountShape from 'auth/shapes/accountShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
 import Button from 'shared/components/Forms/Button';
 import CopyIcon from 'shared/images/icons/copy.svg';
+import registerShape from 'auth/shapes/registerShape';
 
 import MnemonicWord from './MnemonicWord';
 import styles from './MnemonicView.scss';
 
 export default class MnemonicView extends React.PureComponent {
   static propTypes = {
-    account: accountShape,
+    account: registerShape.isRequired,
     onCancel: func.isRequired,
     previousStep: func.isRequired,
     nextStep: func.isRequired,
     showInfoToast: func.isRequired
   };
 
-  static defaultProps = {
-    account: null
-  };
 
   render() {
     const { onCancel, account, nextStep, previousStep } = this.props;

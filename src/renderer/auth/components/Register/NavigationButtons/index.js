@@ -21,9 +21,11 @@ NavigationButtons.propTypes = {
   onBack: func.isRequired,
   onNext: func.isRequired,
   nextBtnText: string.isRequired,
-  disabled: bool.isRequired
+  disabled: bool
 };
 
-NavigationButtons.defaultProps = {};
+NavigationButtons.defaultProps = {
+  disabled: false
+};
 
 export default NavigationButtons;

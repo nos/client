@@ -1,6 +1,6 @@
-import { string, shape, bool } from 'prop-types';
+import { string, shape, bool, oneOfType } from 'prop-types';
 
-export default shape({
+export const registerMnemonicShape = shape({
   accountLabel: string.isRequired,
   encryptedMnemonic: string.isRequired,
   isHardware: bool.isRequired,
@@ -10,7 +10,6 @@ export default shape({
   secretWord: string.isRequired
 });
 
-// TODO cleanup
 export const registerLedgerShape = shape({
   accountLabel: string.isRequired,
   encryptedMnemonic: string.isRequired,
@@ -21,3 +20,8 @@ export const registerLedgerShape = shape({
   secretWord: string.isRequired,
   publicKey: string.isRequired
 });
+
+export default oneOfType([
+  registerMnemonicShape,
+  registerLedgerShape
+]);
