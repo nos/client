@@ -1,11 +1,11 @@
-import { attempt, isError } from 'lodash';
-import bip39 from 'bip39';
+import { attempt, isError } from './node_modules/lodash';
+import bip39 from './node_modules/bip39';
 
-import NeoWallet from 'auth/util/Wallet/NEO';
-import { DEFAULT_LANGUAGE } from 'shared/values/languages';
-import simpleDecrypt from 'shared/util/simpleDecrypt';
+import NeoWallet from './node_modules/auth/util/Wallet/NEOutil/Wallet/NEO';
+import { DEFAULT_LANGUAGE } from './node_modules/shared/values/languagesalues/languages';
+import simpleDecrypt from './node_modules/shared/util/simpleDecryptl/simpleDecrypt';
 
-import { NEO, ETH } from 'shared/values/coins';
+import { NEO, ETH } from './node_modules/shared/values/coinsed/values/coins';
 
 
 const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {

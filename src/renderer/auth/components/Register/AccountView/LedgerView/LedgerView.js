@@ -3,7 +3,7 @@ import { string, func, shape, arrayOf } from 'prop-types';
 import { isEmpty } from 'lodash';
 import { progressValues } from 'spunky';
 
-import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
+import { publicKeyToAddress } from 'shared/wallet/common';
 import registerShape from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';

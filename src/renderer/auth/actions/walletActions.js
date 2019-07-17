@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 
-import { addWalletToAccount, getWalletsForAccount } from 'auth/util/Wallet/WalletHelpers';
+import { addWalletToAccount, getWalletsForAccount } from 'shared/wallet/WalletHelpers';
 import { getStorage } from 'shared/lib/storage';
 
 export const ID = 'wallets';

@@ -1,7 +1,7 @@
 import { createActions } from 'spunky';
 
 // TODO abstract these "polling functions" etc to a higher level (ledgerHelper perhaps)
-import { getDeviceInfo, getPublicKey, getPublicKeys } from 'auth/util/Wallet/NEO/NeoLedger';
+import { getDeviceInfo, getPublicKey, getPublicKeys } from 'shared/wallet/NEO/NeoLedger';
 
 export const ID = 'ledger-1';
 export const ID_2 = 'ledger-2';

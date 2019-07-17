@@ -5,7 +5,7 @@ import registerShape, { registerLedgerShape } from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
-import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
+import { publicKeyToAddress } from 'shared/wallet/common';
 
 import styles from './VerifyAccount.scss';
 

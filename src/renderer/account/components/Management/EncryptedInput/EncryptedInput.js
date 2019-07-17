@@ -6,7 +6,7 @@ import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
 import Pill from 'shared/components/Pill';
-import Wallet from 'auth/util/Wallet';
+import Wallet from 'shared/wallet';
 import walletShape from 'auth/shapes/walletShape';
 
 import styles from './EncryptedInput.scss';

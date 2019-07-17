@@ -1,4 +1,4 @@
-import { deriveChild } from 'auth/util/Wallet/common/BIP44';
+import { deriveChild } from 'shared/wallet/common/BIP44';
 
 import HardwareWallet from './NeoLedger';
 import MnemonicWallet from './NeoMnemonic';

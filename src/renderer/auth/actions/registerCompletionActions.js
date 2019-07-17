@@ -1,7 +1,7 @@
 import { createActions } from 'spunky';
 import { omit } from 'lodash';
 
-import { addWalletToAccount } from 'auth/util/Wallet/WalletHelpers';
+import { addWalletToAccount } from 'shared/wallet/WalletHelpers';
 import { appendStorage } from 'shared/lib/storage';
 import { ID as ACCOUNT_ID } from 'auth/actions/accountActions';
 

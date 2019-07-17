@@ -1,7 +1,7 @@
 import { tx, wallet as neoWallet } from '@cityofzion/neon-js';
 
-import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
-import { initializeDevice } from 'auth/util/Wallet/common/LedgerHelpers';
+import { publicKeyToAddress } from 'shared/wallet/common';
+import { initializeDevice } from 'shared/wallet/common/LedgerHelpers';
 
 export const getPublicKey = async (acct = 0) => {
   const ledger = await initializeDevice();
