@@ -72,17 +72,17 @@
     "build": "yarn build:main && yarn build:renderer",
     "build:main": "electron-webpack main",
     "build:renderer": "cross-env NODE_ENV=production webpack --config config/webpack.renderer.js",
-    "dist": "yarn run clean && yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
+    "dist": "yarn clean && yarn build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "pack": "yarn dist --dir -c.compression=store -c.mac.identity=null",
-    "pretest": "yarn run lint && yarn run stylelint",
+    "pretest": "yarn lint && yarn stylelint",
     "test": "jest --maxWorkers=4",
     "test:debug": "node inspect ./node_modules/.bin/jest --runInBand",
     "stylelint": "stylelint src/**/*.scss",
     "lint": "eslint --env browser,node --ext .jsx,.js --color .",
-    "lint:fix": "yarn run lint --fix",
+    "lint:fix": "yarn lint --fix",
     "clean": "rimraf build dist coverage",
     "postinstall": "electron-builder install-app-deps",
-    "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
+    "release": "yarn clean && yarn build && build  --win --x64 --ia32 --linux -p always"
   },
   "devDependencies": {
     "babel-eslint": "10.0.2",

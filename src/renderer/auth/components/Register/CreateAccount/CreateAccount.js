@@ -6,8 +6,6 @@ import AuthPanel from 'auth/components/AuthPanel';
 
 import RegisterForm from './RegisterForm';
 
-import styles from './CreateAccount.scss';
-
 export default class CreateAccount extends React.PureComponent {
   static propTypes = {
     account: accountShape,
@@ -32,7 +30,6 @@ export default class CreateAccount extends React.PureComponent {
         footer={!account ? true : undefined}
         step="1"
         onCancel={onCancel}
-        className={styles.register}
         footerText="Already registered? Log In"
         sidePanelText={sidePanelText}
         redirect={redirect}
