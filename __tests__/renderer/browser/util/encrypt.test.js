@@ -38,7 +38,7 @@ describe('encrypt', () => {
     it('throws an error', () => {
       expect(() => {
         encrypt({ recipientPublicKey, wif, data, ivProvider });
-      }).toThrow('Failed to translate Buffer to a EC_POINT');
+      }).toThrowError(/Public key is not valid for specified curve/);
     });
   });
 });

@@ -176,6 +176,10 @@
       "node_modules"
     ],
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "testPathIgnorePatterns": [
+      "./__tests__/renderer/login/",
+      "./__tests__/renderer/register/"
+    ]
   }
 }
