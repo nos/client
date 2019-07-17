@@ -11,7 +11,7 @@ import { appendAccountActions } from 'auth/actions/accountActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import withLogin from 'auth/hocs/withLogin';
-import registerActions from 'auth/actions/registerActions';
+import registerFormActions from 'auth/actions/registerFormActions';
 
 import VerifyAccount from './VerifyAccount';
 
@@ -37,7 +37,7 @@ const mapAccountDataToProps = (account) => ({ account });
 const mapRegisterCompletionDataToProps = (accountComplete) => ({ accountComplete });
 
 export default compose(
-  withData(registerActions, mapAccountDataToProps),
+  withData(registerFormActions, mapAccountDataToProps),
   withData(registerCompletionActions, mapRegisterCompletionDataToProps),
   withActions(authActions, mapAuthActionsToProps),
   withActions(registerCompletionActions, mapRegisterCompletionActionsToProps),

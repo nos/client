@@ -46,7 +46,7 @@ AuthPanel.propTypes = {
   sidePanelTitle: string,
   sidePanelText: string,
   onCancel: func.isRequired,
-  redirect: func.isRequired, // TODO find better name
+  redirect: func.isRequired,
   footer: bool,
   footerText: string
 };

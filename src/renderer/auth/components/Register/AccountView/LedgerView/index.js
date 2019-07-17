@@ -12,9 +12,9 @@ import {
 import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withLogin from 'auth/hocs/withLogin';
+import registerFormActions from 'auth/actions/registerFormActions';
 
 import LedgerView from './LedgerView';
-import registerActions from '../../../../actions/registerActions';
 
 const { FAILED, LOADED } = progressValues;
 
@@ -49,7 +49,7 @@ const mapRegisterActionsToProps = (actions) => ({
 });
 
 export default compose(
-  withActions(registerActions, mapRegisterActionsToProps),
+  withActions(registerFormActions, mapRegisterActionsToProps),
 
   withActions(ledgerActions, mapLedgerActionsToProps),
   withActions(ledgerPublicKeyActions, mapLedgerPublicKeyActionsToProps),
@@ -68,10 +68,10 @@ export default compose(
     propName: 'publickeyProgress',
     strategy: recentlyCompletedStrategy
   }),
-  withProgressChange(registerActions, FAILED, (state, props) => {
+  withProgressChange(registerFormActions, FAILED, (state, props) => {
     props.showErrorToast(`Account creation failed: ${state.error}`);
   }),
-  withProgressChange(registerActions, LOADED, (state, props) => {
+  withProgressChange(registerFormActions, LOADED, (state, props) => {
     props.nextStep();
   }),
 

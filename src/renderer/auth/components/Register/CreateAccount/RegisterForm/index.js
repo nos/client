@@ -5,7 +5,7 @@ import withLoadingProp from 'shared/hocs/withLoadingProp';
 import { withErrorToast } from 'shared/hocs/withToast';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import registerActions from 'auth/actions/registerActions';
+import registerFormActions from 'auth/actions/registerFormActions';
 
 import RegisterForm from './RegisterForm';
 
@@ -16,8 +16,8 @@ const mapRegisterActionsToProps = (actions) => ({
 });
 
 export default compose(
-  withActions(registerActions, mapRegisterActionsToProps),
-  withLoadingProp(registerActions, { strategy: pureStrategy }),
+  withActions(registerFormActions, mapRegisterActionsToProps),
+  withLoadingProp(registerFormActions, { strategy: pureStrategy }),
 
   withState('accountLabel', 'setAccountLabel', Math.random().toString()),
   withState('passphrase', 'setPassphrase', 'q'),
@@ -25,10 +25,10 @@ export default compose(
   withState('secretWord', 'setSecretWord', 'MySercetWord'),
   withState('isHardware', 'setIsHardware', false),
   withErrorToast(),
-  withProgressChange(registerActions, FAILED, (state, props) => {
+  withProgressChange(registerFormActions, FAILED, (state, props) => {
     props.showErrorToast(`Account creation failed: ${state.error}`);
   }),
-  withProgressChange(registerActions, LOADED, (state, props) => {
+  withProgressChange(registerFormActions, LOADED, (state, props) => {
     props.nextStep();
   })
 )(RegisterForm);

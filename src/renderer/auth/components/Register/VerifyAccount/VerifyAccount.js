@@ -6,6 +6,7 @@ import registerShape, { registerLedgerShape } from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
+import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
 
 import styles from './VerifyAccount.scss';
 
@@ -91,7 +92,7 @@ export default class VerifyAccount extends React.PureComponent {
             id="verifyAddress"
             type="text"
             label="Verify Your Addres"
-            placeholder={this.unencodedHexToAddress(account.publicKey)}
+            placeholder={publicKeyToAddress(account.publicKey)}
             value=""
             disabled={loading}
           />
@@ -142,13 +143,6 @@ export default class VerifyAccount extends React.PureComponent {
 
   handleChangeSecondMnemonicWord = (event) => {
     this.props.setSecondMnemonicWord(event.target.value);
-  };
-
-  // TODO move to util
-  unencodedHexToAddress = (publicKey) => {
-    const encodedKey = wallet.getPublicKeyEncoded(publicKey);
-
-    return new wallet.Account(encodedKey).address;
   };
 
   completeRegistration = () => {

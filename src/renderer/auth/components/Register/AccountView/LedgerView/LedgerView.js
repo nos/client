@@ -1,9 +1,10 @@
 import React from 'react';
-import { bool, string, func, shape } from 'prop-types';
-import { noop, isEmpty } from 'lodash';
+import { string, func, shape } from 'prop-types';
+import { isEmpty } from 'lodash';
 import { progressValues } from 'spunky';
 import { wallet } from '@cityofzion/neon-js';
 
+import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
 import registerShape from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
 import NavigationButtons from 'auth/components/Register/NavigationButtons';
@@ -176,16 +177,9 @@ export default class LedgerView extends React.PureComponent {
 
   getPublicKeyItems = () => {
     return this.props.publicKeys.map(({ index, publicKey }) => ({
-      label: this.unencodedHexToAddress(publicKey),
+      label: publicKeyToAddress(publicKey),
       value: index
     }));
-  };
-
-  // TODO move to util
-  unencodedHexToAddress = (publicKey) => {
-    const encodedKey = wallet.getPublicKeyEncoded(publicKey);
-
-    return new wallet.Account(encodedKey).address;
   };
 
   isValid = () => {

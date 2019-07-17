@@ -15,7 +15,6 @@ import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
 
 const mapCurrencyDataToProps = (currency) => ({ currency });
 
-// TODO NONE of these are needed here
 export default compose(
   withData(currencyActions, mapCurrencyDataToProps),
   withAuthData(),

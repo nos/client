@@ -36,7 +36,7 @@ export default compose(
   withActions(blockActions, mapBlockActionsToProps),
 
   // Whenever a new block is received, notify all dApps & update account balances.
-  withData(authActions, mapAuthDataToProps), // TODO replace with activeAccount
+  withData(authActions, mapAuthDataToProps),
   withData(blockActions, mapBlockDataToProps),
   withProgressChange(blockActions, LOADED, (state, props, prevProps) => {
     if (!isEqual(props.block, prevProps.block)) {

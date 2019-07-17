@@ -5,12 +5,11 @@ import bip39 from 'bip39';
 import simpleEncrypt from 'shared/util/simpleEncrypt';
 import { getStorage } from 'shared/lib/storage';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
+import { ID as ACCOUNT_ID } from 'auth/actions/accountActions';
 
-const MIN_PASSPHRASE_LEN = 1; // TODO set to 7
+const MIN_PASSPHRASE_LEN = 7;
 
-// TODO rename registerActions file to registerForm?? name
 export const ID = 'registerForm';
-const ACCOUNT_ID = 'account'; // TODO move to accountHelper
 
 /** // TODO
  * Password turned into SCrypt SHA256 hash.

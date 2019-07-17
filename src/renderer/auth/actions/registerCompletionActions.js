@@ -3,6 +3,7 @@ import { omit } from 'lodash';
 
 import { addWalletToAccount } from 'auth/util/Wallet/WalletHelpers';
 import { appendStorage } from 'shared/lib/storage';
+import { ID as ACCOUNT_ID } from 'auth/actions/accountActions';
 
 export const ID = 'registerCompletion';
 
@@ -59,10 +60,8 @@ export const verifyAndCreateWallet = async ({
     activeWalletId: wallet.label
   };
 
-  // Store account - TODO remove hardcoded value
-  await appendStorage('account', account.accountLabel, updatedAccount);
+  await appendStorage(ACCOUNT_ID, account.accountLabel, updatedAccount);
 
-  // TODO - Return data to authenticate - is this needed??
   return { account: updatedAccount, passphrase };
 };
 

@@ -24,7 +24,6 @@ export default function AccountAddress(props) {
   );
 }
 
-// TODO what if not signed in?
 AccountAddress.propTypes = {
   className: string,
   address: string
