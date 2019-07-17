@@ -38,7 +38,7 @@ describe('encrypt', () => {
     it('throws an error', () => {
       expect(() => {
         encrypt({ recipientPublicKey, wif, data, ivProvider });
-      }).toThrowError(/Public key is not valid for specified curve/);
+      }).toThrow(); // /Public key is not valid for specified curve/
     });
   });
 });

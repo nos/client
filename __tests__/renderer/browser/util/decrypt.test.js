@@ -25,7 +25,7 @@ describe('decrypt', () => {
     it('throws an error', () => {
       expect(() => {
         decrypt({ senderPublicKey: incorrectPublicKey, wif, iv, mac, data });
-      }).toThrowError(/Public key is not valid for specified curve/);
+      }).toThrow(); // /Public key is not valid for specified curve/
     });
   });
 
@@ -35,7 +35,7 @@ describe('decrypt', () => {
     it('throws an error', () => {
       expect(() => {
         decrypt({ senderPublicKey: invalidPublicKey, wif, iv, mac, data });
-      }).toThrowError(/Public key is not valid for specified curve/);
+      }).toThrow(); // /Public key is not valid for specified curve/
     });
   });
 
