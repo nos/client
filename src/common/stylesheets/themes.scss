@@ -33,10 +33,10 @@
   &.focus {
     background: transparent;
     box-shadow: inset 0 0 0 2px $brand;
-    transition: all .15 ease-in-out;
+    transition: all 0.15 ease-in-out;
 
     @include theme(DARK) {
-      background: darken($gray-8, .25);
+      background: darken($gray-8, 0.25);
       box-shadow: inset 0 0 0 2px $brand;
     }
   }
@@ -48,7 +48,7 @@
 
   @include theme(DARK) {
     color: $gray-4;
-    background: transparentize($gray-8, .25);
+    background: transparentize($gray-8, 0.25);
   }
 }
 
@@ -73,17 +73,17 @@
   &:not(.disabled):focus,
   &:not(.disabled):hover {
     color: $gray-4;
-    background: rgba($brand, .1);
+    background: rgba($brand, 0.1);
 
     @include theme(DARK) {
       color: $gray-2;
-      background: rgba($brand, .2);
+      background: rgba($brand, 0.2);
     }
   }
 
   &:not(.disabled):active {
     color: $brand;
-    background: rgba($brand, .2);
+    background: rgba($brand, 0.2);
 
     @include theme(DARK) {
       color: $brand;
@@ -92,7 +92,7 @@
 
   &:not(.disabled).active {
     color: $brand;
-    background: rgba($brand, .2);
+    background: rgba($brand, 0.2);
 
     @include theme(DARK) {
       color: $brand;
@@ -139,7 +139,7 @@
   }
   &:not(.active):hover {
     background: rgba(#fff, 0.6);
-    
+
     @include theme(DARK) {
       background: darken($gray-7, 3%);
     }
@@ -178,45 +178,41 @@
   background: $gray-0;
 
   @include theme(DARK) {
-    background: opacify($gray-8, .5);
+    background: opacify($gray-8, 0.5);
   }
 
   & .title {
     @extend %labelColor;
-    background: linear-gradient(360deg,
-    transparentize($gray-3, .75) 0%,
-    $gray-0 100%);
+    background: linear-gradient(360deg, transparentize($gray-3, 0.75) 0%, $gray-0 100%);
 
     @include theme(DARK) {
-      background: linear-gradient(360deg,
-      $gray-7 0%,
-      opacify($gray-8, .5) 100%);
+      background: linear-gradient(360deg, $gray-7 0%, opacify($gray-8, 0.5) 100%);
     }
   }
 }
 
-@mixin border($border-width: 1px, $position: "bottom", $color: "light") {
-  $values: "0";
+@mixin border($border-width: 1px, $position: 'bottom', $color: 'light') {
+  $values: '0';
 
-  @if $position == "bottom" {
+  @if $position == 'bottom' {
     $values: 0 -1px 0;
   }
-  @if $position=="right" {
+  @if $position== 'right' {
     $values: -1px 0 0;
   }
-  @if $position=="left" {
+  @if $position== 'left' {
     $values: 1px 0 0;
   }
 
-  @if $color == "light" {
+  @if $color == 'light' {
     box-shadow: inset $values $gray-2;
 
     @include theme(DARK) {
       box-shadow: inset $values $gray-6;
-    } 
+    }
   }
 
-  @if $color=="medium" {
+  @if $color== 'medium' {
     box-shadow: inset $values $gray-3;
 
     @include theme(DARK) {
@@ -226,28 +222,28 @@
 }
 
 %tertiaryButtonColor {
-  background: transparentize($brand, .85);
+  background: transparentize($brand, 0.85);
   box-shadow: none !important;
   color: $brand;
 
   &:hover {
-    background: transparentize($brand, .65);
+    background: transparentize($brand, 0.65);
     box-shadow: none !important;
   }
 
   @include theme(DARK) {
-    background: transparentize($brand, .75);
+    background: transparentize($brand, 0.75);
 
     &:hover {
-      background: transparentize($brand, .5);
+      background: transparentize($brand, 0.5);
     }
   }
 }
 
 %modalBackdropColor {
-    background: transparentize($gray-8, 0.15);
+  background: transparentize($gray-8, 0.15);
 
-    @include theme(DARK) {
-      background: transparentize($gray-5, 0.25);
-    }
+  @include theme(DARK) {
+    background: transparentize($gray-5, 0.25);
+  }
 }

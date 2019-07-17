@@ -84,7 +84,7 @@
       cursor: pointer;
 
       &.focus {
-        background: transparentize($brand, .65);
+        background: transparentize($brand, 0.65);
       }
     }
   }
