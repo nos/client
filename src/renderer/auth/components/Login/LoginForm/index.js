@@ -1,7 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import { withData, withActions } from 'spunky';
-import withUnmountReset from 'shared/hocs/withUnmountReset';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import previousAuthActions, { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
@@ -27,7 +26,6 @@ const mapPreviousAuthDataToProps = (data) => ({
 });
 
 export default compose(
-  withUnmountReset(accountActions),
   withActions(accountActions, mapAccountActionsToProps),
   withInitialCall(accountActions),
   withInitialCall(previousAuthActions),
