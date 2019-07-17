@@ -3,7 +3,7 @@ import { compose, withState } from 'recompose';
 // import { withData, withActions } from 'spunky';
 
 // import withUnmountReset from 'shared/hocs/withUnmountReset';
-import withLogin from 'auth/hocs/withLogin';
+// import withLogin from 'auth/hocs/withLogin';
 // import createAccountActions from 'auth/actions/createAccountActions';
 
 import Register from './Register';

@@ -12,7 +12,8 @@ export default class CreateAccount extends React.PureComponent {
   static propTypes = {
     account: accountShape,
     onCancel: func.isRequired,
-    redirect: func.isRequired
+    redirect: func.isRequired,
+    nextStep: func.isRequired
   };
 
   static defaultProps = {

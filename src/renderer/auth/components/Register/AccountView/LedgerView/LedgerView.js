@@ -1,8 +1,7 @@
 import React from 'react';
-import { string, func, shape } from 'prop-types';
+import { string, func, shape, arrayOf } from 'prop-types';
 import { isEmpty } from 'lodash';
 import { progressValues } from 'spunky';
-import { wallet } from '@cityofzion/neon-js';
 
 import { publicKeyToAddress } from 'auth/util/Wallet/common/Utils';
 import registerShape from 'auth/shapes/registerShape';
@@ -36,7 +35,10 @@ export default class LedgerView extends React.PureComponent {
     deviceInfo: deviceInfoShape,
     deviceInfoError: string,
     publicKey: string,
-    publicKeyError: string
+    publicKeyError: string,
+    publicKeys: arrayOf(string),
+    storeFormData: func.isRequired,
+    setSelectedPublicKey: func.isRequired
   };
 
   static defaultProps = {
@@ -45,7 +47,8 @@ export default class LedgerView extends React.PureComponent {
     deviceInfo: null,
     deviceInfoError: null,
     publicKey: null,
-    publicKeyError: null
+    publicKeyError: null,
+    publicKeys: null
   };
 
   componentDidMount() {
@@ -152,7 +155,11 @@ export default class LedgerView extends React.PureComponent {
             label={(
               <div className={styles.labelWrap}>
                 <div>Pick a wallet address</div>
-                <div className={styles.labelFetch} role="button" tabIndex={0} onClick={this.handleFetchAddresses} disabled={true}>Fetch additional addresses</div>
+                <div className={styles.labelFetch}
+                role="button"
+                tabIndex={0}
+                onClick={this.handleFetchAddresses}
+                disabled={true}>Fetch additional addresses</div>
               </div>
             )}
             disabled={isEmpty(this.props.publicKeys)}
@@ -163,6 +170,8 @@ export default class LedgerView extends React.PureComponent {
         </React.Fragment>
       );
     }
+
+    return null;
   };
 
   handleNext = () => {

@@ -45,8 +45,6 @@ const storeWalletForAccount = async ({ accountLabel, wallet }) => {
     throw new Error(`Wallet with label ${label} for account ${accountLabel} already exists.`);
   }
 
-  console.info(`storeWallet with label: ${accountLabel}-${label}`, wallet);
-
   await setStorage(walletId, {
     ...wallets,
     [label]: omit(wallet, walletFilterProps)
@@ -70,7 +68,9 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   const { encryptedMnemonic, accountLabel, isHardware } = account;
 
   const existingWallets = await getWalletsForAccount({ accountLabel });
-  const latestAccount = reduce(filter(existingWallets, { coinType: options.coinType }), (max, obj) => {
+  const latestAccount = reduce(filter(existingWallets, {
+    coinType: options.coinType
+  }), (max, obj) => {
     return obj.index > max.index ? obj : max;
   }) || { index: -1 };
 

@@ -1,6 +1,6 @@
 import { wallet } from '@cityofzion/neon-js';
 
-import { signWithLedger } from '../NEO/NeoLedger';
+import { signWithLedger } from './NEO/NeoLedger';
 
 const publicKeyToAddress = (publicKey) => {
   const encodedKey = wallet.getPublicKeyEncoded(publicKey);

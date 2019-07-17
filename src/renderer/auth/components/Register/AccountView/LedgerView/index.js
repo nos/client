@@ -1,4 +1,3 @@
-import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import {
   withData,
@@ -11,7 +10,6 @@ import {
 
 import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
-import withLogin from 'auth/hocs/withLogin';
 import registerFormActions from 'auth/actions/registerFormActions';
 
 import LedgerView from './LedgerView';

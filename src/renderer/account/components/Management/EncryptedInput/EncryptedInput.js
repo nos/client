@@ -101,7 +101,15 @@ export default class EncryptedInput extends React.PureComponent {
   };
 
   toggleEncrypted = () => {
-    const { hidden, setHidden, secretWord, confirm, setPassphrase, setData, encryptedData } = this.props;
+    const {
+      hidden,
+      setHidden,
+      secretWord,
+      confirm,
+      setPassphrase,
+      setData,
+      encryptedData
+    } = this.props;
 
     if (hidden) {
       confirm(

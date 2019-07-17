@@ -18,12 +18,7 @@ export default class LoginForm extends React.PureComponent {
     accounts: accountsShape,
     currentAccount: string,
     setCurrentAccount: func,
-    setSelectedSecretWord: func.isRequired,
-    resetAccounts: func.isRequired
-    // history: shape({
-    //   location: object.isRequired,
-    //   push: func.isRequired
-    // }).isRequired
+    setSelectedSecretWord: func.isRequired
   };
 
   static defaultProps = {

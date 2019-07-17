@@ -1,4 +1,4 @@
-import { string, number, shape, bool, objectOf, oneOfType } from 'prop-types';
+import { string, number, shape, bool, oneOfType } from 'prop-types';
 
 export const walletShapeInitialized = shape({
   label: string.isRequired,

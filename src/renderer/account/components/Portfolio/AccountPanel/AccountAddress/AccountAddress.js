@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, bool } from 'prop-types';
+import { string } from 'prop-types';
 
 import CopyIcon from 'shared/images/wallet/copy.svg';
 import QRCodeIcon from 'shared/images/wallet/qrcode.svg';

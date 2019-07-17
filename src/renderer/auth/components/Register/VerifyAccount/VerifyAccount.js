@@ -1,6 +1,5 @@
 import React from 'react';
 import { func, bool, string, number, oneOfType } from 'prop-types';
-import { wallet } from '@cityofzion/neon-js';
 
 import registerShape, { registerLedgerShape } from 'auth/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
@@ -27,7 +26,6 @@ export default class VerifyAccount extends React.PureComponent {
     setSecretWord: func.isRequired,
     setFirstMnemonicWord: func.isRequired,
     setSecondMnemonicWord: func.isRequired,
-    storeProfile: func.isRequired,
     setLastLogin: func.isRequired
   };
 
