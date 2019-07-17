@@ -2,12 +2,9 @@ import { attempt, isError } from 'lodash';
 import bip39 from 'bip39';
 
 import NeoWallet from 'shared/wallet/NEO';
-
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
-
 import { NEO, ETH } from 'shared/values/coins';
-
 
 const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {
   const mnemonic = attempt(simpleDecrypt, encryptedMnemonic, passphrase);
