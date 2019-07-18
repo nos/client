@@ -5,10 +5,10 @@ import { string, func, bool } from 'prop-types';
 import Modal from 'shared/components/Modal';
 import accountsShape from 'auth/shapes/accountsShape';
 
-import styles from './Auth.scss';
+import { Login } from 'login';
+import { Register } from 'register';
 
-import Login from '../Login';
-import Register from '../Register';
+import styles from './Auth.scss';
 
 export const LOGIN = 'Login';
 export const REGISTER = 'Register';
@@ -40,6 +40,7 @@ export default class Auth extends React.PureComponent {
       onConfirm();
     }
 
+    // TODO use renderHeader & renderFooter instead of AuthPanel + add SidePanel option
     return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
   }
 

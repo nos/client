@@ -4,9 +4,9 @@ import { isEmpty } from 'lodash';
 import { progressValues } from 'spunky';
 
 import { publicKeyToAddress } from 'shared/wallet/common';
-import registerShape from 'auth/shapes/registerShape';
+import registerShape from 'register/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
-import NavigationButtons from 'auth/components/Register/NavigationButtons';
+import NavigationButtons from 'shared/components/NavigationButtons';
 
 import LedgerConnect from 'shared/images/auth/ledgerConnect.svg';
 import LedgerConnected from 'shared/images/auth/ledgerConnected.svg';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, bool } from 'prop-types';
 
-import registerShape from 'auth/shapes/registerShape';
+import registerShape from 'register/shapes/registerShape';
 
 import MnemonicView from './MnemonicView';
 import LedgerView from './LedgerView';

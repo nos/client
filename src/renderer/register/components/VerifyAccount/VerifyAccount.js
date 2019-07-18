@@ -1,9 +1,9 @@
 import React from 'react';
 import { func, bool, string, number, oneOfType } from 'prop-types';
 
-import registerShape, { registerLedgerShape } from 'auth/shapes/registerShape';
+import registerShape, { registerLedgerShape } from 'register/shapes/registerShape';
 import AuthPanel from 'auth/components/AuthPanel';
-import NavigationButtons from 'auth/components/Register/NavigationButtons';
+import NavigationButtons from 'shared/components/NavigationButtons';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import { publicKeyToAddress } from 'shared/wallet/common';
 

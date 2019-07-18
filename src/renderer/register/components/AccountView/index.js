@@ -3,7 +3,7 @@
 import { compose } from 'recompose';
 import { withData } from 'spunky';
 
-import registerFormActions from 'auth/actions/registerFormActions';
+import registerFormActions from 'register/actions/registerFormActions';
 
 import AccountView from './AccountView';
 

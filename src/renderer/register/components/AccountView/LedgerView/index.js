@@ -10,7 +10,7 @@ import {
 
 import ledgerActions, { ledgerPublicKeyActions } from 'auth/actions/ledgerActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
-import registerFormActions from 'auth/actions/registerFormActions';
+import registerFormActions from 'register/actions/registerFormActions';
 
 import LedgerView from './LedgerView';
 

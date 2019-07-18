@@ -6,12 +6,12 @@ import { random } from 'lodash';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import authActions from 'auth/actions/authActions';
-import registerCompletionActions from 'auth/actions/registerCompletionActions';
+import registerCompletionActions from 'register/actions/registerCompletionActions';
 import { appendAccountActions } from 'auth/actions/accountActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import withLogin from 'auth/hocs/withLogin';
-import registerFormActions from 'auth/actions/registerFormActions';
+import registerFormActions from 'register/actions/registerFormActions';
 
 import VerifyAccount from './VerifyAccount';
 

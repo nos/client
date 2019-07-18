@@ -4,10 +4,10 @@ import { func } from 'prop-types';
 import { CopyToClipboard } from '@nosplatform/react-copy-to-clipboard';
 
 import AuthPanel from 'auth/components/AuthPanel';
-import NavigationButtons from 'auth/components/Register/NavigationButtons';
+import NavigationButtons from 'shared/components/NavigationButtons';
 import Button from 'shared/components/Forms/Button';
 import CopyIcon from 'shared/images/icons/copy.svg';
-import registerShape from 'auth/shapes/registerShape';
+import registerShape from 'register/shapes/registerShape';
 
 import MnemonicWord from './MnemonicWord';
 import styles from './MnemonicView.scss';

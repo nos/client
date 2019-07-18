@@ -4,7 +4,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, node, bool, func } from 'prop-types';
 
-import SidePanel from 'auth/components/Register/SidePanel';
+import SidePanel from 'register/components/SidePanel';
 import CloseIcon from 'shared/images/icons/close-modal.svg';
 
 import styles from './AuthPanel.scss';
