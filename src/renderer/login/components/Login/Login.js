@@ -37,7 +37,7 @@ export default class Login extends React.PureComponent {
       >
         <div className={styles.content}>
           <div className={styles.title}>Log In</div>
-          {selectedSecretWord && <Pill>{selectedSecretWord}</Pill>}
+          {selectedSecretWord && <Pill className={styles.pill}>{selectedSecretWord}</Pill>}
           <LoginForm
             disabled={loading}
             onLogin={login}

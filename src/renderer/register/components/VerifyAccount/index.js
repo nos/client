@@ -30,7 +30,12 @@ const mapAuthActionsToProps = (actions) => ({
 });
 
 const mapRegisterCompletionActionsToProps = (actions) => ({
-  completeRegistration: (data) => actions.call(data)
+  completeRegistration: (data) => actions.call(data),
+  resetCompleteRegistration: () => actions.reset()
+});
+
+const mapRegisterFormActionsToProps = (actions) => ({
+  resetRegisterFormData: () => actions.reset()
 });
 
 const mapAccountDataToProps = (account) => ({ account });
@@ -40,6 +45,7 @@ export default compose(
   withData(registerFormActions, mapAccountDataToProps),
   withData(registerCompletionActions, mapRegisterCompletionDataToProps),
   withActions(authActions, mapAuthActionsToProps),
+  withActions(registerFormActions, mapRegisterFormActionsToProps),
   withActions(registerCompletionActions, mapRegisterCompletionActionsToProps),
   withActions(appendAccountActions, mapAppendAccountActionsToProps),
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
@@ -62,14 +68,20 @@ export default compose(
   withState('secondMnemonicWord', 'setSecondMnemonicWord', ({ secondMnemonicWordIndex, account }) => (!account.isHardware ? account.mnemonic.split(' ')[secondMnemonicWordIndex - 1] : '')),
 
   withProgressChange(registerCompletionActions, LOADED, (state, props) => {
-    const { authenticate, accountComplete: { account, passphrase } } = props;
+    const {
+      authenticate,
+      accountComplete
+    } = props;
+    const { account, passphrase } = accountComplete;
     authenticate({ account, passphrase });
-    // props.nextStep();
   }),
 
   // redirect on login TODO remove? Higher level?
   withRouter,
-  withLogin((state, { history }) => {
+  withLogin((state, { history, resetCompleteRegistration,
+    resetRegisterFormData }) => {
+    resetRegisterFormData();
+    resetCompleteRegistration();
     history.push('/browser');
   })
 )(VerifyAccount);
