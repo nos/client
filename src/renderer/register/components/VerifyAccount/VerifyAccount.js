@@ -66,7 +66,7 @@ export default class VerifyAccount extends React.PureComponent {
       <div className={styles.verifyAccount}>
         <LabeledInput
           id="verifyPassphrase"
-          type="text"
+          type="password"
           label="Verify Passphrase"
           placeholder="Enter your passphrase"
           value={passphrase}
