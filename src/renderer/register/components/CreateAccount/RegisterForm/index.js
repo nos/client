@@ -26,7 +26,7 @@ export default compose(
   withState('isHardware', 'setIsHardware', false),
   withErrorToast(),
   withProgressChange(registerFormActions, FAILED, (state, props) => {
-    props.showErrorToast(`Account creation failed: ${state.error}`);
+    props.showErrorToast(state.error);
   }),
   withProgressChange(registerFormActions, LOADED, (state, props) => {
     props.nextStep();

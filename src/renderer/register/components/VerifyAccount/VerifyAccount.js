@@ -25,8 +25,7 @@ export default class VerifyAccount extends React.PureComponent {
     setPassphrase: func.isRequired,
     setSecretWord: func.isRequired,
     setFirstMnemonicWord: func.isRequired,
-    setSecondMnemonicWord: func.isRequired,
-    setLastLogin: func.isRequired
+    setSecondMnemonicWord: func.isRequired
   };
 
   render() {
@@ -152,7 +151,6 @@ export default class VerifyAccount extends React.PureComponent {
       secondMnemonicWord,
       firstMnemonicWordIndex,
       secondMnemonicWordIndex,
-      setLastLogin,
       completeRegistration
     } = this.props;
 
@@ -165,8 +163,5 @@ export default class VerifyAccount extends React.PureComponent {
       secondMnemonicWord,
       secondMnemonicWordIndex
     });
-
-    // TODO - move setLastLogin inside registerComplete/verifyAndAuthenticate function
-    setLastLogin({ label: account.accountLabel });
   };
 }

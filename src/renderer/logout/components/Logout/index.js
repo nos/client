@@ -2,6 +2,7 @@ import { compose, withProps } from 'recompose';
 import { withActions } from 'spunky';
 import { connect } from 'react-redux';
 
+import balanceWithPricesActions from 'account/actions/balanceWithPricesActions';
 import accountActions from 'shared/actions/accountActions';
 import blockActions from 'shared/actions/blockActions';
 import withWebviewIPC from 'browser/hocs/withWebviewIPC';
@@ -13,6 +14,7 @@ import withLogout from '../../hocs/withLogout';
 
 const mapAccountActionsToProps = ({ reset }) => ({ resetAuth: reset });
 const mapBlockActionsToProps = ({ reset }) => ({ resetBlock: reset });
+const mapBalanceWithPricesActionsActionsToProps = ({ reset }) => ({ resetBalances: reset });
 
 const mapDispatchToProps = (dispatch) => ({
   resetAllTabs: () => dispatch(resetTabs()),
@@ -26,6 +28,7 @@ export default compose(
   ),
   withActions(accountActions, mapAccountActionsToProps),
   withActions(blockActions, mapBlockActionsToProps),
+  withActions(balanceWithPricesActions, mapBalanceWithPricesActionsActionsToProps),
   withLogout((state, { history }) => history.push('/browser')),
   withWebviewIPC,
   withProps(
@@ -35,6 +38,7 @@ export default compose(
       resetAllTabs,
       resetAuth,
       resetBlock,
+      resetBalances,
       onFocus
     }) => ({
       logout: () => {
@@ -42,6 +46,7 @@ export default compose(
         resetBlock();
         resetAllTabs();
         emptyAllRequests();
+        resetBalances();
         onFocus(null);
         history.push('browser');
       }

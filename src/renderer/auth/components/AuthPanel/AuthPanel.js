@@ -46,7 +46,7 @@ AuthPanel.propTypes = {
   sidePanelTitle: string,
   sidePanelText: string,
   onCancel: func.isRequired,
-  redirect: func.isRequired,
+  redirect: func,
   footer: bool,
   footerText: string
 };
@@ -59,5 +59,6 @@ AuthPanel.defaultProps = {
   footerText: '',
   sidePanelTitle: 'New Wallet',
   sidePanelText: '',
-  step: '1'
+  step: '1',
+  redirect: null
 };

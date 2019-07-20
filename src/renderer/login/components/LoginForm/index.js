@@ -22,7 +22,7 @@ const mapPreviousAuthActionsToProps = (actions) => ({
 });
 
 const mapPreviousAuthDataToProps = (data) => ({
-  previousAuth: data && data.label
+  previousAuth: data && data.label // TODO rename label to accountLabel
 });
 
 export default compose(
@@ -43,5 +43,8 @@ export default compose(
 
   // redirect on login
   withRouter,
-  withLogin((state, { history }) => history.push('/browser'))
+  withLogin((state, { auth, history, setLastLogin }) => {
+    setLastLogin({ label: auth.accountLabel });
+    history.push('/browser');
+  })
 )(LoginForm);
