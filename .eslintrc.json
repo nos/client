@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
@@ -12,13 +12,21 @@
     "__static": true
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "printWidth": 100,
+        "arrowParens": "always",
+        "endOfLine": "auto"
+      }
+    ],
     "linebreak-style": "off",
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-else-return": ["off"],
-    "function-paren-newline": ["error", "consistent"],
     "object-curly-newline": ["error", { "consistent": true }],
     "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
     "jsx-a11y/anchor-is-valid": ["error", { "components": ["Link"], "specialLink": ["to"] }],

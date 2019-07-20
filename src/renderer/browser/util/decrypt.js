@@ -16,14 +16,18 @@ export default function decrypt({ senderPublicKey, wif, iv, mac, data }) {
   ecdh.setPrivateKey(recipientPrivateKey, 'hex');
 
   const sharedKey = ecdh.computeSecret(senderPublicKey, 'hex');
-  const hash = createHash('sha512').update(sharedKey).digest();
+  const hash = createHash('sha512')
+    .update(sharedKey)
+    .digest();
   const encryptionKey = hash.slice(0, 32);
   const macKey = hash.slice(32);
   const ivBuffer = Buffer.from(iv, 'hex');
   const senderPublicKeyBuffer = Buffer.from(senderPublicKey, 'hex');
   const dataBuffer = Buffer.from(data, 'hex');
   const dataToMac = Buffer.concat([ivBuffer, senderPublicKeyBuffer, dataBuffer]);
-  const realMac = createHmac('sha256', macKey).update(dataToMac).digest();
+  const realMac = createHmac('sha256', macKey)
+    .update(dataToMac)
+    .digest();
 
   if (!realMac.equals(Buffer.from(mac, 'hex'))) {
     throw new Error('Bad MAC');

@@ -9,18 +9,7 @@ import validateRemark from 'shared/util/validateRemark';
 import { ASSETS } from '../values/assets';
 
 export default async function sendAsset(
-  {
-    net,
-    asset,
-    amount,
-    receiver,
-    address,
-    wif,
-    publicKey,
-    signingFunction,
-    remark,
-    fee = 0
-  },
+  { net, asset, amount, receiver, address, wif, publicKey, signingFunction, remark, fee = 0 },
   getBalance = api.neoscan.getBalance,
   doSendAsset = api.sendAsset,
   doInvoke = api.doInvoke,
@@ -54,12 +43,7 @@ export default async function sendAsset(
       const selectedAsset = ASSETS[asset].symbol;
       const intents = api.makeIntent({ [selectedAsset]: amount }, receiver);
       const balance = await getBalance(net, address);
-      const transaction = tx.Transaction.createContractTx(
-        balance,
-        intents,
-        {},
-        fee
-      );
+      const transaction = tx.Transaction.createContractTx(balance, intents, {}, fee);
 
       if (typeof remark === 'string') {
         transaction.addRemark(remark);

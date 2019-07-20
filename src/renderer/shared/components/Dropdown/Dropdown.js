@@ -14,7 +14,7 @@ import styles from './Dropdown.scss';
 const canFitInDirections = (overlap, childBounds, dropdownDimensions, windowDimensions) => {
   const yOffset = overlap ? childBounds.top : childBounds.bottom;
   const fitFromTop = dropdownDimensions.height <= childBounds.top;
-  const fitFromBottom = (yOffset + dropdownDimensions.height) <= windowDimensions.height;
+  const fitFromBottom = yOffset + dropdownDimensions.height <= windowDimensions.height;
 
   return { top: fitFromTop, bottom: fitFromBottom };
 };
@@ -100,13 +100,21 @@ export default class Dropdown extends React.PureComponent {
         {children}
       </div>
     );
-  }
+  };
 
   renderPortal = () => {
     const portalProps = pick(this.props, 'onClickOutside');
     const contentProps = omit(
-      this.props, 'forwardedRef', 'className', 'dropdownClass', 'children', 'content', 'open',
-      'overlap', 'onClick', 'onClickOutside'
+      this.props,
+      'forwardedRef',
+      'className',
+      'dropdownClass',
+      'children',
+      'content',
+      'open',
+      'overlap',
+      'onClick',
+      'onClickOutside'
     );
 
     return (
@@ -121,7 +129,7 @@ export default class Dropdown extends React.PureComponent {
         </div>
       </Portal>
     );
-  }
+  };
 
   renderContent = () => {
     if (!this.props.open) {
@@ -129,35 +137,35 @@ export default class Dropdown extends React.PureComponent {
     }
 
     return this.props.content;
-  }
+  };
 
   handleKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       this.props.onClick();
     }
-  }
+  };
 
   handleReposition = () => {
     this.setPosition();
-  }
+  };
 
   registerRef = (name) => (el) => {
     this[name] = el;
-  }
+  };
 
   setPosition = () => {
     this.setState(this.calculateDropdownProps());
-  }
+  };
 
   getContainerBounds = () => {
     return this.container.current.getBoundingClientRect();
-  }
+  };
 
   getWindowDimensions = () => {
     const { body } = document;
     return { width: body.clientWidth, height: body.clientHeight };
-  }
+  };
 
   getDropdownDimensions() {
     return { width: this.dropdown.current.clientWidth, height: this.dropdown.current.clientHeight };
@@ -182,23 +190,21 @@ export default class Dropdown extends React.PureComponent {
     );
 
     return { position, ...this.getDropdownWidthProps(containerBounds) };
-  }
+  };
 
   getPositionForDirection = (containerBounds, dropdownDimensions, dropUp) => {
     const yOrigin = containerBounds.top + (this.props.overlap ? 0 : containerBounds.height);
     const yOffset = dropUp ? containerBounds.height - dropdownDimensions.height : 0;
 
     return { top: yOrigin + yOffset, left: containerBounds.left };
-  }
+  };
 
   getDropdownWidthProps = (containerBounds) => {
     return { width: containerBounds.width };
-  }
+  };
 
   getDropdownStyles() {
-    const dropdownWidthStyle = this.state.width
-      ? { width: `${this.state.width}px` }
-      : {};
+    const dropdownWidthStyle = this.state.width ? { width: `${this.state.width}px` } : {};
 
     // TODO: fix render order instead of forcing z-index!
     return {

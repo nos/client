@@ -8,11 +8,15 @@ import makeGetAddress from 'browser/components/RequestsProcessor/GetAddress';
 
 const address = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    auth: mockSpunkyLoaded({ address, wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG' })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      auth: mockSpunkyLoaded({
+        address,
+        wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG'
+      })
+    }
+  });
 
 describe('<GetBalance />', () => {
   let onResolve;

@@ -58,7 +58,7 @@ export default class LastBlock extends React.PureComponent {
         </div>
       </div>
     );
-  }
+  };
 
   getIconClassName = () => {
     if (this.props.error) {
@@ -68,7 +68,7 @@ export default class LastBlock extends React.PureComponent {
     } else {
       return styles.connecting;
     }
-  }
+  };
 
   getTimestamp = (block) => {
     if (!block) {
@@ -76,5 +76,5 @@ export default class LastBlock extends React.PureComponent {
     }
 
     return new Date(block.time * 1000).toLocaleTimeString();
-  }
+  };
 }

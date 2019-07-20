@@ -2,11 +2,7 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import {
-  createStore as createReduxStore,
-  applyMiddleware,
-  compose
-} from 'redux';
+import { createStore as createReduxStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { saga, progressValues } from 'spunky';
 import { get } from 'lodash';
@@ -74,10 +70,7 @@ export const addLoadedListener = (store, storeKey, callback) => {
     const key = `${spunkyKey}.${storeKey}.progress`;
     const progress = get(store.getState(), key);
 
-    if (
-      progress === progressValues.LOADED ||
-      progress === progressValues.FAILED
-    ) {
+    if (progress === progressValues.LOADED || progress === progressValues.FAILED) {
       unsubscribe();
       callback();
     }

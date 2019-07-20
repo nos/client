@@ -6,9 +6,7 @@ export default class NeoWallet {
   }
 
   getWallet = () => {
-    const { address, privateKey, WIF, publicKey } = new wallet.Account(
-      this.getPrivateKey()
-    );
+    const { address, privateKey, WIF, publicKey } = new wallet.Account(this.getPrivateKey());
 
     return {
       address,

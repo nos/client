@@ -28,7 +28,4 @@ export const walletShapeNotInitialized = shape({
   address: string.isRequired
 });
 
-export default oneOfType([
-  walletShapeInitialized,
-  walletShapeNotInitialized
-]);
+export default oneOfType([walletShapeInitialized, walletShapeNotInitialized]);

@@ -21,7 +21,4 @@ export const registerLedgerShape = shape({
   publicKey: string.isRequired
 });
 
-export default oneOfType([
-  registerMnemonicShape,
-  registerLedgerShape
-]);
+export default oneOfType([registerMnemonicShape, registerLedgerShape]);

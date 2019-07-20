@@ -17,15 +17,16 @@ const sessionId = 'abc';
 const requestId = '123';
 const currentAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    currentNetwork: mockSpunkyLoaded('MainNet'),
-    auth: mockSpunkyLoaded({
-      wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
-      address: currentAddress
-    })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      currentNetwork: mockSpunkyLoaded('MainNet'),
+      auth: mockSpunkyLoaded({
+        wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
+        address: currentAddress
+      })
+    }
+  });
 
 describe('<GetStorage />', () => {
   let store;

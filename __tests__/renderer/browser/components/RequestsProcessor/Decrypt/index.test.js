@@ -22,11 +22,12 @@ const wrongMac = '11111111111111111111111111111111111111111111111111111111111111
 const data = 'some text';
 const encrypted = '16f55cabb8b9c87a85af3232f30c0a07';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
+    }
+  });
 
 describe('<Decrypt />', () => {
   let store;

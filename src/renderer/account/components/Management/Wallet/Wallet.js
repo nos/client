@@ -62,8 +62,7 @@ export default class Wallet extends React.PureComponent {
         </div>
       </div>
     );
-  }
-
+  };
 
   renderAddress = ({ wallet }) => (
     <div className={styles.publicView}>

@@ -39,23 +39,13 @@ export default class Register extends React.PureComponent {
     const { onCancel } = this.props;
 
     return (
-      <AccountView
-        onCancel={onCancel}
-        nextStep={this.nextStep}
-        previousStep={this.previousStep}
-      />
+      <AccountView onCancel={onCancel} nextStep={this.nextStep} previousStep={this.previousStep} />
     );
   };
 
   renderThirdStep = () => {
     const { onCancel, loading } = this.props;
-    return (
-      <VerifyAccount
-        onCancel={onCancel}
-        previousStep={this.previousStep}
-        loading={loading}
-      />
-    );
+    return <VerifyAccount onCancel={onCancel} previousStep={this.previousStep} loading={loading} />;
   };
 
   nextStep = () => {

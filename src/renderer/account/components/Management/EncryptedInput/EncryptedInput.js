@@ -47,26 +47,15 @@ export default class EncryptedInput extends React.PureComponent {
   renderTitle = ({ title }) => (
     <div className={styles.heading}>
       <div>{title}</div>
-      <div
-        className={styles.toggle}
-        onClick={this.toggleEncrypted}
-        role="button"
-        tabIndex={0}
-      >
+      <div className={styles.toggle} onClick={this.toggleEncrypted} role="button" tabIndex={0}>
         Show & Unlock
       </div>
     </div>
   );
 
   renderInput = ({ hidden, data }) => (
-    <Input
-      readOnly
-      className={styles.input}
-      type={hidden ? 'password' : 'text'}
-      value={data}
-    />
-  )
-
+    <Input readOnly className={styles.input} type={hidden ? 'password' : 'text'} value={data} />
+  );
 
   handleShowHiddenConfirm = async () => {
     const {

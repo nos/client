@@ -22,7 +22,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({ navigate }, dispatch);
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withHandlers({
     onQuery: (props) => (target) => {
       props.navigate(props.activeSessionId, target);

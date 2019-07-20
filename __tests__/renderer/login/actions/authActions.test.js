@@ -6,8 +6,7 @@ describe('authActions', () => {
   describe('call', () => {
     const wif = 'KxB52D1FGe5xBn6YeezNwj7grhkHZxq7bv2tmaCPoT4rxApMwMvU';
     const address = 'ASJQLBnhAs6fSgBv2R7KtRZjC8A9fAmcNW';
-    const privateKey =
-      '1c7a992d0e68b7b23cb430ba596bd68cecde042410d81e9e95ee19dc1bcd739d';
+    const privateKey = '1c7a992d0e68b7b23cb430ba596bd68cecde042410d81e9e95ee19dc1bcd739d';
 
     const itBehavesLikeAnActionResponse = (callback) => {
       it('returns an action object', () => {

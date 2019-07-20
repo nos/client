@@ -177,10 +177,7 @@ function setLoaded(state, action) {
   return updateTab(state, action.sessionId, { loading: !action.loaded });
 }
 
-export default function browserReducer(
-  state = generateInitialState(),
-  action = {}
-) {
+export default function browserReducer(state = generateInitialState(), action = {}) {
   switch (action.type) {
     case OPEN_TAB:
       return open(state, action.payload);

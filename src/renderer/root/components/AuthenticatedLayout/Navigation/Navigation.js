@@ -5,13 +5,7 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 
-import {
-  APPSTORE,
-  ACCOUNT,
-  EXCHANGE,
-  EXTERNAL,
-  SETTINGS
-} from 'browser/values/browserValues';
+import { APPSTORE, ACCOUNT, EXCHANGE, EXTERNAL, SETTINGS } from 'browser/values/browserValues';
 import AppStoreIcon from 'shared/images/icons/discover.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import ExchangeIcon from 'shared/images/icons/exchange.svg';
@@ -61,12 +55,7 @@ export default class Navigation extends React.PureComponent {
           <li>
             <Tooltip overlay="Exchange">
               <div>
-                <TabLink
-                  id="exchange"
-                  type={EXTERNAL}
-                  target={EXCHANGE}
-                  match={matchExchange}
-                >
+                <TabLink id="exchange" type={EXTERNAL} target={EXCHANGE} match={matchExchange}>
                   <ExchangeIcon aria-label="exchange" />
                 </TabLink>
               </div>
@@ -94,13 +83,7 @@ export default class Navigation extends React.PureComponent {
           </li>
           <li>
             <Tooltip overlay="Logout">
-              <NavLink
-                id="logout"
-                exact
-                to="/logout"
-                draggable={false}
-                className={styles.link}
-              >
+              <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
                 <LogoutIcon aria-label="logout" />
               </NavLink>
             </Tooltip>

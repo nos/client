@@ -3,7 +3,13 @@ import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
 import { u, wallet } from '@cityofzion/neon-js';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded,
+  addLoadedListener
+} from 'testHelpers';
 
 import makeSend from 'browser/components/RequestsProcessor/Send';
 import makeSendActions, { ID as sendKey } from 'browser/actions/makeSendActions';
@@ -17,13 +23,14 @@ const currentWif = 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG';
 const amount = '1';
 const receiverAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    currentNetwork: mockSpunkyLoaded(currentNetwork),
-    auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif }),
-    fee: mockSpunkyLoaded('0.00000000')
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      currentNetwork: mockSpunkyLoaded(currentNetwork),
+      auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif }),
+      fee: mockSpunkyLoaded('0.00000000')
+    }
+  });
 
 describe('<Send />', () => {
   let store;
@@ -32,26 +39,36 @@ describe('<Send />', () => {
     store = getStore();
   });
 
-  const mockGetBalance = jest.fn(({ net, address }) => new wallet.Balance({
-    net,
-    address,
-    assets: {
-      [ASSETS[NEO].symbol]: {
-        balance: new u.Fixed8(1),
-        unspent: [{
-          index: 0,
-          txid: '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
-          value: new u.Fixed8(1)
-        }],
-        spent: [],
-        unconfirmed: []
-      }
-    }
-  }));
+  const mockGetBalance = jest.fn(
+    ({ net, address }) =>
+      new wallet.Balance({
+        net,
+        address,
+        assets: {
+          [ASSETS[NEO].symbol]: {
+            balance: new u.Fixed8(1),
+            unspent: [
+              {
+                index: 0,
+                txid: '9575e8bfe4bacabfee083c88a2175dcce71c56f01345b439001af632354c547b',
+                value: new u.Fixed8(1)
+              }
+            ],
+            spent: [],
+            unconfirmed: []
+          }
+        }
+      })
+  );
 
   const mockSendAsset = jest.fn(({ net, address, wif }) => {
     if (net === currentNetwork && address === currentAddress && wif === currentWif) {
-      return { response: { result: true, txid: '9a560de43649bc4671dcfc522c8a54d176cfd2bb34410e1ac976ddf1f150ab05' } };
+      return {
+        response: {
+          result: true,
+          txid: '9a560de43649bc4671dcfc522c8a54d176cfd2bb34410e1ac976ddf1f150ab05'
+        }
+      };
     }
     return { response: { result: false } };
   });
@@ -92,7 +109,12 @@ describe('<Send />', () => {
     jest.restoreAllMocks();
   });
 
-  const defaultProps = { args: [{ asset: NEO, amount, receiver: receiverAddress }], src: 'nos://nos.neo', onResolve: noop, onReject: noop };
+  const defaultProps = {
+    args: [{ asset: NEO, amount, receiver: receiverAddress }],
+    src: 'nos://nos.neo',
+    onResolve: noop,
+    onReject: noop
+  };
 
   describe('on first render', () => {
     let wrapper;
@@ -116,7 +138,10 @@ describe('<Send />', () => {
 
     beforeEach(() => {
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
-      wrapper.find('PromptComponent').instance().handleConfirm();
+      wrapper
+        .find('PromptComponent')
+        .instance()
+        .handleConfirm();
     });
 
     it('initiates a send call', () => {
@@ -152,13 +177,18 @@ describe('<Send />', () => {
       addSendLoadedListener(done);
 
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
-      wrapper.find('PromptComponent').instance().handleConfirm();
+      wrapper
+        .find('PromptComponent')
+        .instance()
+        .handleConfirm();
       wrapper.update(); // re-render after user confirmation
     });
 
     it('rejects', () => {
       wrapper.update(); // re-render after data fails to load
-      expect(onReject).toHaveBeenCalledWith(`Could not send ${amount} ${NEO} to ${receiverAddress}: Fake test error`);
+      expect(onReject).toHaveBeenCalledWith(
+        `Could not send ${amount} ${NEO} to ${receiverAddress}: Fake test error`
+      );
       expect(onResolve).not.toHaveBeenCalled();
     });
   });
@@ -168,7 +198,10 @@ describe('<Send />', () => {
 
     beforeEach(() => {
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
-      wrapper.find('PromptComponent').instance().handleCancel();
+      wrapper
+        .find('PromptComponent')
+        .instance()
+        .handleCancel();
       wrapper.update(); // re-render after user cancellation
     });
 

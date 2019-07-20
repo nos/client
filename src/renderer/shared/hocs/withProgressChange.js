@@ -35,8 +35,10 @@ export default function withProgressChange(actions, progress, callback, options 
     withError(actions, mapErrorToProps),
     lifecycle({
       componentWillReceiveProps(nextProps) {
-        if (!progresses.includes(this.props[progressProp]) &&
-            progresses.includes(nextProps[progressProp])) {
+        if (
+          !progresses.includes(this.props[progressProp]) &&
+          progresses.includes(nextProps[progressProp])
+        ) {
           callback(
             getCallbackState(nextProps),
             getCallbackProps(nextProps),

@@ -25,8 +25,12 @@ export default function withRejectMessage(actions, message, options = {}) {
 
   return compose(
     withError(actions, mapErrorToProps),
-    withProgressComponents(actions, {
-      [FAILED]: RejectMessageComponent
-    }, options)
+    withProgressComponents(
+      actions,
+      {
+        [FAILED]: RejectMessageComponent
+      },
+      options
+    )
   );
 }

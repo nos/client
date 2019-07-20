@@ -11,11 +11,10 @@ export default createActions(ID, ({ accountLabel }) => async () => {
 });
 
 // Setter - Add new wallets
-export const addWalletActions = createActions(ID, ({
-  account,
-  passphrase,
-  coinType
-}) => async () => {
-  await addWalletToAccount({ account, passphrase, options: { coinType } });
-  return getWalletsForAccount({ accountLabel: account.accountLabel });
-});
+export const addWalletActions = createActions(
+  ID,
+  ({ account, passphrase, coinType }) => async () => {
+    await addWalletToAccount({ account, passphrase, options: { coinType } });
+    return getWalletsForAccount({ accountLabel: account.accountLabel });
+  }
+);

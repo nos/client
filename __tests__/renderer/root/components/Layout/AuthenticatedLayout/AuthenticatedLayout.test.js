@@ -30,6 +30,13 @@ const initialState = {
 
 describe('<AuthenticatedLayout />', () => {
   it('renders without crashing', () => {
-    mount(provideState(<MemoryRouter><AuthenticatedLayout /></MemoryRouter>, initialState));
+    mount(
+      provideState(
+        <MemoryRouter>
+          <AuthenticatedLayout />
+        </MemoryRouter>,
+        initialState
+      )
+    );
   });
 });

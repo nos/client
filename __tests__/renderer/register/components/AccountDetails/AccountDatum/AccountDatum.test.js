@@ -28,7 +28,6 @@
 //   });
 // });
 
-
 describe('<AccountDatum />', () => {
   it('renders the label', () => {
     expect(true).toBe(true);

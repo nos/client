@@ -11,7 +11,7 @@ const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {
 
   // Validate mnemnoic
   if (isError(mnemonic) || !bip39.validateMnemonic(mnemonic, bip39.wordlists[DEFAULT_LANGUAGE])) {
-    throw new Error('Please make sure you\'ve entered the correct password.');
+    throw new Error("Please make sure you've entered the correct password.");
   }
 
   const seed = bip39.mnemonicToSeed(mnemonic, passphrase);

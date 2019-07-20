@@ -76,18 +76,23 @@ export default compose(
   }),
 
   withRouter,
-  withLogin((state, {
-    history,
-    auth,
-    resetCompleteRegistration,
-    resetRegisterFormData,
-    resetAccountsData,
-    setLastLogin
-  }) => {
-    setLastLogin({ label: auth.accountLabel });
-    resetRegisterFormData();
-    resetCompleteRegistration();
-    resetAccountsData();
-    history.push('/browser');
-  })
+  withLogin(
+    (
+      state,
+      {
+        history,
+        auth,
+        resetCompleteRegistration,
+        resetRegisterFormData,
+        resetAccountsData,
+        setLastLogin
+      }
+    ) => {
+      setLastLogin({ label: auth.accountLabel });
+      resetRegisterFormData();
+      resetCompleteRegistration();
+      resetAccountsData();
+      history.push('/browser');
+    }
+  )
 )(VerifyAccount);

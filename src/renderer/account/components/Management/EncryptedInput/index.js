@@ -10,5 +10,5 @@ export default compose(
   withErrorToast(),
   withState('hidden', 'setHidden', true),
   withState('passphrase', 'setPassphrase', ''),
-  withState('data', 'setData', ({ encryptedData }) => encryptedData),
+  withState('data', 'setData', ({ encryptedData }) => encryptedData)
 )(EncryptedInput);

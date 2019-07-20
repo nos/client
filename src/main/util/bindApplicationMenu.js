@@ -39,28 +39,30 @@ function filterItems(menuItems) {
   return menuItems.filter((item) => item);
 }
 
-const appMenu = () => ifMac({
-  label: app.getName(),
-  submenu: [
-    {
-      label: 'About',
-      click: () => openAboutWindow({
-        icon_path: path.join(getStaticPath(), 'icons', 'icon1024x1024.png'),
-        package_json_dir: path.join('..', '..', '..'),
-        bug_link_text: 'Report a bug',
-        bug_report_url: 'https://github.com/nos/client/issues/new/choose'
-      })
-    },
-    { type: 'separator' },
-    { role: 'services', submenu: [] },
-    { type: 'separator' },
-    { role: 'hide' },
-    { role: 'hideothers' },
-    { role: 'unhide' },
-    { type: 'separator' },
-    { role: 'quit' }
-  ]
-});
+const appMenu = () =>
+  ifMac({
+    label: app.getName(),
+    submenu: [
+      {
+        label: 'About',
+        click: () =>
+          openAboutWindow({
+            icon_path: path.join(getStaticPath(), 'icons', 'icon1024x1024.png'),
+            package_json_dir: path.join('..', '..', '..'),
+            bug_link_text: 'Report a bug',
+            bug_report_url: 'https://github.com/nos/client/issues/new/choose'
+          })
+      },
+      { type: 'separator' },
+      { role: 'services', submenu: [] },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  });
 
 const fileMenu = (browserWindow) => ({
   label: 'File',
@@ -107,10 +109,7 @@ const editMenu = () => ({
     ifMac({ type: 'separator' }),
     ifMac({
       label: 'Speech',
-      submenu: [
-        { role: 'startspeaking' },
-        { role: 'stopspeaking' }
-      ]
+      submenu: [{ role: 'startspeaking' }, { role: 'stopspeaking' }]
     })
   ])
 });
@@ -228,9 +227,11 @@ const helpMenu = (browserWindow) => ({
 function bindAppMenu(browserWindow, webview) {
   const menus = [appMenu, fileMenu, editMenu, viewMenu, historyMenu, windowMenu, helpMenu];
 
-  const template = filterItems(menus.map((builder) => {
-    return builder(browserWindow, webview);
-  }));
+  const template = filterItems(
+    menus.map((builder) => {
+      return builder(browserWindow, webview);
+    })
+  );
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);

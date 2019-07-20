@@ -73,5 +73,7 @@ export default compose(
     props.nextStep();
   }),
 
-  withState('selectedPublicKey', 'setSelectedPublicKey', ({ publicKeys }) => (publicKeys ? publicKeys[0].index : ''))
+  withState('selectedPublicKey', 'setSelectedPublicKey', ({ publicKeys }) =>
+    publicKeys ? publicKeys[0].index : ''
+  )
 )(LedgerView);

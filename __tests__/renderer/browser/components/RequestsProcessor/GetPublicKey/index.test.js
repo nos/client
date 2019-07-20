@@ -15,11 +15,12 @@ const requestId = '123';
 const wif = 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG';
 const account = new wallet.Account(wif);
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
+    }
+  });
 
 describe('<GetPublicKey />', () => {
   let store;

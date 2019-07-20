@@ -2,7 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded,
+  addLoadedListener
+} from 'testHelpers';
 
 import makeGetBalance from 'browser/components/RequestsProcessor/GetBalance';
 import makeBalancesActions from 'browser/actions/makeBalancesActions';
@@ -12,15 +18,16 @@ const sessionId = 'abc';
 const requestId = '123';
 const currentAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    currentNetwork: mockSpunkyLoaded('MainNet'),
-    auth: mockSpunkyLoaded({
-      wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
-      address: currentAddress
-    })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      currentNetwork: mockSpunkyLoaded('MainNet'),
+      auth: mockSpunkyLoaded({
+        wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
+        address: currentAddress
+      })
+    }
+  });
 
 describe('<GetBalance />', () => {
   let store;
@@ -112,7 +119,9 @@ describe('<GetBalance />', () => {
 
       it('rejects', () => {
         wrapper.update();
-        expect(onReject).toHaveBeenCalledWith(`Balance for account ${args[0].address} could not be retrieved: Fake test error`);
+        expect(onReject).toHaveBeenCalledWith(
+          `Balance for account ${args[0].address} could not be retrieved: Fake test error`
+        );
         expect(onResolve).not.toHaveBeenCalled();
       });
     });

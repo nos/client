@@ -20,11 +20,12 @@ const mac = '170d03c25d49c7c03c8e1515a316f94fafb52feac73c46196525813883d64596';
 const data = 'some text';
 const encrypted = '16f55cabb8b9c87a85af3232f30c0a07';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
+    }
+  });
 
 describe('<Encrypt />', () => {
   let store;
