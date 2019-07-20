@@ -53,8 +53,8 @@ export default compose(
 
   withLoadingProp(registerCompletionActions, { strategy: pureStrategy }),
 
-  withState('passphrase', 'setPassphrase', 'q'),
-  withState('secretWord', 'setSecretWord', 'MySercetWord'),
+  withState('passphrase', 'setPassphrase', ''),
+  withState('secretWord', 'setSecretWord', ''),
   withState(
     'firstMnemonicWordIndex',
     'setFirstMnemonicWordIndex',
@@ -65,8 +65,8 @@ export default compose(
     'setSecondMnemonicWordIndex',
     ({ secondMnemonicWordIndex }) => secondMnemonicWordIndex || random(13, 24)
   ),
-  withState('firstMnemonicWord', 'setFirstMnemonicWord', ({ firstMnemonicWordIndex, account }) => (!account.isHardware ? account.mnemonic.split(' ')[firstMnemonicWordIndex - 1] : '')),
-  withState('secondMnemonicWord', 'setSecondMnemonicWord', ({ secondMnemonicWordIndex, account }) => (!account.isHardware ? account.mnemonic.split(' ')[secondMnemonicWordIndex - 1] : '')),
+  withState('firstMnemonicWord', 'setFirstMnemonicWord', ''),
+  withState('secondMnemonicWord', 'setSecondMnemonicWord', ''),
 
   withProgressChange(registerCompletionActions, LOADED, (state, props) => {
     const {
@@ -82,7 +82,6 @@ export default compose(
     props.showErrorToast(state.error);
   }),
 
-  // redirect on login TODO remove? Higher level?
   withRouter,
   withLogin((state, {
     history,

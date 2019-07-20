@@ -19,10 +19,10 @@ export default compose(
   withActions(registerFormActions, mapRegisterActionsToProps),
   withLoadingProp(registerFormActions, { strategy: pureStrategy }),
 
-  withState('accountLabel', 'setAccountLabel', Math.random().toString()),
-  withState('passphrase', 'setPassphrase', 'q'),
-  withState('passphraseConfirm', 'setPassphraseConfirm', 'q'),
-  withState('secretWord', 'setSecretWord', 'MySercetWord'),
+  withState('accountLabel', 'setAccountLabel', ''),
+  withState('passphrase', 'setPassphrase', ''),
+  withState('passphraseConfirm', 'setPassphraseConfirm', ''),
+  withState('secretWord', 'setSecretWord', ''),
   withState('isHardware', 'setIsHardware', false),
   withErrorToast(),
   withProgressChange(registerFormActions, FAILED, (state, props) => {
