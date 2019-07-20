@@ -43,7 +43,7 @@ export default class VerifyAccount extends React.PureComponent {
           onBack={previousStep}
           onNext={this.completeRegistration}
           nextBtnText="Complete"
-          disabled={loading}
+          disabled={loading || !this.isValid()}
         />
       </AuthPanel>
     );
@@ -163,5 +163,19 @@ export default class VerifyAccount extends React.PureComponent {
       secondMnemonicWord,
       secondMnemonicWordIndex
     });
+  };
+
+  isValid = () => {
+    const {
+      account,
+      passphrase,
+      secretWord,
+      firstMnemonicWord,
+      secondMnemonicWord
+    } = this.props;
+    const { isHardware } = account;
+
+    const assertion = isHardware ? true : firstMnemonicWord !== '' && secondMnemonicWord !== '';
+    return passphrase !== '' && secretWord !== '' && assertion;
   };
 }

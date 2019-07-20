@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number } from 'prop-types';
+import { func, number, bool } from 'prop-types';
 
 import CreateAccount from '../CreateAccount';
 import AccountView from '../AccountView';
@@ -11,7 +11,8 @@ export default class Register extends React.PureComponent {
     redirect: func.isRequired,
     onCancel: func.isRequired,
     step: number.isRequired,
-    setStep: func.isRequired
+    setStep: func.isRequired,
+    loading: bool.isRequired
   };
 
   render() {
@@ -47,11 +48,12 @@ export default class Register extends React.PureComponent {
   };
 
   renderThirdStep = () => {
-    const { onCancel } = this.props;
+    const { onCancel, loading } = this.props;
     return (
       <VerifyAccount
         onCancel={onCancel}
         previousStep={this.previousStep}
+        loading={loading}
       />
     );
   };

@@ -3,8 +3,6 @@ import { compose, withState } from 'recompose';
 import { withActions, withData, progressValues } from 'spunky';
 import { random } from 'lodash';
 
-import withLoadingProp from 'shared/hocs/withLoadingProp';
-import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import authActions from 'auth/actions/authActions';
 import accountActions from 'auth/actions/accountActions';
 import registerCompletionActions from 'register/actions/registerCompletionActions';
@@ -51,8 +49,6 @@ export default compose(
   withActions(registerCompletionActions, mapRegisterCompletionActionsToProps),
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
 
-  withLoadingProp(registerCompletionActions, { strategy: pureStrategy }),
-
   withState('passphrase', 'setPassphrase', ''),
   withState('secretWord', 'setSecretWord', ''),
   withState(
@@ -69,10 +65,7 @@ export default compose(
   withState('secondMnemonicWord', 'setSecondMnemonicWord', ''),
 
   withProgressChange(registerCompletionActions, LOADED, (state, props) => {
-    const {
-      authenticate,
-      accountComplete
-    } = props;
+    const { authenticate, accountComplete } = props;
     const { account, passphrase } = accountComplete;
     authenticate({ account, passphrase });
   }),

@@ -5,6 +5,7 @@ import { withData, withActions } from 'spunky';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import previousAuthActions, { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import accountActions from 'auth/actions/accountActions';
+import registerFormActions from 'register/actions/registerFormActions';
 import withLogin from 'auth/hocs/withLogin';
 
 import LoginForm from './LoginForm';
@@ -25,6 +26,10 @@ const mapPreviousAuthDataToProps = (data) => ({
   previousAuth: data && data.label // TODO rename label to accountLabel
 });
 
+const mapRegisterFormActionsToProps = (actions) => ({
+  resetRegisterFormData: () => actions.reset()
+});
+
 export default compose(
   withActions(accountActions, mapAccountActionsToProps),
   withInitialCall(accountActions),
@@ -40,11 +45,13 @@ export default compose(
 
   // store accountLabebl to store previously selected lable
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
+  withActions(registerFormActions, mapRegisterFormActionsToProps),
 
   // redirect on login
   withRouter,
-  withLogin((state, { auth, history, setLastLogin }) => {
+  withLogin((state, { auth, history, setLastLogin, resetRegisterFormData }) => {
     setLastLogin({ label: auth.accountLabel });
+    resetRegisterFormData();
     history.push('/browser');
   })
 )(LoginForm);
