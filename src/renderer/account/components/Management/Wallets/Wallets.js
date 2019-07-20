@@ -10,11 +10,11 @@ import styles from './Wallets.scss';
 
 
 const Wallets = ({ account, wallets }) => {
-  const { encryptedMnemonic, secretWord } = account;
+  const { encryptedMnemonic, secretWord, isHardware } = account;
 
   return (
     <div className={styles.wallets}>
-      <div className={styles.title}>Accounts generated from Keychain</div>
+      <div className={styles.title}>Accounts generated from {isHardware ? 'Ledger' : 'Keychain'}</div>
       {map(wallets, (wallet) => (
         <Wallet
           wallet={wallet}

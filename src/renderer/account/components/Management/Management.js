@@ -40,8 +40,12 @@ export default class Management extends React.PureComponent {
 
     return (
       <Page className={classnames(className, styles.management)}>
-        {this.renderHeading({ account })}
-        <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
+        { !account.isHardware && (
+          <React.Fragment>
+            {this.renderHeading({ account })}
+            <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
+          </React.Fragment>
+        )}
         {wallets && (
           <Wallets
             encryptedMnemonic={encryptedMnemonic}
@@ -53,14 +57,12 @@ export default class Management extends React.PureComponent {
     );
   }
 
-  renderHeading = ({ account }) => (
+  renderHeading = () => (
     <div className={styles.heading}>
       <div className={styles.title}>My Account</div>
-      { !account.isHardware && (
-        <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+      <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
           New Address
-        </div>
-      )}
+      </div>
     </div>
   )
 
