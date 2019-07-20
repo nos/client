@@ -1,0 +1,77 @@
+.wallet {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media only screen and (max-width: $responsive-width) {
+    flex-direction: column;
+  }
+
+  @extend %panelColor;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 7px;
+  max-width: 1024px;
+  box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
+  border-radius: 4px;
+
+  .left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 16px;
+
+    .icon {
+      margin-right: 16px;
+    }
+
+    .title {
+      @extend %textColor;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    .subtitle {
+      @extend %labelColor;
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
+  .walletData {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .publicView {
+      // TODO should be 15px, but somehow the distance is not aligned with pkView
+      margin-top: 13px;
+      margin-bottom: 15px;
+      margin-right: 20px;
+      width: 65%;
+
+      .subtitle {
+        @extend %labelColor;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      .input {
+        height: 20px;
+        border-radius: 2px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.neo {
+  border-left: 3px solid #8bc83c;
+}
+
+.eth {
+  border-left: 3px solid #8c8c8c;
+}

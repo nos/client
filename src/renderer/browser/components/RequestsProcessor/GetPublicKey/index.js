@@ -1,7 +1,7 @@
 import { withData } from 'spunky';
 import { compose } from 'recompose';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 
 import GetPublicKey from './GetPublicKey';

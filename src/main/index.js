@@ -98,7 +98,7 @@ function createSplashWindow() {
       autoUpdater.allowPrerelease = false;
       autoUpdater.checkForUpdates();
       autoUpdater.on('update-available', ({ version }) => {
-        splashWindow.webContents.send('updaterMsg', `Updating nOS client to version ${version}`);
+        splashWindow.webContents.send('updaterMsg', `Updating nOS Client to version ${version}`);
       });
       autoUpdater.on('update-not-available', () => {
         createMainWindow();

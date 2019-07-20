@@ -1,16 +1,17 @@
 .register {
-  max-width: 550px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+
   -webkit-app-region: no-drag;
 
-  .logo {
-    display: block;
-    margin: 40px auto 0;
-    width: 200px;
-  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
 
-  .tabs {
-    margin: 20px 0 0;
+    .closeIcon {
+      margin: 20px;
+      align-self: flex-end;
+      cursor: pointer;
+    }
   }
 }

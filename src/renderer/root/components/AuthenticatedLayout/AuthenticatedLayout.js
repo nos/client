@@ -83,7 +83,7 @@ export default class AuthenticatedLayout extends React.PureComponent {
     });
 
     return <div className={className} />;
-  }
+  };
 
   renderSidebar = () => {
     if (!this.state.showSidebar) {
@@ -96,7 +96,7 @@ export default class AuthenticatedLayout extends React.PureComponent {
         <Navigation className={styles.navigation} />
       </div>
     );
-  }
+  };
 
   renderContent = () => {
     return (
@@ -112,32 +112,32 @@ export default class AuthenticatedLayout extends React.PureComponent {
         </ScrollContainer>
       </div>
     );
-  }
+  };
 
   handleToggleSidebar = () => {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
-  }
+  };
 
   fetchAndPoll = () => {
     this.clearPoll();
     this.props.getLastBlock();
     this.createPoll();
-  }
+  };
 
   createPoll = () => {
     this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
-  }
+  };
 
   clearPoll = () => {
     if (this.pollInterval) {
       clearInterval(this.pollInterval);
     }
-  }
+  };
 
   isInternalPage = () => {
     const tab = this.props.tabs[this.props.activeSessionId];
     return isInternalPage(tab.type);
-  }
+  };
 }

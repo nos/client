@@ -3,7 +3,7 @@
   height: 42px;
   line-height: 42px;
   padding: 0 16px;
-  color: $light-text-color;
+  color: $gray-4;
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
@@ -12,7 +12,11 @@
 
   &.active,
   &:hover {
-    color: $dark-text-color;
+    color: $gray-6;
+
+    @include theme(DARK) {
+      color: $gray-2;
+    }
   }
 
   &.active {
@@ -25,7 +29,7 @@
       bottom: 0;
       left: 0;
       width: 2px;
-      background: linear-gradient(0deg, #b9d532 0%, #5bba47 100%);
+      background: $brand;
     }
   }
 }

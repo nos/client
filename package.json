@@ -22,6 +22,8 @@
     "about-window": "1.13.0",
     "babel-polyfill": "6.26.0",
     "bignumber.js": "9.0.0",
+    "bip32": "1.0.2",
+    "bip39": "2.5.0",
     "classnames": "2.2.6",
     "coingecko-api": "1.0.5",
     "connected-react-router": "5.0.1",
@@ -32,6 +34,7 @@
     "electron-localshortcut": "3.1.0",
     "electron-updater": "3.2.3",
     "es6-promisify": "6.0.1",
+    "ethereumjs-utils": "5.2.5",
     "file-type": "12.0.1",
     "format-currency": "1.0.0",
     "history": "4.9.0",
@@ -69,17 +72,17 @@
     "build": "yarn build:main && yarn build:renderer",
     "build:main": "electron-webpack main",
     "build:renderer": "cross-env NODE_ENV=production webpack --config config/webpack.renderer.js",
-    "dist": "yarn run clean && yarn run build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
+    "dist": "yarn clean && yarn build && cross-env ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true electron-builder",
     "pack": "yarn dist --dir -c.compression=store -c.mac.identity=null",
-    "pretest": "yarn run lint && yarn run stylelint",
+    "pretest": "yarn lint && yarn stylelint",
     "test": "jest --maxWorkers=4",
     "test:debug": "node inspect ./node_modules/.bin/jest --runInBand",
     "stylelint": "stylelint src/**/*.scss",
     "lint": "eslint --env browser,node --ext .jsx,.js --color .",
-    "lint:fix": "yarn run lint --fix",
+    "lint:fix": "yarn lint --fix",
     "clean": "rimraf build dist coverage",
     "postinstall": "electron-builder install-app-deps",
-    "release": "yarn run clean && yarn run build && build  --win --x64 --ia32 --linux -p always"
+    "release": "yarn clean && yarn build && build  --win --x64 --ia32 --linux -p always"
   },
   "devDependencies": {
     "babel-eslint": "10.0.2",
@@ -103,7 +106,7 @@
     "enzyme-adapter-react-16": "1.13.2",
     "eslint": "6.0.1",
     "eslint-config-airbnb": "17.1.1",
-    "eslint-import-resolver-babel-module": "4.0.0",
+    "eslint-import-resolver-babel-module": "5.1.0",
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-jest": "22.8.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
@@ -173,6 +176,10 @@
       "node_modules"
     ],
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "testPathIgnorePatterns": [
+      "./__tests__/renderer/login/",
+      "./__tests__/renderer/register/"
+    ]
   }
 }

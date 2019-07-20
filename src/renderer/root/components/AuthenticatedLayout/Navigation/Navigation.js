@@ -5,7 +5,13 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { string } from 'prop-types';
 
-import { APPSTORE, ACCOUNT, EXCHANGE, EXTERNAL, SETTINGS } from 'browser/values/browserValues';
+import {
+  APPSTORE,
+  ACCOUNT,
+  EXCHANGE,
+  EXTERNAL,
+  SETTINGS
+} from 'browser/values/browserValues';
 import AppStoreIcon from 'shared/images/icons/discover.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import ExchangeIcon from 'shared/images/icons/exchange.svg';
@@ -14,6 +20,7 @@ import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
 
 import TabLink from '../TabLink';
+import PrivateTabLink from '../PrivateTabLink';
 import ExplorerLink from '../ExplorerLink';
 import LastBlock from '../LastBlock';
 import StatusIcon from '../StatusIcon';
@@ -45,16 +52,21 @@ export default class Navigation extends React.PureComponent {
           <li>
             <Tooltip overlay="Account">
               <div>
-                <TabLink id="account" target={ACCOUNT}>
+                <PrivateTabLink id="account" target={ACCOUNT}>
                   <AccountIcon aria-label="account" />
-                </TabLink>
+                </PrivateTabLink>
               </div>
             </Tooltip>
           </li>
           <li>
             <Tooltip overlay="Exchange">
               <div>
-                <TabLink id="exchange" type={EXTERNAL} target={EXCHANGE} match={matchExchange}>
+                <TabLink
+                  id="exchange"
+                  type={EXTERNAL}
+                  target={EXCHANGE}
+                  match={matchExchange}
+                >
                   <ExchangeIcon aria-label="exchange" />
                 </TabLink>
               </div>
@@ -82,7 +94,13 @@ export default class Navigation extends React.PureComponent {
           </li>
           <li>
             <Tooltip overlay="Logout">
-              <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
+              <NavLink
+                id="logout"
+                exact
+                to="/logout"
+                draggable={false}
+                className={styles.link}
+              >
                 <LogoutIcon aria-label="logout" />
               </NavLink>
             </Tooltip>

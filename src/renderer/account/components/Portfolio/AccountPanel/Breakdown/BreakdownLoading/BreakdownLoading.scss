@@ -1,0 +1,34 @@
+.breakdownLoading {
+  text-align: center;
+  min-height: 400px;
+
+  .heading {
+    margin: 20px 20px 90px;
+  }
+
+  .title {
+    font-size: 28px;
+    color: $gray-5;
+  }
+
+  .description {
+    line-height: 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $gray-4;
+  }
+
+  svg {
+    animation: rotateGraph 6s linear infinite;
+    margin-bottom: 70px;
+  }
+}
+
+@keyframes rotateGraph {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}

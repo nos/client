@@ -200,7 +200,9 @@ export default class Dropdown extends React.PureComponent {
       ? { width: `${this.state.width}px` }
       : {};
 
+    // TODO: fix render order instead of forcing z-index!
     return {
+      zIndex: 98,
       ...dropdownWidthStyle,
       ...this.state.position
     };

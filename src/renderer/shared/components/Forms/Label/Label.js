@@ -28,9 +28,7 @@ export default class Label extends React.PureComponent {
         {...passDownProps}
         className={classNames(styles.wrapper, className, { [styles.disabled]: disabled })}
       >
-        <span className={styles.label}>
-          {label}
-        </span>
+        <span className={styles.label}>{label}</span>
         {children}
       </label>
     );
