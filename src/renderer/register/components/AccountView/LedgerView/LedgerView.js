@@ -146,7 +146,7 @@ export default class LedgerView extends React.PureComponent {
               {deviceInfo.manufacturer} {deviceInfo.product} Connected ✓
             </div>
             <div>Default Addresss</div>
-            <div>{publicKey && this.unencodedHexToAddress(publicKey)}</div>
+            <div>{publicKey && publicKeyToAddress(publicKey)}</div>
           </div>
           {/* <LabeledSelect
             className={styles.input}

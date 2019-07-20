@@ -12,10 +12,11 @@ import withProgressChange from 'shared/hocs/withProgressChange';
 import { writePreviousAuthActions } from 'auth/actions/previousAuthActions';
 import withLogin from 'auth/hocs/withLogin';
 import registerFormActions from 'register/actions/registerFormActions';
+import { withErrorToast } from 'shared/hocs/withToast';
 
 import VerifyAccount from './VerifyAccount';
 
-const { LOADED } = progressValues;
+const { LOADED, FAILED } = progressValues;
 
 const mapPreviousAuthActionsToProps = (actions) => ({
   setLastLogin: (data) => actions.call(data)
@@ -74,6 +75,11 @@ export default compose(
     } = props;
     const { account, passphrase } = accountComplete;
     authenticate({ account, passphrase });
+  }),
+
+  withErrorToast(),
+  withProgressChange(registerCompletionActions, FAILED, (state, props) => {
+    props.showErrorToast(state.error);
   }),
 
   // redirect on login TODO remove? Higher level?

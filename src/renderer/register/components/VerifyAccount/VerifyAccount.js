@@ -90,7 +90,7 @@ export default class VerifyAccount extends React.PureComponent {
             type="text"
             label="Verify Your Addres"
             placeholder={publicKeyToAddress(account.publicKey)}
-            value=""
+            readOnly
             disabled={loading}
           />
         )}

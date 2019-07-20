@@ -65,7 +65,7 @@ const getActiveWalletForAccount = async ({ accountLabel, activeWalletId }) => {
 };
 
 const addWalletToAccount = async ({ account, passphrase, options }) => {
-  const { encryptedMnemonic, accountLabel, isHardware } = account;
+  const { encryptedMnemonic, accountLabel, isHardware, publicKey } = account;
 
   const existingWallets = await getWalletsForAccount({ accountLabel });
   const latestAccount = reduce(filter(existingWallets, {
@@ -75,7 +75,12 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   }) || { index: -1 };
 
   // Create "dull" wallet with options - TODO remove ?
-  const wallet = newStorageWallet({ ...options, isHardware, index: latestAccount.index + 1 });
+  const wallet = newStorageWallet({
+    ...options,
+    isHardware,
+    publicKey,
+    index: latestAccount.index + 1
+  });
 
   // Initialize a "dull"/storage wallet for an account
   const initializedWallet = Wallet({ encryptedMnemonic, passphrase, wallet });
