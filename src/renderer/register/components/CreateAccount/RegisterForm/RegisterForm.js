@@ -89,6 +89,7 @@ export default class RegisterForm extends React.PureComponent {
           type="text"
           label="Secret Word"
           placeholder="A simple word you will recognize later"
+          maxLength="24"
           value={secretWord}
           disabled={loading}
           onChange={this.handleChangeSecretWord}

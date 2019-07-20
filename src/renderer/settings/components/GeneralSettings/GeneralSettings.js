@@ -27,7 +27,7 @@ export default class GeneralSettings extends React.PureComponent {
   render() {
     return (
       <div className={styles.generalSettings}>
-        <SectionTitle renderIcon={GeneralIcon}>General Settings</SectionTitle>
+        <SectionTitle renderIcon={GeneralIcon}>General</SectionTitle>
 
         <SectionContent>
           <LabeledSelect

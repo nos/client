@@ -105,7 +105,7 @@ export default class VerifyAccount extends React.PureComponent {
                 id="firstRandomSecretWord"
                 type="text"
                 label={`Type word #${firstMnemonicWordIndex}`}
-                placeholder="Secret word.."
+                placeholder="Seed word.."
                 value={firstMnemonicWord}
                 disabled={loading}
                 onChange={this.handleChangeFirstMnemonicWord}
@@ -114,7 +114,7 @@ export default class VerifyAccount extends React.PureComponent {
                 id="secondRandomSecretWord"
                 type="text"
                 label={`Type word #${secondMnemonicWordIndex}`}
-                placeholder="Secret word.."
+                placeholder="Seed word.."
                 value={secondMnemonicWord}
                 disabled={loading}
                 onChange={this.handleChangeSecondMnemonicWord}

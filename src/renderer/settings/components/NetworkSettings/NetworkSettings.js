@@ -35,7 +35,7 @@ export default class NetworkSettings extends React.PureComponent {
 
     return (
       <div className={styles.networkSettings}>
-        <SectionTitle renderIcon={NetworkIcon}>Network Settings</SectionTitle>
+        <SectionTitle renderIcon={NetworkIcon}>Network</SectionTitle>
 
         <SectionContent>
           <LabeledSelect
