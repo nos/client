@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import RegisterForm from 'register/CreateAccount/RegisterForm';
+import RegisterForm from 'register/components/CreateAccount/RegisterForm';
 
 import {
   provideStore,
