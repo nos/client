@@ -22,10 +22,10 @@ export default compose(
   withData(registerFormActions, mapRegisterDataToProps),
 
   withState('accountLabel', 'setAccountLabel', ({ accountLabel }) => accountLabel || ''),
-  withState('passphrase', 'setPassphrase', ''),
+  withState('passphrase', 'setPassphrase', ({ passphrase }) => passphrase || ''),
   withState('passphraseConfirm', 'setPassphraseConfirm', ''),
   withState('secretWord', 'setSecretWord', ({ secretWord }) => secretWord || ''),
-  withState('isHardware', 'setIsHardware', false),
+  withState('isHardware', 'setIsHardware', ({ isHardware }) => isHardware || false),
   withErrorToast(),
   withProgressChange(registerFormActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);
