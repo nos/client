@@ -24,10 +24,12 @@ export function retry(f, options = defaults) {
 }
 
 export const promisify = (fn) => (...args) => {
-  return new Promise((resolve, reject) => fn(...args, (err, res) => {
-    if (err) return reject(err);
-    return resolve(res);
-  }));
+  return new Promise((resolve, reject) =>
+    fn(...args, (err, res) => {
+      if (err) return reject(err);
+      return resolve(res);
+    })
+  );
 };
 
 export const debounce = (fn, ms) => {

@@ -166,13 +166,7 @@ export default class VerifyAccount extends React.PureComponent {
   };
 
   isValid = () => {
-    const {
-      account,
-      passphrase,
-      secretWord,
-      firstMnemonicWord,
-      secondMnemonicWord
-    } = this.props;
+    const { account, passphrase, secretWord, firstMnemonicWord, secondMnemonicWord } = this.props;
     const { isHardware } = account;
 
     const assertion = isHardware ? true : firstMnemonicWord !== '' && secondMnemonicWord !== '';

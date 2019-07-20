@@ -38,9 +38,7 @@ export default class TokenItem extends React.Component {
           symbol={item.label}
           scriptHash={item.value}
         />
-        <span className={styles.label}>
-          {item.label}
-        </span>
+        <span className={styles.label}>{item.label}</span>
       </div>
     );
   }

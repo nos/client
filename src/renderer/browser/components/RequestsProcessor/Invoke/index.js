@@ -74,7 +74,8 @@ export default function makeInvoke(invokeActions, balancesActions) {
     withNullLoader(invokeActions),
     withRejectMessage(
       invokeActions,
-      ({ operation, scriptHash, error }) => `Could not perform operation "${operation}" on contract with address ${scriptHash}: ${error}`
+      ({ operation, scriptHash, error }) =>
+        `Could not perform operation "${operation}" on contract with address ${scriptHash}: ${error}`
     ),
     withData(invokeActions, mapInvokeDataToProps)
   )(Invoke);

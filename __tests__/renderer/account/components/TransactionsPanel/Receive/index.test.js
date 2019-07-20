@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import {
-  provideStore,
-  createStore,
-  spunkyKey,
-  mockSpunkyLoaded
-} from 'testHelpers';
+import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import Receive from 'account/components/Portfolio/TransactionsPanel/Receive';
 

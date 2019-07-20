@@ -28,7 +28,9 @@ describe('encrypt', () => {
 
     it('includes the encrypted data', () => {
       const { data: encryptedData } = encrypt({ recipientPublicKey, wif, data, ivProvider });
-      expect(encryptedData).toEqual('ce7e03644b59757b66123e9a1dca172fb76c012b01f60572befb3563ec7b7b17');
+      expect(encryptedData).toEqual(
+        'ce7e03644b59757b66123e9a1dca172fb76c012b01f60572befb3563ec7b7b17'
+      );
     });
   });
 

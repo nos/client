@@ -86,7 +86,8 @@ export default function makeSend(sendActions) {
     withNullLoader(sendActions),
     withRejectMessage(
       sendActions,
-      ({ amount, asset, receiver, error }) => `Could not send ${amount} ${asset} to ${receiver}: ${error}`
+      ({ amount, asset, receiver, error }) =>
+        `Could not send ${amount} ${asset} to ${receiver}: ${error}`
     ),
     withData(sendActions, mapSendDataToProps)
   )(Send);

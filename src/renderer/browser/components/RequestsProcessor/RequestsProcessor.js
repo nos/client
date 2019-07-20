@@ -26,5 +26,5 @@ export default class RequestsProcessor extends React.PureComponent {
         request={request}
       />
     );
-  }
+  };
 }

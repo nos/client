@@ -7,5 +7,8 @@ export default function withConfirm(propName = 'confirm') {
     [propName]: (...args) => dispatch(confirm(...args))
   });
 
-  return connect(null, mapDispatchToProps);
+  return connect(
+    null,
+    mapDispatchToProps
+  );
 }

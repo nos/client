@@ -8,11 +8,7 @@ import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withConfirm from 'shared/hocs/withConfirm';
-import {
-  withInfoToast,
-  withSuccessToast,
-  withErrorToast
-} from 'shared/hocs/withToast';
+import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
@@ -23,17 +19,18 @@ import Send from './Send';
 const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapSendActionsToProps = (actions, props) => ({
-  onSend: ({ asset, amount, receiver }) => actions.call({
-    net: props.net,
-    address: props.address,
-    wif: props.WIF,
-    publicKey: props.publicKey,
-    signingFunction: props.signingFunction,
-    fee: props.fee,
-    asset,
-    amount,
-    receiver
-  })
+  onSend: ({ asset, amount, receiver }) =>
+    actions.call({
+      net: props.net,
+      address: props.address,
+      wif: props.WIF,
+      publicKey: props.publicKey,
+      signingFunction: props.signingFunction,
+      fee: props.fee,
+      asset,
+      amount,
+      receiver
+    })
 });
 
 const mapFeeDataToProps = (fee) => ({ fee });

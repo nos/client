@@ -7,11 +7,7 @@ import { string, node } from 'prop-types';
 import styles from './Panel.scss';
 
 export default function Panel(props) {
-  return (
-    <div className={classNames(styles.panel, props.className)}>
-      {props.children}
-    </div>
-  );
+  return <div className={classNames(styles.panel, props.className)}>{props.children}</div>;
 }
 
 Panel.propTypes = {

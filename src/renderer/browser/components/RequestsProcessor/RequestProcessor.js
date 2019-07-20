@@ -16,12 +16,14 @@ export default class RequestProcessor extends React.PureComponent {
 
   componentWillMount = () => {
     this.Component = this.getComponent(this.props);
-  }
+  };
 
   componentWillReceiveProps = (nextProps) => {
-    if (this.props.sessionId !== nextProps.sessionId ||
-        this.props.src !== nextProps.src ||
-        !isEqual(this.props.request, nextProps.request)) {
+    if (
+      this.props.sessionId !== nextProps.sessionId ||
+      this.props.src !== nextProps.src ||
+      !isEqual(this.props.request, nextProps.request)
+    ) {
       this.Component = this.getComponent(nextProps);
     }
   };
@@ -57,5 +59,5 @@ export default class RequestProcessor extends React.PureComponent {
     const actions = castArray(makeActions).map((makeAction) => makeAction(sessionId, request.id));
 
     return makeComponent(...actions);
-  }
+  };
 }

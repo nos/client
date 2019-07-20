@@ -73,9 +73,7 @@ export default class BreakdownChart extends React.PureComponent {
       return [];
     }
 
-    const filteredData = data.filter(
-      (item) => item.value / totalSum >= threshold
-    );
+    const filteredData = data.filter((item) => item.value / totalSum >= threshold);
     const restData = data.filter((item) => item.value / totalSum < threshold);
 
     const others = { symbol: 'OTHERS', value: reduceSum(restData) };

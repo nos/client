@@ -114,17 +114,13 @@ export default class Send extends React.PureComponent {
 
   handleBlurAmount = () => {
     const { decimals } = this.getAsset();
-    this.props.setAmount(
-      new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN)
-    );
+    this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
   };
 
   handleChangeAsset = (value) => {
     const { decimals } = this.getAsset(value);
     this.props.setAsset(value);
-    this.props.setAmount(
-      new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN)
-    );
+    this.props.setAmount(new BigNumber(this.props.amount).toFixed(decimals, BigNumber.ROUND_DOWN));
   };
 
   handleChangeAmount = (value) => {
@@ -136,14 +132,11 @@ export default class Send extends React.PureComponent {
   };
 
   getAssetItems = () => {
-    const balances = map(
-      this.props.balances,
-      ({ symbol, scriptHash, image }) => ({
-        label: symbol,
-        value: scriptHash,
-        icon: image
-      })
-    );
+    const balances = map(this.props.balances, ({ symbol, scriptHash, image }) => ({
+      label: symbol,
+      value: scriptHash,
+      icon: image
+    }));
 
     const nos = balances.filter((balance) => balance.value === NOS);
     const filteredBalances = balances.filter((balance) => balance.value !== NOS);
@@ -156,10 +149,7 @@ export default class Send extends React.PureComponent {
   };
 
   getAmount = () => {
-    return new BigNumber(this.props.amount).toFixed(
-      this.getAsset().decimals,
-      BigNumber.ROUND_DOWN
-    );
+    return new BigNumber(this.props.amount).toFixed(this.getAsset().decimals, BigNumber.ROUND_DOWN);
   };
 
   getAsset = (scriptHash = this.props.asset) => {
@@ -167,8 +157,6 @@ export default class Send extends React.PureComponent {
   };
 
   isValid = () => {
-    return (
-      isNumeric(this.props.amount) && wallet.isAddress(this.props.receiver)
-    );
+    return isNumeric(this.props.amount) && wallet.isAddress(this.props.receiver);
   };
 }

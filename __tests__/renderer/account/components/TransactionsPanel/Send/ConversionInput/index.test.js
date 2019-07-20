@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import {
-  provideStore,
-  createStore,
-  spunkyKey,
-  mockSpunkyLoaded
-} from 'testHelpers';
+import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import ConversionInputContainer from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput';
 import ConversionInput from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput/ConversionInput';
@@ -24,8 +19,7 @@ const defaultProps = {
     symbol: 'NOS',
     balance: '100',
     decimals: 8,
-    image:
-      'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/assets/svg/nos.svg'
+    image: 'https://raw.githubusercontent.com/CityOfZion/neo-tokens/master/assets/svg/nos.svg'
   },
   price: 0.05
 };

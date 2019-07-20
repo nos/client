@@ -7,5 +7,8 @@ export default function withAlert(propName = 'alert') {
     [propName]: (...args) => dispatch(alert(...args))
   });
 
-  return connect(null, mapDispatchToProps);
+  return connect(
+    null,
+    mapDispatchToProps
+  );
 }

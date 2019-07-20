@@ -35,21 +35,18 @@ export default class PriorityFee extends React.Component {
       return null;
     }
 
-    return ( // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      <a
-        className={styles.change}
-        href="#"
-        onClick={this.handleChangeFee}
-      >
+    return (
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      <a className={styles.change} href="#" onClick={this.handleChangeFee}>
         Change
       </a>
     );
-  }
+  };
 
   handleChangeFee = (event) => {
     event.preventDefault();
     this.props.openSettings();
-  }
+  };
 
   getFeeDescription = () => {
     const fee = new BigNumber(this.props.fee);
@@ -59,5 +56,5 @@ export default class PriorityFee extends React.Component {
     } else {
       return `${fee.toFixed(8)} GAS Priority Fee`;
     }
-  }
+  };
 }

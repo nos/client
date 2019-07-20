@@ -42,11 +42,21 @@ const initialState = {
 
 const mountRoutes = (currentState = {}) => {
   const store = createStore({ ...initialState, ...currentState });
-  return mount(provideStore(<MemoryRouter><Routes /></MemoryRouter>, store));
+  return mount(
+    provideStore(
+      <MemoryRouter>
+        <Routes />
+      </MemoryRouter>,
+      store
+    )
+  );
 };
 
 const openTab = (wrapper, index) => {
-  wrapper.find(Tab).at(index).prop('onClick')();
+  wrapper
+    .find(Tab)
+    .at(index)
+    .prop('onClick')();
   wrapper.update();
 };
 
@@ -54,8 +64,18 @@ describe('<Routes />', () => {
   it('changes tabs', () => {
     const wrapper = mountRoutes();
     openTab(wrapper, 1);
-    expect(wrapper.find(Tab).at(0).prop('active')).toBe(false);
-    expect(wrapper.find(Tab).at(1).prop('active')).toBe(true);
+    expect(
+      wrapper
+        .find(Tab)
+        .at(0)
+        .prop('active')
+    ).toBe(false);
+    expect(
+      wrapper
+        .find(Tab)
+        .at(1)
+        .prop('active')
+    ).toBe(true);
   });
 
   it('does not remove the webview from the DOM when changing tabs', () => {

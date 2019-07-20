@@ -7,6 +7,4 @@ import ConversionInput from './ConversionInput';
 
 const mapCurrencyDataToProps = (currency) => ({ currency });
 
-export default compose(
-  withData(currencyActions, mapCurrencyDataToProps)
-)(ConversionInput);
+export default compose(withData(currencyActions, mapCurrencyDataToProps))(ConversionInput);

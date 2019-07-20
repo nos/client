@@ -7,6 +7,4 @@ import Wallets from './Wallets';
 
 const mapAuthDataToProps = (account) => ({ account });
 
-export default compose(
-  withData(authActions, mapAuthDataToProps),
-)(Wallets);
+export default compose(withData(authActions, mapAuthDataToProps))(Wallets);

@@ -39,22 +39,21 @@ export default class InvocationPrompt extends React.PureComponent {
   renderTitle = (costs) => {
     const title = costs.length > 0 ? 'Transfer' : 'Permission Request';
     return <div className={styles.title}>{title}</div>;
-  }
+  };
 
   renderSubtitle = (costs) => {
     if (costs.length === 0) {
       return null;
     }
 
-    return (
-      <div className={styles.subtitle}>Transfer {costs.join(' and ')}</div>
-    );
-  }
+    return <div className={styles.subtitle}>Transfer {costs.join(' and ')}</div>;
+  };
 
   renderIcons = (costs) => {
-    const icons = costs.length === 0
-      ? <InvokeIcon />
-      : (
+    const icons =
+      costs.length === 0 ? (
+        <InvokeIcon />
+      ) : (
         <React.Fragment>
           {map(this.getFormattedAssets(), (amount, asset) => (
             <TokenIcon
@@ -68,43 +67,46 @@ export default class InvocationPrompt extends React.PureComponent {
       );
 
     return <div className={styles.icons}>{icons}</div>;
-  }
+  };
 
   renderBody = (costs) => {
     const prefix = costs.length > 0 ? null : 'Would you like ';
     const suffix = (
       <span>
-        to perform operation <strong>&ldquo;{this.props.operation}&rdquo;</strong> on{' '}
-        contract with address <strong>&ldquo;{this.getAddress()}&rdquo;</strong>?
+        to perform operation <strong>&ldquo;{this.props.operation}&rdquo;</strong> on contract with
+        address <strong>&ldquo;{this.getAddress()}&rdquo;</strong>?
       </span>
     );
 
     return (
-      <div className={styles.body}>{prefix}{suffix}</div>
+      <div className={styles.body}>
+        {prefix}
+        {suffix}
+      </div>
     );
-  }
+  };
 
   getAddress = () => {
     return wallet.getAddressFromScriptHash(this.props.scriptHash);
-  }
+  };
 
   getFormattedAssets = () => {
     return formatAssets(this.props.assets);
-  }
+  };
 
   getAssetCosts = () => {
     return map(this.getFormattedAssets(), (amount, asset) => `${amount} ${this.getSymbol(asset)}`);
-  }
+  };
 
   getSymbol = (scriptHash) => {
     const balances = this.props.balances || {};
     const { symbol } = balances[scriptHash] || {};
     return symbol;
-  }
+  };
 
   getIcon = (scriptHash) => {
     const balances = this.props.balances || {};
     const { icon } = balances[scriptHash] || {};
     return icon;
-  }
+  };
 }

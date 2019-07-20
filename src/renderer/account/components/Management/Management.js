@@ -36,11 +36,16 @@ export default class Management extends React.PureComponent {
   };
 
   render() {
-    const { className, wallets, account, account: { encryptedMnemonic, secretWord } } = this.props;
+    const {
+      className,
+      wallets,
+      account,
+      account: { encryptedMnemonic, secretWord }
+    } = this.props;
 
     return (
       <Page className={classnames(className, styles.management)}>
-        { !account.isHardware && (
+        {!account.isHardware && (
           <React.Fragment>
             {this.renderHeading({ account })}
             <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
@@ -61,10 +66,10 @@ export default class Management extends React.PureComponent {
     <div className={styles.heading}>
       <div className={styles.title}>My Account</div>
       <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
-          New Address
+        New Address
       </div>
     </div>
-  )
+  );
 
   handleAddAccount = () => {
     const {

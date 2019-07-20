@@ -68,11 +68,14 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   const { encryptedMnemonic, accountLabel, isHardware, publicKey } = account;
 
   const existingWallets = await getWalletsForAccount({ accountLabel });
-  const latestAccount = reduce(filter(existingWallets, {
-    coinType: options.coinType
-  }), (max, obj) => {
-    return obj.index > max.index ? obj : max;
-  }) || { index: -1 };
+  const latestAccount = reduce(
+    filter(existingWallets, {
+      coinType: options.coinType
+    }),
+    (max, obj) => {
+      return obj.index > max.index ? obj : max;
+    }
+  ) || { index: -1 };
 
   // Create "dull" wallet with options - TODO remove ?
   const wallet = newStorageWallet({

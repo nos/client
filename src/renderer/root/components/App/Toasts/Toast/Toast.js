@@ -16,7 +16,10 @@ export default class Toast extends React.PureComponent {
   };
 
   componentDidMount() {
-    const { onClose, toast: { autoDismiss } } = this.props;
+    const {
+      onClose,
+      toast: { autoDismiss }
+    } = this.props;
 
     if (autoDismiss) {
       this.timeout = setTimeout(onClose, Number(autoDismiss) * 1000);
@@ -36,12 +39,7 @@ export default class Toast extends React.PureComponent {
       <div key={toast.id} className={styles.toast}>
         {this.renderIcon()}
         <span className={styles.message}>{toast.message}</span>
-        <span
-          className={styles.close}
-          role="button"
-          tabIndex={0}
-          onClick={onClose}
-        >
+        <span className={styles.close} role="button" tabIndex={0} onClick={onClose}>
           Close
         </span>
       </div>
@@ -51,7 +49,7 @@ export default class Toast extends React.PureComponent {
   renderIcon = () => {
     const Icon = this.getIcon();
     return Icon && <Icon className={styles.icon} />;
-  }
+  };
 
   getIcon = () => {
     switch (this.props.toast.type) {
@@ -64,5 +62,5 @@ export default class Toast extends React.PureComponent {
       default:
         return null;
     }
-  }
+  };
 }

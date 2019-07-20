@@ -21,7 +21,6 @@ export default class MnemonicView extends React.PureComponent {
     showInfoToast: func.isRequired
   };
 
-
   render() {
     const { onCancel, account, nextStep, previousStep } = this.props;
 
@@ -46,11 +45,7 @@ export default class MnemonicView extends React.PureComponent {
             <CopyIcon /> Copy to Clipboard
           </Button>
         </CopyToClipboard>
-        <NavigationButtons
-          onBack={previousStep}
-          onNext={nextStep}
-          nextBtnText="Next: Verify"
-        />
+        <NavigationButtons onBack={previousStep} onNext={nextStep} nextBtnText="Next: Verify" />
       </AuthPanel>
     );
   }
