@@ -162,6 +162,7 @@ export default class RegisterForm extends React.PureComponent {
   };
 
   isValid = () => {
-    return this.props.passphrase !== '' && this.props.passphraseConfirm !== '';
+    const { passphrase, passphraseConfirm, secretWord, accountLabel } = this.props;
+    return passphrase !== '' && passphraseConfirm !== '' && secretWord !== '' && accountLabel !== '';
   };
 }

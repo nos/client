@@ -20,19 +20,19 @@ export const ID = 'registerForm';
 export const validateAndStoreFormData = async (data) => {
   const { accountLabel, passphrase, passphraseConfirm, secretWord } = data;
 
+  const accounts = await getStorage(ACCOUNT_ID);
+  const newAccount = accounts[accountLabel];
+
+  if (!isEmpty(newAccount)) {
+    throw new Error(`Account with label ${accountLabel} already exists.`);
+  }
+
   if (passphrase.length < MIN_PASSPHRASE_LEN) {
     throw new Error('Passphrase is too short.');
   }
 
   if (passphrase !== passphraseConfirm) {
     throw new Error('Passphrase verification does not match.');
-  }
-
-  const accounts = await getStorage(ACCOUNT_ID);
-  const newAccount = accounts[accountLabel];
-
-  if (!isEmpty(newAccount)) {
-    throw new Error(`Account with label ${accountLabel} already exists.`);
   }
 
   if (isEmpty(secretWord)) {
