@@ -148,8 +148,8 @@ export default class Send extends React.PureComponent {
     return this.getAsset().symbol;
   };
 
-  getAmount = () => {
-    return new BigNumber(this.props.amount).toFixed(this.getAsset().decimals, BigNumber.ROUND_DOWN);
+  getAmount = (amount = this.props.amount) => {
+    return new BigNumber(amount).toFixed(this.getAsset().decimals, BigNumber.ROUND_DOWN);
   };
 
   getAsset = (scriptHash = this.props.asset) => {
@@ -157,6 +157,15 @@ export default class Send extends React.PureComponent {
   };
 
   isValid = () => {
-    return isNumeric(this.props.amount) && wallet.isAddress(this.props.receiver);
+    const { amount, receiver, asset, balances } = this.props;
+    const bigNumAmount = this.getAmount(amount);
+    const bigNumBalance = this.getAmount(balances[asset].balance);
+
+    return (
+      bigNumBalance >= bigNumAmount &&
+      bigNumAmount > 0 &&
+      isNumeric(amount) &&
+      wallet.isAddress(receiver)
+    );
   };
 }
