@@ -11,6 +11,8 @@ import Pill from 'shared/components/Pill';
 import COINS from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 import walletShape from 'auth/shapes/walletShape';
+import Mnemonic from 'shared/components/NewWallet/Mnemonic';
+import Ledger from 'shared/components/NewWallet/Ledger';
 
 import Wallets from './Wallets';
 import Account from './Account';
@@ -27,6 +29,8 @@ export default class Management extends React.PureComponent {
     coinType: number.isRequired,
     setCoinType: func.isRequired,
     addAccount: func.isRequired,
+    publicKey: string.isRequired,
+    setPublicKey: func.isRequired,
     wallets: objectOf(walletShape)
   };
 
@@ -45,12 +49,12 @@ export default class Management extends React.PureComponent {
 
     return (
       <Page className={classnames(className, styles.management)}>
-        {!account.isHardware && (
-          <React.Fragment>
-            {this.renderHeading({ account })}
+        <React.Fragment>
+          {this.renderHeading({ account })}
+          {!account.isHardware && (
             <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
-          </React.Fragment>
-        )}
+          )}
+        </React.Fragment>
         {wallets && (
           <Wallets
             encryptedMnemonic={encryptedMnemonic}
@@ -71,55 +75,43 @@ export default class Management extends React.PureComponent {
     </div>
   );
 
+  handleValues = ({ passphrase, coinType }) => {
+    const { setPassphrase, setCoinType } = this.props;
+    setPassphrase(passphrase);
+    setCoinType(coinType);
+  };
+
   handleAddAccount = () => {
-    const {
-      confirm,
-      coinType,
-      setPassphrase,
-      account: { secretWord }
-    } = this.props;
+    const { newWallet, coinType, publicKey, confirm, account, setPassphrase } = this.props;
 
-    confirm(
-      <form>
-        <Pill className={styles.pill}>{secretWord}</Pill>
-        <LabeledInput
-          id="passphrase"
-          type="password"
-          label="Enter Passphrase"
-          placeholder="Passphrase"
-          onChange={this.handleChangePassphrase}
-        />
-        <LabeledSelect
-          className={styles.input}
-          labelClass={styles.label}
-          id="network"
-          label="Current Network"
-          value={coinType}
-          items={this.getCoinTypes()}
-          onChange={this.handleChangeCoinType}
-        />
-      </form>,
-      {
-        title: 'Add a New Account',
-        onConfirm: this.handleAddAccountConfirm,
-        onCancel: () => setPassphrase('')
-      }
-    );
-  };
-
-  handleChangePassphrase = (event) => {
-    this.props.setPassphrase(event.target.value);
-  };
-
-  handleChangeCoinType = (coinId) => {
-    this.props.setCoinType(coinId);
+    newWallet(<div />, {
+      title: 'Add a New Wallet',
+      // onConfirm: this.handleAddAccountConfirm,
+      // onCancel: () => setPassphrase(''),
+      className: styles.test,
+      account
+    });
   };
 
   handleAddAccountConfirm = () => {
-    const { account, passphrase, setPassphrase, coinType, addAccount } = this.props;
+    const { publicKey, account, passphrase, coinType, setPassphrase, addAccount } = this.props;
 
-    addAccount({ account, passphrase, coinType });
+    // TODO move publicKey out of account
+    addAccount({ account: { ...account, publicKey }, passphrase, coinType });
     setPassphrase('');
+  };
+
+  handleChangePassphrase = (value) => {
+    this.props.setPassphrase(value);
+  };
+
+  handleChangeCoinType = (coinId) => {
+    console.log('SETTING COING TYPE', coinId);
+    this.props.setCoinType(coinId);
+  };
+
+  handleChangePublicKey = (value) => {
+    this.props.setPublicKey(value);
   };
 
   getCoinTypes = () => {

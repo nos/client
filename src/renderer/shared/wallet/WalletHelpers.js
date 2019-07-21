@@ -65,6 +65,7 @@ const getActiveWalletForAccount = async ({ accountLabel, activeWalletId }) => {
 };
 
 const addWalletToAccount = async ({ account, passphrase, options }) => {
+  // TODO before 0.6 insert publicKey into options instead of having it live on the account object
   const { encryptedMnemonic, accountLabel, isHardware, publicKey } = account;
 
   const existingWallets = await getWalletsForAccount({ accountLabel });

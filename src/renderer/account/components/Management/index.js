@@ -6,6 +6,7 @@ import { withErrorToast } from 'shared/hocs/withToast';
 import { DEFAULT_COIN } from 'shared/values/coins';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import withInitialCall from 'shared/hocs/withInitialCall';
+import withNewWalletModal from 'shared/hocs/withNewWalletModal';
 
 import authActions from 'auth/actions/authActions';
 import walletActions, { addWalletActions } from 'auth/actions/walletActions';
@@ -21,16 +22,18 @@ const mapAddAccountActionsToProps = (actions) => ({
 });
 
 export default compose(
+  withNewWalletModal(),
   withData(authActions, mapAuthDataToProps),
   withInitialCall(walletActions, ({ account }) => ({ accountLabel: account.accountLabel })),
-  withData(walletActions, mapWalletDataToProps),
+  withData(walletActions, mapWalletDataToProps)
 
-  withConfirm(),
-  withErrorToast(),
-  withState('passphrase', 'setPassphrase', ''),
-  withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
-  withActions(addWalletActions, mapAddAccountActionsToProps),
-  withProgressChange(addWalletActions, FAILED, (state, props) => {
-    props.showErrorToast(state.error);
-  })
+  // withConfirm(),
+  // withErrorToast(),
+  // withState('passphrase', 'setPassphrase', ''),
+  // withState('publicKey', 'setPublicKey', ''),
+  // withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
+  // withActions(addWalletActions, mapAddAccountActionsToProps),
+  // withProgressChange(addWalletActions, FAILED, (state, props) => {
+  //   props.showErrorToast(state.error);
+  // })
 )(Management);

@@ -1,0 +1,32 @@
+.confirm {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  max-height: 540px;
+  text-align: center;
+  overflow: hidden;
+
+  .title {
+    flex: 0 0 auto;
+    margin: 20px 0 5px;
+    font-weight: 500;
+    font-size: 28px;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    padding: 20px 40px;
+
+    .body {
+      flex: 1 1 auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      line-height: 25px;
+      font-size: 14px;
+
+      p {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
