@@ -1,6 +1,6 @@
 import React from 'react';
 import { string, func, shape, arrayOf } from 'prop-types';
-import { isEmpty, filter } from 'lodash';
+import { isEmpty, filter, map } from 'lodash';
 import { progressValues } from 'spunky';
 
 import { publicKeyToAddress } from 'shared/wallet/common';
@@ -10,6 +10,7 @@ import LabeledInput from 'shared/components/Forms/LabeledInput';
 import Button from 'shared/components/Forms/Button';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import COINS, { NEO } from 'shared/values/coins';
+import walletsShape from 'auth/shapes/walletsShape';
 
 import LedgerConnect from 'shared/images/auth/ledgerConnect.svg';
 import LedgerConnected from 'shared/images/auth/ledgerConnected.svg';
@@ -25,7 +26,6 @@ const deviceInfoShape = shape({
   manufacturer: string.isRequired,
   product: string.isRequired
 });
-
 export default class Ledger extends React.PureComponent {
   static propTypes = {
     onCancel: func.isRequired,
@@ -42,7 +42,10 @@ export default class Ledger extends React.PureComponent {
     selectedPublicKey: string.isRequired,
     setPassphrase: func.isRequired,
     passphrase: string.isRequired,
-    setCoinType: func.isRequired
+    setCoinType: func.isRequired,
+    addAccount: func.isRequired,
+    wallets: walletsShape.isRequired,
+    showErrorToast: func.isRequired
   };
 
   static defaultProps = {

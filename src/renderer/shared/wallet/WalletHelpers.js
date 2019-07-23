@@ -4,7 +4,6 @@ import { isEmpty, omit, reduce, filter } from 'lodash';
 import { getStorage, setStorage } from 'shared/lib/storage';
 import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
 import { DEFAULT_NET } from 'values/networks';
-import { DEFAULT_COIN } from 'shared/values/coins';
 
 import Wallet from './Wallet';
 
@@ -21,6 +20,9 @@ const newStorageWallet = ({
   change = 0,
   publicKey
 }) => {
+  if (!coinType) {
+    throw new Error('coinType is required.');
+  }
   const storageWallet = {
     label: uuid(),
     canDelete,
