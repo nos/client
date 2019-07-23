@@ -13,8 +13,8 @@ const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
 
 const newStorageWallet = ({
   isHardware,
+  coinType, // coinType is required
   canDelete = true,
-  coinType = DEFAULT_COIN,
   index = DEFAULT_ACC_INDEX,
   net = DEFAULT_NET,
   account = 0,

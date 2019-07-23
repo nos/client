@@ -4,7 +4,6 @@ import { withActions, progressValues } from 'spunky';
 import { withErrorToast } from 'shared/hocs/withToast';
 import { DEFAULT_COIN } from 'shared/values/coins';
 import withProgressChange from 'shared/hocs/withProgressChange';
-
 import { addWalletActions } from 'auth/actions/walletActions';
 
 import Mnemonic from './Mnemonic';

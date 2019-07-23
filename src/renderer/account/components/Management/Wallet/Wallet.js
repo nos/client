@@ -36,12 +36,7 @@ export default class Wallet extends React.PureComponent {
         {this.renderInfo({ wallet })}
         <div className={styles.walletData}>
           {this.renderAddress({ wallet })}
-          <EncryptedInput
-            title="Private Key"
-            encryptedData={encryptedMnemonic}
-            secretWord={secretWord}
-            wallet={wallet}
-          />
+          {this.renderPrivateKey({ encryptedMnemonic, secretWord, wallet })}
         </div>
       </div>
     );
@@ -70,6 +65,17 @@ export default class Wallet extends React.PureComponent {
       <Input readOnly className={styles.input} type="text" value={wallet.address} />
     </div>
   );
+
+  renderPrivateKey = ({ encryptedMnemonic, secretWord, wallet }) => {
+    return !wallet.isHardware ? (
+      <EncryptedInput
+        title="Private Key"
+        encryptedData={encryptedMnemonic}
+        secretWord={secretWord}
+        wallet={wallet}
+      />
+    ) : null;
+  };
 
   renderIcon = () => {
     const { wallet } = this.props;

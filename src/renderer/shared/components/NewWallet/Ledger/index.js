@@ -8,13 +8,19 @@ import {
   progressValues
 } from 'spunky';
 
+import walletActions, { addWalletActions } from 'auth/actions/walletActions';
 import ledgerActions, { ledgerPublicKeysActions } from 'auth/actions/ledgerActions';
 import withProgressChange from 'shared/hocs/withProgressChange';
-import registerFormActions from 'register/actions/registerFormActions';
+import { DEFAULT_COIN } from 'shared/values/coins';
+import { withErrorToast } from 'shared/hocs/withToast';
 
 import Ledger from './Ledger';
 
 const { FAILED, LOADED } = progressValues;
+
+const mapAddAccountActionsToProps = (actions) => ({
+  addAccount: (data) => actions.call(data)
+});
 
 const mapLedgerActionsToProps = (actions) => ({
   poll: actions.call
@@ -30,7 +36,7 @@ const mapLedgerErrorToProps = (deviceInfoError) => ({
 });
 
 const mapLedgerPublicKeyActionsToProps = (actions) => ({
-  getPublicKey: actions.call
+  getPublicKeys: actions.call
 });
 
 const mapLedgerPublicKeyDataToProps = (data) => {
@@ -42,18 +48,17 @@ const mapLedgerPublicKeyErrorToProps = (publicKeyError) => ({
   publicKeyError
 });
 
-const mapRegisterActionsToProps = (actions) => ({
-  storeFormData: (data) => actions.call(data)
-});
+const mapWalletDataToProps = (wallets) => ({ wallets });
 
 export default compose(
-  withActions(registerFormActions, mapRegisterActionsToProps),
+  withErrorToast(),
 
   withActions(ledgerActions, mapLedgerActionsToProps),
   withActions(ledgerPublicKeysActions, mapLedgerPublicKeyActionsToProps),
 
   withData(ledgerActions, mapLedgerDataToProps),
   withData(ledgerPublicKeysActions, mapLedgerPublicKeyDataToProps),
+  withData(walletActions, mapWalletDataToProps),
 
   withError(ledgerActions, mapLedgerErrorToProps),
   withError(ledgerPublicKeysActions, mapLedgerPublicKeyErrorToProps),
@@ -66,14 +71,15 @@ export default compose(
     propName: 'publickeyProgress',
     strategy: recentlyCompletedStrategy
   }),
-  withProgressChange(registerFormActions, FAILED, (state, props) => {
+
+  withActions(addWalletActions, mapAddAccountActionsToProps),
+  withProgressChange(addWalletActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);
   }),
-  withProgressChange(registerFormActions, LOADED, (state, props) => {
-    props.nextStep();
+  withProgressChange(addWalletActions, LOADED, (state, props) => {
+    props.onConfirm();
   }),
-
-  withState('selectedPublicKey', 'setSelectedPublicKey', ({ publicKeys }) =>
-    publicKeys ? publicKeys[0].index : ''
-  )
+  withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
+  withState('passphrase', 'setPassphrase', ''),
+  withState('selectedPublicKey', 'setSelectedPublicKey', null)
 )(Ledger);
