@@ -23,7 +23,7 @@
     "babel-polyfill": "6.26.0",
     "bignumber.js": "9.0.0",
     "bip32": "2.0.3",
-    "bip39": "2.6.0",
+    "bip39": "3.0.2",
     "classnames": "2.2.6",
     "coingecko-api": "1.0.5",
     "connected-react-router": "5.0.1",
