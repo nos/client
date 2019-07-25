@@ -1,6 +1,6 @@
 import { createActions } from 'spunky';
 import { isEmpty } from 'lodash';
-import bip39 from 'bip39';
+import * as bip39 from 'bip39';
 
 import simpleEncrypt from 'shared/util/simpleEncrypt';
 import { getStorage } from 'shared/lib/storage';
@@ -42,7 +42,6 @@ export const validateAndStoreFormData = async (data) => {
   // Generate bip39 Mnemonic - 256-bits entropy (24-word long mnemonic)
   const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
   const encryptedMnemonic = simpleEncrypt(mnemonic, passphrase);
-
   return {
     ...data,
     mnemonic,

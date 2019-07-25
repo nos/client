@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, string, func } from 'prop-types';
-import { noop, map } from 'lodash';
+import { noop, map, isEmpty } from 'lodash';
 
 import accountsShape from 'auth/shapes/accountsShape';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
@@ -50,14 +50,14 @@ export default class LoginForm extends React.PureComponent {
     });
   }
 
-  renderRegisterForm = ({ disabled, currentAccount, passphrase }) => (
+  renderRegisterForm = ({ disabled, currentAccount, passphrase, accounts }) => (
     <form className={styles.loginForm} onSubmit={this.handleLogin}>
       <LabeledSelect
         className={styles.input}
         labelClass={styles.label}
         id="profiel"
         label="Account"
-        disabled={disabled}
+        disabled={disabled || isEmpty(accounts)}
         value={currentAccount}
         items={this.getProfiles()}
         onChange={this.handleChangeCurrentAccount}
@@ -98,10 +98,10 @@ export default class LoginForm extends React.PureComponent {
   };
 
   getProfiles = () => {
-    const { accounts, currentAccount } = this.props;
+    const { accounts } = this.props;
 
-    if (!accounts) {
-      return [{ label: 'No Wallets Found', value: currentAccount }];
+    if (isEmpty(accounts)) {
+      return [{ label: 'No accounts Found', value: '' }];
     }
 
     return map(accounts, ({ accountLabel }) => ({
@@ -111,6 +111,7 @@ export default class LoginForm extends React.PureComponent {
   };
 
   isValid = () => {
-    return this.props.passphrase !== '';
+    const { passphrase, currentAccount } = this.props;
+    return passphrase !== '' && currentAccount !== '';
   };
 }

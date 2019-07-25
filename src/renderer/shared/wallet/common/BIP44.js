@@ -1,12 +1,11 @@
 import { includes } from 'lodash';
-import bip32 from 'bip32';
+import * as bip32 from 'bip32';
 
 import { DEFAULT_COIN, COIN_TYPES } from 'shared/values/coins';
 
 const deriveChild = ({ wallet, seed }) => {
   const { coinType, index, account, change } = wallet;
   if (!includes(COIN_TYPES, coinType)) throw new Error('No valid coin type was given.');
-
   const root = bip32.fromSeed(seed);
 
   return root

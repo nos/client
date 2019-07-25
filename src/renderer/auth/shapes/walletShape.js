@@ -1,7 +1,8 @@
 import { string, number, shape, bool, oneOfType } from 'prop-types';
 
 export const walletShapeInitialized = shape({
-  label: string.isRequired,
+  walletId: string.isRequired,
+  walletLabel: string.isRequired,
   canDelete: bool.isRequired,
   isHardware: bool.isRequired,
   index: number.isRequired,
@@ -16,7 +17,8 @@ export const walletShapeInitialized = shape({
 });
 
 export const walletShapeNotInitialized = shape({
-  label: string.isRequired,
+  walletId: string.isRequired,
+  walletLabel: string.isRequired,
   canDelete: bool.isRequired,
   isHardware: bool.isRequired,
   index: number.isRequired,

@@ -78,8 +78,12 @@ export default class Mnemonic extends React.PureComponent {
 
   confirm = () => {
     const { account, passphrase, coinType, setPassphrase, addAccount } = this.props;
+    const options = {
+      coinType,
+      isHardware: account.isHardware
+    };
 
-    addAccount({ account, passphrase, coinType });
+    addAccount({ account, passphrase, options });
     setPassphrase('');
   };
 

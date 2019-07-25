@@ -18,13 +18,15 @@ const newStorageWallet = ({
   net = DEFAULT_NET,
   account = 0,
   change = 0,
+  walletLabel = '',
   publicKey
 }) => {
   if (!coinType) {
     throw new Error('coinType is required.');
   }
   const storageWallet = {
-    label: uuid(),
+    walletId: uuid(),
+    walletLabel,
     canDelete,
     isHardware,
     index,
@@ -39,17 +41,17 @@ const newStorageWallet = ({
 };
 
 const storeWalletForAccount = async ({ accountLabel, wallet }) => {
-  const { label } = wallet;
-  const walletId = `${ID}-${accountLabel}`;
+  const { walletId } = wallet;
+  const storageId = `${ID}-${accountLabel}`;
 
-  const wallets = await getStorage(walletId);
-  if (!isEmpty(wallets[label])) {
-    throw new Error(`Wallet with label ${label} for account ${accountLabel} already exists.`);
+  const wallets = await getStorage(storageId);
+  if (!isEmpty(wallets[walletId])) {
+    throw new Error(`Wallet with id ${walletId} for account ${accountLabel} already exists.`);
   }
 
-  await setStorage(walletId, {
+  await setStorage(storageId, {
     ...wallets,
-    [label]: omit(wallet, walletFilterProps)
+    [walletId]: omit(wallet, walletFilterProps)
   });
 };
 
@@ -67,24 +69,17 @@ const getActiveWalletForAccount = async ({ accountLabel, activeWalletId }) => {
 };
 
 const addWalletToAccount = async ({ account, passphrase, options }) => {
-  // TODO before 0.6 insert publicKey into options instead of having it live on the account object
-  const { encryptedMnemonic, accountLabel, isHardware, publicKey } = account;
+  const { encryptedMnemonic, accountLabel } = account;
+  const { coinType } = options;
 
   const existingWallets = await getWalletsForAccount({ accountLabel });
-  const latestAccount = reduce(
-    filter(existingWallets, {
-      coinType: options.coinType
-    }),
-    (max, obj) => {
-      return obj.index > max.index ? obj : max;
-    }
-  ) || { index: -1 };
+  const latestAccount = reduce(filter(existingWallets, { coinType }), (max, obj) => {
+    return obj.index > max.index ? obj : max;
+  }) || { index: -1 };
 
-  // Create "dull" wallet with options - TODO remove ?
+  // Create "dull" wallet with options
   const wallet = newStorageWallet({
     ...options,
-    isHardware,
-    publicKey,
     index: latestAccount.index + 1
   });
 

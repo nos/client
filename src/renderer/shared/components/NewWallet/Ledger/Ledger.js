@@ -1,10 +1,10 @@
 import React from 'react';
-import { string, func, shape, arrayOf } from 'prop-types';
+import { string, func, shape, arrayOf, number } from 'prop-types';
 import { isEmpty, filter, map } from 'lodash';
 import { progressValues } from 'spunky';
 
 import { publicKeyToAddress } from 'shared/wallet/common';
-import registerShape from 'register/shapes/registerShape';
+import accountShape from 'auth/shapes/accountShape';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import Button from 'shared/components/Forms/Button';
@@ -22,14 +22,21 @@ const POLL_FREQUENCY = 4500;
 
 const { LOADED, FAILED, LOADING } = progressValues;
 
+// TODO move both shapes out of here
 const deviceInfoShape = shape({
   manufacturer: string.isRequired,
   product: string.isRequired
 });
+
+const publicKeysShape = shape({
+  index: number.isRequired,
+  publicKey: string.isRequired
+});
+
 export default class Ledger extends React.PureComponent {
   static propTypes = {
     onCancel: func.isRequired,
-    account: registerShape.isRequired,
+    account: accountShape.isRequired,
     poll: func.isRequired,
     getPublicKeys: func.isRequired,
     deviceInfoProgress: string,
@@ -37,9 +44,9 @@ export default class Ledger extends React.PureComponent {
     deviceInfo: deviceInfoShape,
     deviceInfoError: string,
     publicKeyError: string,
-    publicKeys: arrayOf(string),
+    publicKeys: arrayOf(publicKeysShape),
     setSelectedPublicKey: func.isRequired,
-    selectedPublicKey: string.isRequired,
+    selectedPublicKey: number.isRequired,
     setPassphrase: func.isRequired,
     passphrase: string.isRequired,
     setCoinType: func.isRequired,
@@ -62,6 +69,7 @@ export default class Ledger extends React.PureComponent {
     this.pollInterval = setInterval(this.props.poll, POLL_FREQUENCY);
   }
 
+  // TODO fix as this is deprecated
   componentWillReceiveProps(nextProps) {
     const {
       publicKeys,
@@ -77,7 +85,7 @@ export default class Ledger extends React.PureComponent {
       getPublicKeys();
     }
 
-    if (publickeyProgress === LOADED && selectedPublicKey === null) {
+    if (publickeyProgress === LOADED && selectedPublicKey === -1) {
       setSelectedPublicKey(publicKeys[0].index);
     }
   }
@@ -248,6 +256,8 @@ export default class Ledger extends React.PureComponent {
 
     const { publicKey } = publicKeys[selectedPublicKey];
 
+    // TODO does this belong here? Maybe filter it out of the dropdown
+    // But this would increase complexity of the polling
     const exists = filter(wallets, (wallet) => wallet.publicKey === publicKey);
     if (!isEmpty(exists)) {
       return showErrorToast(
@@ -255,12 +265,13 @@ export default class Ledger extends React.PureComponent {
       );
     }
 
-    // TODO move publicKey out of account
-    // TODO check if wallet isn't already added
-    // or filter already used publicKeys out of
-    // the dropbox while remaining the amount of addresses shown in the dropdown
-    // TODO coinType is undefined (how to choose this???)
-    addAccount({ account: { ...account, publicKey }, passphrase, coinType: NEO });
+    const options = {
+      coinType: NEO,
+      publicKey,
+      isHardware: account.isHardware
+    };
+
+    addAccount({ account, passphrase, options });
     setPassphrase('');
   };
 
@@ -271,7 +282,7 @@ export default class Ledger extends React.PureComponent {
       return [
         {
           label: 'Fetching public keys...',
-          value: null
+          value: -1
         }
       ];
     }
@@ -280,7 +291,7 @@ export default class Ledger extends React.PureComponent {
       return [
         {
           label: 'Awaiting device...',
-          value: null
+          value: -1
         }
       ];
     }
@@ -297,6 +308,6 @@ export default class Ledger extends React.PureComponent {
 
   isValid = () => {
     const { selectedPublicKey, passphrase } = this.props;
-    return selectedPublicKey !== null && passphrase !== '';
+    return selectedPublicKey !== -1 && passphrase !== '';
   };
 }

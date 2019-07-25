@@ -81,5 +81,5 @@ export default compose(
   }),
   withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
   withState('passphrase', 'setPassphrase', ''),
-  withState('selectedPublicKey', 'setSelectedPublicKey', null)
+  withState('selectedPublicKey', 'setSelectedPublicKey', -1)
 )(Ledger);
