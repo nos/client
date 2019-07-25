@@ -42,15 +42,14 @@
   .walletData {
     width: 80%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     .publicView {
       // TODO should be 15px, but somehow the distance is not aligned with pkView
       margin-top: 13px;
       margin-bottom: 15px;
-      margin-right: 20px;
-      width: 65%;
+      width: 50%;
+      // flex-grow: 1;
 
       .subtitle {
         @extend %labelColor;
@@ -64,6 +63,11 @@
         border-radius: 2px;
         font-size: 12px;
       }
+    }
+
+    .secretView {
+      flex-grow: 1;
+      margin-right: 15px;
     }
   }
 }
