@@ -21,6 +21,7 @@
         "endOfLine": "auto"
       }
     ],
+    "consistent-return": "off",
     "linebreak-style": "off",
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
