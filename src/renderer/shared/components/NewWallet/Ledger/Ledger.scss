@@ -11,10 +11,10 @@
     font-size: 14px;
     line-height: 22px;
 
-    color: #6979f8;
+    color: $brand-dark;
 
     .done {
-      color: #b4bcfc;
+      color: $brand-1;
     }
   }
 
@@ -24,7 +24,8 @@
 
   .labelFetch {
     &:hover {
-      font-weight: 700;
+      text-decoration: underline;
+      color: $brand;
       cursor: pointer;
     }
   }

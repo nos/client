@@ -278,19 +278,19 @@ export default class Ledger extends React.PureComponent {
   getPublicKeyItems = () => {
     const { publicKeys, publickeyProgress } = this.props;
 
-    if (publickeyProgress === LOADING) {
+    if (isEmpty(publicKeys)) {
       return [
         {
-          label: 'Fetching public keys...',
+          label: 'Awaiting device...',
           value: -1
         }
       ];
     }
 
-    if (isEmpty(publicKeys)) {
+    if (publickeyProgress === LOADING) {
       return [
         {
-          label: 'Awaiting device...',
+          label: 'Fetching public keys...',
           value: -1
         }
       ];
