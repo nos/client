@@ -30,7 +30,7 @@ export default class Mnemonic extends React.PureComponent {
   };
 
   render() {
-    const { className, account, coinType, onCancel } = this.props;
+    const { className, account, coinType } = this.props;
     const { secretWord } = account;
 
     return (
@@ -53,7 +53,7 @@ export default class Mnemonic extends React.PureComponent {
           onChange={this.handleChangeCoinType}
         />
         <div className={styles.actions}>
-          <Button className={styles.action} onClick={onCancel}>
+          <Button className={styles.action} onClick={this.cancel}>
             Cancel
           </Button>
           <PrimaryButton className={styles.action} onClick={this.confirm}>
@@ -73,7 +73,9 @@ export default class Mnemonic extends React.PureComponent {
   };
 
   cancel = () => {
-    this.props.setPassphrase('');
+    const { onCancel, setPassphrase } = this.props;
+    setPassphrase('');
+    onCancel();
   };
 
   confirm = () => {
