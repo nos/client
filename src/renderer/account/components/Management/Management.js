@@ -61,7 +61,7 @@ export default class Management extends React.PureComponent {
 
     newWallet(<div />, {
       title: 'Add a New Wallet',
-      className: styles.test,
+      className: styles.modal,
       account
     });
   };
