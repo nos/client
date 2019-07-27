@@ -1,14 +1,8 @@
 import React from 'react';
-import { string, number, func, objectOf } from 'prop-types';
-import { map } from 'lodash';
+import { string, func, objectOf } from 'prop-types';
 import classnames from 'classnames';
 
 import Page from 'shared/components/Page';
-
-import LabeledInput from 'shared/components/Forms/LabeledInput';
-import LabeledSelect from 'shared/components/Forms/LabeledSelect';
-import Pill from 'shared/components/Pill';
-import COINS from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 import walletShape from 'auth/shapes/walletShape';
 
@@ -21,12 +15,7 @@ export default class Management extends React.PureComponent {
   static propTypes = {
     className: string,
     account: accountShape.isRequired,
-    confirm: func.isRequired,
-    passphrase: string.isRequired,
-    setPassphrase: func.isRequired,
-    coinType: number.isRequired,
-    setCoinType: func.isRequired,
-    addAccount: func.isRequired,
+    newWallet: func.isRequired,
     wallets: objectOf(walletShape)
   };
 
@@ -36,21 +25,12 @@ export default class Management extends React.PureComponent {
   };
 
   render() {
-    const {
-      className,
-      wallets,
-      account,
-      account: { encryptedMnemonic, secretWord }
-    } = this.props;
+    const { className, wallets, account } = this.props;
+    const { encryptedMnemonic, secretWord } = account;
 
     return (
       <Page className={classnames(className, styles.management)}>
-        {!account.isHardware && (
-          <React.Fragment>
-            {this.renderHeading({ account })}
-            <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
-          </React.Fragment>
-        )}
+        {this.renderHeading({ account, encryptedMnemonic, secretWord })}
         {wallets && (
           <Wallets
             encryptedMnemonic={encryptedMnemonic}
@@ -62,67 +42,27 @@ export default class Management extends React.PureComponent {
     );
   }
 
-  renderHeading = () => (
-    <div className={styles.heading}>
-      <div className={styles.title}>My Account</div>
-      <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
-        New Address
+  renderHeading = ({ account, encryptedMnemonic, secretWord }) => (
+    <React.Fragment>
+      <div className={styles.heading}>
+        <div className={styles.title}>My Account</div>
+        <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+          New Address
+        </div>
       </div>
-    </div>
+      {!account.isHardware && (
+        <Account encryptedMnemonic={encryptedMnemonic} secretWord={secretWord} />
+      )}
+    </React.Fragment>
   );
 
   handleAddAccount = () => {
-    const {
-      confirm,
-      coinType,
-      setPassphrase,
-      account: { secretWord }
-    } = this.props;
+    const { newWallet, account } = this.props;
 
-    confirm(
-      <form>
-        <Pill className={styles.pill}>{secretWord}</Pill>
-        <LabeledInput
-          id="passphrase"
-          type="password"
-          label="Enter Passphrase"
-          placeholder="Passphrase"
-          onChange={this.handleChangePassphrase}
-        />
-        <LabeledSelect
-          className={styles.input}
-          labelClass={styles.label}
-          id="network"
-          label="Current Network"
-          value={coinType}
-          items={this.getCoinTypes()}
-          onChange={this.handleChangeCoinType}
-        />
-      </form>,
-      {
-        title: 'Add a New Account',
-        onConfirm: this.handleAddAccountConfirm,
-        onCancel: () => setPassphrase('')
-      }
-    );
-  };
-
-  handleChangePassphrase = (event) => {
-    this.props.setPassphrase(event.target.value);
-  };
-
-  handleChangeCoinType = (coinId) => {
-    this.props.setCoinType(coinId);
-  };
-
-  handleAddAccountConfirm = () => {
-    const { account, passphrase, setPassphrase, coinType, addAccount } = this.props;
-
-    addAccount({ account, passphrase, coinType });
-    setPassphrase('');
-  };
-
-  getCoinTypes = () => {
-    return map(COINS, ({ name, coinType }) => ({ label: name, value: coinType }));
+    newWallet(<div />, {
+      title: 'Add a New Wallet',
+      className: styles.modal,
+      account
+    });
   };
 }

@@ -1,6 +1,7 @@
 import { createActions } from 'spunky';
 import { omit } from 'lodash';
 
+import { DEFAULT_COIN } from 'shared/values/coins';
 import { addWalletToAccount } from 'shared/wallet/WalletHelpers';
 import { appendStorage } from 'shared/lib/storage';
 import { ID as ACCOUNT_ID } from 'auth/actions/accountActions';
@@ -18,7 +19,7 @@ export const verifyAndCreateWallet = async ({
   secondMnemonicWord,
   secondMnemonicWordIndex
 }) => {
-  const { isHardware } = account;
+  const { isHardware, publicKey } = account;
 
   const mnemonicArray = account.mnemonic.trim().split(' ');
 
@@ -49,7 +50,9 @@ export const verifyAndCreateWallet = async ({
 
   const options = {
     isHardware,
-    canDelete: false
+    canDelete: false,
+    coinType: DEFAULT_COIN, // Always register with default coin
+    publicKey // When using HW device, publicKey is passed through options
   };
 
   const wallet = await addWalletToAccount({ account, passphrase, options });
@@ -57,7 +60,7 @@ export const verifyAndCreateWallet = async ({
   // Set last active wallet to this wallet.
   const updatedAccount = {
     ...omit(account, ...accountFilterProps),
-    activeWalletId: wallet.label
+    activeWalletId: wallet.walletId
   };
 
   await appendStorage(ACCOUNT_ID, account.accountLabel, updatedAccount);

@@ -54,7 +54,7 @@ export default class Ledger {
    * @param {number} [acct] Account that you want to retrieve the public key from.
    * @return {string} Public key (unencoded)
    */
-  async getPublicKeys(currentPublicKeys = [], range = 10) {
+  async getPublicKeys(currentPublicKeys = [], range = 3) {
     const start = currentPublicKeys.length;
     const resultArray = [];
     // eslint-disable-next-line

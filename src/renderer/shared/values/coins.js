@@ -6,12 +6,12 @@ export const DEFAULT_COIN = NEO;
 
 export const COIN_TYPES = {
   // [BTC]: BTC,
+  // [ETH]: ETH,
   [NEO]: NEO
-  // [ETH]: ETH
 };
 
 export default {
   // [BTC]: { name: 'Bitcoin', symbol: 'BTC', decimals: 8, coinType: BTC },
-  [NEO]: { name: 'NEO', symbol: 'NEO', decimals: 0, coinType: NEO }
   // [ETH]: { name: 'Ethereum', symbol: 'ETH', decimals: 8, coinType: ETH }
+  [NEO]: { name: 'NEO', symbol: 'NEO', decimals: 0, coinType: NEO }
 };

@@ -13,8 +13,8 @@ export default createActions(ID, ({ accountLabel }) => async () => {
 // Setter - Add new wallets
 export const addWalletActions = createActions(
   ID,
-  ({ account, passphrase, coinType }) => async () => {
-    await addWalletToAccount({ account, passphrase, options: { coinType } });
+  ({ account, passphrase, options }) => async () => {
+    await addWalletToAccount({ account, passphrase, options });
     return getWalletsForAccount({ accountLabel: account.accountLabel });
   }
 );

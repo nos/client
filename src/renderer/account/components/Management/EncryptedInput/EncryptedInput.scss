@@ -6,8 +6,6 @@
   line-height: 12px;
   @extend %labelColor;
 
-  width: 80%;
-
   @media only screen and (max-width: $responsive-width) {
     width: auto;
     margin-left: 34px;
