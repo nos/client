@@ -104,6 +104,20 @@ jobs:
           path: dist
           destination: build
 
+  publish:
+    <<: *mac_config
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v3-dependencies-{{ checksum "package.json" }}
+            - v3-dependencies-
+      - run: yarn
+      - run: yarn release
+      - store_artifacts:
+          path: dist
+          destination: build
+
 workflows:
   version: 2
   build_test:
@@ -128,6 +142,12 @@ workflows:
             tags:
               only: /[v][0-9]+(\.[0-9]+)+.*/
       - deploy_mac:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[v][0-9]+(\.[0-9]+)+.*/
+      - publish:
           filters:
             branches:
               ignore: /.*/
