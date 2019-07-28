@@ -29,3 +29,19 @@
     }
   }
 }
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start !important;
+  margin: 20px 0 0 20px !important;
+  svg {
+    font-size: 1px;
+  }
+}
+
+.tab {
+  margin-right: 25px;
+  align-self: flex-start;
+}

@@ -1,0 +1,59 @@
+.conversionInput {
+  margin: 0 0 20px;
+
+  .inputContainer {
+    @extend %inputColor;
+    padding: 1px;
+    border-radius: 4px;
+  }
+
+  .assetInput {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid $gray-2;
+
+    @include theme(DARK) {
+      border-bottom: 1px solid $gray-6;
+    }
+  }
+
+  .currencyInput {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  input {
+    padding-left: 0 !important;
+  }
+
+  .icon {
+    flex: 0 0 auto;
+    width: 36px;
+    color: $gray-4;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+
+    .tokenIcon {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+  }
+
+  .disclaimer {
+    margin: 5px 0 16px;
+    font-size: 9px;
+    font-weight: 500;
+    color: $gray-4;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+  }
+}
+
+// In order to allow the `:focus` box-shadow highlighting to work, we need to give this CSS
+// selector a low precidence.
+.assetInput,
+.currencyInput {
+  box-shadow: none;
+}

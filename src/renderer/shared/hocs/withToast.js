@@ -7,14 +7,21 @@ function withToast({ type, propName = 'showToast', ...options } = {}) {
     [propName]: (message) => dispatch(showToast({ message, type, ...options }))
   });
 
-  return connect(null, mapDispatchToProps);
+  return connect(
+    null,
+    mapDispatchToProps
+  );
 }
 
 export function withSuccessToast({ propName = 'showSuccessToast', ...options } = {}) {
   return withToast({ ...options, propName, type: TYPE_SUCCESS });
 }
 
-export function withErrorToast({ propName = 'showErrorToast', autoDismiss = false, ...options } = {}) {
+export function withErrorToast({
+  propName = 'showErrorToast',
+  autoDismiss = false,
+  ...options
+} = {}) {
   return withToast({ ...options, propName, type: TYPE_ERROR, autoDismiss });
 }
 

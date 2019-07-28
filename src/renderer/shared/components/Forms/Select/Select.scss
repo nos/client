@@ -1,20 +1,15 @@
 .select {
-  $disabled-background: #f1f1f5;
-  $disabled-color: #9595a1;
-
   position: relative;
   width: 100%;
   cursor: pointer;
 
   .input {
+    @extend %inputColor;
     display: flex;
     width: 100%;
     height: 31px;
     padding: 0 30px 0 0;
-    color: $primary-text-color;
-    background: #f9fafb;
     border-radius: 4px;
-    box-shadow: inset 0 0 0 1px $light-text-color;
     line-height: 17px;
     font-size: 14px;
     font-weight: 500;
@@ -25,8 +20,7 @@
     outline: none;
 
     .input {
-      // border-image: linear-gradient(to right, #b9d532, #5bba47)
-      box-shadow: inset 0 0 0 2px #b9d532;
+      box-shadow: inset 0 0 0 2px $brand;
     }
   }
 
@@ -34,8 +28,7 @@
     cursor: not-allowed;
 
     .input {
-      background: $disabled-background;
-      color: $disabled-color;
+      @extend %disabledColor;
       box-shadow: none;
     }
   }
@@ -45,40 +38,34 @@
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: $light-text-color;
+    color: $gray-4;
   }
 }
 
 .options {
-  background: #fff;
-  border: 1px solid #9a99a5;
+  @extend %inputColor;
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(#000, 0.15);
 
   .search {
-    border-bottom: 1px solid #e3e4ea;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    box-shadow: none;
-    background: #fff;
-    color: #353445;
     font-size: 12px;
 
     .searchIcon {
       margin-left: 12px;
-      color: $light-text-color;
+      color: $gray-4;
     }
 
     .closeIcon {
       margin-right: 8px;
-      color: $light-text-color;
+      color: $gray-4;
     }
   }
 
   .noResults {
     font-size: 14px;
     padding: 10px 12px;
-    color: $light-text-color;
+    color: $gray-4;
     -webkit-font-smoothing: antialiased;
 
     .clear {
@@ -92,12 +79,12 @@
     overflow-y: auto;
 
     .item {
-      color: #494759;
+      @extend %textColor;
       font-size: 14px;
       cursor: pointer;
 
       &.focus {
-        background: rgba(#edeef2, 0.5);
+        background: transparentize($brand, 0.65);
       }
     }
   }

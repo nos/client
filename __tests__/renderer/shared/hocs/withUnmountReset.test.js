@@ -10,9 +10,7 @@ describe('withUnmountReset', () => {
   const actions = { reset: resetSpy };
 
   // eslint-disable-next-line react/prop-types
-  const WrappedComponent = withUnmountReset(actions)((props) => (
-    <div>{props.children}</div>
-  ));
+  const WrappedComponent = withUnmountReset(actions)((props) => <div>{props.children}</div>);
 
   it('does not call reset while mounted', () => {
     mount(provideState(<WrappedComponent />));

@@ -1,0 +1,15 @@
+.totalValue {
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+
+  .value {
+    font-size: 28px;
+  }
+
+  .label {
+    line-height: 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $gray-4;
+  }
+}

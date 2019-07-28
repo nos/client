@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import AppButton from 'appstore/components/AppButton/AppButton';
+import AppCard from 'appstore/components/AppCard/AppCard';
 
-describe('<AppButton />', () => {
+describe('<AppCard />', () => {
   const defaultProps = {
     app: {
       title: 'mockTitle',
@@ -15,7 +15,7 @@ describe('<AppButton />', () => {
   };
 
   it('renders correctly', () => {
-    const wrapper = mount(<AppButton {...defaultProps} />);
+    const wrapper = mount(<AppCard {...defaultProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

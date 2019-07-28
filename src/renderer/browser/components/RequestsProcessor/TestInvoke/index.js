@@ -40,7 +40,8 @@ export default function makeTestInvoke(testInvokeActions) {
     withNullLoader(testInvokeActions),
     withRejectMessage(
       testInvokeActions,
-      ({ operation, scriptHash, error }) => `Invocation failed for operation "${operation}" on ${scriptHash}: ${error}`
+      ({ operation, scriptHash, error }) =>
+        `Invocation failed for operation "${operation}" on ${scriptHash}: ${error}`
     ),
     withData(testInvokeActions, mapInvokeDataToProps)
   )(TestInvoke);

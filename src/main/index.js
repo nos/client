@@ -32,10 +32,10 @@ function getWindowPath(productionPath, filename) {
   const windowPath = isDev
     ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/${filename}`
     : url.format({
-      pathname: path.join(productionPath, filename),
-      protocol: 'file:',
-      slashes: true
-    });
+        pathname: path.join(productionPath, filename),
+        protocol: 'file:',
+        slashes: true
+      });
 
   // There is a peculiar bug that is causing the window location to redirect to the current URL, but
   // with an empty query string appended. By loading that URL initially instead, no redirect occurs.
@@ -98,7 +98,7 @@ function createSplashWindow() {
       autoUpdater.allowPrerelease = false;
       autoUpdater.checkForUpdates();
       autoUpdater.on('update-available', ({ version }) => {
-        splashWindow.webContents.send('updaterMsg', `Updating nOS client to version ${version}`);
+        splashWindow.webContents.send('updaterMsg', `Updating nOS Client to version ${version}`);
       });
       autoUpdater.on('update-not-available', () => {
         createMainWindow();

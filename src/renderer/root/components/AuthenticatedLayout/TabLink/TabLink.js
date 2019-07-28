@@ -35,12 +35,7 @@ export default class TabLink extends React.PureComponent {
     });
 
     return (
-      <span
-        className={className}
-        role="button"
-        tabIndex="0"
-        onClick={this.handleClick}
-      >
+      <span className={className} role="button" tabIndex="0" onClick={this.handleClick}>
         {this.props.children}
       </span>
     );
@@ -52,5 +47,5 @@ export default class TabLink extends React.PureComponent {
     if (target && !disabled) {
       this.props.openTab({ type, target });
     }
-  }
+  };
 }

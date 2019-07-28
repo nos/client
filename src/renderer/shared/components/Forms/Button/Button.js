@@ -21,7 +21,8 @@ export default class Button extends React.PureComponent {
   };
 
   render() {
-    return ( // eslint-disable-next-line react/button-has-type
+    return (
+      // eslint-disable-next-line react/button-has-type
       <button
         {...omit(this.props, 'forwardedRef')}
         ref={this.props.forwardedRef}

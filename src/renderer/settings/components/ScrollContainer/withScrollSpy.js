@@ -18,11 +18,11 @@ export default function withScrollSpy(Component) {
 
     handleScroll = (event) => {
       defaultScrollSpy.publish(event);
-    }
+    };
 
     registerRef = (el) => {
       this.component = el;
-    }
+    };
 
     get node() {
       return this.component.node;

@@ -15,7 +15,8 @@ const initialState = {
         type: EXTERNAL,
         target: 'nos://nos.neo',
         title: 'Welcome to nOS',
-        icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==',
+        icon:
+          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==',
         addressBarEntry: true,
         loading: false,
         requestCount: 1
@@ -46,7 +47,17 @@ describe('<Browser />', () => {
 
   it("only marks the activeSessionId's dapp as active", () => {
     const wrapper = mountBrowser();
-    expect(wrapper.find(DAppContainer).at(0).hasClass('active')).toBe(true);
-    expect(wrapper.find(DAppContainer).at(1).hasClass('active')).toBe(false);
+    expect(
+      wrapper
+        .find(DAppContainer)
+        .at(0)
+        .hasClass('active')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find(DAppContainer)
+        .at(1)
+        .hasClass('active')
+    ).toBe(false);
   });
 });

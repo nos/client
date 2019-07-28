@@ -30,7 +30,9 @@ const COMPONENT_MAP = {
   getLastBlock: GetLastBlock,
   invoke: Invoke,
   send: Send,
-  claimGas: ClaimGas
+  claimGas: ClaimGas,
+  // V2 API
+  send_v2: Send
 };
 
 const ACTIONS_MAP = {
@@ -42,7 +44,9 @@ const ACTIONS_MAP = {
   claimGas: makeClaimActions,
   getPublicKey: makePublicKeyActions,
   encrypt: makeEncryptActions,
-  decrypt: makeDecryptActions
+  decrypt: makeDecryptActions,
+  // V2 API
+  send_v2: makeSendActions
 };
 
 const makeNullActions = () => null;

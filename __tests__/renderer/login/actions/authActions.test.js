@@ -1,6 +1,6 @@
 import { wallet } from '@cityofzion/neon-js';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 
 describe('authActions', () => {
   describe('call', () => {
@@ -64,11 +64,17 @@ describe('authActions', () => {
         account.encrypt(passphrase);
       });
 
-      itBehavesLikeAnActionResponse(() => ({ encryptedWIF: account.encrypted, passphrase }));
+      itBehavesLikeAnActionResponse(() => ({
+        encryptedWIF: account.encrypted,
+        passphrase
+      }));
 
       describe('with valid encrypted key & passphrase', () => {
         it('returns authenticated account data', async () => {
-          const call = authActions.call({ encryptedWIF: account.encrypted, passphrase });
+          const call = authActions.call({
+            encryptedWIF: account.encrypted,
+            passphrase
+          });
           expect(await call.payload.fn({})).toEqual({ wif, address });
         });
       });
@@ -76,7 +82,10 @@ describe('authActions', () => {
       describe('with invalid encrypted key', () => {
         it('throws an error', () => {
           expect.assertions(1);
-          const call = authActions.call({ encryptedWIF: 'invalid', passphrase });
+          const call = authActions.call({
+            encryptedWIF: 'invalid',
+            passphrase
+          });
           return expect(call.payload.fn({})).rejects.toEqual(
             new Error('That is not a valid encrypted key.')
           );
@@ -86,7 +95,10 @@ describe('authActions', () => {
       describe('with invalid passphrase', () => {
         it('throws an error', () => {
           expect.assertions(1);
-          const call = authActions.call({ encryptedWIF: account.encrypted, passphrase: 'invalid' });
+          const call = authActions.call({
+            encryptedWIF: account.encrypted,
+            passphrase: 'invalid'
+          });
           return expect(call.payload.fn({})).rejects.toEqual(
             new Error('Wrong Password or scrypt parameters!')
           );

@@ -52,6 +52,8 @@ describe('parseURL', () => {
   });
 
   it('handles search queries', () => {
-    expect(parseURL('example.com lol jk')).toEqual(new URL('https://duckduckgo.com/?q=example.com+lol+jk'));
+    expect(parseURL('example.com lol jk')).toEqual(
+      new URL('https://duckduckgo.com/?q=example.com+lol+jk')
+    );
   });
 });

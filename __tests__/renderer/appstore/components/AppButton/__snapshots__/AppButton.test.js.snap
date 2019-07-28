@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AppButton /> renders correctly 1`] = `
+exports[`<AppCard /> renders correctly 1`] = `
 ReactWrapper {
-  Symbol(enzyme.__unrendered__): <AppButton
+  Symbol(enzyme.__unrendered__): <AppCard
     app={
       Object {
         "blurb": "mockBlurb",
@@ -11,6 +11,7 @@ ReactWrapper {
         "url": "mockUrl",
       }
     }
+    internal={false}
     openApp={
       [MockFunction] {
         "calls": Array [
@@ -30,6 +31,7 @@ ReactWrapper {
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
+    "getWrappingComponentRenderer": [Function],
     "render": [Function],
     "simulateError": [Function],
     "simulateEvent": [Function],
@@ -47,6 +49,7 @@ ReactWrapper {
         "title": "mockTitle",
         "url": "mockUrl",
       },
+      "internal": false,
       "openApp": [MockFunction] {
         "calls": Array [
           Array [
@@ -64,7 +67,7 @@ ReactWrapper {
     "ref": null,
     "rendered": Object {
       "instance": <div
-        class="appbutton"
+        class="appcard"
         role="button"
         tabindex="0"
       >
@@ -110,7 +113,7 @@ ReactWrapper {
             </p>
           </div>,
         ],
-        "className": "appbutton",
+        "className": "appcard",
         "onClick": undefined,
         "role": "button",
         "tabIndex": 0,
@@ -233,6 +236,7 @@ ReactWrapper {
           "title": "mockTitle",
           "url": "mockUrl",
         },
+        "internal": false,
         "openApp": [MockFunction] {
           "calls": Array [
             Array [
@@ -250,7 +254,7 @@ ReactWrapper {
       "ref": null,
       "rendered": Object {
         "instance": <div
-          class="appbutton"
+          class="appcard"
           role="button"
           tabindex="0"
         >
@@ -296,7 +300,7 @@ ReactWrapper {
               </p>
             </div>,
           ],
-          "className": "appbutton",
+          "className": "appcard",
           "onClick": undefined,
           "role": "button",
           "tabIndex": 0,
@@ -420,6 +424,7 @@ ReactWrapper {
           "getChildContext": Object {
             "calledByRenderer": false,
           },
+          "getDerivedStateFromError": true,
           "getDerivedStateFromProps": Object {
             "hasShouldComponentUpdateBug": false,
           },

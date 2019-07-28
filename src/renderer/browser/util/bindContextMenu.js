@@ -12,13 +12,15 @@ function prepend(_params, browserWindow) {
       enabled: browserWindow.canGoForward(),
       click: () => browserWindow.goForward()
     },
-    browserWindow.isLoading() ? {
-      label: 'Stop',
-      click: () => browserWindow.stop()
-    } : {
-      label: 'Reload',
-      click: () => browserWindow.reload()
-    },
+    browserWindow.isLoading()
+      ? {
+          label: 'Stop',
+          click: () => browserWindow.stop()
+        }
+      : {
+          label: 'Reload',
+          click: () => browserWindow.reload()
+        },
     { type: 'separator' }
   ];
 }

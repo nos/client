@@ -1,0 +1,18 @@
+.transactionsPanel {
+  max-width: 316px;
+  padding: -6px 20px 20px;
+
+  .tabs {
+    display: flex;
+
+    .tab {
+      @include webComponent;
+      width: calc(100% / 3);
+    }
+  }
+
+  @media only screen and (max-width: $responsive-width) {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}

@@ -67,5 +67,5 @@ export default class Settings extends React.PureComponent {
 
   registerRef = (el) => {
     this.container = el;
-  }
+  };
 }

@@ -24,16 +24,12 @@ export default class LoginLayout extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div className={styles.loginLayout}>
-        {this.props.children}
-      </div>
-    );
+    return <div className={styles.loginLayout}>{this.props.children}</div>;
   }
 
   handleOpenTab = (event, target) => {
     if (target) {
       shell.openExternal(target);
     }
-  }
+  };
 }
