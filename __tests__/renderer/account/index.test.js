@@ -4,8 +4,8 @@ import { mount } from 'enzyme';
 import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import { Account } from 'account';
-import AccountPanel from 'account/components/Portfolio/AccountPanel';
-import TransactionsPanel from 'account/components/Portfolio/TransactionsPanel';
+import AccountPanel from 'account/components/AccountPanel';
+import TransactionsPanel from 'account/components/TransactionsPanel';
 import { NEO, GAS } from 'shared/values/assets';
 import { DEFAULT_CURRENCY } from 'shared/values/currencies';
 

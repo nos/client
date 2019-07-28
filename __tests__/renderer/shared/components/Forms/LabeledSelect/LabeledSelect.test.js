@@ -14,9 +14,7 @@ describe('<LabeledSelect />', () => {
     const wrapper = mountContainer({ id: 'currency', label: 'Currency' });
     const label = wrapper.find(Label);
     expect(label.exists()).toBe(true);
-    expect(label.props()).toEqual(
-      expect.objectContaining({ label: 'Currency', htmlFor: 'currency' })
-    );
+    expect(label.props()).toEqual(expect.objectContaining({ label: 'Currency', htmlFor: 'currency' }));
   });
 
   it('renders a select', () => {

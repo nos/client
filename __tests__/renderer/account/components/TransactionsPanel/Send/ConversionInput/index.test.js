@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 
 import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
-import ConversionInputContainer from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput';
-import ConversionInput from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput/ConversionInput';
+import ConversionInputContainer from 'account/components/TransactionsPanel/Send/ConversionInput';
+import ConversionInput from 'account/components/TransactionsPanel/Send/ConversionInput/ConversionInput';
 
 const initialState = {
   [spunkyKey]: {
@@ -25,12 +25,10 @@ const defaultProps = {
 };
 
 const mountContainer = (props = {}) => {
-  return mount(
-    provideStore(
-      <ConversionInputContainer {...defaultProps} {...props} />,
-      createStore(initialState)
-    )
-  );
+  return mount(provideStore(
+    <ConversionInputContainer {...defaultProps} {...props} />,
+    createStore(initialState)
+  ));
 };
 
 describe('<ConversionInput />', () => {

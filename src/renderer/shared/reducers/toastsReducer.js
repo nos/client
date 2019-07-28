@@ -8,7 +8,10 @@ import { MAX_TOASTS } from '../values/toasts';
 const initialState = [];
 
 function enqueue(state, payload) {
-  return takeRight([...state, { ...payload, id: uuid() }], MAX_TOASTS);
+  return takeRight([
+    ...state,
+    { ...payload, id: uuid() }
+  ], MAX_TOASTS);
 }
 
 function dequeue(state, payload) {

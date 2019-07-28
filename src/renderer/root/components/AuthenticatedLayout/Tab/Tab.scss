@@ -1,5 +1,6 @@
 .tab {
-  @extend %tabColor;
+  $tab-inactive-border-color: rgba($light-text-color, 0.4);
+
   cursor: default;
   display: flex;
   flex-direction: row;
@@ -9,11 +10,34 @@
   position: relative;
   min-width: 32px;
   padding: 8px;
+  background: rgba(#fff, 0.4);
   font-size: 12px;
   transition: all 0.2s ease;
+  box-shadow: inset 1px 0 0 $tab-inactive-border-color;
 
   &:first-of-type {
     box-shadow: none;
+  }
+
+  &:last-of-type {
+    &:not(.active) {
+      box-shadow: inset 1px 0 0 $tab-inactive-border-color, inset -1px 0 0 $tab-inactive-border-color;
+    }
+  }
+
+  &.active,
+  &.active + & {
+    box-shadow: none;
+  }
+  &:not(.active):hover {
+    background: rgba(#fff, 0.6);
+  }
+  &.active + &:last-of-type {
+    box-shadow: inset -1px 0 0 $tab-inactive-border-color;
+  }
+
+  &.active {
+    background: #fff;
   }
 
   .loading {
@@ -28,6 +52,7 @@
   .title {
     flex: 1 1 auto;
     max-width: 100px;
+    color: #1e1b52;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -46,11 +71,13 @@
     justify-content: center;
     width: 15px;
     height: 15px;
-    color: $gray-4;
+    color: $light-text-color;
     background: transparent;
     border: none;
 
     &:hover {
+      color: #fff;
+      background: rgba(228, 91, 70, 0.6);
       border-radius: 50%;
     }
 

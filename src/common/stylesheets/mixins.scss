@@ -1,23 +1,38 @@
-@mixin theme($themeName) {
-  html[data-theme=#{$themeName}] & {
-    @content
-  }
-}
-
 @mixin navigationLink {
+  $link-color: $light-text-color;
+  $focus-background-color: #e9eaee;
+  $focus-icon-color: #7b7a86;
+  $active-background-color: #e2e3e8;
+  $active-icon-color: #8bc83c;
+
   position: relative;
   display: block;
   padding: 8px 0;
+  color: $link-color;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 
   &.disabled {
+    color: lighten($link-color, 20%);
     cursor: not-allowed;
+  }
+
+  &:not(.disabled):focus,
+  &:not(.disabled):hover {
+    color: $focus-icon-color;
+    background: $focus-background-color;
+  }
+
+  &:not(.disabled):active {
+    color: $active-icon-color;
+    background: $active-background-color;
   }
 
   &:not(.disabled).active {
     position: relative;
+    color: $active-icon-color;
+    background: $active-background-color;
 
     &::after {
       content: "";
@@ -26,53 +41,13 @@
       bottom: 0;
       left: 0;
       width: 3px;
+      background: linear-gradient(0deg, #b9d532 0%, #5bba47 100%);
     }
   }
 
   svg {
     display: block;
     margin: 0 auto;
-  }
-}
-
-%toggle {
-
-  background: transparent !important;
-  box-shadow: none !important;
-  max-width: 52px;
-
-  & > input {
-    position: relative;
-    -webkit-appearance: none;
-    appearance: none;
-    outline: none;
-    height: 24px;
-    background-color: white;
-    border: 1px solid $gray-3;
-    border-radius: 50px;
-    box-shadow: inset -20px 0 0 0 $gray-1;
-    transition-duration: 200ms;
-
-    &:after {
-       content: "";
-       position: absolute;
-       top: 1px;
-       left: 1px;
-       width: 26px;
-       height: 26px;
-       background-color: transparent;
-       border-radius: 50%;
-    }
-
-    &:checked {
-       border-color: $brand;
-       box-shadow: inset 20px 0 0 0 $brand;
-
-       &:after {
-          left: 20px;
-          box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.05);
-       }
-    }
   }
 }
 
@@ -140,7 +115,7 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 25px;
-  background: $gray-4;
+  background: #9a99a5;
 }
 
 /* Handle on hover */

@@ -8,12 +8,11 @@ import toastsReducer from 'shared/reducers/toastsReducer';
 
 import dialogsReducer from './dialogsReducer';
 
-export default (history) =>
-  combineReducers({
-    router: connectRouter(history),
-    spunky: spunkyReducer,
-    dialogs: dialogsReducer,
-    browser: browserReducer,
-    requests: requestsReducer,
-    toasts: toastsReducer
-  });
+export default (history) => combineReducers({
+  router: connectRouter(history),
+  spunky: spunkyReducer,
+  dialogs: dialogsReducer,
+  browser: browserReducer,
+  requests: requestsReducer,
+  toasts: toastsReducer
+});

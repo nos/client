@@ -22,7 +22,7 @@
       }
 
       &.connecting {
-        background-color: $gray-4;
+        background-color: $light-text-color;
       }
     }
 
@@ -43,7 +43,7 @@
       font-weight: 500;
 
       .heading {
-        color: $gray-4;
+        color: $light-text-color;
         font-size: 10px;
         // font-weight: 400;
       }

@@ -2,7 +2,7 @@ import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
-import authActions from 'auth/actions/authActions';
+import authActions from 'login/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 
 import Decrypt from './Decrypt';

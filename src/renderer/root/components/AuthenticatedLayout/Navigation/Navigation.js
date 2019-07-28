@@ -14,7 +14,6 @@ import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
 
 import TabLink from '../TabLink';
-import PrivateTabLink from '../PrivateTabLink';
 import ExplorerLink from '../ExplorerLink';
 import LastBlock from '../LastBlock';
 import StatusIcon from '../StatusIcon';
@@ -46,9 +45,9 @@ export default class Navigation extends React.PureComponent {
           <li>
             <Tooltip overlay="Account">
               <div>
-                <PrivateTabLink id="account" target={ACCOUNT}>
+                <TabLink id="account" target={ACCOUNT}>
                   <AccountIcon aria-label="account" />
-                </PrivateTabLink>
+                </TabLink>
               </div>
             </Tooltip>
           </li>

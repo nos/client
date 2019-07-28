@@ -44,8 +44,8 @@ describe('validateInvokeArgs', () => {
   });
 
   it('throws for invalid assets shape', () => {
-    expect(() =>
-      validateInvokeArgs({ scriptHash, operation, args, assets: { foo: 'bar' } })
-    ).toThrow('Invalid assets: {"foo":"bar"}');
+    expect(() => validateInvokeArgs({ scriptHash, operation, args, assets: { foo: 'bar' } })).toThrow(
+      'Invalid assets: {"foo":"bar"}'
+    );
   });
 });

@@ -24,7 +24,12 @@ export default class StatusIcon extends React.PureComponent {
     const Icon = this.getIcon();
     const passDownProps = omit(this.props, 'dispatch', 'error', 'block');
 
-    return <Icon {...passDownProps} className={this.props.className} />;
+    return (
+      <Icon
+        {...passDownProps}
+        className={this.props.className}
+      />
+    );
   }
 
   getIcon = () => {
@@ -35,5 +40,5 @@ export default class StatusIcon extends React.PureComponent {
     } else {
       return StatusUnknown;
     }
-  };
+  }
 }

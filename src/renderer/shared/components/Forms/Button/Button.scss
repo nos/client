@@ -1,15 +1,15 @@
 .button {
-  background: transparent;
   display: inline-block;
   height: 36px;
   padding: 0 24px;
+  background: #fff;
   border: 0;
   border-radius: 4px;
-  color: $brand;
+  color: #8bc83c;
   font-weight: 500;
   font-size: 14px;
   text-align: center;
-  box-shadow: inset 0 0 0 2px $brand;
+  box-shadow: inset 0 0 0 2px rgba(#8bc83c, 0.9);
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   transition: all 0.2s ease;
@@ -21,8 +21,8 @@
 
   &:not([disabled]) {
     &:hover {
-      color: $brand-dark;
-      box-shadow: inset 0 0 0 2px $brand-dark,
+      color: #5bba47;
+      box-shadow: inset 0 0 0 2px #5bba47,
     }
   }
 }

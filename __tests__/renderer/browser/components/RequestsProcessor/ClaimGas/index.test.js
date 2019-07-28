@@ -2,13 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
 
-import {
-  provideStore,
-  createStore,
-  spunkyKey,
-  mockSpunkyLoaded,
-  addLoadedListener
-} from 'testHelpers';
+import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
 
 import makeClaimGas from 'browser/components/RequestsProcessor/ClaimGas';
 import makeClaimActions, { ID as claimKey } from 'browser/actions/makeClaimActions';
@@ -19,13 +13,12 @@ const currentNetwork = 'MainNet';
 const currentAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 const currentWif = 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG';
 
-const getStore = () =>
-  createStore({
-    [spunkyKey]: {
-      currentNetwork: mockSpunkyLoaded(currentNetwork),
-      auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif })
-    }
-  });
+const getStore = () => createStore({
+  [spunkyKey]: {
+    currentNetwork: mockSpunkyLoaded(currentNetwork),
+    auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif })
+  }
+});
 
 describe('<ClaimGas />', () => {
   let store;
@@ -90,10 +83,7 @@ describe('<ClaimGas />', () => {
 
     beforeEach(() => {
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
-      wrapper
-        .find('PromptComponent')
-        .instance()
-        .handleConfirm();
+      wrapper.find('PromptComponent').instance().handleConfirm();
     });
 
     it('initiates a claim call', () => {
@@ -129,10 +119,7 @@ describe('<ClaimGas />', () => {
       addClaimLoadedListener(done);
 
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
-      wrapper
-        .find('PromptComponent')
-        .instance()
-        .handleConfirm();
+      wrapper.find('PromptComponent').instance().handleConfirm();
       wrapper.update(); // re-render after user confirmation
     });
 
@@ -148,10 +135,7 @@ describe('<ClaimGas />', () => {
 
     beforeEach(() => {
       wrapper = mountContainer({ ...defaultProps, onResolve, onReject });
-      wrapper
-        .find('PromptComponent')
-        .instance()
-        .handleCancel();
+      wrapper.find('PromptComponent').instance().handleCancel();
       wrapper.update(); // re-render after user cancellation
     });
 

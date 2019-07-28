@@ -34,7 +34,9 @@ export default class Alert extends React.PureComponent {
     return (
       <Modal className={classNames(styles.alert, className)}>
         {this.renderTitle()}
-        <div className={styles.body}>{children}</div>
+        <div className={styles.body}>
+          {children}
+        </div>
         <div className={styles.actions}>
           <PrimaryButton
             className={styles.action}
@@ -55,12 +57,14 @@ export default class Alert extends React.PureComponent {
       return null;
     }
 
-    return <div className={styles.title}>{title}</div>;
-  };
+    return (
+      <div className={styles.title}>
+        {title}
+      </div>
+    );
+  }
 
   registerRef = (name) => {
-    return (el) => {
-      this[name] = el;
-    };
-  };
+    return (el) => { this[name] = el; };
+  }
 }

@@ -7,11 +7,7 @@ function NullLoader() {
 }
 
 export default function withNullLoader(actions, options = {}) {
-  return withProgressComponents(
-    actions,
-    {
-      [LOADING]: NullLoader
-    },
-    options
-  );
+  return withProgressComponents(actions, {
+    [LOADING]: NullLoader
+  }, options);
 }

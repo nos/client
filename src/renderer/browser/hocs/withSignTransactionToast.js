@@ -1,7 +1,7 @@
 import { compose, branch, lifecycle } from 'recompose';
 import { withData } from 'spunky';
 
-import authActions from 'auth/actions/authActions';
+import authActions from 'login/actions/authActions';
 
 import { withInfoToast } from 'shared/hocs/withToast';
 

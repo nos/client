@@ -19,16 +19,14 @@ function replaceLoader(config, test, callback) {
 // Since we want to uses SCSS modules, we need to replace the
 // default SCSS loader config that ships with electron-webpack.
 function replaceSassLoader(config) {
-  const minimize = isProd
-    ? [
-        {
-          loader: 'postcss-loader',
-          options: {
-            plugins: [cssnano({ preset: 'default' })]
-          }
-        }
+  const minimize = isProd ? [{
+    loader: 'postcss-loader',
+    options: {
+      plugins: [
+        cssnano({ preset: 'default' })
       ]
-    : [];
+    }
+  }] : [];
 
   return replaceLoader(config, /\.scss/, () => ({
     use: [
@@ -46,8 +44,7 @@ function replaceSassLoader(config) {
       {
         loader: 'sass-loader',
         options: {
-          data:
-            '@import "common/stylesheets/variables"; @import "common/stylesheets/mixins"; @import "common/stylesheets/themes";',
+          data: '@import "common/stylesheets/variables"; @import "common/stylesheets/mixins";',
           includePaths: [path.resolve(__dirname, '..', './src')],
           sourceMap: !isProd
         }
@@ -63,12 +60,10 @@ function replaceSvgLoader(config) {
 
   return merge.smart({}, updatedConfig, {
     module: {
-      rules: [
-        {
-          test: /\.(svg)$/,
-          loader: 'svg-react-loader'
-        }
-      ]
+      rules: [{
+        test: /\.(svg)$/,
+        loader: 'svg-react-loader'
+      }]
     }
   });
 }

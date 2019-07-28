@@ -1,21 +1,18 @@
-$sidebar-shadow: inset -1px 0 0 $gray-3;
+$sidebar-shadow: inset -1px 0 0 #d7d8de;
 
 @mixin sidebar {
-  @extend %sidebarColor;
   width: 68px;
+  background: #edeef2;
   mix-blend-mode: normal;
+  box-shadow: $sidebar-shadow;
 }
 
 .authenticatedLayout {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: $gray-0;
+  background-color: $content-bg-color;
   overflow-y: hidden;
-
-  @include theme(DARK) {
-    background-color: $gray-8;
-  }
 
   header {
     flex: 0 0 auto;

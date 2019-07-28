@@ -1,11 +1,6 @@
 import { findIndex, omit } from 'lodash';
 
-import {
-  ENQUEUE_REQUEST,
-  DEQUEUE_REQUEST,
-  EMPTY_REQUESTS,
-  EMPTY_ALL_REQUESTS
-} from '../actions/requestsActions';
+import { ENQUEUE_REQUEST, DEQUEUE_REQUEST, EMPTY_REQUESTS, EMPTY_ALL_REQUESTS } from '../actions/requestsActions';
 import { CLOSE_TAB } from '../actions/browserActions';
 
 const initialState = {};
@@ -29,7 +24,10 @@ function dequeue(queues, sessionId, id) {
 
   return {
     ...queues,
-    [sessionId]: [...queue.slice(0, index), ...queue.slice(index + 1)]
+    [sessionId]: [
+      ...queue.slice(0, index),
+      ...queue.slice(index + 1)
+    ]
   };
 }
 

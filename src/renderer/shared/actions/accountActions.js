@@ -1,6 +1,6 @@
 import { createBatchActions } from 'spunky';
 
-import authActions from 'auth/actions/authActions';
+import authActions from 'login/actions/authActions';
 
 import balancesActions from './balancesActions';
 

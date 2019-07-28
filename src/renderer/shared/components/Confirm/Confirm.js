@@ -40,7 +40,14 @@ export default class Confirm extends React.PureComponent {
   }
 
   render() {
-    const { className, confirmLabel, cancelLabel, onConfirm, onCancel, children } = this.props;
+    const {
+      className,
+      confirmLabel,
+      cancelLabel,
+      onConfirm,
+      onCancel,
+      children
+    } = this.props;
 
     return (
       <Modal
@@ -49,12 +56,21 @@ export default class Confirm extends React.PureComponent {
         renderFooter={this.renderFooter}
       >
         <div className={styles.content}>
-          <div className={styles.body}>{children}</div>
+          <div className={styles.body}>
+            {children}
+          </div>
           <div className={styles.actions}>
-            <Button className={classNames(styles.action, styles.cancel)} onClick={onCancel}>
+            <Button
+              className={classNames(styles.action, styles.cancel)}
+              onClick={onCancel}
+            >
               {cancelLabel}
             </Button>
-            <PrimaryButton ref={this.confirm} className={styles.action} onClick={onConfirm}>
+            <PrimaryButton
+              ref={this.confirm}
+              className={styles.action}
+              onClick={onConfirm}
+            >
               {confirmLabel}
             </PrimaryButton>
           </div>
@@ -70,8 +86,12 @@ export default class Confirm extends React.PureComponent {
       return null;
     }
 
-    return <div className={styles.title}>{title}</div>;
-  };
+    return (
+      <div className={styles.title}>
+        {title}
+      </div>
+    );
+  }
 
   renderFooter = () => {
     return (
@@ -80,7 +100,7 @@ export default class Confirm extends React.PureComponent {
         {this.renderOrigin()}
       </React.Fragment>
     );
-  };
+  }
 
   renderOrigin = () => {
     const { origin } = this.props;
@@ -89,12 +109,14 @@ export default class Confirm extends React.PureComponent {
       return null;
     }
 
-    return <div className={styles.origin}>Triggered by {origin}</div>;
-  };
+    return (
+      <div className={styles.origin}>
+        Triggered by {origin}
+      </div>
+    );
+  }
 
   registerRef = (name) => {
-    return (el) => {
-      this[name] = el;
-    };
-  };
+    return (el) => { this[name] = el; };
+  }
 }

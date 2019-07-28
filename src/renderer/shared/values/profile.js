@@ -1,5 +1,2 @@
-export default 'profiles_v2';
-
-export const DEFAULT_ACC_INDEX = 0;
-
-// TODO remove for 0.6
+const ID = 'profiles_v1';
+export default ID;

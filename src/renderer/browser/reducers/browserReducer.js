@@ -130,10 +130,9 @@ function close(state, data) {
   const tabIndex = keys(state.tabs).indexOf(data.sessionId);
   const tabs = omit(state.tabs, data.sessionId);
 
-  const activeSessionId =
-    state.activeSessionId === data.sessionId
-      ? keys(tabs)[Math.max(tabIndex - 1, 0)]
-      : state.activeSessionId;
+  const activeSessionId = state.activeSessionId === data.sessionId
+    ? keys(tabs)[Math.max(tabIndex - 1, 0)]
+    : state.activeSessionId;
 
   return { ...state, tabs, activeSessionId };
 }

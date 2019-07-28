@@ -1,4 +1,4 @@
-import authActions from 'auth/actions/authActions';
+import authActions from 'login/actions/authActions';
 
 import withProgressChange from 'shared/hocs/withProgressChange';
 

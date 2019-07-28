@@ -9,7 +9,6 @@
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  z-index: 0;
 
   .backdrop {
     position: fixed;
@@ -17,13 +16,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-    @extend %modalBackdropColor;
+    background: rgba(53, 52, 69, 0.85);
   }
 }
 
 .modal {
-  @extend %panelColor;
   position: relative;
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(30, 27, 82, 0.2);
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(30, 27, 82, 0.12);
 }

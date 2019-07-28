@@ -1,16 +1,16 @@
 .register {
-  display: flex;
-
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 20px;
   -webkit-app-region: no-drag;
 
-  .content {
-    display: flex;
-    flex-direction: column;
+  .logo {
+    display: block;
+    margin: 40px auto 0;
+    width: 200px;
+  }
 
-    .closeIcon {
-      margin: 20px;
-      align-self: flex-end;
-      cursor: pointer;
-    }
+  .tabs {
+    margin: 20px 0 0;
   }
 }

@@ -7,12 +7,11 @@ import block from 'fixtures/block.json';
 
 import makeGetLastBlock from 'browser/components/RequestsProcessor/GetLastBlock';
 
-const getStore = () =>
-  createStore({
-    [spunkyKey]: {
-      block: mockSpunkyLoaded(block)
-    }
-  });
+const getStore = () => createStore({
+  [spunkyKey]: {
+    block: mockSpunkyLoaded(block)
+  }
+});
 
 describe('<GetLastBlock />', () => {
   let onResolve;

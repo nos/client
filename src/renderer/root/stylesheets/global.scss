@@ -9,13 +9,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: $gray-0;
-  color: $gray-5;
-
-  @include theme(DARK) {
-    color: $gray-1;
-    background: $gray-7;
-  }
+  background: $content-bg-color;
+  color: #58585a;
 
   font: {
     family: $primary-font-stack;
@@ -36,7 +31,7 @@ ul {
 
 a {
   text-decoration: underline;
-  color: $brand;
+  color: #8bc83c;
 }
 
 [data-whatintent="mouse"] :focus {

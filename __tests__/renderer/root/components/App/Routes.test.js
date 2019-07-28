@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { provideState, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
 import Routes from 'root/components/App/Routes';
-
+import { Login } from 'login';
 import { Logout } from 'logout';
 import { Browser } from 'browser';
 import { EXTERNAL } from 'browser/values/browserValues';
@@ -15,10 +15,7 @@ import { EXTERNAL } from 'browser/values/browserValues';
 const childContextTypes = { router: object };
 
 const currentNetworkState = mockSpunkyLoaded('TestNet');
-const authenticatedState = mockSpunkyLoaded({
-  wif: 'abc123',
-  address: 'def456'
-});
+const authenticatedState = mockSpunkyLoaded({ wif: 'abc123', address: 'def456' });
 
 const initialState = {
   [spunkyKey]: {
@@ -48,13 +45,27 @@ const mountPath = (pathname, state = {}) => {
   });
 };
 
+function itBehavesLikeAuthenticatedRoute(pathname) {
+  it('redirects when unauthenticated', () => {
+    const wrapper = mountPath(pathname);
+    expect(wrapper.find(Redirect).prop('to')).toEqual('/login');
+  });
+}
+
 describe('<Routes />', () => {
+  it('renders login route', () => {
+    const wrapper = mountPath('/login');
+    expect(wrapper.find(Login).exists()).toBe(true);
+  });
+
   it('redirects to browser on invalid route', () => {
     const wrapper = mountPath('/index.html');
     expect(wrapper.find(Redirect).prop('to')).toEqual('/browser');
   });
 
   describe('logout route', () => {
+    itBehavesLikeAuthenticatedRoute('/logout');
+
     it('does not redirect when authenticated', () => {
       const wrapper = mountPath('/logout', {
         [spunkyKey]: {
@@ -67,6 +78,8 @@ describe('<Routes />', () => {
   });
 
   describe('browser route', () => {
+    itBehavesLikeAuthenticatedRoute('/browser');
+
     it('renders when authenticated', () => {
       const wrapper = mountPath('/browser', {
         [spunkyKey]: {

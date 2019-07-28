@@ -39,8 +39,7 @@ export default function makeGetStorage(storageActions) {
     withNullLoader(storageActions),
     withRejectMessage(
       storageActions,
-      ({ index, scriptHash, error }) =>
-        `Retrieving storage failed for key "${index}" on ${scriptHash}: ${error}`
+      ({ index, scriptHash, error }) => `Retrieving storage failed for key "${index}" on ${scriptHash}: ${error}`
     ),
     withData(storageActions, mapStorageDataToProps)
   )(GetStorage);

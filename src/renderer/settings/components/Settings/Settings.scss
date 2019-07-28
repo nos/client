@@ -26,7 +26,7 @@
 
   .sidebar {
     width: 170px;
-    @include border(1px, right, light);
+    box-shadow: inset -1px 0px 0px #d7d8de;
 
     ul {
       list-style: none;
