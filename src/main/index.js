@@ -110,6 +110,9 @@ function createSplashWindow() {
   });
 }
 
+// Methods which require to be called BEFORE the app is ready
+app.commandLine.appendSwitch('ignore-gpu-blacklist');
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
