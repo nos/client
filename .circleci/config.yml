@@ -69,7 +69,7 @@ jobs:
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
       - run: yarn install
-      - run: yarn dist --win --x64 --ia32
+      - run: yarn release:win
       - store_artifacts:
           path: dist
           destination: build
@@ -85,7 +85,7 @@ jobs:
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install build-essential libudev-dev
       - run: yarn install
-      - run: yarn dist --linux
+      - run: yarn release:linux
       - store_artifacts:
           path: dist
           destination: build
@@ -99,7 +99,7 @@ jobs:
             - v3-dependencies-{{ checksum "package.json" }}
             - v3-dependencies-
       - run: yarn install
-      - run: yarn dist --mac
+      - run: yarn release:mac
       - store_artifacts:
           path: dist
           destination: build
