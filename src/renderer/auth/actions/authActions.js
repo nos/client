@@ -21,6 +21,20 @@ const authenticate = async ({ account, passphrase }) => {
   };
 };
 
-export default createActions(ID, ({ account, passphrase }) => {
-  return () => authenticate({ account, passphrase });
+const changeActiveWallet = ({ account, passphrase, walletId }) => {
+  const updatedAccount = {
+    ...account,
+    activeWalletId: walletId
+  };
+
+  return authenticate({ account: updatedAccount, passphrase });
+};
+
+// Change active wallet
+export const changeActiveWalletActions = createActions(ID, (data) => async () => {
+  return changeActiveWallet(data);
+});
+
+export default createActions(ID, (data) => {
+  return () => authenticate(data);
 });

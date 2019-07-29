@@ -1,12 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 
 import COINS, { ETH, NEO, DEFAULT_COIN } from 'shared/values/coins';
+import accountShape from 'auth/shapes/accountShape';
 import KeyChainIcon from 'shared/images/account/keychain.svg';
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import EthIcon from 'shared/images/tokens/eth.svg';
 import Input from 'shared/components/Forms/Input';
+import LabeledInput from 'shared/components/Forms/LabeledInput';
+import Pill from 'shared/components/Pill';
 
 import styles from './Wallet.scss';
 
@@ -18,7 +21,12 @@ export default class Wallet extends React.PureComponent {
     className: string,
     encryptedMnemonic: string.isRequired,
     secretWord: string.isRequired,
-    wallet: walletShape.isRequired
+    wallet: walletShape.isRequired,
+    passphrase: string.isRequired,
+    setPassphrase: func.isRequired,
+    account: accountShape.isRequired,
+    confirm: func.isRequired,
+    changeActiveWallet: func.isRequired
   };
 
   static defaultProps = {
@@ -32,7 +40,12 @@ export default class Wallet extends React.PureComponent {
     const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_COIN];
 
     return (
-      <div className={classNames(styles.neo, identityColor, styles.wallet, className)}>
+      <div
+        className={classNames(styles.neo, identityColor, styles.wallet, className)}
+        onClick={this.showConfirm}
+        role="button"
+        tabIndex={0}
+      >
         {this.renderInfo({ wallet })}
         <div className={styles.walletData}>
           {this.renderPrivateKey({ encryptedMnemonic, secretWord, wallet })}
@@ -91,5 +104,39 @@ export default class Wallet extends React.PureComponent {
       default:
         return <KeyChainIcon />;
     }
+  };
+
+  handleSetPrimary = () => {
+    const { wallet, account, passphrase, changeActiveWallet } = this.props;
+    const { walletId } = wallet;
+
+    changeActiveWallet({ account, passphrase, walletId });
+  };
+
+  handleChangePassphrase = (event) => {
+    this.props.setPassphrase(event.target.value);
+  };
+
+  showConfirm = () => {
+    const { account, setPassphrase, confirm } = this.props;
+    const { secretWord } = account;
+
+    confirm(
+      <div>
+        <Pill className={styles.pill}>{secretWord}</Pill>
+        <LabeledInput
+          id="passphrase"
+          type="password"
+          label="Enter Passphrase"
+          placeholder="Passphrase"
+          onChange={this.handleChangePassphrase}
+        />
+      </div>,
+      {
+        title: 'Set as primary wallet',
+        onConfirm: this.handleSetPrimary,
+        onCancel: () => setPassphrase('')
+      }
+    );
   };
 }
