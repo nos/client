@@ -112,10 +112,11 @@ export default class Wallet extends React.PureComponent {
   };
 
   handleSetPrimary = () => {
-    const { wallet, account, passphrase, changeActiveWallet } = this.props;
+    const { wallet, account, passphrase, changeActiveWallet, setPassphrase } = this.props;
     const { walletId } = wallet;
 
     changeActiveWallet({ account, passphrase, walletId });
+    setPassphrase('');
   };
 
   handleChangePassphrase = (event) => {
