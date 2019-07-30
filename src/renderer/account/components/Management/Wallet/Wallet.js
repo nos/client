@@ -4,17 +4,20 @@ import { string, func } from 'prop-types';
 
 import COINS, { ETH, NEO, DEFAULT_COIN } from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
-import KeyChainIcon from 'shared/images/account/keychain.svg';
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import EthIcon from 'shared/images/tokens/eth.svg';
 import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import Pill from 'shared/components/Pill';
+import walletShape from 'auth/shapes/walletShape';
+
+import Star from 'shared/images/wallet/star.svg';
+import KeyChainIcon from 'shared/images/account/keychain.svg';
+import EmptyStar from 'shared/images/wallet/star-empty.svg';
 
 import styles from './Wallet.scss';
 
 import EncryptedInput from '../EncryptedInput';
-import walletShape from '../../../../auth/shapes/walletShape';
 
 export default class Wallet extends React.PureComponent {
   static propTypes = {
@@ -34,18 +37,14 @@ export default class Wallet extends React.PureComponent {
   };
 
   render() {
-    const { className, encryptedMnemonic, secretWord, wallet } = this.props;
+    const { className, encryptedMnemonic, secretWord, wallet, account } = this.props;
 
     const coinType = COINS[wallet.coinType];
     const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_COIN];
 
     return (
-      <div
-        className={classNames(styles.neo, identityColor, styles.wallet, className)}
-        onClick={this.showConfirm}
-        role="button"
-        tabIndex={0}
-      >
+      <div className={classNames(styles.neo, identityColor, styles.wallet, className)}>
+        {this.renderSelection({ account, wallet })}
         {this.renderInfo({ wallet })}
         <div className={styles.walletData}>
           {this.renderPrivateKey({ encryptedMnemonic, secretWord, wallet })}
@@ -54,6 +53,12 @@ export default class Wallet extends React.PureComponent {
       </div>
     );
   }
+
+  renderSelection = ({ account, wallet }) => (
+    <div className={styles.selection} onClick={this.showConfirm} role="button" tabIndex={0}>
+      {account.activeWalletId === wallet.walletId ? <Star /> : <EmptyStar />}
+    </div>
+  );
 
   renderInfo = ({ wallet }) => {
     const coinType = COINS[wallet.coinType];
