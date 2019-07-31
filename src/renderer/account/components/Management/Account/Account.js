@@ -23,11 +23,14 @@ const Account = ({ className, encryptedMnemonic, secretWord }) => {
   return (
     <div className={classNames(styles.account, className)}>
       <Info />
-      <EncryptedInput
-        title="Secret Words"
-        secretWord={secretWord}
-        encryptedData={encryptedMnemonic}
-      />
+      <div className={styles.encryptedContainer}>
+        <EncryptedInput
+          title="Secret Words"
+          secretWord={secretWord}
+          encryptedData={encryptedMnemonic}
+          className={styles.encryptedInput}
+        />
+      </div>
     </div>
   );
 };

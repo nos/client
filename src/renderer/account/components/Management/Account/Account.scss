@@ -40,6 +40,16 @@
   }
 }
 
+.encryptedContainer {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.encryptedInput {
+  width: 100%;
+}
+
 .neo {
   border-left: 3px solid #8bc83c;
 }
