@@ -38,17 +38,17 @@ export default class EncryptedInput extends React.PureComponent {
 
     return (
       <div className={classNames(styles.encryptedInput, className)}>
-        {this.renderTitle({ title })}
+        {this.renderTitle({ hidden, title })}
         {this.renderInput({ hidden, data })}
       </div>
     );
   }
 
-  renderTitle = ({ title }) => (
+  renderTitle = ({ hidden, title }) => (
     <div className={styles.heading}>
       <div>{title}</div>
       <div className={styles.toggle} onClick={this.toggleEncrypted} role="button" tabIndex={0}>
-        Show & Unlock
+        {hidden ? 'Show & Unlock' : 'Hide'}
       </div>
     </div>
   );
