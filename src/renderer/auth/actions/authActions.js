@@ -9,7 +9,7 @@ const authenticate = async ({ account, passphrase }) => {
   const { encryptedMnemonic } = account;
 
   const walletForAccount = await getActiveWalletForAccount(account);
-  const initializedWallet = Wallet({
+  const initializedWallet = await Wallet({
     encryptedMnemonic,
     passphrase,
     wallet: walletForAccount
