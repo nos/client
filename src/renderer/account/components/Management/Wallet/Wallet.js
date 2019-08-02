@@ -54,11 +54,21 @@ export default class Wallet extends React.PureComponent {
     );
   }
 
-  renderSelection = ({ account, wallet }) => (
-    <div className={styles.selection} onClick={this.showConfirm} role="button" tabIndex={0}>
-      {account.activeWalletId === wallet.walletId ? <Star /> : <EmptyStar />}
-    </div>
-  );
+  renderSelection = ({ account, wallet }) => {
+    const isActiveWallet = account.activeWalletId === wallet.walletId;
+    const activeStyle = isActiveWallet ? '' : styles.inactive;
+
+    return (
+      <div
+        className={classNames(styles.selection, activeStyle)}
+        onClick={this.showConfirm}
+        role="button"
+        tabIndex={0}
+      >
+        {isActiveWallet ? <Star /> : <EmptyStar />}
+      </div>
+    );
+  };
 
   renderInfo = ({ wallet }) => {
     const coinType = COINS[wallet.coinType];
@@ -124,8 +134,13 @@ export default class Wallet extends React.PureComponent {
   };
 
   showConfirm = () => {
-    const { account, setPassphrase, confirm } = this.props;
-    const { secretWord } = account;
+    const { account, setPassphrase, confirm, wallet } = this.props;
+    const { secretWord, activeWalletId } = account;
+    const { walletId } = wallet;
+
+    if (activeWalletId === walletId) {
+      return null;
+    }
 
     confirm(
       <div>
