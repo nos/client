@@ -15,6 +15,20 @@
   box-shadow: 0px 2px 6px rgba(30, 27, 82, 0.12);
   border-radius: 4px;
 
+  .selection {
+    align-self: center;
+    margin-right: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
   .left {
     display: flex;
     align-items: center;
