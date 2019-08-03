@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
 
-import COINS, { ETH, NEO, DEFAULT_COIN } from 'shared/values/coins';
+import COINS, { ETH, NEO } from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import EthIcon from 'shared/images/tokens/eth.svg';
