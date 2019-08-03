@@ -84,7 +84,7 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   });
 
   // Initialize a "dull"/storage wallet for an account
-  const initializedWallet = await Wallet({ encryptedMnemonic, passphrase, wallet });
+  const initializedWallet = Wallet({ encryptedMnemonic, passphrase, wallet });
 
   // Store either a "dull" or active wallet for an account
   await storeWalletForAccount({ accountLabel, wallet: initializedWallet });

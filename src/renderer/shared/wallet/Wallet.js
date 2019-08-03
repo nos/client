@@ -2,11 +2,13 @@ import { attempt, isError } from 'lodash';
 import * as bip39 from 'bip39';
 
 import NeoWallet from 'shared/wallet/NEO';
+import ArkWallet from 'shared/wallet/ARK';
+
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import simpleDecrypt from 'shared/util/simpleDecrypt';
-import { NEO, ETH } from 'shared/values/coins';
+import { NEO, ARK } from 'shared/values/coins';
 
-const Wallet = async ({ encryptedMnemonic, passphrase, wallet }) => {
+const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {
   const mnemonic = attempt(simpleDecrypt, encryptedMnemonic, passphrase);
 
   // Validate mnemnoic
@@ -14,14 +16,14 @@ const Wallet = async ({ encryptedMnemonic, passphrase, wallet }) => {
     throw new Error("Please make sure you've entered the correct password.");
   }
 
-  const seed = await bip39.mnemonicToSeed(mnemonic, passphrase);
+  const seed = bip39.mnemonicToSeedSync(mnemonic, passphrase);
 
   const { coinType } = wallet;
   switch (coinType) {
     case NEO:
       return Object.assign({}, wallet, NeoWallet({ wallet, seed }));
-    case ETH: // TODO replace with ETH wallets when SDK is implemented
-      return Object.assign({}, wallet, NeoWallet({ wallet, seed }));
+    case ARK:
+      return Object.assign({}, wallet, ArkWallet({ wallet, seed }));
     default:
       throw new Error('Coin not supported.');
   }

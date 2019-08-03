@@ -2,10 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
 
-import COINS, { ETH, NEO, DEFAULT_COIN } from 'shared/values/coins';
+import COINS, { ETH, NEO, ARK, DEFAULT_COIN } from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
-import NeoIcon from 'shared/images/tokens/neo.svg';
-import EthIcon from 'shared/images/tokens/eth.svg';
+import NeoIcon from 'shared/images/coins/neo.svg';
+import EthIcon from 'shared/images/coins/eth.svg';
+import ArkIcon from 'shared/images/coins/ark.svg';
 import Input from 'shared/components/Forms/Input';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import Pill from 'shared/components/Pill';
@@ -37,7 +38,8 @@ export default class Wallet extends React.PureComponent {
   };
 
   render() {
-    const { className, encryptedMnemonic, secretWord, wallet, account } = this.props;
+    const { className, wallet, account } = this.props;
+    const { encryptedMnemonic, secretWord } = account;
 
     const coinType = COINS[wallet.coinType];
     const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_COIN];
@@ -107,15 +109,17 @@ export default class Wallet extends React.PureComponent {
     ) : null;
   };
 
+  // TODO replace with TokenIcon component (already exists)
   renderIcon = () => {
     const { wallet } = this.props;
 
-    // TODO refactor ETH NEO to CHAIN_TYPES.ETH, CHAIN_TYPES.NEO
     switch (wallet.coinType) {
       case ETH:
         return <EthIcon />;
       case NEO:
         return <NeoIcon />;
+      case ARK:
+        return <ArkIcon />;
       default:
         return <KeyChainIcon />;
     }

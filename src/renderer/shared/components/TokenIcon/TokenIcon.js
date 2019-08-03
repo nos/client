@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { string } from 'prop-types';
 
-import NeoIcon from 'shared/images/tokens/neo.svg';
-import GasIcon from 'shared/images/tokens/gas.svg';
+import NeoIcon from 'shared/images/coins/neo.svg';
+import GasIcon from 'shared/images/coins/gas.svg';
 import { NEO, GAS } from 'shared/values/assets';
 
 import styles from './TokenIcon.scss';

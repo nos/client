@@ -1,5 +1,4 @@
 import React from 'react';
-import { string } from 'prop-types';
 import { map } from 'lodash';
 
 import accountShape from 'auth/shapes/accountShape';
@@ -9,7 +8,7 @@ import Wallet from '../Wallet';
 import styles from './Wallets.scss';
 
 const Wallets = ({ account, wallets }) => {
-  const { encryptedMnemonic, secretWord, isHardware } = account;
+  const { isHardware } = account;
 
   return (
     <div className={styles.wallets}>
@@ -17,12 +16,7 @@ const Wallets = ({ account, wallets }) => {
         Accounts generated from {isHardware ? 'Ledger' : 'Keychain'}
       </div>
       {map(wallets, (wallet) => (
-        <Wallet
-          wallet={wallet}
-          key={`${wallet.coinType}-${wallet.index}`}
-          secretWord={secretWord}
-          encryptedMnemonic={encryptedMnemonic}
-        />
+        <Wallet wallet={wallet} key={`${wallet.coinType}-${wallet.index}`} />
       ))}
     </div>
   );
@@ -30,8 +24,7 @@ const Wallets = ({ account, wallets }) => {
 
 Wallets.propTypes = {
   account: accountShape.isRequired,
-  wallets: walletsShape.isRequired,
-  secretWord: string.isRequired
+  wallets: walletsShape.isRequired
 };
 
 export default Wallets;
