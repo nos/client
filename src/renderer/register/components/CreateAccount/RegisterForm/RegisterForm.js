@@ -111,7 +111,7 @@ export default class RegisterForm extends React.PureComponent {
             type="submit"
             disabled={loading || !this.isValid()}
           >
-            Next: Recovery Seed
+            {isHardware ? 'Next: Connect Ledger' : 'Next: Recovery Seed'}
           </PrimaryButton>
         </div>
       </form>

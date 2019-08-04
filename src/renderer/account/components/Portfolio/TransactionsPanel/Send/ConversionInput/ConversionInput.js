@@ -18,6 +18,7 @@ export default class ConversionInput extends React.PureComponent {
     className: string,
     asset: balanceShape.isRequired,
     currency: string.isRequired,
+    openTab: func.isRequired,
     price: number,
     amount: string,
     onChange: func,
@@ -86,7 +87,14 @@ export default class ConversionInput extends React.PureComponent {
         </div>
 
         <div className={styles.disclaimer}>
-          <span>Fiat values are estimate. Powered by CoinGecko API</span>
+          <span>
+            Fiat values are estimate. Powered by{' '}
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a className={styles.change} href="#" onClick={this.handleRedirect}>
+              CoinGecko API
+            </a>
+            .
+          </span>
         </div>
       </Label>
     );
@@ -102,6 +110,10 @@ export default class ConversionInput extends React.PureComponent {
 
   renderCurrencyIcon = () => {
     return <div className={styles.icon}>{SYMBOLS[this.props.currency]}</div>;
+  };
+
+  handleRedirect = () => {
+    this.props.openTab({ target: 'https://www.coingecko.com' });
   };
 
   handleChangeAsset = (event) => {

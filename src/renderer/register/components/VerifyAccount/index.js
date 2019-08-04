@@ -1,4 +1,3 @@
-import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import { withActions, withData, progressValues } from 'spunky';
 import { random } from 'lodash';
@@ -75,24 +74,11 @@ export default compose(
     props.showErrorToast(state.error);
   }),
 
-  withRouter,
-  withLogin(
-    (
-      state,
-      {
-        history,
-        auth,
-        resetCompleteRegistration,
-        resetRegisterFormData,
-        resetAccountsData,
-        setLastLogin
-      }
-    ) => {
-      setLastLogin({ label: auth.accountLabel });
-      resetRegisterFormData();
-      resetCompleteRegistration();
-      resetAccountsData();
-      history.push('/browser');
-    }
-  )
+  withLogin((state, props) => {
+    const { auth } = props;
+    props.setLastLogin({ label: auth.accountLabel });
+    props.resetRegisterFormData();
+    props.resetCompleteRegistration();
+    props.resetAccountsData();
+  })
 )(VerifyAccount);
