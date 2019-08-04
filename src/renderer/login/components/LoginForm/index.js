@@ -1,4 +1,3 @@
-import { withRouter } from 'react-router-dom';
 import { compose, withState } from 'recompose';
 import { withData, withActions } from 'spunky';
 
@@ -47,11 +46,8 @@ export default compose(
   withActions(writePreviousAuthActions, mapPreviousAuthActionsToProps),
   withActions(registerFormActions, mapRegisterFormActionsToProps),
 
-  // redirect on login
-  withRouter,
-  withLogin((state, { auth, history, setLastLogin, resetRegisterFormData }) => {
+  withLogin((state, { auth, setLastLogin, resetRegisterFormData }) => {
     setLastLogin({ label: auth.accountLabel });
     resetRegisterFormData();
-    history.push('/browser');
   })
 )(LoginForm);

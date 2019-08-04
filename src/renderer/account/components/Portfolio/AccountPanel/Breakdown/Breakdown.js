@@ -41,10 +41,17 @@ export default class Breakdown extends React.PureComponent {
   }
 
   renderIcon = () => {
-    const token = this.props.balances[0];
+    const { balances } = this.props;
+    const filteredBalances = balances.filter((balance) => balance.symbol === 'NOS');
+    const token = filteredBalances[0] || balances[0];
 
     if (!token) {
       return null;
+    }
+
+    // TODO refactor balance to be a BN everywhere inside the app
+    if (token.balance === '0') {
+      return <TokenIcon className={classNames(styles.icon, styles.emptyIcon)} {...token} />;
     }
 
     return <TokenIcon className={styles.icon} {...token} />;
