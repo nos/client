@@ -49,11 +49,8 @@ export default class Breakdown extends React.PureComponent {
       return null;
     }
 
-    // TODO refactor balance to be a BN everywhere inside the app
-    if (token.balance === '0') {
-      return <TokenIcon className={classNames(styles.icon, styles.emptyIcon)} {...token} />;
-    }
-
-    return <TokenIcon className={styles.icon} {...token} />;
+    const iconStyles =
+      token.balance === '0' ? classNames(styles.icon, styles.emptyIcon) : styles.icon;
+    return <TokenIcon className={iconStyles} {...token} />;
   };
 }
