@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { string, func } from 'prop-types';
 
-import COINS, { ETH, NEO, DEFAULT_COIN } from 'shared/values/coins';
+import COINS, { ETH, NEO } from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 import NeoIcon from 'shared/images/tokens/neo.svg';
 import EthIcon from 'shared/images/tokens/eth.svg';
@@ -22,8 +22,6 @@ import EncryptedInput from '../EncryptedInput';
 export default class Wallet extends React.PureComponent {
   static propTypes = {
     className: string,
-    encryptedMnemonic: string.isRequired,
-    secretWord: string.isRequired,
     wallet: walletShape.isRequired,
     passphrase: string.isRequired,
     setPassphrase: func.isRequired,
@@ -37,10 +35,12 @@ export default class Wallet extends React.PureComponent {
   };
 
   render() {
-    const { className, encryptedMnemonic, secretWord, wallet, account } = this.props;
+    const { className, wallet, account } = this.props;
+    const { encryptedMnemonic, secretWord } = account;
 
     const coinType = COINS[wallet.coinType];
-    const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : DEFAULT_COIN];
+    // TODO dont hardcode fallback color
+    const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : 'nos'];
 
     return (
       <div className={classNames(styles.neo, identityColor, styles.wallet, className)}>

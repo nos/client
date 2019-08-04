@@ -71,7 +71,7 @@ export default class EncryptedInput extends React.PureComponent {
 
     try {
       if (wallet) {
-        const walletInstance = Wallet({ encryptedMnemonic: data, passphrase, wallet });
+        const walletInstance = await Wallet({ encryptedMnemonic: data, passphrase, wallet });
         setData(walletInstance.privateKey);
       } else {
         const decryptedData = await simpleDecrypt(data, passphrase);
