@@ -18,7 +18,7 @@ import withRejectMessage from '../../../hocs/withRejectMessage';
 import withSignTransactionToast from '../../../hocs/withSignTransactionToast';
 
 const mapFeeDataToProps = (fee) => ({ fee });
-const mapAuthDataToProps = (data) => data;
+const mapAuthDataToProps = ({ wallet }) => wallet;
 const mapSendDataToProps = (txid) => ({ txid });
 
 const getAssetName = (assetId) => {

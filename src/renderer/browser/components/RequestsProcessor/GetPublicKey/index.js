@@ -8,7 +8,7 @@ import GetPublicKey from './GetPublicKey';
 import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 
-const mapAuthDataToProps = ({ wif }) => ({ wif });
+const mapAuthDataToProps = ({ wallet: { wif } }) => ({ wif });
 const mapPublicKeyDataToProps = (publicKey) => ({ publicKey });
 
 export default function makeGetPublicKey(publicKeyActions) {

@@ -10,7 +10,7 @@ import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
-const mapAuthDataToProps = ({ wif }) => ({ wif });
+const mapAuthDataToProps = ({ wallet: { wif } }) => ({ wif });
 const mapEncryptDataToProps = ({ iv, mac, data }) => ({ iv, mac, data });
 
 const CONFIG_KEYS = ['recipientPublicKey', 'data'];
