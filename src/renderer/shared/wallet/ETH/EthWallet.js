@@ -9,7 +9,7 @@ export default class EthWallet {
     privateKey: this.getPrivateKey(),
     publicKey: this.getPublicKey(),
     address: this.getAddress(),
-    WIF: this.child.toWIF()
+    wif: this.child.toWIF()
   });
 
   getPrivateKeyRaw = () => this.child.privateKey;

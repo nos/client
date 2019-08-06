@@ -18,7 +18,7 @@ const account = new wallet.Account(wif);
 const getStore = () =>
   createStore({
     [spunkyKey]: {
-      auth: mockSpunkyLoaded({ address: account.address, wif: account.WIF })
+      auth: mockSpunkyLoaded({ address: account.address, wif: account.wallet.wif })
     }
   });
 
