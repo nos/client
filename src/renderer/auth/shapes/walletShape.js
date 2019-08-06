@@ -13,7 +13,7 @@ export const walletShapeInitialized = shape({
   publicKey: string.isRequired,
   address: string.isRequired,
   privateKey: string.isRequired,
-  WIF: string.isRequired
+  wif: string.isRequired
 });
 
 export const walletShapeNotInitialized = shape({
