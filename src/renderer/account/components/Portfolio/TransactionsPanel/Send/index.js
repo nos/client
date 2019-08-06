@@ -1,7 +1,7 @@
 import { compose, withState, withProps } from 'recompose';
 import { withData, withActions, progressValues } from 'spunky';
 
-import withActiveAccount from 'shared/hocs/withActiveAccount';
+import withAuthData from 'shared/hocs/withAuthData';
 import { DEFAULT_NET } from 'values/networks';
 
 import feeActions from 'settings/actions/feeActions';
@@ -18,15 +18,15 @@ import Send from './Send';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapSendActionsToProps = (actions, props) => ({
+const mapSendActionsToProps = (actions, { net, fee, auth: { wallet } }) => ({
   onSend: ({ asset, amount, receiver }) =>
     actions.call({
-      net: props.net,
-      address: props.address,
-      wif: props.WIF,
-      publicKey: props.publicKey,
-      signingFunction: props.signingFunction,
-      fee: props.fee,
+      net,
+      address: wallet.address,
+      wif: wallet.wif,
+      publicKey: wallet.publicKey,
+      signingFunction: wallet.signingFunction,
+      fee,
       asset,
       amount,
       receiver
@@ -46,7 +46,7 @@ export default compose(
   withState('asset', 'setAsset', ({ DEFAULT_TOKEN }) => DEFAULT_TOKEN),
 
   withNetworkData(),
-  withActiveAccount(),
+  withAuthData(),
   withData(feeActions, mapFeeDataToProps),
   withActions(sendActions, mapSendActionsToProps),
 
