@@ -23,8 +23,10 @@ const getStore = () =>
     [spunkyKey]: {
       currentNetwork: mockSpunkyLoaded('MainNet'),
       auth: mockSpunkyLoaded({
-        wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
-        address: currentAddress
+        wallet: {
+          wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
+          address: currentAddress
+        }
       })
     }
   });

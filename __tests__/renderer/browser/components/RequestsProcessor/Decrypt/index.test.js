@@ -25,7 +25,7 @@ const encrypted = '16f55cabb8b9c87a85af3232f30c0a07';
 const getStore = () =>
   createStore({
     [spunkyKey]: {
-      auth: mockSpunkyLoaded({ address: account.address, wif: account.wallet.wif })
+      auth: mockSpunkyLoaded({ wallet: { address: account.address, wif: account.WIF } })
     }
   });
 
