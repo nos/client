@@ -18,7 +18,7 @@ import validateInvokeArgs from '../../../util/validateInvokeArgs';
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 
-const mapAuthDataToProps = (data) => data;
+const mapAuthDataToProps = ({ wallet }) => wallet;
 const mapFeeDataToProps = (fee) => ({ fee });
 const mapInvokeDataToProps = (txid) => ({ txid });
 

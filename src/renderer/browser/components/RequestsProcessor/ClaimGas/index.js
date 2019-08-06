@@ -14,7 +14,7 @@ import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 import withSignTransactionToast from '../../../hocs/withSignTransactionToast';
 
-const mapAuthDataToProps = (data) => data;
+const mapAuthDataToProps = ({ wallet }) => wallet;
 const mapClaimDataToProps = (txid) => ({ txid });
 
 export default function makeClaimGas(claimActions) {
