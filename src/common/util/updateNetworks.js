@@ -35,7 +35,7 @@ export default function updateNetworks(userNetworks = []) {
 
   settings.addNetwork(new rpc.Network(nosTestnetConfig));
   settings.addNetwork(new rpc.Network(nosLocalConfig));
-  settings.addNetwork(new rpc.Network(arkConfig));
+  // settings.addNetwork(new rpc.Network(arkConfig));
 
   userNetworks.forEach((network) => {
     settings.addNetwork(new rpc.Network(network));
