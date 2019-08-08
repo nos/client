@@ -1,8 +1,9 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 import { isEqual, castArray } from 'lodash';
 
 import { getComponent, getActions } from './mappings';
+import Unauthenticated from './Unauthenticated';
 import requestShape from '../../shapes/requestShape';
 
 export default class RequestProcessor extends React.PureComponent {
@@ -11,7 +12,8 @@ export default class RequestProcessor extends React.PureComponent {
     src: string.isRequired,
     request: requestShape.isRequired,
     onResolve: func.isRequired,
-    onReject: func.isRequired
+    onReject: func.isRequired,
+    authenticated: bool.isRequired
   };
 
   componentWillMount = () => {
@@ -54,6 +56,10 @@ export default class RequestProcessor extends React.PureComponent {
   };
 
   getComponent = ({ sessionId, request }) => {
+    if (!this.props.authenticated) {
+      return Unauthenticated();
+    }
+
     const makeComponent = getComponent(request.channel);
     const makeActions = getActions(request.channel);
     const actions = castArray(makeActions).map((makeAction) => makeAction(sessionId, request.id));
