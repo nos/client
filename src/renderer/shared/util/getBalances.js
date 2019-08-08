@@ -1,10 +1,14 @@
+/* eslint-disable import/no-named-as-default-member */
 import { get, find, map, mapValues, chunk, filter, extend } from 'lodash';
 import { u, sc, rpc, wallet } from '@cityofzion/neon-js';
+import { Identities } from '@arkecosystem/crypto';
 
 import getRPCEndpoint from 'util/getRPCEndpoint';
 
 import getTokens from './getTokens';
 import { GAS, NEO, NOS, ASSETS } from '../values/assets';
+
+import getArkBalance from './ARK/getArkBalance';
 
 const CHUNK_SIZE = 18;
 
@@ -72,15 +76,17 @@ async function getAssetBalances(endpoint, address) {
   };
 }
 
-export default async function getBalances({ net, address }) {
-  const endpoint = await getRPCEndpoint(net);
-
-  if (!wallet.isAddress(address)) {
-    throw new Error(`Invalid address: "${address}"`);
-  }
-
-  const assets = await getAssetBalances(endpoint, address);
-  const tokens = await getTokenBalances(endpoint, address);
-
-  return { ...assets, ...tokens };
+export default async function getBalances({ net, address, coinType }) {
+  const networkVersion = 0x17;
+  if (coinType === 888 && wallet.isAddress(address)) {
+    // NEO
+    const endpoint = await getRPCEndpoint(net);
+    const assets = await getAssetBalances(endpoint, address);
+    const tokens = await getTokenBalances(endpoint, address);
+    return { ...assets, ...tokens };
+  } else if (coinType === 111 && Identities.Address.validate(address, networkVersion)) {
+    // ARK
+    const assets = await getArkBalance({ address });
+    return { ...assets };
+  } else throw new Error(`Invalid address: "${address}"`);
 }

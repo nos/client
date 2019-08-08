@@ -17,9 +17,8 @@ function mapPrices(tickers) {
   );
 }
 
-async function getBalanceWithPrices({ currency, net, address }) {
-  const balances = await getBalances({ net, address });
-
+async function getBalanceWithPrices({ currency, net, address, coinType }) {
+  const balances = await getBalances({ net, address, coinType });
   const coinListResult = await coinGeckoClient.coins.list();
   if (!coinListResult.success) {
     throw new Error(coinListResult.message);
@@ -47,6 +46,6 @@ async function getBalanceWithPrices({ currency, net, address }) {
 
 export const ID = 'balacewithprices';
 
-export default createActions(ID, ({ currency, net, address }) => {
-  return () => getBalanceWithPrices({ currency, net, address });
+export default createActions(ID, ({ currency, net, address, coinType }) => {
+  return () => getBalanceWithPrices({ currency, net, address, coinType });
 });

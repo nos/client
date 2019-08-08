@@ -47,6 +47,7 @@ export default function makeInvoke(invokeActions, balancesActions) {
       ({
         net,
         address,
+        coinType,
         wif,
         publicKey,
         signingFunction,
@@ -59,6 +60,7 @@ export default function makeInvoke(invokeActions, balancesActions) {
       }) => ({
         net,
         address,
+        coinType,
         wif,
         publicKey,
         signingFunction,

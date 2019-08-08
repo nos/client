@@ -11,7 +11,8 @@ import SectionLabel from '../SectionLabel';
 
 import styles from './BreakdownChart.scss';
 
-const COLORS = ['#5ebb46', '#b5d433', '#0b99e3'];
+const NEO_COLORS = ['#5ebb46', '#b5d433', '#0b99e3'];
+const ARK_COLORS = ['#d20303', '#e9564b', '#e9564b'];
 
 function reduceSum(data) {
   return reduce(data, (sum, datum) => sum + datum.value, 0);
@@ -22,7 +23,8 @@ export default class BreakdownChart extends React.PureComponent {
     className: string,
     data: chartDataShape.isRequired,
     currency: string.isRequired,
-    threshold: number.isRequired
+    threshold: number.isRequired,
+    coinType: number.isRequired
   };
 
   static defaultProps = {
@@ -31,6 +33,10 @@ export default class BreakdownChart extends React.PureComponent {
 
   render() {
     const data = this.getData();
+    const { coinType } = this.props;
+    let colors;
+    if (coinType === 888) colors = NEO_COLORS;
+    else if (coinType === 111) colors = ARK_COLORS;
 
     return (
       <ResponsiveContainer
@@ -53,8 +59,8 @@ export default class BreakdownChart extends React.PureComponent {
             {times(data.length, (index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-                stroke={COLORS[index]}
+                fill={colors[index % colors.length]}
+                stroke={colors[index]}
               />
             ))}
           </Pie>

@@ -48,11 +48,19 @@ const initialState = {
       totalSupply: 299625982,
       image: 'https://rawgit.com/CityOfZion/neo-tokens/master/assets/svg/nos.svg',
       balance: '0'
+    },
+    ARK: {
+      name: 'ARK',
+      symbol: 'ARK',
+      scriptHash: 'ARK',
+      decimals: 8,
+      balance: '0'
     }
   },
   prices: {
     NEO: 0,
-    GAS: 0
+    GAS: 0,
+    ARK: 0
   }
 };
 

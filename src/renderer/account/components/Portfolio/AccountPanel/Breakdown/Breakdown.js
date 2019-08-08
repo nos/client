@@ -14,7 +14,8 @@ export default class Breakdown extends React.PureComponent {
     className: string,
     balances: arrayOf(balanceShape).isRequired,
     prices: objectOf(number).isRequired,
-    currency: string.isRequired
+    currency: string.isRequired,
+    coinType: number.isRequired
   };
 
   static defaultProps = {
@@ -22,7 +23,7 @@ export default class Breakdown extends React.PureComponent {
   };
 
   render() {
-    const { className, balances, prices, currency } = this.props;
+    const { className, balances, prices, currency, coinType } = this.props;
 
     return (
       <div className={classNames(styles.breakdown, className)}>
@@ -33,7 +34,12 @@ export default class Breakdown extends React.PureComponent {
           currency={currency}
         />
         <div className={styles.chart}>
-          <BreakdownChart balances={balances} prices={prices} currency={currency} />
+          <BreakdownChart
+            balances={balances}
+            prices={prices}
+            currency={currency}
+            coinType={coinType}
+          />
           {this.renderIcon()}
         </div>
       </div>

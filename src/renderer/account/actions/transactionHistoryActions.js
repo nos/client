@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 
 import { api } from '@cityofzion/neon-js';
 
-import { NEO, GAS, ASSETS } from 'shared/values/assets';
+import { NEO, GAS, ARK, ASSETS } from 'shared/values/assets';
 import getTokens from 'shared/util/getTokens';
 
 const TX_TYPES = {
@@ -27,7 +27,7 @@ function parseAbstractData(data, currentUserAddress, tokens) {
   const parsedAsset = (abstract) => {
     const tokensResult = tokens.find(({ scriptHash }) => scriptHash === abstract.asset);
     if (tokensResult) return tokensResult;
-    if (abstract.asset === NEO || abstract.asset === GAS) {
+    if (abstract.asset === NEO || abstract.asset === GAS || abstract.asset === ARK) {
       return { ...ASSETS[abstract.asset], scriptHash: abstract.asset };
     }
     return { symbol: '' };

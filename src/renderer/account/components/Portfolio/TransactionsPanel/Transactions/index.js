@@ -28,6 +28,7 @@ const mapTransactionHistoryActionsToProps = (actions, props) => ({
     actions.call({
       net: props.net,
       address: props.address,
+      coinType: props.coinType,
       previousCall
     })
 });

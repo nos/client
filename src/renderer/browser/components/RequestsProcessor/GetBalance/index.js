@@ -37,7 +37,7 @@ export default function makeGetBalance(balancesActions) {
     }),
 
     // Get the balance & wait for success or failure
-    withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
+    withInitialCall(balancesActions, ({ net, address, coinType }) => ({ net, address, coinType })),
     withNullLoader(balancesActions),
     withRejectMessage(
       balancesActions,

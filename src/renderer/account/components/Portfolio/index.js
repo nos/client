@@ -21,10 +21,11 @@ export default compose(
   withNetworkData(),
   withActiveAccount(),
   withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
-  withInitialCall(balanceWithPricesActions, ({ currency, net, address }) => ({
+  withInitialCall(balanceWithPricesActions, ({ currency, net, address, coinType }) => ({
     currency,
     net,
-    address
+    address,
+    coinType
   })),
 
   withLoadingProp(claimableActions),

@@ -4,7 +4,8 @@ import { string } from 'prop-types';
 
 import NeoIcon from 'shared/images/coins/neo.svg';
 import GasIcon from 'shared/images/coins/gas.svg';
-import { NEO, GAS } from 'shared/values/assets';
+import ArkIcon from 'shared/images/coins/ark.svg';
+import { NEO, GAS, ARK } from 'shared/values/assets';
 
 import styles from './TokenIcon.scss';
 
@@ -22,6 +23,10 @@ export default function TokenIcon(props) {
 
   if (scriptHash === GAS) {
     return <GasIcon className={className} />;
+  }
+
+  if (scriptHash === ARK) {
+    return <ArkIcon className={className} />;
   }
 
   // TODO: generic token design

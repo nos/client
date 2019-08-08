@@ -48,7 +48,7 @@ export default class Send extends React.PureComponent {
 
   render() {
     const { className, sending, amount, receiver, asset, prices } = this.props;
-    const assetBalance = this.getAsset();
+    const assetBalance = this.getAsset(this.props.asset);
 
     return (
       <form className={classNames(styles.send, className)}>

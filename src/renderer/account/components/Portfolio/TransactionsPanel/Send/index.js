@@ -7,12 +7,13 @@ import { DEFAULT_NET } from 'values/networks';
 import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
+import withAuthData from 'shared/hocs/withAuthData';
 import withConfirm from 'shared/hocs/withConfirm';
 import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
-import { NOS, NEO } from 'shared/values/assets';
+import { NOS, NEO, ARK } from 'shared/values/assets';
 
 import Send from './Send';
 
@@ -22,6 +23,7 @@ const mapSendActionsToProps = (actions, props) => ({
   onSend: ({ asset, amount, receiver }) =>
     actions.call({
       net: props.net,
+      coinType: props.coinType,
       address: props.address,
       wif: props.WIF,
       publicKey: props.publicKey,
@@ -37,9 +39,15 @@ const mapFeeDataToProps = (fee) => ({ fee });
 
 export default compose(
   withNetworkData(),
-  withProps(({ net }) => ({
-    DEFAULT_TOKEN: net === DEFAULT_NET ? NOS : NEO
-  })),
+  withAuthData(),
+  withNetworkData(),
+  withActiveAccount(),
+  withProps(({ net, coinType }) => {
+    if (coinType === 111) {
+      return { DEFAULT_TOKEN: ARK };
+    }
+    return { DEFAULT_TOKEN: net === DEFAULT_NET ? NOS : NEO };
+  }),
 
   withState('amount', 'setAmount', ''),
   withState('receiver', 'setReceiver', ''),
