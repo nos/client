@@ -12,7 +12,6 @@ import styles from './AccountPanel.scss';
 
 export default function AccountPanel(props) {
   const { className, address, claimable, balances, prices, currency, coinType } = props;
-  console.log(coinType);
 
   return (
     <Panel className={classNames(styles.accountPanel, className)}>
