@@ -19,12 +19,12 @@ const nosTestnetConfig = {
   }
 };
 
-const arkConfig = {
-  name: ARK_RELAY,
-  extra: {
-    explorer: 'http://explorer.ark.io'
-  }
-};
+// const arkConfig = {
+//   name: ARK_RELAY,
+//   extra: {
+//     explorer: 'http://explorer.ark.io'
+//   }
+// };
 
 export default function updateNetworks(userNetworks = []) {
   keys(networks).forEach((name) => {

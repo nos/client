@@ -4,11 +4,12 @@ import classNames from 'classnames';
 import { func, string, number, bool, objectOf } from 'prop-types';
 import { wallet } from '@cityofzion/neon-js';
 import { map, noop } from 'lodash';
+import { Identities } from '@arkecosystem/crypto';
 
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
-import { NOS } from 'shared/values/assets';
+import { NEO, NOS } from 'shared/values/assets';
 
 import ConversionInput from './ConversionInput';
 import PriorityFee from './PriorityFee';
@@ -160,12 +161,19 @@ export default class Send extends React.PureComponent {
     const { amount, receiver, asset, balances } = this.props;
     const bigNumAmount = this.getAmount(amount);
     const bigNumBalance = this.getAmount(balances[asset].balance);
+    let validAddress;
+    if (asset === NEO || asset === NOS) {
+      validAddress = wallet.isAddress(receiver);
+    } else if (asset === 'ARK') {
+      const networkVersion = 0x17;
+      validAddress = Identities.Address.validate(receiver, networkVersion);
+    }
 
     return (
-      bigNumBalance >= bigNumAmount &&
-      bigNumAmount > 0 &&
+      parseFloat(bigNumBalance) >= bigNumAmount &&
+      parseFloat(bigNumAmount) > 0 &&
       isNumeric(amount) &&
-      wallet.isAddress(receiver)
+      validAddress
     );
   };
 }
