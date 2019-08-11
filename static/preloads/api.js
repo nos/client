@@ -15,7 +15,7 @@ function createDelegate(channel) {
 
       ipcRenderer.once(failureChannel, (event, message) => {
         ipcRenderer.removeAllListeners(successChannel);
-        reject(new Error(message));
+        reject({ message }); // eslint-disable-line
       });
 
       ipcRenderer.sendToHost(channel, id, ...args);

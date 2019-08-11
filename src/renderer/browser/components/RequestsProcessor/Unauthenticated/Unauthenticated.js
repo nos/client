@@ -7,7 +7,7 @@ export default class Unauthenticated extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.props.onReject({ message: 'User not authenticated.' });
+    this.props.onReject('User not authenticated.');
   }
 
   render() {
