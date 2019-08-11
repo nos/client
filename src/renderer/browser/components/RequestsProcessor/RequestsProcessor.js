@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, arrayOf, bool } from 'prop-types';
+import { string, func, arrayOf } from 'prop-types';
 import { omit } from 'lodash';
 import { progressValues } from 'spunky';
 
@@ -15,26 +15,22 @@ export default class RequestsProcessor extends React.PureComponent {
     requests: arrayOf(requestShape).isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired,
-    progress: bool.isRequired
+    progress: string.isRequired
   };
 
   render() {
-    const { progress, requests } = this.props;
-
-    // progress state of authAction, not LOAEDED = unauthenticated
-    if (progress !== LOADED) {
-      return null;
-    }
-
-    return requests.map(this.renderRequest);
+    return this.props.requests.map(this.renderRequest);
   }
 
   renderRequest = (request) => {
+    const { progress } = this.props;
+
     return (
       <RequestProcessor
-        {...omit(this.props, 'requests')}
+        {...omit(this.props, 'requests', 'progress')}
         key={`request-${request.id}`}
         request={request}
+        authenticated={progress === LOADED}
       />
     );
   };
