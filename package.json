@@ -52,7 +52,7 @@
     "react-router-dom": "4.3.1",
     "react-scroll": "1.7.12",
     "react-sticky": "6.0.3",
-    "recharts": "1.6.2",
+    "recharts": "1.7.0",
     "recompose": "0.30.0",
     "redux": "3.7.2",
     "redux-saga": "0.16.2",
