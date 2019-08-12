@@ -1,6 +1,6 @@
 const ARK_API = 'https://api.ark.io/api';
 
-export default async function getArkBalance({ address }) {
+export default async function getARKBalance({ address }) {
   const url = `${ARK_API}/wallets/${address}`;
   const response = await fetch(url);
   const { data } = await response.json();

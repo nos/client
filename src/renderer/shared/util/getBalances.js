@@ -8,7 +8,7 @@ import getRPCEndpoint from 'util/getRPCEndpoint';
 import getTokens from './getTokens';
 import { GAS, NEO, NOS, ASSETS } from '../values/assets';
 
-import getArkBalance from './ARK/getArkBalance';
+import getARKBalance from './ARK/getARKBalance';
 
 const CHUNK_SIZE = 18;
 
@@ -86,7 +86,7 @@ export default async function getBalances({ net, address, coinType }) {
     return { ...assets, ...tokens };
   } else if (coinType === 111 && Identities.Address.validate(address, networkVersion)) {
     // ARK
-    const assets = await getArkBalance({ address });
+    const assets = await getARKBalance({ address });
     return { ...assets };
   } else throw new Error(`Invalid address: "${address}"`);
 }

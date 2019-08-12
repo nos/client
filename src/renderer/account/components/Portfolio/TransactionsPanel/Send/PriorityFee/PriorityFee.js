@@ -52,9 +52,9 @@ export default class PriorityFee extends React.Component {
     const fee = new BigNumber(this.props.fee);
 
     if (fee.eq(0)) {
-      return 'Not Using GAS Priority Fee';
+      return `Not Using Priority Fee`;
     } else {
-      return `${fee.toFixed(8)} GAS Priority Fee`;
+      return `${fee.toFixed(8)} Priority Fee`;
     }
   };
 }

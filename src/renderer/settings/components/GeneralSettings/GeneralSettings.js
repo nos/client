@@ -40,7 +40,7 @@ export default class GeneralSettings extends React.PureComponent {
             onChange={this.handleChangeCurrency}
           />
 
-          <Label className={styles.label} htmlFor="fee" label="Default GAS Priority Fee">
+          <Label className={styles.label} htmlFor="fee" label="Default Priority Fee">
             <LiveUpdateInput
               id="fee"
               className={styles.input}
