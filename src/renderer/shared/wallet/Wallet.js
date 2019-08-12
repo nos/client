@@ -19,9 +19,9 @@ const Wallet = async ({ encryptedMnemonic, passphrase, wallet }) => {
   const { coinType } = wallet;
   switch (coinType) {
     case NEO:
-      return Object.assign({}, wallet, NeoWallet({ wallet, seed }));
+      return { ...wallet, ...NeoWallet({ wallet, seed }) };
     case ETH: // TODO replace with ETH wallets when SDK is implemented
-      return Object.assign({}, wallet, NeoWallet({ wallet, seed }));
+      return { ...wallet, ...NeoWallet({ wallet, seed }) };
     default:
       throw new Error('Coin not supported.');
   }

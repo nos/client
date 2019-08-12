@@ -47,12 +47,15 @@ function createMainWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
   // Main Window
-  mainWindow = new BrowserWindow(
-    Object.assign(
-      { width: 1250, height: 720, minWidth: 1250, minHeight: 720, show: false, icon: iconPath },
-      framelessConfig
-    )
-  );
+  mainWindow = new BrowserWindow({
+    width: 1250,
+    height: 720,
+    minWidth: 1250,
+    minHeight: 720,
+    show: false,
+    icon: iconPath,
+    ...framelessConfig
+  });
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
   bindApplicationMenu(mainWindow);
