@@ -12,7 +12,7 @@ references:
 
   win_config: &win_config
     docker:
-      - image: legiit/builder-wine-node10:latest
+      - image: legiit/electron-builder-wine:node12
         environment:
           TARGET_ARCH: x64
     working_directory: *workspace
