@@ -9,7 +9,7 @@
   "main": "dist/main/main.js",
   "license": "MIT",
   "engines": {
-    "node": "^10.13.0 || >=12.8.0"
+    "node": "^8.14.0 || ^10.12.0 || >=12.0.0"
   },
   "dependencies": {
     "@cityofzion/neon-js": "3.11.9",

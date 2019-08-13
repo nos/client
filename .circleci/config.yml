@@ -12,14 +12,14 @@ references:
 
   win_config: &win_config
     docker:
-      - image: electronuserland/builder:wine
+      - image: legiit/electron-builder-wine:node12
         environment:
           TARGET_ARCH: x64
     working_directory: *workspace
 
   mac_config: &mac_config
     macos:
-      xcode: '10.1.0'
+      xcode: '10.3.0'
     working_directory: *workspace
 
 jobs:
@@ -61,13 +61,6 @@ jobs:
     <<: *win_config
     steps:
       - checkout
-      - run: |
-          echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-          echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-      - run: |
-          nvm install v10.13.0
-          nvm use v10.13.0
-          node -v
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -101,13 +94,6 @@ jobs:
     <<: *mac_config
     steps:
       - checkout
-      - run: |
-          echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-          echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-      - run: |
-          nvm install v10.13.0
-          nvm use v10.13.0
-          node -v
       - restore_cache:
           keys:
             - v3-dependencies-{{ checksum "package.json" }}
