@@ -4,7 +4,7 @@ import { omit } from 'lodash';
 
 import { ARK, ASSETS } from 'shared/values/assets';
 
-const ARK_API = 'https://api.ark.io/api';
+const ARK_API = 'https://api.ark.io/api/v2';
 
 const TX_TYPES = {
   SEND: 'Send',

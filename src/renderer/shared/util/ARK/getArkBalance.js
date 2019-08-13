@@ -1,4 +1,4 @@
-const ARK_API = 'https://api.ark.io/api';
+const ARK_API = 'https://api.ark.io/api/v2';
 
 export default async function getARKBalance({ address }) {
   const url = `${ARK_API}/wallets/${address}`;
