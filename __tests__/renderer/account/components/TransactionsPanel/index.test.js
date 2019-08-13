@@ -54,8 +54,6 @@ describe('<TransactionsPanel />', () => {
   // it('renders the Send tab contents', () => {
   //   const wrapper = mountContainer();
 
-  //   console.log(wrapper.debug());
-
   //   expect(wrapper.find(Send).exists()).toBe(true);
   //   expect(wrapper.find(Transactions).exists()).toBe(false);
   //   expect(wrapper.find(Receive).exists()).toBe(false);
@@ -63,8 +61,6 @@ describe('<TransactionsPanel />', () => {
 
   // it('switches to the Receive tab', () => {
   //   const wrapper = mountContainer();
-
-  //   console.log(wrapper.debug());
 
   //   wrapper
   //     .find(IconTab)

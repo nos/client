@@ -1,0 +1,20 @@
+.transactionsLoading {
+  max-width: 316px;
+
+  pointer-events: none;
+  opacity: 0.6;
+
+  .tabs {
+    display: flex;
+
+    .tab {
+      @include webComponent;
+      width: calc(100% / 3);
+    }
+  }
+
+  @media only screen and (max-width: $responsive-width) {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}

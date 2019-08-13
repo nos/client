@@ -7,28 +7,28 @@
 <path d="M18.9282 9.41929L18.2356 3.38859C18.1189 2.38985 17.6023 1.45808 16.814 0.828603C16.0123 0.19339 15.0174 -0.0936034 13.9976 0.026934L9.50906 0.543522L9.94721 4.34523L14.4339 3.82673L15.1284 9.85934L0 11.5947V15.4462L15.5627 13.6572C16.5787 13.5405 17.4875 13.0373 18.1246 12.2357C18.7598 11.4359 19.0449 10.4352 18.9282 9.41929Z" transform="translate(21.0461 22.092)" fill="url(#paint5_linear)"/>
 <defs>
 <linearGradient id="paint0_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-5.02716e-06 13.4802) scale(16.5341 26.9604)">
-<stop stop-color="#B9D532"/>
-<stop offset="1" stop-color="#5BBA47"/>
+<stop stop-color="#6979F8"/>
+<stop offset="1" stop-color="#A5AFFB"/>
 </linearGradient>
 <linearGradient id="paint1_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-5.81733e-06 19.1329) scale(19.1329 38.2659)">
-<stop stop-color="#B9D532"/>
-<stop offset="1" stop-color="#5BBA47"/>
+<stop stop-color="#6979F8"/>
+<stop offset="1" stop-color="#A5AFFB"/>
 </linearGradient>
 <linearGradient id="paint2_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-2.32693e-06 3.82658) scale(7.65317)">
-<stop stop-color="#B9D532"/>
-<stop offset="1" stop-color="#5BBA47"/>
+<stop stop-color="#6979F8"/>
+<stop offset="1" stop-color="#A5AFFB"/>
 </linearGradient>
 <linearGradient id="paint3_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-2.32693e-06 3.82658) scale(7.65317)">
-<stop stop-color="#B9D532"/>
-<stop offset="1" stop-color="#5BBA47"/>
+<stop stop-color="#6979F8"/>
+<stop offset="1" stop-color="#A5AFFB"/>
 </linearGradient>
 <linearGradient id="paint4_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-1.16347e-06 1.91329) scale(3.82659)">
-<stop stop-color="#B9D532"/>
-<stop offset="1" stop-color="#5BBA47"/>
+<stop stop-color="#6979F8"/>
+<stop offset="1" stop-color="#A5AFFB"/>
 </linearGradient>
 <linearGradient id="paint5_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-5.76286e-06 7.72308) scale(18.9538 15.4462)">
-<stop stop-color="#B9D532"/>
-<stop offset="1" stop-color="#5BBA47"/>
+<stop stop-color="#6979F8"/>
+<stop offset="1" stop-color="#A5AFFB"/>
 </linearGradient>
 </defs>
 </svg>

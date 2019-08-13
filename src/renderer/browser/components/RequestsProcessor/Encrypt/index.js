@@ -2,7 +2,7 @@ import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 
 import Encrypt from './Encrypt';
@@ -10,7 +10,7 @@ import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
-const mapAuthDataToProps = ({ wif }) => ({ wif });
+const mapAuthDataToProps = ({ wallet: { wif } }) => ({ wif });
 const mapEncryptDataToProps = ({ iv, mac, data }) => ({ iv, mac, data });
 
 const CONFIG_KEYS = ['recipientPublicKey', 'data'];

@@ -39,5 +39,5 @@ export default class Portal extends React.PureComponent {
 
   handleClickOutside = () => {
     this.props.onClickOutside();
-  }
+  };
 }

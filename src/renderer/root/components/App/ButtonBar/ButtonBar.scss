@@ -11,14 +11,14 @@
     border: none;
     padding: 0;
     background-color: transparent;
-    color: $primary-text-color;
+    color: $gray-5;
 
     &:hover {
-      background-color: rgba(73, 71, 89, 0.1);
+      background-color: $gray-7;
     }
 
     &:active {
-      background-color: rgba(73, 71, 89, 0.2);
+      background-color: $gray-6;
     }
   }
 

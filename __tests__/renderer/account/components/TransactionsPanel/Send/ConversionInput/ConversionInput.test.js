@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import ConversionInput from 'account/components/TransactionsPanel/Send/ConversionInput/ConversionInput';
+import ConversionInput from 'account/components/Portfolio/TransactionsPanel/Send/ConversionInput/ConversionInput';
 
 const defaultProps = {
   asset: {

@@ -1,10 +1,10 @@
 import { withData } from 'spunky';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 
 import GetAddress from './GetAddress';
 
-const mapAuthDataToProps = ({ address }) => ({ address });
+const mapAuthDataToProps = ({ wallet: { address } }) => ({ address });
 
 export default function makeGetAddress() {
   // Get the current account address

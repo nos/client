@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Sifter from 'sifter';
 import classNames from 'classnames';
-import { bool, string, func, arrayOf } from 'prop-types';
+import { bool, string, func, arrayOf, oneOfType, number } from 'prop-types';
 import { noop, map, partial, find } from 'lodash';
 
 import refShape from 'shared/shapes/refShape';
@@ -24,7 +24,7 @@ export default class Select extends React.PureComponent {
     id: string.isRequired,
     placeholder: string,
     items: arrayOf(selectItemShape),
-    value: string,
+    value: oneOfType([number, string]),
     renderItem: func,
     onChange: func
   };
@@ -54,7 +54,7 @@ export default class Select extends React.PureComponent {
     if (this.state.selectedIndex !== prevState.selectedIndex) {
       this.scrollToItem(this.state.selectedIndex);
     }
-  }
+  };
 
   render() {
     const className = classNames(styles.select, {
@@ -89,7 +89,7 @@ export default class Select extends React.PureComponent {
         {this.renderItems(items)}
       </div>
     );
-  }
+  };
 
   renderItems = (items) => {
     return (
@@ -97,7 +97,7 @@ export default class Select extends React.PureComponent {
         {map(items, this.renderItem)}
       </ul>
     );
-  }
+  };
 
   renderItem = (item, index) => {
     const { renderItem: Item, value } = this.props;
@@ -119,14 +119,10 @@ export default class Select extends React.PureComponent {
         onFocus={partial(this.handleFocus, item.value)}
         onMouseOver={partial(this.handleFocus, index)}
       >
-        <Item
-          ref={this.registerRef(`item${index}`)}
-          item={item}
-          selected={selected}
-        />
+        <Item ref={this.registerRef(`item${index}`)} item={item} selected={selected} />
       </li>
     );
-  }
+  };
 
   renderZeroState = (items) => {
     if (items.length > 0) {
@@ -136,17 +132,12 @@ export default class Select extends React.PureComponent {
     return (
       <div className={styles.noResults}>
         <span>No matches found. </span>
-        <span
-          className={styles.clear}
-          role="button"
-          tabIndex={0}
-          onClick={this.handleResetSearch}
-        >
+        <span className={styles.clear} role="button" tabIndex={0} onClick={this.handleResetSearch}>
           Clear search.
         </span>
       </div>
     );
-  }
+  };
 
   renderActiveItem = () => {
     const { value, placeholder, renderItem: Item } = this.props;
@@ -158,13 +149,10 @@ export default class Select extends React.PureComponent {
 
     return (
       <div className={styles.input}>
-        <Item
-          className={styles.activeItem}
-          item={item}
-        />
+        <Item className={styles.activeItem} item={item} />
       </div>
     );
-  }
+  };
 
   renderSearch = () => {
     return (
@@ -181,45 +169,45 @@ export default class Select extends React.PureComponent {
         renderAfter={this.renderCloseIcon}
       />
     );
-  }
+  };
 
   renderSearchIcon = () => {
     return <SearchIcon className={styles.searchIcon} />;
-  }
+  };
 
   renderCloseIcon = () => {
     return <CloseIcon className={styles.closeIcon} onClick={this.handleClose} />;
-  }
+  };
 
   handleShow = () => {
     if (!this.props.disabled) {
       this.setOpen(true);
     }
-  }
+  };
 
   handleHide = () => {
     this.setOpen(false);
-  }
+  };
 
   handleClose = (event) => {
     event.stopPropagation();
     this.setOpen(false);
-  }
+  };
 
   handleChange = (value) => {
     this.props.onChange(value);
     this.setOpen(false);
     this.dropdown.current.focus();
-  }
+  };
 
   handleSearch = (event) => {
     this.setSearch(event.target.value);
-  }
+  };
 
   handleResetSearch = () => {
     this.setSearch('');
     this.search.current.focus();
-  }
+  };
 
   handleKeyDown = (event) => {
     const { selectedIndex } = this.state;
@@ -251,23 +239,23 @@ export default class Select extends React.PureComponent {
         this.setOpen(false);
         break;
     }
-  }
+  };
 
   handleFocus = (index) => {
     this.setState({ selectedIndex: index });
-  }
+  };
 
   registerRef = (name) => (el) => {
     this[name] = el;
-  }
+  };
 
   setOpen = (open) => {
     this.setState({ open, search: '', selectedIndex: -1 });
-  }
+  };
 
   setSearch = (search) => {
     this.setState({ search, selectedIndex: -1 });
-  }
+  };
 
   getItems = () => {
     const { items } = this.props;
@@ -277,17 +265,17 @@ export default class Select extends React.PureComponent {
     });
 
     return map(result.items, ({ id }) => items[id]);
-  }
+  };
 
   getItem = (value) => {
     return find(this.props.items, { value });
-  }
+  };
 
   incrementSelection = (offset) => {
     this.setState((prevState) => ({
       selectedIndex: prevState.selectedIndex + offset
     }));
-  }
+  };
 
   scrollToItem = (index) => {
     const item = this[`item${index}`];
@@ -298,5 +286,5 @@ export default class Select extends React.PureComponent {
     if (element) {
       element.scrollIntoViewIfNeeded(false);
     }
-  }
+  };
 }

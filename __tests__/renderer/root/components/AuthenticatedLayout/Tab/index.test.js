@@ -33,7 +33,8 @@ describe('<Tab />', () => {
 
   describe('icon prop', () => {
     it('renders spefied icon', () => {
-      const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+      const url =
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
       const wrapper = mount(<Tab {...props} icon={url} />);
       expect(wrapper.find(`img.icon[src="${url}"]`).exists()).toBe(true);
       expect(wrapper.find(FavIcon).exists()).toBe(false);

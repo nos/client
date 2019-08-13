@@ -31,19 +31,29 @@ async function getClaimableAmount({ net, address }) {
 }
 
 async function updateClaimableAmount({
-  net, balance, address, publicKey, privateKey, signingFunction
+  net,
+  balance,
+  address,
+  publicKey,
+  privateKey,
+  signingFunction
 }) {
   const url = await getRPCEndpoint(net);
 
-  const { response: { result } } = await api.sendAsset({
-    net,
-    url,
-    address,
-    publicKey,
-    privateKey,
-    signingFunction,
-    intents: api.makeIntent({ NEO: balance }, address)
-  }, api.neoscan);
+  const {
+    response: { result }
+  } = await api.sendAsset(
+    {
+      net,
+      url,
+      address,
+      publicKey,
+      privateKey,
+      signingFunction,
+      intents: api.makeIntent({ NEO: balance }, address)
+    },
+    api.neoscan
+  );
 
   if (!result) {
     throw new Error('Transaction rejected by blockchain');
@@ -53,19 +63,27 @@ async function updateClaimableAmount({
 }
 
 async function pollForUpdatedClaimableAmount({ net, address, claimableAmount }) {
-  return poll(async () => {
-    const updatedClaimableAmount = await getClaimableAmount({ net, address });
+  return poll(
+    async () => {
+      const updatedClaimableAmount = await getClaimableAmount({ net, address });
 
-    if (new BigNumber(updatedClaimableAmount).eq(claimableAmount)) {
-      throw new Error('Waiting for updated claims took too long');
-    }
+      if (new BigNumber(updatedClaimableAmount).eq(claimableAmount)) {
+        throw new Error('Waiting for updated claims took too long');
+      }
 
-    return updatedClaimableAmount;
-  }, { attempts: POLL_ATTEMPTS, frequency: POLL_FREQUENCY });
+      return updatedClaimableAmount;
+    },
+    { attempts: POLL_ATTEMPTS, frequency: POLL_FREQUENCY }
+  );
 }
 
 async function getUpdatedClaimableAmount({
-  net, balance, address, publicKey, privateKey, signingFunction
+  net,
+  balance,
+  address,
+  publicKey,
+  privateKey,
+  signingFunction
 }) {
   const claimableAmount = await getClaimableAmount({ net, address });
 
@@ -99,14 +117,19 @@ export default async function claimGas({ net, address, wif, publicKey, signingFu
   const claimableClaims = publicKey ? claims.slice(0, 25) : claims;
 
   // send claim request
-  const { response: { result, txid } } = await api.claimGas({
-    net,
-    address,
-    publicKey,
-    privateKey,
-    signingFunction,
-    claims: claimableClaims
-  }, api.neoscan);
+  const {
+    response: { result, txid }
+  } = await api.claimGas(
+    {
+      net,
+      address,
+      publicKey,
+      privateKey,
+      signingFunction,
+      claims: claimableClaims
+    },
+    api.neoscan
+  );
 
   if (!result) {
     throw new Error('Transaction rejected by blockchain');

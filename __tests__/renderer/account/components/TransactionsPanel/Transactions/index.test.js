@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import { provideStore, createStore, spunkyKey, mockSpunkyLoaded } from 'testHelpers';
 
-import Transactions from 'account/components/TransactionsPanel/Transactions';
+import Transactions from 'account/components/Portfolio/TransactionsPanel/Transactions';
 
 const address = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 

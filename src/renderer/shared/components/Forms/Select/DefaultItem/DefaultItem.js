@@ -24,10 +24,6 @@ export default class DefaultItem extends React.Component {
   render() {
     const { className, item } = this.props;
 
-    return (
-      <div className={classNames(styles.defaultItem, className)}>
-        {item.label}
-      </div>
-    );
+    return <div className={classNames(styles.defaultItem, className)}>{item.label}</div>;
   }
 }

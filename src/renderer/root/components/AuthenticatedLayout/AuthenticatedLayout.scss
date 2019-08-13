@@ -1,18 +1,23 @@
-$sidebar-shadow: inset -1px 0 0 #d7d8de;
+$sidebar-shadow: inset -1px 0 0 $gray-3;
+$sidebar-width: 68px;
+$content-width: calc(100vw - 68px);
 
 @mixin sidebar {
-  width: 68px;
-  background: #edeef2;
+  @extend %sidebarColor;
+  width: $sidebar-width;
   mix-blend-mode: normal;
-  box-shadow: $sidebar-shadow;
 }
 
 .authenticatedLayout {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: $content-bg-color;
+  background-color: $gray-0;
   overflow-y: hidden;
+
+  @include theme(DARK) {
+    background-color: $gray-8;
+  }
 
   header {
     flex: 0 0 auto;
@@ -74,11 +79,12 @@ $sidebar-shadow: inset -1px 0 0 #d7d8de;
       }
 
       .content {
+        width: $content-width;
         flex: 1 1 100%;
         box-sizing: border-box;
         user-select: auto;
         cursor: auto;
-        overflow-y: scroll;
+        overflow-y: auto;
       }
     }
   }

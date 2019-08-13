@@ -44,8 +44,16 @@ export default class Input extends React.PureComponent {
       [styles.disabled]: this.props.disabled
     });
 
-    const passDownProps = omit(this.props, 'className', 'children', 'forwardedRef', 'renderBefore',
-      'renderAfter', 'onFocus', 'onBlur');
+    const passDownProps = omit(
+      this.props,
+      'className',
+      'children',
+      'forwardedRef',
+      'renderBefore',
+      'renderAfter',
+      'onFocus',
+      'onBlur'
+    );
 
     return (
       <div className={className} role="textbox" tabIndex={-1} onClick={this.handleClick}>
@@ -65,26 +73,26 @@ export default class Input extends React.PureComponent {
   renderBefore = () => {
     const { renderBefore } = this.props;
     return renderBefore && renderBefore();
-  }
+  };
 
   renderAfter = () => {
     const { renderAfter } = this.props;
     return renderAfter && renderAfter();
-  }
+  };
 
   handleClick = () => {
     if (this.ref.current && this.ref.current.focus) {
       this.ref.current.focus();
     }
-  }
+  };
 
   handleFocus = (event) => {
     this.setState({ focus: true });
     this.props.onFocus(event);
-  }
+  };
 
   handleBlur = (event) => {
     this.setState({ focus: false });
     this.props.onBlur(event);
-  }
+  };
 }

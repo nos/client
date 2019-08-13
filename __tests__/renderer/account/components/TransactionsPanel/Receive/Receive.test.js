@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Receive from 'account/components/TransactionsPanel/Receive/Receive';
+import Receive from 'account/components/Portfolio/TransactionsPanel/Receive/Receive';
 
 const address = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 const defaultProps = { address };

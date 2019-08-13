@@ -10,6 +10,7 @@ import createRootReducer from '../reducers';
 
 export default function configureStore(history) {
   const initialState = {};
+
   const sagaMiddleware = createSagaMiddleware();
 
   const middleware = [thunk, sagaMiddleware, routerMiddleware(history)];

@@ -1,0 +1,9 @@
+.wallets {
+  .title {
+    margin: 30px 0 8px 0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: normal;
+    @extend %labelColor;
+  }
+}

@@ -11,10 +11,7 @@ const mountContainer = (props = {}) => {
 };
 
 describe('<Select />', () => {
-  const items = [
-    { label: 'Foo', value: 'foo' },
-    { label: 'Bar', value: 'bar' }
-  ];
+  const items = [{ label: 'Foo', value: 'foo' }, { label: 'Bar', value: 'bar' }];
 
   it('renders a dropdown', () => {
     const wrapper = mountContainer({ id: 'name' });
@@ -38,7 +35,10 @@ describe('<Select />', () => {
 
   it('renders dropdown items once clicked', () => {
     const wrapper = mountContainer({ id: 'name', items });
-    wrapper.find(Dropdown).find('.container').simulate('click');
+    wrapper
+      .find(Dropdown)
+      .find('.container')
+      .simulate('click');
 
     const options = wrapper.find(Portal).find(DefaultItem);
     expect(options).toHaveLength(2);
@@ -50,7 +50,10 @@ describe('<Select />', () => {
     const onChangeSpy = jest.fn();
     const wrapper = mountContainer({ id: 'name', items, onChange: onChangeSpy });
 
-    wrapper.find(Dropdown).find('.container').simulate('click');
+    wrapper
+      .find(Dropdown)
+      .find('.container')
+      .simulate('click');
     wrapper
       .find(Portal)
       .findWhere((node) => node.prop('className') === 'item' && node.text() === 'Bar')
