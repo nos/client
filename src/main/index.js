@@ -97,11 +97,13 @@ function createSplashWindow() {
   splashWindow.once('ready-to-show', () => {
     splashWindow.show();
 
+    const pkgVersion = pkg.version.toLowerCase();
+
     if (
       isDev ||
-      pkg.version.includes('rc') ||
-      pkg.version.includes('beta') ||
-      pkg.version.includes('alpha')
+      pkgVersion.includes('rc') ||
+      pkgVersion.includes('beta') ||
+      pkgVersion.includes('alpha')
     ) {
       createMainWindow();
     } else {
