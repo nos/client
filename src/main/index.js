@@ -11,6 +11,8 @@ import injectHeaders from './util/injectHeaders';
 import installExtensions from './util/installExtensions';
 import registerNosProtocol from './util/registerNosProtocol';
 
+import pkg from '../../package.json';
+
 // This wouldn't be necessary if we could call `electron-webpack` directly.  But since we have to
 // use webpack-cli (as a result of using a custom webpack config), we are faking this env var
 // already being assigned.
@@ -95,7 +97,12 @@ function createSplashWindow() {
   splashWindow.once('ready-to-show', () => {
     splashWindow.show();
 
-    if (isDev) {
+    if (
+      isDev ||
+      pkg.version.includes('rc') ||
+      pkg.version.includes('beta') ||
+      pkg.version.includes('alpha')
+    ) {
       createMainWindow();
     } else {
       autoUpdater.allowPrerelease = false;
