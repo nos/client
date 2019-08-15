@@ -1,14 +1,17 @@
 import { compose, mapProps } from 'recompose';
-import { progressValues } from 'spunky';
+import { progressValues, withProgress } from 'spunky';
 import { omit } from 'lodash';
+
+import authActions from 'auth/actions/authActions';
 
 const { LOADED } = progressValues;
 
 export default function withAuthState() {
   return compose(
+    withProgress(authActions, { propName: 'authStateLoadingProgress' }),
     mapProps((props) => ({
-      ...omit(props, 'progress'),
-      authenticated: props.progress === LOADED
+      ...omit(props, 'authStateLoadingProgress'),
+      authenticated: props.authStateLoadingProgress === LOADED
     }))
   );
 }

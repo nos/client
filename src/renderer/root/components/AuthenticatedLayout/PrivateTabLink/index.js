@@ -1,7 +1,6 @@
-import { compose, mapProps } from 'recompose';
+import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import { withProgress, progressValues } from 'spunky';
-import { omit } from 'lodash';
+import { withProgress } from 'spunky';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -10,10 +9,9 @@ import withAuth from 'shared/hocs/withAuth';
 import authActions from 'auth/actions/authActions';
 
 import { openTab } from 'browser/actions/browserActions';
+import withAuthState from 'auth/hocs/withAuthState';
 
 import PrivateTabLink from './PrivateTabLink';
-
-const { LOADED } = progressValues;
 
 const mapStateToProps = (state, props) => {
   const { tabs, activeSessionId } = state.browser;
@@ -31,5 +29,5 @@ export default compose(
   ),
   withProgress(authActions),
   withAuth(),
-  mapProps((props) => ({ ...omit(props, 'progress'), authenticated: props.progress === LOADED }))
+  withAuthState()
 )(PrivateTabLink);

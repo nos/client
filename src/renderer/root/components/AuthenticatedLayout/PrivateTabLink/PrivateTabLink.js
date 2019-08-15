@@ -54,17 +54,11 @@ export default class PrivateTabLink extends React.PureComponent {
         onConfirm: this.handleConfirm,
         onCancel: undefined
       });
-
-      // return <Component {...props} />;
     }
   };
 
   handleConfirm = () => {
     const { type, target } = this.props;
     this.props.openTab({ type, target });
-  };
-
-  onCancel = () => {
-    // TODO
   };
 }

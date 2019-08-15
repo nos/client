@@ -1,9 +1,8 @@
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
-import { withProgress } from 'spunky';
 
-import authActions from 'auth/actions/authActions';
+import withAuthState from 'auth/hocs/withAuthState';
 
 import RequestsProcessor from './RequestsProcessor';
 
@@ -12,6 +11,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default compose(
-  withProgress(authActions),
+  withAuthState(),
   connect(mapStateToProps)
 )(RequestsProcessor);
