@@ -18,7 +18,7 @@ export const ID = 'registerForm';
  * Seed hex is then used to encrypt/decrypt things
  */
 export const validateAndStoreFormData = async (data) => {
-  const { accountLabel, passphrase, passphraseConfirm, secretWord } = data;
+  const { accountLabel, passphrase, passphraseConfirm, secretWord, isImport } = data;
 
   const accounts = await getStorage(ACCOUNT_ID);
   const newAccount = accounts[accountLabel];
@@ -39,14 +39,18 @@ export const validateAndStoreFormData = async (data) => {
     throw new Error('Fill in a Secret Word.');
   }
 
-  // Generate bip39 Mnemonic - 256-bits entropy (24-word long mnemonic)
-  const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
-  const encryptedMnemonic = simpleEncrypt(mnemonic, passphrase);
-  return {
-    ...data,
-    mnemonic,
-    encryptedMnemonic
-  };
+  const registerData = { ...data };
+  if (!isImport) {
+    const mnemonic = bip39.generateMnemonic(256, null, bip39.wordlists[DEFAULT_LANGUAGE]);
+    registerData.mnemonic = mnemonic;
+  }
+
+  if (registerData.mnemonic) {
+    const encryptedMnemonic = simpleEncrypt(registerData.mnemonic, passphrase);
+    registerData.encryptedMnemonic = encryptedMnemonic;
+  }
+
+  return registerData;
 };
 
 export default createActions(ID, (data) => {

@@ -1,6 +1,7 @@
-# Javascript Node CircleCI 2.0 configuration file.
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.5
 
 references:
   workspace: &workspace ~/repo
@@ -22,73 +23,98 @@ references:
       xcode: '10.3.0'
     working_directory: *workspace
 
+commands:
+  pre:
+    description: 'Setting up and building environment'
+    parameters:
+      sudo:
+        type: string
+        default: ''
+      windows:
+        type: boolean
+        default: false
+    steps:
+      - checkout
+      - run: chmod -R 777 ~/repo
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+            - v2-dependencies-{{ arch }}
+      - run: << parameters.sudo >> apt-get -y update
+      - run: << parameters.sudo >> apt-get -y install libusb-1.0-0
+      - when:
+          condition: <<parameters.windows>>
+          steps:
+            - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
+      - run: yarn
+
 jobs:
-  build:
+  build_linux:
     <<: *container_config
+    steps:
+      - pre:
+          sudo: 'sudo'
+      - run: yarn dist --linux
+      - run: chmod -R 777 ~/repo
+      - save_cache:
+          key: v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  build_win:
+    <<: *win_config
+    steps:
+      - pre:
+          windows: true
+      - run: yarn dist --win --x64 --ia32
+      - save_cache:
+          key: v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  build_mac:
+    <<: *mac_config
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
-      - run: yarn install
-      - run: chmod -R 777 ~/repo
+            - v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+            - v2-dependencies-{{ arch }}
+      - run: yarn
+      - run: yarn dist --mac
       - save_cache:
+          key: v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
   test:
     <<: *container_config
     steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
+      - pre:
+          sudo: 'sudo'
       - run: yarn test
       - run: yarn codecov
-    store_artifacts:
-      - path: artifacts
-      - destination: yarnpkg
+      - codecov/upload:
+          file: ./coverage/lcov.info
 
   deploy_win:
     <<: *win_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: dpkg --add-architecture i386
-      - run: apt-get -y update
-      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
-      - run: yarn install
+      - pre:
+          windows: true
       - run: yarn release:win
-      - store_artifacts:
-          path: dist
-          destination: build
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - dist/*.*
 
   deploy_linux:
     <<: *container_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install build-essential libudev-dev
-      - run: yarn install
+      - pre:
+          sudo: 'sudo'
       - run: yarn release:linux
-      - store_artifacts:
-          path: dist
-          destination: build
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - dist/*.*
 
   deploy_mac:
     <<: *mac_config
@@ -96,25 +122,43 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
-            - v3-dependencies-
-      - run: yarn install
+            - v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+            - v2-dependencies-{{ arch }}
+      - run: yarn
       - run: yarn release:mac
-      - store_artifacts:
-          path: dist
-          destination: build
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - ./dist/*.*
+
+  calculate_checksums:
+    <<: *container_config
+    steps:
+      - attach_workspace:
+          at: *workspace
+      - run: cd ./dist && shasum -a 256 *.*
 
 workflows:
   version: 2
-  build_test:
+  build_win:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-
+      - build_win
+  build_linux:
+    jobs:
+      - build_linux
+  build_mac:
+    jobs:
+      - build_mac
+  unit_tests:
+    jobs:
+      - test
   deploy:
     jobs:
+      - calculate_checksums:
+          requires:
+            - deploy_win
+            - deploy_linux
+            - deploy_mac
       - deploy_win:
           filters:
             branches:

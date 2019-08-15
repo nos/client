@@ -1,3 +1,4 @@
+import { noop } from 'lodash';
 import React from 'react';
 import { string, func, bool } from 'prop-types';
 
@@ -6,26 +7,37 @@ import Button from 'shared/components/Forms/Button';
 
 import styles from './NavigationButtons.scss';
 
-const NavigationButtons = ({ onBack, onNext, nextBtnText, disabled }) => (
-  <div className={styles.navigationButtons}>
-    <Button className={styles.previousBtn} onClick={onBack}>
-      Back
-    </Button>
-    <PrimaryButton className={styles.nextBtn} onClick={onNext} disabled={disabled}>
-      {nextBtnText}
-    </PrimaryButton>
-  </div>
-);
+const NavigationButtons = ({ onBack, onNext, nextBtnText, disabled, isSubmit }) => {
+  const PrimaryButtonProps = {
+    className: styles.nextBtn,
+    onClick: onNext,
+    disabled
+  };
+
+  if (isSubmit) PrimaryButtonProps.type = 'submit';
+
+  return (
+    <div className={styles.navigationButtons}>
+      <Button className={styles.previousBtn} onClick={onBack}>
+        Back
+      </Button>
+      <PrimaryButton {...PrimaryButtonProps}>{nextBtnText}</PrimaryButton>
+    </div>
+  );
+};
 
 NavigationButtons.propTypes = {
   onBack: func.isRequired,
-  onNext: func.isRequired,
   nextBtnText: string.isRequired,
-  disabled: bool
+  onNext: func,
+  disabled: bool,
+  isSubmit: bool
 };
 
 NavigationButtons.defaultProps = {
-  disabled: false
+  disabled: false,
+  isSubmit: false,
+  onNext: noop
 };
 
 export default NavigationButtons;
