@@ -89,19 +89,25 @@ export default class DAppContainer extends React.PureComponent {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, tab } = this.props;
 
     return (
       <div className={classNames(styles.dAppContainer, className)}>
-        {this.renderWebView()}
+        {this.renderWebView(tab)}
         {this.renderRequestProcessor()}
       </div>
     );
   }
 
-  renderWebView() {
+  renderWebView(tab) {
+    const webViewStyle = tab.loading ? styles.webviewLoading : styles.webviewLoaded;
+
     return (
-      <webview ref={this.registerRef} preload={this.getPreloadPath()} className={styles.webview} />
+      <webview
+        ref={this.registerRef}
+        preload={this.getPreloadPath()}
+        className={classNames(styles.webview, webViewStyle)}
+      />
     );
   }
 
