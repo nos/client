@@ -1,12 +1,9 @@
 import React from 'react';
-import { string, func, arrayOf } from 'prop-types';
+import { string, func, arrayOf, bool } from 'prop-types';
 import { omit } from 'lodash';
-import { progressValues } from 'spunky';
 
 import RequestProcessor from './RequestProcessor';
 import requestShape from '../../shapes/requestShape';
-
-const { LOADED } = progressValues;
 
 export default class RequestsProcessor extends React.PureComponent {
   static propTypes = {
@@ -15,7 +12,7 @@ export default class RequestsProcessor extends React.PureComponent {
     requests: arrayOf(requestShape).isRequired,
     onResolve: func.isRequired,
     onReject: func.isRequired,
-    progress: string.isRequired
+    authenticated: bool.isRequired
   };
 
   render() {
@@ -23,14 +20,14 @@ export default class RequestsProcessor extends React.PureComponent {
   }
 
   renderRequest = (request) => {
-    const { progress } = this.props;
+    const { authenticated } = this.props;
 
     return (
       <RequestProcessor
-        {...omit(this.props, 'requests', 'progress')}
+        {...omit(this.props, 'requests')}
         key={`request-${request.id}`}
         request={request}
-        authenticated={progress === LOADED}
+        authenticated={authenticated}
       />
     );
   };
