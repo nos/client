@@ -3,7 +3,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import { string } from 'prop-types';
+import { string, bool } from 'prop-types';
 
 import { APPSTORE, ACCOUNT, EXCHANGE, EXTERNAL, SETTINGS } from 'browser/values/browserValues';
 import AppStoreIcon from 'shared/images/icons/discover.svg';
@@ -22,7 +22,8 @@ import styles from './Navigation.scss';
 
 export default class Navigation extends React.PureComponent {
   static propTypes = {
-    className: string
+    className: string,
+    authenticated: bool.isRequired
   };
 
   static defaultProps = {
@@ -31,6 +32,8 @@ export default class Navigation extends React.PureComponent {
 
   render() {
     const matchExchange = (url) => /https:\/\/exchange\.nash\.io.+/i.test(url);
+    const { authenticated } = this.props;
+
     return (
       <nav className={classNames(styles.navigation, this.props.className)}>
         <ul>
@@ -81,13 +84,15 @@ export default class Navigation extends React.PureComponent {
               </div>
             </Tooltip>
           </li>
-          <li>
-            <Tooltip overlay="Logout">
-              <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
-                <LogoutIcon aria-label="logout" />
-              </NavLink>
-            </Tooltip>
-          </li>
+          {authenticated && (
+            <li>
+              <Tooltip overlay="Logout">
+                <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
+                  <LogoutIcon aria-label="logout" />
+                </NavLink>
+              </Tooltip>
+            </li>
+          )}
         </ul>
       </nav>
     );
