@@ -27,9 +27,9 @@ commands:
   pre:
     description: 'Setting up and building environment'
     parameters:
-    content:
-      type: string
-      default: ""
+      sudo:
+        type: string
+        default: ""
     steps:
       - checkout
       - restore_cache:
