@@ -44,7 +44,7 @@ jobs:
     <<: *container_config
     steps:
       - pre
-      - yarn dist --linux
+      - run: yarn dist --linux
       # - post
 
   test:
