@@ -1,0 +1,19 @@
+{
+  "appId": "io.nos.desktop",
+  "forceCodeSigning": true,
+  "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+  "win": {
+    "icon": "./static/icons/icon1024x1024.ico",
+    "timeStampServer": "http://timestamp.globalsign.com/scripts/timstamp.dll"
+  },
+  "linux": {
+    "icon": "./static/icons/icon1024x1024.png"
+  },
+  "directories": {
+    "buildResources": "static"
+  },
+  "files": ["static/**/*"],
+  "publish": {
+    "provider": "github"
+  }
+}

@@ -22,23 +22,30 @@ references:
       xcode: '10.3.0'
     working_directory: *workspace
 
-jobs:
-  build:
-    <<: *container_config
-    steps:
+pre: &pre
+  - run:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v5-dependencies-test-{{ checksum "package.json" }}
+            - v5-dependencies-test
       - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
-      - run: yarn install
-      - run: chmod -R 777 ~/repo
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn
+
+post: &post
+  - save_cache:
+      paths:
+        - node_modules
+      key: v1-dependencies-test-{{ checksum "package.json" }}
+
+jobs:
+  build_linux:
+    <<: *container_config
+    steps:
+      <<: *pre
+      - yarn dist --linux
+      <<: *post
+
   test:
     <<: *container_config
     steps:
@@ -68,7 +75,7 @@ jobs:
       - run: dpkg --add-architecture i386
       - run: apt-get -y update
       - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
-      - run: yarn install
+      - run: yarn
       - run: yarn release:win
       - store_artifacts:
           path: dist
@@ -84,7 +91,7 @@ jobs:
             - v1-dependencies-
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install build-essential libudev-dev
-      - run: yarn install
+      - run: yarn
       - run: yarn release:linux
       - store_artifacts:
           path: dist
@@ -98,7 +105,7 @@ jobs:
           keys:
             - v3-dependencies-{{ checksum "package.json" }}
             - v3-dependencies-
-      - run: yarn install
+      - run: yarn
       - run: yarn release:mac
       - store_artifacts:
           path: dist
@@ -108,28 +115,28 @@ workflows:
   version: 2
   build_test:
     jobs:
-      - build
+      - build_linux
       - test:
           requires:
-            - build
+            - build_linux
 
-  deploy:
-    jobs:
-      - deploy_win:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
-      - deploy_linux:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
-      - deploy_mac:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
+  # deploy:
+  #   jobs:
+  #     - deploy_win:
+  #         filters:
+  #           branches:
+  #             ignore: /.*/
+  #           tags:
+  #             only: /[v][0-9]+(\.[0-9]+)+.*/
+  #     - deploy_linux:
+  #         filters:
+  #           branches:
+  #             ignore: /.*/
+  #           tags:
+  #             only: /[v][0-9]+(\.[0-9]+)+.*/
+  #     - deploy_mac:
+  #         filters:
+  #           branches:
+  #             ignore: /.*/
+  #           tags:
+  #             only: /[v][0-9]+(\.[0-9]+)+.*/
