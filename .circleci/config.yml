@@ -36,10 +36,9 @@ commands:
     - description: "Saves the cache"
     - run:
       - save_cache:
-        paths:
-          - node_modules
-          key: v1-dependencies-test-{{ checksum "package.json" }}
-
+          paths:
+            - node_modules
+            key: v1-dependencies-test-{{ checksum "package.json" }}
 
 jobs:
   build:
@@ -123,25 +122,3 @@ workflows:
       - test:
           requires:
             - build
-
-
-  # deploy:
-  #   jobs:
-  #     - deploy_win:
-  #         filters:
-  #           branches:
-  #             ignore: /.*/
-  #           tags:
-  #             only: /[v][0-9]+(\.[0-9]+)+.*/
-  #     - deploy_linux:
-  #         filters:
-  #           branches:
-  #             ignore: /.*/
-  #           tags:
-  #             only: /[v][0-9]+(\.[0-9]+)+.*/
-  #     - deploy_mac:
-  #         filters:
-  #           branches:
-  #             ignore: /.*/
-  #           tags:
-  #             only: /[v][0-9]+(\.[0-9]+)+.*/
