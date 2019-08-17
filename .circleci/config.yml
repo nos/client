@@ -40,7 +40,7 @@ jobs:
   build_linux:
     <<: *container_config
     steps:
-      - run: chmod -R 777 ~/repo
+      - run: sudo -su
       - pre
       - run: yarn dist --linux
       - save_cache:
