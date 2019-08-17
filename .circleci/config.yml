@@ -39,9 +39,9 @@ commands:
     - description: 'Saves the cache'
     - steps:
         - save_cache:
+            key: v1-dependencies-test-{{ checksum "package.json" }}
             paths:
               - node_modules
-            key: v1-dependencies-test-{{ checksum "package.json" }}
 
 jobs:
   build:
