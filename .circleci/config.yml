@@ -22,7 +22,7 @@ references:
 
 commands:
   pre:
-    description: 'Setting up and building environmentt'
+    description: 'Setting up and building environment'
     steps:
       - checkout
       - restore_cache:
