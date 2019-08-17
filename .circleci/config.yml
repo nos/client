@@ -30,7 +30,7 @@ commands:
             - v5-dependencies-test-{{ checksum "package.json" }}
             - v5-dependencies-test
       - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libudev-dev
+      - run: sudo apt-get -y install libusb-1.0-0
       - run: yarn
   # post:
   #   - description: 'Saves the cache'
