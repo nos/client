@@ -47,9 +47,11 @@ jobs:
           paths:
             - node_modules
   build_windows:
-    <<: *container_config
+    <<: *win_config
     steps:
+      - run: dpkg --add-architecture i386
       - pre
+      - run: sudo apt-get -y install libusb-1.0-0:i386
       - run: yarn dist --win --x64 --ia32
       - save_cache:
           key: v5-dependencies-test-{{ checksum "package.json" }}
