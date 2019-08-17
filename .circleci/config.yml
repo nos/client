@@ -22,22 +22,21 @@ references:
 
 commands:
   pre:
-    description: "Setting up and building environment"
+    description: 'Setting up and building environment'
     steps:
-      - run:
-        - checkout
-        - restore_cache:
-            keys:
-              - v5-dependencies-test-{{ checksum "package.json" }}
-              - v5-dependencies-test
-        - run: sudo apt-get -y update
-        - run: yarn
+      - checkout
+      - restore_cache:
+          keys:
+            - v5-dependencies-test-{{ checksum "package.json" }}
+            - v5-dependencies-test
+      - run: sudo apt-get -y update
+      - run: yarn
   post:
-    - description: "Saves the cache"
-    - run:
-      - save_cache:
-          paths:
-            - node_modules
+    - description: 'Saves the cache'
+    - steps:
+        - save_cache:
+            paths:
+              - node_modules
             key: v1-dependencies-test-{{ checksum "package.json" }}
 
 jobs:
@@ -112,7 +111,6 @@ jobs:
       - store_artifacts:
           path: dist
           destination: build
-
 
 workflows:
   version: 2.1
