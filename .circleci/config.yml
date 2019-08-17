@@ -35,13 +35,6 @@ commands:
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libusb-1.0-0
       - run: yarn
-  post:
-    - description: 'Saves the cache'
-    - steps:
-        - save_cache:
-            key: v1-dependencies-test-{{ checksum "package.json" }}
-            paths:
-              - node_modules
 
 jobs:
   build:
@@ -49,7 +42,10 @@ jobs:
     steps:
       - pre
       - run: yarn dist --linux
-      - post
+      - save_cache:
+          key: v1-dependencies-test-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
   test:
     <<: *container_config
