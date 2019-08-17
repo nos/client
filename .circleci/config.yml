@@ -31,13 +31,13 @@ commands:
             - v5-dependencies-test
       - run: sudo apt-get -y update
       - run: yarn
-  post:
-    - description: 'Saves the cache'
-    - steps:
-        - save_cache:
-            paths:
-              - node_modules
-            key: v1-dependencies-test-{{ checksum "package.json" }}
+  # post:
+  #   - description: 'Saves the cache'
+  #   - steps:
+  #       - save_cache:
+  #           paths:
+  #             - node_modules
+  #           key: v1-dependencies-test-{{ checksum "package.json" }}
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
     steps:
       - pre
       - yarn dist --linux
-      - post
+      # - post
 
   test:
     <<: *container_config
@@ -61,9 +61,9 @@ jobs:
       - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
       - run: yarn test
       - run: yarn codecov
-    store_artifacts:
-      - path: artifacts
-      - destination: yarnpkg
+    # store_artifacts:
+    #   - path: artifacts
+    #   - destination: yarnpkg
 
   deploy_win:
     <<: *win_config
