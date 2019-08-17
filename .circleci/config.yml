@@ -29,7 +29,7 @@ commands:
     parameters:
       sudo:
         type: string
-        default: ""
+        default: ''
     steps:
       - checkout
       - restore_cache:
@@ -44,8 +44,8 @@ jobs:
   build_linux:
     <<: *container_config
     steps:
-      - pre
-          sudo: "sudo"
+      - pre:
+          sudo: 'sudo'
       - run: yarn dist --linux
       - save_cache:
           key: v5-dependencies-test-{{ checksum "package.json" }}
