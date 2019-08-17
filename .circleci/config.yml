@@ -40,7 +40,7 @@ jobs:
   build_linux:
     <<: *container_config
     steps:
-      - run: sudo -su
+      - run: sudo -i
       - pre
       - run: yarn dist --linux
       - save_cache:
