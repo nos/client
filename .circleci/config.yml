@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@1.0.5
+
 references:
   workspace: &workspace ~/repo
 
@@ -32,13 +35,13 @@ commands:
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libusb-1.0-0
       - run: yarn
-  # post:
-  #   - description: 'Saves the cache'
-  #   - steps:
-  #       - save_cache:
-  #           paths:
-  #             - node_modules
-  #           key: v1-dependencies-test-{{ checksum "package.json" }}
+  post:
+    - description: 'Saves the cache'
+    - steps:
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-test-{{ checksum "package.json" }}
 
 jobs:
   build:
@@ -46,22 +49,16 @@ jobs:
     steps:
       - pre
       - run: yarn dist --linux
-      # - post
+      - post
 
   test:
     <<: *container_config
     steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
+      - pre
       - run: yarn test
       - run: yarn codecov
+      - codecov/upload:
+          file: ./coverage/lcov.info
     # store_artifacts:
     #   - path: artifacts
     #   - destination: yarnpkg
