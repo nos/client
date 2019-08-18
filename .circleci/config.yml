@@ -101,9 +101,6 @@ jobs:
       - pre:
           windows: true
       - run: yarn release:win
-      - store_artifacts:
-          path: dist
-          destination: build
 
   deploy_linux:
     <<: *container_config
@@ -111,9 +108,6 @@ jobs:
       - pre:
           sudo: 'sudo'
       - run: yarn release:linux
-      - store_artifacts:
-          path: dist
-          destination: build
 
   deploy_mac:
     <<: *mac_config
@@ -125,9 +119,6 @@ jobs:
             - v6-dependencies-test-mac-
       - run: yarn
       - run: yarn release:mac
-      - store_artifacts:
-          path: dist
-          destination: build
 
 workflows:
   version: 2
