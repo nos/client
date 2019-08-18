@@ -59,7 +59,7 @@ jobs:
           key: v5-dependencies-test-{{ checksum "package.json" }}
           paths:
             - node_modules
-  build_windows:
+  build_win:
     <<: *win_config
     steps:
       - run: dpkg --add-architecture i386 # needed for 32-bit support
@@ -81,7 +81,7 @@ jobs:
       - run: yarn
       - run: yarn dist --mac
       - save_cache:
-          key: v5-dependencies-test-{{ checksum "package.json" }}
+          key: v5-dependencies-test-mac-{{ checksum "package.json" }}
           paths:
             - node_modules
 
@@ -97,15 +97,8 @@ jobs:
   deploy_win:
     <<: *win_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: dpkg --add-architecture i386
-      - run: apt-get -y update
-      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
-      - run: yarn
+      - pre:
+          windows: true
       - run: yarn release:win
       - store_artifacts:
           path: dist
@@ -114,14 +107,8 @@ jobs:
   deploy_linux:
     <<: *container_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install build-essential libudev-dev
-      - run: yarn
+      - pre:
+          sudo: 'sudo'
       - run: yarn release:linux
       - store_artifacts:
           path: dist
@@ -133,8 +120,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
-            - v3-dependencies-
+            - v5-dependencies-test-mac-{{ checksum "package.json" }}
+            - v5-dependencies-test-mac-
       - run: yarn
       - run: yarn release:mac
       - store_artifacts:
@@ -146,6 +133,9 @@ workflows:
   build_test:
     jobs:
       - build_mac
-      # - build_windows
-      # - build_linux
-      # - test - RE ENABLE - BOTH WORK!!!
+      - build_win
+      - build_linux
+      - deploy_mac
+      - deploy_win
+      - deploy_linux
+      - test
