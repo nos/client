@@ -38,7 +38,7 @@ commands:
             - v5-dependencies-test
       - run: << parameters.sudo >> apt-get -y update
       - run: << parameters.sudo >> apt-get -y install libusb-1.0-0
-      - run: << parameters.sudo >> apt-get -y libudev-dev # needed for windows - add when clause
+      - run: << parameters.sudo >> apt-get -y install libudev-dev # needed for windows - add when clause
       - run: yarn
 
 jobs:
