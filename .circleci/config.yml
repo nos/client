@@ -37,7 +37,8 @@ commands:
             - v5-dependencies-test-{{ checksum "package.json" }}
             - v5-dependencies-test
       - run: << parameters.sudo >> apt-get -y update
-      - run: << parameters.sudo >> apt-get -y install libusb-1.0-0 libusb-dev
+      - run: << parameters.sudo >> apt-get -y install libusb-1.0-0
+      - run: << parameters.sudo >> apt-get -y libudev-dev # needed for windows - add when clause
       - run: yarn
 
 jobs:
@@ -56,7 +57,7 @@ jobs:
     steps:
       - run: dpkg --add-architecture i386
       - pre
-      - run: apt-get -y install libusb-1.0-0:i386
+      - run: apt-get -y install libusb-1.0-0:i386 libudev-dev:i386
       - run: yarn dist --win --x64 --ia32
       - save_cache:
           key: v5-dependencies-test-{{ checksum "package.json" }}
