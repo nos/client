@@ -62,11 +62,19 @@ jobs:
   build_windows:
     <<: *win_config
     steps:
-      - run: dpkg --add-architecture i386
+      - run: dpkg --add-architecture i386 # needed for 32-bit support
       - pre:
           windows: true
-      - run: apt-get -y install libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
       - run: yarn dist --win --x64 --ia32
+      - save_cache:
+          key: v5-dependencies-test-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  build_mac:
+    <<: *mac_config
+    steps:
+      - pre
+      - run: yarn dist --mac
       - save_cache:
           key: v5-dependencies-test-{{ checksum "package.json" }}
           paths:
@@ -132,6 +140,7 @@ workflows:
   version: 2
   build_test:
     jobs:
-      - build_windows
-      - build_linux
+      - build_mac
+      # - build_windows
+      # - build_linux
       # - test - RE ENABLE - BOTH WORK!!!
