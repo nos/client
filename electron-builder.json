@@ -9,6 +9,10 @@
   "linux": {
     "icon": "./static/icons/icon1024x1024.png"
   },
+  "mac": {
+    "icon": "./static/icons/icon1024x1024.icns",
+    "category": "public.app-category.utilities"
+  },
   "directories": {
     "buildResources": "static"
   },
