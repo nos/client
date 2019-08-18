@@ -57,7 +57,7 @@ jobs:
     steps:
       - run: dpkg --add-architecture i386
       - pre
-      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
+      - run: apt-get -y install libudev-dev:i386 libusb-1.0-0 libusb-1.0-0:i386
       - run: yarn dist --win --x64 --ia32
       - save_cache:
           key: v5-dependencies-test-{{ checksum "package.json" }}
