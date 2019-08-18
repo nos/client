@@ -131,12 +131,20 @@ jobs:
 
 workflows:
   version: 2
-  build_test:
+  build_win:
+    jobs:
+      - build_win
+  build_linux:
+    jobs:
+      - build_linux
+  build_mac:
     jobs:
       - build_mac
-      - build_win
-      - build_linux
+  test:
+    jobs:
+      - test
+  deploy:
+    jobs:
       - deploy_mac
       - deploy_win
       - deploy_linux
-      - test
