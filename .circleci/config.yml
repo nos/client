@@ -100,9 +100,9 @@ jobs:
       - pre:
           windows: true
       - run: yarn release:win
-      - store_artifacts:
+      - persist_to_workspace:
+          root: *workspace
           path: dist
-          destination: build
 
   deploy_linux:
     <<: *container_config
@@ -110,9 +110,9 @@ jobs:
       - pre:
           sudo: 'sudo'
       - run: yarn release:linux
-      - store_artifacts:
+      - persist_to_workspace:
+          root: *workspace
           path: dist
-          destination: build
 
   deploy_mac:
     <<: *mac_config
@@ -124,41 +124,45 @@ jobs:
             - v7-dependencies-mac-
       - run: yarn
       - run: yarn release:mac
-      - store_artifacts:
+      - persist_to_workspace:
+          root: *workspace
           path: dist
-          destination: build
 
 workflows:
   version: 2
-  build_win:
+  temp:
     jobs:
-      - build_win
-  build_linux:
-    jobs:
-      - build_linux
-  build_mac:
-    jobs:
-      - build_mac
-  test:
-    jobs:
-      - test
-  deploy:
-    jobs:
-      - deploy_win:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
-      - deploy_linux:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
-      - deploy_mac:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[v][0-9]+(\.[0-9]+)+.*/
+      - deploy_linux
+      - deploy_mac
+  # build_win:
+  #   jobs:
+  #     - build_win
+  # build_linux:
+  #   jobs:
+  #     - build_linux
+  # build_mac:
+  #   jobs:
+  #     - build_mac
+  # test:
+  #   jobs:
+  #     - test
+  # deploy:
+  #   jobs:
+  #     - deploy_win:
+  #         filters:
+  #           branches:
+  #             ignore: /.*/
+  #           tags:
+  #             only: /[v][0-9]+(\.[0-9]+)+.*/
+  #     - deploy_linux:
+  #         filters:
+  #           branches:
+  #             ignore: /.*/
+  #           tags:
+  #             only: /[v][0-9]+(\.[0-9]+)+.*/
+  #     - deploy_mac:
+  #         filters:
+  #           branches:
+  #             ignore: /.*/
+  #           tags:
+  #             only: /[v][0-9]+(\.[0-9]+)+.*/
