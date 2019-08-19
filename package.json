@@ -50,7 +50,7 @@
     "react-is": "16.9.0",
     "react-redux": "5.1.1",
     "react-router-dom": "4.3.1",
-    "react-scroll": "1.7.12",
+    "react-scroll": "1.7.13",
     "react-sticky": "6.0.3",
     "recharts": "1.7.0",
     "recompose": "0.30.0",
