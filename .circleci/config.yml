@@ -114,7 +114,8 @@ jobs:
       - run: ls
       - persist_to_workspace:
           root: *workspace
-          path: ./dist
+          paths:
+            - ./dist
 
   deploy_mac:
     <<: *mac_config
