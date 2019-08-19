@@ -37,8 +37,8 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v6-dependencies-{{ checksum "package.json" }}
-            - v6-dependencies-
+            - v7-dependencies-{{ checksum "package.json" }}
+            - v7-dependencies-
 
       - run: << parameters.sudo >> apt-get -y update
       - run: << parameters.sudo >> apt-get -y install libusb-1.0-0
@@ -56,7 +56,7 @@ jobs:
           sudo: 'sudo'
       - run: yarn dist --linux
       - save_cache:
-          key: v6-dependencies-{{ checksum "package.json" }}
+          key: v7-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
   build_win:
@@ -67,7 +67,7 @@ jobs:
           windows: true
       - run: yarn dist --win --x64 --ia32
       - save_cache:
-          key: v6-dependencies-{{ checksum "package.json" }}
+          key: v7-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
   build_mac:
@@ -76,12 +76,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v6-dependencies-mac-{{ checksum "package.json" }}
-            - v6-dependencies-mac-
+            - v7-dependencies-mac-{{ checksum "package.json" }}
+            - v7-dependencies-mac-
       - run: yarn
       - run: yarn dist --mac
       - save_cache:
-          key: v6-dependencies-mac-{{ checksum "package.json" }}
+          key: v7-dependencies-mac-{{ checksum "package.json" }}
           paths:
             - node_modules
   test:
@@ -120,8 +120,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v6-dependencies-mac-{{ checksum "package.json" }}
-            - v6-dependencies-mac-
+            - v7-dependencies-mac-{{ checksum "package.json" }}
+            - v7-dependencies-mac-
       - run: yarn
       - run: yarn release:mac
       - store_artifacts:
