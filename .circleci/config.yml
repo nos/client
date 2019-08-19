@@ -25,7 +25,7 @@ references:
 
 commands:
   pre:
-    description: 'Setting up and building environmentt'
+    description: 'Setting up and building environment'
     parameters:
       sudo:
         type: string
