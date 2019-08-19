@@ -116,7 +116,7 @@ jobs:
       - persist_to_workspace:
           root: *workspace
           paths:
-            - dist
+            - dist/*
 
   deploy_mac:
     <<: *mac_config
@@ -129,9 +129,9 @@ jobs:
       - run: yarn
       - run: yarn release:mac
       - persist_to_workspace:
-          root: *workspace/mac
+          root: *workspace
           paths:
-            - dist
+            - dist/*
 
   calculate_checksums:
     <<: *container_config
