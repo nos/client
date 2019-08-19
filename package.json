@@ -4,7 +4,7 @@
   "repository": "https://www.github.com/nos/client",
   "author": "nOS",
   "homepage": "https://nos.io",
-  "version": "0.6.0-rc.2",
+  "version": "0.6.1",
   "private": true,
   "main": "dist/main/main.js",
   "license": "MIT",
