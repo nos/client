@@ -102,7 +102,8 @@ jobs:
       - run: yarn release:win
       - persist_to_workspace:
           root: *workspace
-          path: dist
+          paths:
+            - ./dist
 
   deploy_linux:
     <<: *container_config
@@ -115,7 +116,7 @@ jobs:
       - persist_to_workspace:
           root: *workspace
           paths:
-            - ./dist
+            - dist
 
   deploy_mac:
     <<: *mac_config
@@ -129,7 +130,15 @@ jobs:
       - run: yarn release:mac
       - persist_to_workspace:
           root: *workspace
-          path: ./dist
+          paths:
+            - dist
+
+  calculate_checksums:
+    <<: *container_config
+    steps:
+      - attach_workspace:
+          at: *workspace
+      - run: ls
 
 workflows:
   version: 2
@@ -137,6 +146,10 @@ workflows:
     jobs:
       - deploy_linux
       - deploy_mac
+      - calculate_checksums:
+          requires:
+            - deploy_linux
+            - deploy_mac
   # build_win:
   #   jobs:
   #     - build_win
