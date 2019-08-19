@@ -84,8 +84,8 @@ jobs:
           key: v6-dependencies-mac-{{ checksum "package.json" }}
           paths:
             - node_modules
-
-  : <<: *container_config
+  test:
+    <<: *container_config
     steps:
       - pre:
           sudo: 'sudo'
@@ -139,8 +139,9 @@ workflows:
   build_mac:
     jobs:
       - build_mac
-  : jobs:
-      -
+  test:
+    jobs:
+      - test
   deploy:
     jobs:
       - deploy_win:
