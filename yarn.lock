@@ -457,6 +457,14 @@
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.14.0.tgz#8edfc5f8e6eae20eeed3ca0d02974ed4ee5e4efc"
   integrity sha512-Fv+0gYJzE/czLoRKq+gnXWr4yBpPM3tO3C8pDLFwqVKlMICQUq5OsxwwFZYDaVr7+L6mgNDp16iOcJHEz3J5RQ==
 
+"@types/xml2js@0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@types/xml2js/-/xml2js-0.4.3.tgz#2f41bfc74d5a4022511721f872ed395a210ad3b7"
+  integrity sha512-Pv2HGRE4gWLs31In7nsyXEH4uVVsd0HNV9i2dyASvtDIlOtSTr1eczPLDpdEuyv5LWH5LT20GIXwPjkshKWI1g==
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
+
 "@typescript-eslint/experimental-utils@^1.13.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-1.13.0.tgz#b08c60d780c0067de2fb44b04b432f540138301e"
@@ -635,17 +643,10 @@ ansi-align@^2.0.0:
   dependencies:
     string-width "^2.0.0"
 
-ansi-escapes@^3.0.0, ansi-escapes@^3.2.0:
+ansi-escapes@3.2.0, ansi-escapes@^3.0.0, ansi-escapes@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.2.0.tgz#8780b98ff9dbf5638152d1f1fe5c1d7b4442976b"
   integrity sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==
-
-ansi-escapes@^4.1.0:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-4.2.1.tgz#4dccdb846c3eee10f6d64dea66273eab90c37228"
-  integrity sha512-Cg3ymMAdN10wOk/VYfLV7KCQyv7EDirJ64500sU7n9UlmioEtDuU5Gd+hj73hXSU/ex7tHJSssmyftDdkMLO8Q==
-  dependencies:
-    type-fest "^0.5.2"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -3941,6 +3942,17 @@ dotenv@^8.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.0.0.tgz#ed310c165b4e8a97bb745b0a9d99c31bda566440"
   integrity sha512-30xVGqjLjiUOArT4+M5q9sYdvuR4riM6yK9wMcas9Vbp6zZa+ocC9dp6QoftuhTPhFAiLK/0C5Ni2nou/Bk8lg==
 
+dotnet-deps-parser@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/dotnet-deps-parser/-/dotnet-deps-parser-4.5.0.tgz#53ef53a058dec156fcdf9008b880ecc9675ddde0"
+  integrity sha512-t6rBxcWVZSDNhhWdsbq9ozaCzfPXV79FiyES1JLNEoA7nYF+zDC2VZvFZSnH8ilU3bghJXxZPH+EcKYvfw8g/g==
+  dependencies:
+    "@types/xml2js" "0.4.3"
+    lodash "^4.17.11"
+    source-map-support "^0.5.7"
+    tslib "^1.9.3"
+    xml2js "0.4.19"
+
 drbg.js@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/drbg.js/-/drbg.js-1.0.1.tgz#3e36b6c42b37043823cdbc332d58f31e2445480b"
@@ -5111,10 +5123,10 @@ file-loader@^1.1.7:
     loader-utils "^1.0.2"
     schema-utils "^0.4.5"
 
-file-type@12.1.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/file-type/-/file-type-12.1.0.tgz#c2938e303bd0f0b96cd98f0f47d7c114de592350"
-  integrity sha512-aZkf42yWGiH+vSOpbVgvbnoRuX4JiitMX9pHYqTHemNQ3lrx64iHi33YGAP7TSJSno56kxQY1lHmw8S6ujlFUg==
+file-type@12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-12.2.0.tgz#bc4bce830e38a96a0ecfea0e2dfcee2855ed1380"
+  integrity sha512-bkDBeH5doAqP69axEO69OviLlWbrZ10Ne2OPHaxBgG+fyT0w/2zfMzJz21SPwq5Iq0aN70q7RN3KRcdUY427Mg==
 
 file-uri-to-path@1, file-uri-to-path@1.0.0:
   version "1.0.0"
@@ -6966,10 +6978,10 @@ istanbul-reports@^1.5.1:
   dependencies:
     handlebars "^4.0.3"
 
-jest-canvas-mock@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-2.1.0.tgz#6aa129f200d448056515d43d4b34027e6bb2fb36"
-  integrity sha512-1yWLNr6xcmhmADLc5ITOYjXnNl2EWUDlXYpplYqgGdATgZaP8IBp241ihVIfrORM8AhuZW8PXRPdzWBEQOpjBQ==
+jest-canvas-mock@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-2.1.1.tgz#fc59b16b093620345c7865f34ef1a16940eec784"
+  integrity sha512-FK/xAFYJmMwyY8IpVrpoHq8Od/99Jmc3g6pnmkhFkYQJoq1Y0ZtEZjs80cREKlxjQxcTMvPpoyGLOmt8KLjlSQ==
   dependencies:
     cssfontparser "^1.2.1"
     parse-color "^1.0.0"
@@ -10662,10 +10674,10 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-scroll@1.7.12:
-  version "1.7.12"
-  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.12.tgz#6bd453d04ec70e03bebe04d8b43b5d91e3d776cc"
-  integrity sha512-hvi3MixtYQC1FADODqWx6MSYaShBbsq7ElQBny/pmzrGtF4ubGLuDOGpzP3mvJjWZ66Cepujt4PBjysYV3itwg==
+react-scroll@1.7.13:
+  version "1.7.13"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.13.tgz#e68c8bfd79e19cb71893e1fc341691ad3411d44e"
+  integrity sha512-DsXuCGZehsbbRVDlBhBT1GtkMR2VzYTqqzd0+swqdbC/rRVYDjleujGDaaUJh9FQMNDEMLB9NEmHLdD2yuyFBA==
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
@@ -10863,10 +10875,10 @@ recharts-scale@^0.4.2:
   dependencies:
     decimal.js-light "^2.4.1"
 
-recharts@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.7.0.tgz#178077c1d2cc1f55d553c81ed5bcc4537d2382a8"
-  integrity sha512-rtP2Vg1/MCSK2UtE4aNFeG8qkl8V3N924dx3CJ3dYSzi/fYx2MTL1deCPqlH6i9rUuBQTDKGgWXtHazicMOptA==
+recharts@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.7.1.tgz#bed7c9427fa0049090447070af185557f5569b06"
+  integrity sha512-i4vK/ZSICr+dXGmaijuNybc+xhctiX0464xnqauY+OvE6WvU5v+0GYciQvD/HJSObkKG4wY8aRtiuUL9YtXnHQ==
   dependencies:
     classnames "^2.2.5"
     core-js "^2.5.1"
@@ -11345,6 +11357,13 @@ rimraf@2, rimraf@2.6.3, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.2, rimraf@^2.5
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.3.tgz#b2d104fe0d8fb27cf9e0a1cda8262dd3833c6cab"
   integrity sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==
+  dependencies:
+    glob "^7.1.3"
+
+rimraf@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.0.tgz#614176d4b3010b75e5c390eb0ee96f6dc0cebb9b"
+  integrity sha512-NDGVxTsjqfunkds7CqsOiEnxln4Bo7Nddl3XhS4pXg5OzwkLqJ971ZVAAnB+DDLnF76N+VnDEiBHaVV8I06SUg==
   dependencies:
     glob "^7.1.3"
 
@@ -11932,12 +11951,13 @@ snyk-nodejs-lockfile-parser@1.16.0:
     tslib "^1.9.3"
     uuid "^3.3.2"
 
-snyk-nuget-plugin@1.11.3:
-  version "1.11.3"
-  resolved "https://registry.yarnpkg.com/snyk-nuget-plugin/-/snyk-nuget-plugin-1.11.3.tgz#38f45b3a2bb97ae7e307726920bcc189b012ea37"
-  integrity sha512-UgLTMr7Vz0qZoL15SkFAUfMb4Vw/qFxf6lBoL2v8xA+Mqdvn2Yu9x/yW659ElFVSUjniqKTFyloKq9/XSv+c+A==
+snyk-nuget-plugin@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/snyk-nuget-plugin/-/snyk-nuget-plugin-1.12.0.tgz#de851a7cba80a5676257ca03c1c84020ae9aca8c"
+  integrity sha512-p11pQQAFr9GBRxxqD3oPasRpYkv6N/eDDQwdjhFBOsgPF+hZf8pIr8ZfrnnCT7XaQ0XeF7Fmj9K0blqEjUV2/g==
   dependencies:
     debug "^3.1.0"
+    dotnet-deps-parser "4.5.0"
     jszip "^3.1.5"
     lodash "^4.17.14"
     snyk-paket-parser "1.5.0"
@@ -12041,16 +12061,16 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@1.216.0:
-  version "1.216.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.216.0.tgz#ff4403d9a7027b3b9e1e3b342fbd5103b8d63aa0"
-  integrity sha512-qjyoW7vcIHgmaF7AK8czecOviPiViFrGE4u5CYdi66NXMSWcoPrU8gBnJtgc1dDCPZhf7jpUYk9RX73Qjl2VFg==
+snyk@1.217.0:
+  version "1.217.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.217.0.tgz#a588b06e406a6970de1f786d0c9a4692d901d4ed"
+  integrity sha512-yjD7vp2XYv5jxCzAJMcnPXbSzeOPqsPzO5dBjKK7GTZb9THXfvzEvW7rWkKY+miWcd50o2exgCLq4eeu1PxKoA==
   dependencies:
     "@snyk/dep-graph" "1.12.0"
     "@snyk/gemfile" "1.2.0"
     "@types/agent-base" "^4.2.0"
     abbrev "^1.1.1"
-    ansi-escapes "^4.1.0"
+    ansi-escapes "3.2.0"
     chalk "^2.4.2"
     configstore "^3.1.2"
     debug "^3.1.0"
@@ -12072,7 +12092,7 @@ snyk@1.216.0:
     snyk-module "1.9.1"
     snyk-mvn-plugin "2.4.0"
     snyk-nodejs-lockfile-parser "1.16.0"
-    snyk-nuget-plugin "1.11.3"
+    snyk-nuget-plugin "1.12.0"
     snyk-php-plugin "1.6.4"
     snyk-policy "1.13.5"
     snyk-python-plugin "^1.13.0"
@@ -13178,11 +13198,6 @@ type-detect@^4.0.0, type-detect@^4.0.5:
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
   integrity sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==
 
-type-fest@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.5.2.tgz#d6ef42a0356c6cd45f49485c3b6281fc148e48a2"
-  integrity sha512-DWkS49EQKVX//Tbupb9TFa19c7+MK1XmzkrZUR8TAktmE/DizXoaoJV6TZ/tSIPXipqNiRI6CyAe7x69Jb6RSw==
-
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"
   resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
@@ -13679,10 +13694,10 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-cli@3.3.6:
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.6.tgz#2c8c399a2642133f8d736a359007a052e060032c"
-  integrity sha512-0vEa83M7kJtxK/jUhlpZ27WHIOndz5mghWL2O53kiDoA9DIxSKnfqB92LoqEn77cT4f3H2cZm1BMEat/6AZz3A==
+webpack-cli@3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.7.tgz#77c8580dd8e92f69d635e0238eaf9d9c15759a91"
+  integrity sha512-OhTUCttAsr+IZSMVwGROGRHvT+QAs8H6/mHIl4SvhAwYywjiylYjpwybGx7WQ9Hkb45FhjtsymkwiRRbGJ1SZQ==
   dependencies:
     chalk "2.4.2"
     cross-spawn "6.0.5"
@@ -13992,7 +14007,7 @@ xml2js@0.4.17:
     sax ">=0.6.0"
     xmlbuilder "^4.1.0"
 
-xml2js@^0.4.17:
+xml2js@0.4.19, xml2js@^0.4.17:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
   integrity sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==
