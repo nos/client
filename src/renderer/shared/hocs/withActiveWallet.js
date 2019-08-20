@@ -6,6 +6,6 @@ const mapAuthDataToProps = ({ wallet }) => ({
   ...wallet
 });
 
-export default function withActiveAccount() {
+export default function withActiveWallet() {
   return withData(authActions, mapAuthDataToProps);
 }

@@ -12,8 +12,7 @@ const getStore = () =>
   createStore({
     [spunkyKey]: {
       auth: mockSpunkyLoaded({
-        address,
-        wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG'
+        wallet: { address, wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG' }
       })
     }
   });

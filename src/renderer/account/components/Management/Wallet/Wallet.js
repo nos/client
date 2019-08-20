@@ -40,6 +40,8 @@ export default class Wallet extends React.PureComponent {
     const { encryptedMnemonic, secretWord } = account;
 
     const coinType = COINS[wallet.coinType];
+
+    // TODO dont hardcode fallback color
     const identityColor = styles[coinType ? coinType.symbol.toLowerCase() : 'nos'];
 
     return (

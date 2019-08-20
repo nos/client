@@ -5,14 +5,15 @@ import { withData, withActions, progressValues } from 'spunky';
 import authActions from 'auth/actions/authActions';
 import walletActions from 'auth/actions/walletActions';
 
-import withActiveAccount from 'shared/hocs/withActiveAccount';
+import withActiveWallet from 'shared/hocs/withActiveWallet';
+
+import withAuthData from 'shared/hocs/withAuthData';
 import { DEFAULT_NET } from 'values/networks';
 
 import withInitialCall from 'shared/hocs/withInitialCall';
 import feeActions from 'settings/actions/feeActions';
 import sendActions from 'shared/actions/sendActions';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import withAuthData from 'shared/hocs/withAuthData';
 import withConfirm from 'shared/hocs/withConfirm';
 import { withInfoToast, withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 import withLoadingProp from 'shared/hocs/withLoadingProp';
@@ -26,17 +27,17 @@ const { LOADING, LOADED, FAILED } = progressValues;
 
 const mapAuthDataToProps = (account) => ({ account });
 
-const mapSendActionsToProps = (actions, props) => ({
+const mapSendActionsToProps = (actions, { net, account, fee, auth: { wallet } }) => ({
   onSend: ({ asset, amount, receiver }) =>
     actions.call({
-      net: props.net,
-      coinType: props.coinType,
-      address: props.address,
-      wif: props.WIF,
-      publicKey: props.publicKey,
-      account: props.account,
-      signingFunction: props.signingFunction,
-      fee: props.fee,
+      net,
+      coinType: wallet.coinType,
+      address: wallet.address,
+      wif: wallet.wif,
+      publicKey: wallet.publicKey,
+      signingFunction: wallet.signingFunction,
+      account,
+      fee,
       asset,
       amount,
       receiver
@@ -55,7 +56,7 @@ export default compose(
   withAuthData(),
   withProps(({ encryptedMnemonic }) => ({ encryptedMnemonic })),
   withNetworkData(),
-  withActiveAccount(),
+  withActiveWallet(),
   withProps(({ net, coinType }) => {
     if (coinType === 111) {
       return { DEFAULT_TOKEN: ARK };
@@ -68,7 +69,7 @@ export default compose(
   withState('asset', 'setAsset', ({ DEFAULT_TOKEN }) => DEFAULT_TOKEN),
 
   withNetworkData(),
-  withActiveAccount(),
+  withAuthData(),
   withData(feeActions, mapFeeDataToProps),
   withActions(sendActions, mapSendActionsToProps),
 

@@ -11,6 +11,8 @@ import injectHeaders from './util/injectHeaders';
 import installExtensions from './util/installExtensions';
 import registerNosProtocol from './util/registerNosProtocol';
 
+import pkg from '../../package.json';
+
 // This wouldn't be necessary if we could call `electron-webpack` directly.  But since we have to
 // use webpack-cli (as a result of using a custom webpack config), we are faking this env var
 // already being assigned.
@@ -47,12 +49,15 @@ function createMainWindow() {
   const framelessConfig = isMac ? { titleBarStyle: 'hidden' } : { frame: false };
 
   // Main Window
-  mainWindow = new BrowserWindow(
-    Object.assign(
-      { width: 1250, height: 720, minWidth: 1250, minHeight: 720, show: false, icon: iconPath },
-      framelessConfig
-    )
-  );
+  mainWindow = new BrowserWindow({
+    width: 1250,
+    height: 720,
+    minWidth: 1250,
+    minHeight: 720,
+    show: false,
+    icon: iconPath,
+    ...framelessConfig
+  });
   mainWindow.loadURL(getWindowPath(__dirname, 'index.html'));
 
   bindApplicationMenu(mainWindow);
@@ -92,7 +97,14 @@ function createSplashWindow() {
   splashWindow.once('ready-to-show', () => {
     splashWindow.show();
 
-    if (isDev) {
+    const pkgVersion = pkg.version.toLowerCase();
+
+    if (
+      isDev ||
+      pkgVersion.includes('rc') ||
+      pkgVersion.includes('beta') ||
+      pkgVersion.includes('alpha')
+    ) {
       createMainWindow();
     } else {
       autoUpdater.allowPrerelease = false;

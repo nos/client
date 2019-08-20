@@ -7,7 +7,7 @@ import { getStorage } from 'shared/lib/storage';
 import { DEFAULT_LANGUAGE } from 'shared/values/languages';
 import { ID as ACCOUNT_ID } from 'auth/actions/accountActions';
 
-const MIN_PASSPHRASE_LEN = 7;
+const MIN_PASSPHRASE_LEN = 6;
 
 export const ID = 'registerForm';
 

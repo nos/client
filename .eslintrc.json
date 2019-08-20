@@ -21,8 +21,11 @@
         "endOfLine": "auto"
       }
     ],
+    "react/jsx-props-no-spreading": "off",
+    "react/static-property-placement": "off",
     "consistent-return": "off",
     "linebreak-style": "off",
+    "react/jsx-fragments": "off",
     "arrow-body-style": ["off"],
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
@@ -36,7 +39,12 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["__mocks__/**/*.js", "__tests__/**/*.js", "config/**/*.js", "scripts/**/*.js"]
+        "devDependencies": [
+          "__mocks__/**/*.js",
+          "__tests__/**/*.js",
+          "config/**/*.js",
+          "scripts/**/*.js"
+        ]
       }
     ],
     "import/order": [

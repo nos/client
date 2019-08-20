@@ -15,7 +15,7 @@ function createDelegate(channel) {
 
       ipcRenderer.once(failureChannel, (event, message) => {
         ipcRenderer.removeAllListeners(successChannel);
-        reject(new Error(message));
+        reject({ message }); // eslint-disable-line
       });
 
       ipcRenderer.sendToHost(channel, id, ...args);
@@ -39,21 +39,4 @@ const api = {
   claimGas: createDelegate('claimGas')
 };
 
-const apiV2 = {
-  // No persmissions required
-  getAddress: createDelegate('getAddress'),
-  getBalance: createDelegate('getBalance'),
-  getStorage: createDelegate('getStorage'),
-  getLastBlock: createDelegate('getLastBlock'),
-  getPublicKey: createDelegate('getPublicKey'),
-  testInvoke: createDelegate('testInvoke'),
-  encrypt: createDelegate('encrypt'),
-  decrypt: createDelegate('decrypt'),
-
-  // Permissions required
-  invoke: createDelegate('invoke'),
-  send: createDelegate('send_v2'),
-  claimGas: createDelegate('claimGas')
-};
-
-module.exports = { api, apiV2 };
+module.exports = api;

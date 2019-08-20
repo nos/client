@@ -7,19 +7,19 @@ references:
 
   container_config: &container_config
     docker:
-      - image: circleci/node:8.16.0
+      - image: circleci/node:10.13.0
     working_directory: *workspace
 
   win_config: &win_config
     docker:
-      - image: electronuserland/builder:wine
+      - image: legiit/electron-builder-wine:node12
         environment:
           TARGET_ARCH: x64
     working_directory: *workspace
 
   mac_config: &mac_config
     macos:
-      xcode: '10.1.0'
+      xcode: '10.3.0'
     working_directory: *workspace
 
 jobs:

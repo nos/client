@@ -23,7 +23,7 @@ const getStore = () =>
   createStore({
     [spunkyKey]: {
       currentNetwork: mockSpunkyLoaded(currentNetwork),
-      auth: mockSpunkyLoaded({ address: currentAddress, wif: currentWif })
+      auth: mockSpunkyLoaded({ wallet: { address: currentAddress, wif: currentWif } })
     }
   });
 

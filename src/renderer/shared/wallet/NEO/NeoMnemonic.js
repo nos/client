@@ -11,7 +11,7 @@ export default class NeoWallet {
     return {
       address,
       privateKey,
-      WIF,
+      wif: WIF,
       publicKey
     };
   };

@@ -21,9 +21,9 @@ const Wallet = ({ encryptedMnemonic, passphrase, wallet }) => {
   const { coinType } = wallet;
   switch (coinType) {
     case NEO:
-      return Object.assign({}, wallet, NeoWallet({ wallet, seed }));
+      return { ...wallet, ...NeoWallet({ wallet, seed }) };
     case ARK:
-      return Object.assign({}, wallet, ArkWallet({ wallet, seed }));
+      return { ...wallet, ...ArkWallet({ wallet, seed }) };
     default:
       throw new Error('Coin not supported.');
   }

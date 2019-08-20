@@ -11,7 +11,7 @@ import {
 import Failed from 'shared/components/Failed';
 import Loading from 'shared/components/Loading';
 
-import withActiveAccount from 'shared/hocs/withActiveAccount';
+import withActiveWallet from 'shared/hocs/withActiveWallet';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
 import transactionHistoryActions from '../../../../actions/transactionHistoryActions';
@@ -35,7 +35,7 @@ const mapTransactionHistoryActionsToProps = (actions, props) => ({
 
 export default compose(
   withNetworkData(),
-  withActiveAccount(),
+  withActiveWallet(),
   withActions(transactionHistoryActions, mapTransactionHistoryActionsToProps),
 
   withCall(transactionHistoryActions),

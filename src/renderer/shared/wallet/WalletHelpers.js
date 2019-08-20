@@ -8,7 +8,7 @@ import { DEFAULT_NET } from 'values/networks';
 import Wallet from './Wallet';
 
 export const ID = 'wallets';
-const walletFilterProps = ['signingFunction', 'WIF', 'privateKey'];
+const walletFilterProps = ['signingFunction', 'wif', 'privateKey'];
 
 const newStorageWallet = ({
   isHardware,
