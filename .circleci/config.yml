@@ -151,7 +151,7 @@ workflows:
           requires:
             - deploy_linux
             - deploy_mac
-            - deploy_windows
+            - deploy_win
   build_win:
     jobs:
       - build_win
