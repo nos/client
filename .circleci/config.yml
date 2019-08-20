@@ -167,7 +167,7 @@ workflows:
       - test
   deploy:
     jobs:
-      - sha_checksums:
+      - calculate_checksums:
           requires:
             - deploy_win
             - deploy_linux
