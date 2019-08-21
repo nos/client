@@ -148,7 +148,7 @@ workflows:
   build_mac:
     jobs:
       - build_mac
-  test:
+  unit_tests:
     jobs:
       - test
   deploy:
