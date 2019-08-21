@@ -132,7 +132,7 @@ jobs:
       - persist_to_workspace:
           root: *workspace
           paths:
-            - dist/*.*
+            - ./dist/*.*
 
   calculate_checksums:
     <<: *container_config
