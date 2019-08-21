@@ -62,7 +62,7 @@ jobs:
   build_win:
     <<: *win_config
     steps:
-      - run: dpkg --add-architecture i386 # needed for 32-bit support
+      # - run: dpkg --add-architecture i386 # needed for 32-bit support
       - pre:
           windows: true
       - run: yarn dist --win --x64 --ia32
@@ -100,10 +100,11 @@ jobs:
       - pre:
           windows: true
       - run: yarn release:win
+      - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
           paths:
-            - ./dist
+            - dist/*.*
 
   deploy_linux:
     <<: *container_config
@@ -111,8 +112,7 @@ jobs:
       - pre:
           sudo: 'sudo'
       - run: yarn release:linux
-      - run: pwd
-      - run: ls
+      - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
           paths:
@@ -128,6 +128,7 @@ jobs:
             - v7-dependencies-mac-
       - run: yarn
       - run: yarn release:mac
+      - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
           paths:
@@ -155,15 +156,15 @@ workflows:
   build_win:
     jobs:
       - build_win
-  build_linux:
-    jobs:
-      - build_linux
-  build_mac:
-    jobs:
-      - build_mac
-  test:
-    jobs:
-      - test
+  # build_linux:
+  #   jobs:
+  #     - build_linux
+  # build_mac:
+  #   jobs:
+  #     - build_mac
+  # test:
+  #   jobs:
+  #     - test
   deploy:
     jobs:
       - calculate_checksums:
