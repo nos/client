@@ -139,7 +139,7 @@ jobs:
     steps:
       - attach_workspace:
           at: *workspace
-      - run: cd ./dist && shasum -a 256 ./*
+      - run: cd ./dist && shasum -a 256 *.*
 
 workflows:
   version: 2
