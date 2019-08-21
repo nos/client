@@ -112,7 +112,6 @@ jobs:
       - pre:
           sudo: 'sudo'
       - run: yarn release:linux
-      - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
           paths:
@@ -128,6 +127,7 @@ jobs:
             - v7-dependencies-mac-
       - run: yarn
       - run: yarn release:mac
+      - run: ls ./dist
       - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
