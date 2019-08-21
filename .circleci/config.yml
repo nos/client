@@ -100,7 +100,6 @@ jobs:
       - pre:
           windows: true
       - run: yarn release:win
-      - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
           paths:
@@ -127,8 +126,6 @@ jobs:
             - v7-dependencies-mac-
       - run: yarn
       - run: yarn release:mac
-      - run: ls ./dist
-      - run: ls ./dist
       - persist_to_workspace:
           root: *workspace
           paths:
@@ -139,8 +136,7 @@ jobs:
     steps:
       - attach_workspace:
           at: *workspace
-      - run: pwd && ls
-      - run: cd ./dist && pwd && ls && shasum -a 256 *.*
+      - run: cd ./dist && shasum -a 256 *.*
 
 workflows:
   version: 2
