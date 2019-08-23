@@ -35,11 +35,11 @@ commands:
         default: false
     steps:
       - checkout
+      - run: chmod -R 777 ~/repo
       - restore_cache:
           keys:
             - v1-dependencies-{{ arch }}-{{ checksum "package.json" }}
             - v1-dependencies-{{ arch }}
-
       - run: << parameters.sudo >> apt-get -y update
       - run: << parameters.sudo >> apt-get -y install libusb-1.0-0
       - when:
