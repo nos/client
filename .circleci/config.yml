@@ -88,6 +88,7 @@ jobs:
     steps:
       - pre:
           sudo: 'sudo'
+      - run: yarn test
       - run: yarn codecov
       - codecov/upload:
           file: ./coverage/lcov.info
