@@ -90,6 +90,7 @@ jobs:
           sudo: 'sudo'
       - run: yarn test
       - run: ls -la
+      - run: ls -la ./coverage
       - run: yarn codecov
       - codecov/upload:
           file: ./coverage/lcov.info
