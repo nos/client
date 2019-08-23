@@ -86,21 +86,21 @@ Resources:
 
 # Releasing
 
-## Windows & Linux
+## Automated Deployment
 
 We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create builds based upon git tags.
 
-1. Create a tag, e.g. `v1.0.0`.
-   1. `git tag -a v1.0.0 -m "release"` - the `v`-prefix is required for auto updates to work
-   2. `git push origin v1.0.0`
-2. Wait for `deploy_win64` and `deploy_linux` jobs to upload the artifacts to Github Release page as a draft.
+1. run `yarn release --dry-run` - Note if the output version tag/changelog is correctly generated.
+2. run `yarn release` - This will generate the changelog, update the version in package.json and create and push a tag.
+3. The deploys jobs will be triggered and upload the artifacts to Github Release page as a draft.
 
-## macOS
+## Manual Deployment: macOS
 
 1. Export the following variables:
    1. `CSC_LINK` - This is the path to the .p12 certificate file
    2. `CSC_KEY_PASSWORD` - This is the password of the .p12 certificate file
    3. `CSC_IDENTITY_AUTO_DISCOVERY` - Set to `false` to disable usage of local keychain (By default it looks in your `login` keychain)
+   4. `GH_TOKEN` - This is used to upload the artifacts to Github
 2. Create the distributable, i.e. `yarn dist`.
 3. Locate and upload the following files as these are required for the auto-updater to work:
    1. `dist/nOS-1.0.0-mac.zip`
@@ -108,5 +108,26 @@ We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create bu
    3. `dist/nOS-1.0.0-mac.dmg.blockmap`
    4. `dist/latest-mac.yml`
 
-##### Generating hashes for the artifacts
-- MacOS: `shasum -a 256 ./*` - Where the final argument is the location of the artifacts
+## Manual Deployment: Linux
+
+1. Create the distributable, i.e. `yarn dist`.
+2. Locate and upload the following files as these are required for the auto-updater to work:
+   1. `dist/nOS-1.0.0-linux-amd64.snap`
+   2. `dist/nOS-1.0.0-linux-x86_64.AppImage`
+   3. `dist/latest-linux.yml`
+
+## Manual Deployment: Windows
+
+1. Export the following variables:
+   1. `WIN_CSC_LINK` - This is the certificate file in text format
+   2. `WIN_CSC_KEY_PASSWORD` - This is the password of the certificate file
+   3. `GH_TOKEN` - This is used to upload the artifacts to Github
+2. Create the distributable, i.e. `yarn dist`.
+3. Locate and upload the following files as these are required for the auto-updater to work:
+   1. `dist/nOS-1.0.0-win.exe`
+   2. `dist/nOS-1.0.0-win.exe.blockmap`
+   3. `dist/latest.yml`
+
+### Generating hashes for the artifacts
+
+- MacOS/Linux: `shasum -a 256 ./*` - Where the final argument is the location of the artifacts
