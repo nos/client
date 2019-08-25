@@ -3,6 +3,7 @@
   "ignoreDeps": ["@ledgerhq/hw-transport-node-hid"],
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
+  "semanticCommitType": "renovate",
   "statusCheckVerify": true,
   "packageRules": [
     {

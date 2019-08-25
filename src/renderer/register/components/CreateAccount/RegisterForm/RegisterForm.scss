@@ -7,18 +7,25 @@
     font-size: 12px;
   }
 
-  .checkbox {
-    background: transparent;
-    box-shadow: none;
-    width: auto;
-    
-    @include theme(DARK) {
-      background: transparent;
-      box-shadow: none;
+  .checkboxContainer {
+    :first-child {
+      margin-bottom: 2px;
     }
 
-    input {
+    .checkbox {
+      background: transparent;
+      box-shadow: none;
       width: auto;
+
+      @include theme(DARK) {
+        background: transparent;
+        box-shadow: none;
+      }
+
+      input {
+        width: auto;
+        max-width: 12px;
+      }
     }
   }
 
