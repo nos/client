@@ -73,7 +73,7 @@ export default class LedgerView extends React.PureComponent {
     const { onCancel, previousStep } = this.props;
 
     const sidePanelText =
-      'Connect your ledger and launch the NEO app. This will enable you to select an address for wallet.';
+      'Connect your ledger and launch the NEO app. This will enable you to select an address for your wallet.';
 
     return (
       <AuthPanel

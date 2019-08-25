@@ -1,5 +1,5 @@
 import { compose, withState } from 'recompose';
-import { withActions, progressValues, withData } from 'spunky';
+import { withActions, progressValues } from 'spunky';
 
 import withLoadingProp from 'shared/hocs/withLoadingProp';
 import { withErrorToast } from 'shared/hocs/withToast';
@@ -7,27 +7,22 @@ import withProgressChange from 'shared/hocs/withProgressChange';
 import pureStrategy from 'shared/hocs/strategies/pureStrategy';
 import registerFormActions from 'register/actions/registerFormActions';
 
-import RegisterForm from './RegisterForm';
+import ImportView from './ImportView';
 
 const { FAILED, LOADED } = progressValues;
+
+const emptyMnemonicWordArray = Array(24).fill('');
 
 const mapRegisterActionsToProps = (actions) => ({
   storeFormData: (data) => actions.call(data)
 });
 
-const mapRegisterDataToProps = (data) => data;
-
 export default compose(
   withActions(registerFormActions, mapRegisterActionsToProps),
   withLoadingProp(registerFormActions, { strategy: pureStrategy }),
-  withData(registerFormActions, mapRegisterDataToProps),
 
-  withState('accountLabel', 'setAccountLabel', ({ accountLabel }) => accountLabel || ''),
-  withState('passphrase', 'setPassphrase', ({ passphrase }) => passphrase || ''),
-  withState('passphraseConfirm', 'setPassphraseConfirm', ''),
-  withState('secretWord', 'setSecretWord', ({ secretWord }) => secretWord || ''),
-  withState('isHardware', 'setIsHardware', ({ isHardware }) => isHardware || false),
-  withState('isImport', 'setIsImport', ({ isImport }) => isImport || false),
+  withState('mnemonic', 'setMnemonic', ({ mnemonic }) => mnemonic || emptyMnemonicWordArray),
+
   withErrorToast(),
   withProgressChange(registerFormActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);
@@ -35,4 +30,4 @@ export default compose(
   withProgressChange(registerFormActions, LOADED, (state, props) => {
     props.nextStep();
   })
-)(RegisterForm);
+)(ImportView);
