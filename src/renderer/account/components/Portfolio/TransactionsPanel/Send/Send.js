@@ -9,7 +9,7 @@ import { Identities } from '@arkecosystem/crypto';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
-import { NEO, NOS } from 'shared/values/assets';
+import { NEO, NOS, ARK } from 'shared/values/assets';
 
 import ConversionInput from './ConversionInput';
 import PriorityFee from './PriorityFee';
@@ -164,7 +164,7 @@ export default class Send extends React.PureComponent {
     let validAddress;
     if (asset === NEO || asset === NOS) {
       validAddress = wallet.isAddress(receiver);
-    } else if (asset === 'ARK') {
+    } else if (asset === ARK) {
       const networkVersion = 0x17;
       validAddress = Identities.Address.validate(receiver, networkVersion);
     }

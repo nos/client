@@ -8,7 +8,7 @@ import getRPCEndpoint from 'util/getRPCEndpoint';
 import getTokens from './getTokens';
 import { GAS, NEO, NOS, ASSETS } from '../values/assets';
 
-import getARKBalance from './ARK/getARKBalance';
+import getARKBalance from './ARK/getArkBalance';
 
 const CHUNK_SIZE = 18;
 
