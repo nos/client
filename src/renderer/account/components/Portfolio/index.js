@@ -6,9 +6,8 @@ import currencyActions from 'settings/actions/currencyActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withAuthData from 'shared/hocs/withAuthData';
 import withNetworkData from 'shared/hocs/withNetworkData';
-import { withErrorToast } from 'shared/hocs/withToast';
-import withLoadingProp from 'shared/hocs/withLoadingProp';
 import withActiveWallet from 'shared/hocs/withActiveWallet';
+import withWallets from 'shared/hocs/withWallets';
 
 import Portfolio from './Portfolio';
 import balanceWithPricesActions from '../../actions/balanceWithPricesActions';
@@ -17,18 +16,14 @@ const mapCurrencyDataToProps = (currency) => ({ currency });
 
 export default compose(
   withData(currencyActions, mapCurrencyDataToProps),
+  withWallets(),
   withAuthData(),
   withNetworkData(),
   withActiveWallet(),
-  withInitialCall(claimableActions, ({ net, address }) => ({ net, address })),
-  withInitialCall(balanceWithPricesActions, ({ currency, net, address, coinType }) => ({
+  withInitialCall(claimableActions, ({ net, wallet: { address } }) => ({ net, address })),
+  withInitialCall(balanceWithPricesActions, ({ currency, net, account }) => ({
     currency,
     net,
-    address,
-    coinType
-  })),
-
-  withLoadingProp(claimableActions),
-  withLoadingProp(balanceWithPricesActions),
-  withErrorToast()
+    account
+  }))
 )(Portfolio);

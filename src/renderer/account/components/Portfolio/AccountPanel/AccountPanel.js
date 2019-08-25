@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { number, string, arrayOf, objectOf } from 'prop-types';
 
 import Panel from 'shared/components/Panel';
+import walletShape from 'auth/shapes/walletShape';
 
 import AccountAddress from './AccountAddress';
 import Breakdown from './Breakdown';
@@ -11,7 +12,8 @@ import balanceShape from '../../../shapes/balanceShape';
 import styles from './AccountPanel.scss';
 
 export default function AccountPanel(props) {
-  const { className, address, claimable, balances, prices, currency, coinType } = props;
+  const { className, claimable, balances, prices, currency, wallet } = props;
+  const { address, coinType } = wallet;
 
   return (
     <Panel className={classNames(styles.accountPanel, className)}>
@@ -38,12 +40,11 @@ export default function AccountPanel(props) {
 
 AccountPanel.propTypes = {
   className: string,
-  address: string.isRequired,
+  wallet: walletShape.isRequired,
   claimable: string.isRequired,
   balances: arrayOf(balanceShape).isRequired,
   prices: objectOf(number).isRequired,
-  currency: string.isRequired,
-  coinType: number.isRequired
+  currency: string.isRequired
 };
 
 AccountPanel.defaultProps = {

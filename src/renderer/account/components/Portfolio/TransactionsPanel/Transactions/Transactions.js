@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { string, func } from 'prop-types';
 import { isEmpty } from 'lodash';
 
+import walletShape from 'auth/shapes/walletShape';
+
 import Transaction from './Transaction';
 import transactionHistoryShape from '../../../../shapes/transactionHistoryShape';
 
@@ -11,7 +13,7 @@ import styles from './Transactions.scss';
 export default class Transactions extends React.PureComponent {
   static propTypes = {
     className: string,
-    address: string.isRequired,
+    wallet: walletShape.isRequired,
     transactionHistory: transactionHistoryShape.isRequired,
     handleFetchAdditionalTxData: func.isRequired
   };
@@ -21,7 +23,8 @@ export default class Transactions extends React.PureComponent {
   };
 
   render() {
-    const { className, transactionHistory, address } = this.props;
+    const { className, transactionHistory, wallet } = this.props;
+    const { address } = wallet;
 
     return (
       <div className={classNames(styles.transactions, className)} onScroll={this.handleScroll}>

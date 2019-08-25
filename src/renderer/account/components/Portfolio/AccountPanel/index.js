@@ -14,7 +14,9 @@ const mapCurrencyDataToProps = (currency) => ({ currency });
 
 export default compose(
   withActiveWallet(),
-  withProps(({ net, coinType }) => {
+  withProps(({ net, wallet }) => {
+    const { coinType } = wallet;
+
     if (coinType === 111) {
       return { DEFAULT_TOKEN: ARK };
     }

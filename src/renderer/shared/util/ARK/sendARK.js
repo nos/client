@@ -25,11 +25,8 @@ export default async function sendARK({
   if (amount <= 0) {
     throw new Error(`Invalid amount: "${amount}"`);
   }
-  // console.log('encryptedMnemonic: ', encryptedMnemonic);
   // const mnemonic = attempt(simpleDecrypt, encryptedMnemonic);
-  // console.log('mnemonic: ', mnemonic);
 
-  // console.log(wif);
   const send = async () => {
     // https://github.com/ArkEcosystem/core/blob/1cbc2a05a596340d4f261d162b8f426815908db6/packages/crypto/src/transactions/builders/transactions/transaction.ts
     const transaction = Transactions.BuilderFactory.transfer() // specify 'transfer' as our AIP11 transaction type

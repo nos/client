@@ -1,5 +1,5 @@
 /* eslint-disable import/no-named-as-default-member */
-import { get, find, map, mapValues, chunk, filter, extend } from 'lodash';
+import { get, find, map, mapValues, chunk, filter, extend, reduce } from 'lodash';
 import { u, sc, rpc, wallet } from '@cityofzion/neon-js';
 import { Identities } from '@arkecosystem/crypto';
 
@@ -76,17 +76,30 @@ async function getAssetBalances(endpoint, address) {
   };
 }
 
-export default async function getBalances({ net, address, coinType }) {
-  const networkVersion = 0x17;
-  if (coinType === 888 && wallet.isAddress(address)) {
-    // NEO
-    const endpoint = await getRPCEndpoint(net);
-    const assets = await getAssetBalances(endpoint, address);
-    const tokens = await getTokenBalances(endpoint, address);
-    return { ...assets, ...tokens };
-  } else if (coinType === 111 && Identities.Address.validate(address, networkVersion)) {
-    // ARK
-    const assets = await getARKBalance({ address });
-    return { ...assets };
-  } else throw new Error(`Invalid address: "${address}"`);
+export default async function getBalances({ net, wallets }) {
+  const promises = map(wallets, async ({ address, coinType }) => {
+    const networkVersion = 0x17;
+    if (coinType === 888 && wallet.isAddress(address)) {
+      // NEO
+      const endpoint = await getRPCEndpoint(net);
+      const assets = await getAssetBalances(endpoint, address);
+      const tokens = await getTokenBalances(endpoint, address);
+      return { ...assets, ...tokens };
+    } else if (coinType === 111 && Identities.Address.validate(address, networkVersion)) {
+      // ARK
+      const assets = await getARKBalance({ address });
+      return { ...assets };
+    } else throw new Error(`Invalid address: "${address}"`);
+  });
+
+  const resolved = await Promise.all(promises);
+
+  return reduce(
+    resolved,
+    (prev, balance) => ({
+      ...prev,
+      ...balance
+    }),
+    {}
+  );
 }

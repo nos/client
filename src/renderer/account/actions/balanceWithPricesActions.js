@@ -3,6 +3,7 @@ import { reduce } from 'lodash';
 import CoinGecko from 'coingecko-api';
 
 import getBalances from 'shared/util/getBalances';
+import { getWalletsForAccount } from 'shared/wallet/WalletHelpers';
 
 const coinGeckoClient = new CoinGecko();
 
@@ -17,8 +18,10 @@ function mapPrices(tickers) {
   );
 }
 
-async function getBalanceWithPrices({ currency, net, address, coinType }) {
-  const balances = await getBalances({ net, address, coinType });
+async function getBalanceWithPrices({ currency, account, net }) {
+  const wallets = await getWalletsForAccount({ accountLabel: account.accountLabel });
+  const balances = await getBalances({ net, wallets });
+
   const coinListResult = await coinGeckoClient.coins.list();
   if (!coinListResult.success) {
     throw new Error(coinListResult.message);
@@ -44,8 +47,8 @@ async function getBalanceWithPrices({ currency, net, address, coinType }) {
   return { balances, prices };
 }
 
-export const ID = 'balacewithprices';
+export const ID = 'balanceswithprices';
 
-export default createActions(ID, ({ currency, net, address, coinType }) => {
-  return () => getBalanceWithPrices({ currency, net, address, coinType });
+export default createActions(ID, (data) => {
+  return () => getBalanceWithPrices(data);
 });

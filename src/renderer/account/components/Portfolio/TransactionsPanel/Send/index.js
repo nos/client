@@ -57,7 +57,9 @@ export default compose(
   withProps(({ encryptedMnemonic }) => ({ encryptedMnemonic })),
   withNetworkData(),
   withActiveWallet(),
-  withProps(({ net, coinType }) => {
+  withProps(({ net, wallet }) => {
+    const { coinType } = wallet;
+
     if (coinType === 111) {
       return { DEFAULT_TOKEN: ARK };
     }

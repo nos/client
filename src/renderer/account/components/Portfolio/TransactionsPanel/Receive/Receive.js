@@ -6,13 +6,14 @@ import { string, func } from 'prop-types';
 import { noop } from 'lodash';
 
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
+import walletShape from 'auth/shapes/walletShape';
 
 import styles from './Receive.scss';
 
 export default class Receive extends React.PureComponent {
   static propTypes = {
     className: string,
-    address: string.isRequired,
+    wallet: walletShape.isRequired,
     showInfoToast: func
   };
 
@@ -22,7 +23,8 @@ export default class Receive extends React.PureComponent {
   };
 
   render() {
-    const { className, address } = this.props;
+    const { className, wallet } = this.props;
+    const { address } = wallet;
 
     return (
       <div className={classNames(styles.receive, className)}>
