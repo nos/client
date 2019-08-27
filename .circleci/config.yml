@@ -30,7 +30,8 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v2-dependencies-windows-{{ checksum "package.json" }}
+            - v1-dependencies-windows-{{ checksum "package.json" }}
+            - v1-dependencies-windows
       - run: apt-get -y update
       - run: apt-get -y install libusb-1.0-0
       - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
@@ -42,7 +43,8 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v2-dependencies-linux-{{ checksum "package.json" }}
+            - v1-dependencies-linux-{{ checksum "package.json" }}
+            - v1-dependencies-linux
       - run: sudo apt-get -y update
       - run: sudo apt-get -y install libusb-1.0-0
       - run: yarn
@@ -53,7 +55,8 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v2-dependencies-mac-{{ checksum "package.json" }}
+            - v1-dependencies-mac-{{ checksum "package.json" }}
+            - v1-dependencies-mac
       - run: yarn
 
 jobs:
@@ -63,25 +66,27 @@ jobs:
       - pre-linux
       - run: yarn dist --linux
       - save_cache:
-          key: v2-dependencies-linux-{{ checksum "package.json" }}
+          key: v1-dependencies-linux-{{ checksum "package.json" }}
           paths:
             - node_modules
+
   build_windows:
     <<: *windows_config
     steps:
       - pre-windows
       - run: yarn dist --win --x64 --ia32
       - save_cache:
-          key: v2-dependencies-windows-{{ checksum "package.json" }}
+          key: v1-dependencies-windows-{{ checksum "package.json" }}
           paths:
             - node_modules
+
   build_mac:
     <<: *mac_config
     steps:
       - pre-mac
       - run: yarn dist --mac
       - save_cache:
-          key: v2-dependencies-mac-{{ checksum "package.json" }}
+          key: v1-dependencies-mac-{{ checksum "package.json" }}
           paths:
             - node_modules
 
