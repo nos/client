@@ -91,7 +91,7 @@
     "snyk-test": "snyk test"
   },
   "devDependencies": {
-    "babel-eslint": "10.0.2",
+    "babel-eslint": "10.0.3",
     "babel-jest": "23.6.0",
     "babel-plugin-dynamic-import-node": "2.3.0",
     "babel-plugin-module-resolver": "3.2.0",
