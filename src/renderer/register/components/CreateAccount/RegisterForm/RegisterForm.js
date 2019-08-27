@@ -18,12 +18,14 @@ export default class RegisterForm extends React.PureComponent {
     passphraseConfirm: string,
     secretWord: string,
     isHardware: bool,
+    isImport: bool,
     setAccountLabel: func,
     setPassphrase: func,
     setPassphraseConfirm: func,
     setSecretWord: func,
     storeFormData: func,
-    setIsHardware: func
+    setIsHardware: func,
+    setIsImport: func
   };
 
   static defaultProps = {
@@ -38,7 +40,9 @@ export default class RegisterForm extends React.PureComponent {
     setSecretWord: noop,
     storeFormData: noop,
     setIsHardware: noop,
-    isHardware: false
+    setIsImport: noop,
+    isHardware: false,
+    isImport: false
   };
 
   render = () => {
@@ -48,7 +52,8 @@ export default class RegisterForm extends React.PureComponent {
       passphraseConfirm,
       secretWord,
       loading,
-      isHardware
+      isHardware,
+      isImport
     } = this.props;
 
     return (
@@ -96,34 +101,62 @@ export default class RegisterForm extends React.PureComponent {
         />
 
         <div className={classNames(styles.horizontal, styles.bottom)}>
-          <Input
-            id="isHardware"
-            type="checkbox"
-            checked={isHardware}
-            disabled={loading}
-            onChange={this.handleChangeIsHardware}
-            renderAfter={this.renderCheckboxLabel}
-            className={styles.checkbox}
-          />
+          <div className={styles.checkboxContainer}>
+            <Input
+              id="isImport"
+              type="checkbox"
+              checked={isImport}
+              disabled={loading}
+              onChange={this.handleChangeIsImport}
+              renderAfter={this.renderImportLabel}
+              className={styles.checkbox}
+            />
+            <Input
+              id="isHardware"
+              type="checkbox"
+              checked={isHardware}
+              disabled={loading}
+              onChange={this.handleChangeIsHardware}
+              renderAfter={this.renderLedgerLabel}
+              className={styles.checkbox}
+            />
+          </div>
 
           <PrimaryButton
             className={styles.button}
             type="submit"
             disabled={loading || !this.isValid()}
           >
-            {isHardware ? 'Next: Connect Ledger' : 'Next: Recovery Seed'}
+            {this.renderButtonMessage()}
           </PrimaryButton>
         </div>
       </form>
     );
   };
 
-  renderCheckboxLabel = () => {
-    return <Label htmlFor="isHardware" label="Use Ledger for next step" className={styles.label} />;
+  renderButtonMessage = () => {
+    const { isHardware, isImport } = this.props;
+    if (isHardware) return 'Next: connect Ledger';
+    if (isImport) return 'Next: import seed';
+    return 'Next: recovery seed';
+  };
+
+  renderImportLabel = () => {
+    return <Label htmlFor="isImport" label="Use existing seed" className={styles.label} />;
+  };
+
+  renderLedgerLabel = () => {
+    return <Label htmlFor="isHardware" label="Use a Ledger" className={styles.label} />;
+  };
+
+  handleChangeIsImport = () => {
+    this.props.setIsImport(!this.props.isImport);
+    this.props.setIsHardware(false);
   };
 
   handleChangeIsHardware = () => {
     this.props.setIsHardware(!this.props.isHardware);
+    this.props.setIsImport(false);
   };
 
   handleChangeSecretWord = (event) => {
@@ -149,7 +182,8 @@ export default class RegisterForm extends React.PureComponent {
       secretWord,
       passphraseConfirm,
       storeFormData,
-      isHardware
+      isHardware,
+      isImport
     } = this.props;
 
     event.preventDefault();
@@ -158,7 +192,8 @@ export default class RegisterForm extends React.PureComponent {
       passphrase,
       passphraseConfirm,
       secretWord,
-      isHardware
+      isHardware,
+      isImport
     });
   };
 

@@ -3,27 +3,20 @@ import { func, bool } from 'prop-types';
 
 import registerShape from 'register/shapes/registerShape';
 
-import MnemonicView from './MnemonicView';
+import ImportView from './ImportView';
 import LedgerView from './LedgerView';
+import MnemonicView from './MnemonicView';
 
 const AccountView = ({ onCancel, account, previousStep, nextStep, loading }) => {
-  return account.isHardware ? (
-    <LedgerView
-      account={account}
-      nextStep={nextStep}
-      previousStep={previousStep}
-      onCancel={onCancel}
-      loading={loading}
-    />
-  ) : (
-    <MnemonicView
-      account={account}
-      nextStep={nextStep}
-      previousStep={previousStep}
-      onCancel={onCancel}
-      loading={loading}
-    />
-  );
+  const { isHardware, isImport } = account;
+
+  const nextProps = { account, nextStep, previousStep, onCancel, loading };
+
+  if (isHardware) return <LedgerView {...nextProps} />;
+
+  if (isImport) return <ImportView {...nextProps} />;
+
+  return <MnemonicView {...nextProps} />;
 };
 
 AccountView.propTypes = {

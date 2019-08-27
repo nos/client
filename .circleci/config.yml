@@ -6,12 +6,12 @@ orbs:
 references:
   workspace: &workspace ~/repo
 
-  container_config: &container_config
+  linux_config: &linux_config
     docker:
       - image: circleci/node:10.16.3
     working_directory: *workspace
 
-  win_config: &win_config
+  windows_config: &windows_config
     docker:
       - image: legiit/electron-builder-wine:node12
         environment:
@@ -24,81 +24,85 @@ references:
     working_directory: *workspace
 
 commands:
-  pre:
-    description: 'Setting up and building environment'
-    parameters:
-      sudo:
-        type: string
-        default: ''
-      windows:
-        type: boolean
-        default: false
+  pre-windows:
+    description: 'Setting up and building environment for windows'
     steps:
       - checkout
-      - run: chmod -R 777 ~/repo
       - restore_cache:
           keys:
-            - v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
-            - v2-dependencies-{{ arch }}
-      - run: << parameters.sudo >> apt-get -y update
-      - run: << parameters.sudo >> apt-get -y install libusb-1.0-0
-      - when:
-          condition: <<parameters.windows>>
-          steps:
-            - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
+            - v1-dependencies-windows-{{ checksum "package.json" }}
+            - v1-dependencies-windows
+      - run: apt-get -y update
+      - run: apt-get -y install libusb-1.0-0
+      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
+      - run: yarn
+
+  pre-linux:
+    description: 'Setting up and building environment for linux'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-linux-{{ checksum "package.json" }}
+            - v1-dependencies-linux
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install libusb-1.0-0
+      - run: yarn
+
+  pre-mac:
+    description: 'Setting up and building environment for mac'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-mac-{{ checksum "package.json" }}
+            - v1-dependencies-mac
       - run: yarn
 
 jobs:
   build_linux:
-    <<: *container_config
+    <<: *linux_config
     steps:
-      - pre:
-          sudo: 'sudo'
+      - pre-linux
       - run: yarn dist --linux
-      - run: chmod -R 777 ~/repo
       - save_cache:
-          key: v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+          key: v1-dependencies-linux-{{ checksum "package.json" }}
           paths:
             - node_modules
-  build_win:
-    <<: *win_config
+
+  build_windows:
+    <<: *windows_config
     steps:
-      - pre:
-          windows: true
+      - pre-windows
       - run: yarn dist --win --x64 --ia32
       - save_cache:
-          key: v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+          key: v1-dependencies-windows-{{ checksum "package.json" }}
           paths:
             - node_modules
+
   build_mac:
     <<: *mac_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
-            - v2-dependencies-{{ arch }}
-      - run: yarn
+      - pre-mac
       - run: yarn dist --mac
       - save_cache:
-          key: v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
+          key: v1-dependencies-mac-{{ checksum "package.json" }}
           paths:
             - node_modules
-  test:
-    <<: *container_config
+
+  unit_tests:
+    <<: *linux_config
     steps:
-      - pre:
-          sudo: 'sudo'
+      - pre-linux
       - run: yarn test
       - run: yarn codecov
       - codecov/upload:
           file: ./coverage/lcov.info
 
-  deploy_win:
-    <<: *win_config
+  deploy_windows:
+    <<: *windows_config
     steps:
-      - pre:
-          windows: true
+      - pre-windows
       - run: yarn release:win
       - persist_to_workspace:
           root: *workspace
@@ -106,10 +110,9 @@ jobs:
             - dist/*.*
 
   deploy_linux:
-    <<: *container_config
+    <<: *linux_config
     steps:
-      - pre:
-          sudo: 'sudo'
+      - pre-linux
       - run: yarn release:linux
       - persist_to_workspace:
           root: *workspace
@@ -119,12 +122,7 @@ jobs:
   deploy_mac:
     <<: *mac_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v2-dependencies-{{ arch }}-{{ checksum "package.json" }}
-            - v2-dependencies-{{ arch }}
-      - run: yarn
+      - pre-mac
       - run: yarn release:mac
       - persist_to_workspace:
           root: *workspace
@@ -132,7 +130,7 @@ jobs:
             - ./dist/*.*
 
   calculate_checksums:
-    <<: *container_config
+    <<: *linux_config
     steps:
       - attach_workspace:
           at: *workspace
@@ -140,26 +138,22 @@ jobs:
 
 workflows:
   version: 2
-  build_win:
+  platform_builds:
     jobs:
-      - build_win
-  build_linux:
-    jobs:
+      - build_windows
       - build_linux
-  build_mac:
-    jobs:
       - build_mac
-  unit_tests:
+  platform_tests:
     jobs:
-      - test
+      - unit_tests
   deploy:
     jobs:
       - calculate_checksums:
           requires:
-            - deploy_win
+            - deploy_windows
             - deploy_linux
             - deploy_mac
-      - deploy_win:
+      - deploy_windows:
           filters:
             branches:
               ignore: /.*/
