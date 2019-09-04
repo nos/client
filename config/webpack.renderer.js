@@ -36,10 +36,11 @@ function replaceSassLoader(config) {
       {
         loader: 'css-loader',
         options: {
-          modules: true,
+          modules: {
+            localIdentName: '[name]__[local]___[hash:base64:5]'
+          },
           sourceMap: !isProd,
-          importLoaders: 1,
-          localIdentName: '[name]__[local]___[hash:base64:5]'
+          importLoaders: 1
         }
       },
       ...minimize,

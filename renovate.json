@@ -4,6 +4,7 @@
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
   "semanticCommitType": "renovate",
+  "semanticCommits": true,
   "statusCheckVerify": true,
   "packageRules": [
     {
