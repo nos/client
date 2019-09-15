@@ -77,11 +77,18 @@ export default class Wallet extends React.PureComponent {
     return (
       <div className={styles.left}>
         <div className={styles.icon}>{this.renderIcon()}</div>
-        <div>
-          <div className={styles.title}>
-            {coinName} Account {wallet.index + 1}
+        <div className={styles.wrapper}>
+          <div
+            className={styles.title}
+            contentEditable="true"
+            onBlur={this.handleChangeLabel}
+            suppressContentEditableWarning="true"
+          >
+            {wallet.walletLabel || 'Wallet'}
           </div>
-          <div className={styles.subtitle}>Wallet</div>
+          <div className={styles.subtitle}>
+            {coinName} Wallet {!wallet.isImport ? wallet.index + 1 : ''}
+          </div>
         </div>
       </div>
     );
@@ -119,6 +126,16 @@ export default class Wallet extends React.PureComponent {
       default:
         return <KeyChainIcon />;
     }
+  };
+
+  handleChangeLabel = (e) => {
+    const { wallet, account, updateWallet } = this.props;
+    const newWallet = {
+      ...wallet,
+      walletLabel: e.target.innerHTML
+    };
+
+    updateWallet({ account, wallet: newWallet });
   };
 
   handleSetPrimary = () => {

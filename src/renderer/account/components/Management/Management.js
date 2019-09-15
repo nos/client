@@ -46,8 +46,18 @@ export default class Management extends React.PureComponent {
     <React.Fragment>
       <div className={styles.heading}>
         <div className={styles.title}>My Account</div>
-        <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
-          New Address
+        <div className={styles.subHeader}>
+          <div
+            className={styles.link}
+            role="button"
+            tabIndex={0}
+            onClick={this.handleImportAccount}
+          >
+            Import Wallet
+          </div>
+          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+            New Wallet
+          </div>
         </div>
       </div>
       {!account.isHardware && (
@@ -63,6 +73,17 @@ export default class Management extends React.PureComponent {
       title: 'Add a New Wallet',
       className: styles.modal,
       account
+    });
+  };
+
+  handleImportAccount = () => {
+    const { newWallet, account } = this.props;
+
+    newWallet(<div />, {
+      title: 'Import a New Wallet',
+      className: styles.modal,
+      account,
+      isImport: true
     });
   };
 }

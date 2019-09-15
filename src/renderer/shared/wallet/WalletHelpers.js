@@ -1,5 +1,6 @@
 import uuid from 'uuid/v4';
 import { isEmpty, omit, reduce, filter } from 'lodash';
+import { uniqueNamesGenerator } from 'unique-names-generator';
 
 import { getStorage, setStorage } from 'shared/lib/storage';
 import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
@@ -18,8 +19,9 @@ const newStorageWallet = ({
   net = DEFAULT_NET,
   account = 0,
   change = 0,
-  walletLabel = '',
-  publicKey
+  walletLabel = uniqueNamesGenerator({ length: 2, separator: ' ' }),
+  publicKey,
+  isImport = false
 }) => {
   if (!coinType) {
     throw new Error('coinType is required.');
@@ -34,24 +36,30 @@ const newStorageWallet = ({
     account,
     change,
     net,
+    isImport,
     publicKey // present with hardware wallets
   };
 
   return storageWallet;
 };
 
-const storeWalletForAccount = async ({ accountLabel, wallet }) => {
+const storeWalletForAccount = async ({
+  accountLabel,
+  wallet,
+  omitItems = true,
+  update = false
+}) => {
   const { walletId } = wallet;
   const storageId = `${ID}-${accountLabel}`;
 
   const wallets = await getStorage(storageId);
-  if (!isEmpty(wallets[walletId])) {
+  if (!update && !isEmpty(wallets[walletId])) {
     throw new Error(`Wallet with id ${walletId} for account ${accountLabel} already exists.`);
   }
 
   await setStorage(storageId, {
     ...wallets,
-    [walletId]: omit(wallet, walletFilterProps)
+    [walletId]: omitItems ? omit(wallet, walletFilterProps) : wallet
   });
 };
 
@@ -92,7 +100,37 @@ const addWalletToAccount = async ({ account, passphrase, options }) => {
   return initializedWallet;
 };
 
+// TODO integrate with addWalletToAccount
+const importWalletToAccount = async ({ account, passphrase, options }) => {
+  const { encryptedMnemonic, accountLabel } = account;
+  const { coinType, privateKey } = options;
+
+  const existingWallets = await getWalletsForAccount({ accountLabel });
+  const latestAccount = reduce(filter(existingWallets, { coinType }), (max, obj) => {
+    return obj.index < max.index ? obj : max;
+  }) || { index: -1 };
+
+  // Create "dull" wallet with options
+  const wallet = newStorageWallet({
+    ...options,
+    index: -Math.abs(latestAccount.index - 1)
+  });
+
+  // Initialize a "dull"/storage wallet for an account
+  const initializedWallet = await Wallet({
+    encryptedMnemonic,
+    passphrase,
+    wallet: { ...wallet, privateKey }
+  });
+
+  // Store either a "dull" or active wallet for an account
+  await storeWalletForAccount({ accountLabel, wallet: initializedWallet, omitItems: false });
+
+  return initializedWallet;
+};
+
 export {
+  importWalletToAccount,
   addWalletToAccount,
   newStorageWallet,
   storeWalletForAccount,
