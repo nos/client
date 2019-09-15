@@ -27,7 +27,8 @@ export default class Wallet extends React.PureComponent {
     setPassphrase: func.isRequired,
     account: accountShape.isRequired,
     confirm: func.isRequired,
-    changeActiveWallet: func.isRequired
+    changeActiveWallet: func.isRequired,
+    updateWallet: func.isRequired
   };
 
   static defaultProps = {
