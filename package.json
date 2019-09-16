@@ -37,7 +37,7 @@
     "ethereumjs-utils": "5.2.5",
     "file-type": "12.3.0",
     "format-currency": "1.0.0",
-    "history": "4.9.0",
+    "history": "4.10.1",
     "lodash": "4.17.15",
     "mime-types": "2.1.24",
     "node-fetch": "2.6.0",
