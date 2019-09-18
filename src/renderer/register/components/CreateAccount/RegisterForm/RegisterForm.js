@@ -136,9 +136,9 @@ export default class RegisterForm extends React.PureComponent {
 
   renderButtonMessage = () => {
     const { isHardware, isImport } = this.props;
-    if (isHardware) return 'Next: connect Ledger';
-    if (isImport) return 'Next: import seed';
-    return 'Next: recovery seed';
+    if (isHardware) return 'Next: Connect Ledger';
+    if (isImport) return 'Next: Import seed';
+    return 'Next: Recovery seed';
   };
 
   renderImportLabel = () => {

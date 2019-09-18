@@ -64,7 +64,7 @@ export default class ImportView extends React.PureComponent {
           </div>
           <NavigationButtons
             onBack={previousStep}
-            nextBtnText="Next: verify"
+            nextBtnText="Next: Verify"
             disabled={loading || !this.state.validMnemonic}
             isSubmit
           />

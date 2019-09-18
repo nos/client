@@ -23,9 +23,9 @@ export const verifyAndCreateWallet = async ({
 
   const mnemonicArray = account.mnemonic.trim().split(' ');
 
-  // Validate password
+  // Validate passphrase
   if (account.passphrase !== passphrase) {
-    throw new Error("You've entered a wrong password");
+    throw new Error("You've entered a wrong passphrase");
   }
 
   // Validate secret word

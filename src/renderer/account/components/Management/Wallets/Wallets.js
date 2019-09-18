@@ -15,9 +15,7 @@ const Wallets = ({ account, wallets }) => {
   return (
     <React.Fragment>
       <div className={styles.wallets}>
-        <div className={styles.title}>
-          Accounts generated from {isHardware ? 'Ledger' : 'Keychain'}
-        </div>
+        <div className={styles.title}>{isHardware ? 'Ledger' : 'Keychain'} Accounts</div>
         {map(generatedWallets, (wallet) => (
           <Wallet wallet={wallet} key={`${wallet.walletId}`} />
         ))}

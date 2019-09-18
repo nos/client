@@ -6,8 +6,7 @@ import MnemonicWallet from './NeoMnemonic';
 // TODO transform HW wallet also to a class??
 const Wallet = ({ wallet, seed }) => {
   if (wallet.isImport) {
-    const child = deriveChild({ wallet, seed });
-    return new MnemonicWallet(child).getWallet(wallet.privateKey);
+    return new MnemonicWallet({}).getWallet(wallet.privateKey);
   } else if (wallet.isHardware) {
     return HardwareWallet({ wallet });
   } else {

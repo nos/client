@@ -39,18 +39,18 @@ export default class ImportWallet extends React.PureComponent {
       <div className={classNames(className, styles.mnemonic)}>
         <Pill>{secretWord}</Pill>
         <LabeledInput
+          id="privateKey"
+          type="password"
+          label="Enter Private Key"
+          placeholder="Private Key"
+          onChange={this.handleChangePrivateKey}
+        />
+        <LabeledInput
           id="passphrase"
           type="password"
           label="Enter Passphrase"
           placeholder="Passphrase"
           onChange={this.handleChangePassphrase}
-        />
-        <LabeledInput
-          id="privateKey"
-          type="text"
-          label="Enter private key"
-          placeholder="Private Key"
-          onChange={this.handleChangePrivateKey}
         />
         <LabeledSelect
           className={styles.input}
