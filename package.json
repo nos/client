@@ -137,7 +137,7 @@
     "standard-version": "7.0.0",
     "style-loader": "0.23.1",
     "stylelint": "11.0.0",
-    "stylelint-config-recommended-scss": "3.3.0",
+    "stylelint-config-recommended-scss": "4.0.0",
     "stylelint-scss": "3.11.1",
     "svg-react-loader": "0.4.6",
     "wait-on": "3.3.0",
