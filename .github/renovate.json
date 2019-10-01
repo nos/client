@@ -5,7 +5,11 @@
     "react-redux",
     "redux-saga",
     "connected-react-router",
-    "react-router-dom"
+    "react-router-dom",
+    "jest",
+    "babel-jest",
+    "sass-loader",
+    "style-loader"
   ],
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
