@@ -9,7 +9,7 @@
     "jest",
     "babel-jest",
     "sass-loader",
-    "style-loader"
+    "style-loader",
     "electron-context-menu"
   ],
   "schedule": ["on monday"],
