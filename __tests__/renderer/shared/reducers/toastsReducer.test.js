@@ -29,10 +29,15 @@ describe('toastsReducer', () => {
     });
 
     it('limits queue to 3 toasts', () => {
-      const state = reduce(['a', 'b', 'c', 'd'], (nextState, message) => toastsReducer(nextState, {
-        type: ENQUEUE,
-        payload: { message, type: TYPE_SUCCESS, autoDismiss: false }
-      }), initialState);
+      const state = reduce(
+        ['a', 'b', 'c', 'd'],
+        (nextState, message) =>
+          toastsReducer(nextState, {
+            type: ENQUEUE,
+            payload: { message, type: TYPE_SUCCESS, autoDismiss: false }
+          }),
+        initialState
+      );
 
       expect(state).toHaveLength(3);
       expect(map(state, 'message')).toEqual(['b', 'c', 'd']);

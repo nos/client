@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { withActions, withData, progressValues } from 'spunky';
 import { isEqual } from 'lodash';
 
-import authActions from 'login/actions/authActions';
-import balancesActions from 'shared/actions/balancesActions';
-import claimableActions from 'shared/actions/claimableActions';
+import authActions from 'auth/actions/authActions';
 import blockActions from 'shared/actions/blockActions';
-import withAuthState from 'login/hocs/withAuthState';
+import withAuthState from 'auth/hocs/withAuthState';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import notifyWebviews from 'shared/util/notifyWebviews';
@@ -21,18 +19,12 @@ const mapStateToProps = (state) => {
   return { tabs, activeSessionId };
 };
 
-const mapAuthDataToProps = ({ address }) => ({ address });
+const mapAuthDataToProps = (props) => ({
+  address: (props && props.address) || undefined
+});
 
 const mapBlockActionsToProps = (actions, props) => ({
   getLastBlock: () => actions.call({ net: props.currentNetwork })
-});
-
-const mapBalancesActionsToProps = (actions, props) => ({
-  getBalances: () => actions.call({ net: props.currentNetwork, address: props.address })
-});
-
-const mapClaimableActionsToProps = (actions, props) => ({
-  getClaimable: () => actions.call({ net: props.currentNetwork, address: props.address })
 });
 
 const mapBlockDataToProps = (block) => ({ block });
@@ -46,13 +38,9 @@ export default compose(
   // Whenever a new block is received, notify all dApps & update account balances.
   withData(authActions, mapAuthDataToProps),
   withData(blockActions, mapBlockDataToProps),
-  withActions(balancesActions, mapBalancesActionsToProps),
-  withActions(claimableActions, mapClaimableActionsToProps),
   withProgressChange(blockActions, LOADED, (state, props, prevProps) => {
     if (!isEqual(props.block, prevProps.block)) {
       notifyWebviews('event', 'block', props.block);
-      props.getBalances();
-      props.getClaimable();
     }
   })
 )(AuthenticatedLayout);

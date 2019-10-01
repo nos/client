@@ -2,7 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { noop, get } from 'lodash';
 
-import { provideStore, createStore, spunkyKey, mockSpunkyLoaded, addLoadedListener } from 'testHelpers';
+import {
+  provideStore,
+  createStore,
+  spunkyKey,
+  mockSpunkyLoaded,
+  addLoadedListener
+} from 'testHelpers';
 
 import makeGetStorage from 'browser/components/RequestsProcessor/GetStorage';
 import makeStorageActions from 'browser/actions/makeStorageActions';
@@ -11,15 +17,18 @@ const sessionId = 'abc';
 const requestId = '123';
 const currentAddress = 'ALfnhLg7rUyL6Jr98bzzoxz5J7m64fbR4s';
 
-const getStore = () => createStore({
-  [spunkyKey]: {
-    currentNetwork: mockSpunkyLoaded('MainNet'),
-    auth: mockSpunkyLoaded({
-      wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
-      address: currentAddress
-    })
-  }
-});
+const getStore = () =>
+  createStore({
+    [spunkyKey]: {
+      currentNetwork: mockSpunkyLoaded('MainNet'),
+      auth: mockSpunkyLoaded({
+        wallet: {
+          wif: 'L2QTooFoDFyRFTxmtiVHt5CfsXfVnexdbENGDkkrrgTTryiLsPMG',
+          address: currentAddress
+        }
+      })
+    }
+  });
 
 describe('<GetStorage />', () => {
   let store;
@@ -114,7 +123,7 @@ describe('<GetStorage />', () => {
       it('rejects', () => {
         wrapper.update();
         expect(onReject).toHaveBeenCalledWith(
-          `Retrieving storage failed for key "foo" on "${mockScriptHash}": Fake test error`
+          `Retrieving storage failed for key "foo" on ${mockScriptHash}: Fake test error`
         );
         expect(onResolve).not.toHaveBeenCalled();
       });

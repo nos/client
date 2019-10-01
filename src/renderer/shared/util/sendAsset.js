@@ -29,7 +29,15 @@ export default async function sendAsset(
 
   const send = async () => {
     const url = await doGetRPCEndpoint(net);
-    const config = { net, url, address, privateKey: wif, publicKey, signingFunction, fees: fee };
+    const config = {
+      net,
+      url,
+      address,
+      privateKey: wif,
+      publicKey,
+      signingFunction,
+      fees: fee
+    };
 
     if (keys(ASSETS).includes(asset)) {
       const selectedAsset = ASSETS[asset].symbol;
@@ -47,13 +55,20 @@ export default async function sendAsset(
 
       return doSendAsset({ ...config, balance, tx: transaction }, api.neoscan);
     } else {
-      const script = createScript(asset, 'transfer', [address, receiver, new u.Fixed8(amount)], true);
+      const script = createScript(
+        asset,
+        'transfer',
+        [address, receiver, new u.Fixed8(amount)],
+        true
+      );
 
       return doInvoke({ ...config, script, gas: 0 }, api.neoscan);
     }
   };
 
-  const { response: { result, txid } } = await send();
+  const {
+    response: { result, txid }
+  } = await send();
 
   if (!result) {
     throw new Error('Transaction rejected by blockchain');

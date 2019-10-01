@@ -1,0 +1,49 @@
+.registerForm {
+  min-width: 520px;
+  padding: 0 40px;
+
+  .label span {
+    display: inline;
+    font-size: 12px;
+  }
+
+  .checkboxContainer {
+    :first-child {
+      margin-bottom: 2px;
+    }
+
+    .checkbox {
+      background: transparent;
+      box-shadow: none;
+      width: auto;
+
+      @include theme(DARK) {
+        background: transparent;
+        box-shadow: none;
+      }
+
+      input {
+        width: auto;
+        max-width: 12px;
+      }
+    }
+  }
+
+  .horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    label {
+      flex-grow: 2;
+    }
+
+    label:first-of-type {
+      margin-right: 15px;
+    }
+  }
+
+  .bottom {
+    margin-bottom: 40px;
+  }
+}

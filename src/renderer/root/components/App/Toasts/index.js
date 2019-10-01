@@ -12,4 +12,7 @@ const mapDispatchToProps = (dispatch) => ({
   hide: (id) => dispatch(hideToast(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toasts);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Toasts);

@@ -10,9 +10,7 @@ export default function SectionTitle(props) {
   return (
     <div className={classNames(styles.sectionTitle, props.className)}>
       <Icon className={styles.icon} />
-      <div className={styles.content}>
-        {props.children}
-      </div>
+      <div className={styles.content}>{props.children}</div>
     </div>
   );
 }

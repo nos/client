@@ -48,7 +48,7 @@ export default class LiveUpdateInput extends React.Component {
 
   handleChange = (event) => {
     this.setState({ value: event.target.value });
-  }
+  };
 
   handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -56,7 +56,7 @@ export default class LiveUpdateInput extends React.Component {
     } else if (event.key === 'Escape') {
       this.reset();
     }
-  }
+  };
 
   handleBlur = () => {
     const { value } = this.state;
@@ -66,13 +66,13 @@ export default class LiveUpdateInput extends React.Component {
         this.props.onChange(value);
       });
     }
-  }
+  };
 
   reset = () => {
     this.setState({ value: this.props.defaultValue }, this.blur);
-  }
+  };
 
   blur = () => {
     this.input.current.blur();
-  }
+  };
 }

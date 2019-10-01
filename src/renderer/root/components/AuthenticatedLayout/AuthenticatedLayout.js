@@ -34,14 +34,12 @@ export default class AuthenticatedLayout extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.props.getLastBlock();
-    this.createPoll();
+    this.fetchAndPoll();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentNetwork !== prevProps.currentNetwork) {
-      this.clearPoll();
-      this.createPoll();
+      this.fetchAndPoll();
     }
   }
 
@@ -60,11 +58,7 @@ export default class AuthenticatedLayout extends React.PureComponent {
       <div className={className}>
         <header>
           {this.renderTrafficLights()}
-          <Tabs
-            className={styles.tabs}
-            tabs={tabs}
-            activeSessionId={activeSessionId}
-          />
+          <Tabs className={styles.tabs} tabs={tabs} activeSessionId={activeSessionId} />
         </header>
 
         <main>
@@ -85,7 +79,7 @@ export default class AuthenticatedLayout extends React.PureComponent {
     });
 
     return <div className={className} />;
-  }
+  };
 
   renderSidebar = () => {
     if (!this.state.showSidebar) {
@@ -98,7 +92,7 @@ export default class AuthenticatedLayout extends React.PureComponent {
         <Navigation className={styles.navigation} />
       </div>
     );
-  }
+  };
 
   renderContent = () => {
     return (
@@ -109,31 +103,35 @@ export default class AuthenticatedLayout extends React.PureComponent {
           sidebarOpen={this.state.showSidebar}
           onToggleSidebar={this.handleToggleSidebar}
         />
-        <ScrollContainer className={styles.content}>
-          {this.props.children}
-        </ScrollContainer>
+        <ScrollContainer className={styles.content}>{this.props.children}</ScrollContainer>
       </div>
     );
-  }
+  };
 
   handleToggleSidebar = () => {
     this.setState((prevState) => ({
       showSidebar: !prevState.showSidebar
     }));
-  }
+  };
+
+  fetchAndPoll = () => {
+    this.clearPoll();
+    this.props.getLastBlock();
+    this.createPoll();
+  };
 
   createPoll = () => {
     this.pollInterval = setInterval(this.props.getLastBlock, POLL_FREQUENCY);
-  }
+  };
 
   clearPoll = () => {
     if (this.pollInterval) {
       clearInterval(this.pollInterval);
     }
-  }
+  };
 
   isInternalPage = () => {
     const tab = this.props.tabs[this.props.activeSessionId];
     return isInternalPage(tab.type);
-  }
+  };
 }

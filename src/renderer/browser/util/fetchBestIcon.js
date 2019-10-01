@@ -27,11 +27,14 @@ async function fetchToDataURL(url, encoding = 'base64') {
 }
 
 export default async function fetchBestIcon(urls) {
-  const promises = urls.map((url) => new Promise((resolve, _reject) => {
-    fetchToDataURL(new URL(url))
-      .then((data) => resolve(data))
-      .catch(() => resolve(null));
-  }));
+  const promises = urls.map(
+    (url) =>
+      new Promise((resolve, _reject) => {
+        fetchToDataURL(new URL(url))
+          .then((data) => resolve(data))
+          .catch(() => resolve(null));
+      })
+  );
 
   const resolvedUrls = await Promise.all(promises);
 

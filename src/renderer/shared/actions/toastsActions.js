@@ -12,23 +12,26 @@ export const showToast = ({ message, type, autoDismiss = DISMISS_SECONDS } = {})
   payload: { message, type, autoDismiss }
 });
 
-export const showSuccessToast = ({ message, autoDismiss = DISMISS_SECONDS } = {}) => showToast({
-  message,
-  type: TYPE_SUCCESS,
-  autoDismiss
-});
+export const showSuccessToast = ({ message, autoDismiss = DISMISS_SECONDS } = {}) =>
+  showToast({
+    message,
+    type: TYPE_SUCCESS,
+    autoDismiss
+  });
 
-export const showErrorToast = ({ message, autoDismiss = false } = {}) => showToast({
-  message,
-  type: TYPE_ERROR,
-  autoDismiss
-});
+export const showErrorToast = ({ message, autoDismiss = false } = {}) =>
+  showToast({
+    message,
+    type: TYPE_ERROR,
+    autoDismiss
+  });
 
-export const showInfoToast = ({ message, autoDismiss = DISMISS_SECONDS } = {}) => showToast({
-  message,
-  type: TYPE_INFO,
-  autoDismiss
-});
+export const showInfoToast = ({ message, autoDismiss = DISMISS_SECONDS } = {}) =>
+  showToast({
+    message,
+    type: TYPE_INFO,
+    autoDismiss
+  });
 
 export const hideToast = (id) => ({
   type: DEQUEUE,

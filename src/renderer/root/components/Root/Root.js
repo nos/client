@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import createHistory from 'history/createHashHistory';
+import { createHashHistory } from 'history';
 
 import App from '../App';
 import configureStore from '../../store/configureStore';
 
-const history = createHistory();
+const history = createHashHistory();
 const store = configureStore(history);
 
 export default function Root() {

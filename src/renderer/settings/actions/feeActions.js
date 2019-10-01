@@ -3,7 +3,7 @@ import { createActions } from 'spunky';
 
 import { getStorage, setStorage } from 'shared/lib/storage';
 
-const DEFAULT_FEE = '0.00000001';
+const DEFAULT_FEE = '0.00000000';
 
 export const ID = 'fee';
 

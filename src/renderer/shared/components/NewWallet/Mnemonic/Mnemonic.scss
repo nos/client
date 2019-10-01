@@ -1,0 +1,14 @@
+.mnemonic {
+  .actions {
+    flex: 0 0 auto;
+    margin: 1.5rem 0 0;
+
+    .action {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

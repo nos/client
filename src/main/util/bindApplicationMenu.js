@@ -1,6 +1,10 @@
+import path from 'path';
+import openAboutWindow from 'about-window';
 import localShortcut from 'electron-localshortcut';
-import { app, webContents, ipcMain, Menu } from 'electron';
+import { app, webContents, ipcMain, Menu, BrowserWindow } from 'electron';
 import { noop, find, times } from 'lodash';
+
+import getStaticPath from './getStaticPath';
 
 const isMac = process.platform === 'darwin';
 
@@ -35,20 +39,30 @@ function filterItems(menuItems) {
   return menuItems.filter((item) => item);
 }
 
-const appMenu = () => ifMac({
-  label: app.getName(),
-  submenu: [
-    { role: 'about' },
-    { type: 'separator' },
-    { role: 'services', submenu: [] },
-    { type: 'separator' },
-    { role: 'hide' },
-    { role: 'hideothers' },
-    { role: 'unhide' },
-    { type: 'separator' },
-    { role: 'quit' }
-  ]
-});
+const appMenu = () =>
+  ifMac({
+    label: app.getName(),
+    submenu: [
+      {
+        label: 'About',
+        click: () =>
+          openAboutWindow({
+            icon_path: path.join(getStaticPath(), 'icons', 'icon1024x1024.png'),
+            package_json_dir: path.join('..', '..', '..'),
+            bug_link_text: 'Report a bug',
+            bug_report_url: 'https://github.com/nos/client/issues/new/choose'
+          })
+      },
+      { type: 'separator' },
+      { role: 'services', submenu: [] },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  });
 
 const fileMenu = (browserWindow) => ({
   label: 'File',
@@ -67,7 +81,15 @@ const fileMenu = (browserWindow) => ({
     {
       label: 'Close Tab',
       accelerator: 'CmdOrCtrl+W',
-      click: () => browserWindow.webContents.send('file:close-tab')
+      click: () => {
+        const focusedWindow = BrowserWindow.getFocusedWindow();
+
+        if (browserWindow.isFocused()) {
+          browserWindow.webContents.send('file:close-tab');
+        } else if (focusedWindow) {
+          focusedWindow.close();
+        }
+      }
     }
   ]
 });
@@ -87,10 +109,7 @@ const editMenu = () => ({
     ifMac({ type: 'separator' }),
     ifMac({
       label: 'Speech',
-      submenu: [
-        { role: 'startspeaking' },
-        { role: 'stopspeaking' }
-      ]
+      submenu: [{ role: 'startspeaking' }, { role: 'stopspeaking' }]
     })
   ])
 });
@@ -208,9 +227,11 @@ const helpMenu = (browserWindow) => ({
 function bindAppMenu(browserWindow, webview) {
   const menus = [appMenu, fileMenu, editMenu, viewMenu, historyMenu, windowMenu, helpMenu];
 
-  const template = filterItems(menus.map((builder) => {
-    return builder(browserWindow, webview);
-  }));
+  const template = filterItems(
+    menus.map((builder) => {
+      return builder(browserWindow, webview);
+    })
+  );
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);

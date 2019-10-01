@@ -47,7 +47,9 @@ async function doInvoke({
     config.intents = api.makeIntent(intentConfig, scAddress);
   }
 
-  const { response: { result, txid } } = await api.doInvoke(config, api.neoscan);
+  const {
+    response: { result, txid }
+  } = await api.doInvoke(config, api.neoscan);
 
   if (!result) {
     throw new Error('Invocation failed.');

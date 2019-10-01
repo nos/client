@@ -18,7 +18,8 @@ export default class Tab extends React.PureComponent {
     icon: string,
     loading: bool,
     onClick: func,
-    onClose: func
+    onClose: func,
+    onMouseUp: func
   };
 
   static defaultProps = {
@@ -27,25 +28,51 @@ export default class Tab extends React.PureComponent {
     icon: null,
     loading: false,
     onClick: noop,
-    onClose: noop
+    onClose: noop,
+    onMouseUp: noop
   };
 
+  state = {
+    width: 330,
+    show: false
+  };
+
+  componentDidMount() {
+    this.setState({ width: this.tab.offsetWidth });
+  }
+
+  componentDidUpdate() {
+    // eslint-disable-next-line
+    this.setState({ width: this.tab.offsetWidth });
+  }
+
   render() {
-    const { className, active, title, onClick } = this.props;
+    const { className, active, title, onClick, onMouseUp } = this.props;
+    const { width, show } = this.state;
 
     return (
       <div
+        ref={this.registerRef}
         className={classNames(className, styles.tab, { [styles.active]: active })}
         role="button"
         tabIndex={0}
         onClick={onClick}
+        onMouseUp={onMouseUp}
       >
         {this.renderIcon()}
         <span className={styles.title}>{title}</span>
-        <button type="button" className={styles.close} onClick={this.handleClose}>
-          <span className={styles.closeContent}>
-            <Icon name="close" />
-          </span>
+        <button
+          type="button"
+          className={styles.close}
+          onClick={this.handleClose}
+          onMouseEnter={this.handleEnter}
+          onMouseLeave={this.handleLeave}
+        >
+          {!(width < 75 && !show) && (
+            <span className={styles.closeContent}>
+              <Icon name="close" />
+            </span>
+          )}
         </button>
       </div>
     );
@@ -59,10 +86,22 @@ export default class Tab extends React.PureComponent {
     } else {
       return <FavIcon className={styles.icon} icon={icon} type={type} title={title} />;
     }
-  }
+  };
+
+  handleEnter = () => {
+    this.setState({ show: true });
+  };
+
+  handleLeave = () => {
+    this.setState({ show: false });
+  };
 
   handleClose = (event) => {
     event.stopPropagation();
     this.props.onClose();
-  }
+  };
+
+  registerRef = (el) => {
+    this.tab = el;
+  };
 }

@@ -95,12 +95,7 @@ export default class AddressBar extends React.PureComponent {
       );
     }
 
-    return (
-      <SidebarIcon
-        className={styles.button}
-        onClick={this.props.onToggleSidebar}
-      />
-    );
+    return <SidebarIcon className={styles.button} onClick={this.props.onToggleSidebar} />;
   };
 
   handleKeyDown = (event) => {
@@ -110,7 +105,7 @@ export default class AddressBar extends React.PureComponent {
       this.input.value = this.props.query;
       this.input.select();
     }
-  }
+  };
 
   handleMouseDown = () => {
     const selection = window.getSelection ? window.getSelection() : null;
@@ -122,14 +117,14 @@ export default class AddressBar extends React.PureComponent {
     if (isEmpty(selection.toString())) {
       this.input.select();
     }
-  }
+  };
 
   handleOpenLocation = () => {
     this.input.select();
     this.input.focus();
-  }
+  };
 
   registerRef = (el) => {
     this.input = el;
-  }
+  };
 }

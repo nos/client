@@ -1,6 +1,5 @@
 .buttonBar {
   align-self: stretch;
-  padding: 0 0.5rem;
   display: flex;
   justify-content: center;
 
@@ -12,15 +11,25 @@
     border: none;
     padding: 0;
     background-color: transparent;
-    margin: 0.5rem;
-    color: $primary-text-color;
+    color: $gray-5;
 
     &:hover {
-      color: lighten($primary-text-color, 20%);
+      background-color: $gray-7;
     }
 
     &:active {
-      color: darken($primary-text-color, 20%);
+      background-color: $gray-6;
+    }
+  }
+
+  .closeButton {
+    &:hover {
+      color: #dadada;
+      background-color: #ff5b5b;
+    }
+
+    &:active {
+      background-color: rgba(255, 91, 91, 0.6);
     }
   }
 }

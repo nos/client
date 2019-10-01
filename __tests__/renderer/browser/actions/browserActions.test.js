@@ -99,7 +99,8 @@ describe('browserActions', () => {
   describe('setTabIcon', () => {
     it('returns action object', () => {
       const sessionId = 'abc123';
-      const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+      const url =
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
 
       expect(setTabIcon(sessionId, url)).toEqual({
         type: SET_TAB_ICON,

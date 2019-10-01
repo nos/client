@@ -23,6 +23,6 @@ export default function withScrollSpy(Component) {
 
     handleScroll = (event) => {
       defaultScrollSpy.publish(event);
-    }
+    };
   };
 }

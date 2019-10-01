@@ -2,7 +2,7 @@ import { withData } from 'spunky';
 import { compose, withProps } from 'recompose';
 import { pick } from 'lodash';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
@@ -18,7 +18,7 @@ import validateInvokeArgs from '../../../util/validateInvokeArgs';
 
 const CONFIG_KEYS = ['scriptHash', 'operation', 'args', 'encodeArgs', 'assets'];
 
-const mapAuthDataToProps = (data) => data;
+const mapAuthDataToProps = ({ wallet }) => wallet;
 const mapFeeDataToProps = (fee) => ({ fee });
 const mapInvokeDataToProps = (txid) => ({ txid });
 
@@ -42,36 +42,41 @@ export default function makeInvoke(invokeActions, balancesActions) {
     withInvocationPrompt(balancesActions),
 
     // Run the invoke & wait for success or failure
-    withInitialCall(invokeActions, ({
-      net,
-      address,
-      wif,
-      publicKey,
-      signingFunction,
-      scriptHash,
-      operation,
-      args,
-      fee,
-      assets,
-      encodeArgs
-    }) => ({
-      net,
-      address,
-      wif,
-      publicKey,
-      signingFunction,
-      scriptHash,
-      operation,
-      args,
-      fee,
-      assets,
-      encodeArgs
-    })),
+    withInitialCall(
+      invokeActions,
+      ({
+        net,
+        address,
+        wif,
+        publicKey,
+        signingFunction,
+        scriptHash,
+        operation,
+        args,
+        fee,
+        assets,
+        encodeArgs
+      }) => ({
+        net,
+        address,
+        wif,
+        publicKey,
+        signingFunction,
+        scriptHash,
+        operation,
+        args,
+        fee,
+        assets,
+        encodeArgs
+      })
+    ),
     withSignTransactionToast,
     withNullLoader(invokeActions),
-    withRejectMessage(invokeActions, ({ operation, scriptHash, error }) => (
-      `Could not perform operation '${operation}' on contract with address '${scriptHash}': ${error}`
-    )),
+    withRejectMessage(
+      invokeActions,
+      ({ operation, scriptHash, error }) =>
+        `Could not perform operation "${operation}" on contract with address ${scriptHash}: ${error}`
+    ),
     withData(invokeActions, mapInvokeDataToProps)
   )(Invoke);
 }

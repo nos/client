@@ -12,7 +12,9 @@ describe('fetchBestIcon', () => {
   });
 
   describe('when first URL uses data protocol', () => {
-    const urls = ['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg=='];
+    const urls = [
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg=='
+    ];
 
     it('returns that value', async () => {
       expect(await fetchBestIcon(urls)).toEqual(urls[0]);
@@ -27,7 +29,9 @@ describe('fetchBestIcon', () => {
       const type = 'image/vnd.microsoft.icon';
 
       beforeEach(() => {
-        nock('http://google.com').get('/favicon.ico').reply(200, data, { 'content-type': type });
+        nock('http://google.com')
+          .get('/favicon.ico')
+          .reply(200, data, { 'content-type': type });
       });
 
       it('returns a data URL representation', async () => {
@@ -38,7 +42,9 @@ describe('fetchBestIcon', () => {
 
     describe('when content-type is not provided', () => {
       beforeEach(() => {
-        nock('http://google.com').get('/favicon.ico').reply(200, data);
+        nock('http://google.com')
+          .get('/favicon.ico')
+          .reply(200, data);
       });
 
       it('returns a data URL representation', async () => {
@@ -52,8 +58,12 @@ describe('fetchBestIcon', () => {
     const urls = ['http://google.com/favicon.ico', 'http://google.com/favicon.png'];
 
     beforeEach(() => {
-      nock('http://google.com').get('/favicon.ico').reply(404);
-      nock('http://google.com').get('/favicon.png').reply(404);
+      nock('http://google.com')
+        .get('/favicon.ico')
+        .reply(404);
+      nock('http://google.com')
+        .get('/favicon.png')
+        .reply(404);
     });
 
     it('returns undefined', async () => {
@@ -67,8 +77,12 @@ describe('fetchBestIcon', () => {
     const type = 'image/png';
 
     beforeEach(() => {
-      nock('http://google.com').get('/favicon.ico').reply(404);
-      nock('http://google.com').get('/favicon.png').reply(200, data, { 'content-type': type });
+      nock('http://google.com')
+        .get('/favicon.ico')
+        .reply(404);
+      nock('http://google.com')
+        .get('/favicon.png')
+        .reply(200, data, { 'content-type': type });
     });
 
     it('returns a data URL representation of the first successful response', async () => {

@@ -1,44 +1,19 @@
 .tab {
-  $tab-inactive-border-color: rgba($light-text-color, 0.4);
-
+  @extend %tabColor;
   cursor: default;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   position: relative;
-  min-width: 0;
-  padding: 8px 14px;
-  background: rgba(#fff, 0.4);
+  min-width: 32px;
+  padding: 8px;
   font-size: 12px;
   transition: all 0.2s ease;
-  box-shadow: inset 1px 0 0 $tab-inactive-border-color;
 
   &:first-of-type {
     box-shadow: none;
-  }
-
-  &:last-of-type {
-    &:not(.active) {
-      box-shadow: inset 1px 0 0 $tab-inactive-border-color,
-      inset -1px 0 0 $tab-inactive-border-color;
-    }
-  }
-
-  &.active,
-  &.active + & {
-    box-shadow: none;
-  }
-  &:not(.active):hover {
-    background: rgba(#fff, 0.6);
-  }
-  &.active + &:last-of-type {
-    box-shadow: inset -1px 0 0 $tab-inactive-border-color;
-  }
-
-  &.active {
-    background: #fff;
   }
 
   .loading {
@@ -48,36 +23,34 @@
   .loading,
   .icon {
     flex: 0 0 auto;
-    margin-right: 8px;
   }
 
   .title {
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     max-width: 100px;
-    color: #1e1b52;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     line-height: 1.25em;
+    margin-right: 15px;
+    margin-left: 4px;
+    user-select: none;
   }
 
   .close {
+    flex: 0 0 auto;
     display: flex;
+    position: absolute;
+    right: 8px;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 50%;
-    right: 10px;
     width: 15px;
     height: 15px;
-    color: $light-text-color;
+    color: $gray-4;
     background: transparent;
     border: none;
-    transform: translateY(-50%);
 
     &:hover {
-      color: #fff;
-      background: #e45b46;
       border-radius: 50%;
     }
 

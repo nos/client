@@ -1,15 +1,11 @@
 import { createActions } from 'spunky';
+import { isEmpty } from 'lodash';
 
 import { getStorage, setStorage } from 'shared/lib/storage';
 
 export const NETWORKS_ID = 'networks';
 
 // Setters
-export const setNetworks = createActions(NETWORKS_ID, (networks) => async () => {
-  await setStorage(NETWORKS_ID, networks);
-  return networks;
-});
-
 export const addNetwork = createActions(NETWORKS_ID, (network) => async () => {
   const networks = await getStorage(NETWORKS_ID);
   const newNetworks = [...networks, network];
@@ -25,5 +21,6 @@ export const clearNetworks = createActions(NETWORKS_ID, () => async () => {
 // Getters
 export default createActions(NETWORKS_ID, () => async () => {
   const networks = await getStorage(NETWORKS_ID);
-  return [...networks];
+  const safeNetworks = !isEmpty(networks) ? networks : undefined;
+  return [...(safeNetworks || [])];
 });

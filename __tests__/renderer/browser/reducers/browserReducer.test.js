@@ -172,7 +172,8 @@ describe('browserReducer', () => {
 
   describe('action type SET_TAB_ICON', () => {
     const sessionId = initialState.activeSessionId;
-    const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+    const url =
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
     const state = browserReducer(initialState, {
       type: SET_TAB_ICON,
       payload: { sessionId, url }

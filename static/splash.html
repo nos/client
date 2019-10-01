@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <script>
       if (typeof module === 'object') {
@@ -10,24 +10,18 @@
         window.module = module;
         module = undefined;
       }
-    </script>
 
-    <script src="animations/bodymovin_light_4_13.min.js"></script>
-    
-    <script>
       if (window.module) {
         // set module - allow script imports in electron
         module = window.module;
       }
     </script>
-    
     <style>
-
       html,
       body {
-        background-color: #000;
-        width: 100%;
-        height: 100%;
+        background-color: transparent;
+        width: 98%;
+        height: 98%;
         margin: 0;
         overflow: hidden;
         font-family: 'Rubik', sans-serif;
@@ -36,17 +30,23 @@
       #animation {
         width: 50%;
         height: 50%;
+        background: url('animations/nos-loader@2x.gif') no-repeat center center;
+        background-size: contain;
+        max-width: 180px;
+        max-height: 180px;
+        margin-bottom: 24px;
       }
 
       .bg {
         -webkit-app-region: drag;
         position: absolute;
-        background: radial-gradient(#fff, #c1c1c1);
+        background: #fbfbfb;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
         background-size: contain;
+        border-radius: 6px;
       }
 
       .cn {
@@ -56,18 +56,37 @@
         flex-direction: column;
       }
 
-    </style>
+      .title {
+        position: absolute;
+        height: 17px;
+        font-weight: 600;
+        top: calc(50% - 17px / 2 + 82.5px);
 
+        color: #000;
+      }
+
+      .subtitle {
+        position: absolute;
+        height: 17px;
+        top: calc(50% - 17px / 2 + 110.5px);
+
+        color: #8887a5;
+      }
+    </style>
   </head>
   <body>
-
     <div class="bg cn">
-        <div id="animation"></div>
-        <div>Loading nOS...</div>
+      <div id="animation"></div>
+      <div class="title">Decentralized Overdrive</div>
+      <div class="subtitle" id="info">Loading</div>
     </div>
 
-    <script src="animations/loader.js"></script>
-    
-
+    <script>
+      const { ipcRenderer } = require('electron');
+      ipcRenderer.once('updaterMsg', function(event, msg) {
+        document.getElementById('info').style.fontSize = '12px';
+        document.getElementById('info').innerHTML = msg;
+      });
+    </script>
   </body>
 </html>

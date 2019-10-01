@@ -13,6 +13,7 @@ export default class Input extends React.PureComponent {
   static propTypes = {
     forwardedRef: refShape,
     className: string,
+    children: func,
     disabled: bool,
     renderBefore: func,
     renderAfter: func,
@@ -22,6 +23,7 @@ export default class Input extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    children: (props) => <input {...props} />,
     disabled: false,
     forwardedRef: null,
     renderBefore: null,
@@ -42,19 +44,27 @@ export default class Input extends React.PureComponent {
       [styles.disabled]: this.props.disabled
     });
 
-    const passDownProps = omit(this.props, 'className', 'forwardedRef', 'renderBefore',
-      'renderAfter', 'onFocus', 'onBlur');
+    const passDownProps = omit(
+      this.props,
+      'className',
+      'children',
+      'forwardedRef',
+      'renderBefore',
+      'renderAfter',
+      'onFocus',
+      'onBlur'
+    );
 
     return (
       <div className={className} role="textbox" tabIndex={-1} onClick={this.handleClick}>
         {this.renderBefore()}
-        <input
-          {...passDownProps}
-          className={styles.input}
-          ref={this.ref}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-        />
+        {this.props.children({
+          ...passDownProps,
+          ref: this.ref,
+          className: styles.input,
+          onFocus: this.handleFocus,
+          onBlur: this.handleBlur
+        })}
         {this.renderAfter()}
       </div>
     );
@@ -63,26 +73,26 @@ export default class Input extends React.PureComponent {
   renderBefore = () => {
     const { renderBefore } = this.props;
     return renderBefore && renderBefore();
-  }
+  };
 
   renderAfter = () => {
     const { renderAfter } = this.props;
     return renderAfter && renderAfter();
-  }
+  };
 
   handleClick = () => {
-    if (this.ref.current) {
+    if (this.ref.current && this.ref.current.focus) {
       this.ref.current.focus();
     }
-  }
+  };
 
   handleFocus = (event) => {
     this.setState({ focus: true });
     this.props.onFocus(event);
-  }
+  };
 
   handleBlur = (event) => {
     this.setState({ focus: false });
     this.props.onBlur(event);
-  }
+  };
 }

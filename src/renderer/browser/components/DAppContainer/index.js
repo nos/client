@@ -14,19 +14,26 @@ import {
 } from '../../actions/browserActions';
 import withWebviewIPC from '../../hocs/withWebviewIPC';
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  setTabTitle,
-  setTabTarget,
-  setTabIcon,
-  setTabLoaded,
-  openTab,
-  closeTab,
-  enqueue,
-  dequeue,
-  empty
-}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setTabTitle,
+      setTabTarget,
+      setTabIcon,
+      setTabLoaded,
+      openTab,
+      closeTab,
+      enqueue,
+      dequeue,
+      empty
+    },
+    dispatch
+  );
 
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(
+    null,
+    mapDispatchToProps
+  ),
   withWebviewIPC
 )(DAppContainer);

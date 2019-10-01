@@ -1,0 +1,8 @@
+h2.categoryTitle {
+  @extend %labelColor;
+  margin: 0 0 12px;
+  font-size: 28px;
+  color: $gray-5;
+  text-transform: capitalize;
+  font-weight: normal;
+}

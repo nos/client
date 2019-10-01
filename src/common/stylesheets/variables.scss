@@ -1,9 +1,23 @@
 // Colors
 
-$content-bg-color: #f7f8fa;
-$primary-text-color: #494759;
-$dark-text-color: #353445;
-$light-text-color: #9a99a5;
+// Global Default Pallette
+
+$gray-0: #f7f8fa; // Subtle Background
+$gray-1: #edeef2; // Sidebar Background
+$gray-2: #e3e4ea; // Light Border
+$gray-3: #d7d8de; // Tabs
+$gray-4: #9a99a5; // Light Text, Reg. Borders, Icons, Disabled Color
+$gray-5: #494759; // Default Text
+$gray-6: #353445;
+$gray-7: #212129; // Panel BGs
+$gray-8: #13121a; // Default Dark BG
+
+$brand: #6979f8;
+$brand-dark: #5364ea;
+$brand-0: #f0f2fe;
+$brand-1: #a5affb;
+$green: #8bc83c;
+$red: #ff6a4a;
 
 // Common Variables
 
@@ -11,5 +25,7 @@ $primary-font-stack: 'Inter UI', sans-serif;
 $primary-border-style: thin solid rgba(0, 0, 0, 0.05);
 
 // Responsive
-
 $responsive-width: 1024px;
+
+// Sizes
+$containerSize: 1024px;

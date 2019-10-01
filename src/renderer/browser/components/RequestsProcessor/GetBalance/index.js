@@ -2,7 +2,7 @@ import { compose, withProps } from 'recompose';
 import { withData } from 'spunky';
 import { pick } from 'lodash';
 
-import authActions from 'login/actions/authActions';
+import authActions from 'auth/actions/authActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 
@@ -11,7 +11,7 @@ import withClean from '../../../hocs/withClean';
 import withNullLoader from '../../../hocs/withNullLoader';
 import withRejectMessage from '../../../hocs/withRejectMessage';
 
-const mapAuthDataToProps = ({ address }) => ({ address });
+const mapAuthDataToProps = ({ wallet: { address } }) => ({ address });
 const mapBalancesDataToProps = (balances) => ({ balances });
 
 const CONFIG_KEYS = ['asset', 'address'];
@@ -30,16 +30,19 @@ export default function makeGetBalance(balancesActions) {
     // Get the 2nd optional parameter (default = address)
     withProps(({ args, address }) => {
       const { asset, address: fromArgsAddress } = pick(args[0], CONFIG_KEYS);
-      return ({
+      return {
         asset,
         address: fromArgsAddress || address
-      });
+      };
     }),
 
     // Get the balance & wait for success or failure
     withInitialCall(balancesActions, ({ net, address }) => ({ net, address })),
     withNullLoader(balancesActions),
-    withRejectMessage(balancesActions, ({ error }) => (`Your account balance could not be retrieved: ${error}`)),
+    withRejectMessage(
+      balancesActions,
+      ({ address, error }) => `Balance for account ${address} could not be retrieved: ${error}`
+    ),
     withData(balancesActions, mapBalancesDataToProps)
   )(GetBalance);
 }

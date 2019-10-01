@@ -10,7 +10,7 @@ export const SET_TAB_TITLE = 'SET_TAB_TITLE';
 export const SET_TAB_ICON = 'SET_TAB_ICON';
 export const SET_TAB_LOADED = 'SET_TAB_LOADED';
 
-const DEFAULT_TARGET = 'nos://nos.neo';
+const DEFAULT_TARGET = 'https://docs.nos.io';
 
 export const openTab = ({ type = EXTERNAL, target = DEFAULT_TARGET } = {}) => ({
   type: OPEN_TAB,

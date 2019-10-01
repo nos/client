@@ -1,0 +1,36 @@
+.appstore {
+  -webkit-font-smoothing: antialiased;
+  padding: 24px;
+
+  .privateTabLink {
+    padding: 0px;
+  }
+
+  .grid {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, 380px);
+    margin-bottom: 32px;
+  }
+
+  .top {
+    position: sticky;
+    height: 0;
+    top: 0;
+    transform: translate(-24px, -24px);
+
+    svg {
+      z-index: -1;
+      max-width: 90%;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .appstore {
+    .grid {
+      grid-template-columns: repeat(auto-fill, 190px);
+    }
+  }
+}

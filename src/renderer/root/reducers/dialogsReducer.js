@@ -1,5 +1,11 @@
-import { ENQUEUE_ALERT, ENQUEUE_CONFIRM, DEQUEUE_DIALOG } from '../actions/dialogsActions';
-import { TYPE_ALERT, TYPE_CONFIRM } from '../values/dialogs';
+import {
+  ENQUEUE_ALERT,
+  ENQUEUE_CONFIRM,
+  DEQUEUE_DIALOG,
+  ENQUEUE_AUTH,
+  ENQUEUE_NEW_WALLET
+} from '../actions/dialogsActions';
+import { TYPE_ALERT, TYPE_CONFIRM, TYPE_AUTH, TYPE_NEW_WALLET } from '../values/dialogs';
 
 const initialState = [];
 
@@ -17,6 +23,10 @@ export default function dialogsReducer(state = initialState, action) {
       return enqueue(state, TYPE_ALERT, action.payload);
     case ENQUEUE_CONFIRM:
       return enqueue(state, TYPE_CONFIRM, action.payload);
+    case ENQUEUE_AUTH:
+      return enqueue(state, TYPE_AUTH, action.payload);
+    case ENQUEUE_NEW_WALLET:
+      return enqueue(state, TYPE_NEW_WALLET, action.payload);
     case DEQUEUE_DIALOG:
       return dequeue(state);
     default:

@@ -4,5 +4,13 @@
 
   .webview {
     height: 100%;
+
+    &Loaded {
+      background-color: white;
+    }
+
+    &Loading {
+      background-color: transparent;
+    }
   }
 }

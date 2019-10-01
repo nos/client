@@ -3,10 +3,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import { string } from 'prop-types';
+import { string, bool } from 'prop-types';
 
-import { DAPPS, ACCOUNT, EXCHANGE, SETTINGS } from 'browser/values/browserValues';
-import DAppsIcon from 'shared/images/icons/dapps.svg';
+import { APPSTORE, ACCOUNT, EXCHANGE, EXTERNAL, SETTINGS } from 'browser/values/browserValues';
+import AppStoreIcon from 'shared/images/icons/discover.svg';
 import AccountIcon from 'shared/images/icons/account.svg';
 import ExchangeIcon from 'shared/images/icons/exchange.svg';
 import SettingsIcon from 'shared/images/icons/settings.svg';
@@ -14,6 +14,7 @@ import LogoutIcon from 'shared/images/icons/logout.svg';
 import Tooltip from 'shared/components/Tooltip';
 
 import TabLink from '../TabLink';
+import PrivateTabLink from '../PrivateTabLink';
 import ExplorerLink from '../ExplorerLink';
 import LastBlock from '../LastBlock';
 import StatusIcon from '../StatusIcon';
@@ -21,7 +22,8 @@ import styles from './Navigation.scss';
 
 export default class Navigation extends React.PureComponent {
   static propTypes = {
-    className: string
+    className: string,
+    authenticated: bool.isRequired
   };
 
   static defaultProps = {
@@ -29,23 +31,17 @@ export default class Navigation extends React.PureComponent {
   };
 
   render() {
+    const matchExchange = (url) => /https:\/\/exchange\.nash\.io.+/i.test(url);
+    const { authenticated } = this.props;
+
     return (
       <nav className={classNames(styles.navigation, this.props.className)}>
         <ul>
           <li>
-            <Tooltip overlay="dApps">
+            <Tooltip overlay="App Store">
               <div>
-                <TabLink id="dapps" target={DAPPS} disabled>
-                  <DAppsIcon aria-label="dapps" />
-                </TabLink>
-              </div>
-            </Tooltip>
-          </li>
-          <li>
-            <Tooltip overlay="Exchange">
-              <div>
-                <TabLink id="exchange" target={EXCHANGE} disabled>
-                  <ExchangeIcon aria-label="exchange" />
+                <TabLink id="appstore" target={APPSTORE}>
+                  <AppStoreIcon aria-label="appstore" />
                 </TabLink>
               </div>
             </Tooltip>
@@ -53,8 +49,17 @@ export default class Navigation extends React.PureComponent {
           <li>
             <Tooltip overlay="Account">
               <div>
-                <TabLink id="account" target={ACCOUNT}>
+                <PrivateTabLink id="account" target={ACCOUNT}>
                   <AccountIcon aria-label="account" />
+                </PrivateTabLink>
+              </div>
+            </Tooltip>
+          </li>
+          <li>
+            <Tooltip overlay="Exchange">
+              <div>
+                <TabLink id="exchange" type={EXTERNAL} target={EXCHANGE} match={matchExchange}>
+                  <ExchangeIcon aria-label="exchange" />
                 </TabLink>
               </div>
             </Tooltip>
@@ -79,13 +84,15 @@ export default class Navigation extends React.PureComponent {
               </div>
             </Tooltip>
           </li>
-          <li>
-            <Tooltip overlay="Logout">
-              <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
-                <LogoutIcon aria-label="logout" />
-              </NavLink>
-            </Tooltip>
-          </li>
+          {authenticated && (
+            <li>
+              <Tooltip overlay="Logout">
+                <NavLink id="logout" exact to="/logout" draggable={false} className={styles.link}>
+                  <LogoutIcon aria-label="logout" />
+                </NavLink>
+              </Tooltip>
+            </li>
+          )}
         </ul>
       </nav>
     );

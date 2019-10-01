@@ -11,6 +11,9 @@
 /dist
 /nos-*.tgz
 
+# code signing config file
+config/exports\.sh
+
 # misc
 .DS_Store
 .env.local
@@ -22,3 +25,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+

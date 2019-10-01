@@ -1,14 +1,5 @@
-import { compose } from 'recompose';
-import { withData } from 'spunky';
-
-import withUnmountReset from 'shared/hocs/withUnmountReset';
+import { compose, withState } from 'recompose';
 
 import Register from './Register';
-import createAccountActions from '../../actions/createAccountActions';
 
-const mapAccountDataToProps = (account) => ({ account });
-
-export default compose(
-  withUnmountReset(createAccountActions),
-  withData(createAccountActions, mapAccountDataToProps)
-)(Register);
+export default compose(withState('step', 'setStep', 1))(Register);

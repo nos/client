@@ -1,10 +1,11 @@
 .tabs {
   .header {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     list-style: none;
-    margin: 0;
+    margin: 12px auto 0 !important;
     justify-content: space-evenly;
+    max-width: $containerSize;
 
     .tab {
       display: block;
@@ -16,19 +17,19 @@
       position: relative;
       display: inline-block;
       width: 100%;
-      color: #9a99a5;
+      color: $gray-4;
       border-color: #dee2e6 #dee2e6 transparent;
       padding: 8px 12px;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       line-height: 17px;
       transition: all 0.2s ease;
 
       &::after {
-        content: "";
+        content: '';
         width: 0%;
         height: 2px;
-        background: linear-gradient(90deg, #b9d532 0%, #5bba47 100%);
+        background: $brand;
         position: absolute;
         bottom: -2px;
         left: 50%;
@@ -37,8 +38,8 @@
       }
 
       &.selected {
-        color: #353445;
-        font-weight: bold;
+        color: $brand;
+        font-weight: 600;
 
         &::after {
           width: 100%;
@@ -46,8 +47,12 @@
       }
 
       &:hover {
-        color: #353445;
-        font-weight: bold;
+        color: $gray-5;
+        font-weight: 600;
+
+        @include theme(DARK) {
+          color: $gray-2;
+        }
       }
     }
   }

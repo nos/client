@@ -1,135 +1,173 @@
-# Javascript Node CircleCI 2.0 configuration file.
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.5
 
 references:
   workspace: &workspace ~/repo
 
-  container_config: &container_config
+  linux_config: &linux_config
     docker:
-      - image: circleci/node:8.12.0
+      - image: circleci/node:10.16.3
     working_directory: *workspace
 
-  win_config: &win_config
+  windows_config: &windows_config
     docker:
-      - image: electronuserland/builder:wine
+      - image: legiit/electron-builder-wine:node12
         environment:
           TARGET_ARCH: x64
     working_directory: *workspace
 
   mac_config: &mac_config
     macos:
-      xcode: 9.2
+      xcode: '10.3.0'
     working_directory: *workspace
 
-jobs:
-  build:
-    <<: *container_config
+commands:
+  pre-windows:
+    description: 'Setting up and building environment for windows'
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v1-dependencies-windows-{{ checksum "package.json" }}
+            - v1-dependencies-windows
+      - run: apt-get -y update
+      - run: apt-get -y install libusb-1.0-0
+      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
+      - run: yarn
+
+  pre-linux:
+    description: 'Setting up and building environment for linux'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-linux-{{ checksum "package.json" }}
+            - v1-dependencies-linux
       - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libudev-dev libusb-1.0-0-dev
-      - run: yarn install
+      - run: sudo apt-get -y install libusb-1.0-0
+      - run: yarn
+
+  pre-mac:
+    description: 'Setting up and building environment for mac'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-mac-{{ checksum "package.json" }}
+            - v1-dependencies-mac
+      - run: yarn
+
+jobs:
+  build_linux:
+    <<: *linux_config
+    steps:
+      - pre-linux
+      - run: yarn dist --linux
       - save_cache:
+          key: v1-dependencies-linux-{{ checksum "package.json" }}
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-  test:
-    <<: *container_config
+
+  build_windows:
+    <<: *windows_config
     steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install libgtk-3-0 libxss1 libgconf-2-4 libnss3 libasound2
-      - run: sudo yarn global add yarn@1.12.3
+      - pre-windows
+      - run: yarn dist --win --x64 --ia32
+      - save_cache:
+          key: v1-dependencies-windows-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+  build_mac:
+    <<: *mac_config
+    steps:
+      - pre-mac
+      - run: yarn dist --mac
+      - save_cache:
+          key: v1-dependencies-mac-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+  unit_tests:
+    <<: *linux_config
+    steps:
+      - pre-linux
       - run: yarn test
       - run: yarn codecov
-    store_artifacts:
-      - path: artifacts
-      - destination: yarnpkg
+      - codecov/upload:
+          file: ./coverage/lcov.info
 
-  deploy_win:
-    <<: *win_config
+  deploy_windows:
+    <<: *windows_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: dpkg --add-architecture i386
-      - run: apt-get -y update
-      - run: apt-get -y install libudev-dev libudev-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386
-      - run: yarn install
-      - run: yarn dist --win --x64 --ia32
-      - store_artifacts:
-          path: dist
-          destination: build
+      - pre-windows
+      - run: yarn release:win
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - dist/*.*
 
   deploy_linux:
-    <<: *container_config
+    <<: *linux_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: sudo yarn global add yarn@1.12.3
-      - run: yarn install
-      - run: yarn dist --linux
-      - store_artifacts:
-          path: dist
-          destination: build
+      - pre-linux
+      - run: yarn release:linux
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - dist/*.*
 
   deploy_mac:
     <<: *mac_config
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      - run: brew install yarn
-      - run: yarn install
-      - run: yarn dist --mac
-      - store_artifacts:
-          path: dist
-          destination: build
+      - pre-mac
+      - run: yarn release:mac
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - ./dist/*.*
+
+  calculate_checksums:
+    <<: *linux_config
+    steps:
+      - attach_workspace:
+          at: *workspace
+      - run: cd ./dist && shasum -a 256 *.*
 
 workflows:
   version: 2
-  build_test:
+  platform_builds:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build_windows
+      - build_linux
+      - build_mac
+  platform_tests:
+    jobs:
+      - unit_tests
   deploy:
     jobs:
-      - deploy_win:
+      - calculate_checksums:
+          requires:
+            - deploy_windows
+            - deploy_linux
+            - deploy_mac
+      - deploy_windows:
           filters:
             branches:
               ignore: /.*/
             tags:
-              only: /[0-9]+(\.[0-9]+)+.*/
+              only: /[v][0-9]+(\.[0-9]+)+.*/
       - deploy_linux:
           filters:
             branches:
               ignore: /.*/
             tags:
-              only: /[0-9]+(\.[0-9]+)+.*/
-      # - deploy_mac:
-      #     filters:
-      #       branches:
-      #         ignore: /.*/
-      #       tags:
-      #         only: /[0-9]+(\.[0-9]+)+.*/
+              only: /[v][0-9]+(\.[0-9]+)+.*/
+      - deploy_mac:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[v][0-9]+(\.[0-9]+)+.*/

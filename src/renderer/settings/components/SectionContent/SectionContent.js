@@ -5,11 +5,7 @@ import { string, node } from 'prop-types';
 import styles from './SectionContent.scss';
 
 export default function SectionContent(props) {
-  return (
-    <div className={classNames(styles.sectionContent, props.className)}>
-      {props.children}
-    </div>
-  );
+  return <div className={classNames(styles.sectionContent, props.className)}>{props.children}</div>;
 }
 
 SectionContent.propTypes = {
