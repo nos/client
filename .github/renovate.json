@@ -1,12 +1,26 @@
 {
   "extends": ["config:base"],
-  "ignoreDeps": ["@ledgerhq/hw-transport-node-hid"],
+  "ignoreDeps": [
+    "@ledgerhq/hw-transport-node-hid",
+    "react-redux",
+    "redux-saga",
+    "connected-react-router",
+    "react-router-dom",
+    "jest",
+    "babel-jest",
+    "sass-loader",
+    "style-loader",
+    "electron-context-menu"
+  ],
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
   "semanticCommits": true,
-  "semanticCommitType": "fix",
   "statusCheckVerify": true,
   "packageRules": [
+    {
+      "packagePatterns": ["*"],
+      "semanticCommitType": "renovate"
+    },
     {
       "packageNames": ["@cityofzion/neon-js"],
       "allowedVersions": "< 4"
