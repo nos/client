@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/7zip/-/7zip-0.0.6.tgz#9cafb171af82329490353b4816f03347aa150a30"
   integrity sha1-nK+xca+CMpSQNTtIFvAzR6oVCjA=
 
-"@arkecosystem/crypto@2.5.0-next.10":
-  version "2.5.0-next.10"
-  resolved "https://registry.npmjs.org/@arkecosystem/crypto/-/crypto-2.5.0-next.10.tgz#1346213c82be9defe17d69bcca6b1108aa9cca32"
-  integrity sha512-FGmCYgvXx14tzL3/4GZh12vaZYKNROE1l64EPZQmddv37YcrwpJhkZD5fHGnVZnnN411aSwXDeZbGwzvqQYc6Q==
+"@arkecosystem/crypto@2.5.25":
+  version "2.5.25"
+  resolved "https://registry.yarnpkg.com/@arkecosystem/crypto/-/crypto-2.5.25.tgz#3d87538f6a22bf92ba99be8cc780ff2293149dc7"
+  integrity sha512-t4+6wOCbVhNitmtmRM5jVPXREademEwqZOPYsKDul7Qi3ol6Mo3bEeP1jSEF+1QPs+80HlU23gBWjmaXVz812w==
   dependencies:
     "@hapi/joi" "^15.1.0"
     ajv "^6.10.2"
@@ -35,7 +35,7 @@
     lodash.get "^4.4.2"
     lodash.set "^4.3.2"
     lodash.sumby "^4.6.0"
-    node-forge "^0.8.5"
+    node-forge "^0.9.0"
     otplib "^11.0.1"
     pluralize "^8.0.0"
     tiny-glob "^0.2.6"
@@ -8966,10 +8966,10 @@ node-forge@0.8.2:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.8.2.tgz#b4bcc59fb12ce77a8825fc6a783dfe3182499c5a"
   integrity sha512-mXQ9GBq1N3uDCyV1pdSzgIguwgtVpM7f5/5J4ipz12PKWElmPpVWLDuWl8iXmhysr21+WmX/OJ5UKx82wjomgg==
 
-node-forge@^0.8.5:
-  version "0.8.5"
-  resolved "https://registry.npmjs.org/node-forge/-/node-forge-0.8.5.tgz#57906f07614dc72762c84cef442f427c0e1b86ee"
-  integrity sha512-vFMQIWt+J/7FLNyKouZ9TazT74PRV3wgv9UT4cRjC8BffxFbKXkgIWR42URCPSnHm/QDz6BOlb2Q0U4+VQT67Q==
+node-forge@^0.9.0:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.1.tgz#775368e6846558ab6676858a4d8c6e8d16c677b5"
+  integrity sha512-G6RlQt5Sb4GMBzXvhfkeFmbqR6MzhtnT7VTHuLadjkii3rdYHNdw0m8zA4BTxVIh68FicCQ2NSUANpsqkr9jvQ==
 
 node-gyp@^3.8.0:
   version "3.8.0"
