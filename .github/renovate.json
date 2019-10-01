@@ -10,6 +10,7 @@
     "babel-jest",
     "sass-loader",
     "style-loader"
+    "electron-context-menu"
   ],
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
