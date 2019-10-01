@@ -133,7 +133,7 @@
     "redux-devtools-extension": "2.13.8",
     "redux-mock-store": "1.5.3",
     "rimraf": "3.0.0",
-    "sass-loader": "7.3.1",
+    "sass-loader": "8.0.0",
     "standard-version": "7.0.0",
     "style-loader": "0.23.1",
     "stylelint": "11.0.0",
