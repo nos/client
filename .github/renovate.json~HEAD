@@ -5,11 +5,7 @@
     "react-redux",
     "redux-saga",
     "connected-react-router",
-    "react-router-dom",
-    "jest",
-    "babel-jest",
-    "sass-loader",
-    "style-loader"
+    "react-router-dom"
   ],
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
@@ -18,7 +14,7 @@
   "packageRules": [
     {
       "packagePatterns": ["*"],
-      "semanticCommitType": "renovate"
+      "semanticCommitType": "fix"
     },
     {
       "packageNames": ["@cityofzion/neon-js"],
