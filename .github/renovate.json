@@ -14,7 +14,7 @@
   "packageRules": [
     {
       "packagePatterns": ["*"],
-      "semanticCommitType": "fix"
+      "semanticCommitType": "renovate"
     },
     {
       "packageNames": ["@cityofzion/neon-js"],
