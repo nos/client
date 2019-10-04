@@ -88,8 +88,7 @@
     "release:mac": "yarn dist --mac -p onTag",
     "release:linux": "yarn dist --linux -p onTag",
     "snyk-protect": "snyk protect",
-    "snyk-test": "snyk test",
-    "prepublish": "npm run snyk-protect"
+    "snyk-test": "snyk test"
   },
   "devDependencies": {
     "babel-eslint": "10.0.3",
