@@ -128,8 +128,8 @@ function createSplashWindow() {
 const webGL = 'ignore-gpu-blacklist';
 getStorage(webGL).then((setting) => {
   if (!isEmpty(setting) && setting.enabled) {
-    setStorage(webGL, { enabled: true });
     app.commandLine.appendSwitch(webGL);
+    setStorage(webGL, { enabled: true });
   } else {
     setStorage(webGL, { enabled: false });
   }
