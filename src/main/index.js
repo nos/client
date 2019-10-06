@@ -103,7 +103,7 @@ function createSplashWindow() {
     const pkgVersion = pkg.version.toLowerCase();
 
     if (
-      !isDev ||
+      !isDev || // TODO BEFORE MERGE - remove !
       pkgVersion.includes('rc') ||
       pkgVersion.includes('beta') ||
       pkgVersion.includes('alpha')
@@ -119,15 +119,7 @@ function createSplashWindow() {
         createMainWindow();
       });
       autoUpdater.on('update-downloaded', () => {
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        console.log('DO I GET HERE MORE THAN ONCE??');
-        // autoUpdater.quitAndInstall();
+        autoUpdater.quitAndInstall();
       });
     }
   });
