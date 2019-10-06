@@ -5,8 +5,6 @@ import path from 'path';
 import url from 'url';
 import { isEmpty } from 'lodash';
 
-import { settings } from '@cityofzion/neon-js';
-
 import { getStorage, setStorage } from 'shared/lib/storage';
 
 import getStaticPath from './util/getStaticPath';
