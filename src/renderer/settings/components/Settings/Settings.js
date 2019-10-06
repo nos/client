@@ -8,7 +8,6 @@ import Panel from 'shared/components/Panel';
 import ScrollContainer from '../ScrollContainer';
 import GeneralSettings from '../GeneralSettings';
 import NetworkSettings from '../NetworkSettings';
-import AdvancedSettings from '../AdvancedSettings';
 import SidebarLink from '../SidebarLink';
 import Version from '../Version';
 import styles from './Settings.scss';
