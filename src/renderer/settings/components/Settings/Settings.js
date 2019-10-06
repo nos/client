@@ -47,11 +47,6 @@ export default class Settings extends React.PureComponent {
                         Network
                       </SidebarLink>
                     </li>
-                    <li>
-                      <SidebarLink to="advanced" containerId="settingsContainer">
-                        Advanced
-                      </SidebarLink>
-                    </li>
                   </ul>
                 )}
               </Sticky>
@@ -63,9 +58,6 @@ export default class Settings extends React.PureComponent {
               </Element>
               <Element name="network">
                 <NetworkSettings />
-              </Element>
-              <Element name="advanced">
-                <AdvancedSettings />
               </Element>
             </div>
           </Panel>
