@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, bool } from 'prop-types';
+import { string, func } from 'prop-types';
 import { map } from 'lodash';
 
 import Label from 'shared/components/Forms/Label';
@@ -66,10 +66,6 @@ export default class GeneralSettings extends React.PureComponent {
 
   handleChangeCurrency = (currency) => {
     this.props.setCurrency(currency);
-  };
-
-  toggleAutoUpdates = () => {
-    this.props.toggleAutoUpdates();
   };
 
   toggleTheme = () => {
