@@ -21,9 +21,7 @@ export default class GeneralSettings extends React.PureComponent {
     theme: string.isRequired,
     setCurrency: func.isRequired,
     setFee: func.isRequired,
-    setTheme: func.isRequired,
-    autoUpdates: bool.isRequired,
-    toggleAutoUpdates: func.isRequired
+    setTheme: func.isRequired
   };
 
   render() {
@@ -60,17 +58,6 @@ export default class GeneralSettings extends React.PureComponent {
             value={this.props.theme}
             onChange={this.toggleTheme}
             defaultChecked={this.props.theme === THEMES.DARK}
-          />
-
-          <LabeledInput
-            type="checkbox"
-            className={styles.toggle}
-            labelClass={styles.label}
-            id="theme"
-            label="Enable Automatic Updates"
-            value={this.props.autoUpdates}
-            onChange={this.toggleAutoUpdates}
-            defaultChecked={this.props.autoUpdates}
           />
         </SectionContent>
       </div>
