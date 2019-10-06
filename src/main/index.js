@@ -4,6 +4,8 @@ import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
 
+import { getStorage } from 'shared/lib/storage';
+
 import getStaticPath from './util/getStaticPath';
 import bindApplicationMenu from './util/bindApplicationMenu';
 import bindContextMenu from './util/bindContextMenu';
@@ -122,8 +124,18 @@ function createSplashWindow() {
   });
 }
 
-// Methods which require to be called BEFORE the app is ready
-app.commandLine.appendSwitch('ignore-gpu-blacklist');
+getStorage('settings-gpu-blacklist').then((res) => {
+  console.log('RES');
+  console.log('RES');
+  console.log('RES', res);
+  console.log('RES');
+  console.log('RES');
+  console.log('RES');
+  if (res) {
+    // Methods which require to be called BEFORE the app is ready
+    app.commandLine.appendSwitch('ignore-gpu-blacklist');
+  }
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
