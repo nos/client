@@ -102,26 +102,38 @@ function createSplashWindow() {
 
     const pkgVersion = pkg.version.toLowerCase();
 
-    if (
-      isDev ||
-      pkgVersion.includes('rc') ||
-      pkgVersion.includes('beta') ||
-      pkgVersion.includes('alpha')
-    ) {
-      createMainWindow();
-    } else {
-      autoUpdater.allowPrerelease = false;
-      autoUpdater.checkForUpdates();
-      autoUpdater.on('update-available', ({ version }) => {
-        splashWindow.webContents.send('updaterMsg', `Updating nOS Client to version ${version}`);
-      });
-      autoUpdater.on('update-not-available', () => {
+    const autoUpdates = 'autoUpdates';
+    getStorage(autoUpdates).then((autoUpdatesSetting) => {
+      const enabled = isEmpty(autoUpdatesSetting) ? true : autoUpdatesSetting.enabled;
+
+      if (enabled) {
+        setStorage(autoUpdates, { enabled: true });
+      } else {
+        setStorage(autoUpdates, { enabled: false });
+      }
+
+      if (
+        isDev ||
+        !enabled ||
+        pkgVersion.includes('rc') ||
+        pkgVersion.includes('beta') ||
+        pkgVersion.includes('alpha')
+      ) {
         createMainWindow();
-      });
-      autoUpdater.on('update-downloaded', () => {
-        autoUpdater.quitAndInstall();
-      });
-    }
+      } else {
+        autoUpdater.allowPrerelease = false;
+        autoUpdater.checkForUpdates();
+        autoUpdater.on('update-available', ({ version }) => {
+          splashWindow.webContents.send('updaterMsg', `Updating nOS Client to version ${version}`);
+        });
+        autoUpdater.on('update-not-available', () => {
+          createMainWindow();
+        });
+        autoUpdater.on('update-downloaded', () => {
+          autoUpdater.quitAndInstall();
+        });
+      }
+    });
   });
 }
 
