@@ -3,6 +3,9 @@ import { autoUpdater } from 'electron-updater';
 import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
+import { isEmpty } from 'lodash';
+
+import { getStorage, setStorage } from 'shared/lib/storage';
 
 import getStaticPath from './util/getStaticPath';
 import bindApplicationMenu from './util/bindApplicationMenu';
@@ -122,8 +125,15 @@ function createSplashWindow() {
   });
 }
 
-// Methods which require to be called BEFORE the app is ready
-app.commandLine.appendSwitch('ignore-gpu-blacklist');
+const webGL = 'ignore-gpu-blacklist';
+getStorage(webGL).then((setting) => {
+  if (!isEmpty(setting) && setting.enabled) {
+    app.commandLine.appendSwitch(webGL);
+    setStorage(webGL, { enabled: true });
+  } else {
+    setStorage(webGL, { enabled: false });
+  }
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
