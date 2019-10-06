@@ -8,6 +8,7 @@ import { withSuccessToast, withErrorToast } from 'shared/hocs/withToast';
 
 import GeneralSettings from './GeneralSettings';
 import currencyActions, { setCurrency } from '../../actions/currencyActions';
+import autoUpdateActions, { setAutoUpdateActions } from '../../actions/autoUpdateActions';
 import feeActions, { setFee } from '../../actions/feeActions';
 import themeActions, { setTheme } from '../../actions/themeActions';
 
@@ -16,6 +17,7 @@ const { LOADED, FAILED } = progressValues;
 const mapCurrencyDataToProps = (currency) => ({ currency });
 const mapFeeDataToProps = (fee) => ({ fee });
 const mapThemeDataToProps = (theme) => ({ theme });
+const mapAutoUpdateDataToProps = (autoUpdates) => ({ autoUpdates });
 
 const mapCurrencyActionsToProps = (actions) => ({
   setCurrency: actions.call
@@ -29,7 +31,14 @@ const mapThemeActionsToProps = (actions) => ({
   setTheme: actions.call
 });
 
+const mapAutoUpdateActionsToProps = (actions) => ({
+  toggleAutoUpdates: actions.call
+});
+
 export default compose(
+  withActions(setAutoUpdateActions, mapAutoUpdateActionsToProps),
+  withData(autoUpdateActions, mapAutoUpdateDataToProps),
+
   withActions(setCurrency, mapCurrencyActionsToProps),
   withData(currencyActions, mapCurrencyDataToProps),
 
@@ -51,6 +60,9 @@ export default compose(
   withProgressChange(setTheme, LOADED, (state, props) => {
     props.showSuccessToast('Settings successfully updated');
   }),
+  withProgressChange(setAutoUpdateActions, LOADED, (state, props) => {
+    props.showSuccessToast('Settings successfully updated');
+  }),
 
   withErrorToast(),
   withProgressChange(setCurrency, FAILED, (state, props) => {
@@ -60,6 +72,9 @@ export default compose(
     props.showErrorToast(`Error updating settings: ${state.error}`);
   }),
   withProgressChange(setTheme, FAILED, (state, props) => {
+    props.showErrorToast(`Error updating settings: ${state.error}`);
+  }),
+  withProgressChange(setAutoUpdateActions, FAILED, (state, props) => {
     props.showErrorToast(`Error updating settings: ${state.error}`);
   })
 )(GeneralSettings);

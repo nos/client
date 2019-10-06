@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 import { map } from 'lodash';
 
 import Label from 'shared/components/Forms/Label';
@@ -21,7 +21,9 @@ export default class GeneralSettings extends React.PureComponent {
     theme: string.isRequired,
     setCurrency: func.isRequired,
     setFee: func.isRequired,
-    setTheme: func.isRequired
+    setTheme: func.isRequired,
+    autoUpdates: bool.isRequired,
+    toggleAutoUpdates: func.isRequired
   };
 
   render() {
@@ -59,6 +61,17 @@ export default class GeneralSettings extends React.PureComponent {
             onChange={this.toggleTheme}
             defaultChecked={this.props.theme === THEMES.DARK}
           />
+
+          <LabeledInput
+            type="checkbox"
+            className={styles.toggle}
+            labelClass={styles.label}
+            id="theme"
+            label="Enable Automatic Updates"
+            value={this.props.autoUpdates}
+            onChange={this.toggleAutoUpdates}
+            defaultChecked={this.props.autoUpdates}
+          />
         </SectionContent>
       </div>
     );
@@ -66,6 +79,10 @@ export default class GeneralSettings extends React.PureComponent {
 
   handleChangeCurrency = (currency) => {
     this.props.setCurrency(currency);
+  };
+
+  toggleAutoUpdates = () => {
+    this.props.toggleAutoUpdates();
   };
 
   toggleTheme = () => {
