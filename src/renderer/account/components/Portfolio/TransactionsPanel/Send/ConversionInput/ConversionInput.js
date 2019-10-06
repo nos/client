@@ -14,6 +14,10 @@ import balanceShape from '../../../../../shapes/balanceShape';
 import styles from './ConversionInput.scss';
 
 export default class ConversionInput extends React.PureComponent {
+  assetInput = React.createRef();
+
+  currencyInput = React.createRef();
+
   static propTypes = {
     className: string,
     asset: balanceShape.isRequired,
@@ -37,10 +41,6 @@ export default class ConversionInput extends React.PureComponent {
     currencyFocus: false,
     currencyValue: ''
   };
-
-  assetInput = React.createRef();
-
-  currencyInput = React.createRef();
 
   componentDidUpdate(prevProps) {
     if (anyPropsChanged(prevProps, this.props, ['amount', 'price']) && !this.state.currencyFocus) {

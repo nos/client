@@ -14,6 +14,8 @@ export const LOGIN = 'Login';
 export const REGISTER = 'Register';
 
 export default class Auth extends React.PureComponent {
+  confirm = React.createRef();
+
   static propTypes = {
     className: string,
     loading: bool.isRequired,
@@ -30,8 +32,6 @@ export default class Auth extends React.PureComponent {
     className: null,
     accounts: null
   };
-
-  confirm = React.createRef();
 
   render() {
     const { className, authenticated, onConfirm } = this.props;
