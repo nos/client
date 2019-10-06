@@ -125,7 +125,7 @@ function createSplashWindow() {
   });
 }
 
-const webGL = 'settings-ignore-gpu-blacklist';
+const webGL = 'ignore-gpu-blacklist';
 getStorage(webGL).then((setting) => {
   if (!isEmpty(setting) && setting.enabled) {
     setStorage(webGL, { enabled: true });
