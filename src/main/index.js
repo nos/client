@@ -3,8 +3,11 @@ import { autoUpdater } from 'electron-updater';
 import isDev from 'electron-is-dev';
 import path from 'path';
 import url from 'url';
+import { isEmpty } from 'lodash';
 
-import { getStorage } from 'shared/lib/storage';
+import { settings } from '@cityofzion/neon-js';
+
+import { getStorage, setStorage } from 'shared/lib/storage';
 
 import getStaticPath from './util/getStaticPath';
 import bindApplicationMenu from './util/bindApplicationMenu';
@@ -124,16 +127,13 @@ function createSplashWindow() {
   });
 }
 
-getStorage('settings-gpu-blacklist').then((res) => {
-  console.log('RES');
-  console.log('RES');
-  console.log('RES', res);
-  console.log('RES');
-  console.log('RES');
-  console.log('RES');
-  if (res) {
-    // Methods which require to be called BEFORE the app is ready
-    app.commandLine.appendSwitch('ignore-gpu-blacklist');
+const webGL = 'settings-ignore-gpu-blacklist';
+getStorage(webGL).then((setting) => {
+  if (!isEmpty(setting) && setting.enabled) {
+    setStorage(webGL, { enabled: true });
+    app.commandLine.appendSwitch(webGL);
+  } else {
+    setStorage(webGL, { enabled: false });
   }
 });
 
