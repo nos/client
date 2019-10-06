@@ -2,6 +2,9 @@ import React from 'react';
 import { string, func, objectOf } from 'prop-types';
 import classnames from 'classnames';
 
+import ImportIcon from 'shared/images/wallet/import.svg';
+import AddIcon from 'shared/images/wallet/add.svg';
+
 import Page from 'shared/components/Page';
 import accountShape from 'auth/shapes/accountShape';
 import walletShape from 'auth/shapes/walletShape';
@@ -47,16 +50,18 @@ export default class Management extends React.PureComponent {
       <div className={styles.heading}>
         <div className={styles.title}>My Account</div>
         <div className={styles.subHeader}>
+          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+            <AddIcon className={styles.icon} />
+            New Wallet
+          </div>
           <div
             className={styles.link}
             role="button"
             tabIndex={0}
             onClick={this.handleImportAccount}
           >
+            <ImportIcon className={styles.icon} />
             Import Wallet
-          </div>
-          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
-            New Wallet
           </div>
         </div>
       </div>

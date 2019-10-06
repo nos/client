@@ -19,6 +19,10 @@
     flex-direction: row;
   }
 
+  .icon {
+    margin-right: 3px;
+  }
+
   .link {
     cursor: pointer;
     font-weight: 500;
@@ -26,9 +30,10 @@
     line-height: 12px;
     user-select: none;
     color: $brand;
+    display: flex;
 
     &:first-child {
-      margin-right: 10px;
+      margin-right: 15px;
     }
   }
 }

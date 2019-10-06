@@ -20,12 +20,14 @@ const Wallets = ({ account, wallets }) => {
           <Wallet wallet={wallet} key={`${wallet.walletId}`} />
         ))}
       </div>
-      <div className={styles.wallets}>
-        <div className={styles.title}>Imported Wallets</div>
-        {map(importedWallets, (wallet) => (
-          <Wallet wallet={wallet} key={`${wallet.walletId}`} />
-        ))}
-      </div>
+      {importedWallets.length > 0 && (
+        <div className={styles.wallets}>
+          <div className={styles.title}>Imported Wallets</div>
+          {map(importedWallets, (wallet) => (
+            <Wallet wallet={wallet} key={`${wallet.walletId}`} />
+          ))}
+        </div>
+      )}
     </React.Fragment>
   );
 };
