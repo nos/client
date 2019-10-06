@@ -12,6 +12,14 @@ import MnemonicWordInput from './MnemonicWordInput';
 import styles from './ImportView.scss';
 
 export default class ImportView extends React.PureComponent {
+  mnemonicRefs = Array(24)
+    .fill(undefined)
+    .map(() => React.createRef());
+
+  showErrorToast = debounce((e) => {
+    this.props.showErrorToast(e);
+  }, 1000);
+
   static propTypes = {
     account: registerShape.isRequired,
     loading: bool,
@@ -30,14 +38,6 @@ export default class ImportView extends React.PureComponent {
   state = {
     validMnemonic: false
   };
-
-  mnemonicRefs = Array(24)
-    .fill(undefined)
-    .map(() => React.createRef());
-
-  showErrorToast = debounce((e) => {
-    this.props.showErrorToast(e);
-  }, 1000);
 
   render() {
     const { onCancel, loading, mnemonic, previousStep } = this.props;
@@ -64,7 +64,7 @@ export default class ImportView extends React.PureComponent {
           </div>
           <NavigationButtons
             onBack={previousStep}
-            nextBtnText="Next: verify"
+            nextBtnText="Next: Verify"
             disabled={loading || !this.state.validMnemonic}
             isSubmit
           />

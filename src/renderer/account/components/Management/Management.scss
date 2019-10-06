@@ -14,14 +14,27 @@
     @extend %labelColor;
   }
 
+  .subHeader {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .icon {
+    margin-right: 3px;
+  }
+
   .link {
     cursor: pointer;
-
     font-weight: 500;
     font-size: 12px;
     line-height: 12px;
     user-select: none;
     color: $brand;
+    display: flex;
+
+    &:first-child {
+      margin-right: 15px;
+    }
   }
 }
 

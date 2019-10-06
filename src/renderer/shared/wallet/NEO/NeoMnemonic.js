@@ -5,8 +5,8 @@ export default class NeoWallet {
     this.child = child;
   }
 
-  getWallet = () => {
-    const { address, privateKey, WIF, publicKey } = new wallet.Account(this.getPrivateKey());
+  getWallet = (privateKey = this.getPrivateKey()) => {
+    const { address, WIF, publicKey } = new wallet.Account(privateKey);
 
     return {
       address,

@@ -10,6 +10,8 @@ import refShape from 'shared/shapes/refShape';
 import styles from './Checkbox.scss';
 
 export default class Checkbox extends React.PureComponent {
+  ref = this.props.forwardedRef || React.createRef();
+
   static propTypes = {
     forwardedRef: refShape,
     className: string,
@@ -35,8 +37,6 @@ export default class Checkbox extends React.PureComponent {
   state = {
     focus: false
   };
-
-  ref = this.props.forwardedRef || React.createRef();
 
   render() {
     const className = classNames(styles.container, this.props.className, {

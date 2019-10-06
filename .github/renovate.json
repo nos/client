@@ -26,6 +26,10 @@
       "allowedVersions": "< 4"
     },
     {
+      "packageNames": ["react", "react-dom", "react-is"],
+      "allowedVersions": "< 16.9.0"
+    },
+    {
       "packageNames": ["electron-is-dev"],
       "allowedVersions": "< 1"
     },
