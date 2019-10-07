@@ -64,7 +64,7 @@
     "switch-tree": "0.2.2",
     "unique-names-generator": "3.0.0",
     "uuid": "3.3.3",
-    "what-input": "5.2.4",
+    "what-input": "5.2.6",
     "whatwg-url": "7.0.0"
   },
   "scripts": {
