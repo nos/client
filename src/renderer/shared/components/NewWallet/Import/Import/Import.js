@@ -10,9 +10,9 @@ import accountShape from 'auth/shapes/accountShape';
 import ExistingImport from '../ExistingImport';
 import NewImport from '../NewImport';
 
-import styles from './ImportWallet.scss';
+import styles from './Import.scss';
 
-export default class ImportWallet extends React.PureComponent {
+export default class Import extends React.PureComponent {
   static propTypes = {
     className: string,
     account: accountShape.isRequired,

@@ -16,7 +16,6 @@ const mapAddAccountActionsToProps = (actions) => ({
 
 export default compose(
   withErrorToast(),
-  withState('newImport', 'setNewImport', true),
   withState('passphrase', 'setPassphrase', ''),
   withState('privateKey', 'setPrivateKey', ''),
   withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
