@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, bool } from 'prop-types';
+import { string, func, bool, arrayOf } from 'prop-types';
 import classNames from 'classnames';
 
 import Button from 'shared/components/Forms/Button';
@@ -16,7 +16,7 @@ export default class Import extends React.PureComponent {
   static propTypes = {
     className: string,
     account: accountShape.isRequired,
-    accounts: accountShape,
+    accounts: arrayOf(accountShape),
     onCancel: func.isRequired,
     onConfirm: func.isRequired,
     newImport: bool.isRequired,

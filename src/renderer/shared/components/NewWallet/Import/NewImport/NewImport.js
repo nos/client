@@ -1,14 +1,11 @@
 import React from 'react';
 import { string, number, func } from 'prop-types';
 import { map } from 'lodash';
-import classNames from 'classnames';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import COINS from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
-
-import styles from './NewImport.scss';
 
 export default class NewImport extends React.PureComponent {
   static propTypes = {
@@ -32,11 +29,7 @@ export default class NewImport extends React.PureComponent {
     const { className, coinType } = this.props;
 
     return (
-      <form
-        className={classNames(className, styles.newImport)}
-        onSubmit={this.submit}
-        id="walletForm"
-      >
+      <form className={className} onSubmit={this.submit} id="walletForm">
         <LabeledInput
           id="privateKey"
           type="password"
@@ -52,8 +45,6 @@ export default class NewImport extends React.PureComponent {
           onChange={this.handleChangePassphrase}
         />
         <LabeledSelect
-          className={styles.input}
-          labelClass={styles.label}
           id="network"
           label="Current Network"
           value={coinType}

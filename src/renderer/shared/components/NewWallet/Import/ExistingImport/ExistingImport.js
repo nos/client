@@ -1,15 +1,12 @@
 import React from 'react';
 import { string, func, arrayOf } from 'prop-types';
 import { map, isEmpty } from 'lodash';
-import classNames from 'classnames';
 import { wallet } from '@cityofzion/neon-js';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import { NEO } from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
-
-import styles from './ExistingImport.scss';
 
 export default class ExistingImport extends React.PureComponent {
   static propTypes = {
@@ -32,14 +29,8 @@ export default class ExistingImport extends React.PureComponent {
     const { className, accounts, passphrase, currentAccount } = this.props;
 
     return (
-      <form
-        className={classNames(className, styles.existingImport)}
-        onSubmit={this.submit}
-        id="walletForm"
-      >
+      <form className={className} onSubmit={this.submit} id="walletForm">
         <LabeledSelect
-          className={styles.input}
-          labelClass={styles.label}
           id="profiel"
           label="Account"
           disabled={isEmpty(accounts)}
