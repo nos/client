@@ -5,15 +5,12 @@ import classNames from 'classnames';
 
 import LabeledInput from 'shared/components/Forms/LabeledInput';
 import LabeledSelect from 'shared/components/Forms/LabeledSelect';
-import Button from 'shared/components/Forms/Button';
-import PrimaryButton from 'shared/components/Forms/PrimaryButton';
-import Pill from 'shared/components/Pill';
 import COINS from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 
-import styles from './ImportWallet.scss';
+import styles from './NewImport.scss';
 
-export default class ImportWallet extends React.PureComponent {
+export default class NewImport extends React.PureComponent {
   static propTypes = {
     className: string,
     account: accountShape.isRequired,
@@ -32,12 +29,14 @@ export default class ImportWallet extends React.PureComponent {
   };
 
   render() {
-    const { className, account, coinType } = this.props;
-    const { secretWord } = account;
+    const { className, coinType } = this.props;
 
     return (
-      <div className={classNames(className, styles.mnemonic)}>
-        <Pill>{secretWord}</Pill>
+      <form
+        className={classNames(className, styles.newImport)}
+        onSubmit={this.submit}
+        id="walletForm"
+      >
         <LabeledInput
           id="privateKey"
           type="password"
@@ -61,15 +60,7 @@ export default class ImportWallet extends React.PureComponent {
           items={this.getCoinTypes()}
           onChange={this.handleChangeCoinType}
         />
-        <div className={styles.actions}>
-          <Button className={styles.action} onClick={this.cancel}>
-            Cancel
-          </Button>
-          <PrimaryButton className={styles.action} onClick={this.confirm}>
-            Import Wallet
-          </PrimaryButton>
-        </div>
-      </div>
+      </form>
     );
   }
 
@@ -91,7 +82,7 @@ export default class ImportWallet extends React.PureComponent {
     onCancel();
   };
 
-  confirm = () => {
+  submit = () => {
     const { account, passphrase, coinType, setPassphrase, addAccount, privateKey } = this.props;
 
     const options = {

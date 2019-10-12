@@ -8,7 +8,7 @@ import accountShape from 'auth/shapes/accountShape';
 
 import Ledger from '../Ledger';
 import Mnemonic from '../Mnemonic';
-import ImportWallet from '../ImportWallet';
+import ImportWallet from '../Import';
 
 import styles from './NewWallet.scss';
 
