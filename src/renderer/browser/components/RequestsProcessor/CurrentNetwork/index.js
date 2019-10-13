@@ -10,7 +10,7 @@ import CurrentNetwork from './CurrentNetwork';
 
 const mapCurrentNetworkActionsDataToProps = (data) => ({ data });
 
-export default function makeGetPublicKey(currentNetworkActions) {
+export default function makeGetCurrentNetwork(currentNetworkActions) {
   return compose(
     withClean(currentNetworkActions),
     withInitialCall(currentNetworkActions),

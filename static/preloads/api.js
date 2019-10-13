@@ -30,6 +30,7 @@ const api = {
   getLastBlock: createDelegate('getLastBlock'),
   getPublicKey: createDelegate('getPublicKey'),
   getCurrentNetwork: createDelegate('getCurrentNetwork'),
+  getLocalCurrency: createDelegate('getLocalCurrency'),
   testInvoke: createDelegate('testInvoke'),
   encrypt: createDelegate('encrypt'),
   decrypt: createDelegate('decrypt'),

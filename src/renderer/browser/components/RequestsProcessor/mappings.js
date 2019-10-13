@@ -10,6 +10,7 @@ import GetPublicKey from './GetPublicKey';
 import Encrypt from './Encrypt';
 import Decrypt from './Decrypt';
 import CurrentNetwork from './CurrentNetwork';
+import LocalCurrency from './LocalCurrency';
 import makeInvokeActions from '../../actions/makeInvokeActions';
 import makeTestInvokeActions from '../../actions/makeTestInvokeActions';
 import makeStorageActions from '../../actions/makeStorageActions';
@@ -20,6 +21,7 @@ import makePublicKeyActions from '../../actions/makePublicKeyActions';
 import makeEncryptActions from '../../actions/makeEncryptActions';
 import makeDecryptActions from '../../actions/makeDecryptActions';
 import makeCurrentNetworkActions from '../../actions/makeCurrentNetworkActions';
+import makeLocalCurrencyActions from '../../actions/makeLocalCurrencyActions';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,
@@ -33,7 +35,8 @@ const COMPONENT_MAP = {
   invoke: Invoke,
   send: Send,
   claimGas: ClaimGas,
-  getCurrentNetwork: CurrentNetwork
+  getCurrentNetwork: CurrentNetwork,
+  getLocalCurrency: LocalCurrency
 };
 
 const ACTIONS_MAP = {
@@ -46,7 +49,8 @@ const ACTIONS_MAP = {
   getPublicKey: makePublicKeyActions,
   encrypt: makeEncryptActions,
   decrypt: makeDecryptActions,
-  getCurrentNetwork: makeCurrentNetworkActions
+  getCurrentNetwork: makeCurrentNetworkActions,
+  getLocalCurrency: makeLocalCurrencyActions
 };
 
 const makeNullActions = () => null;
