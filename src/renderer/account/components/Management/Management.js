@@ -50,10 +50,6 @@ export default class Management extends React.PureComponent {
       <div className={styles.heading}>
         <div className={styles.title}>My Account</div>
         <div className={styles.subHeader}>
-          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
-            <AddIcon className={styles.icon} />
-            New Wallet
-          </div>
           <div
             className={styles.link}
             role="button"
@@ -62,6 +58,10 @@ export default class Management extends React.PureComponent {
           >
             <ImportIcon className={styles.icon} />
             Import Wallet
+          </div>
+          <div className={styles.link} role="button" tabIndex={0} onClick={this.handleAddAccount}>
+            <AddIcon className={styles.icon} />
+            New Wallet
           </div>
         </div>
       </div>
