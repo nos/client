@@ -9,6 +9,7 @@ import ClaimGas from './ClaimGas';
 import GetPublicKey from './GetPublicKey';
 import Encrypt from './Encrypt';
 import Decrypt from './Decrypt';
+import CurrentNetwork from './CurrentNetwork';
 import makeInvokeActions from '../../actions/makeInvokeActions';
 import makeTestInvokeActions from '../../actions/makeTestInvokeActions';
 import makeStorageActions from '../../actions/makeStorageActions';
@@ -18,6 +19,7 @@ import makeBalancesActions from '../../actions/makeBalancesActions';
 import makePublicKeyActions from '../../actions/makePublicKeyActions';
 import makeEncryptActions from '../../actions/makeEncryptActions';
 import makeDecryptActions from '../../actions/makeDecryptActions';
+import makeCurrentNetworkActions from '../../actions/makeCurrentNetworkActions';
 
 const COMPONENT_MAP = {
   getAddress: GetAddress,
@@ -30,7 +32,8 @@ const COMPONENT_MAP = {
   getLastBlock: GetLastBlock,
   invoke: Invoke,
   send: Send,
-  claimGas: ClaimGas
+  claimGas: ClaimGas,
+  getCurrentNetwork: CurrentNetwork
 };
 
 const ACTIONS_MAP = {
@@ -42,7 +45,8 @@ const ACTIONS_MAP = {
   claimGas: makeClaimActions,
   getPublicKey: makePublicKeyActions,
   encrypt: makeEncryptActions,
-  decrypt: makeDecryptActions
+  decrypt: makeDecryptActions,
+  getCurrentNetwork: makeCurrentNetworkActions
 };
 
 const makeNullActions = () => null;
