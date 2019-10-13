@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, arrayOf } from 'prop-types';
+import { string, func, shape, arrayOf } from 'prop-types';
 import { map, isEmpty } from 'lodash';
 import { wallet } from '@cityofzion/neon-js';
 
@@ -8,6 +8,11 @@ import LabeledSelect from 'shared/components/Forms/LabeledSelect';
 import { NEO } from 'shared/values/coins';
 import accountShape from 'auth/shapes/accountShape';
 
+const legacyAccountShape = shape({
+  walletName: string.isRequired,
+  encryptedKey: string.isRequired
+});
+
 export default class ExistingImport extends React.PureComponent {
   static propTypes = {
     className: string,
@@ -15,7 +20,7 @@ export default class ExistingImport extends React.PureComponent {
     passphrase: string.isRequired,
     setPassphrase: func.isRequired,
     addAccount: func.isRequired,
-    accounts: arrayOf(accountShape).isRequired,
+    accounts: arrayOf(legacyAccountShape).isRequired,
     setCurrentAccount: func.isRequired,
     currentAccount: string.isRequired,
     showErrorToast: func.isRequired
@@ -42,8 +47,8 @@ export default class ExistingImport extends React.PureComponent {
         <LabeledInput
           id="passphrase"
           type="password"
-          label="Passphrase"
-          placeholder="Enter your passphrase"
+          label="Legacy Passphrase"
+          placeholder="Enter your legacy passphrase"
           value={passphrase}
           onChange={this.handleChangePassphrase}
         />

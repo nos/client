@@ -31,10 +31,14 @@
     user-select: none;
     color: $brand;
     display: flex;
-    margin-right: 15px; 
-    
+    margin-right: 15px;
+
     &:last-child {
       margin-right: 0px;
+    }
+
+    &:hover {
+      color: white;
     }
   }
 }

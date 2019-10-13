@@ -11,7 +11,6 @@ export default class NewImport extends React.PureComponent {
   static propTypes = {
     className: string,
     account: accountShape.isRequired,
-    onCancel: func.isRequired,
     passphrase: string.isRequired,
     setPassphrase: func.isRequired,
     coinType: number.isRequired,
@@ -65,12 +64,6 @@ export default class NewImport extends React.PureComponent {
 
   handleChangeCoinType = (coinId) => {
     this.props.setCoinType(coinId);
-  };
-
-  cancel = () => {
-    const { onCancel, setPassphrase } = this.props;
-    setPassphrase('');
-    onCancel();
   };
 
   submit = () => {

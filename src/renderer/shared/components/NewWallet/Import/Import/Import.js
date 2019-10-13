@@ -56,7 +56,7 @@ export default class Import extends React.PureComponent {
     <React.Fragment>
       {accounts && (
         <div className={styles.toggle} role="button" tabIndex={0} onClick={this.handleToggle}>
-          {newImport ? 'Import Previous Wallets' : 'Import New Wallet'}
+          {newImport ? 'Import Legacy Wallet' : 'Import New Wallet'}
         </div>
       )}
     </React.Fragment>
