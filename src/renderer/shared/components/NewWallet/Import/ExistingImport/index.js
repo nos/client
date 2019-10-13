@@ -1,12 +1,11 @@
 import { compose, withState } from 'recompose';
-import { withActions, progressValues } from 'spunky';
+import { progressValues, withActions } from 'spunky';
 
 import { withErrorToast } from 'shared/hocs/withToast';
-import { DEFAULT_COIN } from 'shared/values/coins';
 import withProgressChange from 'shared/hocs/withProgressChange';
 import { importWalletActions } from 'auth/actions/walletActions';
 
-import ImportWallet from './ImportWallet';
+import ExistingImport from './ExistingImport';
 
 const { FAILED, LOADED } = progressValues;
 
@@ -15,15 +14,18 @@ const mapAddAccountActionsToProps = (actions) => ({
 });
 
 export default compose(
-  withErrorToast(),
-  withState('passphrase', 'setPassphrase', ''),
-  withState('privateKey', 'setPrivateKey', ''),
-  withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
   withActions(importWalletActions, mapAddAccountActionsToProps),
+
+  withState('currentAccount', 'setCurrentAccount', ({ accounts }) => {
+    return accounts[0] && accounts[0].encryptedKey;
+  }),
+  withState('passphrase', 'setPassphrase', ''),
+
+  withErrorToast(),
   withProgressChange(importWalletActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);
   }),
   withProgressChange(importWalletActions, LOADED, (state, props) => {
     props.onConfirm();
   })
-)(ImportWallet);
+)(ExistingImport);
