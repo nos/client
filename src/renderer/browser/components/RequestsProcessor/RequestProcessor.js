@@ -6,6 +6,14 @@ import { getComponent, getActions } from './mappings';
 import Unauthenticated from './Unauthenticated';
 import requestShape from '../../shapes/requestShape';
 
+const unprotectedChannels = [
+  'isAuthenticated',
+  'getStorage',
+  'getLastBlock',
+  'getCurrentNetwork',
+  'getLocalCurrency'
+];
+
 export default class RequestProcessor extends React.PureComponent {
   static propTypes = {
     sessionId: string.isRequired,
@@ -56,7 +64,8 @@ export default class RequestProcessor extends React.PureComponent {
   };
 
   getComponent = ({ sessionId, request }) => {
-    if (!this.props.authenticated) {
+    const isUnprotectedChannel = unprotectedChannels.includes(request.channel);
+    if (!this.props.authenticated && !isUnprotectedChannel) {
       return Unauthenticated();
     }
 

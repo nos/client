@@ -34,6 +34,7 @@ const api = {
   testInvoke: createDelegate('testInvoke'),
   encrypt: createDelegate('encrypt'),
   decrypt: createDelegate('decrypt'),
+  isAuthenticated: createDelegate('isAuthenticated'),
 
   // Permissions required
   invoke: createDelegate('invoke'),
