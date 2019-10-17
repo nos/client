@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, bool, arrayOf } from 'prop-types';
+import { string, func, bool, arrayOf, shape } from 'prop-types';
 import classNames from 'classnames';
 
 import Button from 'shared/components/Forms/Button';
@@ -12,11 +12,16 @@ import NewImport from '../NewImport';
 
 import styles from './Import.scss';
 
+const legacyAccountShape = shape({
+  walletName: string.isRequired,
+  encryptedKey: string.isRequired
+});
+
 export default class Import extends React.PureComponent {
   static propTypes = {
     className: string,
     account: accountShape.isRequired,
-    accounts: arrayOf(accountShape),
+    accounts: arrayOf(legacyAccountShape),
     onCancel: func.isRequired,
     onConfirm: func.isRequired,
     newImport: bool.isRequired,
