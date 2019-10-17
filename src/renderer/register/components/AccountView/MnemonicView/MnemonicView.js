@@ -45,7 +45,7 @@ export default class MnemonicView extends React.PureComponent {
             <CopyIcon /> Copy to Clipboard
           </Button>
         </CopyToClipboard>
-        <NavigationButtons onBack={previousStep} onNext={nextStep} nextBtnText="Next: verify" />
+        <NavigationButtons onBack={previousStep} onNext={nextStep} nextBtnText="Next: Verify" />
       </AuthPanel>
     );
   }

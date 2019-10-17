@@ -26,6 +26,10 @@
       "allowedVersions": "< 4"
     },
     {
+      "packageNames": ["react", "react-dom", "react-is"],
+      "allowedVersions": "< 16.9.0"
+    },
+    {
       "packageNames": ["electron-is-dev"],
       "allowedVersions": "< 1"
     },
@@ -54,19 +58,19 @@
       "allowedVersions": "<= 20.32.0"
     },
     {
-      "packagePatterns": ["eslint", "stylelint"],
+      "packageNames": ["eslint", "stylelint"],
       "groupName": "lint"
     },
     {
-      "packagePatterns": ["fortawesome"],
+      "packageNames": ["fortawesome"],
       "groupName": "fortawesome"
     },
     {
-      "packagePatterns": ["babel"],
+      "packageNames": ["babel"],
       "groupName": "babel"
     },
     {
-      "packagePatterns": ["enzyme"],
+      "packageNames": ["enzyme"],
       "groupName": "enzyme"
     }
   ]

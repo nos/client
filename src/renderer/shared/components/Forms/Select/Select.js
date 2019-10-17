@@ -17,6 +17,10 @@ import selectItemShape from '../../../shapes/selectItemShape';
 import styles from './Select.scss';
 
 export default class Select extends React.PureComponent {
+  search = React.createRef();
+
+  dropdown = this.props.forwardedRef || React.createRef();
+
   static propTypes = {
     forwardedRef: refShape,
     className: string,
@@ -45,10 +49,6 @@ export default class Select extends React.PureComponent {
     search: '',
     selectedIndex: -1
   };
-
-  search = React.createRef();
-
-  dropdown = this.props.forwardedRef || React.createRef();
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.selectedIndex !== prevState.selectedIndex) {

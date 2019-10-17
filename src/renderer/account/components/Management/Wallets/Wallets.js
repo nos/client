@@ -1,5 +1,5 @@
 import React from 'react';
-import { map } from 'lodash';
+import { map, filter } from 'lodash';
 
 import accountShape from 'auth/shapes/accountShape';
 import walletsShape from 'auth/shapes/walletsShape';
@@ -9,16 +9,26 @@ import styles from './Wallets.scss';
 
 const Wallets = ({ account, wallets }) => {
   const { isHardware } = account;
+  const generatedWallets = filter(wallets, (wallet) => !wallet.isImport);
+  const importedWallets = filter(wallets, (wallet) => wallet.isImport);
 
   return (
-    <div className={styles.wallets}>
-      <div className={styles.title}>
-        Accounts generated from {isHardware ? 'Ledger' : 'Keychain'}
+    <React.Fragment>
+      <div className={styles.wallets}>
+        <div className={styles.title}>{isHardware ? 'Ledger' : 'Keychain'} Accounts</div>
+        {map(generatedWallets, (wallet) => (
+          <Wallet wallet={wallet} key={`${wallet.walletId}`} />
+        ))}
       </div>
-      {map(wallets, (wallet) => (
-        <Wallet wallet={wallet} key={`${wallet.coinType}-${wallet.index}`} />
-      ))}
-    </div>
+      {importedWallets.length > 0 && (
+        <div className={styles.wallets}>
+          <div className={styles.title}>Imported Wallets</div>
+          {map(importedWallets, (wallet) => (
+            <Wallet wallet={wallet} key={`${wallet.walletId}`} />
+          ))}
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 

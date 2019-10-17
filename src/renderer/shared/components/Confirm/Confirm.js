@@ -9,6 +9,8 @@ import PrimaryButton from '../Forms/PrimaryButton';
 import styles from './Confirm.scss';
 
 export default class Confirm extends React.PureComponent {
+  confirm = React.createRef();
+
   static propTypes = {
     className: string,
     children: node,
@@ -32,8 +34,6 @@ export default class Confirm extends React.PureComponent {
     onCancel: noop,
     renderFooter: noop
   };
-
-  confirm = React.createRef();
 
   componentDidMount() {
     this.confirm.current.focus();

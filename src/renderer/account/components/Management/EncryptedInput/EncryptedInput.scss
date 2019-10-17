@@ -26,6 +26,10 @@
       cursor: pointer;
       user-select: none;
       color: $brand;
+
+      &:hover {
+        color: $brand-dark;
+      }
     }
   }
 

@@ -28,7 +28,6 @@
     "linebreak-style": "off",
     "react/jsx-fragments": "off",
     "arrow-body-style": ["off"],
-    "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-else-return": ["off"],

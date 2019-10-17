@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { string, func } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 import { noop } from 'lodash';
 
 import Modal from 'shared/components/Modal';
@@ -8,6 +8,7 @@ import accountShape from 'auth/shapes/accountShape';
 
 import Ledger from '../Ledger';
 import Mnemonic from '../Mnemonic';
+import ImportWallet from '../Import';
 
 import styles from './NewWallet.scss';
 
@@ -17,18 +18,20 @@ export default class NewWallet extends React.PureComponent {
     title: string,
     onConfirm: func,
     onCancel: func,
-    account: accountShape.isRequired
+    account: accountShape.isRequired,
+    isImport: bool
   };
 
   static defaultProps = {
     className: null,
     title: null,
     onConfirm: noop,
-    onCancel: noop
+    onCancel: noop,
+    isImport: false
   };
 
   render() {
-    const { account, className, onConfirm, onCancel } = this.props;
+    const { account, className, onConfirm, onCancel, isImport } = this.props;
 
     return (
       <Modal
@@ -38,14 +41,16 @@ export default class NewWallet extends React.PureComponent {
       >
         <div className={styles.content}>
           <div className={styles.body}>
-            {this.renderComponent({ account, onConfirm, onCancel })}
+            {this.renderComponent({ account, onConfirm, onCancel, isImport })}
           </div>
         </div>
       </Modal>
     );
   }
 
-  renderComponent = ({ account, onConfirm, onCancel }) => {
+  renderComponent = ({ account, onConfirm, onCancel, isImport }) => {
+    if (isImport)
+      return <ImportWallet account={account} onConfirm={onConfirm} onCancel={onCancel} />;
     return account.isHardware ? (
       <Ledger account={account} onConfirm={onConfirm} onCancel={onCancel} />
     ) : (

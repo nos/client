@@ -10,6 +10,7 @@ ReactWrapper {
     "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
+    "wrapInvoke": [Function],
   },
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__node__): Object {
