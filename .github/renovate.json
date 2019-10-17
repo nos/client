@@ -58,19 +58,19 @@
       "allowedVersions": "<= 20.32.0"
     },
     {
-      "packagePatterns": ["eslint", "stylelint"],
+      "packageNames": ["eslint", "stylelint"],
       "groupName": "lint"
     },
     {
-      "packagePatterns": ["fortawesome"],
+      "packageNames": ["fortawesome"],
       "groupName": "fortawesome"
     },
     {
-      "packagePatterns": ["babel"],
+      "packageNames": ["babel"],
       "groupName": "babel"
     },
     {
-      "packagePatterns": ["enzyme"],
+      "packageNames": ["enzyme"],
       "groupName": "enzyme"
     }
   ]
