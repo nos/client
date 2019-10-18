@@ -1,6 +1,7 @@
 import React from 'react';
 import { string, func, bool, arrayOf, shape } from 'prop-types';
 import classNames from 'classnames';
+import { isEmpty } from 'lodash';
 
 import Button from 'shared/components/Forms/Button';
 import PrimaryButton from 'shared/components/Forms/PrimaryButton';
@@ -59,7 +60,7 @@ export default class Import extends React.PureComponent {
 
   renderImportView = ({ accounts, newImport }) => (
     <React.Fragment>
-      {accounts && (
+      {!isEmpty(accounts) && (
         <div className={styles.toggle} role="button" tabIndex={0} onClick={this.handleToggle}>
           {newImport ? 'Import Legacy Wallet' : 'Import New Wallet'}
         </div>
