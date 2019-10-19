@@ -13,7 +13,8 @@ export default class Alert extends React.PureComponent {
     children: node,
     title: string,
     confirmLabel: string,
-    onConfirm: func
+    onConfirm: func,
+    onCancel: func
   };
 
   static defaultProps = {
@@ -21,7 +22,8 @@ export default class Alert extends React.PureComponent {
     children: null,
     title: null,
     confirmLabel: 'OK',
-    onConfirm: noop
+    onConfirm: noop,
+    onCancel: noop
   };
 
   componentDidMount() {
@@ -29,10 +31,10 @@ export default class Alert extends React.PureComponent {
   }
 
   render() {
-    const { className, confirmLabel, onConfirm, children } = this.props;
+    const { className, confirmLabel, onConfirm, children, onCancel } = this.props;
 
     return (
-      <Modal className={classNames(styles.alert, className)}>
+      <Modal className={classNames(styles.alert, className)} handleClose={onCancel}>
         {this.renderTitle()}
         <div className={styles.body}>{children}</div>
         <div className={styles.actions}>
