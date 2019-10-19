@@ -25,7 +25,11 @@ export default class OnClickOutside extends React.PureComponent {
   }
 
   handleClickOutside = (event) => {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+    if (
+      this.wrapperRef &&
+      !this.wrapperRef.contains(event.target) &&
+      !event.target.outerHTML.toLowerCase().includes('toast')
+    ) {
       this.props.onClickOutside();
     }
   };
