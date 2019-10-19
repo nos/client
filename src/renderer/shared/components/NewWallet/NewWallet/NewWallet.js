@@ -38,6 +38,7 @@ export default class NewWallet extends React.PureComponent {
         className={classNames(styles.confirm, className)}
         renderHeader={this.renderTitle}
         renderFooter={this.renderFooter}
+        handleClose={onCancel}
       >
         <div className={styles.content}>
           <div className={styles.body}>
