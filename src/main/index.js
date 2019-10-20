@@ -104,12 +104,10 @@ function createSplashWindow() {
 
     const autoUpdates = 'autoUpdates';
     getStorage(autoUpdates).then((autoUpdatesSetting) => {
-      const enabled = isEmpty(autoUpdatesSetting) ? true : autoUpdatesSetting.enabled;
+      const enabled = autoUpdatesSetting && autoUpdatesSetting.enabled;
 
-      if (enabled) {
+      if (isEmpty(autoUpdatesSetting)) {
         setStorage(autoUpdates, { enabled: true });
-      } else {
-        setStorage(autoUpdates, { enabled: false });
       }
 
       if (
@@ -138,12 +136,10 @@ function createSplashWindow() {
 }
 
 const webGL = 'ignore-gpu-blacklist';
-getStorage(webGL).then((setting) => {
-  if (!isEmpty(setting) && setting.enabled) {
+getStorage(webGL).then((webGLSetting) => {
+  if (isEmpty(webGLSetting) || webGLSetting.enabled) {
     app.commandLine.appendSwitch(webGL);
     setStorage(webGL, { enabled: true });
-  } else {
-    setStorage(webGL, { enabled: false });
   }
 });
 

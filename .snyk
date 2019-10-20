@@ -1,13 +1,17 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.13.5
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-CSVPARSE-467403:
+    - sifter > csv-parse:
+        reason: None given
+        expires: '2019-11-17T16:31:16.436Z'
+  SNYK-JS-PUPA-174563:
+    - electron-context-menu > electron-dl > pupa:
+        reason: None given
+        expires: '2019-11-17T16:31:16.436Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-AXIOS-174505:
     - '@cityofzion/neon-js > axios':
-        patched: '2019-08-02T07:32:26.723Z'
-  SNYK-JS-HTTPSPROXYAGENT-469131:
-    - snyk > proxy-agent > https-proxy-agent:
-        patched: '2019-10-04T01:45:35.994Z'
-    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
-        patched: '2019-10-04T01:45:35.994Z'
+        patched: '2019-10-18T16:30:20.194Z'

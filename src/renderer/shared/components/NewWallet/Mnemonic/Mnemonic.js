@@ -34,7 +34,7 @@ export default class Mnemonic extends React.PureComponent {
     const { secretWord } = account;
 
     return (
-      <div className={classNames(className, styles.mnemonic)}>
+      <form className={classNames(className, styles.mnemonic)} onSubmit={this.confirm}>
         <Pill>{secretWord}</Pill>
         <LabeledInput
           id="passphrase"
@@ -56,11 +56,9 @@ export default class Mnemonic extends React.PureComponent {
           <Button className={styles.action} onClick={this.cancel}>
             Cancel
           </Button>
-          <PrimaryButton className={styles.action} onClick={this.confirm}>
-            Add Wallet
-          </PrimaryButton>
+          <PrimaryButton className={styles.action}>Add Wallet</PrimaryButton>
         </div>
-      </div>
+      </form>
     );
   }
 
