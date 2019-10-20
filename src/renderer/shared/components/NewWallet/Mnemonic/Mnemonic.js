@@ -56,7 +56,9 @@ export default class Mnemonic extends React.PureComponent {
           <Button className={styles.action} onClick={this.cancel}>
             Cancel
           </Button>
-          <PrimaryButton className={styles.action}>Add Wallet</PrimaryButton>
+          <PrimaryButton type="submit" className={styles.action}>
+            Add Wallet
+          </PrimaryButton>
         </div>
       </form>
     );
