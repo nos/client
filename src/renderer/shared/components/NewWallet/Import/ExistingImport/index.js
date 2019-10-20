@@ -19,6 +19,7 @@ export default compose(
   withState('currentAccount', 'setCurrentAccount', ({ accounts }) => {
     return accounts[0] && accounts[0].encryptedKey;
   }),
+  withState('legacyPassphrase', 'setLegacyPassphrase', ''),
   withState('passphrase', 'setPassphrase', ''),
 
   withErrorToast(),

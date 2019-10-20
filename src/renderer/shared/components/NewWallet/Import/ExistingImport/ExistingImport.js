@@ -18,7 +18,9 @@ export default class ExistingImport extends React.PureComponent {
     className: string,
     account: accountShape.isRequired,
     passphrase: string.isRequired,
+    legacyPassphrase: string.isRequired,
     setPassphrase: func.isRequired,
+    setLegacyPassphrase: func.isRequired,
     addAccount: func.isRequired,
     accounts: arrayOf(legacyAccountShape).isRequired,
     setCurrentAccount: func.isRequired,
@@ -31,7 +33,7 @@ export default class ExistingImport extends React.PureComponent {
   };
 
   render() {
-    const { className, accounts, passphrase, currentAccount } = this.props;
+    const { className, accounts, passphrase, legacyPassphrase, currentAccount } = this.props;
 
     return (
       <form className={className} onSubmit={this.submit} id="walletForm">
@@ -45,10 +47,19 @@ export default class ExistingImport extends React.PureComponent {
         />
 
         <LabeledInput
-          id="passphrase"
+          id="legacyPassphrase"
           type="password"
           label="Legacy Passphrase"
           placeholder="Enter your legacy passphrase"
+          value={legacyPassphrase}
+          onChange={this.handleChangeLegacyPassphrase}
+        />
+
+        <LabeledInput
+          id="passphrase"
+          type="password"
+          label="Current Passphrase"
+          placeholder="Enter your current passphrase"
           value={passphrase}
           onChange={this.handleChangePassphrase}
         />
@@ -58,6 +69,10 @@ export default class ExistingImport extends React.PureComponent {
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
+  };
+
+  handleChangeLegacyPassphrase = (event) => {
+    this.props.setLegacyPassphrase(event.target.value);
   };
 
   handleChangeCurrentAccount = (value) => {
@@ -72,13 +87,14 @@ export default class ExistingImport extends React.PureComponent {
       setPassphrase,
       addAccount,
       showErrorToast,
+      legacyPassphrase,
       currentAccount
     } = this.props;
 
     const walletLabel = accounts.filter((acc) => acc.encryptedKey === currentAccount)[0].walletName;
 
     try {
-      const wif = await wallet.decryptAsync(currentAccount, passphrase);
+      const wif = await wallet.decryptAsync(currentAccount, legacyPassphrase);
       const { privateKey } = new wallet.Account(wif);
 
       const options = {
@@ -92,7 +108,7 @@ export default class ExistingImport extends React.PureComponent {
       addAccount({ account, passphrase, options });
       setPassphrase('');
     } catch (e) {
-      showErrorToast(`Wrong passphrase for account ${walletLabel}`);
+      showErrorToast(`Incorrect legacy passphrase for account ${walletLabel}`);
     }
   };
 
