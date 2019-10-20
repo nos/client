@@ -25,8 +25,6 @@ import Send from './Send';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapAuthDataToProps = (account) => ({ account });
-
 const mapSendActionsToProps = (actions, { net, account, fee, auth: { wallet } }) => ({
   onSend: ({ asset, amount, receiver }) =>
     actions.call({
@@ -47,14 +45,6 @@ const mapSendActionsToProps = (actions, { net, account, fee, auth: { wallet } })
 const mapFeeDataToProps = (fee) => ({ fee });
 
 export default compose(
-  withData(authActions, mapAuthDataToProps),
-  withInitialCall(walletActions, ({ account }) => ({ accountLabel: account.accountLabel })),
-  withProps(({ account }) => account),
-  withData(walletActions, (wallets) => ({ wallets })),
-  withNetworkData(),
-  withData(authActions, mapAuthDataToProps),
-  withAuthData(),
-  withProps(({ encryptedMnemonic }) => ({ encryptedMnemonic })),
   withNetworkData(),
   withActiveWallet(),
   withProps(({ net, wallet }) => {

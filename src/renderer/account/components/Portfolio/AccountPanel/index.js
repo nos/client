@@ -14,13 +14,13 @@ const mapCurrencyDataToProps = (currency) => ({ currency });
 
 export default compose(
   withActiveWallet(),
-  withProps(({ net, wallet }) => {
-    const { coinType } = wallet;
+  // withProps(({ net, wallet }) => {
+  //   const { coinType } = wallet;
 
-    if (coinType === 111) {
-      return { DEFAULT_TOKEN: ARK };
-    }
-    return { DEFAULT_TOKEN: net === DEFAULT_NET ? NOS : NEO };
-  }),
+  //   if (coinType === 111) {
+  //     return { DEFAULT_TOKEN: ARK };
+  //   }
+  //   return { DEFAULT_TOKEN: net === DEFAULT_NET ? NOS : NEO };
+  // }),
   withData(currencyActions, mapCurrencyDataToProps)
 )(AccountPanel);

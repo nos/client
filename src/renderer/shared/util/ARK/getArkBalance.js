@@ -10,7 +10,7 @@ export default async function getARKBalance({ address }) {
         symbol: 'ARK',
         scriptHash: 'ARK',
         decimals: 8,
-        balance: 0
+        balance: '0'
       }
     };
   }
