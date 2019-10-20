@@ -198,7 +198,7 @@ export default class Ledger extends React.PureComponent {
           <Button className={styles.action} onClick={onCancel}>
             Cancel
           </Button>
-          <PrimaryButton className={styles.action} disabled={!this.isValid()}>
+          <PrimaryButton type="submit" className={styles.action} disabled={!this.isValid()}>
             Add Wallet
           </PrimaryButton>
         </div>
