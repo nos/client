@@ -16,7 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "1.2.25",
     "@fortawesome/free-regular-svg-icons": "5.11.2",
     "@fortawesome/free-solid-svg-icons": "5.11.2",
-    "@fortawesome/react-fontawesome": "0.1.6",
+    "@fortawesome/react-fontawesome": "0.1.7",
     "@ledgerhq/hw-transport-node-hid": "4.18.0",
     "@nosplatform/react-copy-to-clipboard": "5.0.1",
     "about-window": "1.13.1",
