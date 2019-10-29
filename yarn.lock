@@ -308,6 +308,13 @@
   dependencies:
     tslib "^1.9.3"
 
+"@snyk/cli-interface@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@snyk/cli-interface/-/cli-interface-2.2.0.tgz#5536bc913917c623d16d727f9f3759521a916026"
+  integrity sha512-sA7V2JhgqJB9z5uYotgQc5iNDv//y+Mdm39rANxmFjtZMSYJZHkP80arzPjw1mB5ni/sWec7ieYUUFeySZBfVg==
+  dependencies:
+    tslib "^1.9.3"
+
 "@snyk/cli-interface@^2.0.3", "@snyk/cli-interface@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@snyk/cli-interface/-/cli-interface-2.1.0.tgz#2e7ecd9457c91b78ce3e5b91451e823f218a25af"
@@ -335,10 +342,10 @@
   dependencies:
     lodash "^4.17.13"
 
-"@snyk/dep-graph@1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@snyk/dep-graph/-/dep-graph-1.12.0.tgz#aa0df8549849a4857bc5510e839da268293e4750"
-  integrity sha512-n7+PlHn3SqznHgsCpeBRfEvU1oiQydoGkXQlnSB2+tfImiKXvY7YZbrg4wlbvYgylYiTbpCi5CpPNkJG14S+UQ==
+"@snyk/dep-graph@1.13.0", "@snyk/dep-graph@^1.11.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@snyk/dep-graph/-/dep-graph-1.13.0.tgz#855f628da0b833dd16c02c2f977507bbf090b894"
+  integrity sha512-e0XcLH6Kgs/lunf6iDjbxEnm9+JYFEJn6eo/PlEUW+SMWBZ2uEXHBTDNp9oxjJou48PngzWMveEkniBAN+ulOQ==
   dependencies:
     graphlib "^2.1.5"
     lodash "^4.7.14"
@@ -347,10 +354,10 @@
     source-map-support "^0.5.11"
     tslib "^1.9.3"
 
-"@snyk/dep-graph@1.13.0", "@snyk/dep-graph@^1.11.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@snyk/dep-graph/-/dep-graph-1.13.0.tgz#855f628da0b833dd16c02c2f977507bbf090b894"
-  integrity sha512-e0XcLH6Kgs/lunf6iDjbxEnm9+JYFEJn6eo/PlEUW+SMWBZ2uEXHBTDNp9oxjJou48PngzWMveEkniBAN+ulOQ==
+"@snyk/dep-graph@1.13.1":
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/@snyk/dep-graph/-/dep-graph-1.13.1.tgz#45721f7e21136b62d1cdd99b3319e717d9071dfb"
+  integrity sha512-Ww2xvm5UQgrq9eV0SdTBCh+w/4oI2rCx5vn1IOSeypaR0CO4p+do1vm3IDZ2ugg4jLSfHP8+LiD6ORESZMkQ2w==
   dependencies:
     graphlib "^2.1.5"
     lodash "^4.7.14"
@@ -2644,6 +2651,11 @@ cli-cursor@^3.1.0:
   integrity sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==
   dependencies:
     restore-cursor "^3.1.0"
+
+cli-spinner@0.2.10:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/cli-spinner/-/cli-spinner-0.2.10.tgz#f7d617a36f5c47a7bc6353c697fc9338ff782a47"
+  integrity sha512-U0sSQ+JJvSLi1pAYuJykwiA8Dsr15uHEy85iCJ6A+0DjVxivr3d+N2Wjvodeg89uP5K6TswFkKBfAD7B3YSn/Q==
 
 cli-width@^2.0.0:
   version "2.2.0"
@@ -10756,7 +10768,7 @@ proxy-addr@~2.0.5:
     forwarded "~0.1.2"
     ipaddr.js "1.9.0"
 
-proxy-agent@*:
+proxy-agent@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/proxy-agent/-/proxy-agent-3.1.1.tgz#7e04e06bf36afa624a1540be247b47c970bd3014"
   integrity sha512-WudaR0eTsDx33O3EJE16PjBRZWcX8GqCEeERw1W3hZJgH/F2a46g7jty6UGty6NeJ4CKQy8ds2CJPMiyeqaTvw==
@@ -12552,13 +12564,13 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@1.236.1:
-  version "1.236.1"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.236.1.tgz#491771d31d990b13a42cd2dd6c306b06860b9b1a"
-  integrity sha512-wxA5Dbknfm4Pq+0poGar2K8X1oh+OwECdJVgiDeCCnooo8cQBamVV4Zekpb6sXJAAX9Wprgm6S+f4YgTvNmd3A==
+snyk@1.239.3:
+  version "1.239.3"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.239.3.tgz#673eed0a1daf19addc14c2ea9c79578b1fd7373b"
+  integrity sha512-E/6Szx4fqA+KbVAM2Ph5+j8fRUNaycLlsS9y5pIGEOKonj7XZ26TwazmtpysuI+ioVfwQrqp/hR5m8J6oErSLg==
   dependencies:
-    "@snyk/cli-interface" "^2.0.3"
-    "@snyk/dep-graph" "1.12.0"
+    "@snyk/cli-interface" "2.2.0"
+    "@snyk/dep-graph" "1.13.1"
     "@snyk/gemfile" "1.2.0"
     "@snyk/snyk-cocoapods-plugin" "1.0.3"
     "@types/agent-base" "^4.2.0"
@@ -12566,6 +12578,7 @@ snyk@1.236.1:
     abbrev "^1.1.1"
     ansi-escapes "3.2.0"
     chalk "^2.4.2"
+    cli-spinner "0.2.10"
     configstore "^3.1.2"
     debug "^3.1.0"
     diff "^4.0.1"
@@ -12576,7 +12589,7 @@ snyk@1.236.1:
     needle "^2.2.4"
     opn "^5.5.0"
     os-name "^3.0.0"
-    proxy-agent "*"
+    proxy-agent "^3.1.1"
     proxy-from-env "^1.0.0"
     semver "^6.0.0"
     snyk-config "^2.2.1"
