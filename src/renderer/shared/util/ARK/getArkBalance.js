@@ -1,7 +1,9 @@
-const ARK_API = 'https://api.ark.io/api/v2';
+import getArkNetwork from './getNetwork';
 
-export default async function getARKBalance({ address }) {
-  const url = `${ARK_API}/wallets/${address}`;
+export default async function getARKBalance({ address, coinType, net }) {
+  const api = getArkNetwork({ coinType, net });
+  console.log('api', api);
+  const url = `${api}/wallets/${address}`;
   const response = await fetch(url);
   if (response.status === 404) {
     return {

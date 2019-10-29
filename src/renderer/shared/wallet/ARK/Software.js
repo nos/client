@@ -1,16 +1,17 @@
-import { Identities } from '@arkecosystem/crypto';
+import { Identities, Managers } from '@arkecosystem/crypto';
 
 export default class Software {
   constructor(child) {
     this.child = child;
-    this.networkVersion = 0x17; // mainnet
+    Managers.configManager.setFromPreset('devnet');
+    // this.networkVersion = 0x17; // mainnet
     // this.networkVersion = 0x1e; // testnet
     // AMR4mzxAj2sf2kEg2MpH3Jzk5HbXQDjq9G
   }
 
   getWallet = () => {
     return {
-      address: Identities.Address.fromPublicKey(this.getPublicKey(), this.networkVersion),
+      address: Identities.Address.fromPublicKey(this.getPublicKey()),
       privateKey: this.getPrivateKey(),
       WIF: this.getWIF(),
       publicKey: this.getPublicKey()
@@ -27,7 +28,7 @@ export default class Software {
 
   getPublicKey = () => this.child.publicKey.toString('hex');
 
-  getAddress = () => Identities.Address.fromPublicKey(this.getPublicKey(), this.networkVersion);
+  getAddress = () => Identities.Address.fromPublicKey(this.getPublicKey());
 
   //   getExtendedPrivateKey = () => this.child.toBase58();
 }
