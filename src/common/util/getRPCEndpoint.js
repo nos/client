@@ -48,7 +48,10 @@ function raceToSuccess(promises) {
       // If a request fails, count that as a resolution so it will keep
       // waiting for other possible successes. If a request succeeds,
       // treat it as a rejection so Promise.all immediately bails out.
-      p.then((val) => Promise.reject(val), (err) => err)
+      p.then(
+        (val) => Promise.reject(val),
+        (err) => err
+      )
     )
   ).then(
     // If '.all' resolved, we've just got an array of errors.

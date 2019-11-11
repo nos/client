@@ -18,7 +18,4 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ openTab }, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TabLink);
+export default connect(mapStateToProps, mapDispatchToProps)(TabLink);
