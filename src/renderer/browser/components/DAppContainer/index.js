@@ -30,10 +30,4 @@ const mapDispatchToProps = (dispatch) =>
     dispatch
   );
 
-export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
-  withWebviewIPC
-)(DAppContainer);
+export default compose(connect(null, mapDispatchToProps), withWebviewIPC)(DAppContainer);

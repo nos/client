@@ -89,9 +89,5 @@ function replaceUglifyPlugin(config) {
 module.exports = async (env) => {
   const config = await webpackRenderer(env);
 
-  return flow(
-    replaceSassLoader,
-    replaceSvgLoader,
-    replaceUglifyPlugin
-  )(config);
+  return flow(replaceSassLoader, replaceSvgLoader, replaceUglifyPlugin)(config);
 };

@@ -9,7 +9,4 @@ const mapDispatchToProps = (dispatch) => ({
   openSettings: () => dispatch(openTab({ type: INTERNAL, target: SETTINGS }))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(PriorityFee);
+export default connect(null, mapDispatchToProps)(PriorityFee);
