@@ -7,8 +7,5 @@ export default function withAuth(propName = 'newWallet') {
     [propName]: (...args) => dispatch(newWallet(...args))
   });
 
-  return connect(
-    null,
-    mapDispatchToProps
-  );
+  return connect(null, mapDispatchToProps);
 }

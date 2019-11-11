@@ -10,7 +10,4 @@ const mapStateToProps = (state, ownProps) => ({
   requests: get(state, `requests.${ownProps.sessionId}`, [])
 });
 
-export default compose(
-  withAuthState(),
-  connect(mapStateToProps)
-)(RequestsProcessor);
+export default compose(withAuthState(), connect(mapStateToProps))(RequestsProcessor);

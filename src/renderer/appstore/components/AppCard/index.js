@@ -13,7 +13,4 @@ const mapDispatchToProps = (dispatch) => ({
     )
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(AppCard);
+export default connect(null, mapDispatchToProps)(AppCard);

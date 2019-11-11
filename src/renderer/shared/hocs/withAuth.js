@@ -7,8 +7,5 @@ export default function withAuth(propName = 'auth') {
     [propName]: (...args) => dispatch(auth(...args))
   });
 
-  return connect(
-    null,
-    mapDispatchToProps
-  );
+  return connect(null, mapDispatchToProps);
 }
