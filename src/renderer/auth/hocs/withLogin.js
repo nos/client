@@ -10,8 +10,5 @@ const { LOADED } = progressValues;
 const mapAuthDataToProps = (auth) => ({ auth });
 
 export default function withLogin(callback) {
-  return compose(
-    withData(authActions, mapAuthDataToProps),
-    withAuthChange(LOADED, callback)
-  );
+  return compose(withData(authActions, mapAuthDataToProps), withAuthChange(LOADED, callback));
 }

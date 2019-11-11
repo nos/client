@@ -11,7 +11,10 @@ const mountContainer = (props = {}) => {
 };
 
 describe('<Select />', () => {
-  const items = [{ label: 'Foo', value: 'foo' }, { label: 'Bar', value: 'bar' }];
+  const items = [
+    { label: 'Foo', value: 'foo' },
+    { label: 'Bar', value: 'bar' }
+  ];
 
   it('renders a dropdown', () => {
     const wrapper = mountContainer({ id: 'name' });
