@@ -122,7 +122,7 @@
     "eslint-plugin-react": "7.16.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
-    "jest-canvas-mock": "2.1.2",
+    "jest-canvas-mock": "2.2.0",
     "nock": "11.7.0",
     "node-loader": "0.6.0",
     "node-sass": "4.13.0",
