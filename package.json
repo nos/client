@@ -31,7 +31,7 @@
     "electron-context-menu": "0.11.0",
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.8",
-    "electron-localshortcut": "3.1.0",
+    "electron-localshortcut": "3.2.0",
     "electron-updater": "3.2.3",
     "es6-promisify": "6.0.2",
     "ethereumjs-utils": "5.2.5",
