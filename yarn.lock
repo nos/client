@@ -463,10 +463,23 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.55.tgz#3951a64ebce1927b050fd1e420dc6f332be8a1e0"
   integrity sha512-iZeh1EgupfmAAOASk580R1SL5lWF3CsBVgVH0395qyNF8fhO16xy1UwAav2PdGxIIsYRn7RzJgMGjdsvam6YYg==
 
+"@types/prop-types@*":
+  version "15.7.3"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
+  integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react@^15.0.0 || ^16.0.0":
+  version "16.9.11"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.11.tgz#70e0b7ad79058a7842f25ccf2999807076ada120"
+  integrity sha512-UBT4GZ3PokTXSWmdgC/GeCGEJXE5ofWyibCcecRLUVN2ZBpXQGVgQGtG2foS7CrTKFKlQVVswLvf7Js6XA/CVQ==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@types/restify@^4.3.6":
   version "4.3.6"
@@ -3667,6 +3680,11 @@ cssstyle@^1.0.0:
   integrity sha512-GBrLZYZ4X4x6/QEoBnIrqb8B/f5l4+8me2dkom/j1Gtbxy0kBv6OGzKuAsGM75bkGwGAFkt56Iwg28S3XTZgSA==
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.7.tgz#20b0024c20b6718f4eda3853a1f5a1cce7f5e4a5"
+  integrity sha512-9Mcn9sFbGBAdmimWb2gLVDtFJzeKtDGIr76TUqmjZrw9LFXBMSU70lcs+C0/7fyCd6iBDqmksUcCOUIkisPHsQ==
 
 csv-parse@^2.0.0:
   version "2.5.0"
@@ -10869,11 +10887,12 @@ qr.js@0.0.0:
   resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
   integrity sha1-ys6GOG9ZoNuAUPqQ2baw6IoeNk8=
 
-qrcode.react@0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-0.9.3.tgz#91de1287912bdc5ccfb3b091737b828d6ced60c5"
-  integrity sha512-gGd30Ez7cmrKxyN2M3nueaNLk/f9J7NDRgaD5fVgxGpPLsYGWMn9UQ+XnDpv95cfszTQTdaf4QGLNMf3xU0hmw==
+qrcode.react@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-1.0.0.tgz#7e8889db3b769e555e8eb463d4c6de221c36d5de"
+  integrity sha512-jBXleohRTwvGBe1ngV+62QvEZ/9IZqQivdwzo9pJM4LQMoCM2VnvNBnKdjvGnKyDZ/l0nCDgsPod19RzlPvm/Q==
   dependencies:
+    loose-envify "^1.4.0"
     prop-types "^15.6.0"
     qr.js "0.0.0"
 
@@ -11072,11 +11091,12 @@ react-dom@16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-hot-loader@4.12.15:
-  version "4.12.15"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.12.15.tgz#6bf3984e52edbdf02ea8952777f53da1b3c68c95"
-  integrity sha512-sgkN6g+tgPE6xZzD0Ysqll7KUFYJbMX0DrczT5OxD6S7hZlSnmqSC3ceudwCkiDd65ZTtm+Ayk4Y9k5xxCvpOw==
+react-hot-loader@4.12.16:
+  version "4.12.16"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.12.16.tgz#353bd07fbb08f791b5720535f86b0a8f9b651317"
+  integrity sha512-KC33uTBacgdunMtfpZFP2pgPpyvKIcCwuh0XmWESbeFrkWLqUtCFN91zyaTdU5OiAM982+E8xh1gjE5EINumaw==
   dependencies:
+    "@types/react" "^15.0.0 || ^16.0.0"
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^3.3.0"
@@ -13918,10 +13938,10 @@ unique-filename@^1.1.0:
   dependencies:
     unique-slug "^2.0.0"
 
-unique-names-generator@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-3.0.0.tgz#2282d88cdef175093ac04c8edf3f89ab19469756"
-  integrity sha512-5BQhANYUKPqFnFYL1OduL7FDPiV7u5K1Lm4Z89YL4uOLH/uCNTnHkW3roFUEiEptOKt8f3uhmWnZj9w0zBXppw==
+unique-names-generator@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-3.0.1.tgz#48b4709c319f3fa77150ea94d188a92b726a32dd"
+  integrity sha512-sDcUqltBNn/Ke5pOq7jAslBow7F6mLtlSefjU/OlB7DGPSZdTRd88RwEVHhtokC885CfRF8Z+Zy/H3sdKC3ySg==
 
 unique-slug@^2.0.0:
   version "2.0.2"
