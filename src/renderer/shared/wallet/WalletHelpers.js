@@ -1,6 +1,5 @@
 import uuid from 'uuid/v4';
 import { isEmpty, omit, reduce, filter } from 'lodash';
-import { uniqueNamesGenerator, colors, animals } from 'unique-names-generator';
 
 import { getStorage, setStorage } from 'shared/lib/storage';
 import { DEFAULT_ACC_INDEX } from 'shared/values/profile';
@@ -11,12 +10,6 @@ import Wallet from './Wallet';
 export const ID = 'wallets';
 const walletFilterProps = ['signingFunction', 'wif', 'privateKey'];
 
-const config = {
-  length: 2,
-  separator: ' ',
-  dictionaries: [colors, animals]
-};
-
 const newStorageWallet = ({
   isHardware,
   coinType, // coinType is required
@@ -25,7 +18,7 @@ const newStorageWallet = ({
   net = DEFAULT_NET,
   account = 0,
   change = 0,
-  walletLabel = uniqueNamesGenerator(config),
+  walletLabel,
   publicKey,
   isImport = false
 }) => {

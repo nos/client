@@ -22,7 +22,9 @@ export default class Mnemonic extends React.PureComponent {
     setPassphrase: func.isRequired,
     coinType: number.isRequired,
     setCoinType: func.isRequired,
-    addAccount: func.isRequired
+    addAccount: func.isRequired,
+    walletLabel: string.isRequired,
+    setWalletLabel: func.isRequired
   };
 
   static defaultProps = {
@@ -30,17 +32,26 @@ export default class Mnemonic extends React.PureComponent {
   };
 
   render() {
-    const { className, account, coinType } = this.props;
+    const { className, account, coinType, passphrase, walletLabel } = this.props;
     const { secretWord } = account;
 
     return (
       <form className={classNames(className, styles.mnemonic)} onSubmit={this.confirm}>
         <Pill>{secretWord}</Pill>
         <LabeledInput
+          id="walletLabel"
+          type="text"
+          label="Enter Wallet Label"
+          placeholder="Wallet Label"
+          value={walletLabel}
+          onChange={this.handleChangeWalletLabel}
+        />
+        <LabeledInput
           id="passphrase"
           type="password"
           label="Enter Passphrase"
           placeholder="Passphrase"
+          value={passphrase}
           onChange={this.handleChangePassphrase}
         />
         <LabeledSelect
@@ -68,25 +79,41 @@ export default class Mnemonic extends React.PureComponent {
     this.props.setPassphrase(event.target.value);
   };
 
+  handleChangeWalletLabel = (event) => {
+    this.props.setWalletLabel(event.target.value);
+  };
+
   handleChangeCoinType = (coinId) => {
     this.props.setCoinType(coinId);
   };
 
   cancel = () => {
-    const { onCancel, setPassphrase } = this.props;
+    const { onCancel, setPassphrase, setWalletLabel } = this.props;
     setPassphrase('');
+    setWalletLabel(''); // TODO set to random name?
     onCancel();
   };
 
   confirm = () => {
-    const { account, passphrase, coinType, setPassphrase, addAccount } = this.props;
+    const {
+      account,
+      passphrase,
+      coinType,
+      setPassphrase,
+      setWalletLabel,
+      addAccount,
+      walletLabel
+    } = this.props;
+
     const options = {
       coinType,
+      walletLabel,
       isHardware: account.isHardware
     };
 
     addAccount({ account, passphrase, options });
     setPassphrase('');
+    setWalletLabel(''); // TODO set to random name?
   };
 
   getCoinTypes = () => {
