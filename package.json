@@ -27,7 +27,7 @@
     "classnames": "2.2.6",
     "coingecko-api": "1.0.6",
     "connected-react-router": "5.0.1",
-    "ejs": "2.7.1",
+    "ejs": "2.7.2",
     "electron-context-menu": "0.11.0",
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.8",
