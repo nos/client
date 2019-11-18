@@ -13932,10 +13932,10 @@ unique-filename@^1.1.0:
   dependencies:
     unique-slug "^2.0.0"
 
-unique-names-generator@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-3.0.1.tgz#48b4709c319f3fa77150ea94d188a92b726a32dd"
-  integrity sha512-sDcUqltBNn/Ke5pOq7jAslBow7F6mLtlSefjU/OlB7DGPSZdTRd88RwEVHhtokC885CfRF8Z+Zy/H3sdKC3ySg==
+unique-names-generator@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-3.1.1.tgz#ab0e38edf7a3e0d8dc49eb8f235820601d7cbaba"
+  integrity sha512-IYOH1XB0H3rXlXT94PjxB/EOIbu63AnA0AkelIs795a1ylDPZ0Zn9Zg7he/lLYnSOHvYeuMMcclhWkNW7REYyA==
 
 unique-slug@^2.0.0:
   version "2.0.2"
