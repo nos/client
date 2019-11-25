@@ -8310,6 +8310,11 @@ lodash.isarray@^3.0.0:
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
   integrity sha1-eeTriMNqgSKvhvhEqpvNhRtfu1U=
 
+lodash.isboolean@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz#6c2e171db2a257cd96802fd43b01b20d5f5870f6"
+  integrity sha1-bC4XHbKiV82WgC/UOwGyDV9YcPY=
+
 lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
@@ -8324,6 +8329,16 @@ lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
   integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
+
+lodash.isregexp@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isregexp/-/lodash.isregexp-4.0.1.tgz#e13e647b30cd559752a04cd912086faf7da1c30b"
+  integrity sha1-4T5kezDNVZdSoEzZEghvr32hwws=
+
+lodash.isstring@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
+  integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
 
 lodash.keys@^3.1.2:
   version "3.1.2"
@@ -13332,12 +13347,14 @@ stylelint-config-recommended@^3.0.0:
   resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-3.0.0.tgz#e0e547434016c5539fe2650afd58049a2fd1d657"
   integrity sha512-F6yTRuc06xr1h5Qw/ykb2LuFynJ2IxkKfCMf+1xqPffkxh0S09Zc902XCffcsw/XMFq/OzQ1w54fLIDtmRNHnQ==
 
-stylelint-scss@3.12.1:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-3.12.1.tgz#0b06122a33dd2ef368121e920bd3ecfa323bedf2"
-  integrity sha512-k6B78HrqJ6pib5yOtmId7osVGrE2Amcf0VU+tdzk+oqwXe/0+VKtbkogeXrmGKt+z54QhxvjEO++qlE/a7EWlA==
+stylelint-scss@3.13.0:
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-3.13.0.tgz#875c76e61d95333c4f0ae737a310be6f1d27d780"
+  integrity sha512-SaLnvQyndaPcsgVJsMh6zJ1uKVzkRZJx+Wg/stzoB1mTBdEmGketbHrGbMQNymzH/0mJ06zDSpeCDvNxqIJE5A==
   dependencies:
-    lodash "^4.17.15"
+    lodash.isboolean "^3.0.3"
+    lodash.isregexp "^4.0.1"
+    lodash.isstring "^4.0.1"
     postcss-media-query-parser "^0.2.3"
     postcss-resolve-nested-selector "^0.1.1"
     postcss-selector-parser "^6.0.2"
