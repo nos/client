@@ -2825,10 +2825,10 @@ codecov@3.6.1:
     teeny-request "^3.11.3"
     urlgrey "^0.4.4"
 
-coingecko-api@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.6.tgz#ecc42eb96fb1cc721e319c3d06244a642394ab34"
-  integrity sha512-6oJ3aB9F4AlsHQQ4F5N9753FGmMQrr12aGJl79KSfdNOFJ7wvFLSqsBoOBzgYJEab3hJ7cCWnmo2dMJs6KsA3A==
+coingecko-api@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.7.tgz#212d899ad07d27c42f0fc895ab2ad226f3fe8acd"
+  integrity sha512-jpUj9yrOjHmgn5LOlQVBfJVoR5PePXUOmOufY2QvxxfXx/Mz2grIJQTmS6w1eL65K/l1AcWhScauIg3/P9AFlg==
 
 collapse-white-space@^1.0.2:
   version "1.0.5"
