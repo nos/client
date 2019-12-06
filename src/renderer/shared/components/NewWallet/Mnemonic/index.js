@@ -17,6 +17,7 @@ const mapAddAccountActionsToProps = (actions) => ({
 export default compose(
   withErrorToast(),
   withState('passphrase', 'setPassphrase', ''),
+  withState('walletLabel', 'setWalletLabel', ''),
   withState('coinType', 'setCoinType', ({ coinType }) => coinType || DEFAULT_COIN),
   withActions(addWalletActions, mapAddAccountActionsToProps),
   withProgressChange(addWalletActions, FAILED, (state, props) => {

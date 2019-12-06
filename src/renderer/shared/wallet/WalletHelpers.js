@@ -14,6 +14,7 @@ const walletFilterProps = ['signingFunction', 'wif', 'privateKey'];
 const config = {
   length: 2,
   separator: ' ',
+  style: 'capital',
   dictionaries: [colors, animals]
 };
 
@@ -25,7 +26,7 @@ const newStorageWallet = ({
   net = DEFAULT_NET,
   account = 0,
   change = 0,
-  walletLabel = uniqueNamesGenerator(config),
+  walletLabel,
   publicKey,
   isImport = false
 }) => {
@@ -34,7 +35,7 @@ const newStorageWallet = ({
   }
   const storageWallet = {
     walletId: uuid(),
-    walletLabel,
+    walletLabel: walletLabel || uniqueNamesGenerator(config),
     canDelete,
     isHardware,
     index,
