@@ -90,7 +90,7 @@ export default class Mnemonic extends React.PureComponent {
   cancel = () => {
     const { onCancel, setPassphrase, setWalletLabel } = this.props;
     setPassphrase('');
-    setWalletLabel(''); // TODO set to random name?
+    setWalletLabel('');
     onCancel();
   };
 
@@ -113,7 +113,7 @@ export default class Mnemonic extends React.PureComponent {
 
     addAccount({ account, passphrase, options });
     setPassphrase('');
-    setWalletLabel(''); // TODO set to random name?
+    setWalletLabel('');
   };
 
   getCoinTypes = () => {
