@@ -1,45 +1,36 @@
 <p align="center">
-  <img src="./.github/screenshot.png" width="400px" />
+    <img src="./.github/screenshot.png" width="350px" />
+    <h2 align="center">nOS Client</h2>
+    <p align="center">
+        <strong>nOS</strong> is a blockchain powered virtual operating system that serves as the gateway to Decentralized Applications.
+    </p>
+    <p align="center">
+        <a href="https://github.com/nos/client/releases/latest">
+            <img src="https://img.shields.io/github/v/release/nos/client" />
+        </a>
+        <a href="https://github.com/nos/client/releases">
+            <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue.svg" alt="platforms" />
+        </a>
+        <a href="https://github.com/nos/client/releases">
+            <img src="https://img.shields.io/github/license/nos/client?color=yellow">
+        </a>
+        <a href="http://makeapullrequest.com">
+            <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+        </a>
+        <a href="https://github.com/nos/client/releases">
+            <img src="https://img.shields.io/github/downloads/nos/client/total.svg" />
+        </a>
+    </p>
+    <p align="center">
+        The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with Smart Contracts in the back-end.
+    </p>
 </p>
-
-<h1 align="center">nOS</h1>
-<p align="center">
-  <a href="https://github.com/nos/client/releases">
-    <img src="https://img.shields.io/github/release/nos/client/all.svg" />
-  </a>
-  <a href="http://makeapullrequest.com">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
-  </a>
-  <a href="https://discordapp.com/invite/eGFAskm">
-    <img src="https://img.shields.io/badge/chat-discord-brightgreen.svg" />
-  </a>
-  <a href="https://circleci.com/gh/nos/client/tree/develop">
-    <img src="https://img.shields.io/circleci/project/github/nos/client/develop.svg" />
-  </a>
-  <a href="https://renovatebot.com/">
-    <img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/prettier/prettier">
-    <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat" />
-  </a>
-  <a href="https://codecov.io/gh/nos/client">
-    <img src="https://codecov.io/gh/nos/client/branch/develop/graph/badge.svg" />
-  </a>
-</p>
-<p align="center">
-  <strong>nOS</strong> is a blockchain powered virtual operating system that serves as the gateway to Decentralized Applications.
-</p>
-<p align="center">
-  The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with Smart Contracts in the back-end.
-</p>
-
----
 
 # Getting Started with nOS
 
 The standalone client installers can be found [here](https://github.com/nos/client/releases). To build manually, the client can be cloned from GitHub and run using the development steps below.
 
-### Commands
+> Commands
 
 ```bash
 # Cloning from Github
