@@ -108,6 +108,7 @@
     "electron": "2.0.18",
     "electron-builder": "20.32.0",
     "electron-devtools-installer": "2.2.4",
+    "electron-notarize": "0.2.1",
     "electron-webpack": "1.13.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.1",

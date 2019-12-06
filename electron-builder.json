@@ -1,7 +1,11 @@
 {
   "appId": "io.nos.desktop",
   "forceCodeSigning": true,
+  "afterSign": "scripts/notarize.js",
   "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+  "dmg": {
+    "sign": false
+  },
   "win": {
     "icon": "./static/icons/icon1024x1024.ico",
     "timeStampServer": "http://timestamp.globalsign.com/scripts/timstamp.dll"
@@ -11,7 +15,11 @@
   },
   "mac": {
     "icon": "./static/icons/icon1024x1024.icns",
-    "category": "public.app-category.utilities"
+    "category": "public.app-category.utilities",
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "entitlements": "dist/entitlements.mac.plist",
+    "entitlementsInherit": "dist/entitlements.mac.plist"
   },
   "directories": {
     "buildResources": "static"
