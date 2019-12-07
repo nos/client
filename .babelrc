@@ -1,17 +1,18 @@
 {
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
   "plugins": [
+    "@babel/plugin-proposal-object-rest-spread",
     "syntax-dynamic-import",
-    ["module-resolver", {
-      "root": [
-        "./src/common",
-        "./src/main",
-        "./src/renderer"
-      ],
-      "alias": {
-        "testHelpers": "./__tests__/testHelpers",
-        "fixtures": "./__tests__/fixtures"
+    [
+      "module-resolver",
+      {
+        "root": ["./src/common", "./src/main", "./src/renderer"],
+        "alias": {
+          "testHelpers": "./__tests__/testHelpers",
+          "fixtures": "./__tests__/fixtures"
+        }
       }
-    }]
+    ]
   ],
   "env": {
     "test": {

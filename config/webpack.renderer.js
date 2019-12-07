@@ -30,7 +30,7 @@ function replaceSassLoader(config) {
       ]
     : [];
 
-  return replaceLoader(config, /\.scss/, () => ({
+  return replaceLoader(config, /\.scss$/, () => ({
     use: [
       'style-loader',
       {
@@ -47,9 +47,11 @@ function replaceSassLoader(config) {
       {
         loader: 'sass-loader',
         options: {
+          prependData:
+            '@import "./common/stylesheets/variables"; @import "./common/stylesheets/mixins"; @import "./common/stylesheets/themes";',
           data:
-            '@import "common/stylesheets/variables"; @import "common/stylesheets/mixins"; @import "common/stylesheets/themes";',
-          includePaths: [path.resolve(__dirname, '..', './src')],
+            '@import "./common/stylesheets/variables"; @import "./common/stylesheets/mixins"; @import "./common/stylesheets/themes";',
+          includePaths: [path.resolve(__dirname, '..', 'src')],
           sourceMap: !isProd
         }
       }
@@ -89,5 +91,24 @@ function replaceUglifyPlugin(config) {
 module.exports = async (env) => {
   const config = await webpackRenderer(env);
 
-  return flow(replaceSassLoader, replaceSvgLoader, replaceUglifyPlugin)(config);
+  const newConfig = merge.smart(config, {
+    resolve: {
+      alias: {
+        common: path.resolve(__dirname, '..', 'src/common'),
+        shared: path.resolve(__dirname, '..', 'src/renderer/shared'),
+        auth: path.resolve(__dirname, '..', 'src/renderer/auth'),
+        util: path.resolve(__dirname, '..', 'src/renderer/util'),
+        browser: path.resolve(__dirname, '..', 'src/renderer/browser'),
+        login: path.resolve(__dirname, '..', 'src/renderer/login'),
+        account: path.resolve(__dirname, '..', 'src/renderer/account'),
+        appstore: path.resolve(__dirname, '..', 'src/renderer/appstore'),
+        logout: path.resolve(__dirname, '..', 'src/renderer/logout'),
+        settings: path.resolve(__dirname, '..', 'src/renderer/settings'),
+        root: path.resolve(__dirname, '..', 'src/renderer/root'),
+        register: path.resolve(__dirname, '..', 'src/renderer/register')
+      }
+    }
+  });
+
+  return flow(replaceSassLoader, replaceSvgLoader, replaceUglifyPlugin)(newConfig);
 };
