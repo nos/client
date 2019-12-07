@@ -3,11 +3,11 @@ import path from 'path';
 import { resolve as resolveURL, format as formatURL } from 'url';
 import { rpc, u } from '@cityofzion/neon-js';
 
-import updateNetworks from 'util/updateNetworks';
-import getRPCEndpoint from 'util/getRPCEndpoint';
+import updateNetworks from '../../common/util/updateNetworks';
+import getRPCEndpoint from '../../common/util/getRPCEndpoint';
 
 // TODO: Configurable network
-import { NOS_TESTNET } from 'values/networks';
+import { NOS_TESTNET } from '../../common/values/networks';
 
 import getStaticPath from './getStaticPath';
 

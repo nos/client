@@ -96,11 +96,10 @@ module.exports = async (env) => {
   console.log('=================');
   console.log('=================');
 
-  const newConfig = Object.assign(config, {
+  const newConfig = merge.smart(config, {
     resolve: {
       alias: {
         util: path.resolve(__dirname, '..', 'src', 'renderer', 'util'),
-        ...config.resolve.alias
       },
       modules: [path.resolve(__dirname, '..', 'src', 'renderer'), 'node_modules']
     }

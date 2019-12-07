@@ -5,7 +5,7 @@ import path from 'path';
 import url from 'url';
 import { isEmpty } from 'lodash';
 
-import { getStorage, setStorage } from 'shared/lib/storage';
+import { getStorage, setStorage } from '../renderer/shared/lib/storage';
 
 import getStaticPath from './util/getStaticPath';
 import bindApplicationMenu from './util/bindApplicationMenu';
