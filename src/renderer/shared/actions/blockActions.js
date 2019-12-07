@@ -1,7 +1,10 @@
 import { rpc } from '@cityofzion/neon-js';
 import { createActions } from 'spunky';
 
-import getRPCEndpoint from 'util/getRPCEndpoint';
+import getRPCEndpoint from '@util/getRPCEndpoint';
+
+import getRPCEndpoint3 from 'util/getRPCEndpoint';
+import getRPCEndpoint2 from '@/util/getRPCEndpoint';
 
 export const ID = 'block';
 

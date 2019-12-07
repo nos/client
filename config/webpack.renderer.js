@@ -88,6 +88,25 @@ function replaceUglifyPlugin(config) {
 
 module.exports = async (env) => {
   const config = await webpackRenderer(env);
+  console.log('=================');
+  console.log('=================');
+  console.log('=================');
+  console.log('config', config);
+  console.log('=================');
+  console.log('=================');
+  console.log('=================');
 
-  return flow(replaceSassLoader, replaceSvgLoader, replaceUglifyPlugin)(config);
+  const newConfig = Object.assign(config, {
+    resolve: {
+      alias: {
+        util: path.resolve(__dirname, '..', 'src', 'renderer', 'util'),
+        ...config.resolve.alias
+      },
+      modules: [path.resolve(__dirname, '..', 'src', 'renderer'), 'node_modules']
+    }
+  });
+
+  console.log('after', newConfig);
+
+  return flow(replaceSassLoader, replaceSvgLoader, replaceUglifyPlugin)(newConfig);
 };

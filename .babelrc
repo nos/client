@@ -1,24 +1,24 @@
 {
   "plugins": [
     "syntax-dynamic-import",
-    ["module-resolver", {
-      "root": [
-        "./src/common",
-        "./src/main",
-        "./src/renderer"
-      ],
-      "alias": {
-        "testHelpers": "./__tests__/testHelpers",
-        "fixtures": "./__tests__/fixtures"
+    "@babel/plugin-transform-classes",
+    [
+      "module-resolver",
+      {
+        "root": ["./src/common", "./src/main", "./src/renderer"],
+        "alias": {
+          "testHelpers": "./__tests__/testHelpers",
+          "fixtures": "./__tests__/fixtures"
+        }
       }
-    }]
+    ]
   ],
   "env": {
     "test": {
       "presets": ["env", "react"],
       "plugins": [
         "dynamic-import-node",
-        "transform-class-properties",
+        "@babel/plugin-transform-classes",
         "transform-es2015-modules-commonjs"
       ]
     }
