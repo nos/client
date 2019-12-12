@@ -58,7 +58,7 @@
     "redux-saga": "0.16.2",
     "redux-thunk": "2.3.0",
     "sifter": "0.5.3",
-    "snyk": "1.248.0",
+    "snyk": "^1.258.2",
     "source-map-support": "0.5.16",
     "spunky": "1.3.1",
     "switch-tree": "0.2.2",
@@ -89,7 +89,8 @@
     "release:mac": "yarn dist --mac -p onTag",
     "release:linux": "yarn dist --linux -p onTag",
     "snyk-protect": "snyk protect",
-    "snyk-test": "snyk test"
+    "snyk-test": "snyk test",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "babel-eslint": "10.0.3",
