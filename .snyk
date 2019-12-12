@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-CSVPARSE-467403:
@@ -15,3 +15,6 @@ patch:
   SNYK-JS-AXIOS-174505:
     - '@cityofzion/neon-js > axios':
         patched: '2019-10-18T16:30:20.194Z'
+  SNYK-JS-TREEKILL-536781:
+    - snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-12T03:58:55.926Z'
