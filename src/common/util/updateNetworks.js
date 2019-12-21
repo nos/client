@@ -1,7 +1,7 @@
 import { rpc, settings } from '@cityofzion/neon-js';
 import { keys } from 'lodash';
 
-import { NOS_LOCAL, NOS_TESTNET, /* ARK_RELAY, */ PREDEFINED_NETWORKS } from '../values/networks';
+import { NOS_LOCAL, NOS_TESTNET, PREDEFINED_NETWORKS } from '../values/networks';
 
 const { networks } = settings;
 
@@ -19,13 +19,6 @@ const nosTestnetConfig = {
   }
 };
 
-// const arkConfig = {
-//   name: ARK_RELAY,
-//   extra: {
-//     explorer: 'http://explorer.ark.io'
-//   }
-// };
-
 export default function updateNetworks(userNetworks = []) {
   keys(networks).forEach((name) => {
     if (!PREDEFINED_NETWORKS.includes(name)) {
@@ -35,7 +28,6 @@ export default function updateNetworks(userNetworks = []) {
 
   settings.addNetwork(new rpc.Network(nosTestnetConfig));
   settings.addNetwork(new rpc.Network(nosLocalConfig));
-  // settings.addNetwork(new rpc.Network(arkConfig));
 
   userNetworks.forEach((network) => {
     settings.addNetwork(new rpc.Network(network));
