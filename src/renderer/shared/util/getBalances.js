@@ -104,7 +104,7 @@ export default async function getBalances({ wallets }) {
       if (prev.ARK) {
         // TODO calc with BigNumber
         const newBalance = parseFloat(parsedBalances.ARK.balance) + parseFloat(prev.ARK.balance);
-        parsedBalances.ARK.balance = newBalance;
+        parsedBalances.ARK.balance = newBalance.toString();
       }
 
       return parsedBalances;
