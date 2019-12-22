@@ -86,8 +86,7 @@ export default async function getBalances({ wallets }) {
       return { ...assets, ...tokens };
     } else if (coinType === 111) {
       // ARK
-      const assets = await getARKBalance({ address, coinType, net });
-      return { ...assets };
+      return getARKBalance({ address, coinType, net });
     } else throw new Error(`Invalid address: "${address}"`);
   });
 
@@ -95,10 +94,21 @@ export default async function getBalances({ wallets }) {
 
   return reduce(
     resolved,
-    (prev, balance) => ({
-      ...prev,
-      ...balance
-    }),
+    (prev, nextBalance) => {
+      const parsedBalances = {
+        ...prev,
+        ...nextBalance
+      };
+
+      // TODO not only fix this for ARK - loop over all possible scriptHashes
+      if (prev.ARK) {
+        // TODO calc with BigNumber
+        const newBalance = parseFloat(parsedBalances.ARK.balance) + parseFloat(prev.ARK.balance);
+        parsedBalances.ARK.balance = newBalance;
+      }
+
+      return parsedBalances;
+    },
     {}
   );
 }
