@@ -1,9 +1,6 @@
 import fetch from 'node-fetch';
-import { attempt } from 'lodash';
 
 import { Identities, Managers, Transactions } from '@arkecosystem/crypto';
-
-import simpleDecrypt from 'shared/util/simpleDecrypt';
 
 const ARK_API = 'https://api.ark.io/api';
 const NETWORK_WIF = 170;
@@ -13,13 +10,14 @@ export default async function sendARK({
   receiver,
   networkVersion = 0x17,
   wif,
-  // account,
-  fee = 0
+  account,
+  fee = 0,
+  ...rest
 }) {
   // const { encryptedMnemonic } = account || { encryptedMnemonic: '' };
 
-  Managers.configManager.setFromPreset('mainnet');
-  if (!Identities.Address.validate(receiver, networkVersion)) {
+  // Managers.configManager.setFromPreset('mainnet');
+  if (!Identities.Address.validate(receiver)) {
     throw new Error(`Invalid script hash: "${receiver}"`);
   }
   if (amount <= 0) {
@@ -27,13 +25,18 @@ export default async function sendARK({
   }
   // const mnemonic = attempt(simpleDecrypt, encryptedMnemonic);
 
+  console.log('Amount ', amount);
+  console.log('Amount ', receiver);
+  console.log('Amount ', wif);
+  console.log('Amount ', rest);
+
   const send = async () => {
     // https://github.com/ArkEcosystem/core/blob/1cbc2a05a596340d4f261d162b8f426815908db6/packages/crypto/src/transactions/builders/transactions/transaction.ts
     const transaction = Transactions.BuilderFactory.transfer() // specify 'transfer' as our AIP11 transaction type
       .amount(amount * 1e8) // 20 ARK, multiplied by 10^8 to get arktoshi value
       .fee(fee * 1e8)
       .recipientId(receiver) // your recipient's address here
-      // .version(1)
+      .version(2)
       // .network(networkVersion)
       // .sign(mnemonic)
       .signWithWif(wif, NETWORK_WIF) // your sender's passphrase here

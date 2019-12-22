@@ -77,10 +77,7 @@ async function getAssetBalances(endpoint, address) {
 }
 
 export default async function getBalances({ wallets }) {
-  console.log('all', wallets);
   const promises = map(wallets, async ({ address, coinType, net }) => {
-    console.log('fetching for address: ', address);
-    console.log('s', Identities.Address.validate(address));
     if (coinType === 888 && wallet.isAddress(address)) {
       // NEO
       const endpoint = await getRPCEndpoint(net);
@@ -90,7 +87,6 @@ export default async function getBalances({ wallets }) {
     } else if (coinType === 111) {
       // ARK
       const assets = await getARKBalance({ address, coinType, net });
-      console.log('assssests', assets);
       return { ...assets };
     } else throw new Error(`Invalid address: "${address}"`);
   });

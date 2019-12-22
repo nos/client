@@ -25,16 +25,15 @@ import Send from './Send';
 
 const { LOADING, LOADED, FAILED } = progressValues;
 
-const mapSendActionsToProps = (actions, { net, account, fee, auth: { wallet } }) => ({
+const mapSendActionsToProps = (actions, { net, fee, auth: { wallet } }) => ({
   onSend: ({ asset, amount, receiver }) =>
     actions.call({
       net,
       coinType: wallet.coinType,
       address: wallet.address,
-      wif: wallet.wif,
+      wif: wallet.WIF,
       publicKey: wallet.publicKey,
       signingFunction: wallet.signingFunction,
-      account,
       fee,
       asset,
       amount,

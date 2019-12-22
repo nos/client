@@ -2,9 +2,9 @@ import fetch from 'node-fetch';
 import uuid from 'uuid/v4';
 import { omit } from 'lodash';
 
-import { ARK, ASSETS } from 'shared/values/assets';
+import getArkNetwork from 'shared/util/ARK/getNetwork';
 
-const ARK_API = 'https://api.ark.io/api/v2';
+import { ARK, ASSETS } from 'shared/values/assets';
 
 const TX_TYPES = {
   SEND: 'Send',
@@ -40,14 +40,25 @@ function parseAbstractData(data, currentUserAddress) {
   });
 }
 
-export default async function getARKTransactionHistory({ address, previousCall = {} }) {
+export default async function getARKTransactionHistory({
+  net,
+  coinType,
+  address,
+  previousCall = {}
+}) {
   const { page_number: pageNumber = 0, total_pages: totalPages = 1, entries = [] } = previousCall;
   const pageCount = pageNumber + 1;
   if (pageCount > totalPages) return previousCall;
 
-  const endpoint = ARK_API;
-  const data = await fetch(`${endpoint}/wallets/${address}/transactions`);
+  const api = getArkNetwork({ coinType, net });
+
+  const data = await fetch(`${api}/wallets/${address}/transactions`);
   const response = await data.json();
+
+  if (response.statusCode === 404) {
+    return { entries: [] };
+  }
+
   const object = {
     ...omit(response, 'data'),
     entries: [...entries, ...parseAbstractData(response.data, address)]

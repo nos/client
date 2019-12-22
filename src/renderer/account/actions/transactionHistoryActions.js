@@ -9,7 +9,7 @@ async function getTransactionHistory({ net, coinType, address, previousCall = {}
     return getNEOTransactionHistory({ net, address, previousCall });
   } else if (coinType === 111) {
     // ARK
-    return getARKTransactionHistory({ address, previousCall });
+    return getARKTransactionHistory({ net, coinType, address, previousCall });
   } else {
     throw new Error('coinType is invalid');
   }
@@ -17,6 +17,11 @@ async function getTransactionHistory({ net, coinType, address, previousCall = {}
 
 export const ID = 'transaction_history';
 
-export default createActions(ID, ({ net, coinType, address, previousCall }) => async () => {
-  return getTransactionHistory({ net, coinType, address, previousCall });
+export default createActions(ID, ({ net, previousCall, wallet }) => async () => {
+  return getTransactionHistory({
+    net,
+    coinType: wallet.coinType,
+    address: wallet.address,
+    previousCall
+  });
 });

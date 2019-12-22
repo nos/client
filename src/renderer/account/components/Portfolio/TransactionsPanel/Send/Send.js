@@ -165,8 +165,7 @@ export default class Send extends React.PureComponent {
     if (asset === NEO || asset === NOS) {
       validAddress = wallet.isAddress(receiver);
     } else if (asset === ARK) {
-      const networkVersion = 0x17;
-      validAddress = Identities.Address.validate(receiver, networkVersion);
+      validAddress = Identities.Address.validate(receiver);
     }
 
     return (

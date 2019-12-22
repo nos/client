@@ -3,7 +3,7 @@ import { Identities, Managers } from '@arkecosystem/crypto';
 export default class Software {
   constructor(child) {
     this.child = child;
-    Managers.configManager.setFromPreset('devnet');
+    // Managers.configManager.setFromPreset('devnet');
     // this.networkVersion = 0x17; // mainnet
     // this.networkVersion = 0x1e; // testnet
     // AMR4mzxAj2sf2kEg2MpH3Jzk5HbXQDjq9G

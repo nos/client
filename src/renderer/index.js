@@ -2,6 +2,7 @@ import 'babel-polyfill'; // TODO - remove if possible, only needed for @ledgerhq
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Managers } from '@arkecosystem/crypto';
 import 'what-input';
 
 import 'root/stylesheets/global.scss';
@@ -13,6 +14,14 @@ function render(Component) {
 }
 
 render(Root);
+
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line
+  console.info('Running in dev mode..');
+  Managers.configManager.setFromPreset('testnet');
+} else {
+  Managers.configManager.setFromPreset('mainnet');
+}
 
 if (module.hot) {
   module.hot.accept('./root', () => {

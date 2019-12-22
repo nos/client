@@ -27,8 +27,8 @@ const mapTransactionHistoryActionsToProps = (actions, props) => ({
   handleFetchAdditionalTxData: (previousCall) =>
     actions.call({
       net: props.net,
-      address: props.address,
-      coinType: props.coinType,
+      address: props.wallet.address,
+      coinType: props.wallet.coinType,
       previousCall
     })
 });
