@@ -35,7 +35,7 @@
     "electron-updater": "3.2.3",
     "es6-promisify": "6.0.2",
     "ethereumjs-utils": "5.2.5",
-    "file-type": "12.4.0",
+    "file-type": "12.4.2",
     "format-currency": "1.0.0",
     "history": "4.10.1",
     "lodash": "4.17.15",
