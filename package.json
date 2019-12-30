@@ -109,7 +109,7 @@
     "electron-builder": "20.32.0",
     "electron-devtools-installer": "2.2.4",
     "electron-webpack": "1.13.0",
-    "enzyme": "3.10.0",
+    "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.1",
     "eslint": "6.7.2",
     "eslint-config-airbnb": "18.0.1",
