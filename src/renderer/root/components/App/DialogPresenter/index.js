@@ -11,7 +11,4 @@ const mapDispatchToProps = (dispatch) => ({
   onClose: () => dispatch(close())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DialogPresenter);
+export default connect(mapStateToProps, mapDispatchToProps)(DialogPresenter);

@@ -98,10 +98,10 @@ export default class Ledger extends React.PureComponent {
 
   render() {
     return (
-      <div className={styles.ledgerView}>
+      <form className={styles.ledgerView} onSubmit={this.confirm}>
         {this.renderComponent()}
         {this.renderActions()}
-      </div>
+      </form>
     );
   }
 
@@ -198,11 +198,7 @@ export default class Ledger extends React.PureComponent {
           <Button className={styles.action} onClick={onCancel}>
             Cancel
           </Button>
-          <PrimaryButton
-            className={styles.action}
-            disabled={!this.isValid()}
-            onClick={this.confirm}
-          >
+          <PrimaryButton type="submit" className={styles.action} disabled={!this.isValid()}>
             Add Wallet
           </PrimaryButton>
         </div>

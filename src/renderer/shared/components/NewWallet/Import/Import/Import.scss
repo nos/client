@@ -1,0 +1,27 @@
+.mnemonic {
+  .actions {
+    flex: 0 0 auto;
+    margin: 1.5rem 0 0;
+
+    .action {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .toggle {
+    text-align: end;
+    margin-top: -15px;
+    font-size: 12px;
+    color: $brand;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      color: $brand-dark;
+    }
+  }
+}

@@ -14,6 +14,8 @@ export const LOGIN = 'Login';
 export const REGISTER = 'Register';
 
 export default class Auth extends React.PureComponent {
+  confirm = React.createRef();
+
   static propTypes = {
     className: string,
     loading: bool.isRequired,
@@ -31,17 +33,19 @@ export default class Auth extends React.PureComponent {
     accounts: null
   };
 
-  confirm = React.createRef();
-
   render() {
-    const { className, authenticated, onConfirm } = this.props;
+    const { className, authenticated, onConfirm, onCancel } = this.props;
 
     if (authenticated) {
       onConfirm();
     }
 
     // TODO use renderHeader & renderFooter instead of AuthPanel + add SidePanel option
-    return <Modal className={classNames(styles.auth, className)}>{this.renderComponent()}</Modal>;
+    return (
+      <Modal className={classNames(styles.auth, className)} handleClose={onCancel}>
+        {this.renderComponent()}
+      </Modal>
+    );
   }
 
   renderComponent = () => {

@@ -7,10 +7,7 @@ function withToast({ type, propName = 'showToast', ...options } = {}) {
     [propName]: (message) => dispatch(showToast({ message, type, ...options }))
   });
 
-  return connect(
-    null,
-    mapDispatchToProps
-  );
+  return connect(null, mapDispatchToProps);
 }
 
 export function withSuccessToast({ propName = 'showSuccessToast', ...options } = {}) {

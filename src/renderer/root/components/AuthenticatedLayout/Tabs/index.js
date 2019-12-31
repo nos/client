@@ -15,7 +15,4 @@ const mapDispatchToProps = (dispatch) =>
     dispatch
   );
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Tabs);
+export default connect(null, mapDispatchToProps)(Tabs);

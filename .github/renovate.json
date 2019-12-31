@@ -1,13 +1,33 @@
 {
   "extends": ["config:base"],
-  "ignoreDeps": ["@ledgerhq/hw-transport-node-hid"],
+  "ignoreDeps": [
+    "@ledgerhq/hw-transport-node-hid",
+    "react-redux",
+    "redux-saga",
+    "connected-react-router",
+    "react-router-dom",
+    "jest",
+    "babel-jest",
+    "sass-loader",
+    "style-loader",
+    "electron-context-menu"
+  ],
   "schedule": ["on monday"],
   "labels": ["Renovate 🌴"],
+  "semanticCommits": true,
   "statusCheckVerify": true,
   "packageRules": [
     {
+      "packagePatterns": ["*"],
+      "semanticCommitType": "renovate"
+    },
+    {
       "packageNames": ["@cityofzion/neon-js"],
       "allowedVersions": "< 4"
+    },
+    {
+      "packageNames": ["react", "react-dom", "react-is"],
+      "allowedVersions": "< 16.9.0"
     },
     {
       "packageNames": ["electron-is-dev"],
@@ -38,19 +58,19 @@
       "allowedVersions": "<= 20.32.0"
     },
     {
-      "packagePatterns": ["eslint", "stylelint"],
+      "packageNames": ["eslint", "stylelint"],
       "groupName": "lint"
     },
     {
-      "packagePatterns": ["fortawesome"],
+      "packageNames": ["fortawesome"],
       "groupName": "fortawesome"
     },
     {
-      "packagePatterns": ["babel"],
+      "packageNames": ["babel"],
       "groupName": "babel"
     },
     {
-      "packagePatterns": ["enzyme"],
+      "packageNames": ["enzyme"],
       "groupName": "enzyme"
     }
   ]

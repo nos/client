@@ -2,9 +2,6 @@
 
 exports[`<CategoryTitle /> renders correctly 1`] = `
 ReactWrapper {
-  Symbol(enzyme.__unrendered__): <CategoryTitle>
-    TestTitle
-  </CategoryTitle>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -13,6 +10,7 @@ ReactWrapper {
     "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
+    "wrapInvoke": [Function],
   },
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__node__): Object {
@@ -97,5 +95,10 @@ ReactWrapper {
       },
     },
   },
+  Symbol(enzyme.__linkedRoots__): Array [],
+  Symbol(enzyme.__unrendered__): <CategoryTitle>
+    TestTitle
+  </CategoryTitle>,
+  Symbol(enzyme.__updatedBy__): null,
 }
 `;

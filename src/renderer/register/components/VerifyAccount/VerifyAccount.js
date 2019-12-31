@@ -36,7 +36,7 @@ export default class VerifyAccount extends React.PureComponent {
         sidePanel
         step="3"
         onCancel={onCancel}
-        sidePanelText="🤓 Let’s make sure that you remember your passwords and stored your recovery seed."
+        sidePanelText="🤓 Let’s make sure that you remember your passphrase and stored your recovery seed."
       >
         {this.renderComponent()}
         <NavigationButtons

@@ -14,14 +14,32 @@
     @extend %labelColor;
   }
 
+  .subHeader {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .icon {
+    margin-right: 3px;
+  }
+
   .link {
     cursor: pointer;
-
     font-weight: 500;
     font-size: 12px;
     line-height: 12px;
     user-select: none;
     color: $brand;
+    display: flex;
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    &:hover {
+      color: $brand-dark;
+    }
   }
 }
 

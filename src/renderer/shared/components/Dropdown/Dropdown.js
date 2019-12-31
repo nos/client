@@ -20,6 +20,10 @@ const canFitInDirections = (overlap, childBounds, dropdownDimensions, windowDime
 };
 
 export default class Dropdown extends React.PureComponent {
+  dropdown = React.createRef();
+
+  container = this.props.forwardedRef || React.createRef();
+
   static propTypes = {
     forwardedRef: refShape,
     className: string,
@@ -52,10 +56,6 @@ export default class Dropdown extends React.PureComponent {
     },
     width: null
   };
-
-  dropdown = React.createRef();
-
-  container = this.props.forwardedRef || React.createRef();
 
   componentDidMount() {
     this.setPosition();

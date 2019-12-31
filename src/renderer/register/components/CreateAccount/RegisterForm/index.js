@@ -14,6 +14,7 @@ const { FAILED, LOADED } = progressValues;
 const mapRegisterActionsToProps = (actions) => ({
   storeFormData: (data) => actions.call(data)
 });
+
 const mapRegisterDataToProps = (data) => data;
 
 export default compose(
@@ -26,6 +27,7 @@ export default compose(
   withState('passphraseConfirm', 'setPassphraseConfirm', ''),
   withState('secretWord', 'setSecretWord', ({ secretWord }) => secretWord || ''),
   withState('isHardware', 'setIsHardware', ({ isHardware }) => isHardware || false),
+  withState('isImport', 'setIsImport', ({ isImport }) => isImport || false),
   withErrorToast(),
   withProgressChange(registerFormActions, FAILED, (state, props) => {
     props.showErrorToast(state.error);

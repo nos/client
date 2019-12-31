@@ -1,45 +1,36 @@
 <p align="center">
-  <img src="./.github/screenshot.png" width="400px" />
+    <img src="./.github/screenshot.png" width="350px" />
+    <h2 align="center">nOS Client</h2>
+    <p align="center">
+        <strong>nOS</strong> is a blockchain powered virtual operating system that serves as the gateway to Decentralized Applications.
+    </p>
+    <p align="center">
+        <a href="https://github.com/nos/client/releases/latest">
+            <img src="https://img.shields.io/github/v/release/nos/client" />
+        </a>
+        <a href="https://github.com/nos/client/releases">
+            <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue.svg" alt="platforms" />
+        </a>
+        <a href="https://github.com/nos/client/releases">
+            <img src="https://img.shields.io/github/license/nos/client?color=yellow">
+        </a>
+        <a href="http://makeapullrequest.com">
+            <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+        </a>
+        <a href="https://github.com/nos/client/releases">
+            <img src="https://img.shields.io/github/downloads/nos/client/total.svg" />
+        </a>
+    </p>
+    <p align="center">
+        The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with Smart Contracts in the back-end.
+    </p>
 </p>
-
-<h1 align="center">nOS</h1>
-<p align="center">
-  <a href="https://github.com/nos/client/releases">
-    <img src="https://img.shields.io/github/release/nos/client/all.svg" />
-  </a>
-  <a href="http://makeapullrequest.com">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
-  </a>
-  <a href="https://discordapp.com/invite/eGFAskm">
-    <img src="https://img.shields.io/badge/chat-discord-brightgreen.svg" />
-  </a>
-  <a href="https://circleci.com/gh/nos/client/tree/develop">
-    <img src="https://img.shields.io/circleci/project/github/nos/client/develop.svg" />
-  </a>
-  <a href="https://renovatebot.com/">
-    <img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/prettier/prettier">
-    <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat" />
-  </a>
-  <a href="https://codecov.io/gh/nos/client">
-    <img src="https://codecov.io/gh/nos/client/branch/develop/graph/badge.svg" />
-  </a>
-</p>
-<p align="center">
-  <strong>nOS</strong> is a blockchain powered virtual operating system that serves as the gateway to Decentralized Applications.
-</p>
-<p align="center">
-  The <strong>nOS Client</strong> (Developer MVP Release) allows for the development of Decentralized Applications that interact with Smart Contracts in the back-end.
-</p>
-
----
 
 # Getting Started with nOS
 
 The standalone client installers can be found [here](https://github.com/nos/client/releases). To build manually, the client can be cloned from GitHub and run using the development steps below.
 
-### Commands
+> Commands
 
 ```bash
 # Cloning from Github
@@ -86,21 +77,21 @@ Resources:
 
 # Releasing
 
-## Windows & Linux
+## Automated Deployment
 
 We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create builds based upon git tags.
 
-1. Create a tag, e.g. `v1.0.0`.
-   1. `git tag -a v1.0.0 -m "release"` - the `v`-prefix is required for auto updates to work
-   2. `git push origin v1.0.0`
-2. Wait for `deploy_win64` and `deploy_linux` jobs to upload the artifacts to Github Release page as a draft.
+1. run `yarn release --dry-run` - Note if the output version tag/changelog is correctly generated.
+2. run `yarn release` - This will generate the changelog, update the version in package.json and create and push a tag.
+3. The deploys jobs will be triggered and upload the artifacts to Github Release page as a draft.
 
-## macOS
+## Manual Deployment: macOS
 
 1. Export the following variables:
    1. `CSC_LINK` - This is the path to the .p12 certificate file
    2. `CSC_KEY_PASSWORD` - This is the password of the .p12 certificate file
    3. `CSC_IDENTITY_AUTO_DISCOVERY` - Set to `false` to disable usage of local keychain (By default it looks in your `login` keychain)
+   4. `GH_TOKEN` - This is used to upload the artifacts to Github
 2. Create the distributable, i.e. `yarn dist`.
 3. Locate and upload the following files as these are required for the auto-updater to work:
    1. `dist/nOS-1.0.0-mac.zip`
@@ -108,5 +99,26 @@ We use [CircleCI](https://circleci.com/gh/nos/client) to automatically create bu
    3. `dist/nOS-1.0.0-mac.dmg.blockmap`
    4. `dist/latest-mac.yml`
 
-##### Generating hashes for the artifacts
-- MacOS: `shasum -a 256 ./*` - Where the final argument is the location of the artifacts
+## Manual Deployment: Linux
+
+1. Create the distributable, i.e. `yarn dist`.
+2. Locate and upload the following files as these are required for the auto-updater to work:
+   1. `dist/nOS-1.0.0-linux-amd64.snap`
+   2. `dist/nOS-1.0.0-linux-x86_64.AppImage`
+   3. `dist/latest-linux.yml`
+
+## Manual Deployment: Windows
+
+1. Export the following variables:
+   1. `WIN_CSC_LINK` - This is the certificate file in text format
+   2. `WIN_CSC_KEY_PASSWORD` - This is the password of the certificate file
+   3. `GH_TOKEN` - This is used to upload the artifacts to Github
+2. Create the distributable, i.e. `yarn dist`.
+3. Locate and upload the following files as these are required for the auto-updater to work:
+   1. `dist/nOS-1.0.0-win.exe`
+   2. `dist/nOS-1.0.0-win.exe.blockmap`
+   3. `dist/latest.yml`
+
+### Generating hashes for the artifacts
+
+- MacOS/Linux: `shasum -a 256 ./*` - Where the final argument is the location of the artifacts

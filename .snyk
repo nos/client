@@ -1,8 +1,31 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.13.5
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-CSVPARSE-467403:
+    - sifter > csv-parse:
+        reason: None given
+        expires: '2020-01-29T09:11:28.468Z'
+  SNYK-JS-PUPA-174563:
+    - electron-context-menu > electron-dl > pupa:
+        reason: None given
+        expires: '2020-01-29T09:11:28.468Z'
+  SNYK-JS-AXIOS-174505:
+    - '@cityofzion/neon-js > axios':
+        reason: None given
+        expires: '2020-01-29T09:11:28.468Z'
+  SNYK-JS-ELLIPTIC-511941:
+    - '@cityofzion/neon-js > elliptic':
+        reason: None given
+        expires: '2020-01-29T09:11:28.468Z'
+    - bip32 > tiny-secp256k1 > elliptic:
+        reason: None given
+        expires: '2020-01-29T09:11:28.468Z'
+    - ethereumjs-utils > secp256k1 > elliptic:
+        reason: None given
+        expires: '2020-01-29T09:11:28.468Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-AXIOS-174505:
     - '@cityofzion/neon-js > axios':
-        patched: '2019-08-02T07:32:26.723Z'
+        patched: '2019-10-18T16:30:20.194Z'

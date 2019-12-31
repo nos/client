@@ -7,6 +7,8 @@ import refShape from 'shared/shapes/refShape';
 import Input from '../Input';
 
 export default class LiveUpdateInput extends React.Component {
+  input = this.props.forwardedRef || React.createRef();
+
   static propTypes = {
     forwardedRef: refShape,
     defaultValue: string,
@@ -22,8 +24,6 @@ export default class LiveUpdateInput extends React.Component {
   state = {
     value: this.props.defaultValue
   };
-
-  input = this.props.forwardedRef || React.createRef();
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.defaultValue !== this.props.defaultValue) {

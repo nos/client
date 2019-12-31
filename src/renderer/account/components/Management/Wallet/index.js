@@ -2,6 +2,7 @@ import { compose, withState } from 'recompose';
 import { withActions, withData, progressValues } from 'spunky';
 
 import authActions, { changeActiveWalletActions } from 'auth/actions/authActions';
+import { updateWalletActions } from 'auth/actions/walletActions';
 import withConfirm from 'shared/hocs/withConfirm';
 import { withErrorToast, withSuccessToast } from 'shared/hocs/withToast';
 import withProgressChange from 'shared/hocs/withProgressChange';
@@ -19,6 +20,9 @@ const mapClaimableActionsToProps = ({ reset }) => ({ resetClaimables: reset });
 const mapChangeActiveWalletActionsToProps = (actions) => ({
   changeActiveWallet: (data) => actions.call(data)
 });
+const mapUpdateWalletActionsToProps = (actions) => ({
+  updateWallet: (data) => actions.call(data)
+});
 
 export default compose(
   withConfirm(),
@@ -27,6 +31,7 @@ export default compose(
   withActions(changeActiveWalletActions, mapChangeActiveWalletActionsToProps),
   withActions(balanceWithPricesActions, mapBalanceWithPricesActionsToProps),
   withActions(claimableActions, mapClaimableActionsToProps),
+  withActions(updateWalletActions, mapUpdateWalletActionsToProps),
 
   withSuccessToast(),
   withProgressChange(changeActiveWalletActions, LOADED, (state, props) => {
@@ -37,8 +42,12 @@ export default compose(
       props.showSuccessToast(`Primary wallet successfuly changed!`);
     }
   }),
-
   withErrorToast(),
+  withProgressChange(updateWalletActions, FAILED, (state, props) => {
+    if (props.wallet.walletId === state.data.activeWalletId) {
+      props.showErrorToast(`Failed to persist wallet label. ${state.error}`);
+    }
+  }),
   withProgressChange(changeActiveWalletActions, FAILED, (state, props) => {
     // TODO this is triggered wallet-amount times without the if. Why?
     if (props.wallet.walletId === state.data.activeWalletId) {
