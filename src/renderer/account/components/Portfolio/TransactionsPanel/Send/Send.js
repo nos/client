@@ -158,12 +158,12 @@ export default class Send extends React.PureComponent {
 
   isValid = () => {
     const { amount, receiver, asset, balances } = this.props;
-    const bigNumAmount = this.getAmount(amount);
-    const bigNumBalance = this.getAmount(balances[asset].balance);
+    const bigNumAmount = new BigNumber(this.getAmount(amount));
+    const bigNumBalance = new BigNumber(this.getAmount(balances[asset].balance));
 
     return (
-      bigNumBalance >= bigNumAmount &&
-      bigNumAmount > 0 &&
+      bigNumBalance.isGreaterThanOrEqualTo(bigNumAmount) &&
+      bigNumAmount.isGreaterThan(0) &&
       isNumeric(amount) &&
       wallet.isAddress(receiver)
     );
