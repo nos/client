@@ -81,7 +81,7 @@ export default class Wallet extends React.PureComponent {
         <div className={styles.wrapper}>
           <div
             className={styles.title}
-            contentEditable="true"
+            contentEditable="false"
             onBlur={this.handleChangeLabel}
             suppressContentEditableWarning="true"
           >
@@ -131,6 +131,7 @@ export default class Wallet extends React.PureComponent {
 
   handleChangeLabel = (e) => {
     const { wallet, account, updateWallet } = this.props;
+    console.log(wallet);
     const newWallet = {
       ...wallet,
       walletLabel: e.target.innerHTML
