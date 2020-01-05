@@ -131,7 +131,6 @@ export default class Wallet extends React.PureComponent {
 
   handleChangeLabel = (e) => {
     const { wallet, account, updateWallet } = this.props;
-    console.log(wallet);
     const newWallet = {
       ...wallet,
       walletLabel: e.target.innerHTML
