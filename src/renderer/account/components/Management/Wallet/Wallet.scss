@@ -3,7 +3,6 @@
   flex-direction: row;
   justify-content: space-between;
 
-  /* TODO re-enable with label-editing functionality
   .title:focus {
     color: black !important;
     font-weight: 500;
@@ -11,19 +10,16 @@
     border: 1px solid $brand !important;
     border-radius: 4px;
   }
-  */
 
   .wrapper {
     width: 100px;
 
-    /* TODO re-enable with label-editing functionality
     &:hover .title {
       color: black !important;
       font-weight: 500;
       background-color: $gray-1;
       border-radius: 4px;
     }
-    */
   }
 
   @media only screen and (max-width: $responsive-width) {
