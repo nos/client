@@ -16,6 +16,10 @@
     flex: 0 1 330px;
   }
 
+  img {
+    overflow: hidden;
+  }
+
   .newTab {
     align-self: center;
     min-width: 16px;
