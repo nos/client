@@ -20,6 +20,8 @@ import styles from './Wallet.scss';
 import EncryptedInput from '../EncryptedInput';
 
 export default class Wallet extends React.PureComponent {
+  labelRef = React.createRef();
+
   static propTypes = {
     className: string,
     wallet: walletShape.isRequired,
@@ -28,7 +30,8 @@ export default class Wallet extends React.PureComponent {
     account: accountShape.isRequired,
     confirm: func.isRequired,
     changeActiveWallet: func.isRequired,
-    updateWallet: func.isRequired
+    updateWallet: func.isRequired,
+    showErrorToast: func.isRequired
   };
 
   static defaultProps = {
@@ -81,9 +84,13 @@ export default class Wallet extends React.PureComponent {
         <div className={styles.wrapper}>
           <div
             className={styles.title}
-            contentEditable="false"
+            contentEditable="true"
             onBlur={this.handleChangeLabel}
             suppressContentEditableWarning="true"
+            onKeyPress={this.validateLabel}
+            role="textbox"
+            tabIndex={0}
+            ref={this.labelRef}
           >
             {wallet.walletLabel || 'Wallet'}
           </div>
@@ -131,9 +138,16 @@ export default class Wallet extends React.PureComponent {
 
   handleChangeLabel = (e) => {
     const { wallet, account, updateWallet } = this.props;
+
+    const newLabel = e.target.textContent;
+    if (newLabel.length > 31) {
+      e.preventDefault();
+      return;
+    }
+
     const newWallet = {
       ...wallet,
-      walletLabel: e.target.innerHTML
+      walletLabel: newLabel
     };
 
     updateWallet({ account, wallet: newWallet });
@@ -142,13 +156,22 @@ export default class Wallet extends React.PureComponent {
   handleSetPrimary = () => {
     const { wallet, account, passphrase, changeActiveWallet, setPassphrase } = this.props;
     const { walletId } = wallet;
-
     changeActiveWallet({ account, passphrase, walletId });
     setPassphrase('');
   };
 
   handleChangePassphrase = (event) => {
     this.props.setPassphrase(event.target.value);
+  };
+
+  validateLabel = (e) => {
+    if (e.target.textContent.length > 30) {
+      e.preventDefault();
+      return this.props.showErrorToast('Wallet label cannot be longer than 30 characters.');
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      this.labelRef.current.blur();
+    }
   };
 
   showConfirm = () => {

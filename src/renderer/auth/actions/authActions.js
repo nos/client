@@ -1,7 +1,10 @@
 import { createActions } from 'spunky';
+import { omit } from 'lodash';
 
 import { getActiveWalletForAccount } from 'shared/wallet/WalletHelpers';
 import Wallet from 'shared/wallet';
+import { ID as ACCOUNT_ID } from 'auth/actions/accountActions';
+import { updateStorage } from 'shared/lib/storage';
 
 export const ID = 'auth';
 
@@ -21,11 +24,13 @@ const authenticate = async ({ account, passphrase }) => {
   };
 };
 
-const changeActiveWallet = ({ account, passphrase, walletId }) => {
+const changeActiveWallet = async ({ account, passphrase, walletId }) => {
   const updatedAccount = {
-    ...account,
+    ...omit(account, 'wallet'),
     activeWalletId: walletId
   };
+
+  await updateStorage(ACCOUNT_ID, account.accountLabel, updatedAccount);
 
   return authenticate({ account: updatedAccount, passphrase });
 };
