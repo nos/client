@@ -36,6 +36,11 @@ export const importWalletActions = createActions(
 // Setter - Update Wallet
 export const updateWalletActions = createActions(ID, ({ account, wallet }) => async () => {
   const { accountLabel } = account;
-  await storeWalletForAccount({ accountLabel, wallet, update: true });
+  await storeWalletForAccount({
+    accountLabel,
+    wallet,
+    update: true,
+    omitItems: !wallet.isImport
+  });
   return getWalletsForAccount({ accountLabel });
 });
