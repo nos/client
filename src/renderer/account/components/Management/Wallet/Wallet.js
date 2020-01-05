@@ -20,6 +20,8 @@ import styles from './Wallet.scss';
 import EncryptedInput from '../EncryptedInput';
 
 export default class Wallet extends React.PureComponent {
+  labelRef = React.createRef();
+
   static propTypes = {
     className: string,
     wallet: walletShape.isRequired,
@@ -88,6 +90,7 @@ export default class Wallet extends React.PureComponent {
             onKeyPress={this.validateLabel}
             role="textbox"
             tabIndex={0}
+            ref={this.labelRef}
           >
             {wallet.walletLabel || 'Wallet'}
           </div>
@@ -164,7 +167,10 @@ export default class Wallet extends React.PureComponent {
   validateLabel = (e) => {
     if (e.target.textContent.length > 30) {
       e.preventDefault();
-      return this.props.showErrorToast('Wallet label can only contain 30 characters.');
+      return this.props.showErrorToast('Wallet label cannot be longer than 30 characters.');
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      this.labelRef.current.blur();
     }
   };
 
