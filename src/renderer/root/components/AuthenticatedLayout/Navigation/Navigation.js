@@ -31,7 +31,7 @@ export default class Navigation extends React.PureComponent {
   };
 
   render() {
-    const matchExchange = (url) => /https:\/\/exchange\.nash\.io.+/i.test(url);
+    const matchExchange = (url) => /https:\/\/switcheo\.exchange.+/i.test(url);
     const { authenticated } = this.props;
 
     return (
