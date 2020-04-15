@@ -28,7 +28,7 @@
     "coingecko-api": "1.0.8",
     "connected-react-router": "5.0.1",
     "ejs": "3.0.1",
-    "electron-context-menu": "0.11.0",
+    "electron-context-menu": "1.0.0",
     "electron-is-dev": "0.3.0",
     "electron-json-storage": "4.1.8",
     "electron-localshortcut": "3.2.1",
