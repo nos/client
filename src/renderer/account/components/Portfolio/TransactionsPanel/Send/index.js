@@ -77,6 +77,7 @@ export default compose(
       );
       props.setAmount('0');
       props.setReceiver('');
+      props.setAsset(props.DEFAULT_TOKEN);
     },
     {
       strategy: pureStrategy

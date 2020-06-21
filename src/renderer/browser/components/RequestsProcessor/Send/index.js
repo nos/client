@@ -8,7 +8,7 @@ import feeActions from 'settings/actions/feeActions';
 import withInitialCall from 'shared/hocs/withInitialCall';
 import withNetworkData from 'shared/hocs/withNetworkData';
 import PriorityFee from 'account/components/Portfolio/TransactionsPanel/Send/PriorityFee';
-import { ASSETS } from 'shared/values/assets';
+import { ASSETS, NOS } from 'shared/values/assets';
 
 import Send from './Send';
 import withClean from '../../../hocs/withClean';
@@ -23,6 +23,9 @@ const mapSendDataToProps = (txid) => ({ txid });
 
 const getAssetName = (assetId) => {
   const asset = ASSETS[`${assetId}`.toLowerCase()];
+  if (assetId === NOS) {
+    return 'NOS';
+  }
   return asset ? asset.symbol : assetId;
 };
 
