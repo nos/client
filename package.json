@@ -65,7 +65,7 @@
     "unique-names-generator": "4.1.1",
     "uuid": "3.3.3",
     "what-input": "5.2.6",
-    "whatwg-url": "7.1.0"
+    "whatwg-url": "8.1.0"
   },
   "scripts": {
     "start": "yarn build:main && run-p -l -n -r start:renderer start:electron",
