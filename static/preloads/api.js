@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-const uuid = require('uuid/v1');
+const { v1: uuid } = require('uuid');
 
 function createDelegate(channel) {
   return (...args) =>

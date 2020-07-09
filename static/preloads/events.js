@@ -1,4 +1,4 @@
-const uuid = require('uuid/v1');
+const { v1: uuid } = require('uuid');
 const { ipcRenderer } = require('electron');
 const { each, isEmpty, isUndefined } = require('lodash');
 

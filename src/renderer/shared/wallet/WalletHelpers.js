@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { isEmpty, omit, reduce, filter } from 'lodash';
 import { uniqueNamesGenerator, colors, animals } from 'unique-names-generator';
 

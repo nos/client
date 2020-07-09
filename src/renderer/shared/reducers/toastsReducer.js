@@ -1,4 +1,4 @@
-import uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import { takeRight, filter } from 'lodash';
 import { LOCATION_CHANGE } from 'connected-react-router';
 

@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { createActions } from 'spunky';
 import { omit } from 'lodash';
 
