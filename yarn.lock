@@ -3244,10 +3244,10 @@ codecov@3.6.5:
     teeny-request "6.0.1"
     urlgrey "0.4.4"
 
-coingecko-api@1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.10.tgz#ac8694d5999f00727fe55f0078ce2917603076b2"
-  integrity sha512-7YLLC85+daxAw5QlBWoHVBVpJRwoPr4HtwanCr8V/WRjoyHTa1Lb9DQAvv4MDJZHiz4no6HGnDQnddtjV35oRA==
+coingecko-api@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.8.tgz#86381e7bb9a3e9d9303d93ac5ddbe759fd744b50"
+  integrity sha512-sKnv8TVFDMOfkUtbR4m77wg4AxQ/k/y7TOJKYPd4waF8b83Mb2WsroAQoMgFGJfCbgZPJ2PWYuF74cxiITMuZg==
 
 collapse-white-space@^1.0.2:
   version "1.0.5"
@@ -4185,10 +4185,10 @@ cssstyle@^1.0.0:
   dependencies:
     cssom "0.3.x"
 
-csv-parse@^4.6.5:
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.10.1.tgz#1e26ba63d29c75e94d0eba6e9de9a8aaf89d72a6"
-  integrity sha512-gdDJVchi0oSLIcYXz1H/VSgLE6htHDqJyFsRU/vTkQgmVOZ3S0IR2LXnNbWUYG7VD76dYVwdfBLyx8AX9+An8A==
+csv-parse@^2.0.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-2.5.0.tgz#65748997ecc3719c594622db1b9ea0e2eb7d56bb"
+  integrity sha512-4OcjOJQByI0YDU5COYw9HAqjo8/MOLLmT9EKyMCXUzgvh30vS1SlMK+Ho84IH5exN44cSnrYecw/7Zpu2m4lkA==
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -12417,10 +12417,10 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-scroll@1.7.16:
-  version "1.7.16"
-  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.16.tgz#814f0b97ed171aad1f27e45dad16a8444817fec8"
-  integrity sha512-f4M5AdL+3cw3MJ7c/T0hPMY2iHCeQLDXV13lRanAFQ6JIt9xyAdHCpTH9mLUQt9SQh4pRarD+Qc7KhU6qMx3Yg==
+react-scroll@1.7.15:
+  version "1.7.15"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.15.tgz#90da4a1e953e620ae37be42747e0835b473158db"
+  integrity sha512-4AtQ/4GZmTW7CIQrVQhLvt3pMkITDvyXz6F3DZS3IOoux3fmccBRUR/x9wORupLbuKFlzOX1CoceDMpMgY7Tig==
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
@@ -13585,14 +13585,14 @@ shellwords@^0.1.1:
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
 
-sifter@0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/sifter/-/sifter-0.5.4.tgz#3cb9e514889edfc887d8d87a355841b01ebdd1ab"
-  integrity sha512-t2yxTi/MM/ESup7XH5oMu8PUcttlekt269RqxARgnvS+7D/oP6RyA1x3M/5w8dG9OgkOyQ8hNRWelQ8Rj4TAQQ==
+sifter@0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/sifter/-/sifter-0.5.3.tgz#5e6507fe8c114b2b28d90b6bf4e5b636e611e48b"
+  integrity sha1-XmUH/owRSyso2Qtr9OW2NuYR5Is=
   dependencies:
     async "^2.6.0"
     cardinal "^1.0.0"
-    csv-parse "^4.6.5"
+    csv-parse "^2.0.0"
     humanize "^0.0.9"
     optimist "^0.6.1"
 
