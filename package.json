@@ -39,7 +39,7 @@
     "format-currency": "1.0.0",
     "history": "4.10.1",
     "lodash": "4.17.15",
-    "mime-types": "2.1.25",
+    "mime-types": "2.1.27",
     "node-fetch": "2.6.0",
     "prop-types": "15.7.2",
     "qrcode.react": "1.0.0",
