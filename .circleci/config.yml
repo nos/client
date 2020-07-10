@@ -84,7 +84,7 @@ jobs:
     <<: *mac_config
     steps:
       - pre-mac
-      - run: yarn dist --mac
+      - run: sudo yarn dist --mac
       - save_cache:
           key: v1-dependencies-mac-{{ checksum "package.json" }}
           paths:
@@ -123,7 +123,7 @@ jobs:
     <<: *mac_config
     steps:
       - pre-mac
-      - run: yarn release:mac
+      - run: sudo yarn release:mac
       - persist_to_workspace:
           root: *workspace
           paths:
