@@ -57,7 +57,7 @@ commands:
           keys:
             - v1-dependencies-mac-{{ checksum "package.json" }}
             - v1-dependencies-mac
-      - run: yarn
+      - run: sudo yarn
 
 jobs:
   build_linux:
