@@ -53,10 +53,10 @@ commands:
     description: 'Setting up and building environment for mac'
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-mac-{{ checksum "package.json" }}
-            - v1-dependencies-mac
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-mac-{{ checksum "package.json" }}
+      #       - v1-dependencies-mac
       - run: yarn
 
 jobs:
