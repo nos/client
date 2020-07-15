@@ -19,7 +19,7 @@
     "@fortawesome/react-fontawesome": "0.1.8",
     "@ledgerhq/hw-transport-node-hid": "4.18.0",
     "@nosplatform/react-copy-to-clipboard": "5.0.1",
-    "about-window": "1.13.2",
+    "about-window": "1.13.4",
     "babel-polyfill": "6.26.0",
     "bignumber.js": "9.0.0",
     "bip32": "2.0.4",
