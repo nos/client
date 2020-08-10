@@ -10,6 +10,23 @@
       align-self: flex-end;
       cursor: pointer;
     }
+
+    .returningUser {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 10px;
+
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 12px;
+      user-select: none;
+      color: $brand;
+  
+      &:hover {
+        color: $brand-dark;
+      }
+    }
   }
 
   .footer {

@@ -9,6 +9,14 @@ import TransactionsPanel from './TransactionsPanel';
 import styles from './Portfolio.scss';
 
 export default class Portfolio extends React.PureComponent {
+  componentDidMount() {
+    this.props.balancesWithPrices({
+      currency: this.props.currency,
+      net: this.props.net,
+      address: this.props.address
+    });
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.block.index < this.props.block.index) {
       this.props.balancesWithPrices({
