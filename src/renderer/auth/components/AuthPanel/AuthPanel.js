@@ -43,7 +43,7 @@ export default function AuthPanel({
               type={EXTERNAL}
               target="https://docs.nos.io/docs/nos-client/import-neo-wallet.html"
             >
-              Returning user? Learn how to import legacy accounts!
+              Can't find your old account? Click here to learn how to import it!
             </TabLink>
           </div>
         )}
