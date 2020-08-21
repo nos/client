@@ -15,7 +15,8 @@ export default class TabLink extends React.PureComponent {
     active: bool,
     disabled: bool,
     children: node,
-    openTab: func
+    openTab: func,
+    styling: bool
   };
 
   static defaultProps = {
@@ -25,11 +26,12 @@ export default class TabLink extends React.PureComponent {
     active: false,
     disabled: false,
     children: null,
-    openTab: noop
+    openTab: noop,
+    styling: true
   };
 
   render() {
-    const className = classNames(this.props.className, styles.tabLink, {
+    const className = classNames(this.props.className, this.props.styling ? styles.tabLink : null, {
       [styles.active]: this.props.active,
       [styles.disabled]: this.props.disabled
     });
