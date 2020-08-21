@@ -5074,10 +5074,10 @@ electron-is-dev@^1.0.1:
   resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-1.1.0.tgz#b15a2a600bdc48a51a857d460e05f15b19a2522c"
   integrity sha512-Z1qA/1oHNowGtSBIcWk0pcLEqYT/j+13xUw/MYOrBUOL4X7VN0i0KCTf5SqyvMPmW5pSPKbo28wkxMxzZ20YnQ==
 
-electron-json-storage@4.1.8:
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/electron-json-storage/-/electron-json-storage-4.1.8.tgz#7be4496fc02988cb35545606a89a2e584d949b9d"
-  integrity sha512-cBaxfSVG5SLWIvgkRJyl96W2VPCvvBcLjNaOfKC1oCENzStMt2BDzh/Qfxcz2M1mK4kNnsVv//CD46jIRrqWPw==
+electron-json-storage@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/electron-json-storage/-/electron-json-storage-4.2.0.tgz#55ab059352ddf77649c5ecb46b59a0a43622d045"
+  integrity sha512-sYm5Xm9ysX6Ia0G3jL3ohomJewsD9EKKI6p/1T95Nffc/QneWtObUHVHWJ389L8hA5s3SQ/Gv4VEatDkZF9wCw==
   dependencies:
     async "^2.0.0"
     lockfile "^1.0.4"
