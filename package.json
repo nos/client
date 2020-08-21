@@ -101,7 +101,7 @@
     "babel-plugin-transform-es2015-classes": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-react": "6.24.1",
-    "codecov": "3.6.5",
+    "codecov": "3.7.1",
     "cross-env": "6.0.3",
     "css-loader": "3.4.0",
     "cssnano": "4.1.10",
