@@ -15699,10 +15699,10 @@ unique-filename@^1.1.0:
   dependencies:
     unique-slug "^2.0.0"
 
-unique-names-generator@4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-4.1.1.tgz#e511b59021d98a1b5b697f46b2af944a419c3a1c"
-  integrity sha512-f3FzkJEBVUoUueeA17DzfOqa8eT7VinEKOP32Wdqbe8SzSkU/4afIEfm4KP5W+GCALpUQmW3X/SdSyTP5ES5MQ==
+unique-names-generator@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-4.3.0.tgz#34d680c9f25dbf2552437d6ef6cf145ac99916c1"
+  integrity sha512-uNX6jVFjBXfZtsc7B8jVPJ3QdfCF/Sjde4gxsy3rNQmHuWGFarnU7IFGdxZKJ4h4uRjANQc6rG7GiGolRW9fgA==
 
 unique-slug@^2.0.0:
   version "2.0.2"
