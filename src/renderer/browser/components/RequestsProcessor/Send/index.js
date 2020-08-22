@@ -29,6 +29,14 @@ const getAssetName = (assetId) => {
   return asset ? asset.symbol : assetId;
 };
 
+const getReceiver = (receiver, src) => {
+  if (src === 'https://nos.app/swap') {
+    return 'BIND';
+  }
+
+  return <span>address &ldquo;{receiver}&rdquo;</span>;
+};
+
 const CONFIG_KEYS = ['asset', 'amount', 'receiver', 'remark'];
 
 export default function makeSend(sendActions) {
@@ -46,10 +54,10 @@ export default function makeSend(sendActions) {
 
     // Prompt user
     withPrompt(
-      ({ amount, asset, receiver }) => (
+      ({ amount, asset, receiver, src }) => (
         <span>
-          Would you like to transfer {amount} {getAssetName(asset)} to address{' '}
-          <strong>&ldquo;{receiver}&rdquo;</strong>?
+          Would you like to transfer {amount} {getAssetName(asset)} to{' '}
+          <strong>{getReceiver(receiver, src)}</strong>?
         </span>
       ),
       (props) => ({
