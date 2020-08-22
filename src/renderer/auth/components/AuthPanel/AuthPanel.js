@@ -1,10 +1,13 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable consistent-return */
 
 import React from 'react';
 import classNames from 'classnames';
 import { string, node, bool, func } from 'prop-types';
 
+import { EXTERNAL } from 'browser/values/browserValues';
 import SidePanel from 'shared/components/SidePanel';
+import TabLink from 'root/components/AuthenticatedLayout/TabLink';
 import CloseIcon from 'shared/images/icons/close-modal.svg';
 
 import styles from './AuthPanel.scss';
@@ -21,6 +24,10 @@ export default function AuthPanel({
   footer,
   footerText
 }) {
+  const handleOnLink = () => {
+    onCancel();
+  };
+
   return (
     <div className={classNames(styles.authPanel, className)}>
       {sidePanel && <SidePanel step={step} title={sidePanelTitle} text={sidePanelText} />}
@@ -28,6 +35,19 @@ export default function AuthPanel({
       <div className={styles.content}>
         <CloseIcon className={styles.closeIcon} onClick={onCancel} />
         {children}
+        {step === '1' && (
+          <div onClick={handleOnLink} role="button" tabIndex={0}>
+            <TabLink
+              className={styles.returningUser}
+              id="blog"
+              styling={false}
+              type={EXTERNAL}
+              target="https://docs.nos.io/docs/nos-client/import-neo-wallet.html"
+            >
+              Can't find your old account? Click here to learn how to import it!
+            </TabLink>
+          </div>
+        )}
         {footer && (
           <div className={styles.footer} onClick={redirect} role="button" tabIndex={0}>
             <div className={styles.text}>{footerText}</div>
