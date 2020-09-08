@@ -103,7 +103,7 @@
     "babel-preset-react": "6.24.1",
     "codecov": "3.7.1",
     "cross-env": "6.0.3",
-    "css-loader": "3.4.0",
+    "css-loader": "4.3.0",
     "cssnano": "4.1.10",
     "electron": "2.0.18",
     "electron-builder": "20.32.0",
