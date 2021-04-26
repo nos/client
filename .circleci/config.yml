@@ -8,7 +8,7 @@ references:
 
   linux_config: &linux_config
     docker:
-      - image: circleci/node:10.22.0
+      - image: circleci/node:10.24.1
     working_directory: *workspace
 
   windows_config: &windows_config
