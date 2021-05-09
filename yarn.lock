@@ -15320,10 +15320,10 @@ unique-filename@^1.1.0:
   dependencies:
     unique-slug "^2.0.0"
 
-unique-names-generator@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-4.3.0.tgz#34d680c9f25dbf2552437d6ef6cf145ac99916c1"
-  integrity sha512-uNX6jVFjBXfZtsc7B8jVPJ3QdfCF/Sjde4gxsy3rNQmHuWGFarnU7IFGdxZKJ4h4uRjANQc6rG7GiGolRW9fgA==
+unique-names-generator@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-4.5.0.tgz#0da9bb5fe2bd4b86cd52c852cb4669e31fdf7e81"
+  integrity sha512-GaiWvo3rKIHi1SyYP8/9cDrPMPSwEiYDUo2p0NQHeCHDXzLn8P6p8bttSS3lX7HHS3Yl5vnw/ulybO4GN85CgQ==
 
 unique-slug@^2.0.0:
   version "2.0.2"
