@@ -1,5 +1,10 @@
 import fetch from 'node-fetch';
 import { rpc, settings } from '@cityofzion/neon-js';
+import https from 'https';
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false
+});
 
 const BLACKLIST_URL = 'https://raw.githubusercontent.com/nos/rpc-status/master/blacklist.json';
 
@@ -29,7 +34,7 @@ async function fetchBlacklist() {
   }
 
   try {
-    const response = await fetch(BLACKLIST_URL);
+    const response = await fetch(BLACKLIST_URL, { agent: httpsAgent });
     cachedBlacklist = await response.json();
     return cachedBlacklist;
   } catch (err) {
@@ -63,7 +68,7 @@ function raceToSuccess(promises) {
 
 export default async function getRPCEndpoint(net) {
   const apiEndpoint = getAPIEndpoint(net);
-  const response = await fetch(apiEndpoint);
+  const response = await fetch(apiEndpoint, { agent: httpsAgent });
   const data = await response.json();
   let nodes = data.sort((a, b) => b.height - a.height);
 
