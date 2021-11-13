@@ -4,7 +4,7 @@
   "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
   "win": {
     "icon": "./static/icons/icon1024x1024.ico",
-    "timeStampServer": "http://timestamp.globalsign.com/scripts/timstamp.dll"
+    "timeStampServer": "http://timestamp.digicert.com"
   },
   "linux": {
     "icon": "./static/icons/icon1024x1024.png"
