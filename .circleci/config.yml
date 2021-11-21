@@ -123,8 +123,9 @@ jobs:
       - run: ls -la
       - run: ls -la dist/
       - run: ls -la ./dist/
+      - run: pwd
       - store_artifacts:
-          path: dist/*.*
+          path: dist
 
   deploy_mac:
     <<: *mac_config
