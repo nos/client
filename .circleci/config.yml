@@ -126,6 +126,8 @@ jobs:
       - run: pwd
       - store_artifacts:
           path: dist
+      - store_artifacts:
+          path: dist/nOS**
 
   deploy_mac:
     <<: *mac_config
