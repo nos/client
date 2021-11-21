@@ -120,14 +120,8 @@ jobs:
           root: *workspace
           paths:
             - dist/*.*
-      - run: ls -la
-      - run: ls -la dist/
-      - run: ls -la ./dist/
-      - run: pwd
       - store_artifacts:
           path: dist
-      - store_artifacts:
-          path: dist/nOS*
 
   deploy_mac:
     <<: *mac_config
