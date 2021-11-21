@@ -152,16 +152,12 @@ workflows:
   version: 2
   platform_builds:
     jobs:
-      # - build_windows
-      # - build_linux
-      # - build_mac
-      - deploy_linux
-      - calculate_checksums:
-          requires:
-            - deploy_linux
-  # platform_tests:
-  #   jobs:
-  #     - unit_tests
+      - build_windows
+      - build_linux
+      - build_mac
+  platform_tests:
+    jobs:
+      - unit_tests
   deploy:
     jobs:
       - deploy_windows:
