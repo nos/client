@@ -120,6 +120,9 @@ jobs:
           root: *workspace
           paths:
             - dist/*.*
+      - run: ls -la
+      - run: ls -la dist/
+      - run: ls -la ./dist/
       - store_artifacts:
           path: dist/*.*
 
@@ -149,7 +152,7 @@ workflows:
       # - build_windows
       # - build_linux
       # - build_mac
-      - deploy_windows
+      - deploy_linux
   # platform_tests:
   #   jobs:
   #     - unit_tests
