@@ -108,6 +108,8 @@ jobs:
           root: *workspace
           paths:
             - dist/*.*
+      - store_artifacts:
+          path: ./dist/*.*
 
   deploy_linux:
     <<: *linux_config
@@ -118,6 +120,8 @@ jobs:
           root: *workspace
           paths:
             - dist/*.*
+      - store_artifacts:
+          path: ./dist/*.*
 
   deploy_mac:
     <<: *mac_config
@@ -128,6 +132,8 @@ jobs:
           root: *workspace
           paths:
             - ./dist/*.*
+      - store_artifacts:
+          path: ./dist/*.*
 
   calculate_checksums:
     <<: *linux_config
@@ -143,16 +149,12 @@ workflows:
       - build_windows
       - build_linux
       - build_mac
+      - deploy_windows
   platform_tests:
     jobs:
       - unit_tests
   deploy:
     jobs:
-      - calculate_checksums:
-          requires:
-            - deploy_windows
-            - deploy_linux
-            - deploy_mac
       - deploy_windows:
           filters:
             branches:
@@ -171,3 +173,8 @@ workflows:
               ignore: /.*/
             tags:
               only: /[v][0-9]+(\.[0-9]+)+.*/
+      - calculate_checksums:
+          requires:
+            - deploy_windows
+            - deploy_linux
+            - deploy_mac
