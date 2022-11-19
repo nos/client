@@ -17,7 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "5.12.0",
     "@fortawesome/free-solid-svg-icons": "5.12.0",
     "@fortawesome/react-fontawesome": "0.1.8",
-    "@ledgerhq/hw-transport-node-hid": "4.18.0",
+    "@ledgerhq/hw-transport-node-hid": "6.27.7",
     "@nosplatform/react-copy-to-clipboard": "5.0.1",
     "about-window": "1.13.4",
     "babel-polyfill": "6.26.0",
