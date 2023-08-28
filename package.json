@@ -21,7 +21,7 @@
     "@nosplatform/react-copy-to-clipboard": "5.0.1",
     "about-window": "1.13.4",
     "babel-polyfill": "6.26.0",
-    "bignumber.js": "9.0.0",
+    "bignumber.js": "9.1.2",
     "bip32": "2.0.4",
     "bip39": "3.0.2",
     "classnames": "2.2.6",
